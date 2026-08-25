@@ -1,0 +1,17 @@
+[
+  { "question": "Which planet is known as the Red Planet?", "choices": ["Venus", "Mars", "Jupiter", "Saturn"], "correct": 1 },
+  { "question": "What is the largest ocean on Earth?", "choices": ["Atlantic", "Indian", "Pacific", "Arctic"], "correct": 2 },
+  { "question": "How many continents are there?", "choices": ["5", "6", "7", "8"], "correct": 2 },
+  { "question": "What gas do plants absorb?", "choices": ["Oxygen", "Nitrogen", "Carbon dioxide", "Hydrogen"], "correct": 2 },
+  { "question": "Who painted the Mona Lisa?", "choices": ["Van Gogh", "Picasso", "Da Vinci", "Michelangelo"], "correct": 2 },
+  { "question": "What is the capital of Japan?", "choices": ["Seoul", "Beijing", "Tokyo", "Bangkok"], "correct": 2 },
+  { "question": "How many sides does a hexagon have?", "choices": ["5", "6", "7", "8"], "correct": 1 },
+  { "question": "What is H2O commonly known as?", "choices": ["Salt", "Water", "Sugar", "Oil"], "correct": 1 },
+  { "question": "Which animal is the fastest land animal?", "choices": ["Lion", "Cheetah", "Horse", "Eagle"], "correct": 1 },
+  { "question": "What year did the Titanic sink?", "choices": ["1905", "1912", "1920", "1931"], "correct": 1 },
+  { "question": "What is the smallest country?", "choices": ["Monaco", "Vatican City", "Malta", "Fiji"], "correct": 1 },
+  { "question": "Which element has the symbol Au?", "choices": ["Silver", "Gold", "Aluminum", "Argon"], "correct": 1 },
+  { "question": "How many bones are in the adult human body?", "choices": ["186", "206", "226", "256"], "correct": 1 },
+  { "question": "What is the hardest natural substance?", "choices": ["Gold", "Iron", "Diamond", "Quartz"], "correct": 2 },
+  { "question": "Which country invented pizza?", "choices": ["France", "USA", "Italy", "Greece"], "correct": 2 }
+]

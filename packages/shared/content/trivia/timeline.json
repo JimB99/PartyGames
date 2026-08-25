@@ -1,0 +1,17 @@
+[
+  { "event": "The first iPhone was released", "year": 2007 },
+  { "event": "World War II ended", "year": 1945 },
+  { "event": "The Berlin Wall fell", "year": 1989 },
+  { "event": "TikTok launched internationally", "year": 2018 },
+  { "event": "The first Harry Potter book was published", "year": 1997 },
+  { "event": "Netflix started streaming", "year": 2007 },
+  { "event": "The Moon landing", "year": 1969 },
+  { "event": "YouTube was founded", "year": 2005 },
+  { "event": "The first Star Wars movie released", "year": 1977 },
+  { "event": "Facebook launched", "year": 2004 },
+  { "event": "The Euro currency introduced", "year": 1999 },
+  { "event": "Spotify launched", "year": 2008 },
+  { "event": "The first modern Olympics", "year": 1896 },
+  { "event": "Wikipedia launched", "year": 2001 },
+  { "event": "The first McDonald's opened", "year": 1940 }
+]

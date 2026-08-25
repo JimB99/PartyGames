@@ -1,0 +1,8 @@
+{
+  "name": "party-games",
+  "compatibilityDate": "2026-08-25",
+  "main": "packages/server/src/room.ts",
+  "serve": {
+    "path": "packages/client/dist"
+  }
+}
