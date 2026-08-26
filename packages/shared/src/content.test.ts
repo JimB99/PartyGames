@@ -1,6 +1,6 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
-import { DEFAULT_GAME_OPTIONS, filterContentPool, type ContentMeta } from "./content.js";
+import { DEFAULT_GAME_OPTIONS, filterContentPool, timelineAccuracyPoints, type ContentMeta } from "./content.js";
 
 describe("filterContentPool", () => {
   const items: ContentMeta[] = [
@@ -37,5 +37,18 @@ describe("filterContentPool", () => {
       difficulty: "easy",
     });
     assert.equal(pool.length, 1);
+  });
+});
+
+describe("timelineAccuracyPoints", () => {
+  it("uses default 20 pts per year off", () => {
+    assert.equal(timelineAccuracyPoints(0, 20), 1000);
+    assert.equal(timelineAccuracyPoints(5, 20), 900);
+    assert.equal(timelineAccuracyPoints(50, 20), 0);
+  });
+
+  it("all pts per year off requires exact year", () => {
+    assert.equal(timelineAccuracyPoints(0, 1000), 1000);
+    assert.equal(timelineAccuracyPoints(1, 1000), 0);
   });
 });

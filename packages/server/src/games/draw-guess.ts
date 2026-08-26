@@ -15,15 +15,18 @@ export const drawGuessGame: GameModule<DrawState> = {
     id: "draw-guess",
     name: "Draw & Guess",
     description: "Draw prompts while others guess",
-    scoringRules: "+500 for a correct guess; +250 to the drawer for each correct guesser.",
+    scoringRules: "+500 for a correct guess (ranked by speed when enabled); +250 to the drawer per correct guesser.",
     minPlayers: 3,
     maxPlayers: 12,
     category: "drawing",
     supportsDifficulty: true,
     supportsMatureContent: true,
+    supportsSpeedScoring: true,
   },
   init(ctx) {
-    return createDrawState(drawWordPool(ctx.gameOptions), ctx.playerIds);
+    const state = createDrawState(drawWordPool(ctx.gameOptions), ctx.playerIds);
+    state.gameOptions = ctx.gameOptions;
+    return state;
   },
   onPlayerAction(state, playerId, action, ctx) {
     return onDrawAction(state, playerId, action, ctx);

@@ -15,15 +15,19 @@ export const quickQuizGame: GameModule<TriviaState> = {
     id: "quick-quiz",
     name: "Quick Quiz",
     description: "Multiple-choice trivia on the big screen",
-    scoringRules: "+1000 for a correct answer; 0 for wrong.",
+    scoringRules: "+1000 for correct; speed scoring ranks correct answers by % of lobby size.",
     minPlayers: 1,
     maxPlayers: 16,
     category: "trivia",
     supportsDifficulty: true,
     supportsMatureContent: true,
+    supportsSpeedScoring: true,
+    supportsQuestionDisplay: true,
   },
   init(ctx) {
-    return createTriviaState("quiz", quizPool(ctx.gameOptions));
+    const state = createTriviaState("quiz", quizPool(ctx.gameOptions), 8, ctx.playerIds.length);
+    state.gameOptions = ctx.gameOptions;
+    return state;
   },
   onPlayerAction(state, playerId, action, ctx) {
     return onTriviaAction(state, playerId, action, ctx);
@@ -32,14 +36,14 @@ export const quickQuizGame: GameModule<TriviaState> = {
     return onTriviaAction(state, "host", action, ctx);
   },
   onTick(state) {
-    return onTriviaTick(state);
+    return onTriviaTick(state, state.itemsPool, state.gameOptions);
   },
   needsTick(state) {
     return state.phase !== "ended";
   },
   tickIntervalMs: 500,
   getHostView(state) {
-    return triviaHostView(state);
+    return triviaHostView(state, state.gameOptions);
   },
   getPlayerView(state, playerId) {
     return triviaPlayerView(state, playerId);

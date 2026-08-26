@@ -13,17 +13,22 @@ import type { TriviaState } from "../engines/trivia-engine.js";
 export const timelineGame: GameModule<TriviaState> = {
   meta: {
     id: "timeline",
-    name: "Timeline",
+    name: "When Was It",
     description: "Guess when famous events happened",
-    scoringRules: "Up to +1000 based on how close your year guess is (lose 20 per year off).",
+    scoringRules: "Up to +1000 by accuracy; pts deducted per year off is configurable.",
     minPlayers: 2,
     maxPlayers: 16,
     category: "trivia",
     supportsDifficulty: true,
     supportsMatureContent: false,
+    supportsSpeedScoring: true,
+    supportsQuestionDisplay: true,
+    supportsTimelinePtsPerYear: true,
   },
   init(ctx) {
-    return createTriviaState("timeline", timelinePool(ctx.gameOptions), 8);
+    const state = createTriviaState("timeline", timelinePool(ctx.gameOptions), 8, ctx.playerIds.length);
+    state.gameOptions = ctx.gameOptions;
+    return state;
   },
   onPlayerAction(state, playerId, action, ctx) {
     return onTriviaAction(state, playerId, action, ctx);
@@ -32,14 +37,14 @@ export const timelineGame: GameModule<TriviaState> = {
     return onTriviaAction(state, "host", action, ctx);
   },
   onTick(state) {
-    return onTriviaTick(state);
+    return onTriviaTick(state, state.itemsPool, state.gameOptions);
   },
   needsTick(state) {
     return state.phase !== "ended";
   },
   tickIntervalMs: 500,
   getHostView(state) {
-    return triviaHostView(state);
+    return triviaHostView(state, state.gameOptions);
   },
   getPlayerView(state, playerId) {
     return triviaPlayerView(state, playerId);

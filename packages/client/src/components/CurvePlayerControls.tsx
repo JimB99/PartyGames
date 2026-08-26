@@ -1,4 +1,5 @@
 import type { GameAction } from "@party-games/shared";
+import { powerUpInfo } from "@party-games/shared";
 
 function ControlBtn({
   children,
@@ -86,7 +87,7 @@ export function CurvePlayerControls({
         </ControlBtn>
         {canFire ? (
           <ControlBtn variant="danger" onPointerDown={() => onAction({ kind: "curve_fire" })}>
-            Fire {heldPowerUp === "grenade" ? "💣" : "🚀"}
+            Fire {heldPowerUp ? powerUpInfo(heldPowerUp as import("@party-games/shared").PowerUpKind).icon : "🚀"}
           </ControlBtn>
         ) : (
           <ControlBtn variant="secondary" disabled>
@@ -94,8 +95,10 @@ export function CurvePlayerControls({
           </ControlBtn>
         )}
       </div>
-      {heldPowerUp && heldPowerUp !== "missile" && heldPowerUp !== "grenade" && (
-        <p className="text-center text-sm text-yellow-400">Active: {heldPowerUp}</p>
+      {heldPowerUp && !canFire && (
+        <p className="text-center text-sm text-yellow-400">
+          Active: {powerUpInfo(heldPowerUp as import("@party-games/shared").PowerUpKind).name}
+        </p>
       )}
     </div>
   );

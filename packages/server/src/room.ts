@@ -106,6 +106,15 @@ export class RoomServer extends Server {
       case "return_to_lobby":
         if (this.isHost(sender)) this.returnToLobby();
         return;
+      case "pause_game":
+        if (this.isHost(sender)) this.pauseGame();
+        return;
+      case "resume_game":
+        if (this.isHost(sender)) this.resumeGame();
+        return;
+      case "extend_timer":
+        if (this.isHost(sender)) this.extendTimer(message.extraMs);
+        return;
       case "player_action":
         this.handleGameAction(sender, message.action, false);
         return;
@@ -215,12 +224,46 @@ export class RoomServer extends Server {
     this.gameState = null;
     this.roomPhase = "lobby";
     this.activeGameId = null;
-    this.lobby.selectedGameId = null;
+    this.lobby.paused = false;
+    this.lobby.pausedAt = null;
     this.broadcastAll();
+  }
+
+  pauseGame() {
+    if (this.roomPhase !== "playing" || this.lobby.paused) return;
+    this.lobby.paused = true;
+    this.lobby.pausedAt = Date.now();
+    this.stopTick();
+    this.broadcastAll();
+  }
+
+  resumeGame() {
+    if (!this.lobby.paused || this.lobby.pausedAt === null) return;
+    const delta = Date.now() - this.lobby.pausedAt;
+    this.extendGameTimer(delta);
+    this.lobby.paused = false;
+    this.lobby.pausedAt = null;
+    if (this.roomPhase === "playing") this.startTick();
+    this.broadcastAll();
+  }
+
+  extendTimer(extraMs: number) {
+    if (this.roomPhase !== "playing" || this.lobby.paused) return;
+    this.extendGameTimer(extraMs);
+    this.broadcastAll();
+  }
+
+  extendGameTimer(extraMs: number) {
+    if (!this.gameState || typeof this.gameState !== "object") return;
+    const state = this.gameState as { timerEndsAt?: number | null };
+    if (state.timerEndsAt) {
+      state.timerEndsAt += extraMs;
+    }
   }
 
   handleGameAction(sender: Connection, action: GameAction, isHostAction: boolean) {
     if (!this.gameModule || !this.gameState) return;
+    if (this.lobby.paused && !isHostAction) return;
 
     const meta = this.connectionMeta.get(sender.id);
     const ctx = this.getRoomContext();
@@ -248,6 +291,7 @@ export class RoomServer extends Server {
     const interval = this.gameModule.tickIntervalMs ?? 500;
     this.tickTimer = setInterval(() => {
       if (!this.gameModule || !this.gameState) return;
+      if (this.lobby.paused) return;
       if (!this.gameModule.onTick) return;
 
       this.gameState = this.gameModule.onTick(this.gameState);
@@ -290,6 +334,7 @@ export class RoomServer extends Server {
     return {
       roomId: this.lobby.roomId,
       phase: this.roomPhase,
+      paused: this.lobby.paused,
       players: this.lobby.players,
       selectedGameId: this.lobby.selectedGameId,
       activeGameId: this.activeGameId,

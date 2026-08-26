@@ -1,13 +1,105 @@
-import type { RoomSnapshot } from "@party-games/shared";
+import type { PowerUpKind, RoomSnapshot, TrailPoint } from "@party-games/shared";
+import { powerUpInfo } from "@party-games/shared";
 import { playerColor } from "../hooks/usePartyRoom";
 
-const POWERUP_COLORS: Record<string, string> = {
-  speed: "#FF6B6B",
-  gap: "#4ECDC4",
-  shrink: "#AA96DA",
-  missile: "#FFE66D",
-  grenade: "#F38181",
-};
+const WALL_THICKNESS = 14;
+
+function splitTrailPolylines(trail: TrailPoint[]): TrailPoint[][] {
+  const segments: TrailPoint[][] = [];
+  let current: TrailPoint[] = [];
+  for (const pt of trail) {
+    if (pt.break) {
+      if (current.length > 0) segments.push(current);
+      current = [];
+      continue;
+    }
+    current.push(pt);
+  }
+  if (current.length > 0) segments.push(current);
+  return segments;
+}
+
+function WallEdge({
+  edge,
+  width,
+  height,
+  holes,
+}: {
+  edge: string;
+  width: number;
+  height: number;
+  holes: Array<{ edge: string; start: number; length: number }>;
+}) {
+  const edgeHoles = holes.filter((h) => h.edge === edge);
+  const t = WALL_THICKNESS;
+
+  const wallSeg = (key: string, x: number, y: number, w: number, h: number) => (
+    <rect key={key} x={x} y={y} width={w} height={h} fill="#3f3f46" stroke="#71717a" strokeWidth={2} rx={2} />
+  );
+
+  const portal = (key: string, x: number, y: number, w: number, h: number, label: string) => (
+    <g key={key}>
+      <rect x={x} y={y} width={w} height={h} fill="#0c4a6e" stroke="#22d3ee" strokeWidth={3} rx={3} />
+      <rect x={x + 3} y={y + 3} width={w - 6} height={h - 6} fill="#164e63" opacity={0.85} rx={2} />
+      <text
+        x={x + w / 2}
+        y={y + h / 2 + (edge === "left" || edge === "right" ? 0 : 4)}
+        textAnchor="middle"
+        fontSize={edge === "left" || edge === "right" ? 14 : 18}
+        fill="#67e8f9"
+        fontWeight="bold"
+      >
+        {label}
+      </text>
+    </g>
+  );
+
+  if (edge === "top" || edge === "bottom") {
+    const y = edge === "top" ? 0 : height - t;
+    const spans: Array<{ start: number; end: number; hole?: (typeof edgeHoles)[0] }> = [];
+    let cursor = 0;
+    for (const hole of edgeHoles.sort((a, b) => a.start - b.start)) {
+      if (hole.start > cursor) spans.push({ start: cursor, end: hole.start });
+      spans.push({ start: hole.start, end: hole.start + hole.length, hole });
+      cursor = hole.start + hole.length;
+    }
+    if (cursor < width) spans.push({ start: cursor, end: width });
+
+    return (
+      <g>
+        {spans.map((span, i) => {
+          const w = span.end - span.start;
+          if (span.hole) {
+            return portal(`hole-${edge}-${i}`, span.start, y, w, t, edge === "top" ? "↓ wrap" : "↑ wrap");
+          }
+          return wallSeg(`wall-${edge}-${i}`, span.start, y, w, t);
+        })}
+      </g>
+    );
+  }
+
+  const x = edge === "left" ? 0 : width - t;
+  const spans: Array<{ start: number; end: number; hole?: (typeof edgeHoles)[0] }> = [];
+  let cursor = 0;
+  for (const hole of edgeHoles.sort((a, b) => a.start - b.start)) {
+    if (hole.start > cursor) spans.push({ start: cursor, end: hole.start });
+    spans.push({ start: hole.start, end: hole.start + hole.length, hole });
+    cursor = hole.start + hole.length;
+  }
+  if (cursor < height) spans.push({ start: cursor, end: height });
+
+  return (
+    <g>
+      {spans.map((span, i) => {
+        const h = span.end - span.start;
+        if (span.hole) {
+          return portal(`hole-${edge}-${i}`, x, span.start, t, h, edge === "left" ? "→ wrap" : "← wrap");
+        }
+        return wallSeg(`wall-${edge}-${i}`, x, span.start, t, h);
+      })}
+    </g>
+  );
+}
 
 export function CurveArena({
   data,
@@ -22,7 +114,7 @@ export function CurveArena({
     id: string;
     x: number;
     y: number;
-    trail: Array<{ x: number; y: number }>;
+    trail: TrailPoint[];
     alive: boolean;
     colorIndex: number;
     jumpTicksRemaining?: number;
@@ -40,60 +132,66 @@ export function CurveArena({
     room.players.find((pl) => pl.id === id)?.nickname ?? botNames[id] ?? id;
 
   return (
-    <svg viewBox={`0 0 ${width} ${height}`} className="w-full rounded-2xl bg-zinc-900">
-      {/* Wall holes */}
-      {wallHoles.map((hole, i) => {
-        if (hole.edge === "top") {
-          return <rect key={i} x={hole.start} y={0} width={hole.length} height={6} fill="#0f1117" />;
-        }
-        if (hole.edge === "bottom") {
-          return <rect key={i} x={hole.start} y={height - 6} width={hole.length} height={6} fill="#0f1117" />;
-        }
-        if (hole.edge === "left") {
-          return <rect key={i} x={0} y={hole.start} width={6} height={hole.length} fill="#0f1117" />;
-        }
-        return <rect key={i} x={width - 6} y={hole.start} width={6} height={hole.length} fill="#0f1117" />;
-      })}
+    <svg viewBox={`0 0 ${width} ${height}`} className="w-full rounded-2xl bg-zinc-950">
+      <rect x={0} y={0} width={width} height={height} fill="#18181b" />
 
-      {/* Coins */}
-      {coins.map((c) => (
-        <circle key={c.id} cx={c.x} cy={c.y} r="8" fill="#FFD700" stroke="#B8860B" strokeWidth="2" />
+      {(["top", "bottom", "left", "right"] as const).map((edge) => (
+        <WallEdge key={edge} edge={edge} width={width} height={height} holes={wallHoles} />
       ))}
 
-      {/* Power-ups */}
-      {powerUps.map((pu) => (
-        <g key={pu.id}>
-          <circle cx={pu.x} cy={pu.y} r="10" fill={POWERUP_COLORS[pu.kind] ?? "#fff"} opacity={0.9} />
-          <text x={pu.x} y={pu.y + 4} textAnchor="middle" fontSize="10" fill="#000">
-            {pu.kind[0].toUpperCase()}
+      {coins.map((c) => (
+        <g key={c.id}>
+          <circle cx={c.x} cy={c.y} r="12" fill="#FFD700" stroke="#B8860B" strokeWidth="2" />
+          <text x={c.x} y={c.y + 5} textAnchor="middle" fontSize="14">
+            🪙
           </text>
         </g>
       ))}
 
-      {/* Trails and players */}
+      {powerUps.map((pu) => {
+        const info = powerUpInfo(pu.kind as PowerUpKind);
+        return (
+          <g key={pu.id}>
+            <circle cx={pu.x} cy={pu.y} r="18" fill={info.color} stroke="#fff" strokeWidth="2" opacity={0.95} />
+            <text x={pu.x} y={pu.y + 7} textAnchor="middle" fontSize="20">
+              {info.icon}
+            </text>
+          </g>
+        );
+      })}
+
       {players?.map((p) => {
         const color = playerColor(p.colorIndex);
-        const pts = p.trail.map((t) => `${t.x},${t.y}`).join(" ");
+        const polylines = splitTrailPolylines(p.trail);
         const name = nickname(p.id);
         return (
           <g key={p.id}>
-            {pts && (
-              <polyline
-                points={pts}
-                fill="none"
-                stroke={color}
-                strokeWidth="4"
-                opacity={p.alive ? 1 : 0.3}
-              />
-            )}
+            {polylines.map((segment, si) => {
+              const pts = segment.map((t) => `${t.x},${t.y}`).join(" ");
+              if (!pts) return null;
+              return (
+                <polyline
+                  key={si}
+                  points={pts}
+                  fill="none"
+                  stroke={color}
+                  strokeWidth="4"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  opacity={p.alive ? 1 : 0.3}
+                />
+              );
+            })}
             <circle
               cx={p.x}
               cy={p.y}
-              r={p.jumpTicksRemaining ? 8 : 6}
+              r={p.jumpTicksRemaining ? 9 : 7}
               fill={color}
-              opacity={p.jumpTicksRemaining ? 0.6 : 1}
+              stroke={p.jumpTicksRemaining ? "#fff" : "none"}
+              strokeWidth={2}
+              opacity={p.jumpTicksRemaining ? 0.75 : 1}
             />
-            <text x={p.x + 8} y={p.y - 8} fill={color} fontSize="14">
+            <text x={p.x + 10} y={p.y - 10} fill={color} fontSize="14" fontWeight="bold">
               {name}
               {p.coinsThisRound ? ` (+${p.coinsThisRound})` : ""}
             </text>
@@ -101,18 +199,18 @@ export function CurveArena({
         );
       })}
 
-      {/* Projectiles */}
       {projectiles.map((proj) => (
         <circle
           key={proj.id}
           cx={proj.x}
           cy={proj.y}
-          r={proj.kind === "grenade" ? 6 : 4}
+          r={proj.kind === "grenade" ? 7 : 5}
           fill={proj.kind === "grenade" ? "#F38181" : "#FFE66D"}
+          stroke="#fff"
+          strokeWidth={1}
         />
       ))}
 
-      {/* Explosions */}
       {explosions.map((ex, i) => (
         <circle
           key={i}

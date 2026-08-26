@@ -1,6 +1,7 @@
 import type { DikeRevealEntry, HostViewSnapshot, PlayerAnswerReveal, PlayerViewSnapshot, RevealEntry, RoomSnapshot } from "@party-games/shared";
 import { useState } from "react";
 import { CurveArena } from "./CurveArena";
+import { TrailDashInstructions } from "./TrailDashInstructions";
 import { CurvePlayerControls } from "./CurvePlayerControls";
 import { RevealBreakdown, ScoringRulesPanel } from "./RevealBreakdown";
 import { RoundScorePanel } from "./RoundScorePanel";
@@ -72,11 +73,20 @@ export function HostGameView({
             {hostView.gameId === "last-on-the-dike" && (
               <p className="mt-2 text-zinc-400">Bid just enough to survive.</p>
             )}
-            {hostView.gameId !== "last-on-the-dike" && (
+            {hostView.gameId === "curve-fever" && (
+              <p className="mt-2 text-zinc-400">Last rider standing wins — collect coins and power-ups!</p>
+            )}
+            {hostView.gameId !== "last-on-the-dike" && hostView.gameId !== "curve-fever" && (
               <p className="mt-2 text-zinc-400">Starting soon…</p>
             )}
           </div>
-          {scoringRules && <ScoringRulesPanel rules={scoringRules} />}
+          {hostView.gameId === "curve-fever" && (
+            <TrailDashInstructions
+              coinValue={(data.coinValue as number) ?? 50}
+              powerUpMode={(data.powerUpMode as import("@party-games/shared").PowerUpMode) ?? "normal"}
+            />
+          )}
+          {scoringRules && hostView.gameId !== "curve-fever" && <ScoringRulesPanel rules={scoringRules} />}
         </div>
       )}
 
@@ -92,18 +102,27 @@ export function HostGameView({
       {(phase === "submit" || phase === "question") && (
         <div className="rounded-2xl bg-zinc-800/60 p-8 text-center">
           <p className="text-3xl font-bold">{String(data.displayText ?? data.prompt ?? data.question ?? data.event ?? data.category ?? "")}</p>
-          {data.choices && (
+          {data.choices && !data.hideChoicesOnTv && (
             <div className="mt-6 grid gap-2 sm:grid-cols-2">
               {(data.choices as string[]).map((c, i) => (
                 <div key={i} className="rounded-xl bg-zinc-700/80 px-4 py-3">{c}</div>
               ))}
             </div>
           )}
-          {data.optionA && data.optionB && (
-            <div className="mt-6 grid gap-4 sm:grid-cols-2">
-              <div className="rounded-xl bg-blue-600/30 p-6 text-xl">{data.optionA as string}</div>
-              <div className="rounded-xl bg-orange-600/30 p-6 text-xl">{data.optionB as string}</div>
-            </div>
+          {data.hideChoicesOnTv && phase === "question" && data.mode === "quiz" && (
+            <p className="mt-4 text-zinc-400">Answer on your phone!</p>
+          )}
+          {data.wyrPromptOnly ? (
+            <p className="mt-6 text-xl text-zinc-400">Vote on your phone!</p>
+          ) : (
+            <>
+              {data.optionA && data.optionB && (
+                <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                  <div className="rounded-xl bg-blue-600/30 p-6 text-xl">{data.optionA as string}</div>
+                  <div className="rounded-xl bg-orange-600/30 p-6 text-xl">{data.optionB as string}</div>
+                </div>
+              )}
+            </>
           )}
           {data.letters && (
             <div className="mt-6 flex justify-center gap-2">
@@ -329,7 +348,14 @@ export function PlayerGameView({
   const [year, setYear] = useState(2000);
 
   return (
-    <div className="mx-auto max-w-md space-y-4 p-4 pb-8">
+    <div className="mx-auto max-w-md space-y-4 p-4 pb-8 relative">
+      {room.paused && (
+        <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/70">
+          <p className="rounded-2xl bg-zinc-900 px-6 py-4 text-xl font-bold text-center">
+            Game paused — waiting for host
+          </p>
+        </div>
+      )}
       <TimerBar endsAt={playerView.timerEndsAt} />
       <p className="text-center text-sm text-zinc-400">
         {gameName} · {phase}
@@ -337,8 +363,17 @@ export function PlayerGameView({
 
       {phase === "instructions" && (
         <div className="space-y-4 py-4">
-          <p className="text-center text-xl">Look at the TV!</p>
-          {scoringRules && <ScoringRulesPanel rules={scoringRules} />}
+          {playerView.gameId === "curve-fever" ? (
+            <TrailDashInstructions
+              coinValue={(playerView.data.coinValue as number) ?? 50}
+              powerUpMode={(playerView.data.powerUpMode as import("@party-games/shared").PowerUpMode) ?? "normal"}
+            />
+          ) : (
+            <>
+              <p className="text-center text-xl">Look at the TV!</p>
+              {scoringRules && <ScoringRulesPanel rules={scoringRules} />}
+            </>
+          )}
         </div>
       )}
 

@@ -121,6 +121,9 @@ export function usePartyRoom({
   );
   const startGame = useCallback(() => send({ type: "start_game" }), [send]);
   const returnToLobby = useCallback(() => send({ type: "return_to_lobby" }), [send]);
+  const pauseGame = useCallback(() => send({ type: "pause_game" }), [send]);
+  const resumeGame = useCallback(() => send({ type: "resume_game" }), [send]);
+  const extendTimer = useCallback((extraMs: number) => send({ type: "extend_timer", extraMs }), [send]);
   const playerAction = useCallback((action: ClientMessage extends { type: "player_action"; action: infer A } ? A : never) => {
     send({ type: "player_action", action });
   }, [send]);
@@ -138,6 +141,9 @@ export function usePartyRoom({
     setGameOptions,
     startGame,
     returnToLobby,
+    pauseGame,
+    resumeGame,
+    extendTimer,
     playerAction,
     hostAction,
   };

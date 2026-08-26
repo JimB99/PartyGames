@@ -21,9 +21,12 @@ export const fibbageReverseGame: GameModule<BluffState> = {
     category: "social",
     supportsDifficulty: true,
     supportsMatureContent: false,
+    supportsSpeedScoring: true,
   },
   init(ctx) {
-    return createBluffState("reverse", fibbageReversePool(ctx.gameOptions));
+    const state = createBluffState("reverse", fibbageReversePool(ctx.gameOptions), 5, ctx.playerIds.length);
+    state.gameOptions = ctx.gameOptions;
+    return state;
   },
   onPlayerAction(state, playerId, action, ctx) {
     return onBluffAction(state, playerId, action, ctx);
@@ -32,7 +35,7 @@ export const fibbageReverseGame: GameModule<BluffState> = {
     return onBluffAction(state, "host", action, ctx);
   },
   onTick(state) {
-    return onBluffTick(state);
+    return onBluffTick(state, undefined, state.gameOptions);
   },
   needsTick(state) {
     return state.phase !== "ended";

@@ -29,6 +29,9 @@ export interface GameMeta {
   supportsDifficulty?: boolean;
   supportsMatureContent?: boolean;
   supportsTrailDashOptions?: boolean;
+  supportsSpeedScoring?: boolean;
+  supportsQuestionDisplay?: boolean;
+  supportsTimelinePtsPerYear?: boolean;
 }
 
 export const ALL_GAME_IDS = [

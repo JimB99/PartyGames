@@ -73,6 +73,11 @@ export function RevealBreakdown({
               </span>
               <span className="text-sm text-zinc-300">
                 {a.detail ?? String(a.answer)}
+                {a.rankPlace !== undefined && (
+                  <span className="ml-1 text-yellow-400">
+                    {a.rankPlace === 1 ? "1st" : a.rankPlace === 2 ? "2nd" : a.rankPlace === 3 ? "3rd" : `${a.rankPlace}th`}
+                  </span>
+                )}
                 {a.points !== undefined && <span className="ml-2 font-mono text-zinc-400">+{a.points}</span>}
                 {a.correct === true && <span className="ml-1 text-green-400">✓</span>}
                 {a.correct === false && <span className="ml-1 text-red-400">✗</span>}

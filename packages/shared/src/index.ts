@@ -7,4 +7,6 @@ export * from "./reveal.js";
 export * from "./content.js";
 export * from "./dike-logic.js";
 export * from "./trail-dash-options.js";
+export * from "./trail-dash-powerups.js";
 export * from "./curve-logic.js";
+export * from "./speed-scoring.js";

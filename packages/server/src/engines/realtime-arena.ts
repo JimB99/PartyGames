@@ -2,6 +2,7 @@ import type { GameAction } from "@party-games/shared";
 import {
   createCurveState,
   fireWeapon,
+  isFireablePowerUp,
   resetCurveRound,
   tickCurveState,
   tryJump,
@@ -114,6 +115,8 @@ export function curveHostView(state: CurveState) {
       roundWinner: state.roundWinner,
       roundScores: state.roundScores,
       deathOrder: state.deathOrder,
+      coinValue: state.options.coinValue,
+      powerUpMode: state.options.powerUpMode,
     },
   };
 }
@@ -127,13 +130,15 @@ export function curvePlayerView(state: CurveState, playerId: string) {
     timerEndsAt: state.timerEndsAt,
     data: {
       alive: p?.alive,
+      coinValue: state.options.coinValue,
+      powerUpMode: state.options.powerUpMode,
     },
     playerData: {
       isAlive: p?.alive,
       jumpCooldown: p?.jumpCooldownTicks ?? 0,
       heldPowerUp: p?.heldPowerUp ?? null,
       coinsThisRound: p?.coinsThisRound ?? 0,
-      canFire: Boolean(p?.heldPowerUp === "missile" || p?.heldPowerUp === "grenade"),
+      canFire: isFireablePowerUp(p?.heldPowerUp ?? null),
     },
   };
 }

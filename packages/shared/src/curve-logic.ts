@@ -3,16 +3,18 @@ import { rankPointsForPlace } from "./trail-dash-options.js";
 
 export type CurvePhase = "instructions" | "playing" | "round_end" | "ended";
 export type TurnDirection = "left" | "right" | "none";
-export type PowerUpKind = "speed" | "gap" | "shrink" | "missile" | "grenade";
+export type PowerUpKind = "speed" | "gap" | "shrink" | "missile" | "grenade" | "burst";
 export type WallEdge = "top" | "bottom" | "left" | "right";
 
-export const ARENA_W = 800;
-export const ARENA_H = 600;
+export const ARENA_W = 1200;
+export const ARENA_H = 900;
 export const BASE_SPEED = 3;
 export const BASE_TURN_SPEED = 0.08;
 export const DEFAULT_HIT_RADIUS = 4;
 export const SHRINK_HIT_RADIUS = 2;
 export const TRAIL_POINT_DIST = 3;
+/** Recent own-trail length (px) that cannot cause self-collision — allows steering without instant death. */
+export const OWN_TRAIL_IMMUNE_DIST = 12;
 export const WALL_MARGIN = 5;
 export const JUMP_DURATION_TICKS = 15;
 export const JUMP_COOLDOWN_TICKS = 75;
@@ -26,11 +28,14 @@ export const GRENADE_FUSE_TICKS = 38;
 export const GRENADE_RADIUS = 60;
 export const MISSILE_SPEED = 8;
 export const GRENADE_SPEED = 4;
+export const BURST_SHOT_COUNT = 5;
 export const EXPLOSION_DISPLAY_TICKS = 10;
 
 export interface TrailPoint {
   x: number;
   y: number;
+  /** When true, the next trail segment must not connect to the previous one. */
+  break?: boolean;
 }
 
 export interface WallHole {
@@ -112,19 +117,51 @@ export interface CurveState {
   options: TrailDashOptions;
 }
 
+const SPAWN_MARGIN = 120;
+
 const SPAWN_POSITIONS = [
-  { x: 100, y: 100, angle: 0 },
-  { x: ARENA_W - 100, y: 100, angle: Math.PI },
-  { x: 100, y: ARENA_H - 100, angle: 0 },
-  { x: ARENA_W - 100, y: ARENA_H - 100, angle: Math.PI },
-  { x: ARENA_W / 2, y: 100, angle: Math.PI / 2 },
-  { x: ARENA_W / 2, y: ARENA_H - 100, angle: -Math.PI / 2 },
-  { x: 100, y: ARENA_H / 2, angle: 0 },
-  { x: ARENA_W - 100, y: ARENA_H / 2, angle: Math.PI },
+  { x: SPAWN_MARGIN, y: SPAWN_MARGIN, angle: 0 },
+  { x: ARENA_W - SPAWN_MARGIN, y: SPAWN_MARGIN, angle: Math.PI },
+  { x: SPAWN_MARGIN, y: ARENA_H - SPAWN_MARGIN, angle: 0 },
+  { x: ARENA_W - SPAWN_MARGIN, y: ARENA_H - SPAWN_MARGIN, angle: Math.PI },
+  { x: ARENA_W / 2, y: SPAWN_MARGIN, angle: Math.PI / 2 },
+  { x: ARENA_W / 2, y: ARENA_H - SPAWN_MARGIN, angle: -Math.PI / 2 },
+  { x: SPAWN_MARGIN, y: ARENA_H / 2, angle: 0 },
+  { x: ARENA_W - SPAWN_MARGIN, y: ARENA_H / 2, angle: Math.PI },
 ];
 
 export function dist(ax: number, ay: number, bx: number, by: number): number {
   return Math.hypot(ax - bx, ay - by);
+}
+
+/** How many trailing segments at the tail are immune to self-collision. */
+export function ownTrailImmuneSegmentCount(trail: TrailPoint[], immuneDist = OWN_TRAIL_IMMUNE_DIST): number {
+  if (trail.length < 2) return trail.length - 1;
+  let accumulated = 0;
+  let segments = 0;
+  for (let i = trail.length - 1; i >= 1; i--) {
+    if (trail[i].break) break;
+    accumulated += dist(trail[i].x, trail[i].y, trail[i - 1].x, trail[i - 1].y);
+    segments++;
+    if (accumulated >= immuneDist) break;
+  }
+  return segments;
+}
+
+/** Split a trail into drawable / collidable line segments (skips breaks). */
+export function trailLineSegments(trail: TrailPoint[]): Array<[TrailPoint, TrailPoint]> {
+  const segments: Array<[TrailPoint, TrailPoint]> = [];
+  for (let i = 1; i < trail.length; i++) {
+    if (trail[i].break) continue;
+    segments.push([trail[i - 1], trail[i]]);
+  }
+  return segments;
+}
+
+export function appendTrailBreak(p: CurvePlayer): void {
+  const last = p.trail[p.trail.length - 1];
+  if (last?.break) return;
+  p.trail.push({ x: p.x, y: p.y, break: true });
 }
 
 export function segmentHit(
@@ -207,7 +244,7 @@ function spawnCoins(count: number, width: number, height: number, seed: number):
   return coins;
 }
 
-const ALL_POWERUP_KINDS: PowerUpKind[] = ["speed", "gap", "shrink", "missile", "grenade"];
+const ALL_POWERUP_KINDS: PowerUpKind[] = ["speed", "gap", "shrink", "missile", "grenade", "burst"];
 
 function spawnPowerUps(count: number, width: number, height: number, seed: number): PowerUpPickup[] {
   const pickups: PowerUpPickup[] = [];
@@ -303,7 +340,9 @@ function checkWallCollision(
   holes: WallHole[],
 ): boolean {
   if (isInHole(p.x, p.y, holes, width, height)) {
-    const wrapped = wrapThroughHole(p.x, p.y, isInHole(p.x, p.y, holes, width, height)!, width, height);
+    const hole = isInHole(p.x, p.y, holes, width, height)!;
+    appendTrailBreak(p);
+    const wrapped = wrapThroughHole(p.x, p.y, hole, width, height);
     p.x = wrapped.x;
     p.y = wrapped.y;
     return false;
@@ -322,9 +361,8 @@ export function checkTrailCollisions(state: CurveState): void {
 
     for (const other of state.players) {
       if (other.id === p.id) continue;
-      const trail = other.trail;
-      for (let i = 1; i < trail.length; i++) {
-        if (segmentHit(p.x, p.y, trail[i - 1].x, trail[i - 1].y, trail[i].x, trail[i].y, p.hitRadius)) {
+      for (const [a, b] of trailLineSegments(other.trail)) {
+        if (segmentHit(p.x, p.y, a.x, a.y, b.x, b.y, p.hitRadius)) {
           killPlayer(state, p);
           break;
         }
@@ -334,10 +372,11 @@ export function checkTrailCollisions(state: CurveState): void {
 
     if (!p.alive) continue;
 
-    // Own trail — skip last segment (head sits on endpoint)
-    const ownTrail = p.trail;
-    for (let i = 1; i < ownTrail.length - 1; i++) {
-      if (segmentHit(p.x, p.y, ownTrail[i - 1].x, ownTrail[i - 1].y, ownTrail[i].x, ownTrail[i].y, p.hitRadius)) {
+    const ownSegments = trailLineSegments(p.trail);
+    const skipCount = ownTrailImmuneSegmentCount(p.trail);
+    const checkSegments = ownSegments.slice(0, Math.max(0, ownSegments.length - skipCount));
+    for (const [a, b] of checkSegments) {
+      if (segmentHit(p.x, p.y, a.x, a.y, b.x, b.y, p.hitRadius)) {
         killPlayer(state, p);
         break;
       }
@@ -410,6 +449,7 @@ export function applyPowerUp(p: CurvePlayer, kind: PowerUpKind): void {
       p.speedEffectTicks = SPEED_EFFECT_TICKS;
       break;
     case "gap":
+      appendTrailBreak(p);
       p.gapTicksRemaining = GAP_EFFECT_TICKS;
       break;
     case "shrink":
@@ -418,6 +458,7 @@ export function applyPowerUp(p: CurvePlayer, kind: PowerUpKind): void {
       break;
     case "missile":
     case "grenade":
+    case "burst":
       p.heldPowerUp = kind;
       break;
   }
@@ -425,6 +466,7 @@ export function applyPowerUp(p: CurvePlayer, kind: PowerUpKind): void {
 
 export function tryJump(p: CurvePlayer): boolean {
   if (!p.alive || p.jumpTicksRemaining > 0 || p.jumpCooldownTicks > 0) return false;
+  appendTrailBreak(p);
   p.jumpTicksRemaining = JUMP_DURATION_TICKS;
   p.jumpCooldownTicks = JUMP_COOLDOWN_TICKS;
   return true;
@@ -446,6 +488,20 @@ export function fireWeapon(state: CurveState, p: CurvePlayer): boolean {
       vy: Math.sin(p.angle) * MISSILE_SPEED,
       fuseTicks: null,
     });
+  } else if (kind === "burst") {
+    for (let i = 0; i < BURST_SHOT_COUNT; i++) {
+      const angle = p.angle + (i * 2 * Math.PI) / BURST_SHOT_COUNT;
+      state.projectiles.push({
+        id: `proj-${Date.now()}-${p.id}-${i}`,
+        ownerId: p.id,
+        kind: "missile",
+        x: p.x,
+        y: p.y,
+        vx: Math.cos(angle) * MISSILE_SPEED,
+        vy: Math.sin(angle) * MISSILE_SPEED,
+        fuseTicks: null,
+      });
+    }
   } else {
     state.projectiles.push({
       id: `proj-${Date.now()}-${p.id}`,
@@ -622,11 +678,14 @@ export function raycastAhead(
       return i * 4;
     }
     for (const other of players) {
-      const trail = other.trail;
-      const start = other.id === selfId ? 0 : 0;
-      const end = other.id === selfId ? trail.length - 1 : trail.length;
-      for (let j = 1; j < end; j++) {
-        if (segmentHit(px, py, trail[j - 1].x, trail[j - 1].y, trail[j].x, trail[j].y, DEFAULT_HIT_RADIUS)) {
+      const segments = trailLineSegments(other.trail);
+      const end =
+        other.id === selfId
+          ? Math.max(0, segments.length - ownTrailImmuneSegmentCount(other.trail))
+          : segments.length;
+      for (let j = 0; j < end; j++) {
+        const [a, b] = segments[j];
+        if (segmentHit(px, py, a.x, a.y, b.x, b.y, DEFAULT_HIT_RADIUS)) {
           return i * 4;
         }
       }

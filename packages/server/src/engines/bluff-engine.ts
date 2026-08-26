@@ -1,9 +1,12 @@
 import {
   buildBluffReveal,
+  isSpeedScoringEnabled,
   pickRandom,
+  scoreByAnswerRank,
   shuffle,
   uniqueId,
   type GameAction,
+  type GameOptions,
   type RoomContext,
 } from "@party-games/shared";
 
@@ -28,9 +31,13 @@ export interface BluffState {
   submissions: Record<string, string>;
   options: BluffOption[];
   votes: Record<string, string>;
+  voteTimes: Record<string, number>;
+  votePhaseStartedAt: number | null;
   roundScores: Record<string, number>;
   usedPrompts: number[];
   promptsPool: Array<{ prompt?: string; truth: string; fact?: string }>;
+  gameOptions?: GameOptions;
+  playerCount: number;
 }
 
 const SUBMIT_MS = 45000;
@@ -42,6 +49,7 @@ export function createBluffState(
   mode: "fibbage" | "reverse",
   prompts: Array<{ prompt?: string; truth: string; fact?: string }>,
   maxRounds = 5,
+  playerCount = 2,
 ): BluffState {
   const idx = Math.floor(Math.random() * prompts.length);
   const item = prompts[idx];
@@ -59,9 +67,12 @@ export function createBluffState(
     submissions: {},
     options: [],
     votes: {},
+    voteTimes: {},
+    votePhaseStartedAt: null,
     roundScores: {},
     usedPrompts: [idx],
     promptsPool: prompts,
+    playerCount,
   };
 }
 
@@ -76,7 +87,7 @@ function nextPrompt(state: BluffState, prompts: Array<{ prompt?: string; truth: 
   state.truthId = uniqueId();
 }
 
-export function advanceBluff(state: BluffState): BluffState {
+export function advanceBluff(state: BluffState, gameOptions?: GameOptions): BluffState {
   if (state.phase === "instructions") {
     state.phase = "submit";
     state.timerEndsAt = Date.now() + SUBMIT_MS;
@@ -88,11 +99,13 @@ export function advanceBluff(state: BluffState): BluffState {
   if (state.phase === "submit") {
     buildOptions(state);
     state.phase = "vote";
-    state.timerEndsAt = Date.now() + VOTE_MS;
+    state.votePhaseStartedAt = Date.now();
+    state.timerEndsAt = state.votePhaseStartedAt + VOTE_MS;
+    state.voteTimes = {};
     return state;
   }
   if (state.phase === "vote") {
-    scoreBluff(state);
+    scoreBluff(state, gameOptions);
     state.phase = "reveal";
     state.timerEndsAt = Date.now() + REVEAL_MS;
     return state;
@@ -128,15 +141,30 @@ function buildOptions(state: BluffState) {
   state.options = shuffle(options);
 }
 
-function scoreBluff(state: BluffState) {
+function scoreBluff(state: BluffState, gameOptions?: GameOptions) {
   state.roundScores = {};
+  const speedOn = gameOptions ? isSpeedScoringEnabled(gameOptions) : false;
+  const totalPlayers = Math.max(1, state.playerCount);
+
+  const truthVoters: Array<{ playerId: string; answeredAt: number }> = [];
   for (const [voterId, optionId] of Object.entries(state.votes)) {
     const option = state.options.find((o) => o.id === optionId);
     if (!option) continue;
     if (option.isTruth) {
-      state.roundScores[voterId] = (state.roundScores[voterId] ?? 0) + 1000;
+      if (speedOn && state.voteTimes[voterId] !== undefined) {
+        truthVoters.push({ playerId: voterId, answeredAt: state.voteTimes[voterId] });
+      } else if (!speedOn) {
+        state.roundScores[voterId] = (state.roundScores[voterId] ?? 0) + 1000;
+      }
     } else if (option.authorId) {
       state.roundScores[option.authorId] = (state.roundScores[option.authorId] ?? 0) + 500;
+    }
+  }
+
+  if (speedOn && truthVoters.length > 0) {
+    const ranked = scoreByAnswerRank(truthVoters, totalPlayers, 1);
+    for (const [voterId, score] of Object.entries(ranked)) {
+      state.roundScores[voterId] = (state.roundScores[voterId] ?? 0) + score.points;
     }
   }
 }
@@ -154,9 +182,16 @@ export function onBluffAction(
     }
   }
   if (action.kind === "vote" && state.phase === "vote") {
-    state.votes[playerId] = action.optionId;
+    if (state.votes[playerId] === undefined) {
+      state.votes[playerId] = action.optionId;
+      state.voteTimes[playerId] = Date.now();
+    }
     if (Object.keys(state.votes).length >= ctx.playerIds.length) {
-      return advanceBluff(state);
+      scoreBluff(state, ctx.gameOptions);
+      state.phase = "reveal";
+      state.timerEndsAt = Date.now() + REVEAL_MS;
+      state.votePhaseStartedAt = null;
+      return state;
     }
   }
   if (action.kind === "advance" && state.phase === "instructions") {
@@ -165,13 +200,13 @@ export function onBluffAction(
   return state;
 }
 
-export function onBluffTick(state: BluffState, prompts?: Array<{ prompt?: string; truth: string; fact?: string }>): BluffState {
+export function onBluffTick(state: BluffState, prompts?: Array<{ prompt?: string; truth: string; fact?: string }>, gameOptions?: GameOptions): BluffState {
   if (!state.timerEndsAt || Date.now() < state.timerEndsAt) return state;
   const pool = prompts ?? state.promptsPool;
   if (state.phase === "scoreboard" && state.round < state.maxRounds) {
     nextPrompt(state, pool);
   }
-  return advanceBluff(state);
+  return advanceBluff(state, gameOptions);
 }
 
 export function bluffHostView(state: BluffState) {

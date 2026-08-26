@@ -1,4 +1,16 @@
-import { pickRandom, type GameAction, type RoomContext, type PlayerAnswerReveal } from "@party-games/shared";
+import {
+  DEFAULT_GAME_OPTIONS,
+  isSpeedScoringEnabled,
+  pickRandom,
+  resolveQuestionDisplay,
+  resolveTimelinePtsPerYearOff,
+  scoreByAnswerRank,
+  timelineAccuracyPoints,
+  type GameAction,
+  type GameOptions,
+  type PlayerAnswerReveal,
+  type RoomContext,
+} from "@party-games/shared";
 
 export type TriviaMode = "quiz" | "timeline" | "would-you-rather";
 
@@ -9,6 +21,7 @@ export interface TriviaState {
   round: number;
   maxRounds: number;
   timerEndsAt: number | null;
+  phaseStartedAt: number | null;
   mode: TriviaMode;
   question?: string;
   choices?: string[];
@@ -20,10 +33,14 @@ export interface TriviaState {
   optionA?: string;
   optionB?: string;
   answers: Record<string, number | "a" | "b">;
+  answerTimes: Record<string, number>;
+  rankPlaces: Record<string, number>;
   roundScores: Record<string, number>;
   usedIndices: number[];
   results?: Record<string, number>;
   itemsPool: unknown[];
+  gameOptions?: GameOptions;
+  playerCount: number;
 }
 
 const QUESTION_MS = 25000;
@@ -32,6 +49,7 @@ const SCOREBOARD_MS = 4000;
 
 function buildTriviaPlayerAnswers(state: TriviaState): PlayerAnswerReveal[] {
   return Object.entries(state.answers).map(([playerId, answer]) => {
+    const rankPlace = state.rankPlaces[playerId];
     if (state.mode === "quiz" && typeof answer === "number") {
       return {
         playerId,
@@ -39,6 +57,7 @@ function buildTriviaPlayerAnswers(state: TriviaState): PlayerAnswerReveal[] {
         detail: state.choices?.[answer],
         correct: answer === state.correctIndex,
         points: state.results?.[playerId],
+        rankPlace,
       };
     }
     if (state.mode === "timeline" && typeof answer === "number") {
@@ -47,6 +66,7 @@ function buildTriviaPlayerAnswers(state: TriviaState): PlayerAnswerReveal[] {
         answer,
         detail: `Year ${answer}`,
         points: state.results?.[playerId],
+        rankPlace,
       };
     }
     const choice = answer as "a" | "b";
@@ -62,17 +82,22 @@ export function createTriviaState(
   mode: TriviaMode,
   items: unknown[],
   maxRounds = 8,
+  playerCount = 2,
 ): TriviaState {
   const state: TriviaState = {
     phase: "instructions",
     round: 1,
     maxRounds,
     timerEndsAt: Date.now() + 5000,
+    phaseStartedAt: null,
     mode,
     answers: {},
+    answerTimes: {},
+    rankPlaces: {},
     roundScores: {},
     usedIndices: [],
     itemsPool: items,
+    playerCount,
   };
   loadTriviaItem(state, items, true);
   return state;
@@ -101,17 +126,21 @@ function loadTriviaItem(state: TriviaState, items: unknown[], first = false) {
   }
 }
 
-export function advanceTrivia(state: TriviaState, items: unknown[]): TriviaState {
+export function advanceTrivia(state: TriviaState, items: unknown[], gameOptions?: GameOptions): TriviaState {
   if (state.phase === "instructions") {
     state.phase = "question";
-    state.timerEndsAt = Date.now() + QUESTION_MS;
+    state.phaseStartedAt = Date.now();
+    state.timerEndsAt = state.phaseStartedAt + QUESTION_MS;
     state.answers = {};
+    state.answerTimes = {};
+    state.rankPlaces = {};
     return state;
   }
   if (state.phase === "question") {
-    scoreTrivia(state);
+    scoreTrivia(state, gameOptions);
     state.phase = "reveal";
     state.timerEndsAt = Date.now() + REVEAL_MS;
+    state.phaseStartedAt = null;
     return state;
   }
   if (state.phase === "reveal") {
@@ -134,19 +163,73 @@ export function advanceTrivia(state: TriviaState, items: unknown[]): TriviaState
   return state;
 }
 
-function scoreTrivia(state: TriviaState) {
+function scoreTrivia(state: TriviaState, gameOptions?: GameOptions) {
   state.roundScores = {};
   state.results = {};
-  for (const [playerId, answer] of Object.entries(state.answers)) {
-    if (state.mode === "quiz" && typeof answer === "number") {
-      const pts = answer === state.correctIndex ? 1000 : 0;
-      state.roundScores[playerId] = pts;
-      state.results![playerId] = pts;
-    } else if (state.mode === "timeline" && typeof answer === "number") {
+  state.rankPlaces = {};
+  const speedOn = gameOptions ? isSpeedScoringEnabled(gameOptions) : false;
+  const totalPlayers = Math.max(1, state.playerCount);
+
+  if (state.mode === "quiz") {
+    if (speedOn) {
+      const correctEntries = Object.entries(state.answers)
+        .filter(
+          ([playerId, answer]) =>
+            typeof answer === "number" &&
+            answer === state.correctIndex &&
+            state.answerTimes[playerId] !== undefined,
+        )
+        .map(([playerId]) => ({
+          playerId,
+          answeredAt: state.answerTimes[playerId]!,
+        }));
+      const ranked = scoreByAnswerRank(correctEntries, totalPlayers, 1);
+      for (const [playerId, answer] of Object.entries(state.answers)) {
+        if (typeof answer !== "number") continue;
+        const pts = ranked[playerId]?.points ?? 0;
+        state.roundScores[playerId] = pts;
+        state.results![playerId] = pts;
+        if (ranked[playerId]) state.rankPlaces[playerId] = ranked[playerId].rankPlace;
+      }
+    } else {
+      for (const [playerId, answer] of Object.entries(state.answers)) {
+        if (typeof answer === "number") {
+          const pts = answer === state.correctIndex ? 1000 : 0;
+          state.roundScores[playerId] = pts;
+          state.results![playerId] = pts;
+        }
+      }
+    }
+    return;
+  }
+
+  if (state.mode === "timeline") {
+    const ptsPerYear = resolveTimelinePtsPerYearOff(gameOptions ?? state.gameOptions ?? DEFAULT_GAME_OPTIONS);
+    for (const [playerId, answer] of Object.entries(state.answers)) {
+      if (typeof answer !== "number") continue;
       const diff = Math.abs(answer - state.correctYear!);
-      const pts = Math.max(0, 1000 - diff * 20);
-      state.roundScores[playerId] = pts;
-      state.results![playerId] = pts;
+      const accuracy = timelineAccuracyPoints(diff, ptsPerYear);
+      if (!speedOn || diff > 0) {
+        state.roundScores[playerId] = accuracy;
+        state.results![playerId] = accuracy;
+      }
+    }
+    if (speedOn) {
+      const exactEntries = Object.entries(state.answers)
+        .filter(([playerId, answer]) => {
+          if (typeof answer !== "number") return false;
+          return Math.abs(answer - state.correctYear!) === 0 && state.answerTimes[playerId] !== undefined;
+        })
+        .map(([playerId]) => ({
+          playerId,
+          answeredAt: state.answerTimes[playerId]!,
+        }));
+      const ranked = scoreByAnswerRank(exactEntries, totalPlayers, 1);
+      for (const [playerId, score] of Object.entries(ranked)) {
+        state.roundScores[playerId] = score.points;
+        state.results![playerId] = score.points;
+        state.rankPlaces[playerId] = score.rankPlace;
+      }
     }
   }
 }
@@ -163,30 +246,47 @@ export function onTriviaAction(
     }
     return state;
   }
+  const now = Date.now();
   if (action.kind === "trivia_answer") {
-    state.answers[playerId] = action.choiceIndex;
+    if (state.answers[playerId] === undefined) {
+      state.answers[playerId] = action.choiceIndex;
+      state.answerTimes[playerId] = now;
+    }
   } else if (action.kind === "year_slider") {
-    state.answers[playerId] = action.year;
+    if (state.answers[playerId] === undefined) {
+      state.answers[playerId] = action.year;
+      state.answerTimes[playerId] = now;
+    }
   } else if (action.kind === "would_you_rather") {
-    state.answers[playerId] = action.choice;
+    if (state.answers[playerId] === undefined) {
+      state.answers[playerId] = action.choice;
+      state.answerTimes[playerId] = now;
+    }
   }
   if (Object.keys(state.answers).length >= ctx.playerIds.length) {
-    return advanceTrivia(state, state.itemsPool);
+    return advanceTrivia(state, state.itemsPool, ctx.gameOptions);
   }
   return state;
 }
 
-export function onTriviaTick(state: TriviaState, items?: unknown[]): TriviaState {
+export function onTriviaTick(state: TriviaState, items?: unknown[], gameOptions?: GameOptions): TriviaState {
   if (!state.timerEndsAt || Date.now() < state.timerEndsAt) return state;
+  if (state.phase === "question") {
+    scoreTrivia(state, gameOptions);
+  }
   return advanceTrivia(state, items ?? state.itemsPool);
 }
 
-export function triviaHostView(state: TriviaState) {
+export function triviaHostView(state: TriviaState, gameOptions?: GameOptions) {
   const voteA = Object.values(state.answers).filter((a) => a === "a" || a === 0).length;
   const voteB = Object.values(state.answers).filter((a) => a === "b" || a === 1).length;
   const total = Object.keys(state.answers).length;
   const showReveal = state.phase === "reveal" || state.phase === "scoreboard";
-  const hideQuizChoicesOnTv = state.mode === "quiz" && state.phase === "question";
+  const promptOnly = resolveQuestionDisplay(gameOptions ?? { contentRating: "family", difficulty: "mixed" }) === "tv_prompt_only";
+  const inQuestion = state.phase === "question";
+  const hideChoicesOnTv = promptOnly && inQuestion && state.mode === "quiz";
+  const hideWyrOnTv = promptOnly && inQuestion && state.mode === "would-you-rather";
+
   return {
     phase: state.phase,
     round: state.round,
@@ -195,14 +295,16 @@ export function triviaHostView(state: TriviaState) {
     data: {
       mode: state.mode,
       question: state.question,
-      choices: hideQuizChoicesOnTv ? undefined : state.choices,
+      choices: hideChoicesOnTv ? undefined : state.choices,
+      hideChoicesOnTv,
       correctIndex: showReveal ? state.correctIndex : undefined,
       event: state.event,
       correctYear: showReveal ? state.correctYear : undefined,
       minYear: state.minYear,
       maxYear: state.maxYear,
-      optionA: state.optionA,
-      optionB: state.optionB,
+      optionA: hideWyrOnTv ? undefined : state.optionA,
+      optionB: hideWyrOnTv ? undefined : state.optionB,
+      wyrPromptOnly: hideWyrOnTv,
       voteSplit: state.mode === "would-you-rather" && total > 0
         ? { a: Math.round((voteA / total) * 100), b: Math.round((voteB / total) * 100) }
         : undefined,
@@ -229,8 +331,8 @@ export function triviaPlayerView(state: TriviaState, playerId: string) {
       event: inQuestion && state.mode === "timeline" ? state.event : undefined,
       minYear: state.minYear,
       maxYear: state.maxYear,
-      optionA: state.optionA,
-      optionB: state.optionB,
+      optionA: inQuestion ? state.optionA : undefined,
+      optionB: inQuestion ? state.optionB : undefined,
       correctIndex: showReveal && state.mode === "quiz" ? state.correctIndex : undefined,
       correctYear: showReveal && state.mode === "timeline" ? state.correctYear : undefined,
       playerAnswers: showReveal ? buildTriviaPlayerAnswers(state) : undefined,

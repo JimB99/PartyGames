@@ -9,6 +9,9 @@ export type ClientMessage =
   | { type: "set_game_options"; gameId: GameId; options: GameOptions }
   | { type: "start_game" }
   | { type: "return_to_lobby" }
+  | { type: "pause_game" }
+  | { type: "resume_game" }
+  | { type: "extend_timer"; extraMs: number }
   | { type: "player_action"; action: GameAction }
   | { type: "host_action"; action: GameAction }
   | { type: "ping" };
@@ -43,6 +46,7 @@ export type ServerMessage =
 export interface RoomSnapshot {
   roomId: string;
   phase: "lobby" | "playing" | "ended";
+  paused: boolean;
   players: Array<{
     id: string;
     nickname: string;

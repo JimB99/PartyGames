@@ -15,15 +15,18 @@ export const fibbageGame: GameModule<BluffState> = {
     id: "fibbage",
     name: "Fact Check",
     description: "Submit lies, vote for the truth",
-    scoringRules: "+1000 for voting the real answer; +500 to the author of a lie you voted for.",
+    scoringRules: "+1000 for voting the real answer (ranked by speed when enabled); +500 to fool a voter.",
     minPlayers: 2,
     maxPlayers: 16,
     category: "social",
     supportsDifficulty: true,
     supportsMatureContent: true,
+    supportsSpeedScoring: true,
   },
   init(ctx) {
-    return createBluffState("fibbage", fibbagePool(ctx.gameOptions));
+    const state = createBluffState("fibbage", fibbagePool(ctx.gameOptions), 5, ctx.playerIds.length);
+    state.gameOptions = ctx.gameOptions;
+    return state;
   },
   onPlayerAction(state, playerId, action, ctx) {
     return onBluffAction(state, playerId, action, ctx);
@@ -32,7 +35,7 @@ export const fibbageGame: GameModule<BluffState> = {
     return onBluffAction(state, "host", action, ctx);
   },
   onTick(state) {
-    return onBluffTick(state);
+    return onBluffTick(state, undefined, state.gameOptions);
   },
   needsTick(state) {
     return state.phase !== "ended";

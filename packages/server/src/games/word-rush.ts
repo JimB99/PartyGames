@@ -15,12 +15,13 @@ export const wordRushGame: GameModule<WordRushState> = {
     id: "word-rush",
     name: "Word Rush",
     description: "Race to type words from random letters",
-    scoringRules: "Valid words score word length × 100 points.",
+    scoringRules: "Valid words score length × 100; with speed scoring, fastest valid words rank higher.",
     minPlayers: 2,
     maxPlayers: 16,
     category: "action",
     supportsDifficulty: true,
     supportsMatureContent: false,
+    supportsSpeedScoring: true,
   },
   init(ctx) {
     const dictionary = dictionaryForWordRush(ctx.gameOptions);
@@ -30,7 +31,9 @@ export const wordRushGame: GameModule<WordRushState> = {
         : ctx.gameOptions.difficulty === "hard"
           ? 6
           : 4;
-    return createWordRushState(3, dictionary, minWordLength);
+    const state = createWordRushState(3, dictionary, minWordLength, ctx.playerIds.length);
+    state.gameOptions = ctx.gameOptions;
+    return state;
   },
   onPlayerAction(state, playerId, action, ctx) {
     return onWordRushAction(state, playerId, action, ctx);

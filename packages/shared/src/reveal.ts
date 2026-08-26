@@ -13,6 +13,7 @@ export interface PlayerAnswerReveal {
   detail?: string;
   correct?: boolean;
   points?: number;
+  rankPlace?: number;
 }
 
 export function votersByOption(votes: Record<string, string>): Record<string, string[]> {

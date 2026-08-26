@@ -16,6 +16,8 @@ export interface LobbyState {
   sessionScores: Record<string, number>;
   gameOptionsByGame: Partial<Record<GameId, GameOptions>>;
   disconnectTimers: Map<string, ReturnType<typeof setTimeout>>;
+  paused: boolean;
+  pausedAt: number | null;
 }
 
 export function createLobby(roomId: string): LobbyState {
@@ -27,6 +29,8 @@ export function createLobby(roomId: string): LobbyState {
     sessionScores: {},
     gameOptionsByGame: {},
     disconnectTimers: new Map(),
+    paused: false,
+    pausedAt: null,
   };
 }
 

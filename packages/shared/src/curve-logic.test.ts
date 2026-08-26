@@ -1,12 +1,16 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 import {
+  ARENA_H,
+  ARENA_W,
   checkTrailCollisions,
   collectPickups,
   createCurveState,
   detonateGrenade,
+  fireWeapon,
   movePlayer,
   tickCurveState,
+  tickPlayerEffects,
   tryJump,
   wrapThroughHole,
   type CurveState,
@@ -34,19 +38,37 @@ describe("curve-logic collision", () => {
     assert.equal(state.players[0].alive, true);
   });
 
-  it("jump passes over own trail segment", () => {
+  it("does not kill player when steering after a straight run", () => {
     const state = playingState(["a"]);
     const p = state.players[0];
-    p.trail = [
-      { x: 100, y: 100 },
-      { x: 200, y: 100 },
-      { x: 300, y: 100 },
-    ];
-    p.x = 200;
-    p.y = 95;
-    p.jumpTicksRemaining = 10;
+    for (let i = 0; i < 30; i++) {
+      movePlayer(p, 0.08);
+      checkTrailCollisions(state);
+    }
+    p.direction = "left";
+    movePlayer(p, 0.08);
     checkTrailCollisions(state);
     assert.equal(p.alive, true);
+  });
+
+  it("still kills on a tight loop back into older trail", () => {
+    const state = playingState(["a"]);
+    const p = state.players[0];
+    for (let i = 0; i < 50; i++) {
+      movePlayer(p, 0.08);
+      checkTrailCollisions(state);
+    }
+    p.direction = "left";
+    let died = false;
+    for (let i = 0; i < 90; i++) {
+      movePlayer(p, 0.08);
+      checkTrailCollisions(state);
+      if (!p.alive) {
+        died = true;
+        break;
+      }
+    }
+    assert.equal(died, true);
   });
 });
 
@@ -101,13 +123,72 @@ describe("curve-logic grenade", () => {
 describe("curve-logic wall holes", () => {
   it("wraps player to opposite edge through top hole", () => {
     const hole = { edge: "top" as const, start: 100, length: 80 };
-    const wrapped = wrapThroughHole(140, 3, hole, 800, 600);
-    assert.equal(wrapped.y, 600 - 5 - 10);
+    const wrapped = wrapThroughHole(140, 3, hole, ARENA_W, ARENA_H);
+    assert.equal(wrapped.y, ARENA_H - 5 - 10);
     assert.equal(wrapped.x, 140);
   });
 });
 
+describe("curve-logic arena", () => {
+  it("uses a larger playfield", () => {
+    const state = createCurveState(["a"], [], {}, DEFAULT_TRAIL_DASH_OPTIONS);
+    assert.equal(state.width, ARENA_W);
+    assert.equal(state.height, ARENA_H);
+    assert.ok(state.width > 800);
+    assert.ok(state.height > 600);
+  });
+});
+
+describe("curve-logic trail breaks", () => {
+  it("jump leaves a gap in the trail", () => {
+    const state = playingState(["a"]);
+    const p = state.players[0];
+    for (let i = 0; i < 10; i++) movePlayer(p, 0.08);
+    tryJump(p);
+    for (let i = 0; i < 15 + 5; i++) {
+      tickPlayerEffects(p);
+      movePlayer(p, 0.08);
+    }
+    assert.ok(p.trail.some((pt) => pt.break));
+    const parts: typeof p.trail[] = [];
+    let current: typeof p.trail = [];
+    for (const pt of p.trail) {
+      if (pt.break) {
+        if (current.length) parts.push(current);
+        current = [];
+        continue;
+      }
+      current.push(pt);
+    }
+    if (current.length) parts.push(current);
+    assert.equal(parts.length, 2);
+  });
+
+  it("burst fires five missiles", () => {
+    const state = playingState(["a"]);
+    const p = state.players[0];
+    p.heldPowerUp = "burst";
+    assert.equal(fireWeapon(state, p), true);
+    assert.equal(state.projectiles.length, 5);
+  });
+});
+
 describe("curve-logic jump", () => {
+  it("jump passes over own trail segment", () => {
+    const state = playingState(["a"]);
+    const p = state.players[0];
+    p.trail = [
+      { x: 100, y: 100 },
+      { x: 200, y: 100 },
+      { x: 300, y: 100 },
+    ];
+    p.x = 200;
+    p.y = 95;
+    p.jumpTicksRemaining = 10;
+    checkTrailCollisions(state);
+    assert.equal(p.alive, true);
+  });
+
   it("respects cooldown", () => {
     const state = playingState(["a"]);
     const p = state.players[0];

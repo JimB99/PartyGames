@@ -1,92 +1,309 @@
 import {
+
   DEFAULT_GAME_OPTIONS,
+
+  DEFAULT_TIMELINE_PTS_PER_YEAR_OFF,
+
+  TIMELINE_PTS_PER_YEAR_MAX,
+
   type DifficultySetting,
+
   type GameId,
+
   type GameMeta,
+
   type GameOptions,
+
+  type QuestionDisplayMode,
+
+  type SpeedScoringMode,
+
 } from "@party-games/shared";
 
+
+
 export function GameOptionsPanel({
+
   game,
+
   options,
+
   onChange,
+
 }: {
+
   game: GameMeta;
+
   options: GameOptions;
+
   onChange: (options: GameOptions) => void;
+
 }) {
-  if (!game.supportsDifficulty && !game.supportsMatureContent) {
+
+  if (
+    !game.supportsDifficulty &&
+    !game.supportsMatureContent &&
+    !game.supportsQuestionDisplay &&
+    !game.supportsTimelinePtsPerYear &&
+    !game.supportsSpeedScoring
+  ) {
+
     return null;
+
   }
 
+
+
   return (
+
     <div className="rounded-2xl border border-zinc-700 bg-zinc-800/40 p-4 space-y-4">
+
       <h3 className="text-sm font-semibold uppercase tracking-wide text-zinc-400">Game options</h3>
 
+
+
       {game.supportsMatureContent && (
+
         <div className="flex items-center justify-between gap-4">
+
           <span className="text-zinc-300">Content</span>
+
           <div className="flex rounded-xl bg-zinc-900 p-1">
+
             <RatingButton
+
               label="Family"
+
               active={options.contentRating === "family"}
+
               onClick={() => onChange({ ...options, contentRating: "family" })}
+
             />
+
             <RatingButton
+
               label="18+"
+
               active={options.contentRating === "mature"}
+
               onClick={() => onChange({ ...options, contentRating: "mature" })}
+
             />
+
           </div>
+
         </div>
+
       )}
+
+
 
       {game.supportsDifficulty && (
+
         <div className="flex items-center justify-between gap-4">
+
           <span className="text-zinc-300">Difficulty</span>
+
           <select
+
             className="rounded-lg border border-zinc-600 bg-zinc-900 px-3 py-2 text-sm"
+
             value={options.difficulty}
+
             onChange={(e) =>
+
               onChange({ ...options, difficulty: e.target.value as DifficultySetting })
+
             }
+
           >
+
             <option value="mixed">Mixed</option>
+
             <option value="easy">Easy</option>
+
             <option value="medium">Medium</option>
+
             <option value="hard">Hard</option>
+
           </select>
+
+        </div>
+
+      )}
+
+
+
+      {game.supportsQuestionDisplay && (
+
+        <div className="flex items-center justify-between gap-4">
+
+          <span className="text-zinc-300">TV display</span>
+
+          <select
+
+            className="rounded-lg border border-zinc-600 bg-zinc-900 px-3 py-2 text-sm"
+
+            value={options.questionDisplay ?? "tv_prompt_only"}
+
+            onChange={(e) =>
+
+              onChange({ ...options, questionDisplay: e.target.value as QuestionDisplayMode })
+
+            }
+
+          >
+
+            <option value="tv_prompt_only">Question only on TV</option>
+
+            <option value="tv_full">Show answers on TV too</option>
+
+          </select>
+
+        </div>
+
+      )}
+
+
+
+      {game.supportsTimelinePtsPerYear && (
+
+        <div className="space-y-2">
+
+          <div className="flex items-center justify-between gap-4">
+
+            <span className="text-zinc-300">Pts per year off</span>
+
+            <span className="text-sm text-zinc-400">
+
+              {(options.timelinePtsPerYearOff ?? DEFAULT_TIMELINE_PTS_PER_YEAR_OFF) >= TIMELINE_PTS_PER_YEAR_MAX
+
+                ? "All (exact year only)"
+
+                : `${options.timelinePtsPerYearOff ?? DEFAULT_TIMELINE_PTS_PER_YEAR_OFF} pts/year`}
+
+            </span>
+
+          </div>
+
+          <input
+
+            type="range"
+
+            min={1}
+
+            max={TIMELINE_PTS_PER_YEAR_MAX}
+
+            step={1}
+
+            value={options.timelinePtsPerYearOff ?? DEFAULT_TIMELINE_PTS_PER_YEAR_OFF}
+
+            onChange={(e) =>
+
+              onChange({ ...options, timelinePtsPerYearOff: Number(e.target.value) })
+
+            }
+
+            className="w-full"
+
+          />
+
+        </div>
+
+      )}
+
+
+
+      {game.supportsSpeedScoring && (
+        <div className="flex items-center justify-between gap-4">
+
+          <span className="text-zinc-300">Speed scoring</span>
+
+          <select
+
+            className="rounded-lg border border-zinc-600 bg-zinc-900 px-3 py-2 text-sm"
+
+            value={options.speedScoring ?? "bonus"}
+
+            onChange={(e) =>
+
+              onChange({ ...options, speedScoring: e.target.value as SpeedScoringMode })
+
+            }
+
+          >
+
+            <option value="bonus">Rank by speed</option>
+
+            <option value="off">Off (flat points)</option>
+
+          </select>
+
         </div>
       )}
+
     </div>
+
   );
+
 }
+
+
 
 function RatingButton({
+
   label,
+
   active,
+
   onClick,
+
 }: {
+
   label: string;
+
   active: boolean;
+
   onClick: () => void;
+
 }) {
+
   return (
+
     <button
+
       type="button"
+
       onClick={onClick}
+
       className={`rounded-lg px-4 py-2 text-sm font-semibold transition ${
+
         active ? "bg-violet-600 text-white" : "text-zinc-400 hover:text-white"
+
       }`}
+
     >
+
       {label}
+
     </button>
+
   );
+
 }
 
+
+
 export function resolveGameOptions(
+
   gameId: GameId,
+
   gameOptionsByGame: Partial<Record<GameId, GameOptions>>,
+
 ): GameOptions {
+
   return gameOptionsByGame[gameId] ?? DEFAULT_GAME_OPTIONS;
+
 }
+
+

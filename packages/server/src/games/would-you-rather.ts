@@ -21,9 +21,13 @@ export const wouldYouRatherGame: GameModule<TriviaState> = {
     category: "social",
     supportsDifficulty: true,
     supportsMatureContent: true,
+    supportsSpeedScoring: true,
+    supportsQuestionDisplay: true,
   },
   init(ctx) {
-    return createTriviaState("would-you-rather", wouldYouRatherPool(ctx.gameOptions), 10);
+    const state = createTriviaState("would-you-rather", wouldYouRatherPool(ctx.gameOptions), 10, ctx.playerIds.length);
+    state.gameOptions = ctx.gameOptions;
+    return state;
   },
   onPlayerAction(state, playerId, action, ctx) {
     return onTriviaAction(state, playerId, action, ctx);
@@ -32,14 +36,14 @@ export const wouldYouRatherGame: GameModule<TriviaState> = {
     return onTriviaAction(state, "host", action, ctx);
   },
   onTick(state) {
-    return onTriviaTick(state);
+    return onTriviaTick(state, state.itemsPool, state.gameOptions);
   },
   needsTick(state) {
     return state.phase !== "ended";
   },
   tickIntervalMs: 500,
   getHostView(state) {
-    return triviaHostView(state);
+    return triviaHostView(state, state.gameOptions);
   },
   getPlayerView(state, playerId) {
     return triviaPlayerView(state, playerId);

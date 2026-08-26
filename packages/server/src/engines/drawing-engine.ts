@@ -1,4 +1,4 @@
-import { pickRandom, shuffle, uniqueId, type GameAction, type RoomContext } from "@party-games/shared";
+import { pickRandom, shuffle, uniqueId, isSpeedScoringEnabled, scoreByAnswerRank, type GameAction, type GameOptions, type RoomContext } from "@party-games/shared";
 
 export type DrawPhase = "instructions" | "drawing" | "guessing" | "reveal" | "scoreboard" | "ended";
 
@@ -17,10 +17,13 @@ export interface DrawState {
   word: string;
   strokes: Stroke[];
   guesses: Record<string, string>;
+  guessTimes: Record<string, number>;
+  guessPhaseStartedAt: number | null;
   correctGuessers: string[];
   roundScores: Record<string, number>;
   usedWords: string[];
   wordsPool: string[];
+  gameOptions?: GameOptions;
 }
 
 const DRAW_MS = 60000;
@@ -40,6 +43,8 @@ export function createDrawState(words: string[], playerIds: string[], maxRounds?
     word,
     strokes: [],
     guesses: {},
+    guessTimes: {},
+    guessPhaseStartedAt: null,
     correctGuessers: [],
     roundScores: {},
     usedWords: [word],
@@ -58,11 +63,13 @@ export function advanceDraw(state: DrawState, words: string[], playerIds: string
   }
   if (state.phase === "drawing") {
     state.phase = "guessing";
-    state.timerEndsAt = Date.now() + GUESS_MS;
+    state.guessPhaseStartedAt = Date.now();
+    state.timerEndsAt = state.guessPhaseStartedAt + GUESS_MS;
+    state.guessTimes = {};
     return state;
   }
   if (state.phase === "guessing") {
-    scoreDraw(state, playerIds);
+    scoreDraw(state, playerIds, state.gameOptions);
     state.phase = "reveal";
     state.timerEndsAt = Date.now() + REVEAL_MS;
     return state;
@@ -91,18 +98,33 @@ export function advanceDraw(state: DrawState, words: string[], playerIds: string
   return state;
 }
 
-function scoreDraw(state: DrawState, playerIds: string[]) {
+function scoreDraw(state: DrawState, playerIds: string[], gameOptions?: GameOptions) {
   const drawerId = playerIds[state.drawerIndex];
   state.roundScores = {};
   const normalizedWord = state.word.toLowerCase().trim();
   const seen = new Set<string>();
+  const speedOn = gameOptions ? isSpeedScoringEnabled(gameOptions) : false;
+  const correctEntries: Array<{ playerId: string; answeredAt: number }> = [];
+
   for (const [playerId, guess] of Object.entries(state.guesses)) {
     if (playerId === drawerId) continue;
     const g = guess.toLowerCase().trim();
     if (g === normalizedWord && !seen.has(g)) {
       seen.add(g);
       state.correctGuessers.push(playerId);
-      state.roundScores[playerId] = 500;
+      if (speedOn && state.guessTimes[playerId] !== undefined) {
+        correctEntries.push({ playerId, answeredAt: state.guessTimes[playerId] });
+      } else if (!speedOn) {
+        state.roundScores[playerId] = 500;
+        state.roundScores[drawerId] = (state.roundScores[drawerId] ?? 0) + 250;
+      }
+    }
+  }
+
+  if (speedOn && correctEntries.length > 0) {
+    const ranked = scoreByAnswerRank(correctEntries, Math.max(1, playerIds.length), 0.5);
+    for (const [playerId, score] of Object.entries(ranked)) {
+      state.roundScores[playerId] = score.points;
       state.roundScores[drawerId] = (state.roundScores[drawerId] ?? 0) + 250;
     }
   }
@@ -122,10 +144,17 @@ export function onDrawAction(
     state.strokes = [];
   }
   if (action.kind === "submit_text" && state.phase === "guessing" && playerId !== drawerId) {
-    state.guesses[playerId] = action.text.slice(0, 60);
+    if (state.guesses[playerId] === undefined) {
+      state.guesses[playerId] = action.text.slice(0, 60);
+      state.guessTimes[playerId] = Date.now();
+    }
     const normalizedWord = state.word.toLowerCase().trim();
     if (action.text.toLowerCase().trim() === normalizedWord) {
-      return advanceDraw(state, [], ctx.playerIds);
+      scoreDraw(state, ctx.playerIds, ctx.gameOptions);
+      state.phase = "reveal";
+      state.timerEndsAt = Date.now() + REVEAL_MS;
+      state.guessPhaseStartedAt = null;
+      return state;
     }
   }
   if (action.kind === "advance" && state.phase === "instructions") {
