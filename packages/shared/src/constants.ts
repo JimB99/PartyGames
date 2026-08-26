@@ -28,6 +28,7 @@ export interface GameMeta {
   category: GameCategory;
   supportsDifficulty?: boolean;
   supportsMatureContent?: boolean;
+  supportsTrailDashOptions?: boolean;
 }
 
 export const ALL_GAME_IDS = [

@@ -1,6 +1,11 @@
 import type { GameModule } from "@party-games/shared";
 import {
-  createCurveState,
+  createBotIds,
+  createBotNames,
+  resolveTrailDashOptions,
+} from "@party-games/shared";
+import {
+  createCurveGameState,
   curveHostView,
   curvePlayerView,
   onCurveAction,
@@ -14,15 +19,20 @@ export const curveFeverGame: GameModule<CurveState> = {
     id: "curve-fever",
     name: "Trail Dash",
     description: "Don't crash your trail — last alive wins",
-    scoringRules: "+1000 for winning each round (last player alive).",
-    minPlayers: 2,
+    scoringRules:
+      "Rank points by survival (last alive = most). Collect coins for bonus points. Power-ups: speed, gap, shrink, missile, grenade.",
+    minPlayers: 1,
     maxPlayers: 8,
     category: "action",
-    supportsDifficulty: false,
+    supportsDifficulty: true,
     supportsMatureContent: false,
+    supportsTrailDashOptions: true,
   },
   init(ctx) {
-    return createCurveState(ctx.playerIds);
+    const options = resolveTrailDashOptions(ctx.gameOptions);
+    const botIds = createBotIds(options.botCount);
+    const botNames = createBotNames(botIds);
+    return createCurveGameState(ctx.playerIds, botIds, botNames, options);
   },
   onPlayerAction(state, playerId, action) {
     return onCurveAction(state, playerId, action);
@@ -31,7 +41,9 @@ export const curveFeverGame: GameModule<CurveState> = {
     return onCurveAction(state, "host", action);
   },
   onTick(state) {
-    return onCurveTick(state, state.players.map((p) => p.id));
+    const botIds = state.players.filter((p) => p.isBot).map((p) => p.id);
+    const humanIds = state.players.filter((p) => !p.isBot).map((p) => p.id);
+    return onCurveTick(state, humanIds, botIds);
   },
   needsTick(state) {
     return state.phase !== "ended";

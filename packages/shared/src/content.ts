@@ -2,6 +2,8 @@ export type ContentRating = "family" | "mature";
 export type Difficulty = "easy" | "medium" | "hard";
 export type DifficultySetting = Difficulty | "mixed";
 
+export type { PowerUpMode, TrailDashOptions } from "./trail-dash-options.js";
+
 export interface ContentMeta {
   rating?: ContentRating;
   difficulty?: Difficulty;
@@ -10,8 +12,8 @@ export interface ContentMeta {
 export interface GameOptions {
   contentRating: ContentRating;
   difficulty: DifficultySetting;
+  trailDash?: Partial<import("./trail-dash-options.js").TrailDashOptions>;
 }
-
 export const DEFAULT_GAME_OPTIONS: GameOptions = {
   contentRating: "family",
   difficulty: "mixed",

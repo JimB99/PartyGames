@@ -1,6 +1,7 @@
-import { GamePicker } from "../components/GamePicker";
+import { GamePicker, effectivePlayerCount } from "../components/GamePicker";
 import { GameOptionsPanel, resolveGameOptions } from "../components/GameOptionsPanel";
 import { HostGameView } from "../components/GameViews";
+import { TrailDashOptionsPanel } from "../components/TrailDashOptionsPanel";
 import { PlayerList } from "../components/PlayerList";
 import { RoomCodeDisplay } from "../components/RoomCodeDisplay";
 import { Scoreboard } from "../components/Scoreboard";
@@ -30,6 +31,16 @@ export function HostPage() {
 
   const playing = roomState?.phase === "playing";
   const connectedPlayers = roomState?.players.filter((p) => p.connected) ?? [];
+  const canStart =
+    roomState?.selectedGameId &&
+    connectedPlayers.length > 0 &&
+    (roomState.selectedGameId === "curve-fever"
+      ? effectivePlayerCount(
+          roomState.games.find((g) => g.id === "curve-fever")!,
+          connectedPlayers.length,
+          roomState.gameOptionsByGame,
+        ) >= 2
+      : connectedPlayers.length >= (selectedGame?.minPlayers ?? 1));
 
   return (
     <div className="min-h-dvh bg-[#0f1117]">
@@ -56,6 +67,7 @@ export function HostPage() {
               games={roomState.games}
               selectedId={roomState.selectedGameId}
               playerCount={connectedPlayers.length}
+              gameOptionsByGame={roomState.gameOptionsByGame}
               onSelect={selectGame}
             />
             {selectedGame && selectedOptions && (
@@ -69,9 +81,19 @@ export function HostPage() {
                 }}
               />
             )}
+            {selectedGame?.supportsTrailDashOptions && selectedOptions && (
+              <TrailDashOptionsPanel
+                options={selectedOptions}
+                onChange={(options) => {
+                  if (roomState.selectedGameId) {
+                    setGameOptions(roomState.selectedGameId, options);
+                  }
+                }}
+              />
+            )}
             <button
               type="button"
-              disabled={!roomState.selectedGameId || connectedPlayers.length === 0}
+              disabled={!canStart}
               onClick={startGame}
               className="w-full rounded-2xl bg-violet-600 py-5 text-xl font-bold hover:bg-violet-500 disabled:opacity-40"
             >

@@ -1,141 +1,30 @@
-import { pickRandom, type GameAction, type RoomContext } from "@party-games/shared";
+import type { GameAction } from "@party-games/shared";
+import {
+  createCurveState,
+  fireWeapon,
+  resetCurveRound,
+  tickCurveState,
+  tryJump,
+  type CurveState,
+} from "@party-games/shared";
+import type { TrailDashOptions } from "@party-games/shared";
+import { tickBots } from "./curve-bot.js";
 
-export type CurvePhase = "instructions" | "playing" | "round_end" | "ended";
+export type { CurveState } from "@party-games/shared";
 
-export interface CurvePlayer {
-  id: string;
-  x: number;
-  y: number;
-  angle: number;
-  alive: boolean;
-  direction: "left" | "right" | "none";
-  trail: Array<{ x: number; y: number }>;
-  colorIndex: number;
+export function createCurveGameState(
+  humanIds: string[],
+  botIds: string[],
+  botNames: Record<string, string>,
+  options: TrailDashOptions,
+): CurveState {
+  return createCurveState(humanIds, botIds, botNames, options);
 }
 
-export interface CurveState {
-  phase: CurvePhase;
-  round: number;
-  maxRounds: number;
-  timerEndsAt: number | null;
-  width: number;
-  height: number;
-  players: CurvePlayer[];
-  roundScores: Record<string, number>;
-  roundWinner?: string;
-}
-
-const ARENA_W = 800;
-const ARENA_H = 600;
-const SPEED = 3;
-const TURN_SPEED = 0.08;
-const ROUND_MS = 90000;
-
-export function createCurveState(playerIds: string[]): CurveState {
-  const positions = [
-    { x: 100, y: 100, angle: 0 },
-    { x: ARENA_W - 100, y: 100, angle: Math.PI },
-    { x: 100, y: ARENA_H - 100, angle: 0 },
-    { x: ARENA_W - 100, y: ARENA_H - 100, angle: Math.PI },
-    { x: ARENA_W / 2, y: 100, angle: Math.PI / 2 },
-    { x: ARENA_W / 2, y: ARENA_H - 100, angle: -Math.PI / 2 },
-    { x: 100, y: ARENA_H / 2, angle: 0 },
-    { x: ARENA_W - 100, y: ARENA_H / 2, angle: Math.PI },
-  ];
-  const players: CurvePlayer[] = playerIds.map((id, i) => ({
-    id,
-    x: positions[i % positions.length].x,
-    y: positions[i % positions.length].y,
-    angle: positions[i % positions.length].angle,
-    alive: true,
-    direction: "none" as const,
-    trail: [{ x: positions[i % positions.length].x, y: positions[i % positions.length].y }],
-    colorIndex: i,
-  }));
-  return {
-    phase: "instructions",
-    round: 1,
-    maxRounds: 3,
-    timerEndsAt: Date.now() + 5000,
-    width: ARENA_W,
-    height: ARENA_H,
-    players,
-    roundScores: {},
-  };
-}
-
-function dist(ax: number, ay: number, bx: number, by: number) {
-  return Math.hypot(ax - bx, ay - by);
-}
-
-function segmentHit(
-  px: number, py: number,
-  ax: number, ay: number,
-  bx: number, by: number,
-  threshold = 4,
-): boolean {
-  const dx = bx - ax;
-  const dy = by - ay;
-  const len = Math.hypot(dx, dy);
-  if (len < 1) return dist(px, py, ax, ay) < threshold;
-  const t = Math.max(0, Math.min(1, ((px - ax) * dx + (py - ay) * dy) / (len * len)));
-  const cx = ax + t * dx;
-  const cy = ay + t * dy;
-  return dist(px, py, cx, cy) < threshold;
-}
-
-function checkCollisions(state: CurveState) {
-  for (const p of state.players) {
-    if (!p.alive) continue;
-    if (p.x < 5 || p.x > state.width - 5 || p.y < 5 || p.y > state.height - 5) {
-      p.alive = false;
-      continue;
-    }
-    for (const other of state.players) {
-      const trail = other.trail;
-      for (let i = 1; i < trail.length; i++) {
-        if (segmentHit(p.x, p.y, trail[i - 1].x, trail[i - 1].y, trail[i].x, trail[i].y)) {
-          p.alive = false;
-          break;
-        }
-      }
-      if (!p.alive) break;
-    }
-  }
-}
-
-export function tickCurve(state: CurveState): CurveState {
-  if (state.phase !== "playing") return state;
-
-  for (const p of state.players) {
-    if (!p.alive) continue;
-    if (p.direction === "left") p.angle -= TURN_SPEED;
-    if (p.direction === "right") p.angle += TURN_SPEED;
-    p.x += Math.cos(p.angle) * SPEED;
-    p.y += Math.sin(p.angle) * SPEED;
-    const last = p.trail[p.trail.length - 1];
-    if (!last || dist(last.x, last.y, p.x, p.y) > 3) {
-      p.trail.push({ x: p.x, y: p.y });
-    }
-  }
-  checkCollisions(state);
-
-  const alive = state.players.filter((p) => p.alive);
-  if (alive.length <= 1 || (state.timerEndsAt && Date.now() >= state.timerEndsAt)) {
-    state.roundWinner = alive[0]?.id;
-    if (state.roundWinner) {
-      state.roundScores[state.roundWinner] = (state.roundScores[state.roundWinner] ?? 0) + 1000;
-    }
-    state.phase = "round_end";
-    state.timerEndsAt = Date.now() + 5000;
-  }
-  return state;
-}
-
-export function advanceCurve(state: CurveState, playerIds: string[]): CurveState {
+export function advanceCurve(state: CurveState, playerIds: string[], botIds: string[]): CurveState {
   if (state.phase === "instructions") {
     state.phase = "playing";
-    state.timerEndsAt = Date.now() + ROUND_MS;
+    state.timerEndsAt = Date.now() + state.options.roundTimeSec * 1000;
     for (const p of state.players) p.direction = "none";
     return state;
   }
@@ -146,17 +35,11 @@ export function advanceCurve(state: CurveState, playerIds: string[]): CurveState
       return state;
     }
     state.round += 1;
-    return resetCurveRound(state, playerIds);
+    const fresh = resetCurveRound(state, playerIds, botIds);
+    fresh.round = state.round;
+    fresh.maxRounds = state.maxRounds;
+    return fresh;
   }
-  return state;
-}
-
-function resetCurveRound(state: CurveState, playerIds: string[]): CurveState {
-  const fresh = createCurveState(playerIds);
-  state.players = fresh.players;
-  state.phase = "instructions";
-  state.timerEndsAt = Date.now() + 5000;
-  state.roundWinner = undefined;
   return state;
 }
 
@@ -165,23 +48,36 @@ export function onCurveAction(state: CurveState, playerId: string, action: GameA
     const p = state.players.find((pl) => pl.id === playerId);
     if (p?.alive) p.direction = action.direction;
   }
+  if (action.kind === "curve_jump" && state.phase === "playing") {
+    const p = state.players.find((pl) => pl.id === playerId);
+    if (p) tryJump(p);
+  }
+  if (action.kind === "curve_fire" && state.phase === "playing") {
+    const p = state.players.find((pl) => pl.id === playerId);
+    if (p) fireWeapon(state, p);
+  }
   if (action.kind === "advance" && state.phase === "instructions") {
-    return advanceCurve(state, state.players.map((p) => p.id));
+    const botIds = state.players.filter((p) => p.isBot).map((p) => p.id);
+    const humanIds = state.players.filter((p) => !p.isBot).map((p) => p.id);
+    return advanceCurve(state, humanIds, botIds);
   }
   if (action.kind === "advance" && state.phase === "round_end") {
-    return advanceCurve(state, state.players.map((p) => p.id));
+    const botIds = state.players.filter((p) => p.isBot).map((p) => p.id);
+    const humanIds = state.players.filter((p) => !p.isBot).map((p) => p.id);
+    return advanceCurve(state, humanIds, botIds);
   }
   return state;
 }
 
-export function onCurveTick(state: CurveState, playerIds: string[]): CurveState {
+export function onCurveTick(state: CurveState, playerIds: string[], botIds: string[]): CurveState {
   if (state.phase === "playing") {
-    tickCurve(state);
+    tickBots(state);
+    tickCurveState(state);
     return state;
   }
   if (state.timerEndsAt && Date.now() >= state.timerEndsAt) {
     if (state.phase === "instructions" || state.phase === "round_end") {
-      return advanceCurve(state, playerIds);
+      return advanceCurve(state, playerIds, botIds);
     }
   }
   return state;
@@ -204,9 +100,20 @@ export function curveHostView(state: CurveState) {
         alive: p.alive,
         trail: p.trail,
         colorIndex: p.colorIndex,
+        jumpTicksRemaining: p.jumpTicksRemaining,
+        heldPowerUp: p.heldPowerUp,
+        coinsThisRound: p.coinsThisRound,
+        deathRank: p.deathRank,
       })),
+      coins: state.coins,
+      powerUps: state.powerUps,
+      projectiles: state.projectiles,
+      explosions: state.explosions,
+      wallHoles: state.wallHoles,
+      botNames: state.botNames,
       roundWinner: state.roundWinner,
       roundScores: state.roundScores,
+      deathOrder: state.deathOrder,
     },
   };
 }
@@ -223,6 +130,10 @@ export function curvePlayerView(state: CurveState, playerId: string) {
     },
     playerData: {
       isAlive: p?.alive,
+      jumpCooldown: p?.jumpCooldownTicks ?? 0,
+      heldPowerUp: p?.heldPowerUp ?? null,
+      coinsThisRound: p?.coinsThisRound ?? 0,
+      canFire: Boolean(p?.heldPowerUp === "missile" || p?.heldPowerUp === "grenade"),
     },
   };
 }

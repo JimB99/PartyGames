@@ -9,6 +9,7 @@ import {
   type RoomSnapshot,
   type ServerMessage,
   uniqueId,
+  resolveTrailDashOptions,
 } from "@party-games/shared";
 import {
   Server,
@@ -174,7 +175,25 @@ export class RoomServer extends Server {
     if (!game) return;
 
     const ctx = this.getRoomContext();
-    if (ctx.playerIds.length < game.meta.minPlayers) {
+
+    if (gameId === "curve-fever") {
+      const opts = resolveTrailDashOptions(getGameOptions(this.lobby, gameId));
+      const total = ctx.playerIds.length + opts.botCount;
+      if (total < 2) {
+        this.sendToHost({
+          type: "error",
+          message: "Need at least 2 players total (humans + bots)",
+        });
+        return;
+      }
+      if (total > 8) {
+        this.sendToHost({
+          type: "error",
+          message: "Maximum 8 players total (humans + bots)",
+        });
+        return;
+      }
+    } else if (ctx.playerIds.length < game.meta.minPlayers) {
       this.sendToHost({
         type: "error",
         message: `Need at least ${game.meta.minPlayers} players`,

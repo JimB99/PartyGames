@@ -26,6 +26,8 @@ export type GameAction =
   | { kind: "impostor_task"; result: "success" | "fail" }
   | { kind: "impostor_eject"; targetId: string }
   | { kind: "curve_turn"; direction: "left" | "right" | "none" }
+  | { kind: "curve_jump" }
+  | { kind: "curve_fire" }
   | { kind: "charades_correct" }
   | { kind: "charades_skip" }
   | { kind: "hot_seat_pick"; submissionId: string }

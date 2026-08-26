@@ -1,6 +1,7 @@
 import type { DikeRevealEntry, HostViewSnapshot, PlayerAnswerReveal, PlayerViewSnapshot, RevealEntry, RoomSnapshot } from "@party-games/shared";
 import { useState } from "react";
-import { playerColor } from "../hooks/usePartyRoom";
+import { CurveArena } from "./CurveArena";
+import { CurvePlayerControls } from "./CurvePlayerControls";
 import { RevealBreakdown, ScoringRulesPanel } from "./RevealBreakdown";
 import { RoundScorePanel } from "./RoundScorePanel";
 import { TimerBar } from "./TimerBar";
@@ -255,51 +256,19 @@ export function HostGameView({
           <RoundScorePanel
             room={room}
             roundScores={(data.roundScores as Record<string, number>) ?? {}}
+            extraNames={(data.botNames as Record<string, string>) ?? undefined}
           />
           {data.roundWinner && (
             <p className="text-center text-2xl text-yellow-400">
-              Winner: {room.players.find((p) => p.id === data.roundWinner)?.nickname}
+              Winner:{" "}
+              {room.players.find((p) => p.id === data.roundWinner)?.nickname ??
+                (data.botNames as Record<string, string> | undefined)?.[data.roundWinner as string] ??
+                "—"}
             </p>
           )}
         </>
       )}
     </div>
-  );
-}
-
-function CurveArena({
-  data,
-  room,
-}: {
-  data: Record<string, unknown>;
-  room: RoomSnapshot;
-}) {
-  const width = (data.width as number) ?? 800;
-  const height = (data.height as number) ?? 600;
-  const players = data.players as Array<{
-    id: string;
-    x: number;
-    y: number;
-    trail: Array<{ x: number; y: number }>;
-    alive: boolean;
-    colorIndex: number;
-  }>;
-
-  return (
-    <svg viewBox={`0 0 ${width} ${height}`} className="w-full rounded-2xl bg-zinc-900">
-      {players?.map((p) => {
-        const color = playerColor(p.colorIndex);
-        const pts = p.trail.map((t) => `${t.x},${t.y}`).join(" ");
-        const nickname = room.players.find((pl) => pl.id === p.id)?.nickname ?? "";
-        return (
-          <g key={p.id}>
-            {pts && <polyline points={pts} fill="none" stroke={color} strokeWidth="4" opacity={p.alive ? 1 : 0.3} />}
-            <circle cx={p.x} cy={p.y} r="6" fill={color} />
-            <text x={p.x + 8} y={p.y - 8} fill={color} fontSize="14">{nickname}</text>
-          </g>
-        );
-      })}
-    </svg>
   );
 }
 
@@ -478,10 +447,12 @@ export function PlayerGameView({
       )}
 
       {phase === "playing" && playerView.gameId === "curve-fever" && (
-        <div className="grid grid-cols-2 gap-4">
-          <Btn className="py-12 text-2xl" onClick={() => onAction({ kind: "curve_turn", direction: "left" })}>◀</Btn>
-          <Btn className="py-12 text-2xl" onClick={() => onAction({ kind: "curve_turn", direction: "right" })}>▶</Btn>
-        </div>
+        <CurvePlayerControls
+          onAction={onAction}
+          jumpCooldown={(playerData.jumpCooldown as number) ?? 0}
+          canFire={(playerData.canFire as boolean) ?? false}
+          heldPowerUp={(playerData.heldPowerUp as string | null) ?? null}
+        />
       )}
 
       {phase === "playing" && data.letters && !playerView.gameId.includes("curve") && (
