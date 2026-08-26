@@ -49,7 +49,14 @@ export function HostGameView({
     <div className="mx-auto max-w-5xl space-y-6 p-6">
       <header className="flex items-center justify-between">
         <div>
-          <h2 className="text-3xl font-black">{gameName}</h2>
+          <div className="flex items-center gap-3">
+            <h2 className="text-3xl font-black">{gameName}</h2>
+            {room.activeGameOptions?.contentRating === "mature" && (
+              <span className="rounded-full bg-red-600/90 px-3 py-1 text-sm font-bold uppercase tracking-wide">
+                18+
+              </span>
+            )}
+          </div>
           <p className="text-zinc-400">
             Round {hostView.round}/{hostView.maxRounds} · {phase}
           </p>

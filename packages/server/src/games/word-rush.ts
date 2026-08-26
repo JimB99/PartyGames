@@ -1,5 +1,5 @@
 import type { GameModule } from "@party-games/shared";
-import { content } from "../content.js";
+import { dictionaryForWordRush } from "../content-pool.js";
 import {
   createWordRushState,
   onWordRushAction,
@@ -19,9 +19,18 @@ export const wordRushGame: GameModule<WordRushState> = {
     minPlayers: 2,
     maxPlayers: 16,
     category: "action",
+    supportsDifficulty: true,
+    supportsMatureContent: false,
   },
-  init() {
-    return createWordRushState();
+  init(ctx) {
+    const dictionary = dictionaryForWordRush(ctx.gameOptions);
+    const minWordLength =
+      ctx.gameOptions.difficulty === "easy"
+        ? 3
+        : ctx.gameOptions.difficulty === "hard"
+          ? 6
+          : 4;
+    return createWordRushState(3, dictionary, minWordLength);
   },
   onPlayerAction(state, playerId, action, ctx) {
     return onWordRushAction(state, playerId, action, ctx);
@@ -30,7 +39,7 @@ export const wordRushGame: GameModule<WordRushState> = {
     return onWordRushAction(state, "host", action, ctx);
   },
   onTick(state) {
-    return onWordRushTick(state, content.dictionary);
+    return onWordRushTick(state);
   },
   needsTick(state) {
     return state.phase !== "ended";

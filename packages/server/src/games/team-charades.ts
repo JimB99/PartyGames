@@ -1,5 +1,5 @@
 import { pickRandom, type GameModule } from "@party-games/shared";
-import { content } from "../content.js";
+import { charadesWordPool } from "../content-pool.js";
 
 export type CharadesPhase = "instructions" | "acting" | "reveal" | "scoreboard" | "ended";
 
@@ -15,10 +15,18 @@ export interface CharadesState {
   skipped: number;
   roundScores: Record<string, number>;
   usedWords: string[];
+  wordsPool: string[];
 }
 
 const ACT_MS = 60000;
 const REVEAL_MS = 5000;
+
+function pickCharadesWord(state: CharadesState): string {
+  const available = state.wordsPool.filter((w) => !state.usedWords.includes(w));
+  const word = available.length > 0 ? pickRandom(available) : pickRandom(state.wordsPool);
+  state.usedWords.push(word);
+  return word;
+}
 
 export const teamCharadesGame: GameModule<CharadesState> = {
   meta: {
@@ -29,9 +37,12 @@ export const teamCharadesGame: GameModule<CharadesState> = {
     minPlayers: 3,
     maxPlayers: 12,
     category: "social",
+    supportsDifficulty: true,
+    supportsMatureContent: true,
   },
   init(ctx) {
-    const word = pickRandom(content.charadesWords) as string;
+    const wordsPool = charadesWordPool(ctx.gameOptions);
+    const word = pickRandom(wordsPool);
     return {
       phase: "instructions",
       round: 1,
@@ -44,6 +55,7 @@ export const teamCharadesGame: GameModule<CharadesState> = {
       skipped: 0,
       roundScores: {},
       usedWords: [word],
+      wordsPool,
     };
   },
   onPlayerAction(state, playerId, action, ctx) {
@@ -52,17 +64,11 @@ export const teamCharadesGame: GameModule<CharadesState> = {
     if (action.kind === "charades_correct" && state.phase === "acting") {
       state.correct += 1;
       state.roundScores[playerId] = (state.roundScores[playerId] ?? 0) + 500;
-      const available = content.charadesWords.filter((w) => !state.usedWords.includes(w));
-      const word = available.length > 0 ? pickRandom(available) : pickRandom(content.charadesWords);
-      state.word = word;
-      state.usedWords.push(word);
+      state.word = pickCharadesWord(state);
     }
     if (action.kind === "charades_skip" && state.phase === "acting") {
       state.skipped += 1;
-      const available = content.charadesWords.filter((w) => !state.usedWords.includes(w));
-      const word = available.length > 0 ? pickRandom(available) : pickRandom(content.charadesWords);
-      state.word = word;
-      state.usedWords.push(word);
+      state.word = pickCharadesWord(state);
     }
     return state;
   },
@@ -78,9 +84,7 @@ export const teamCharadesGame: GameModule<CharadesState> = {
       } else {
         state.round += 1;
         state.actorIndex = (state.actorIndex + 1) % ctx.playerIds.length;
-        const available = content.charadesWords.filter((w) => !state.usedWords.includes(w));
-        state.word = available.length > 0 ? pickRandom(available) : pickRandom(content.charadesWords);
-        state.usedWords.push(state.word);
+        state.word = pickCharadesWord(state);
         state.correct = 0;
         state.skipped = 0;
         state.phase = "instructions";

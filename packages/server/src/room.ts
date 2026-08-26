@@ -1,5 +1,6 @@
 import {
   DISCONNECT_GRACE_MS,
+  DEFAULT_GAME_OPTIONS,
   type ClientMessage,
   type ConnectionRole,
   type GameAction,
@@ -19,6 +20,7 @@ import {
   addPlayer,
   createLobby,
   deletePlayer,
+  getGameOptions,
   mergeScores,
   removePlayer,
   type LobbyState,
@@ -91,6 +93,12 @@ export class RoomServer extends Server {
         if (this.isHost(sender)) this.lobby.selectedGameId = message.gameId;
         this.broadcastAll();
         return;
+      case "set_game_options":
+        if (this.isHost(sender)) {
+          this.lobby.gameOptionsByGame[message.gameId] = message.options;
+        }
+        this.broadcastAll();
+        return;
       case "start_game":
         if (this.isHost(sender)) this.startGame();
         return;
@@ -147,10 +155,14 @@ export class RoomServer extends Server {
   }
 
   getRoomContext(): RoomContext {
+    const activeId = this.activeGameId ?? this.lobby.selectedGameId;
+    const gameOptions =
+      activeId != null ? getGameOptions(this.lobby, activeId) : DEFAULT_GAME_OPTIONS;
     return {
       roomId: this.lobby.roomId,
       players: this.lobby.players,
       playerIds: this.lobby.players.filter((p) => p.connected).map((p) => p.id),
+      gameOptions,
     };
   }
 
@@ -263,6 +275,11 @@ export class RoomServer extends Server {
       selectedGameId: this.lobby.selectedGameId,
       activeGameId: this.activeGameId,
       sessionScores: this.lobby.sessionScores,
+      gameOptionsByGame: this.lobby.gameOptionsByGame,
+      activeGameOptions:
+        this.roomPhase === "playing" && this.activeGameId
+          ? getGameOptions(this.lobby, this.activeGameId)
+          : null,
       hostView,
       role,
       playerId,

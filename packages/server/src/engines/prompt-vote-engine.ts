@@ -35,6 +35,7 @@ export interface PromptVoteState {
   cumulativeVoters: Record<string, string[]>;
   roundScores: Record<string, number>;
   usedPrompts: number[];
+  promptsPool: string[];
 }
 
 const SUBMIT_MS = 45000;
@@ -66,6 +67,7 @@ export function createPromptVoteState(
     cumulativeVoters: {},
     roundScores: {},
     usedPrompts: [idx],
+    promptsPool: prompts,
   };
 }
 
@@ -244,33 +246,33 @@ export function onPromptVoteAction(
       });
     }
     const expected = state.mode === "hot-seat" ? ctx.playerIds.length - 1 : ctx.playerIds.length;
-    if (state.submissions.length >= expected) return advancePromptVote(state, []);
+    if (state.submissions.length >= expected) return advancePromptVote(state, state.promptsPool);
   }
   if (action.kind === "vote_pair" && state.phase === "matchup") {
     state.votes[playerId] = action.winnerId;
     if (Object.keys(state.votes).length >= ctx.playerIds.length) {
-      return advancePromptVote(state, []);
+      return advancePromptVote(state, state.promptsPool);
     }
   }
   if (action.kind === "vote" && state.phase === "vote") {
     state.votes[playerId] = action.optionId;
     if (Object.keys(state.votes).length >= ctx.playerIds.length) {
-      return advancePromptVote(state, []);
+      return advancePromptVote(state, state.promptsPool);
     }
   }
   if (action.kind === "hot_seat_pick" && state.phase === "pick" && playerId === state.targetPlayerId) {
     state.pickVotes[playerId] = action.submissionId;
-    return advancePromptVote(state, []);
+    return advancePromptVote(state, state.promptsPool);
   }
   if (action.kind === "advance" && state.phase === "instructions") {
-    return advancePromptVote(state, []);
+    return advancePromptVote(state, state.promptsPool);
   }
   return state;
 }
 
-export function onPromptVoteTick(state: PromptVoteState, prompts: string[]): PromptVoteState {
+export function onPromptVoteTick(state: PromptVoteState, prompts?: string[]): PromptVoteState {
   if (!state.timerEndsAt || Date.now() < state.timerEndsAt) return state;
-  return advancePromptVote(state, prompts);
+  return advancePromptVote(state, prompts ?? state.promptsPool);
 }
 
 export function promptVoteHostView(state: PromptVoteState) {

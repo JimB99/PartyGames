@@ -1,5 +1,5 @@
 import type { GameModule } from "@party-games/shared";
-import { content } from "../content.js";
+import { drawWordPool } from "../content-pool.js";
 import {
   createDrawState,
   drawHostView,
@@ -13,15 +13,17 @@ import type { DrawState } from "../engines/drawing-engine.js";
 export const drawGuessGame: GameModule<DrawState> = {
   meta: {
     id: "draw-guess",
-    name: "Sketch It",
+    name: "Draw & Guess",
     description: "Draw prompts while others guess",
     scoringRules: "+500 for a correct guess; +250 to the drawer for each correct guesser.",
     minPlayers: 3,
-    maxPlayers: 8,
+    maxPlayers: 12,
     category: "drawing",
+    supportsDifficulty: true,
+    supportsMatureContent: true,
   },
   init(ctx) {
-    return createDrawState(content.drawWords, ctx.playerIds);
+    return createDrawState(drawWordPool(ctx.gameOptions), ctx.playerIds);
   },
   onPlayerAction(state, playerId, action, ctx) {
     return onDrawAction(state, playerId, action, ctx);
@@ -30,7 +32,7 @@ export const drawGuessGame: GameModule<DrawState> = {
     return onDrawAction(state, "host", action, ctx);
   },
   onTick(state) {
-    return onDrawTick(state, content.drawWords, state.playerIds);
+    return onDrawTick(state);
   },
   needsTick(state) {
     return state.phase !== "ended";

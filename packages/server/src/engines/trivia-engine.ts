@@ -23,6 +23,7 @@ export interface TriviaState {
   roundScores: Record<string, number>;
   usedIndices: number[];
   results?: Record<string, number>;
+  itemsPool: unknown[];
 }
 
 const QUESTION_MS = 25000;
@@ -71,6 +72,7 @@ export function createTriviaState(
     answers: {},
     roundScores: {},
     usedIndices: [],
+    itemsPool: items,
   };
   loadTriviaItem(state, items, true);
   return state;
@@ -157,7 +159,7 @@ export function onTriviaAction(
 ): TriviaState {
   if (state.phase !== "question") {
     if (action.kind === "advance" && state.phase === "instructions") {
-      return advanceTrivia(state, []);
+      return advanceTrivia(state, state.itemsPool);
     }
     return state;
   }
@@ -169,14 +171,14 @@ export function onTriviaAction(
     state.answers[playerId] = action.choice;
   }
   if (Object.keys(state.answers).length >= ctx.playerIds.length) {
-    return advanceTrivia(state, []);
+    return advanceTrivia(state, state.itemsPool);
   }
   return state;
 }
 
-export function onTriviaTick(state: TriviaState, items: unknown[]): TriviaState {
+export function onTriviaTick(state: TriviaState, items?: unknown[]): TriviaState {
   if (!state.timerEndsAt || Date.now() < state.timerEndsAt) return state;
-  return advanceTrivia(state, items);
+  return advanceTrivia(state, items ?? state.itemsPool);
 }
 
 export function triviaHostView(state: TriviaState) {

@@ -1,17 +1,894 @@
 [
-  "Caption for a cat sitting in a salad bowl",
-  "Caption for a dog wearing sunglasses at the beach",
-  "Caption for a toddler covered in spaghetti",
-  "Caption for a pigeon staring at a sandwich",
-  "Caption for a man holding way too many watermelons",
-  "Caption for a grandma doing a kickflip",
-  "Caption for a frog on a lily pad with attitude",
-  "Caption for someone stuck in a bounce house",
-  "Caption for a raccoon in a tuxedo",
-  "Caption for a baby judging you silently",
-  "Caption for a llama photobombing a wedding",
-  "Caption for a squirrel stealing a whole pizza",
-  "Caption for a guy falling off a paddleboard",
-  "Caption for a penguin in a hot tub",
-  "Caption for a cat knocking a glass off a table"
+  {
+    "text": "Caption for a cat sitting in a salad bowl",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for a dog wearing sunglasses at the beach",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for a toddler covered in spaghetti",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for a pigeon staring at a sandwich",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for a man holding way too many watermelons",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for a grandma doing a kickflip",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for a frog on a lily pad with attitude",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone stuck in a bounce house",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for a raccoon in a tuxedo",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for a baby judging you silently",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for a llama photobombing a wedding",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for a squirrel stealing a whole pizza",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for a guy falling off a paddleboard",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for a penguin in a hot tub",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for a cat knocking a glass off a table",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who suck on the person to your left's fingers for 30 seconds",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who make out with the person with their name first in alphabetical order",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who describe your ideal kiss in detail",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who pick one person here to go into a closet or small room with you for 5 minutes",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who make out with one person in the group for 30 seconds",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who stay either shirtless or pantsless for the rest of the game",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who ask a person in this server to have phone sex with you",
+    "rating": "mature"
+  },
+  {
+    "text": "Caption for someone who look player of you choice in the eyes and whisper 'i'm coming' five times",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who describe one of your sexual experiences vividly for the group",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who write a dirty fantasy for the group around 300 words long",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who ask a person of your choice in your dms to fuck you",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who go commando for the rest of the game",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who join voice chat and give your most sexual moan",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who fake an orgasm for the group",
+    "rating": "mature"
+  },
+  {
+    "text": "Caption for someone who announce who you think is the sexiest member here, online or not",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who type \"p\" into your search bar and send a screenshot of the results",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who ask someone to go to a strip club with you",
+    "rating": "mature"
+  },
+  {
+    "text": "Caption for someone who kiss someone's neck here",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who sing a song loudly in public",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who do a handstand for 10 seconds",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who eat a spoonful of mustard",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who text your crush and tell them you like them",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who do the chicken dance in front of everyone",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who let someone give you a makeover",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who speak in a foreign accent for the next hour",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who try to lick your elbow",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who let someone draw a funny face on your belly with a marker",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who call a random number and sing them a song",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who do a cartwheel in a crowded place",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who speak in slow motion for the next 10 minutes",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who eat a spoonful of hot sauce",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who let someone tickle you for one minute",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who do a silly dance in the middle of the street",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who let someone give you a wedgie",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who sing a nursery rhyme with your mouth full of water",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who do a belly flop in a pool",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who wear your clothes backward for the rest of the game",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who dance like a robot for one minute",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who let someone give you a piggyback ride",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who eat a spoonful of mayonnaise",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who try to lick your own nose",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who let someone read your text messages out loud",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who do a handstand while drinking a glass of water",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who wear your shoes on the wrong feet for the next hour",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who do the macarena in a public place",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who let someone give you a makeover using only toilet paper",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who speak in a british accent for the next 10 minutes",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who eat a spoonful of raw onion",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who stand in a corner and sing \"i'm a little teapot.\"",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who let someone give you a wet willy",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who do the floss dance in a crowded area",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who eat a spoonful of ketchup",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who attempt to do a split and hold it for 10 seconds",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who talk to a random stranger for five minutes",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who do a somersault in a public place",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who let someone give you a makeover using only food items",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who speak in a high-pitched voice for the next hour",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who walk on your hands for as long as you can",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who try to lick your elbow and keep trying for a minute",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who let someone give you a funny hairstyle",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who sing a song with your mouth closed",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who do the worm dance on the floor",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who talk like a baby for the next 10 minutes",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who let someone draw a mustache on your face with a marker",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who do the moonwalk in a public place",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who eat a spoonful of hot chili pepper",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who wear your shirt inside out for the rest of the game",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who do a silly walk down the street",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who do a dramatic reenactment of your favorite movie scene",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who eat a spoonful of peanut butter and try to sing a song",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who recite a poem about your favorite vegetable",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who do your best impression of a famous celebrity",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who go outside and shout \"i love pickles!\" as loudly as you can",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who put on a blindfold and try to draw a self-portrait",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who do a cartwheel while singing the national anthem",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who dance like nobody's watching for one minute in a crowded area",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who wear your clothes backward and talk in reverse for the next 15 minutes",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who try to lick your elbow while singing your favorite song",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who do a handstand and recite the alphabet backward",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who put on a puppet show using your socks as the puppets",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who sing a popular song in a made-up language",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who try to breakdance or do a cool dance move",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who act like a chicken for the next five minutes",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who take a selfie with a random stranger",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who wear your underwear on top of your pants for the next hour",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who do a funny interpretive dance to a random song",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who speak in rhyme for the next 10 minutes",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who put on a blindfold and try to identify three different fruits by taste",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who stand on one foot and sing the alphabet backward",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who wear your shoes on your hands for the next 20 minutes",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who try to lick your nose while hopping on one foot",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who try to juggle three random objects for one minute",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who speak in a funny accent for the rest of the game",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who put on a puppet show using your hands as the puppets",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who try to balance a spoon on your nose for one minute",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who act like a robot for the next 10 minutes",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who put on a blindfold and try to apply lipstick without a mirror",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who speak in slow motion for the next five minutes",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who try to touch your tongue to your nose while singing a nursery rhyme",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who use your elbows to eat a snack without using your hands",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who do the robot dance with as much enthusiasm as possible",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who put on a blindfold and try to tie your shoelaces as fast as you can",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who wear your clothes inside out for the rest of the game",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who try to do a backflip (safely) or do a somersault",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who use your feet to eat a snack without using your hands",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who put on a blindfold and try to apply mascara without a mirror",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who dance like a ballerina or ballet dancer for the next five minutes",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who try to touch your toes without bending your knees while singing a song",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who perform a magic trick using a random object",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who put on a blindfold and try to draw a picture of yourself",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who sing a song backward as best as you can",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who use your nose to type a text message and send it to someone",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who perform a magic trick using a playing card",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who put on a blindfold and try to apply nail polish without a mirror",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who sing a popular song in a foreign language of your choice",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who try to touch your tongue to your forehead while singing a jingle",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who perform a magic trick using a coin",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who use your elbows to brush your teeth without using your hands",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who walk backward for the next five minutes",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who attempt to breakdance or do a breakdance move",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who use your toes to write your name on the floor or ground",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who sing a popular song with your mouth full of water",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who attempt to hula hoop for one minute without dropping it",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who perform a stand-up comedy routine for one minute",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who use your knees to eat a snack without using your hands",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who recite the alphabet backward as fast as you can",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who act out a scene from a movie with exaggerated gestures and expressions",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who try to balance a spoon on your nose while singing a nursery rhyme",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who perform a silly dance using only your feet",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who put on a blindfold and try to touch your nose with your tongue",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who act like a mime for the next five minutes without speaking",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who sing a popular song with your tongue sticking out the entire time",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who try to do a yoga pose that you've never attempted before",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who recite a tongue twister five times without stumbling",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who use your elbows to eat a meal without using any utensils",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who attempt to do a handstand and hold it for as long as you can",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who perform a magic trick using a deck of cards",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who put on a blindfold and try to do a somersault",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who try to balance a book on your head while walking in a straight line",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who sing a popular song while doing jumping jacks",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who act like a robot for the next five minutes, moving in a mechanical manner",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who put on a blindfold and try to draw a picture of a famous landmark",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who attempt to do a backflip (safely) or do a handstand",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who perform a funny dance using exaggerated facial expressions",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who try to touch your tongue to your chin while singing a children's song",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who put on a blindfold and try to put on a shirt without assistance",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who attempt to juggle three random objects for one minute",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who perform a magic trick using a coin or small object",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who try to touch your toes while hopping on one foot",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who attempt to do the splits (safely) or do a high kick",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who perform a silly dance using only your elbows",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who put on a blindfold and try to tie a necktie without assistance",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who sing a popular song with your mouth filled with whipped cream",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who try to balance a spoon on your nose while reciting a tongue twister",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who perform a funny walk or dance using exaggerated arm movements",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who attempt to do a headstand and hold it for as long as you can",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who act like a mime for the next five minutes, mimicking everyday activities",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who attempt to do a cartwheel or a handstand",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who perform an interpretive dance to a random sound or beat",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who sing a popular song using only animal sounds instead of words",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who attempt to do the worm dance move across the room",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who perform a one-minute improvised comedy routine",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who use your elbows to eat a slice of pizza without using your hands",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who sing a popular song while jumping on one leg",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who attempt to do a handstand push-up against a wall",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who perform a dramatic monologue using a random household object as a prop",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who try to balance a broomstick on your finger for one minute",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who sing a popular song using only your mouth as an instrument (beatboxing)",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who attempt to do a backbend or a bridge pose",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who perform an improvised rap about a random object in the room",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who try to balance a spoon on your nose while reciting a famous quote",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who sing a popular song while doing a silly dance with your arms and legs",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who attempt to do a full split (safely) or a high jump",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who perform an impromptu puppet show using your hands as the puppets",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who use your elbows to eat a bowl of cereal without using a spoon",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who sing a popular song while doing a funny dance with your hips",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who attempt to do a headstand and recite a poem while upside down",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who perform a karate or kung fu move with sound effects",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who try to balance a spoon on your nose while reciting a famous speech",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who sing a popular song using only gibberish sounds instead of lyrics",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who attempt to do a handstand and hold it while reciting a tongue twister",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who perform a dramatic reading of a funny internet meme or viral video",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who use your elbows to eat a slice of cake without using a fork",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who sing a popular song while doing a silly walk with exaggerated steps",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who attempt to do a split leap or a twirl while humming a tune",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who perform a freestyle rap about a random object in the room",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who try to balance a book on your head while doing a silly dance",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who sing a popular song using only whispers",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who attempt to do a handstand and hold it while counting backward from 10",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who perform an interpretive dance to a random classical music piece",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who use your elbows to eat a hamburger without using your hands",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who sing a popular song while doing a funny impression of a famous celebrity",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who attempt to do a backflip (safely) or a high kick while reciting a poem",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who perform a funny dance with exaggerated facial expressions and arm movements",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who sing a popular song while doing a silly dance with your shoulders",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who attempt to do a headstand and hold it while reciting a random tongue twister",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who perform a magic trick using a deck of cards and a random object from the room",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who use your elbows to eat a bowl of spaghetti without using a fork or a spoon",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who sing a popular song while doing a funny dance with your knees",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who attempt to do a handstand and hold it while reciting a random fact about yourself",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who perform a dramatic monologue using a random kitchen utensil as a prop",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who try to balance a spoon on your nose while reciting a famous movie quote",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who sing a popular song using only your breath as an instrument (beatboxing)",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who attempt to do a backbend or a bridge pose while reciting a tongue twister",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who perform an improvised rap about a random business term or jargon",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who reveal either your dick size or bra size to the group",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who pretend the group is clueless and explain how to give good head for everyone",
+    "rating": "family"
+  },
+  {
+    "text": "Caption for someone who make out with the person with their name last in alphabetical order",
+    "rating": "family"
+  }
 ]

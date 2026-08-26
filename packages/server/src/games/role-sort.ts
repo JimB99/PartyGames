@@ -19,6 +19,8 @@ export const roleSortGame: GameModule<RoleSortState> = {
     minPlayers: 3,
     maxPlayers: 8,
     category: "social",
+    supportsDifficulty: false,
+    supportsMatureContent: false,
   },
   init(ctx) {
     return createRoleSortState("Muppets", content.muppets, ctx.playerIds);

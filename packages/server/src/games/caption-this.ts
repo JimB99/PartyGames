@@ -1,5 +1,5 @@
 import type { GameModule } from "@party-games/shared";
-import { content } from "../content.js";
+import { captionPool } from "../content-pool.js";
 import {
   createPromptVoteState,
   onPromptVoteAction,
@@ -14,14 +14,16 @@ export const captionThisGame: GameModule<PromptVoteState> = {
   meta: {
     id: "caption-this",
     name: "Caption This",
-    description: "Write captions for absurd scenes",
+    description: "Write the funniest caption for a scene",
     scoringRules: "+1000 for the caption with the most votes.",
     minPlayers: 3,
     maxPlayers: 16,
     category: "social",
+    supportsDifficulty: true,
+    supportsMatureContent: true,
   },
-  init() {
-    return createPromptVoteState("vote-all", content.caption);
+  init(ctx) {
+    return createPromptVoteState("vote-all", captionPool(ctx.gameOptions));
   },
   onPlayerAction(state, playerId, action, ctx) {
     return onPromptVoteAction(state, playerId, action, ctx);
@@ -30,7 +32,7 @@ export const captionThisGame: GameModule<PromptVoteState> = {
     return onPromptVoteAction(state, "host", action, ctx);
   },
   onTick(state) {
-    return onPromptVoteTick(state, content.caption);
+    return onPromptVoteTick(state);
   },
   needsTick(state) {
     return state.phase !== "ended";

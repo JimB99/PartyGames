@@ -1,8 +1,10 @@
 import {
+  DEFAULT_GAME_OPTIONS,
   MAX_PLAYERS,
   PLAYER_COLORS,
   ROOM_CODE_CHARS,
   type GameId,
+  type GameOptions,
   type Player,
 } from "@party-games/shared";
 
@@ -12,6 +14,7 @@ export interface LobbyState {
   hostConnectionId: string | null;
   selectedGameId: GameId | null;
   sessionScores: Record<string, number>;
+  gameOptionsByGame: Partial<Record<GameId, GameOptions>>;
   disconnectTimers: Map<string, ReturnType<typeof setTimeout>>;
 }
 
@@ -22,8 +25,13 @@ export function createLobby(roomId: string): LobbyState {
     hostConnectionId: null,
     selectedGameId: null,
     sessionScores: {},
+    gameOptionsByGame: {},
     disconnectTimers: new Map(),
   };
+}
+
+export function getGameOptions(lobby: LobbyState, gameId: GameId): GameOptions {
+  return lobby.gameOptionsByGame[gameId] ?? DEFAULT_GAME_OPTIONS;
 }
 
 export function generateRoomCode(): string {

@@ -1,5 +1,5 @@
 import type { GameModule } from "@party-games/shared";
-import { content } from "../content.js";
+import { fibbageReversePool } from "../content-pool.js";
 import {
   bluffHostView,
   bluffPlayerView,
@@ -19,9 +19,11 @@ export const fibbageReverseGame: GameModule<BluffState> = {
     minPlayers: 2,
     maxPlayers: 16,
     category: "social",
+    supportsDifficulty: true,
+    supportsMatureContent: false,
   },
-  init() {
-    return createBluffState("reverse", content.fibbageReverse);
+  init(ctx) {
+    return createBluffState("reverse", fibbageReversePool(ctx.gameOptions));
   },
   onPlayerAction(state, playerId, action, ctx) {
     return onBluffAction(state, playerId, action, ctx);
@@ -30,7 +32,7 @@ export const fibbageReverseGame: GameModule<BluffState> = {
     return onBluffAction(state, "host", action, ctx);
   },
   onTick(state) {
-    return onBluffTick(state, content.fibbageReverse);
+    return onBluffTick(state);
   },
   needsTick(state) {
     return state.phase !== "ended";

@@ -1,4 +1,5 @@
-import type { GameId } from "./constants.js";
+import type { GameId, GameMeta } from "./constants.js";
+import type { GameOptions } from "./content.js";
 import type { GameAction } from "./protocol.js";
 import type { Player } from "./room.js";
 
@@ -6,6 +7,7 @@ export interface RoomContext {
   roomId: string;
   players: Player[];
   playerIds: string[];
+  gameOptions: GameOptions;
 }
 
 export interface GameViewState {
@@ -17,15 +19,7 @@ export interface GameViewState {
 }
 
 export interface GameModule<TState = unknown> {
-  meta: {
-    id: GameId;
-    name: string;
-    description: string;
-    scoringRules: string;
-    minPlayers: number;
-    maxPlayers: number;
-    category: "social" | "trivia" | "drawing" | "action";
-  };
+  meta: GameMeta;
   init(ctx: RoomContext): TState;
   onPlayerAction(state: TState, playerId: string, action: GameAction, ctx: RoomContext): TState;
   onHostAction?(state: TState, action: GameAction, ctx: RoomContext): TState;

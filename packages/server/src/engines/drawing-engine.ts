@@ -20,6 +20,7 @@ export interface DrawState {
   correctGuessers: string[];
   roundScores: Record<string, number>;
   usedWords: string[];
+  wordsPool: string[];
 }
 
 const DRAW_MS = 60000;
@@ -42,6 +43,7 @@ export function createDrawState(words: string[], playerIds: string[], maxRounds?
     correctGuessers: [],
     roundScores: {},
     usedWords: [word],
+    wordsPool: words,
   };
 }
 
@@ -132,9 +134,9 @@ export function onDrawAction(
   return state;
 }
 
-export function onDrawTick(state: DrawState, words: string[], playerIds: string[]): DrawState {
+export function onDrawTick(state: DrawState, words?: string[], playerIds?: string[]): DrawState {
   if (!state.timerEndsAt || Date.now() < state.timerEndsAt) return state;
-  return advanceDraw(state, words, playerIds);
+  return advanceDraw(state, words ?? state.wordsPool, playerIds ?? state.playerIds);
 }
 
 export function drawHostView(state: DrawState, playerIds: string[]) {

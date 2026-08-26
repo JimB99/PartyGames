@@ -19,13 +19,15 @@ export type PlayerColor = (typeof PLAYER_COLORS)[number];
 export type GameCategory = "social" | "trivia" | "drawing" | "action";
 
 export interface GameMeta {
-  id: string;
+  id: GameId;
   name: string;
   description: string;
   scoringRules: string;
   minPlayers: number;
   maxPlayers: number;
   category: GameCategory;
+  supportsDifficulty?: boolean;
+  supportsMatureContent?: boolean;
 }
 
 export const ALL_GAME_IDS = [

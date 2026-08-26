@@ -1,5 +1,5 @@
 import type { GameModule } from "@party-games/shared";
-import { content } from "../content.js";
+import { fibbagePool } from "../content-pool.js";
 import {
   bluffHostView,
   bluffPlayerView,
@@ -19,9 +19,11 @@ export const fibbageGame: GameModule<BluffState> = {
     minPlayers: 2,
     maxPlayers: 16,
     category: "social",
+    supportsDifficulty: true,
+    supportsMatureContent: true,
   },
   init(ctx) {
-    return createBluffState("fibbage", content.fibbage);
+    return createBluffState("fibbage", fibbagePool(ctx.gameOptions));
   },
   onPlayerAction(state, playerId, action, ctx) {
     return onBluffAction(state, playerId, action, ctx);
@@ -30,13 +32,13 @@ export const fibbageGame: GameModule<BluffState> = {
     return onBluffAction(state, "host", action, ctx);
   },
   onTick(state) {
-    return onBluffTick(state, content.fibbage);
+    return onBluffTick(state);
   },
   needsTick(state) {
     return state.phase !== "ended";
   },
   tickIntervalMs: 500,
-  getHostView(state, ctx) {
+  getHostView(state) {
     return bluffHostView(state);
   },
   getPlayerView(state, playerId) {

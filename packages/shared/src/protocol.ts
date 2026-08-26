@@ -1,10 +1,12 @@
 import type { GameId } from "./constants.js";
 import type { GameMeta } from "./constants.js";
+import type { GameOptions } from "./content.js";
 import type { ConnectionRole } from "./room.js";
 
 export type ClientMessage =
   | { type: "join"; role: ConnectionRole; nickname?: string; playerId?: string }
   | { type: "select_game"; gameId: GameId }
+  | { type: "set_game_options"; gameId: GameId; options: GameOptions }
   | { type: "start_game" }
   | { type: "return_to_lobby" }
   | { type: "player_action"; action: GameAction }
@@ -47,6 +49,8 @@ export interface RoomSnapshot {
   selectedGameId: GameId | null;
   activeGameId: GameId | null;
   sessionScores: Record<string, number>;
+  gameOptionsByGame: Partial<Record<GameId, GameOptions>>;
+  activeGameOptions: GameOptions | null;
   hostView: HostViewSnapshot | null;
   role: ConnectionRole;
   playerId: string | null;

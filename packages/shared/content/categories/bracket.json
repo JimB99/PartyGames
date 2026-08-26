@@ -1,4 +1,1307 @@
 [
-  "pizza toppings", "ice cream flavors", "superheroes", "board games", "Halloween costumes",
-  "breakfast cereals", "dog breeds", "video game characters", "types of pasta", "dance moves"
+  {
+    "name": "pizza toppings",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "ice cream flavors",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "superheroes",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "board games",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "Halloween costumes",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "breakfast cereals",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "dog breeds",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "video game characters",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "types of pasta",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "dance moves",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "embarrassing confessions",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "dating disasters",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "worst ex stories",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "chip flavors",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "coffee drinks",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "sandwich ingredients",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "fast food chains",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "Disney movies",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "Pixar movies",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "superhero movies",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "card games",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "video game franchises",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "vacation destinations",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "weekend activities",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "hobbies",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "road trip snacks",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "theme park rides",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "cartoon characters",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "anime series",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "dog names",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "cat names",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "dream jobs",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "karaoke songs",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "things that are overrated",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "things that are underrated",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "burger toppings",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "hair styles",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "streaming services",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "childhood toys",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "comfort foods",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "movie genres",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "book genres",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "college majors",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "phone apps",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "social media platforms",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "winter activities",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "beach activities",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "party snacks",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "pasta sauces",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "famous landmarks",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "movie soundtracks",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "side hustles",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "things in a junk drawer",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "things in a backpack",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "gas station snacks",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "candy bars",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "sports to watch",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "sports to play",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "podcasts",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "nostalgic TV shows",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "best superpowers",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "worst superpowers",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "taco fillings",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "pizza chains",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "ice cream toppings",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "amusement parks",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "memes",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "school subjects",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "excuses for being late",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "things you'd bring to a deserted island",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "fashion trends",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "theme songs",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "movie villains",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "sci-fi movies",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "horror movies",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "rom-com movies",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "sitcom characters",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "reality TV shows",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "guilty pleasure snacks",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "breakfast foods",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "late-night snacks",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "world cuisines",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "cheese types",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "car brands",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "musical instruments",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "dance styles",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "national parks",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "zoo animals",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "mythical creatures",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "space movies",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "historical figures",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "tech gadgets",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "video game consoles",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "mobile games",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "things teachers say",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "things parents say",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "tailgate foods",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "BBQ foods",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "smoothie flavors",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "cookie types",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "soda flavors",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "workout exercises",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "carnival foods",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "talent show acts",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "pet peeves",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "life hacks",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "subscription services",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "holiday movies",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "holiday foods",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "party themes",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "costume party themes",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "office snacks",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "airport foods",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "camping meals",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "road trip playlists",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "zombie apocalypse foods",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "superhero teams",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "cosplay characters",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "group chat names",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "wifi network names",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "things said at game night",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "things said at trivia night",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "stand-up topics",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "game show concepts",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "fashion disasters",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "shower songs",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "lazy Sunday activities",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "rainy day activities",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "power outage activities",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "apocalypse survival items",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "fan theories",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "convention merch",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "coffee shop names",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "bakery names",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "sushi rolls",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "ramen styles",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "popcorn flavors",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "food truck menus",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "brunch spots",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "diner menu items",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "meal prep ideas",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "air fryer foods",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "grill recipes",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "airplane meals",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "stadium foods",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "festival foods",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "weird food combos",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "viral recipes",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "kitchen gadgets",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "gym bro phrases",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "running shoes",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "ski resorts",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "extreme sports",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "muscle cars",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "electric cars",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "LEGO sets",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "white elephant gifts",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "stocking stuffers",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "Halloween candy",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "Thanksgiving sides",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "Christmas cookies",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "prom themes",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "college traditions",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "startup names",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "tech buzzwords",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "Oscar winners",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "Super Bowl moments",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "boy bands",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "one-hit wonders",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "Broadway musicals",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "podcast hosts",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "lucky charms",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "zodiac stereotypes",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "team names",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "mascot ideas",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "famous bridges",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "bucket list destinations",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "hotel chains",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "glamping sites",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "celebrities & famous names",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "movies",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "TV shows",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "places & landmarks",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "animals",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "food & drink",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "funny & absurd",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "sports & actions",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "name": "hangover cures",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "bad decisions",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "worst first date ideas",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "red flags on dating apps",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "things you'd do for money",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "things you regret buying",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "ex excuses",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "breakup lines",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "bar drinks",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "awkward family dinner topics",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "worst wedding guests",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "bachelor party ideas",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "things you googled at 2am",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "roommate horror story themes",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "karaoke songs after midnight",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "guilty pleasure movies",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "trashy TV shows",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "things not to say to your boss",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "drunk food orders",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "worst pickup lines",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "things said while drunk",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "Tinder bios",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "office party incidents",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "holiday family drama",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "spring break stories",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "college party themes",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "dorm hookup stories",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "texts you shouldn't have sent",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "DM disasters",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "festival disasters",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "morning-after foods",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "excuses for ghosting",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "breakup anthems",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "tattoo ideas you'd regret",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "dating app opening lines",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "blind date disasters",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "office romance disasters",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "things HR shouldn't hear",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "afterparty snacks",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "hangover movies",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "impulse buys",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "Amazon regrets",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "celebrity scandals",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "reddit threads",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "AITA stories",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "drinking game rules",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "house party themes",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "bar tab disasters",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "neighbor horror stories",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "roommate food crimes",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "ghost stories",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "cringe memories",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "roast battle topics",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "ick list",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "turn-offs",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "anniversary gift disasters",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "petty purchases",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "gas station snack combos",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "late-night snack combos",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "what you'd do if you won",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "celebrity dinner party guests",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "famous people you'd date",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "forbidden snack combos",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "club anthems after midnight",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "truth or dare dares",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "never have I ever prompts",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "pregame playlists",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "bouncer stories",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "rideshare horror stories",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "wedding toast disasters",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "sick day excuses",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "finsta names",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "mosh pit songs",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "revenge playlist songs",
+    "rating": "mature",
+    "difficulty": "medium"
+  }
 ]

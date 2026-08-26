@@ -1,5 +1,5 @@
 import type { GameModule } from "@party-games/shared";
-import { content } from "../content.js";
+import { quiplashPool } from "../content-pool.js";
 import {
   createPromptVoteState,
   onPromptVoteAction,
@@ -19,9 +19,11 @@ export const quiplashGame: GameModule<PromptVoteState> = {
     minPlayers: 3,
     maxPlayers: 16,
     category: "social",
+    supportsDifficulty: true,
+    supportsMatureContent: true,
   },
-  init() {
-    return createPromptVoteState("quiplash", content.quiplash);
+  init(ctx) {
+    return createPromptVoteState("quiplash", quiplashPool(ctx.gameOptions));
   },
   onPlayerAction(state, playerId, action, ctx) {
     return onPromptVoteAction(state, playerId, action, ctx);
@@ -30,7 +32,7 @@ export const quiplashGame: GameModule<PromptVoteState> = {
     return onPromptVoteAction(state, "host", action, ctx);
   },
   onTick(state) {
-    return onPromptVoteTick(state, content.quiplash);
+    return onPromptVoteTick(state);
   },
   needsTick(state) {
     return state.phase !== "ended";

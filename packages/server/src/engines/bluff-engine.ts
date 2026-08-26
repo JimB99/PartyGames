@@ -30,6 +30,7 @@ export interface BluffState {
   votes: Record<string, string>;
   roundScores: Record<string, number>;
   usedPrompts: number[];
+  promptsPool: Array<{ prompt?: string; truth: string; fact?: string }>;
 }
 
 const SUBMIT_MS = 45000;
@@ -60,6 +61,7 @@ export function createBluffState(
     votes: {},
     roundScores: {},
     usedPrompts: [idx],
+    promptsPool: prompts,
   };
 }
 
@@ -163,10 +165,11 @@ export function onBluffAction(
   return state;
 }
 
-export function onBluffTick(state: BluffState, prompts: Array<{ prompt?: string; truth: string; fact?: string }>): BluffState {
+export function onBluffTick(state: BluffState, prompts?: Array<{ prompt?: string; truth: string; fact?: string }>): BluffState {
   if (!state.timerEndsAt || Date.now() < state.timerEndsAt) return state;
+  const pool = prompts ?? state.promptsPool;
   if (state.phase === "scoreboard" && state.round < state.maxRounds) {
-    nextPrompt(state, prompts);
+    nextPrompt(state, pool);
   }
   return advanceBluff(state);
 }

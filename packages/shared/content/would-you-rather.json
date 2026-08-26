@@ -1,17 +1,2438 @@
 [
-  { "a": "Fight one horse-sized duck", "b": "Fight 100 duck-sized horses" },
-  { "a": "Always speak in rhyme", "b": "Always speak in questions" },
-  { "a": "Never use social media again", "b": "Never watch movies again" },
-  { "a": "Have unlimited pizza", "b": "Have unlimited tacos" },
-  { "a": "Live without music", "b": "Live without TV" },
-  { "a": "Be famous for something embarrassing", "b": "Be unknown but successful" },
-  { "a": "Teleport anywhere instantly", "b": "Fly but only 10 mph" },
-  { "a": "Know how you die", "b": "Know when you die" },
-  { "a": "Only eat breakfast foods", "b": "Only eat dinner foods" },
-  { "a": "Have a rewind button for life", "b": "Have a pause button for life" },
-  { "a": "Always be 10 minutes late", "b": "Always be 20 minutes early" },
-  { "a": "Lose all photos", "b": "Lose all contacts" },
-  { "a": "Speak every language", "b": "Talk to animals" },
-  { "a": "Live in the city", "b": "Live in the countryside" },
-  { "a": "Never drink coffee again", "b": "Never drink tea again" }
+  {
+    "a": "Fight one horse-sized duck",
+    "b": "Fight 100 duck-sized horses",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Always speak in rhyme",
+    "b": "Always speak in questions",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Never use social media again",
+    "b": "Never watch movies again",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Have unlimited pizza",
+    "b": "Have unlimited tacos",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Live without music",
+    "b": "Live without TV",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Be famous for something embarrassing",
+    "b": "Be unknown but successful",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Teleport anywhere instantly",
+    "b": "Fly but only 10 mph",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Know how you die",
+    "b": "Know when you die",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Only eat breakfast foods",
+    "b": "Only eat dinner foods",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Have a rewind button for life",
+    "b": "Have a pause button for life",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Always be 10 minutes late",
+    "b": "Always be 20 minutes early",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Lose all photos",
+    "b": "Lose all contacts",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Speak every language",
+    "b": "Talk to animals",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Live in the city",
+    "b": "Live in the countryside",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Never drink coffee again",
+    "b": "Never drink tea again",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Would you rather be a stripper",
+    "b": "a pornstar",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Would you rather be the chaser",
+    "b": "the chasee",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to fly",
+    "b": "be invisible",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "live in a world without internet",
+    "b": "without air conditioning and heating",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to read minds",
+    "b": "to see into the future",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be a famous actor/actress",
+    "b": "a renowned athlete",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have unlimited money",
+    "b": "unlimited knowledge",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "travel back in time to meet your ancestors",
+    "b": "travel to the future to meet your descendants",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "never have to sleep again",
+    "b": "never have to eat again",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be able to speak all languages",
+    "b": "fluently play all musical instruments perfectly",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "live without music",
+    "b": "without movies",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power of super strength",
+    "b": "super speed",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "always have to tell the truth",
+    "b": "always lie",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "live in a world with no books",
+    "b": "no TV",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be stranded on a deserted island",
+    "b": "lost in a dense forest",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to teleport",
+    "b": "the ability to time travel",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have a photographic memory",
+    "b": "the ability to forget anything you want",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "live without your smartphone",
+    "b": "without your computer/laptop",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be able to control the weather",
+    "b": "control people's minds",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have a personal chef",
+    "b": "a personal trainer",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be able to breathe underwater",
+    "b": "fly through the air",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "live in a world with no social media",
+    "b": "no video games",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be a famous singer",
+    "b": "a world-class dancer",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to heal others",
+    "b": "the power to resurrect the dead",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have a lifetime supply of free vacations",
+    "b": "free meals at any restaurant",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "live without music",
+    "b": "without books",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be able to talk to animals",
+    "b": "speak all human languages",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to control fire",
+    "b": "control water",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be able to visit any place in the world",
+    "b": "have unlimited free flights for a year",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have a personal chauffeur",
+    "b": "a personal masseuse",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power of mind control",
+    "b": "the power of teleportation",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to breathe underwater",
+    "b": "explore space",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have a rewind button for your life",
+    "b": "a pause button",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "live in a world with no music",
+    "b": "no movies",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to speak with the dead",
+    "b": "see into the future",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be stranded on a deserted island with your worst enemy",
+    "b": "with no one at all",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be able to change your appearance at will",
+    "b": "have the ability to read minds",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power of invisibility",
+    "b": "the power of super strength",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have a personal assistant",
+    "b": "a personal stylist",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be able to control animals",
+    "b": "control the elements (earth, wind, fire, water)",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to time travel",
+    "b": "the ability to teleport",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have a personal library with every book ever written",
+    "b": "a personal art gallery with every famous painting",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "live in a world without music",
+    "b": "a world without laughter",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power of flight",
+    "b": "the power of telekinesis",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to speak to the dead",
+    "b": "to see ghosts",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "live without your smartphone",
+    "b": "without your car",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be able to change the past",
+    "b": "know the future",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be a character in a video game",
+    "b": "in a movie",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to control the weather",
+    "b": "control time",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be able to visit any time period in history",
+    "b": "any place in the world",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to teleport anywhere instantly",
+    "b": "have the ability to stop time",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to manipulate time",
+    "b": "control the elements",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to teleport anywhere",
+    "b": "have the power of telekinesis",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to understand and speak all languages",
+    "b": "have the ability to play any musical instrument flawlessly",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to cure any disease",
+    "b": "have the power to bring peace to the world",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to change your physical appearance at will",
+    "b": "have the power to change other people's emotions",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "live in a world without music",
+    "b": "a world without movies",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate dreams",
+    "b": "have the ability to control and manipulate technology",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to communicate with plants",
+    "b": "have the power to communicate with aliens",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to make anyone instantly like you",
+    "b": "have the power to make anyone tell the truth",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to speak to your past self",
+    "b": "speak to your future self",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power of super speed",
+    "b": "the power of invulnerability",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to live without sleep",
+    "b": "live without food and water",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control gravity",
+    "b": "have the power to control magnetism",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to travel to any place in the world instantaneously",
+    "b": "have the ability to teleport to any fictional world",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to bring back extinct species",
+    "b": "have the power to prevent any future natural disasters",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to control your dreams",
+    "b": "control the dreams of others",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control the minds of animals",
+    "b": "have the power to control the weather",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to communicate with dolphins",
+    "b": "have the power to communicate with extraterrestrial beings",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "live in a world where everyone is always happy",
+    "b": "a world where everyone is always healthy",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to transform into any animal",
+    "b": "have the ability to speak every human language fluently",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control fire",
+    "b": "have the power to control water",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have a personal chef who cooks all your meals",
+    "b": "a personal stylist who chooses all your outfits",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to time travel but never return to your present time",
+    "b": "have the ability to time travel only within your own lifetime",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate dreams",
+    "b": "have the power to control and manipulate memories",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to control and manipulate sound",
+    "b": "have the ability to control and manipulate light",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to bring fictional characters to life",
+    "b": "have the power to bring deceased loved ones back to life",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to communicate with animals",
+    "b": "have the power to communicate with spirits",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control the outcome of sporting events",
+    "b": "control the outcome of political elections",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to turn invisible",
+    "b": "have the ability to read minds",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to change the color of anything",
+    "b": "have the power to change the shape of anything",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to speak all languages fluently",
+    "b": "have the ability to play any instrument without practice",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to instantly heal any injury",
+    "b": "have the power to erase any memory",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to see in complete darkness",
+    "b": "have the ability to see through solid objects",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate dreams",
+    "b": "have the power to control and manipulate emotions",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to fly",
+    "b": "have the ability to breathe underwater",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control the weather",
+    "b": "have the power to control luck",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to understand and communicate with insects",
+    "b": "have the power to control the minds of insects",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to bring peace to the world",
+    "b": "have the power to end world hunger",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to change your appearance at will",
+    "b": "have the ability to change the appearance of others",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate electricity",
+    "b": "have the power to control and manipulate magnetism",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to understand and speak any computer programming language",
+    "b": "have the power to hack into any computer system",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control the outcome of your dreams",
+    "b": "have the power to control the outcome of real-life events",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to communicate with animals",
+    "b": "have the power to communicate with plants",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate fire",
+    "b": "have the power to control and manipulate ice",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to predict the future",
+    "b": "have the ability to change the past",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate the minds of others",
+    "b": "have the power to control and manipulate time",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to understand and speak any alien language",
+    "b": "have the power to teleport to any planet in the universe",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate dreams",
+    "b": "have the power to control and manipulate reality",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to turn invisible",
+    "b": "have the ability to teleport",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate sound",
+    "b": "have the power to control and manipulate gravity",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to see into the future",
+    "b": "have the ability to travel to the past",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be able to speak and understand all languages",
+    "b": "be able to play any musical instrument with virtuosity",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to control fire",
+    "b": "have the ability to control ice",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to read minds",
+    "b": "have the power to see the future",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to teleport anywhere instantly",
+    "b": "have the ability to time travel",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be able to communicate with animals",
+    "b": "be able to communicate with the deceased",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to become invisible",
+    "b": "have the power to fly",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be able to control the minds of others",
+    "b": "have the ability to control the weather",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to heal any physical ailment",
+    "b": "have the power to heal any emotional pain",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have unlimited wealth",
+    "b": "have unlimited wisdom",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be able to transform into any animal at will",
+    "b": "have the ability to shapeshift into any person you choose",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to remember everything you read",
+    "b": "have the ability to remember everything you see",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "live in a world without technology",
+    "b": "live in a world without art",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control plants",
+    "b": "have the power to control machines",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to stop time for 24 hours once a year",
+    "b": "have the ability to rewind time by one minute whenever you want",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate dreams",
+    "b": "have the power to control and manipulate illusions",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to travel to any place on Earth instantly",
+    "b": "have the ability to travel to any planet in the universe",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to bring a fictional character to life",
+    "b": "have the power to bring a historical figure back to life",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to speak and understand all animal languages",
+    "b": "have the ability to speak and understand all human languages",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control electricity",
+    "b": "have the power to control magnetism",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be able to change the outcome of any past event",
+    "b": "be able to predict the outcome of any future event",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to breathe underwater",
+    "b": "have the ability to withstand extreme temperatures",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate light",
+    "b": "have the power to control and manipulate sound",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to erase any painful memory",
+    "b": "have the ability to relive any happy memory",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate gravity",
+    "b": "have the power to control and manipulate time",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to communicate with extraterrestrial beings",
+    "b": "have the ability to travel to other dimensions",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control your own dreams",
+    "b": "have the power to enter other people's dreams",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to change your physical appearance",
+    "b": "have the ability to change your personality traits",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be able to eat any food without gaining weight",
+    "b": "be able to sleep only two hours a night and still feel fully rested",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate the internet",
+    "b": "have the power to control and manipulate the stock market",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to understand and speak any dead language",
+    "b": "have the ability to understand and speak any programming language",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to teleport anywhere in the world but never be able to return home",
+    "b": "have the power to teleport back to your original location but never be able to travel32. Would you rather have the ability to communicate with animals but never be able to speak with humans",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate fire but be unable to use any other source of heat",
+    "b": "have the power to control and manipulate water but be unable to use any other source of hydration",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to see one minute into the future at any given time",
+    "b": "have the ability to see one minute into the past at any given time",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate dreams but never be able to sleep peacefully",
+    "b": "have the power to control and manipulate reality but never be able to distinguish between dreams and waking life",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to speak with plants and understand their needs",
+    "b": "have the ability to create any plant instantly through your touch",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate the minds of others but be unable to control your own thoughts",
+    "b": "have the power to control and manipulate emotions but be unable to control your own feelings",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to fly but always have a fear of heights",
+    "b": "have the ability to breathe underwater but always have a fear of drowning",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate time but never be able to age",
+    "b": "have the power to control and manipulate gravity but never be able to leave the ground",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to understand and speak any animal language but be unable to communicate with humans",
+    "b": "have the ability to understand and speak any human language but be unable to communicate with animals",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate technology but be unable to use any form of manual tools",
+    "b": "have the power to control and manipulate nature but be unable to use any form of electronic devices",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to stop aging at any point in your life",
+    "b": "have the ability to reverse aging and become younger whenever you choose",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate the weather but be unable to control your own body temperature",
+    "b": "have the power to control and manipulate luck but be unable to control your own actions",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to understand and speak any ancient language but be unable to understand",
+    "b": "speak any modern language",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate the elements (earth, air, fire, water) but be unable to control your own emotions",
+    "b": "have the power to control and manipulate emotions but be unable to control the elements",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to communicate with ghosts and spirits but always be haunted by their presence",
+    "b": "have the ability to banish ghosts and spirits but never be able to communicate with them",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate your own physical appearance but be unable to maintain a stable sense of self",
+    "b": "have the power to control and manipulate your own personality but be unable to change your physical appearance",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be able to eat only one type of food for the rest of your life but never gain weight",
+    "b": "be able to eat any food you desire but gain weight easily",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate dreams but never be able to wake up from them",
+    "b": "have the power to control and manipulate reality but be unable to sleep",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to speak and understand any animal language but be unable to communicate with humans",
+    "b": "have the ability to speak and understand any human language but be unable to communicate with animals",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate fire but never be able to feel warmth",
+    "b": "have the power to control and manipulate water but never be able to quench your thirst",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to see one year into the future but be unable to change it",
+    "b": "have the ability to see one year into the past but be unable to alter it",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate dreams but never be able to dream peacefully",
+    "b": "have the power to control and manipulate reality but always question its authenticity",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to communicate with plants and understand their thoughts",
+    "b": "have the ability to make any plant grow to maturity instantly",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate the thoughts of others but be unable to control your own desires",
+    "b": "have the power to control and manipulate emotions but be unable to control your own happiness",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to fly but always have a fear of falling",
+    "b": "have the ability to breathe underwater but always have a fear of drowning",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate time but never be able to experience the passage of time",
+    "b": "have the power to control and manipulate gravity but never be able to escape the pull of the earth",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to teleport anywhere in the world instantly but lose the ability to remember your past",
+    "b": "have perfect memory but never be able to travel outside of your hometown",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to speak all languages fluently",
+    "b": "have the ability to play any musical instrument",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "live in a world without internet",
+    "b": "live in a world without television",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be able to breathe underwater",
+    "b": "be able to fly",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to teleport",
+    "b": "have the ability to time travel",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have unlimited wealth",
+    "b": "unlimited wisdom",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be able to control fire",
+    "b": "control water",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to never feel physical pain",
+    "b": "never feel emotional pain",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be able to control animals with your mind",
+    "b": "be able to control the weather",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be able to speak with animals",
+    "b": "be able to speak all human languages",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be famous for something good",
+    "b": "infamous for something bad",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to heal any illness",
+    "b": "have the power to bring the dead back to life",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to time travel to the past",
+    "b": "time travel to the future",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "live in a world with no wars",
+    "b": "live in a world with no poverty",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power of super speed",
+    "b": "the power of telekinesis",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to control the minds of others",
+    "b": "have the ability to control the elements",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "live in a world with no music",
+    "b": "live in a world with no movies",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to change your appearance at will",
+    "b": "have the power to change the weather at will",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be able to speak and understand all languages but not be able to write",
+    "b": "be able to write fluently in all languages but not be able to speak them",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to fly but never be able to touch the ground",
+    "b": "have the ability to become invisible but never be able to reappear",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate dreams",
+    "b": "have the power to control and manipulate luck",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be able to talk to animals but not be understood by humans",
+    "b": "be able to talk to humans but not be understood by animals",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to remember everything you read",
+    "b": "have the ability to remember everything you hear",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate plants",
+    "b": "have the power to control and manipulate the weather",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be able to live without sleep",
+    "b": "be able to eat anything without any negative health effects",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to time travel but not be able to change anything",
+    "b": "have the ability to change the past but not be able to return to the present",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to speak and understand any foreign language instantly",
+    "b": "have the ability to play any musical instrument without any practice",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "live in a world where everyone can read minds",
+    "b": "live in a world where everyone can fly",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power of super strength but be physically weak",
+    "b": "have the power of invisibility but be visually impaired",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to teleport to any place on Earth instantly",
+    "b": "have the ability to teleport to any place in the universe but with a time delay",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate technology",
+    "b": "have the power to control and manipulate nature",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to control and manipulate dreams",
+    "b": "have the ability to control and manipulate reality",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate emotions",
+    "b": "have the power to control and manipulate thoughts",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "live in a world with no art",
+    "b": "live in a world with no science",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to fly but never be able to land",
+    "b": "have the ability to breathe underwater but never be able to come out",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to speak with the dead",
+    "b": "have the ability to see the future",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "live in a world without books",
+    "b": "live in a world without music",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power of super speed but be unable to control it",
+    "b": "have the power of teleportation but be limited to short distances",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to control and manipulate electricity",
+    "b": "have the ability to control and manipulate magnetism",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate dreams but never be able to dream yourself",
+    "b": "have the power to control and manipulate reality but never be able to change it",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to talk to animals but they can't understand you",
+    "b": "have the ability to understand animals but you can't communicate with them",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate fire but be unable to feel heat",
+    "b": "have the power to control and manipulate water but be unable to quench your thirst",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be able to go back in time and correct your mistakes",
+    "b": "be able to see into the future and prevent negative outcomes",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to communicate with plants",
+    "b": "have the ability to communicate with machines",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate thoughts but be unable to control your own",
+    "b": "have the power to control and manipulate emotions but be unable to control your own feelings",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "live in a world without internet",
+    "b": "live in a world without electricity",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to see in the dark",
+    "b": "have the ability to see through walls",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control gravity",
+    "b": "have the power to control time",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be able to speak every language fluently",
+    "b": "be a master of every musical instrument",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to teleport anywhere instantly",
+    "b": "have the ability to clone yourself",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "live in a world where it always rains",
+    "b": "a world where it never stops snowing",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control animals with your mind",
+    "b": "have the power to control the elements",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be able to change your appearance at will",
+    "b": "be able to read minds",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to communicate with plants",
+    "b": "have the ability to communicate with aliens",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to see the future",
+    "b": "have the power to rewrite history",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "live in a world without music",
+    "b": "a world without books",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to fly but only as fast as you can walk",
+    "b": "have the ability to run as fast as a cheetah but only on all fours",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be able to understand and speak every animal language",
+    "b": "be able to speak every human language fluently",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to become invisible",
+    "b": "have the ability to turn into any animal at will",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to heal any illness",
+    "b": "have the power to bring peace to the world",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "live in a world without internet",
+    "b": "a world without television",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to time travel but only to the past",
+    "b": "have the ability to see into the future but not be able to change it",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to speak and understand all languages but not be understood by others",
+    "b": "be able to understand others but not be able to speak",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "live in a world with no technology",
+    "b": "a world with no nature",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to remember every moment of your life",
+    "b": "have the ability to see into the minds of others",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to talk to animals",
+    "b": "have the ability to talk to objects",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate sound",
+    "b": "have the power to control and manipulate light",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "live in a world without art",
+    "b": "a world without science",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to teleport but always end up in a random location",
+    "b": "have the ability to time travel but never be able to control when",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control minds",
+    "b": "have the power to control machines",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to understand the thoughts of others",
+    "b": "have the ability to change someone's mind with a single touch",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "live in a world with no color",
+    "b": "a world with no sound",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate plants",
+    "b": "have the power to control and manipulate insects",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate dreams but never be able to wake up from them",
+    "b": "have the power to control and manipulate reality but always question its authenticity",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be able to speak every word that comes to your mind",
+    "b": "never be able to speak again",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control fire but be unable to feel warmth",
+    "b": "have the power to control ice but be unable to feel cold",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "live in a world where everyone tells the truth",
+    "b": "a world where everyone's thoughts are visible",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to understand and speak any ancient language",
+    "b": "have the ability to understand and speak any future language",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate the weather but never be able to control your own body temperature",
+    "b": "have the power to control and manipulate luck but never be able to control your own actions",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be able to travel to any place in the world instantly",
+    "b": "be able to communicate with anyone in the world telepathically",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate dreams but be haunted by nightmares",
+    "b": "have the power to control and manipulate reality but be plagued by constant déjà vu",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to control and manipulate technology but be unable to use any form of manual tools",
+    "b": "have the ability to control and manipulate nature but be unable to use any form of electronic devices",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to stop time for everyone but yourself",
+    "b": "have the power to reverse time for everyone except yourself",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to read minds but have to speak out every thought",
+    "b": "have the ability to see the future but never be able to change it",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate dreams but be trapped in an eternal sleep",
+    "b": "have the power to control and manipulate reality but be stuck in a never-ending loop",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to speak with animals but they can't understand you",
+    "b": "have the ability to understand animals but not be able to communicate with them",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate fire but be unable to control your own emotions",
+    "b": "have the power to control and manipulate water but be unable to quench your thirst",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "live in a world where everyone can fly",
+    "b": "a world where everyone has the power of super strength",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to transform into any object",
+    "b": "have the ability to transform into any animal",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate dreams but be unable to remember your own dreams",
+    "b": "have the power to control and manipulate reality but be unable to remember your own past",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be able to speak and understand any musical language",
+    "b": "be able to play any instrument with virtuoso skill",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to control and manipulate time but be unable to age",
+    "b": "have the ability to control and manipulate space but be unable to move",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "live in a world where everyone has superpowers",
+    "b": "live in a world where magic exists",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate dreams but be trapped in a perpetual nightmare",
+    "b": "have the power to control and manipulate reality but be unable to distinguish between reality and illusion",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to communicate with extraterrestrial beings",
+    "b": "have the ability to visit any planet in the universe",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate sound but be deaf",
+    "b": "have the power to control and manipulate light but be blind",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "live in a world where time flows backwards",
+    "b": "a world where time stands still",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to know all the answers to the universe but be unable to share them",
+    "b": "have the ability to ask any question and receive an accurate answer",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate dreams but be unable to wake up",
+    "b": "have the power to control and manipulate reality but be trapped in a never-ending cycle",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be able to see the world in black and white",
+    "b": "be able to see the world in only one color",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to communicate with plants but be unable to eat any plant-based foods",
+    "b": "have the ability to communicate with animals but be unable to eat any animal-based foods",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate dreams but be unable to sleep",
+    "b": "have the power to control and manipulate reality but be unable to stay awake",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "live in a world where everyone is always honest",
+    "b": "a world where everyone is always kind",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to control and manipulate dreams but be trapped in a different dream each night",
+    "b": "have the ability to control and manipulate reality but be unable to remember any of it",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate technology but be unable to use any form of transportation",
+    "b": "have the power to control and manipulate nature but be unable to step foot indoors",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be able to speak and understand any dead language",
+    "b": "be able to communicate with any historical figure",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to control and manipulate dreams but be haunted by your own nightmares",
+    "b": "have the ability to control and manipulate reality but be haunted by your own regrets",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to stop time at will",
+    "b": "have the power to fast forward time",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to speak with the spirits of the dead",
+    "b": "have the ability to see the auras of others",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate dreams but be unable to wake up",
+    "b": "have the power to control and manipulate reality but be unable to distinguish between dreams and reality",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be able to speak any language fluently but with a heavy accent",
+    "b": "be able to play any musical instrument but always slightly out of tune",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to travel to parallel universes",
+    "b": "have the ability to manipulate the fabric of reality",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate dreams but be haunted by the dreams of others",
+    "b": "have the power to control and manipulate reality but be trapped in the nightmares of others",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "live in a world where everyone is a genius",
+    "b": "a world where everyone is incredibly creative",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to understand the thoughts and emotions of others",
+    "b": "have the ability to change someone's personality with a single touch",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate fire but be unable to control your own body temperature",
+    "b": "have the power to control and manipulate ice but be unable to melt it",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be able to communicate with animals but they only talk about boring topics",
+    "b": "be able to communicate with machines but they constantly complain about their problems",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to see the beauty in everything but be unable to feel joy",
+    "b": "have the ability to feel intense joy but be blind to beauty",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate dreams but be trapped in a lucid dream",
+    "b": "have the power to control and manipulate reality but be unable to wake up from it",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be able to speak and understand any human language but be unable to read",
+    "b": "write",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to teleport but always arrive naked",
+    "b": "have the ability to fly but always attract a swarm of bees",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "live in a world where everything is always in motion",
+    "b": "a world where everything is frozen in time",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate dreams but be unable to control your own",
+    "b": "have the power to control and manipulate reality but be unable to control your own actions",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be able to understand the emotions of others but be unable to feel your own",
+    "b": "be able to feel your own emotions but be unable to understand others",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to control and manipulate plants but be allergic to them",
+    "b": "have the ability to control and manipulate animals but be feared by them",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate dreams but be haunted by the nightmares of others",
+    "b": "have the power to control and manipulate reality but be trapped in the dreams of others",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "live in a world where everyone can read minds",
+    "b": "a world where everyone can control the weather",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to see auras but be unable to see faces",
+    "b": "have the ability to see faces but be unable to perceive emotions",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate dreams but be unable to remember your own identity",
+    "b": "have the power to control and manipulate reality but be unable to remember your own past",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be able to communicate with animals but they only speak in riddles",
+    "b": "be able to communicate with spirits but they only speak in cryptic messages",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to teleport but always end up in a random location",
+    "b": "have the ability to time travel but never be able to return to your present time",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate fire but be unable to control its intensity",
+    "b": "have the power to control and manipulate water but be unable to control its flow",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "live in a world where everyone is always courageous",
+    "b": "a world where everyone is always compassionate",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to understand and speak any fictional language",
+    "b": "have the ability to bring fictional characters to life",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate dreams but be unable to distinguish between dreams and reality",
+    "b": "have the power to control and manipulate reality but be unsure if it's all a dream",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be able to speak any language fluently but only in rhyme",
+    "b": "be able to play any musical instrument but only in dissonance",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to control and manipulate the weather but be unable to control your own emotions",
+    "b": "have the ability to control and manipulate luck but be unable to control your own destiny",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "live in a world where everyone can read your thoughts",
+    "b": "a world where your thoughts are constantly broadcasted to the public",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to speak and understand any alien language",
+    "b": "have the ability to visit any alien planet",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate dreams but be unable to sleep",
+    "b": "have the power to control and manipulate reality but be unable to wake up from it",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be able to breathe underwater but be unable to swim",
+    "b": "be able to fly but be afraid of heights",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to turn invisible at will",
+    "b": "have the ability to read minds but only when you touch someone's forehead",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "live in a world where everyone has photographic memory",
+    "b": "a world where everyone has perfect pitch",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate dreams but be trapped in a dream within a dream",
+    "b": "have the power to control and manipulate reality but be trapped in a parallel universe",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be able to speak and understand any computer programming language",
+    "b": "be able to hack into any computer system",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to time travel but be unable to change the past",
+    "b": "have the ability to teleport but never know where you will end up",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate fire but be unable to generate heat",
+    "b": "have the power to control and manipulate water but be unable to quench your thirst",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "live in a world where everyone can control their dreams",
+    "b": "a world where everyone can control their emotions",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to communicate with animals but they only talk about their daily routines",
+    "b": "have the ability to communicate with plants but they only talk about the weather",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate dreams but be chased by your deepest fears",
+    "b": "have the power to control and manipulate reality but be haunted by your past mistakes",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be able to speak and understand any fictional language",
+    "b": "be able to bring any fictional character to life",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to control and manipulate electricity but be unable to use any electronic devices",
+    "b": "have the ability to control and manipulate magnetism but be unable to use any metal objects",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate dreams but be unable to control your own actions within them",
+    "b": "have the power to control and manipulate reality but be unable to control the actions of others",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be able to speak and understand any musical language",
+    "b": "be able to compose any piece of music effortlessly",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to control and manipulate time but be unable to age",
+    "b": "have the ability to control and manipulate gravity but be unable to escape the Earth's atmosphere",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "live in a world where everyone has the power of telekinesis",
+    "b": "a world where everyone has the power of teleportation",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate dreams but be unable to remember your own",
+    "b": "have the power to control and manipulate reality but be unable to remember the past",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be able to communicate with animals but they only give sarcastic remarks",
+    "b": "be able to communicate with ghosts but they only speak in riddles",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to control and manipulate dreams but be trapped in an eternal nightmare",
+    "b": "have the ability to control and manipulate reality but be unable to change your own circumstances",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate fire but be unable to control its size",
+    "b": "have the power to control and manipulate ice but be unable to control its temperature",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "live in a world where everyone is always fearless",
+    "b": "a world where everyone is always empathetic",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to understand the thoughts and emotions of others but be unable to communicate your own",
+    "b": "have the ability to communicate your thoughts and emotions but be unable to understand others",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate dreams but be haunted by the dreams of others",
+    "b": "have the power to control and manipulate reality but be trapped in the fantasies of others",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be able to speak any language fluently but with a stutter",
+    "b": "be able to play any musical instrument but with a wrong note in every song",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to see through walls but be unable to see through windows",
+    "b": "have the ability to see into the future but be unable to remember the past",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate dreams but be unable to escape from a recurring nightmare",
+    "b": "have the power to control and manipulate reality but be unable to escape from a perpetual loop",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "live in a world where everyone can control the elements",
+    "b": "a world where everyone can communicate with animals",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to understand and speak any ancient language",
+    "b": "have the ability to decipher any secret code",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate dreams but be unable to control the dream characters",
+    "b": "have the power to control and manipulate reality but be unable to control the people around you",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be able to teleport but always arrive at a random time period",
+    "b": "be able to time travel but always arrive at a random location",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to communicate with animals but they only gossip about each other",
+    "b": "be able to communicate with ghosts but they only complain about the afterlife",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be able to speak and understand any programming language but be unable to use a computer",
+    "b": "be able to hack into any computer system but be unable to write code",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to control and manipulate the weather but be unable to control your own emotions",
+    "b": "have the ability to control and manipulate luck but be unable to control your own actions",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "live in a world where everyone has the power of telepathy",
+    "b": "a world where everyone has the power of precognition",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate dreams but be unable to control the dream duration",
+    "b": "have the power to control and manipulate reality but be unable to control the flow of time",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to control and manipulate fire but be unable to control its heat",
+    "b": "have the ability to control and manipulate water but be unable to control its form",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to teleport but always end up in a different country",
+    "b": "have the ability to fly but always have a fear of heights",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate dreams but be unable to control the dream settings",
+    "b": "have the power to control and manipulate reality but be unable to control your own destiny",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate dreams but be unable to control the dream narrative",
+    "b": "have the power to control and manipulate reality but be unable to change the course of events",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be able to communicate with animals but they only talk about food",
+    "b": "be able to communicate with ghosts but they only talk about the afterlife bureaucracy",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to control and manipulate dreams but be trapped in a dream forever",
+    "b": "have the ability to control and manipulate reality but be unable to experience joy",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "live in a world where everyone can control their dreams",
+    "b": "a world where everyone can control their appearance at will",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have a pocket-sized dragon",
+    "b": "a pet unicorn",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to talk to animals",
+    "b": "understand all languages spoken by babies",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "always have a theme song playing in your head",
+    "b": "have the ability to make any object you touch invisible",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be able to change the color of your hair instantly",
+    "b": "have the power to make any food taste like your favorite dish",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to teleport anywhere instantly",
+    "b": "be able to pause time for one hour each day",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be able to control the weather",
+    "b": "control probability in your favor",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be able to communicate with plants",
+    "b": "have the power to heal any illness",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to fly like a bird",
+    "b": "breathe underwater like a fish",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have a personal robot assistant",
+    "b": "a flying car",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be able to speak and understand any animal language",
+    "b": "be able to transform into any animal at will",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to create fire with your mind",
+    "b": "control and manipulate shadows",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to become invisible",
+    "b": "be able to read minds for a day",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have a photographic memory",
+    "b": "the ability to learn any skill instantly",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be able to control and manipulate plants",
+    "b": "control and manipulate electronic devices",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to talk to inanimate objects",
+    "b": "have the power to change your appearance at will",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to freeze time for one minute each day",
+    "b": "have the ability to see 10 minutes into the future",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have a personal time machine",
+    "b": "a personal assistant who can predict the future",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to control and manipulate sound",
+    "b": "control and manipulate gravity",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to become invisible when no one is looking",
+    "b": "have the ability to teleport short distances",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate dreams",
+    "b": "have the power to control and manipulate thoughts",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be able to talk to the dead",
+    "b": "have the power to bring people back to life",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to speak any language fluently",
+    "b": "have perfect pitch",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate fire",
+    "b": "control and manipulate water",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have a personal translator",
+    "b": "a personal chef",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to change your appearance",
+    "b": "the ability to change your voice",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate dreams",
+    "b": "have the power to control and manipulate time",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to talk to animals",
+    "b": "have the power to heal any living creature",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate light",
+    "b": "control and manipulate electricity",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to fly",
+    "b": "be able to turn invisible at will",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have a personal teleportation device",
+    "b": "the power to instantly learn and master any skill",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to control and manipulate dreams",
+    "b": "have the power to control and manipulate emotions",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate the weather",
+    "b": "have the ability to understand and communicate with plants",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have a personal assistant who can anticipate your every need",
+    "b": "the ability to see five minutes into the future",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to speak and understand any fictional language",
+    "b": "have the power to bring fictional characters to life",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate fire",
+    "b": "have the ability to control and manipulate time",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to communicate with animals",
+    "b": "have the power to control and manipulate dreams",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate water",
+    "b": "have the ability to control and manipulate gravity",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have a personal robot butler",
+    "b": "the ability to travel to any place instantly",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to transform into any object",
+    "b": "have the power to control and manipulate thoughts",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate dreams",
+    "b": "have the ability to control and manipulate probability",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be able to talk to plants",
+    "b": "have the ability to heal any wound with a touch",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to fly",
+    "b": "have the power to control and manipulate dreams",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate fire",
+    "b": "have the ability to understand any computer programming language",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have a personal assistant who can predict the future",
+    "b": "the power to control and manipulate time",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to communicate with animals",
+    "b": "have the power to control and manipulate weather",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate dreams",
+    "b": "have the ability to read minds",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the ability to teleport to any place on Earth",
+    "b": "have the power to control and manipulate electricity",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have a personal translator that can translate any language instantly",
+    "b": "the power to control and manipulate gravity",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "be able to control and manipulate dreams",
+    "b": "have the ability to speak and understand any musical language",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "have the power to control and manipulate fire",
+    "b": "have the ability to communicate with ghosts",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Would you rather admit your guilty pleasures to friends and family",
+    "b": "never partake in them again",
+    "rating": "family",
+    "difficulty": "medium"
+  }
 ]

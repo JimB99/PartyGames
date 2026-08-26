@@ -18,6 +18,8 @@ export const curveFeverGame: GameModule<CurveState> = {
     minPlayers: 2,
     maxPlayers: 8,
     category: "action",
+    supportsDifficulty: false,
+    supportsMatureContent: false,
   },
   init(ctx) {
     return createCurveState(ctx.playerIds);

@@ -3,6 +3,7 @@ import {
   ROOM_CODE_CHARS,
   type ClientMessage,
   type GameId,
+  type GameOptions,
   type PlayerViewSnapshot,
   type RoomSnapshot,
   type ServerMessage,
@@ -113,6 +114,11 @@ export function usePartyRoom({
   }, [enabled, roomId, role, nickname, send]);
 
   const selectGame = useCallback((gameId: GameId) => send({ type: "select_game", gameId }), [send]);
+  const setGameOptions = useCallback(
+    (gameId: GameId, options: GameOptions) =>
+      send({ type: "set_game_options", gameId, options }),
+    [send],
+  );
   const startGame = useCallback(() => send({ type: "start_game" }), [send]);
   const returnToLobby = useCallback(() => send({ type: "return_to_lobby" }), [send]);
   const playerAction = useCallback((action: ClientMessage extends { type: "player_action"; action: infer A } ? A : never) => {
@@ -129,6 +135,7 @@ export function usePartyRoom({
     error,
     playerId: playerIdRef.current,
     selectGame,
+    setGameOptions,
     startGame,
     returnToLobby,
     playerAction,

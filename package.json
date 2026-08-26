@@ -4,12 +4,15 @@
   "scripts": {
     "dev": "concurrently \"pnpm --filter client dev\" \"npx wrangler dev --port 8787\"",
     "build": "pnpm --filter shared build && pnpm --filter client build",
+    "import-content": "node --import tsx scripts/import-content.mts",
+    "import-content:local": "node --import tsx scripts/import-content.mts --local-only",
     "deploy": "pnpm build && npx wrangler deploy",
     "typecheck": "pnpm -r typecheck"
   },
   "devDependencies": {
     "concurrently": "^9.1.2",
     "partyserver": "^0.5.10",
+    "tsx": "^4.19.2",
     "typescript": "^5.7.3",
     "wrangler": "^4.125.0"
   }

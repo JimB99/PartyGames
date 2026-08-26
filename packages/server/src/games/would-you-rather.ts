@@ -1,5 +1,5 @@
 import type { GameModule } from "@party-games/shared";
-import { content } from "../content.js";
+import { wouldYouRatherPool } from "../content-pool.js";
 import {
   createTriviaState,
   onTriviaAction,
@@ -14,14 +14,16 @@ export const wouldYouRatherGame: GameModule<TriviaState> = {
   meta: {
     id: "would-you-rather",
     name: "Would You Rather",
-    description: "Pick a side and see the split",
+    description: "Pick between two awkward options",
     scoringRules: "No points — see how the group splits on each dilemma.",
     minPlayers: 2,
     maxPlayers: 16,
     category: "social",
+    supportsDifficulty: true,
+    supportsMatureContent: true,
   },
-  init() {
-    return createTriviaState("would-you-rather", content.wouldYouRather, 10);
+  init(ctx) {
+    return createTriviaState("would-you-rather", wouldYouRatherPool(ctx.gameOptions), 10);
   },
   onPlayerAction(state, playerId, action, ctx) {
     return onTriviaAction(state, playerId, action, ctx);
@@ -30,7 +32,7 @@ export const wouldYouRatherGame: GameModule<TriviaState> = {
     return onTriviaAction(state, "host", action, ctx);
   },
   onTick(state) {
-    return onTriviaTick(state, content.wouldYouRather);
+    return onTriviaTick(state);
   },
   needsTick(state) {
     return state.phase !== "ended";

@@ -1,5 +1,5 @@
 import type { GameModule } from "@party-games/shared";
-import { content } from "../content.js";
+import { quizPool } from "../content-pool.js";
 import {
   createTriviaState,
   onTriviaAction,
@@ -19,9 +19,11 @@ export const quickQuizGame: GameModule<TriviaState> = {
     minPlayers: 1,
     maxPlayers: 16,
     category: "trivia",
+    supportsDifficulty: true,
+    supportsMatureContent: true,
   },
-  init() {
-    return createTriviaState("quiz", content.quiz);
+  init(ctx) {
+    return createTriviaState("quiz", quizPool(ctx.gameOptions));
   },
   onPlayerAction(state, playerId, action, ctx) {
     return onTriviaAction(state, playerId, action, ctx);
@@ -30,7 +32,7 @@ export const quickQuizGame: GameModule<TriviaState> = {
     return onTriviaAction(state, "host", action, ctx);
   },
   onTick(state) {
-    return onTriviaTick(state, content.quiz);
+    return onTriviaTick(state);
   },
   needsTick(state) {
     return state.phase !== "ended";

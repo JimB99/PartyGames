@@ -1,5 +1,5 @@
 import type { GameModule } from "@party-games/shared";
-import { content } from "../content.js";
+import { bracketCategoryPool } from "../content-pool.js";
 import {
   bracketHostView,
   bracketPlayerView,
@@ -13,15 +13,17 @@ import type { BracketState } from "../engines/bracket-engine.js";
 export const bracketBattleGame: GameModule<BracketState> = {
   meta: {
     id: "bracket-battle",
-    name: "Bracket Rumble",
+    name: "Bracket Battle",
     description: "Submit entries, vote through a bracket",
     scoringRules: "+2000 to the author of the bracket champion.",
     minPlayers: 4,
     maxPlayers: 16,
     category: "social",
+    supportsDifficulty: true,
+    supportsMatureContent: true,
   },
-  init() {
-    return createBracketState(content.bracketCategories);
+  init(ctx) {
+    return createBracketState(bracketCategoryPool(ctx.gameOptions));
   },
   onPlayerAction(state, playerId, action, ctx) {
     return onBracketAction(state, playerId, action, ctx);

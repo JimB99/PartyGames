@@ -1,5 +1,5 @@
 import type { GameModule } from "@party-games/shared";
-import { content } from "../content.js";
+import { timelinePool } from "../content-pool.js";
 import {
   createTriviaState,
   onTriviaAction,
@@ -13,15 +13,17 @@ import type { TriviaState } from "../engines/trivia-engine.js";
 export const timelineGame: GameModule<TriviaState> = {
   meta: {
     id: "timeline",
-    name: "When Was It",
-    description: "Guess when things happened",
+    name: "Timeline",
+    description: "Guess when famous events happened",
     scoringRules: "Up to +1000 based on how close your year guess is (lose 20 per year off).",
     minPlayers: 2,
     maxPlayers: 16,
     category: "trivia",
+    supportsDifficulty: true,
+    supportsMatureContent: false,
   },
-  init() {
-    return createTriviaState("timeline", content.timeline, 8);
+  init(ctx) {
+    return createTriviaState("timeline", timelinePool(ctx.gameOptions), 8);
   },
   onPlayerAction(state, playerId, action, ctx) {
     return onTriviaAction(state, playerId, action, ctx);
@@ -30,7 +32,7 @@ export const timelineGame: GameModule<TriviaState> = {
     return onTriviaAction(state, "host", action, ctx);
   },
   onTick(state) {
-    return onTriviaTick(state, content.timeline);
+    return onTriviaTick(state);
   },
   needsTick(state) {
     return state.phase !== "ended";

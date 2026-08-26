@@ -11,13 +11,15 @@ export interface WordRushState {
   submissions: Record<string, string>;
   validWords: Record<string, boolean>;
   roundScores: Record<string, number>;
+  dictionary: Set<string>;
+  minWordLength: number;
 }
 
 const PLAY_MS = 60000;
 const REVEAL_MS = 8000;
 const SCOREBOARD_MS = 4000;
 
-export function createWordRushState(maxRounds = 3): WordRushState {
+export function createWordRushState(maxRounds = 3, dictionary?: Set<string>, minWordLength = 3): WordRushState {
   return {
     phase: "instructions",
     round: 1,
@@ -27,6 +29,8 @@ export function createWordRushState(maxRounds = 3): WordRushState {
     submissions: {},
     validWords: {},
     roundScores: {},
+    dictionary: dictionary ?? new Set(),
+    minWordLength,
   };
 }
 
@@ -80,12 +84,15 @@ function canFormWord(word: string, letters: string[]): boolean {
   return true;
 }
 
-export function scoreWordRush(state: WordRushState, dictionary?: Set<string>) {
+export function scoreWordRush(state: WordRushState) {
   state.roundScores = {};
   const seen = new Set<string>();
   for (const [playerId, word] of Object.entries(state.submissions)) {
     const w = word.toLowerCase().trim();
-    const valid = w.length >= 3 && canFormWord(w, state.letters) && (dictionary?.has(w) ?? w.length >= 3);
+    const valid =
+      w.length >= state.minWordLength &&
+      canFormWord(w, state.letters) &&
+      (state.dictionary.size === 0 || state.dictionary.has(w));
     state.validWords[playerId] = valid && !seen.has(w);
     if (state.validWords[playerId]) {
       seen.add(w);
@@ -112,10 +119,10 @@ export function onWordRushAction(
   return state;
 }
 
-export function onWordRushTick(state: WordRushState, dictionary?: Set<string>): WordRushState {
+export function onWordRushTick(state: WordRushState): WordRushState {
   if (!state.timerEndsAt || Date.now() < state.timerEndsAt) return state;
   if (state.phase === "playing") {
-    scoreWordRush(state, dictionary);
+    scoreWordRush(state);
   }
   return advanceWordRush(state);
 }

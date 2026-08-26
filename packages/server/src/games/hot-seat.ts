@@ -1,6 +1,6 @@
 import type { GameModule } from "@party-games/shared";
 import { pickRandom } from "@party-games/shared";
-import { content } from "../content.js";
+import { hotSeatPool } from "../content-pool.js";
 import {
   createPromptVoteState,
   onPromptVoteAction,
@@ -20,10 +20,12 @@ export const hotSeatGame: GameModule<PromptVoteState> = {
     minPlayers: 3,
     maxPlayers: 10,
     category: "social",
+    supportsDifficulty: true,
+    supportsMatureContent: true,
   },
   init(ctx) {
     const targetPlayerId = pickRandom(ctx.playerIds);
-    return createPromptVoteState("hot-seat", content.hotSeat, 4, targetPlayerId);
+    return createPromptVoteState("hot-seat", hotSeatPool(ctx.gameOptions), 4, targetPlayerId);
   },
   onPlayerAction(state, playerId, action, ctx) {
     return onPromptVoteAction(state, playerId, action, ctx);
@@ -32,7 +34,7 @@ export const hotSeatGame: GameModule<PromptVoteState> = {
     return onPromptVoteAction(state, "host", action, ctx);
   },
   onTick(state) {
-    return onPromptVoteTick(state, content.hotSeat);
+    return onPromptVoteTick(state);
   },
   needsTick(state) {
     return state.phase !== "ended";

@@ -1,4 +1,5 @@
 import { GamePicker } from "../components/GamePicker";
+import { GameOptionsPanel, resolveGameOptions } from "../components/GameOptionsPanel";
 import { HostGameView } from "../components/GameViews";
 import { PlayerList } from "../components/PlayerList";
 import { RoomCodeDisplay } from "../components/RoomCodeDisplay";
@@ -18,7 +19,14 @@ export function HostPage() {
     startGame,
     returnToLobby,
     hostAction,
+    setGameOptions,
   } = usePartyRoom({ roomId, role: "host", enabled: true });
+
+  const selectedGame = roomState?.games.find((g) => g.id === roomState.selectedGameId);
+  const selectedOptions =
+    roomState?.selectedGameId
+      ? resolveGameOptions(roomState.selectedGameId, roomState.gameOptionsByGame)
+      : null;
 
   const playing = roomState?.phase === "playing";
   const connectedPlayers = roomState?.players.filter((p) => p.connected) ?? [];
@@ -50,6 +58,17 @@ export function HostPage() {
               playerCount={connectedPlayers.length}
               onSelect={selectGame}
             />
+            {selectedGame && selectedOptions && (
+              <GameOptionsPanel
+                game={selectedGame}
+                options={selectedOptions}
+                onChange={(options) => {
+                  if (roomState.selectedGameId) {
+                    setGameOptions(roomState.selectedGameId, options);
+                  }
+                }}
+              />
+            )}
             <button
               type="button"
               disabled={!roomState.selectedGameId || connectedPlayers.length === 0}

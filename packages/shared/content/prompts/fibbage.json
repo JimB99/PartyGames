@@ -1,22 +1,416 @@
 [
-  { "prompt": "The world's worst superpower would be...", "truth": "Always knowing when someone is lying, but only about pizza toppings" },
-  { "prompt": "A terrible name for a pet would be...", "truth": "Tax Deduction" },
-  { "prompt": "The worst thing to hear your gym teacher say is...", "truth": "Let's partner up for trust falls" },
-  { "prompt": "A new law requires you to ___ before driving a car", "truth": "Name three things you're grateful for out loud" },
-  { "prompt": "The secret ingredient in grandma's cookies is...", "truth": "Disappointment and nutmeg" },
-  { "prompt": "The title of the worst self-help book ever is...", "truth": "Just Stop Being Sad, Idiot" },
-  { "prompt": "The worst possible wedding toast would start with...", "truth": "I never liked either of you" },
-  { "prompt": "A rejected Olympic sport would be...", "truth": "Competitive sighing" },
-  { "prompt": "The real reason dinosaurs went extinct is...", "truth": "They unionized and demanded better meteor working conditions" },
-  { "prompt": "The worst thing to find in your burrito is...", "truth": "A motivational quote written on the foil" },
-  { "prompt": "A horrible theme for a children's birthday party is...", "truth": "Existential dread" },
-  { "prompt": "The worst notification to get at 3 AM is...", "truth": "Your plants are disappointed in you" },
-  { "prompt": "An awful name for a coffee shop would be...", "truth": "Latte Than Nothing" },
-  { "prompt": "The least helpful GPS direction ever is...", "truth": "Turn left where you feel spiritually called" },
-  { "prompt": "A terrible superhero weakness would be...", "truth": "Allergic to justice" },
-  { "prompt": "The worst thing to yell during a quiet movie scene is...", "truth": "That's what my therapist said!" },
-  { "prompt": "A rejected candy bar flavor would be...", "truth": "Regret with almonds" },
-  { "prompt": "The worst advice a fortune cookie could give is...", "truth": "Stop googling your symptoms" },
-  { "prompt": "An inappropriate thing to bring to a potluck is...", "truth": "Your emotional baggage in Tupperware" },
-  { "prompt": "The worst possible airline announcement is...", "truth": "We lost the plane but found your luggage" }
+  {
+    "prompt": "The world's worst superpower would be...",
+    "truth": "Always knowing when someone is lying, but only about pizza toppings",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "A terrible name for a pet would be...",
+    "truth": "Tax Deduction",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing to hear your gym teacher say is...",
+    "truth": "Let's partner up for trust falls",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "A new law requires you to ___ before driving a car",
+    "truth": "Name three things you're grateful for out loud",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The secret ingredient in grandma's cookies is...",
+    "truth": "Disappointment and nutmeg",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The title of the worst self-help book ever is...",
+    "truth": "Just Stop Being Sad, Idiot",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst possible wedding toast would start with...",
+    "truth": "I never liked either of you",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "A rejected Olympic sport would be...",
+    "truth": "Competitive sighing",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The real reason dinosaurs went extinct is...",
+    "truth": "They unionized and demanded better meteor working conditions",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The worst thing to find in your burrito is...",
+    "truth": "A motivational quote written on the foil",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A horrible theme for a children's birthday party is...",
+    "truth": "Existential dread",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The worst notification to get at 3 AM is...",
+    "truth": "Your plants are disappointed in you",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "An awful name for a coffee shop would be...",
+    "truth": "Latte Than Nothing",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The least helpful GPS direction ever is...",
+    "truth": "Turn left where you feel spiritually called",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A terrible superhero weakness would be...",
+    "truth": "Allergic to justice",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The worst thing to yell during a quiet movie scene is...",
+    "truth": "That's what my therapist said!",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A rejected candy bar flavor would be...",
+    "truth": "Regret with almonds",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The worst advice a fortune cookie could give is...",
+    "truth": "Stop googling your symptoms",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "An inappropriate thing to bring to a potluck is...",
+    "truth": "Your emotional baggage in Tupperware",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The worst possible airline announcement is...",
+    "truth": "We lost the plane but found your luggage",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "Which is your favorite kind of sex: soft, slow, and sweet or aggressive, fast...",
+    "truth": "That's what my therapist said!",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "If you had to do 'seven minutes in heaven' with someone here, who would you p...",
+    "truth": "That's what my therapist said!",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "Who in this group would you want to see naked the least",
+    "truth": "That's what my therapist said!",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "Have you ever fantasized about a person in front of you",
+    "truth": "That's what my therapist said!",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "Have you ever had an STD",
+    "truth": "That's what my therapist said!",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "What is your favourite type of foreplay",
+    "truth": "That's what my therapist said!",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "If you could go back and change anything about the first time you had sex, wh...",
+    "truth": "That's what my therapist said!",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "Are you carrying any condoms",
+    "truth": "That's what my therapist said!",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "Which do you think is hotter: sex standing against a wall or bent over a table",
+    "truth": "That's what my therapist said!",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "What kind of foreplay would you like to try",
+    "truth": "That's what my therapist said!",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "Have you ever been in a friends with benefits situation",
+    "truth": "That's what my therapist said!",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "In the server/room, who's most likely to lose their virginity first",
+    "truth": "That's what my therapist said!",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "Who is the last person that you stalked on social media",
+    "truth": "That's what my therapist said!",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "Did you smoke or drink before you turned the legal age",
+    "truth": "That's what my therapist said!",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "What is the the dirtiest thing you've said/done",
+    "truth": "That's what my therapist said!",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "Have you ever paid or been paid for any form of sex? If so, how much",
+    "truth": "That's what my therapist said!",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "After how many dates do you usually have sex",
+    "truth": "That's what my therapist said!",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "Have you ever wanted to have an orgy",
+    "truth": "That's what my therapist said!",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "How many people have you kissed",
+    "truth": "That's what my therapist said!",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "Which do you think is hotter: sex standing against a wall or bent over a table",
+    "truth": "That's what my therapist said!",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "Have you ever done anything dirty with someone",
+    "truth": "That's what my therapist said!",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "What type of music do you like to have sex to",
+    "truth": "That's what my therapist said!",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "How about an orgy",
+    "truth": "That's what my therapist said!",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "What is your favourite position",
+    "truth": "That's what my therapist said!",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "Who is the best roommate that you have ever had",
+    "truth": "That's what my therapist said!",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "Have you ever done hard drugs",
+    "truth": "That's what my therapist said!",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "How do you feel when touching yourself",
+    "truth": "That's what my therapist said!",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "If you had to choose between only oral sex or only penetrative sex for the re...",
+    "truth": "That's what my therapist said!",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "How often do you masturbate? How often is it about someone here",
+    "truth": "That's what my therapist said!",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "Have you ever done it in the great outdoors? If so, where",
+    "truth": "That's what my therapist said!",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "Do you love giving blowjobs",
+    "truth": "That's what my therapist said!",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "What are some things you don’t understand about the opposite sex",
+    "truth": "That's what my therapist said!",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "How many times a week do you touch yourself",
+    "truth": "That's what my therapist said!",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "Would you have sex with someone in this group",
+    "truth": "That's what my therapist said!",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "Have you ever gotten a DUI",
+    "truth": "That's what my therapist said!",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "Have you ever had a sexual dream about anyone here",
+    "truth": "That's what my therapist said!",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "Do you like it smooth or rough",
+    "truth": "That's what my therapist said!",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "What bad thing have you done that no one else has found out about",
+    "truth": "That's what my therapist said!",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "If you could pick your dick size/boob size, what would you choose",
+    "truth": "That's what my therapist said!",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "Have you ever had a friend with benefits",
+    "truth": "That's what my therapist said!",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "Who here do you want to have sex with the most",
+    "truth": "That's what my therapist said!",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "Where is your favourite place to be kissed",
+    "truth": "That's what my therapist said!",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "Have you ever watched another couple have sex",
+    "truth": "That's what my therapist said!",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "Did you ever stay in a relationship because of sex (and not love)",
+    "truth": "That's what my therapist said!",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "What's an experience of yours that belongs most in a young adult romance novel",
+    "truth": "That's what my therapist said!",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "Have you ever tried cocaine",
+    "truth": "That's what my therapist said!",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "If you could pick your dick size/boob size, what would you choose",
+    "truth": "That's what my therapist said!",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "Are you a dominating person",
+    "truth": "That's what my therapist said!",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "Who would make your parents freak out if you brought them home",
+    "truth": "That's what my therapist said!",
+    "rating": "mature",
+    "difficulty": "medium"
+  }
 ]

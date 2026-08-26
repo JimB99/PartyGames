@@ -12,19 +12,29 @@ import muppetsJson from "../../shared/content/categories/muppets.json";
 import bracketCategoriesJson from "../../shared/content/categories/bracket.json";
 import dictionaryRaw from "../../shared/content/words/dictionary.txt?raw";
 
+import type {
+  CategoryEntry,
+  FibbageEntry,
+  PromptEntry,
+  QuizEntry,
+  TimelineEntry,
+  WordEntry,
+  WouldYouRatherEntry,
+} from "@party-games/shared";
+
 export const content = {
-  fibbage: fibbageJson as Array<{ prompt: string; truth: string }>,
-  fibbageReverse: fibbageReverseJson as Array<{ fact: string; truth: string }>,
-  quiplash: quiplashJson as string[],
-  caption: captionJson as string[],
-  hotSeat: hotSeatJson as string[],
-  quiz: quizJson as Array<{ question: string; choices: string[]; correct: number }>,
-  timeline: timelineJson as Array<{ event: string; year: number }>,
-  wouldYouRather: wouldYouRatherJson as Array<{ a: string; b: string }>,
-  drawWords: drawWordsJson as string[],
-  charadesWords: charadesWordsJson as string[],
+  fibbage: fibbageJson as FibbageEntry[],
+  fibbageReverse: fibbageReverseJson as FibbageEntry[],
+  quiplash: quiplashJson as PromptEntry[],
+  caption: captionJson as PromptEntry[],
+  hotSeat: hotSeatJson as PromptEntry[],
+  quiz: quizJson as QuizEntry[],
+  timeline: timelineJson as TimelineEntry[],
+  wouldYouRather: wouldYouRatherJson as WouldYouRatherEntry[],
+  drawWords: drawWordsJson as WordEntry[],
+  charadesWords: charadesWordsJson as WordEntry[],
   muppets: muppetsJson as string[],
-  bracketCategories: bracketCategoriesJson as string[],
+  bracketCategories: bracketCategoriesJson as CategoryEntry[],
   dictionary: new Set(
     dictionaryRaw.split(",").map((w: string) => w.trim().toLowerCase()).filter(Boolean),
   ),
