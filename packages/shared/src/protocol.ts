@@ -1,4 +1,5 @@
 import type { GameId } from "./constants.js";
+import type { GameMeta } from "./constants.js";
 import type { ConnectionRole } from "./room.js";
 
 export type ClientMessage =
@@ -49,14 +50,7 @@ export interface RoomSnapshot {
   hostView: HostViewSnapshot | null;
   role: ConnectionRole;
   playerId: string | null;
-  games: Array<{
-    id: GameId;
-    name: string;
-    description: string;
-    minPlayers: number;
-    maxPlayers: number;
-    category: string;
-  }>;
+  games: GameMeta[];
 }
 
 export interface HostViewSnapshot {

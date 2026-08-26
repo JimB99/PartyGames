@@ -1,4 +1,5 @@
 import {
+  buildBluffReveal,
   pickRandom,
   shuffle,
   uniqueId,
@@ -171,6 +172,7 @@ export function onBluffTick(state: BluffState, prompts: Array<{ prompt?: string;
 }
 
 export function bluffHostView(state: BluffState) {
+  const showReveal = state.phase === "reveal" || state.phase === "scoreboard";
   return {
     phase: state.phase,
     round: state.round,
@@ -179,9 +181,10 @@ export function bluffHostView(state: BluffState) {
     data: {
       mode: state.mode,
       displayText: state.displayText,
-      options: state.phase === "vote" || state.phase === "reveal" || state.phase === "scoreboard"
+      options: state.phase === "vote" || showReveal
         ? state.options.map((o) => ({ id: o.id, text: o.text, isTruth: state.phase !== "vote" ? o.isTruth : undefined }))
         : undefined,
+      reveal: showReveal ? buildBluffReveal(state.options, state.votes) : undefined,
       roundScores: state.roundScores,
       voteCount: Object.keys(state.votes).length,
       playerCount: Object.keys(state.submissions).length,
@@ -192,6 +195,7 @@ export function bluffHostView(state: BluffState) {
 export function bluffPlayerView(state: BluffState, playerId: string) {
   const submitted = state.submissions[playerId] !== undefined;
   const voted = state.votes[playerId] !== undefined;
+  const showReveal = state.phase === "reveal" || state.phase === "scoreboard";
   return {
     phase: state.phase,
     round: state.round,
@@ -203,6 +207,7 @@ export function bluffPlayerView(state: BluffState, playerId: string) {
       options: state.phase === "vote"
         ? state.options.map((o) => ({ id: o.id, text: o.text }))
         : undefined,
+      reveal: showReveal ? buildBluffReveal(state.options, state.votes) : undefined,
     },
     playerData: {
       submitted,

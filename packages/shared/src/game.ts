@@ -21,6 +21,7 @@ export interface GameModule<TState = unknown> {
     id: GameId;
     name: string;
     description: string;
+    scoringRules: string;
     minPlayers: number;
     maxPlayers: number;
     category: "social" | "trivia" | "drawing" | "action";

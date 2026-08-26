@@ -1,6 +1,8 @@
-import type { HostViewSnapshot, PlayerViewSnapshot, RoomSnapshot } from "@party-games/shared";
+import type { HostViewSnapshot, PlayerAnswerReveal, PlayerViewSnapshot, RevealEntry, RoomSnapshot } from "@party-games/shared";
 import { useState } from "react";
 import { playerColor } from "../hooks/usePartyRoom";
+import { RevealBreakdown, ScoringRulesPanel } from "./RevealBreakdown";
+import { RoundScorePanel } from "./RoundScorePanel";
 import { TimerBar } from "./TimerBar";
 
 function Btn({
@@ -8,11 +10,13 @@ function Btn({
   onClick,
   variant = "primary",
   className = "",
+  disabled = false,
 }: {
   children: React.ReactNode;
   onClick?: () => void;
   variant?: "primary" | "secondary" | "danger";
   className?: string;
+  disabled?: boolean;
 }) {
   const base = "rounded-xl px-6 py-4 text-lg font-bold transition active:scale-95";
   const styles =
@@ -22,7 +26,7 @@ function Btn({
         ? "bg-red-600 hover:bg-red-500 text-white"
         : "bg-zinc-700 hover:bg-zinc-600 text-white";
   return (
-    <button type="button" className={`${base} ${styles} ${className}`} onClick={onClick}>
+    <button type="button" className={`${base} ${styles} ${className} disabled:opacity-40`} onClick={onClick} disabled={disabled}>
       {children}
     </button>
   );
@@ -37,12 +41,15 @@ export function HostGameView({
 }) {
   const data = hostView.data;
   const phase = hostView.phase;
+  const gameMeta = room.games.find((g) => g.id === hostView.gameId);
+  const gameName = gameMeta?.name ?? hostView.gameId.replace(/-/g, " ");
+  const scoringRules = gameMeta?.scoringRules;
 
   return (
     <div className="mx-auto max-w-5xl space-y-6 p-6">
       <header className="flex items-center justify-between">
         <div>
-          <h2 className="text-3xl font-black">{hostView.gameId.replace(/-/g, " ")}</h2>
+          <h2 className="text-3xl font-black">{gameName}</h2>
           <p className="text-zinc-400">
             Round {hostView.round}/{hostView.maxRounds} · {phase}
           </p>
@@ -51,9 +58,12 @@ export function HostGameView({
       </header>
 
       {phase === "instructions" && (
-        <div className="rounded-2xl bg-zinc-800/60 p-8 text-center">
-          <p className="text-2xl">Get ready!</p>
-          <p className="mt-2 text-zinc-400">Starting soon…</p>
+        <div className="space-y-4">
+          <div className="rounded-2xl bg-zinc-800/60 p-8 text-center">
+            <p className="text-2xl">Get ready!</p>
+            <p className="mt-2 text-zinc-400">Starting soon…</p>
+          </div>
+          {scoringRules && <ScoringRulesPanel rules={scoringRules} />}
         </div>
       )}
 
@@ -97,6 +107,17 @@ export function HostGameView({
         </div>
       )}
 
+      {phase === "vote" && data.match && !data.options && (
+        <div className="grid gap-4 sm:grid-cols-2">
+          <div className="rounded-2xl bg-pink-600/30 p-8 text-center text-2xl font-bold">
+            {(data.match as { a: { text: string } }).a?.text}
+          </div>
+          <div className="rounded-2xl bg-cyan-600/30 p-8 text-center text-2xl font-bold">
+            {(data.match as { b: { text: string } }).b?.text}
+          </div>
+        </div>
+      )}
+
       {phase === "matchup" && data.matchup && (
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="rounded-2xl bg-pink-600/30 p-8 text-center text-2xl font-bold">
@@ -110,21 +131,27 @@ export function HostGameView({
 
       {phase === "reveal" && (
         <div className="space-y-4">
-          {data.options && (
-            <div className="grid gap-2">
-              {(data.options as Array<{ id: string; text: string; isTruth?: boolean }>).map((o) => (
-                <div key={o.id} className={`rounded-xl p-4 text-xl ${o.isTruth ? "bg-green-600/30" : "bg-zinc-800"}`}>
-                  {o.text}
-                </div>
-              ))}
-            </div>
-          )}
+          <RevealBreakdown
+            room={room}
+            reveal={data.reveal as RevealEntry[] | undefined}
+            playerAnswers={data.playerAnswers as PlayerAnswerReveal[] | undefined}
+          />
           {data.correctIndex !== undefined && data.choices && (
             <p className="text-2xl text-center">
               Correct: {(data.choices as string[])[data.correctIndex as number]}
             </p>
           )}
           {data.correctYear && <p className="text-2xl text-center">Year: {data.correctYear as number}</p>}
+          {data.word && (
+            <p className="text-2xl text-center">
+              Word: {data.word as string}
+              {data.drawerId && (
+                <span className="text-zinc-400 text-lg block mt-1">
+                  Drawn by {room.players.find((p) => p.id === data.drawerId)?.nickname}
+                </span>
+              )}
+            </p>
+          )}
           {data.voteSplit && (
             <div className="flex h-16 overflow-hidden rounded-xl">
               <div className="flex items-center justify-center bg-blue-600" style={{ width: `${(data.voteSplit as { a: number }).a}%` }}>
@@ -135,18 +162,40 @@ export function HostGameView({
               </div>
             </div>
           )}
-          {data.submissions && (
+          {data.actorId && (
+            <p className="text-center text-xl">
+              Actor: {room.players.find((p) => p.id === data.actorId)?.nickname}
+              {data.correct !== undefined && ` · ${data.correct} correct, ${data.skipped} skipped`}
+            </p>
+          )}
+          {data.taskFailures && (data.taskFailures as string[]).length > 0 && (
+            <p className="text-center text-red-400">
+              Task failures: {(data.taskFailures as string[]).map((id) => room.players.find((p) => p.id === id)?.nickname).join(", ")}
+            </p>
+          )}
+          {data.results && !data.playerAnswers && (
             <ul className="space-y-2">
-              {(data.submissions as Array<{ playerId: string; word: string; valid?: boolean }>).map((s) => {
-                const player = room.players.find((p) => p.id === s.playerId);
-                return (
-                  <li key={s.playerId} className="flex justify-between rounded-lg bg-zinc-800 px-4 py-2">
-                    <span>{player?.nickname ?? s.playerId}</span>
-                    <span>{s.word} {s.valid ? "✓" : "✗"}</span>
-                  </li>
-                );
-              })}
+              {Object.entries(data.results as Record<string, { role: string; count: number }>).map(([pid, r]) => (
+                <li key={pid} className="rounded-lg bg-zinc-800 px-4 py-2 flex justify-between">
+                  <span>{room.players.find((p) => p.id === pid)?.nickname}</span>
+                  <span>{r.role} ({r.count} votes)</span>
+                </li>
+              ))}
             </ul>
+          )}
+        </div>
+      )}
+
+      {phase === "ended" && hostView.gameId === "impostor" && (
+        <div className="space-y-4 rounded-2xl bg-zinc-800/60 p-6 text-center">
+          <p className="text-2xl font-bold">{data.crewWon ? "Crew wins!" : "Aliens win!"}</p>
+          {data.aliens && (
+            <p className="text-zinc-400">
+              Aliens were: {(data.aliens as string[]).map((id) => room.players.find((p) => p.id === id)?.nickname).join(", ")}
+            </p>
+          )}
+          {data.ejected && (
+            <p>Ejected: {room.players.find((p) => p.id === data.ejected)?.nickname}</p>
           )}
         </div>
       )}
@@ -160,25 +209,17 @@ export function HostGameView({
       )}
 
       {(phase === "scoreboard" || phase === "round_end" || phase === "ended") && (
-        <div className="rounded-2xl bg-zinc-800/60 p-6">
-          <h3 className="text-xl font-bold mb-4">Round scores</h3>
-          <ul className="space-y-2">
-            {Object.entries((data.roundScores as Record<string, number>) ?? {}).map(([id, pts]) => {
-              const p = room.players.find((pl) => pl.id === id);
-              return (
-                <li key={id} className="flex justify-between">
-                  <span>{p?.nickname ?? id}</span>
-                  <span className="font-mono">{pts}</span>
-                </li>
-              );
-            })}
-          </ul>
+        <>
+          <RoundScorePanel
+            room={room}
+            roundScores={(data.roundScores as Record<string, number>) ?? {}}
+          />
           {data.roundWinner && (
-            <p className="mt-4 text-center text-2xl text-yellow-400">
+            <p className="text-center text-2xl text-yellow-400">
               Winner: {room.players.find((p) => p.id === data.roundWinner)?.nickname}
             </p>
           )}
-        </div>
+        </>
       )}
     </div>
   );
@@ -270,6 +311,9 @@ export function PlayerGameView({
   const phase = playerView.phase;
   const data = playerView.data;
   const playerData = playerView.playerData;
+  const gameMeta = room.games.find((g) => g.id === playerView.gameId);
+  const gameName = gameMeta?.name ?? playerView.gameId.replace(/-/g, " ");
+  const scoringRules = gameMeta?.scoringRules;
   const [text, setText] = useState("");
   const [year, setYear] = useState(2000);
 
@@ -277,18 +321,26 @@ export function PlayerGameView({
     <div className="mx-auto max-w-md space-y-4 p-4 pb-8">
       <TimerBar endsAt={playerView.timerEndsAt} />
       <p className="text-center text-sm text-zinc-400">
-        {playerView.gameId.replace(/-/g, " ")} · {phase}
+        {gameName} · {phase}
       </p>
 
       {phase === "instructions" && (
-        <div className="text-center py-8">
-          <p className="text-xl">Look at the TV!</p>
+        <div className="space-y-4 py-4">
+          <p className="text-center text-xl">Look at the TV!</p>
+          {scoringRules && <ScoringRulesPanel rules={scoringRules} />}
         </div>
       )}
 
       {(phase === "submit" || phase === "guessing") && (
         <div className="space-y-3">
+          {data.displayText && <p className="text-center text-xl font-bold">{String(data.displayText)}</p>}
+          {data.prompt && <p className="text-center text-xl font-bold">{String(data.prompt)}</p>}
+          {data.imageCaption && <p className="text-center text-lg text-zinc-300">{String(data.imageCaption)}</p>}
+          {data.category && <p className="text-center text-xl font-bold">{String(data.category)}</p>}
           {playerData.word && <p className="text-center text-2xl font-bold">{String(playerData.word)}</p>}
+          {phase === "guessing" && !playerData.word && (
+            <p className="text-center text-zinc-400">Watch the TV and guess the drawing!</p>
+          )}
           <textarea
             className="w-full rounded-xl bg-zinc-800 p-4 text-lg"
             rows={3}
@@ -312,6 +364,17 @@ export function PlayerGameView({
         </div>
       )}
 
+      {phase === "vote" && data.match && !data.options && (
+        <div className="grid gap-3">
+          <Btn className="w-full" onClick={() => onAction({ kind: "vote", optionId: (data.match as { a: { id: string } }).a.id })}>
+            {(data.match as { a: { text: string } }).a.text}
+          </Btn>
+          <Btn className="w-full" variant="secondary" onClick={() => onAction({ kind: "vote", optionId: (data.match as { b: { id: string } }).b.id })}>
+            {(data.match as { b: { text: string } }).b.text}
+          </Btn>
+        </div>
+      )}
+
       {phase === "matchup" && data.matchup && (
         <div className="grid gap-3">
           <Btn className="w-full" onClick={() => onAction({ kind: "vote_pair", winnerId: (data.matchup as { a: { id: string } }).a.id })}>
@@ -324,17 +387,21 @@ export function PlayerGameView({
       )}
 
       {phase === "question" && data.mode === "quiz" && (
-        <div className="grid grid-cols-2 gap-3">
-          {["A", "B", "C", "D"].map((label, i) => (
-            <Btn key={label} variant="secondary" onClick={() => onAction({ kind: "trivia_answer", choiceIndex: i })}>
-              {label}
-            </Btn>
-          ))}
+        <div className="space-y-3">
+          {data.question && <p className="text-center text-lg font-bold">{String(data.question)}</p>}
+          <div className="grid gap-2">
+            {(data.choices as string[] | undefined)?.map((c, i) => (
+              <Btn key={i} variant="secondary" className="w-full text-base text-left" onClick={() => onAction({ kind: "trivia_answer", choiceIndex: i })}>
+                {c}
+              </Btn>
+            ))}
+          </div>
         </div>
       )}
 
       {phase === "question" && data.mode === "timeline" && (
         <div className="space-y-3">
+          {data.event && <p className="text-center text-xl font-bold">{String(data.event)}</p>}
           <input type="range" min={data.minYear as number} max={data.maxYear as number} value={year} onChange={(e) => setYear(Number(e.target.value))} className="w-full" />
           <p className="text-center text-2xl font-bold">{year}</p>
           <Btn className="w-full" onClick={() => onAction({ kind: "year_slider", year })}>Lock in</Btn>
@@ -372,6 +439,26 @@ export function PlayerGameView({
         <div className="grid grid-cols-2 gap-4">
           <Btn className="py-12 text-2xl" onClick={() => onAction({ kind: "curve_turn", direction: "left" })}>◀</Btn>
           <Btn className="py-12 text-2xl" onClick={() => onAction({ kind: "curve_turn", direction: "right" })}>▶</Btn>
+        </div>
+      )}
+
+      {phase === "playing" && data.letters && !playerView.gameId.includes("curve") && (
+        <div className="space-y-3">
+          <div className="flex justify-center gap-2">
+            {(data.letters as string[]).map((l) => (
+              <span key={l} className="rounded-lg bg-violet-600 px-4 py-2 text-2xl font-black">{l}</span>
+            ))}
+          </div>
+          <textarea
+            className="w-full rounded-xl bg-zinc-800 p-4 text-lg"
+            rows={2}
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            placeholder="Type a word…"
+          />
+          <Btn onClick={() => { onAction({ kind: "submit_text", text }); setText(""); }} className="w-full">
+            Submit
+          </Btn>
         </div>
       )}
 
@@ -414,6 +501,21 @@ export function PlayerGameView({
           />
           <Btn variant="secondary" className="w-full" onClick={() => onAction({ kind: "draw_clear" })}>Clear</Btn>
         </div>
+      )}
+
+      {(phase === "reveal" || phase === "scoreboard") && (
+        <RevealBreakdown
+          room={room}
+          reveal={data.reveal as RevealEntry[] | undefined}
+          playerAnswers={data.playerAnswers as PlayerAnswerReveal[] | undefined}
+          compact
+        />
+      )}
+
+      {phase === "reveal" && (data.myResult as { role: string } | undefined) && (
+        <p className="text-center text-lg">
+          Your role: {(data.myResult as { role: string }).role}
+        </p>
       )}
     </div>
   );

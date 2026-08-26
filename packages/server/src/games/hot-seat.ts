@@ -16,6 +16,7 @@ export const hotSeatGame: GameModule<PromptVoteState> = {
     id: "hot-seat",
     name: "Hot Seat",
     description: "Answer about the hot seat player",
+    scoringRules: "+1000 if the hot seat player picks your answer.",
     minPlayers: 3,
     maxPlayers: 10,
     category: "social",

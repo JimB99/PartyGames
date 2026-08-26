@@ -13,8 +13,9 @@ import type { BluffState } from "../engines/bluff-engine.js";
 export const fibbageReverseGame: GameModule<BluffState> = {
   meta: {
     id: "fibbage-reverse",
-    name: "Fibbage Reverse",
+    name: "Reverse Fact",
     description: "Write the question that fits the fact",
+    scoringRules: "+1000 for voting the real question; +500 to the author of a fake you voted for.",
     minPlayers: 2,
     maxPlayers: 16,
     category: "social",

@@ -13,8 +13,9 @@ import type { BracketState } from "../engines/bracket-engine.js";
 export const bracketBattleGame: GameModule<BracketState> = {
   meta: {
     id: "bracket-battle",
-    name: "Bracket Battle",
+    name: "Bracket Rumble",
     description: "Submit entries, vote through a bracket",
+    scoringRules: "+2000 to the author of the bracket champion.",
     minPlayers: 4,
     maxPlayers: 16,
     category: "social",

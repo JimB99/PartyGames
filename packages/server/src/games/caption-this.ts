@@ -15,6 +15,7 @@ export const captionThisGame: GameModule<PromptVoteState> = {
     id: "caption-this",
     name: "Caption This",
     description: "Write captions for absurd scenes",
+    scoringRules: "+1000 for the caption with the most votes.",
     minPlayers: 3,
     maxPlayers: 16,
     category: "social",

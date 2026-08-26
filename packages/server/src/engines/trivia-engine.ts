@@ -1,4 +1,4 @@
-import { pickRandom, type GameAction, type RoomContext } from "@party-games/shared";
+import { pickRandom, type GameAction, type RoomContext, type PlayerAnswerReveal } from "@party-games/shared";
 
 export type TriviaMode = "quiz" | "timeline" | "would-you-rather";
 
@@ -28,6 +28,34 @@ export interface TriviaState {
 const QUESTION_MS = 25000;
 const REVEAL_MS = 6000;
 const SCOREBOARD_MS = 4000;
+
+function buildTriviaPlayerAnswers(state: TriviaState): PlayerAnswerReveal[] {
+  return Object.entries(state.answers).map(([playerId, answer]) => {
+    if (state.mode === "quiz" && typeof answer === "number") {
+      return {
+        playerId,
+        answer,
+        detail: state.choices?.[answer],
+        correct: answer === state.correctIndex,
+        points: state.results?.[playerId],
+      };
+    }
+    if (state.mode === "timeline" && typeof answer === "number") {
+      return {
+        playerId,
+        answer,
+        detail: `Year ${answer}`,
+        points: state.results?.[playerId],
+      };
+    }
+    const choice = answer as "a" | "b";
+    return {
+      playerId,
+      answer: choice,
+      detail: choice === "a" ? state.optionA : state.optionB,
+    };
+  });
+}
 
 export function createTriviaState(
   mode: TriviaMode,
@@ -155,6 +183,8 @@ export function triviaHostView(state: TriviaState) {
   const voteA = Object.values(state.answers).filter((a) => a === "a" || a === 0).length;
   const voteB = Object.values(state.answers).filter((a) => a === "b" || a === 1).length;
   const total = Object.keys(state.answers).length;
+  const showReveal = state.phase === "reveal" || state.phase === "scoreboard";
+  const hideQuizChoicesOnTv = state.mode === "quiz" && state.phase === "question";
   return {
     phase: state.phase,
     round: state.round,
@@ -163,10 +193,10 @@ export function triviaHostView(state: TriviaState) {
     data: {
       mode: state.mode,
       question: state.question,
-      choices: state.choices,
-      correctIndex: state.phase === "reveal" || state.phase === "scoreboard" ? state.correctIndex : undefined,
+      choices: hideQuizChoicesOnTv ? undefined : state.choices,
+      correctIndex: showReveal ? state.correctIndex : undefined,
       event: state.event,
-      correctYear: state.phase === "reveal" || state.phase === "scoreboard" ? state.correctYear : undefined,
+      correctYear: showReveal ? state.correctYear : undefined,
       minYear: state.minYear,
       maxYear: state.maxYear,
       optionA: state.optionA,
@@ -177,11 +207,14 @@ export function triviaHostView(state: TriviaState) {
       answerCount: Object.keys(state.answers).length,
       roundScores: state.roundScores,
       results: state.results,
+      playerAnswers: showReveal ? buildTriviaPlayerAnswers(state) : undefined,
     },
   };
 }
 
 export function triviaPlayerView(state: TriviaState, playerId: string) {
+  const showReveal = state.phase === "reveal" || state.phase === "scoreboard";
+  const inQuestion = state.phase === "question";
   return {
     phase: state.phase,
     round: state.round,
@@ -189,10 +222,16 @@ export function triviaPlayerView(state: TriviaState, playerId: string) {
     timerEndsAt: state.timerEndsAt,
     data: {
       mode: state.mode,
+      question: inQuestion && state.mode === "quiz" ? state.question : undefined,
+      choices: inQuestion && state.mode === "quiz" ? state.choices : undefined,
+      event: inQuestion && state.mode === "timeline" ? state.event : undefined,
       minYear: state.minYear,
       maxYear: state.maxYear,
       optionA: state.optionA,
       optionB: state.optionB,
+      correctIndex: showReveal && state.mode === "quiz" ? state.correctIndex : undefined,
+      correctYear: showReveal && state.mode === "timeline" ? state.correctYear : undefined,
+      playerAnswers: showReveal ? buildTriviaPlayerAnswers(state) : undefined,
     },
     playerData: {
       answered: state.answers[playerId] !== undefined,

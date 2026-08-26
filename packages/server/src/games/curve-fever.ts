@@ -12,8 +12,9 @@ import type { CurveState } from "../engines/realtime-arena.js";
 export const curveFeverGame: GameModule<CurveState> = {
   meta: {
     id: "curve-fever",
-    name: "Curve Fever",
+    name: "Trail Dash",
     description: "Don't crash your trail — last alive wins",
+    scoringRules: "+1000 for winning each round (last player alive).",
     minPlayers: 2,
     maxPlayers: 8,
     category: "action",

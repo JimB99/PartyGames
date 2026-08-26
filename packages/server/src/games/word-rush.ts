@@ -15,6 +15,7 @@ export const wordRushGame: GameModule<WordRushState> = {
     id: "word-rush",
     name: "Word Rush",
     description: "Race to type words from random letters",
+    scoringRules: "Valid words score word length × 100 points.",
     minPlayers: 2,
     maxPlayers: 16,
     category: "action",

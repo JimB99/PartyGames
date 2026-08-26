@@ -13,8 +13,9 @@ import type { TriviaState } from "../engines/trivia-engine.js";
 export const timelineGame: GameModule<TriviaState> = {
   meta: {
     id: "timeline",
-    name: "Timeline",
+    name: "When Was It",
     description: "Guess when things happened",
+    scoringRules: "Up to +1000 based on how close your year guess is (lose 20 per year off).",
     minPlayers: 2,
     maxPlayers: 16,
     category: "trivia",

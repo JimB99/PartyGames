@@ -13,8 +13,9 @@ import type { DrawState } from "../engines/drawing-engine.js";
 export const drawGuessGame: GameModule<DrawState> = {
   meta: {
     id: "draw-guess",
-    name: "Draw & Guess",
+    name: "Sketch It",
     description: "Draw prompts while others guess",
+    scoringRules: "+500 for a correct guess; +250 to the drawer for each correct guesser.",
     minPlayers: 3,
     maxPlayers: 8,
     category: "drawing",

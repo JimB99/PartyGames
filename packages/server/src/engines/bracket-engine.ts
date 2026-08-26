@@ -164,6 +164,7 @@ export function onBracketTick(state: BracketState): BracketState {
 export function bracketHostView(state: BracketState) {
   const entryById = Object.fromEntries(state.entries.map((e) => [e.id, e]));
   const match = state.bracket[state.matchIndex];
+  const showReveal = state.phase === "reveal" || state.phase === "scoreboard";
   return {
     phase: state.phase,
     round: state.round,
@@ -171,7 +172,16 @@ export function bracketHostView(state: BracketState) {
     timerEndsAt: state.timerEndsAt,
     data: {
       category: state.category,
-      entries: state.phase === "reveal" ? state.entries : undefined,
+      entries: showReveal ? state.entries : undefined,
+      reveal: showReveal
+        ? state.entries.map((e) => ({
+            id: e.id,
+            text: e.text,
+            authorId: e.authorId,
+            isTruth: state.championId === e.id,
+            authorLabel: state.championId === e.id ? "Champion" : undefined,
+          }))
+        : undefined,
       match: match && state.phase === "vote"
         ? { a: entryById[match.a], b: entryById[match.b], index: state.matchIndex, total: state.bracket.length }
         : undefined,
@@ -184,6 +194,7 @@ export function bracketHostView(state: BracketState) {
 export function bracketPlayerView(state: BracketState, playerId: string) {
   const entryById = Object.fromEntries(state.entries.map((e) => [e.id, e]));
   const match = state.bracket[state.matchIndex];
+  const showReveal = state.phase === "reveal" || state.phase === "scoreboard";
   return {
     phase: state.phase,
     round: state.round,
@@ -194,6 +205,16 @@ export function bracketPlayerView(state: BracketState, playerId: string) {
       match: match && state.phase === "vote"
         ? { a: entryById[match.a], b: entryById[match.b] }
         : undefined,
+      reveal: showReveal
+        ? state.entries.map((e) => ({
+            id: e.id,
+            text: e.text,
+            authorId: e.authorId,
+            isTruth: state.championId === e.id,
+            authorLabel: state.championId === e.id ? "Champion" : undefined,
+          }))
+        : undefined,
+      champion: showReveal && state.championId ? entryById[state.championId] : undefined,
     },
     playerData: {
       submitted: state.entries.some((e) => e.authorId === playerId),

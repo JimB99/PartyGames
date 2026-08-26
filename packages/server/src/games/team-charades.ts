@@ -25,6 +25,7 @@ export const teamCharadesGame: GameModule<CharadesState> = {
     id: "team-charades",
     name: "Team Charades",
     description: "Act out words while your team guesses",
+    scoringRules: "+500 for each word the actor marks as correctly guessed.",
     minPlayers: 3,
     maxPlayers: 12,
     category: "social",

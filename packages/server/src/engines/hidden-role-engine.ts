@@ -68,8 +68,6 @@ export function advanceImpostor(state: ImpostorState): ImpostorState {
     return state;
   }
   if (state.phase === "task") {
-    const failures = Object.values(state.taskResults).filter((r) => r === "fail").length;
-    if (failures > 0) state.roundScores["crew"] = failures;
     state.phase = "eject";
     state.ejectVotes = {};
     state.timerEndsAt = Date.now() + EJECT_MS;
@@ -161,6 +159,9 @@ export function onImpostorTick(state: ImpostorState): ImpostorState {
 }
 
 export function impostorHostView(state: ImpostorState) {
+  const taskFailures = Object.entries(state.taskResults)
+    .filter(([, r]) => r === "fail")
+    .map(([id]) => id);
   return {
     phase: state.phase,
     round: state.round,
@@ -173,6 +174,8 @@ export function impostorHostView(state: ImpostorState) {
       taskData: state.phase === "task" ? { type: state.taskType } : undefined,
       ejected: state.ejected,
       crewWon: state.crewWon,
+      taskFailures: state.phase === "eject" || state.phase === "ended" ? taskFailures : undefined,
+      ejectVotes: state.phase === "ended" ? state.ejectVotes : undefined,
       roundScores: state.roundScores,
       taskComplete: Object.keys(state.taskResults).length,
     },

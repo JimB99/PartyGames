@@ -22,6 +22,7 @@ export interface GameMeta {
   id: string;
   name: string;
   description: string;
+  scoringRules: string;
   minPlayers: number;
   maxPlayers: number;
   category: GameCategory;

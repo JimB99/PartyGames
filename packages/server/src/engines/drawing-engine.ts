@@ -139,6 +139,7 @@ export function onDrawTick(state: DrawState, words: string[], playerIds: string[
 
 export function drawHostView(state: DrawState, playerIds: string[]) {
   const drawerId = playerIds[state.drawerIndex];
+  const showReveal = state.phase === "reveal" || state.phase === "scoreboard";
   return {
     phase: state.phase,
     round: state.round,
@@ -146,9 +147,16 @@ export function drawHostView(state: DrawState, playerIds: string[]) {
     timerEndsAt: state.timerEndsAt,
     data: {
       drawerId,
-      word: state.phase === "reveal" || state.phase === "scoreboard" ? state.word : undefined,
+      word: showReveal ? state.word : undefined,
       strokes: state.strokes,
       correctGuessers: state.correctGuessers,
+      playerAnswers: showReveal
+        ? Object.entries(state.guesses).map(([pid, guess]) => ({
+            playerId: pid,
+            answer: guess,
+            correct: state.correctGuessers.includes(pid),
+          }))
+        : undefined,
       roundScores: state.roundScores,
     },
   };
@@ -157,6 +165,7 @@ export function drawHostView(state: DrawState, playerIds: string[]) {
 export function drawPlayerView(state: DrawState, playerId: string, playerIds: string[]) {
   const drawerId = playerIds[state.drawerIndex];
   const isDrawer = playerId === drawerId;
+  const showReveal = state.phase === "reveal" || state.phase === "scoreboard";
   return {
     phase: state.phase,
     round: state.round,
@@ -165,9 +174,18 @@ export function drawPlayerView(state: DrawState, playerId: string, playerIds: st
     data: {
       isDrawer,
       strokes: state.strokes,
+      drawerId: showReveal ? drawerId : undefined,
+      word: showReveal ? state.word : undefined,
+      playerAnswers: showReveal
+        ? Object.entries(state.guesses).map(([pid, guess]) => ({
+            playerId: pid,
+            answer: guess,
+            correct: state.correctGuessers.includes(pid),
+          }))
+        : undefined,
     },
     playerData: {
-      word: isDrawer && state.phase !== "ended" ? state.word : undefined,
+      word: isDrawer && state.phase !== "ended" && state.phase !== "reveal" && state.phase !== "scoreboard" ? state.word : undefined,
       guessed: state.guesses[playerId] !== undefined,
       myGuess: state.guesses[playerId],
     },

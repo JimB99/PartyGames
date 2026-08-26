@@ -13,8 +13,9 @@ import type { PromptVoteState } from "../engines/prompt-vote-engine.js";
 export const quiplashGame: GameModule<PromptVoteState> = {
   meta: {
     id: "quiplash",
-    name: "Quiplash",
+    name: "Wit Showdown",
     description: "Answer bizarre prompts, vote for the funniest",
+    scoringRules: "+1000 for winning each head-to-head matchup vote.",
     minPlayers: 3,
     maxPlayers: 16,
     category: "social",

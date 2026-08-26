@@ -15,6 +15,7 @@ export const quickQuizGame: GameModule<TriviaState> = {
     id: "quick-quiz",
     name: "Quick Quiz",
     description: "Multiple-choice trivia on the big screen",
+    scoringRules: "+1000 for a correct answer; 0 for wrong.",
     minPlayers: 1,
     maxPlayers: 16,
     category: "trivia",

@@ -13,8 +13,9 @@ import type { RoleSortState } from "../engines/role-sort-engine.js";
 export const roleSortGame: GameModule<RoleSortState> = {
   meta: {
     id: "role-sort",
-    name: "Role Sort",
+    name: "Friend Sort",
     description: "Secretly sort friends into characters",
+    scoringRules: "+500 when your role assignment matches the majority for a player.",
     minPlayers: 3,
     maxPlayers: 8,
     category: "social",

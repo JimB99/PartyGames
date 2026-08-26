@@ -13,8 +13,9 @@ import type { BluffState } from "../engines/bluff-engine.js";
 export const fibbageGame: GameModule<BluffState> = {
   meta: {
     id: "fibbage",
-    name: "Fibbage",
+    name: "Fact Check",
     description: "Submit lies, vote for the truth",
+    scoringRules: "+1000 for voting the real answer; +500 to the author of a lie you voted for.",
     minPlayers: 2,
     maxPlayers: 16,
     category: "social",

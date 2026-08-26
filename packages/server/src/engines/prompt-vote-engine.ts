@@ -1,4 +1,4 @@
-import { pickRandom, shuffle, uniqueId, type GameAction, type RoomContext } from "@party-games/shared";
+import { pickRandom, shuffle, uniqueId, votersByOption, type GameAction, type RoomContext, type RevealEntry } from "@party-games/shared";
 
 export type PromptVoteMode = "quiplash" | "caption" | "hot-seat" | "vote-all";
 
@@ -32,6 +32,7 @@ export interface PromptVoteState {
   matchupIndex: number;
   votes: Record<string, string>;
   pickVotes: Record<string, string>;
+  cumulativeVoters: Record<string, string[]>;
   roundScores: Record<string, number>;
   usedPrompts: number[];
 }
@@ -62,6 +63,7 @@ export function createPromptVoteState(
     matchupIndex: 0,
     votes: {},
     pickVotes: {},
+    cumulativeVoters: {},
     roundScores: {},
     usedPrompts: [idx],
   };
@@ -87,6 +89,7 @@ export function advancePromptVote(state: PromptVoteState, prompts: string[]): Pr
     state.submissions = [];
     state.votes = {};
     state.pickVotes = {};
+    state.cumulativeVoters = {};
     return state;
   }
   if (state.phase === "submit") {
@@ -154,9 +157,35 @@ export function advancePromptVote(state: PromptVoteState, prompts: string[]): Pr
   return state;
 }
 
+function accumulateVotes(state: PromptVoteState) {
+  for (const [voterId, submissionId] of Object.entries(state.votes)) {
+    if (!state.cumulativeVoters[submissionId]) state.cumulativeVoters[submissionId] = [];
+    state.cumulativeVoters[submissionId].push(voterId);
+  }
+}
+
+function buildPromptVoteReveal(state: PromptVoteState): RevealEntry[] {
+  let voterMap: Record<string, string[]> = {};
+  if (state.mode === "quiplash") {
+    voterMap = state.cumulativeVoters;
+  } else if (state.mode === "vote-all") {
+    voterMap = votersByOption(state.votes);
+  } else if (state.mode === "hot-seat" && state.targetPlayerId) {
+    const pick = state.pickVotes[state.targetPlayerId];
+    if (pick) voterMap = { [pick]: [state.targetPlayerId] };
+  }
+  return state.submissions.map((s) => ({
+    id: s.id,
+    text: s.text,
+    authorId: s.playerId,
+    voterIds: voterMap[s.id] ?? [],
+  }));
+}
+
 function scoreMatchup(state: PromptVoteState) {
   const matchup = state.matchups[state.matchupIndex];
   if (!matchup) return;
+  accumulateVotes(state);
   let votesA = 0;
   let votesB = 0;
   for (const optionId of Object.values(state.votes)) {
@@ -247,6 +276,7 @@ export function onPromptVoteTick(state: PromptVoteState, prompts: string[]): Pro
 export function promptVoteHostView(state: PromptVoteState) {
   const currentMatchup = state.matchups[state.matchupIndex];
   const subById = Object.fromEntries(state.submissions.map((s) => [s.id, s]));
+  const showReveal = state.phase === "reveal" || state.phase === "scoreboard";
   return {
     phase: state.phase,
     round: state.round,
@@ -257,11 +287,12 @@ export function promptVoteHostView(state: PromptVoteState) {
       prompt: state.prompt,
       imageCaption: state.imageCaption,
       targetPlayerId: state.targetPlayerId,
-      submissions: state.phase === "reveal" || state.phase === "scoreboard"
+      submissions: showReveal
         ? state.submissions
         : state.phase === "vote" || state.phase === "pick"
           ? state.submissions.map((s) => ({ id: s.id, text: s.text }))
           : undefined,
+      reveal: showReveal ? buildPromptVoteReveal(state) : undefined,
       matchup: currentMatchup
         ? {
             a: subById[currentMatchup.a],
@@ -279,6 +310,7 @@ export function promptVotePlayerView(state: PromptVoteState, playerId: string) {
   const currentMatchup = state.matchups[state.matchupIndex];
   const subById = Object.fromEntries(state.submissions.map((s) => [s.id, s]));
   const isTarget = state.targetPlayerId === playerId;
+  const showReveal = state.phase === "reveal" || state.phase === "scoreboard";
   return {
     phase: state.phase,
     round: state.round,
@@ -297,6 +329,7 @@ export function promptVotePlayerView(state: PromptVoteState, playerId: string) {
         : state.phase === "pick" && isTarget
           ? state.submissions.map((s) => ({ id: s.id, text: s.text }))
           : undefined,
+      reveal: showReveal ? buildPromptVoteReveal(state) : undefined,
     },
     playerData: {
       submitted: state.submissions.some((s) => s.playerId === playerId),

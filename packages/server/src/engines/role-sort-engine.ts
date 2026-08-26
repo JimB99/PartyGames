@@ -118,6 +118,7 @@ export function onRoleSortTick(state: RoleSortState, playerIds: string[]): RoleS
 }
 
 export function roleSortHostView(state: RoleSortState) {
+  const showReveal = state.phase === "reveal" || state.phase === "scoreboard";
   return {
     phase: state.phase,
     round: state.round,
@@ -126,7 +127,8 @@ export function roleSortHostView(state: RoleSortState) {
     data: {
       category: state.category,
       roles: state.roles,
-      results: state.phase === "reveal" || state.phase === "scoreboard" ? state.results : undefined,
+      results: showReveal ? state.results : undefined,
+      assignments: showReveal ? state.assignments : undefined,
       roundScores: state.roundScores,
       assignmentCount: Object.keys(state.assignments).length,
     },

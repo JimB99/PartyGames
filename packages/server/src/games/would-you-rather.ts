@@ -15,6 +15,7 @@ export const wouldYouRatherGame: GameModule<TriviaState> = {
     id: "would-you-rather",
     name: "Would You Rather",
     description: "Pick a side and see the split",
+    scoringRules: "No points — see how the group splits on each dilemma.",
     minPlayers: 2,
     maxPlayers: 16,
     category: "social",

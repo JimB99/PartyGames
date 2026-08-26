@@ -75,15 +75,17 @@ export function HostPage() {
                 Start round
               </button>
             )}
-            {(roomState.hostView.phase === "ended" || roomState.hostView.phase === "reveal") && (
-              <button
-                type="button"
-                onClick={returnToLobby}
-                className="rounded-xl bg-zinc-700 px-6 py-3 font-bold"
-              >
-                Back to lobby
-              </button>
-            )}
+            <button
+              type="button"
+              onClick={() => {
+                if (roomState.hostView.phase === "ended" || confirm("End this game and pick another?")) {
+                  returnToLobby();
+                }
+              }}
+              className="rounded-xl bg-zinc-700 px-6 py-3 font-bold"
+            >
+              Back to lobby
+            </button>
           </div>
         </>
       )}

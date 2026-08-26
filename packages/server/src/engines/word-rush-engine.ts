@@ -121,6 +121,7 @@ export function onWordRushTick(state: WordRushState, dictionary?: Set<string>): 
 }
 
 export function wordRushHostView(state: WordRushState) {
+  const showReveal = state.phase === "reveal" || state.phase === "scoreboard";
   return {
     phase: state.phase,
     round: state.round,
@@ -128,11 +129,19 @@ export function wordRushHostView(state: WordRushState) {
     timerEndsAt: state.timerEndsAt,
     data: {
       letters: state.letters,
-      submissions: state.phase === "reveal" || state.phase === "scoreboard"
+      submissions: showReveal
         ? Object.entries(state.submissions).map(([playerId, word]) => ({
             playerId,
             word,
             valid: state.validWords[playerId],
+          }))
+        : undefined,
+      playerAnswers: showReveal
+        ? Object.entries(state.submissions).map(([playerId, word]) => ({
+            playerId,
+            answer: word,
+            detail: state.validWords[playerId] ? "Valid" : "Invalid",
+            correct: state.validWords[playerId],
           }))
         : undefined,
       roundScores: state.roundScores,
@@ -142,6 +151,7 @@ export function wordRushHostView(state: WordRushState) {
 }
 
 export function wordRushPlayerView(state: WordRushState, playerId: string) {
+  const showReveal = state.phase === "reveal" || state.phase === "scoreboard";
   return {
     phase: state.phase,
     round: state.round,
@@ -149,6 +159,14 @@ export function wordRushPlayerView(state: WordRushState, playerId: string) {
     timerEndsAt: state.timerEndsAt,
     data: {
       letters: state.phase !== "instructions" ? state.letters : undefined,
+      playerAnswers: showReveal
+        ? Object.entries(state.submissions).map(([pid, word]) => ({
+            playerId: pid,
+            answer: word,
+            detail: state.validWords[pid] ? "Valid" : "Invalid",
+            correct: state.validWords[pid],
+          }))
+        : undefined,
     },
     playerData: {
       submitted: state.submissions[playerId] !== undefined,
