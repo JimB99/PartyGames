@@ -29,7 +29,8 @@ export type GameAction =
   | { kind: "charades_correct" }
   | { kind: "charades_skip" }
   | { kind: "hot_seat_pick"; submissionId: string }
-  | { kind: "advance" };
+  | { kind: "advance" }
+  | { kind: "dike_bid"; amount: number };
 
 export type ServerMessage =
   | { type: "room_state"; state: RoomSnapshot }

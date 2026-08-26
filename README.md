@@ -8,9 +8,9 @@ Jackbox-style party games: one big screen (host/TV) + phones as controllers.
 - **React + Vite + Tailwind** (client, served from the same Worker)
 - **TypeScript monorepo** (`shared`, `server`, `client`)
 
-## Games (15)
+## Games (16)
 
-Fibbage, Quiplash, Quick Quiz, Would You Rather, Caption This, Draw & Guess, Bracket Battle, Role Sort, Timeline, Impostor, Curve Fever, Word Rush, Fibbage Reverse, Team Charades, Hot Seat.
+Fibbage, Quiplash, Quick Quiz, Would You Rather, Caption This, Draw & Guess, Bracket Battle, Role Sort, Timeline, Impostor, Curve Fever, Word Rush, Fibbage Reverse, Team Charades, Hot Seat, Last on the Dike.
 
 ## Go live (one-time setup)
 

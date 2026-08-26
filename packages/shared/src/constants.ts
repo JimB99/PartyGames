@@ -46,6 +46,7 @@ export const ALL_GAME_IDS = [
   "fibbage-reverse",
   "team-charades",
   "hot-seat",
+  "last-on-the-dike",
 ] as const;
 
 export type GameId = (typeof ALL_GAME_IDS)[number];
