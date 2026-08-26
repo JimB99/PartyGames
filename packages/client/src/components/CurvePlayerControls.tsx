@@ -49,16 +49,36 @@ export function CurvePlayerControls({
   jumpCooldown,
   canFire,
   heldPowerUp,
+  extraJumps = 0,
 }: {
   onAction: (action: GameAction) => void;
   jumpCooldown: number;
   canFire: boolean;
   heldPowerUp: string | null;
+  extraJumps?: number;
 }) {
   const stopTurn = () => onAction({ kind: "curve_turn", direction: "none" });
 
   return (
     <div className="space-y-4">
+      <div className="grid grid-cols-2 gap-4">
+        <ControlBtn
+          variant="accent"
+          disabled={jumpCooldown > 0}
+          onPointerDown={() => onAction({ kind: "curve_jump" })}
+        >
+          {jumpCooldown > 0 ? `Jump (${Math.ceil(jumpCooldown / 25)}s)` : extraJumps > 0 ? `Jump (+${extraJumps})` : "Jump"}
+        </ControlBtn>
+        {canFire ? (
+          <ControlBtn variant="danger" onPointerDown={() => onAction({ kind: "curve_fire" })}>
+            Fire {heldPowerUp ? powerUpInfo(heldPowerUp as import("@party-games/shared").PowerUpKind).icon : "🚀"}
+          </ControlBtn>
+        ) : (
+          <ControlBtn variant="secondary" disabled>
+            Fire
+          </ControlBtn>
+        )}
+      </div>
       <div className="grid grid-cols-2 gap-4">
         <ControlBtn
           className="py-12 text-2xl"
@@ -76,24 +96,6 @@ export function CurvePlayerControls({
         >
           ▶
         </ControlBtn>
-      </div>
-      <div className="grid grid-cols-2 gap-4">
-        <ControlBtn
-          variant="accent"
-          disabled={jumpCooldown > 0}
-          onPointerDown={() => onAction({ kind: "curve_jump" })}
-        >
-          {jumpCooldown > 0 ? `Jump (${Math.ceil(jumpCooldown / 25)}s)` : "Jump"}
-        </ControlBtn>
-        {canFire ? (
-          <ControlBtn variant="danger" onPointerDown={() => onAction({ kind: "curve_fire" })}>
-            Fire {heldPowerUp ? powerUpInfo(heldPowerUp as import("@party-games/shared").PowerUpKind).icon : "🚀"}
-          </ControlBtn>
-        ) : (
-          <ControlBtn variant="secondary" disabled>
-            Fire
-          </ControlBtn>
-        )}
       </div>
       {heldPowerUp && !canFire && (
         <p className="text-center text-sm text-yellow-400">

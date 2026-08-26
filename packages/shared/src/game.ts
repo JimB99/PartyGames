@@ -15,6 +15,8 @@ export interface GameViewState {
   round: number;
   maxRounds: number;
   timerEndsAt: number | null;
+  /** Total duration for the current timer window (for progress bar). */
+  timerTotalMs: number | null;
   data: Record<string, unknown>;
 }
 

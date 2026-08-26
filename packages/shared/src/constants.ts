@@ -11,7 +11,7 @@ export const PLAYER_COLORS = [
 
 export const MAX_PLAYERS = 16;
 export const ROOM_CODE_CHARS = "ABCDEFGHJKLMNPQRSTUVWXYZ";
-export const DISCONNECT_GRACE_MS = 30000;
+export const DISCONNECT_GRACE_MS = 120_000;
 export const DEFAULT_TICK_MS = 40;
 
 export type PlayerColor = (typeof PLAYER_COLORS)[number];

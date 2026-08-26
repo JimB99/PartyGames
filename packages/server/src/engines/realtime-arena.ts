@@ -25,7 +25,8 @@ export function createCurveGameState(
 export function advanceCurve(state: CurveState, playerIds: string[], botIds: string[]): CurveState {
   if (state.phase === "instructions") {
     state.phase = "playing";
-    state.timerEndsAt = Date.now() + state.options.roundTimeSec * 1000;
+    state.timerTotalMs = state.options.roundTimeSec * 1000;
+    state.timerEndsAt = Date.now() + state.timerTotalMs;
     for (const p of state.players) p.direction = "none";
     return state;
   }
@@ -90,6 +91,7 @@ export function curveHostView(state: CurveState) {
     round: state.round,
     maxRounds: state.maxRounds,
     timerEndsAt: state.timerEndsAt,
+    timerTotalMs: state.timerTotalMs,
     data: {
       width: state.width,
       height: state.height,
@@ -128,6 +130,7 @@ export function curvePlayerView(state: CurveState, playerId: string) {
     round: state.round,
     maxRounds: state.maxRounds,
     timerEndsAt: state.timerEndsAt,
+    timerTotalMs: state.timerTotalMs,
     data: {
       alive: p?.alive,
       coinValue: state.options.coinValue,
@@ -138,6 +141,7 @@ export function curvePlayerView(state: CurveState, playerId: string) {
       jumpCooldown: p?.jumpCooldownTicks ?? 0,
       heldPowerUp: p?.heldPowerUp ?? null,
       coinsThisRound: p?.coinsThisRound ?? 0,
+      extraJumps: p?.extraJumps ?? 0,
       canFire: isFireablePowerUp(p?.heldPowerUp ?? null),
     },
   };

@@ -3,7 +3,7 @@ import { rankPointsForPlace } from "./trail-dash-options.js";
 
 export type CurvePhase = "instructions" | "playing" | "round_end" | "ended";
 export type TurnDirection = "left" | "right" | "none";
-export type PowerUpKind = "speed" | "gap" | "shrink" | "missile" | "grenade" | "burst";
+export type PowerUpKind = "speed" | "gap" | "double_jump" | "missile" | "grenade" | "burst";
 export type WallEdge = "top" | "bottom" | "left" | "right";
 
 export const ARENA_W = 1200;
@@ -11,24 +11,41 @@ export const ARENA_H = 900;
 export const BASE_SPEED = 3;
 export const BASE_TURN_SPEED = 0.08;
 export const DEFAULT_HIT_RADIUS = 4;
-export const SHRINK_HIT_RADIUS = 2;
 export const TRAIL_POINT_DIST = 3;
 /** Recent own-trail length (px) that cannot cause self-collision — allows steering without instant death. */
 export const OWN_TRAIL_IMMUNE_DIST = 12;
 export const WALL_MARGIN = 5;
+export const WALL_THICKNESS = 24;
 export const JUMP_DURATION_TICKS = 15;
 export const JUMP_COOLDOWN_TICKS = 75;
+/** Ticks where the player passes through trails (jump arc + landing grace). */
+export const JUMP_PHASE_TICKS = 40;
+/** Ticks of trail immunity after using a warp portal. */
+export const WARP_PHASE_TICKS = 35;
 export const SPEED_MULTIPLIER = 1.6;
 export const SPEED_EFFECT_TICKS = 125;
 export const GAP_EFFECT_TICKS = 50;
-export const SHRINK_EFFECT_TICKS = 125;
 export const COIN_PICKUP_RADIUS = 12;
 export const POWERUP_PICKUP_RADIUS = 14;
 export const GRENADE_FUSE_TICKS = 38;
 export const GRENADE_RADIUS = 60;
 export const MISSILE_SPEED = 8;
-export const GRENADE_SPEED = 4;
-export const BURST_SHOT_COUNT = 5;
+export const GRENADE_SPEED = 7.5;
+export const BURST_VOLLEYS = 3;
+export const BURST_BULLETS_PER_VOLLEY = 6;
+export const WARP_PAIR_COUNT = 2;
+export const WARP_PORTAL_LENGTH = 90;
+export const PORTAL_EDGE_MARGIN = 80;
+export const PORTAL_MIN_GAP = 28;
+export const WARP_PAIR_COLORS = ["#00E5FF", "#FF6B00"] as const;
+/** Interior playable margin — matches visible wall thickness. */
+export const PLAYABLE_MARGIN = WALL_THICKNESS + 4;
+export const BURST_VOLLEY_GAP_TICKS = 30;
+export const COIN_SPAWN_INTERVAL_MIN = 45;
+export const COIN_SPAWN_INTERVAL_MAX = 110;
+export const POWERUP_SPAWN_INTERVAL_MIN = 90;
+export const POWERUP_SPAWN_INTERVAL_MAX = 220;
+export const PICKUP_CLEAR_RADIUS = 36;
 export const EXPLOSION_DISPLAY_TICKS = 10;
 
 export interface TrailPoint {
@@ -39,6 +56,10 @@ export interface TrailPoint {
 }
 
 export interface WallHole {
+  id: string;
+  pairId: string;
+  pairColor: string;
+  pairLabel: string;
   edge: WallEdge;
   start: number;
   length: number;
@@ -55,12 +76,16 @@ export interface CurvePlayer {
   colorIndex: number;
   jumpTicksRemaining: number;
   jumpCooldownTicks: number;
+  /** Pass through trails while > 0 (jump, warp landing). */
+  phasingTicks: number;
+  extraJumps: number;
   gapTicksRemaining: number;
   speedMultiplier: number;
   speedEffectTicks: number;
-  shrinkEffectTicks: number;
   hitRadius: number;
   heldPowerUp: PowerUpKind | null;
+  burstVolleysRemaining: number;
+  burstVolleyCooldown: number;
   coinsThisRound: number;
   deathRank: number | null;
   isBot: boolean;
@@ -102,6 +127,7 @@ export interface CurveState {
   round: number;
   maxRounds: number;
   timerEndsAt: number | null;
+  timerTotalMs: number | null;
   width: number;
   height: number;
   players: CurvePlayer[];
@@ -115,6 +141,9 @@ export interface CurveState {
   wallHoles: WallHole[];
   deathOrder: string[];
   options: TrailDashOptions;
+  pickupTick: number;
+  nextCoinSpawnIn: number;
+  nextPowerUpSpawnIn: number;
 }
 
 const SPAWN_MARGIN = 120;
@@ -152,7 +181,7 @@ export function ownTrailImmuneSegmentCount(trail: TrailPoint[], immuneDist = OWN
 export function trailLineSegments(trail: TrailPoint[]): Array<[TrailPoint, TrailPoint]> {
   const segments: Array<[TrailPoint, TrailPoint]> = [];
   for (let i = 1; i < trail.length; i++) {
-    if (trail[i].break) continue;
+    if (trail[i].break || trail[i - 1].break) continue;
     segments.push([trail[i - 1], trail[i]]);
   }
   return segments;
@@ -196,66 +225,181 @@ function createPlayer(id: string, index: number, isBot: boolean): CurvePlayer {
     colorIndex: index,
     jumpTicksRemaining: 0,
     jumpCooldownTicks: 0,
+    phasingTicks: 0,
+    extraJumps: 0,
     gapTicksRemaining: 0,
     speedMultiplier: 1,
     speedEffectTicks: 0,
-    shrinkEffectTicks: 0,
     hitRadius: DEFAULT_HIT_RADIUS,
     heldPowerUp: null,
+    burstVolleysRemaining: 0,
+    burstVolleyCooldown: 0,
     coinsThisRound: 0,
     deathRank: null,
     isBot,
   };
 }
 
-export function generateWallHoles(count: number, width: number, height: number): WallHole[] {
-  if (count <= 0) return [];
-  const edges: WallEdge[] = ["top", "bottom", "left", "right"];
-  const holes: WallHole[] = [];
-  const holeLength = 80;
-  for (let i = 0; i < count; i++) {
-    const edge = edges[i % edges.length];
-    const maxStart = edge === "top" || edge === "bottom" ? width - holeLength - 40 : height - holeLength - 40;
-    const start = 40 + ((i + 1) * 137) % Math.max(1, maxStart);
-    holes.push({ edge, start, length: holeLength });
+export function generateWarpPairs(width: number, height: number, seed: number): WallHole[] {
+  const portals: WallHole[] = [];
+  const allEdges: WallEdge[] = ["top", "bottom", "left", "right"];
+
+  for (let pair = 0; pair < WARP_PAIR_COUNT; pair++) {
+    const pairId = `pair-${pair}`;
+    const pairColor = WARP_PAIR_COLORS[pair % WARP_PAIR_COLORS.length];
+    const pairLabel = pair === 0 ? "A" : "B";
+    const shuffled = [...allEdges].sort(
+      (a, b) => seededUnit(seed + pair * 97 + a.charCodeAt(0)) - seededUnit(seed + pair * 97 + b.charCodeAt(0)),
+    );
+    const usedEdges: WallEdge[] = [];
+
+    for (let side = 0; side < 2; side++) {
+      let placed = false;
+      for (let attempt = 0; attempt < 80 && !placed; attempt++) {
+        const edge = shuffled[(side + attempt) % shuffled.length];
+        if (usedEdges.includes(edge)) continue;
+
+        const axisLength = edge === "top" || edge === "bottom" ? width : height;
+        const maxStart = axisLength - WARP_PORTAL_LENGTH - PORTAL_EDGE_MARGIN;
+        const range = Math.max(1, maxStart - PORTAL_EDGE_MARGIN);
+        const start =
+          PORTAL_EDGE_MARGIN +
+          Math.floor(seededUnit(seed + pair * 137 + side * 211 + attempt * 43) * range);
+
+        if (!isPortalPlacementValid(edge, start, portals, width, height)) continue;
+
+        portals.push({
+          id: `portal-${pair}-${side}`,
+          pairId,
+          pairColor,
+          pairLabel,
+          edge,
+          start,
+          length: WARP_PORTAL_LENGTH,
+        });
+        usedEdges.push(edge);
+        placed = true;
+      }
+    }
   }
-  return holes;
+  return portals;
 }
 
-function coinCountForMode(mode: PowerUpMode): number {
-  if (mode === "off") return 4;
-  if (mode === "chaos") return 10;
-  return 6;
+function portalSpan(hole: WallHole): [number, number] {
+  return [hole.start, hole.start + hole.length];
 }
 
-function powerUpCountForMode(mode: PowerUpMode): number {
-  if (mode === "off") return 0;
+function spansOverlap(a: [number, number], b: [number, number], gap: number): boolean {
+  return a[0] < b[1] + gap && b[0] < a[1] + gap;
+}
+
+function isPortalPlacementValid(
+  edge: WallEdge,
+  start: number,
+  existing: WallHole[],
+  width: number,
+  height: number,
+): boolean {
+  const axisLength = edge === "top" || edge === "bottom" ? width : height;
+  if (start < PORTAL_EDGE_MARGIN || start + WARP_PORTAL_LENGTH > axisLength - PORTAL_EDGE_MARGIN) {
+    return false;
+  }
+  const candidate: [number, number] = [start, start + WARP_PORTAL_LENGTH];
+  for (const portal of existing) {
+    if (portal.edge !== edge) continue;
+    if (spansOverlap(candidate, portalSpan(portal), PORTAL_MIN_GAP)) return false;
+  }
+  return true;
+}
+
+function seededUnit(seed: number): number {
+  const x = Math.sin(seed * 12.9898 + 78.233) * 43758.5453;
+  return x - Math.floor(x);
+}
+
+function maxConcurrentCoins(mode: PowerUpMode): number {
   if (mode === "chaos") return 8;
+  if (mode === "off") return 5;
   return 4;
 }
 
-function spawnCoins(count: number, width: number, height: number, seed: number): Coin[] {
-  const coins: Coin[] = [];
-  for (let i = 0; i < count; i++) {
-    const x = 60 + ((seed + i * 97) % (width - 120));
-    const y = 60 + ((seed + i * 53) % (height - 120));
-    coins.push({ id: `coin-${i}`, x, y });
-  }
-  return coins;
+function maxConcurrentPowerUps(mode: PowerUpMode): number {
+  if (mode === "off") return 0;
+  if (mode === "chaos") return 4;
+  return 2;
 }
 
-const ALL_POWERUP_KINDS: PowerUpKind[] = ["speed", "gap", "shrink", "missile", "grenade", "burst"];
-
-function spawnPowerUps(count: number, width: number, height: number, seed: number): PowerUpPickup[] {
-  const pickups: PowerUpPickup[] = [];
-  for (let i = 0; i < count; i++) {
-    const x = 80 + ((seed + i * 71) % (width - 160));
-    const y = 80 + ((seed + i * 43) % (height - 160));
-    const kind = ALL_POWERUP_KINDS[(seed + i) % ALL_POWERUP_KINDS.length];
-    pickups.push({ id: `pu-${i}`, kind, x, y });
-  }
-  return pickups;
+function spawnInterval(min: number, max: number, seed: number): number {
+  return min + Math.floor(seededUnit(seed) * (max - min + 1));
 }
+
+function isPositionClear(state: CurveState, x: number, y: number, radius: number): boolean {
+  for (const p of state.players) {
+    if (dist(x, y, p.x, p.y) < radius + 24) return false;
+    for (const pt of p.trail) {
+      if (!pt.break && dist(x, y, pt.x, pt.y) < radius) return false;
+    }
+  }
+  for (const c of state.coins) {
+    if (dist(x, y, c.x, c.y) < radius) return false;
+  }
+  for (const pu of state.powerUps) {
+    if (dist(x, y, pu.x, pu.y) < radius) return false;
+  }
+  return true;
+}
+
+function findEmptySpawnPosition(state: CurveState, salt: number): { x: number; y: number } | null {
+  const pad = PLAYABLE_MARGIN + 24;
+  const maxX = state.width - pad;
+  const maxY = state.height - pad;
+  for (let attempt = 0; attempt < 48; attempt++) {
+    const seed = state.pickupTick * 31 + salt * 17 + attempt * 113;
+    const x = pad + seededUnit(seed) * (maxX - pad);
+    const y = pad + seededUnit(seed + 59) * (maxY - pad);
+    if (isPositionClear(state, x, y, PICKUP_CLEAR_RADIUS)) {
+      return { x, y };
+    }
+  }
+  return null;
+}
+
+function tickPickupSpawns(state: CurveState): void {
+  state.pickupTick++;
+
+  if (state.pickupTick >= state.nextCoinSpawnIn) {
+    state.nextCoinSpawnIn =
+      state.pickupTick + spawnInterval(COIN_SPAWN_INTERVAL_MIN, COIN_SPAWN_INTERVAL_MAX, state.pickupTick);
+    if (state.coins.length < maxConcurrentCoins(state.options.powerUpMode)) {
+      const pos = findEmptySpawnPosition(state, 1);
+      if (pos) state.coins.push({ id: `coin-${state.pickupTick}`, ...pos });
+    }
+  }
+
+  if (
+    state.options.powerUpMode !== "off" &&
+    state.pickupTick >= state.nextPowerUpSpawnIn
+  ) {
+    state.nextPowerUpSpawnIn =
+      state.pickupTick +
+      spawnInterval(POWERUP_SPAWN_INTERVAL_MIN, POWERUP_SPAWN_INTERVAL_MAX, state.pickupTick + 7);
+    if (state.powerUps.length < maxConcurrentPowerUps(state.options.powerUpMode)) {
+      const pos = findEmptySpawnPosition(state, 2);
+      if (pos) {
+        const kind = ALL_POWERUP_KINDS[(state.pickupTick + state.round) % ALL_POWERUP_KINDS.length];
+        state.powerUps.push({ id: `pu-${state.pickupTick}`, kind, ...pos });
+      }
+    }
+  }
+}
+
+/** @deprecated Use generateWarpPairs */
+export function generateWallHoles(count: number, width: number, height: number, seed = 1): WallHole[] {
+  if (count <= 0) return [];
+  return generateWarpPairs(width, height, seed).slice(0, count * 2);
+}
+
+const ALL_POWERUP_KINDS: PowerUpKind[] = ["speed", "gap", "double_jump", "missile", "grenade", "burst"];
 
 export function createCurveState(
   playerIds: string[],
@@ -272,21 +416,22 @@ export function createCurveState(
     round,
     maxRounds: options.maxRounds,
     timerEndsAt: Date.now() + 5000,
+    timerTotalMs: 5000,
     width: ARENA_W,
     height: ARENA_H,
     players,
     roundScores: {},
     botNames,
-    coins: spawnCoins(coinCountForMode(options.powerUpMode), ARENA_W, ARENA_H, seed),
-    powerUps:
-      options.powerUpMode === "off"
-        ? []
-        : spawnPowerUps(powerUpCountForMode(options.powerUpMode), ARENA_W, ARENA_H, seed + 7),
+    coins: [],
+    powerUps: [],
     projectiles: [],
     explosions: [],
-    wallHoles: generateWallHoles(options.wallHoles, ARENA_W, ARENA_H),
+    wallHoles: generateWarpPairs(ARENA_W, ARENA_H, seed),
     deathOrder: [],
     options,
+    pickupTick: 0,
+    nextCoinSpawnIn: 25,
+    nextPowerUpSpawnIn: 70,
   };
 }
 
@@ -297,23 +442,88 @@ function isInHole(
   width: number,
   height: number,
 ): WallHole | null {
+  const margin = PLAYABLE_MARGIN;
   for (const hole of holes) {
-    if (hole.edge === "top" && y <= WALL_MARGIN && x >= hole.start && x <= hole.start + hole.length) {
+    if (hole.edge === "top" && y <= margin && x >= hole.start && x <= hole.start + hole.length) {
       return hole;
     }
-    if (hole.edge === "bottom" && y >= height - WALL_MARGIN && x >= hole.start && x <= hole.start + hole.length) {
+    if (
+      hole.edge === "bottom" &&
+      y >= height - margin &&
+      x >= hole.start &&
+      x <= hole.start + hole.length
+    ) {
       return hole;
     }
-    if (hole.edge === "left" && x <= WALL_MARGIN && y >= hole.start && y <= hole.start + hole.length) {
+    if (hole.edge === "left" && x <= margin && y >= hole.start && y <= hole.start + hole.length) {
       return hole;
     }
-    if (hole.edge === "right" && x >= width - WALL_MARGIN && y >= hole.start && y <= hole.start + hole.length) {
+    if (
+      hole.edge === "right" &&
+      x >= width - margin &&
+      y >= hole.start &&
+      y <= hole.start + hole.length
+    ) {
       return hole;
     }
   }
   return null;
 }
 
+export function portalOutwardAngle(edge: WallEdge): number {
+  switch (edge) {
+    case "top":
+      return Math.PI / 2;
+    case "bottom":
+      return -Math.PI / 2;
+    case "left":
+      return 0;
+    case "right":
+      return Math.PI;
+  }
+}
+
+export function portalInwardAngle(edge: WallEdge): number {
+  let angle = portalOutwardAngle(edge) + Math.PI;
+  while (angle > Math.PI) angle -= 2 * Math.PI;
+  while (angle < -Math.PI) angle += 2 * Math.PI;
+  return angle;
+}
+
+export function transformAngleThroughPortal(entry: WallHole, exit: WallHole, angle: number): number {
+  let newAngle = angle + (portalOutwardAngle(exit.edge) - portalInwardAngle(entry.edge));
+  while (newAngle > Math.PI) newAngle -= 2 * Math.PI;
+  while (newAngle < -Math.PI) newAngle += 2 * Math.PI;
+  return newAngle;
+}
+
+export function portalCenter(portal: WallHole, width: number, height: number): { x: number; y: number } {
+  const mid = portal.start + portal.length / 2;
+  const inset = PLAYABLE_MARGIN + 10;
+  switch (portal.edge) {
+    case "top":
+      return { x: mid, y: inset };
+    case "bottom":
+      return { x: mid, y: height - inset };
+    case "left":
+      return { x: inset, y: mid };
+    case "right":
+      return { x: width - inset, y: mid };
+  }
+}
+
+export function warpToPairedPortal(
+  entry: WallHole,
+  portals: WallHole[],
+  width: number,
+  height: number,
+): { x: number; y: number } {
+  const exit = portals.find((p) => p.pairId === entry.pairId && p.id !== entry.id);
+  if (!exit) return portalCenter(entry, width, height);
+  return portalCenter(exit, width, height);
+}
+
+/** @deprecated Use warpToPairedPortal */
 export function wrapThroughHole(
   x: number,
   y: number,
@@ -321,43 +531,54 @@ export function wrapThroughHole(
   width: number,
   height: number,
 ): { x: number; y: number } {
-  switch (hole.edge) {
-    case "top":
-      return { x, y: height - WALL_MARGIN - 10 };
-    case "bottom":
-      return { x, y: WALL_MARGIN + 10 };
-    case "left":
-      return { x: width - WALL_MARGIN - 10, y };
-    case "right":
-      return { x: WALL_MARGIN + 10, y };
-  }
+  return warpToPairedPortal(hole, [hole], width, height);
 }
 
-function checkWallCollision(
+function isOutOfBounds(
   p: CurvePlayer,
   width: number,
   height: number,
-  holes: WallHole[],
+  portals: WallHole[],
 ): boolean {
-  if (isInHole(p.x, p.y, holes, width, height)) {
-    const hole = isInHole(p.x, p.y, holes, width, height)!;
-    appendTrailBreak(p);
-    const wrapped = wrapThroughHole(p.x, p.y, hole, width, height);
-    p.x = wrapped.x;
-    p.y = wrapped.y;
-    return false;
-  }
-  return p.x < WALL_MARGIN || p.x > width - WALL_MARGIN || p.y < WALL_MARGIN || p.y > height - WALL_MARGIN;
+  if (isInHole(p.x, p.y, portals, width, height)) return false;
+  return (
+    p.x < PLAYABLE_MARGIN ||
+    p.x > width - PLAYABLE_MARGIN ||
+    p.y < PLAYABLE_MARGIN ||
+    p.y > height - PLAYABLE_MARGIN
+  );
+}
+
+function tryWarpPortal(
+  p: CurvePlayer,
+  portals: WallHole[],
+  width: number,
+  height: number,
+): boolean {
+  const entry = isInHole(p.x, p.y, portals, width, height);
+  if (!entry) return false;
+  const exit = portals.find((portal) => portal.pairId === entry.pairId && portal.id !== entry.id);
+  if (!exit) return false;
+  appendTrailBreak(p);
+  const dest = portalCenter(exit, width, height);
+  p.x = dest.x;
+  p.y = dest.y;
+  p.angle = transformAngleThroughPortal(entry, exit, p.angle);
+  return true;
 }
 
 export function checkTrailCollisions(state: CurveState): void {
   for (const p of state.players) {
-    if (!p.alive || p.jumpTicksRemaining > 0) continue;
+    if (!p.alive) continue;
 
-    if (checkWallCollision(p, state.width, state.height, state.wallHoles)) {
+    tryWarpPortal(p, state.wallHoles, state.width, state.height);
+
+    if (isOutOfBounds(p, state.width, state.height, state.wallHoles)) {
       killPlayer(state, p);
       continue;
     }
+
+    if (p.phasingTicks > 0) continue;
 
     for (const other of state.players) {
       if (other.id === p.id) continue;
@@ -395,13 +616,11 @@ export function tickPlayerEffects(p: CurvePlayer): void {
   if (p.jumpTicksRemaining > 0) p.jumpTicksRemaining--;
   if (p.jumpCooldownTicks > 0) p.jumpCooldownTicks--;
   if (p.gapTicksRemaining > 0) p.gapTicksRemaining--;
+  if (p.phasingTicks > 0) p.phasingTicks--;
+  if (p.burstVolleyCooldown > 0) p.burstVolleyCooldown--;
   if (p.speedEffectTicks > 0) {
     p.speedEffectTicks--;
     if (p.speedEffectTicks === 0) p.speedMultiplier = 1;
-  }
-  if (p.shrinkEffectTicks > 0) {
-    p.shrinkEffectTicks--;
-    if (p.shrinkEffectTicks === 0) p.hitRadius = DEFAULT_HIT_RADIUS;
   }
 }
 
@@ -451,10 +670,10 @@ export function applyPowerUp(p: CurvePlayer, kind: PowerUpKind): void {
     case "gap":
       appendTrailBreak(p);
       p.gapTicksRemaining = GAP_EFFECT_TICKS;
+      p.phasingTicks = Math.max(p.phasingTicks, GAP_EFFECT_TICKS);
       break;
-    case "shrink":
-      p.hitRadius = SHRINK_HIT_RADIUS;
-      p.shrinkEffectTicks = SHRINK_EFFECT_TICKS;
+    case "double_jump":
+      p.extraJumps += 1;
       break;
     case "missile":
     case "grenade":
@@ -465,11 +684,51 @@ export function applyPowerUp(p: CurvePlayer, kind: PowerUpKind): void {
 }
 
 export function tryJump(p: CurvePlayer): boolean {
-  if (!p.alive || p.jumpTicksRemaining > 0 || p.jumpCooldownTicks > 0) return false;
+  if (!p.alive) return false;
+
+  if (p.jumpTicksRemaining > 0) {
+    if (p.extraJumps <= 0) return false;
+    p.extraJumps--;
+    appendTrailBreak(p);
+    p.jumpTicksRemaining = JUMP_DURATION_TICKS;
+    p.phasingTicks = Math.max(p.phasingTicks, JUMP_PHASE_TICKS);
+    return true;
+  }
+
+  if (p.jumpCooldownTicks > 0) return false;
+
   appendTrailBreak(p);
   p.jumpTicksRemaining = JUMP_DURATION_TICKS;
   p.jumpCooldownTicks = JUMP_COOLDOWN_TICKS;
+  p.phasingTicks = Math.max(p.phasingTicks, JUMP_PHASE_TICKS);
   return true;
+}
+
+function spawnBurstVolley(state: CurveState, p: CurvePlayer): void {
+  for (let i = 0; i < BURST_BULLETS_PER_VOLLEY; i++) {
+    const angle = p.angle + (i * 2 * Math.PI) / BURST_BULLETS_PER_VOLLEY;
+    state.projectiles.push({
+      id: `proj-${Date.now()}-${p.id}-${i}-${Math.random().toString(36).slice(2, 6)}`,
+      ownerId: p.id,
+      kind: "missile",
+      x: p.x,
+      y: p.y,
+      vx: Math.cos(angle) * MISSILE_SPEED,
+      vy: Math.sin(angle) * MISSILE_SPEED,
+      fuseTicks: null,
+    });
+  }
+}
+
+function tickBurstVolleys(state: CurveState): void {
+  for (const p of state.players) {
+    if (!p.alive || p.burstVolleysRemaining <= 0 || p.burstVolleyCooldown > 0) continue;
+    spawnBurstVolley(state, p);
+    p.burstVolleysRemaining--;
+    if (p.burstVolleysRemaining > 0) {
+      p.burstVolleyCooldown = BURST_VOLLEY_GAP_TICKS;
+    }
+  }
 }
 
 export function fireWeapon(state: CurveState, p: CurvePlayer): boolean {
@@ -489,19 +748,9 @@ export function fireWeapon(state: CurveState, p: CurvePlayer): boolean {
       fuseTicks: null,
     });
   } else if (kind === "burst") {
-    for (let i = 0; i < BURST_SHOT_COUNT; i++) {
-      const angle = p.angle + (i * 2 * Math.PI) / BURST_SHOT_COUNT;
-      state.projectiles.push({
-        id: `proj-${Date.now()}-${p.id}-${i}`,
-        ownerId: p.id,
-        kind: "missile",
-        x: p.x,
-        y: p.y,
-        vx: Math.cos(angle) * MISSILE_SPEED,
-        vy: Math.sin(angle) * MISSILE_SPEED,
-        fuseTicks: null,
-      });
-    }
+    spawnBurstVolley(state, p);
+    p.burstVolleysRemaining = BURST_VOLLEYS - 1;
+    p.burstVolleyCooldown = BURST_VOLLEY_GAP_TICKS;
   } else {
     state.projectiles.push({
       id: `proj-${Date.now()}-${p.id}`,
@@ -570,20 +819,35 @@ export function detonateGrenade(state: CurveState, x: number, y: number, ownerId
 
 export function eraseTrailsInRadius(state: CurveState, cx: number, cy: number, radius: number): void {
   for (const p of state.players) {
-    const kept: TrailPoint[] = [];
-    for (let i = 0; i < p.trail.length; i++) {
-      const pt = p.trail[i];
-      if (dist(cx, cy, pt.x, pt.y) >= radius) {
-        kept.push(pt);
-      } else if (kept.length === 0) {
-        // Keep at least one point so trail isn't empty
-        kept.push(pt);
+    if (p.trail.length === 0) continue;
+    const inRadius = (pt: TrailPoint) => dist(cx, cy, pt.x, pt.y) < radius;
+    const rebuilt: TrailPoint[] = [];
+    let gapOpen = false;
+
+    for (const pt of p.trail) {
+      if (pt.break) {
+        if (rebuilt.length > 0) rebuilt.push({ ...pt });
+        gapOpen = true;
+        continue;
+      }
+      if (inRadius(pt)) {
+        gapOpen = true;
+        continue;
+      }
+      if (gapOpen) {
+        rebuilt.push({ x: pt.x, y: pt.y, break: true });
+        rebuilt.push({ x: pt.x, y: pt.y });
+        gapOpen = false;
+      } else {
+        rebuilt.push({ x: pt.x, y: pt.y });
       }
     }
-    if (kept.length === 0 && p.trail.length > 0) {
-      kept.push(p.trail[p.trail.length - 1]);
+
+    if (rebuilt.length === 0) {
+      const last = p.trail[p.trail.length - 1];
+      rebuilt.push({ x: last.x, y: last.y });
     }
-    p.trail = kept;
+    p.trail = rebuilt;
   }
 }
 
@@ -632,6 +896,8 @@ export function tickCurveState(state: CurveState): CurveState {
     movePlayer(p, BASE_TURN_SPEED);
   }
 
+  tickBurstVolleys(state);
+  tickPickupSpawns(state);
   checkTrailCollisions(state);
   collectPickups(state);
   tickProjectiles(state);
@@ -643,6 +909,7 @@ export function tickCurveState(state: CurveState): CurveState {
     computeRoundScores(state);
     state.phase = "round_end";
     state.timerEndsAt = Date.now() + 5000;
+    state.timerTotalMs = 5000;
   }
   return state;
 }
@@ -660,6 +927,47 @@ export function resetCurveRound(state: CurveState, playerIds: string[], botIds: 
 }
 
 /** Raycast ahead for bot AI — returns distance to nearest obstacle */
+export function distanceToWallAlongAngle(
+  x: number,
+  y: number,
+  angle: number,
+  width: number,
+  height: number,
+  wallHoles: WallHole[] = [],
+): number {
+  const dx = Math.cos(angle);
+  const dy = Math.sin(angle);
+  let best = Infinity;
+
+  const consider = (dist: number) => {
+    if (dist > 0 && dist < best) best = dist;
+  };
+
+  if (dx < -1e-4) consider((x - PLAYABLE_MARGIN) / -dx);
+  if (dx > 1e-4) consider((width - PLAYABLE_MARGIN - x) / dx);
+  if (dy < -1e-4) consider((y - PLAYABLE_MARGIN) / -dy);
+  if (dy > 1e-4) consider((height - PLAYABLE_MARGIN - y) / dy);
+
+  if (best === Infinity) return 9999;
+
+  const hitX = x + dx * best;
+  const hitY = y + dy * best;
+  if (wallHoles.length > 0 && isInPortalZone(hitX, hitY, wallHoles, width, height)) {
+    return best + 80;
+  }
+  return best;
+}
+
+function isInPortalZone(
+  x: number,
+  y: number,
+  holes: WallHole[],
+  width: number,
+  height: number,
+): boolean {
+  return isInHole(x, y, holes, width, height) !== null;
+}
+
 export function raycastAhead(
   x: number,
   y: number,
@@ -669,13 +977,19 @@ export function raycastAhead(
   maxDist: number,
   width: number,
   height: number,
+  wallHoles: WallHole[] = [],
 ): number {
+  const wallDist = distanceToWallAlongAngle(x, y, angle, width, height, wallHoles);
   const steps = Math.floor(maxDist / 4);
+  let trailDist = maxDist;
   for (let i = 1; i <= steps; i++) {
     const px = x + Math.cos(angle) * i * 4;
     const py = y + Math.sin(angle) * i * 4;
-    if (px < WALL_MARGIN || px > width - WALL_MARGIN || py < WALL_MARGIN || py > height - WALL_MARGIN) {
-      return i * 4;
+    if (px < PLAYABLE_MARGIN || px > width - PLAYABLE_MARGIN || py < PLAYABLE_MARGIN || py > height - PLAYABLE_MARGIN) {
+      if (!isInPortalZone(px, py, wallHoles, width, height)) {
+        trailDist = Math.min(trailDist, i * 4);
+        break;
+      }
     }
     for (const other of players) {
       const segments = trailLineSegments(other.trail);
@@ -686,10 +1000,13 @@ export function raycastAhead(
       for (let j = 0; j < end; j++) {
         const [a, b] = segments[j];
         if (segmentHit(px, py, a.x, a.y, b.x, b.y, DEFAULT_HIT_RADIUS)) {
-          return i * 4;
+          trailDist = Math.min(trailDist, i * 4);
+          break;
         }
       }
+      if (trailDist < maxDist) break;
     }
+    if (trailDist < maxDist) break;
   }
-  return maxDist;
+  return Math.min(wallDist, trailDist);
 }

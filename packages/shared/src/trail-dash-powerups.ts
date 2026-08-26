@@ -21,14 +21,14 @@ export const TRAIL_DASH_POWERUPS: TrailDashPowerUpInfo[] = [
     kind: "gap",
     icon: "✨",
     name: "Ghost",
-    description: "Leave no trail briefly",
+    description: "Leave no trail briefly — pass through lines",
     color: "#4ECDC4",
   },
   {
-    kind: "shrink",
-    icon: "🔹",
-    name: "Shrink",
-    description: "Smaller hitbox — squeeze through tight spots",
+    kind: "double_jump",
+    icon: "🦘",
+    name: "Double Jump",
+    description: "Gain an extra jump (use while airborne)",
     color: "#AA96DA",
   },
   {
@@ -49,7 +49,7 @@ export const TRAIL_DASH_POWERUPS: TrailDashPowerUpInfo[] = [
     kind: "burst",
     icon: "💥",
     name: "Burst",
-    description: "Fire 5 shots in all directions",
+    description: "3 volleys of 6 shots in all directions",
     color: "#FF9F43",
   },
 ];

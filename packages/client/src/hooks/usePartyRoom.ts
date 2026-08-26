@@ -53,6 +53,8 @@ export function usePartyRoom({
   const [error, setError] = useState<string | null>(null);
   const socketRef = useRef<PartySocket | null>(null);
   const playerIdRef = useRef(initialPlayerId ?? sessionStorage.getItem(`pg-player-${roomId}`));
+  const nicknameRef = useRef(nickname ?? "Player");
+  nicknameRef.current = nickname ?? "Player";
 
   const send = useCallback((message: ClientMessage) => {
     const socket = socketRef.current;
@@ -65,11 +67,13 @@ export function usePartyRoom({
     if (!enabled || !roomId) return;
 
     const host = getPartyHost();
-    const protocol = host.includes("localhost") ? "ws" : "wss";
     const socket = new PartySocket({
       host,
       room: roomId,
       party: PARTY_NAME,
+      maxReconnectionDelay: 10_000,
+      minReconnectionDelay: 500,
+      reconnectionDelayGrowFactor: 1.3,
     });
 
     socketRef.current = socket;
@@ -81,7 +85,7 @@ export function usePartyRoom({
       send({
         type: "join",
         role,
-        nickname: nickname ?? undefined,
+        nickname: nicknameRef.current,
         playerId: role === "player" ? storedId ?? undefined : undefined,
       });
     };
@@ -111,7 +115,7 @@ export function usePartyRoom({
       socket.close();
       socketRef.current = null;
     };
-  }, [enabled, roomId, role, nickname, send]);
+  }, [enabled, roomId, role, send]);
 
   const selectGame = useCallback((gameId: GameId) => send({ type: "select_game", gameId }), [send]);
   const setGameOptions = useCallback(

@@ -20,7 +20,7 @@ export const curveFeverGame: GameModule<CurveState> = {
     name: "Trail Dash",
     description: "Don't crash your trail — last alive wins",
     scoringRules:
-      "Rank points by survival (last alive = most). Collect coins for bonus points. Power-ups: speed, ghost trail, shrink, missile, grenade, burst.",
+      "Rank points by survival (last alive = most). Collect coins for bonus points. Power-ups: speed, ghost, double jump, missile, grenade, burst.",
     minPlayers: 1,
     maxPlayers: 8,
     category: "action",

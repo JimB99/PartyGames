@@ -47,9 +47,14 @@ export function HostGameView({
   const gameName = gameMeta?.name ?? hostView.gameId.replace(/-/g, " ");
   const scoringRules = gameMeta?.scoringRules;
 
+  const isTrailDash = hostView.gameId === "curve-fever";
+  const isTrailDashPlaying = isTrailDash && phase === "playing";
+
   return (
-    <div className="mx-auto max-w-5xl space-y-6 p-6">
-      <header className="flex items-center justify-between">
+    <div
+      className={`mx-auto space-y-6 ${isTrailDashPlaying ? "max-w-6xl p-4" : "max-w-5xl p-6"}`}
+    >
+      <header className={`flex items-center justify-between ${isTrailDashPlaying ? "px-2" : ""}`}>
         <div>
           <div className="flex items-center gap-3">
             <h2 className="text-3xl font-black">{gameName}</h2>
@@ -63,7 +68,7 @@ export function HostGameView({
             Round {hostView.round}/{hostView.maxRounds} · {phase}
           </p>
         </div>
-        <TimerBar endsAt={hostView.timerEndsAt} />
+        <TimerBar endsAt={hostView.timerEndsAt} totalMs={hostView.timerTotalMs} />
       </header>
 
       {phase === "instructions" && (
@@ -356,7 +361,7 @@ export function PlayerGameView({
           </p>
         </div>
       )}
-      <TimerBar endsAt={playerView.timerEndsAt} />
+      <TimerBar endsAt={playerView.timerEndsAt} totalMs={playerView.timerTotalMs} />
       <p className="text-center text-sm text-zinc-400">
         {gameName} · {phase}
       </p>
@@ -487,6 +492,7 @@ export function PlayerGameView({
           jumpCooldown={(playerData.jumpCooldown as number) ?? 0}
           canFire={(playerData.canFire as boolean) ?? false}
           heldPowerUp={(playerData.heldPowerUp as string | null) ?? null}
+          extraJumps={(playerData.extraJumps as number) ?? 0}
         />
       )}
 

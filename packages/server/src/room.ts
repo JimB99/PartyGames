@@ -61,16 +61,54 @@ export class RoomServer extends Server {
 
     if (meta.playerId) {
       removePlayer(this.lobby, meta.playerId);
+      const playerId = meta.playerId;
       const timer = setTimeout(() => {
-        deletePlayer(this.lobby, meta.playerId!);
-        this.lobby.disconnectTimers.delete(meta.playerId!);
-        this.broadcastAll();
+        this.lobby.disconnectTimers.delete(playerId);
+        if (this.roomPhase !== "playing") {
+          deletePlayer(this.lobby, playerId);
+          this.broadcastAll();
+        }
       }, DISCONNECT_GRACE_MS);
       this.lobby.disconnectTimers.set(meta.playerId, timer);
     }
 
     this.connectionMeta.delete(connection.id);
     this.broadcastAll();
+    this.maybeShutdownEmptyRoom();
+  }
+
+  maybeShutdownEmptyRoom() {
+    if (this.connectionCount() > 0) return;
+    // Keep in-progress games alive through brief disconnects / lag spikes.
+    if (this.roomPhase === "playing") return;
+    this.shutdownRoom();
+  }
+
+  hasActiveHost(): boolean {
+    if (!this.lobby.hostConnectionId) return false;
+    return this.getConnection(this.lobby.hostConnectionId) != null;
+  }
+
+  connectionCount(): number {
+    let count = 0;
+    for (const _conn of this.getConnections()) count++;
+    return count;
+  }
+
+  shutdownRoom() {
+    this.stopTick();
+    for (const timer of this.lobby.disconnectTimers.values()) {
+      clearTimeout(timer);
+    }
+    this.lobby.disconnectTimers.clear();
+    this.gameModule = null;
+    this.gameState = null;
+    this.roomPhase = "lobby";
+    this.activeGameId = null;
+    this.lobby.paused = false;
+    this.lobby.pausedAt = null;
+    this.lobby.hostConnectionId = null;
+    this.lobby.hostSessionActive = false;
   }
 
   onMessage(connection: Connection, rawMessage: WSMessage) {
@@ -86,6 +124,19 @@ export class RoomServer extends Server {
     switch (message.type) {
       case "ping":
         sender.send(JSON.stringify({ type: "pong" }));
+        return;
+      case "check_room":
+        if (this.hasActiveHost()) {
+          sender.send(JSON.stringify({ type: "room_available" }));
+        } else {
+          sender.send(
+            JSON.stringify({
+              type: "error",
+              message:
+                "No active host in this room. Ask the host to open the game on their screen first.",
+            }),
+          );
+        }
         return;
       case "join":
         this.handleJoin(message, sender);
@@ -130,6 +181,7 @@ export class RoomServer extends Server {
   ) {
     if (message.role === "host") {
       this.lobby.hostConnectionId = sender.id;
+      this.lobby.hostSessionActive = true;
       this.connectionMeta.set(sender.id, {
         role: "host",
         playerId: null,
@@ -141,7 +193,25 @@ export class RoomServer extends Server {
     }
 
     const nickname = (message.nickname ?? "Player").trim().slice(0, 24) || "Player";
-    const playerId = message.playerId ?? uniqueId();
+    let playerId = message.playerId;
+
+    if (!playerId && this.roomPhase === "playing") {
+      const byName = this.lobby.players.find((p) => !p.connected && p.nickname === nickname);
+      if (byName) playerId = byName.id;
+    }
+    if (!playerId) playerId = uniqueId();
+
+    const existingPlayer = this.lobby.players.find((p) => p.id === playerId);
+    if (!existingPlayer && !this.hasActiveHost()) {
+      sender.send(
+        JSON.stringify({
+          type: "error",
+          message:
+            "No active host in this room. Ask the host to open the game on their screen first.",
+        }),
+      );
+      return;
+    }
 
     const existingTimer = this.lobby.disconnectTimers.get(playerId);
     if (existingTimer) {
@@ -220,6 +290,11 @@ export class RoomServer extends Server {
 
   returnToLobby() {
     this.stopTick();
+    for (const timer of this.lobby.disconnectTimers.values()) {
+      clearTimeout(timer);
+    }
+    this.lobby.disconnectTimers.clear();
+    this.lobby.players = this.lobby.players.filter((p) => p.connected);
     this.gameModule = null;
     this.gameState = null;
     this.roomPhase = "lobby";
@@ -255,9 +330,12 @@ export class RoomServer extends Server {
 
   extendGameTimer(extraMs: number) {
     if (!this.gameState || typeof this.gameState !== "object") return;
-    const state = this.gameState as { timerEndsAt?: number | null };
+    const state = this.gameState as { timerEndsAt?: number | null; timerTotalMs?: number | null };
     if (state.timerEndsAt) {
       state.timerEndsAt += extraMs;
+    }
+    if (state.timerTotalMs != null) {
+      state.timerTotalMs += extraMs;
     }
   }
 
@@ -294,15 +372,19 @@ export class RoomServer extends Server {
       if (this.lobby.paused) return;
       if (!this.gameModule.onTick) return;
 
-      this.gameState = this.gameModule.onTick(this.gameState);
+      try {
+        this.gameState = this.gameModule.onTick(this.gameState);
 
-      if (this.gameModule.isGameOver(this.gameState)) {
-        const roundScores = this.gameModule.getRoundScores(this.gameState);
-        this.lobby.sessionScores = mergeScores(this.lobby.sessionScores, roundScores);
-        this.stopTick();
+        if (this.gameModule.isGameOver(this.gameState)) {
+          const roundScores = this.gameModule.getRoundScores(this.gameState);
+          this.lobby.sessionScores = mergeScores(this.lobby.sessionScores, roundScores);
+          this.stopTick();
+        }
+
+        this.broadcastAll();
+      } catch (err) {
+        console.error("Game tick failed:", err);
       }
-
-      this.broadcastAll();
     }, interval);
   }
 
@@ -327,6 +409,7 @@ export class RoomServer extends Server {
         round: view.round,
         maxRounds: view.maxRounds,
         timerEndsAt: view.timerEndsAt,
+        timerTotalMs: view.timerTotalMs ?? null,
         data: view.data,
       };
     }
@@ -364,6 +447,7 @@ export class RoomServer extends Server {
         round: view.round,
         maxRounds: view.maxRounds,
         timerEndsAt: view.timerEndsAt,
+        timerTotalMs: view.timerTotalMs ?? null,
         data: view.data,
         playerData: view.playerData,
       },
@@ -391,7 +475,11 @@ export class RoomServer extends Server {
 
   broadcastAll() {
     for (const conn of this.getConnections()) {
-      this.sendState(conn);
+      try {
+        this.sendState(conn);
+      } catch (err) {
+        console.error("Broadcast failed:", err);
+      }
     }
   }
 }

@@ -1,14 +1,56 @@
 import {
+  distanceToWallAlongAngle,
   fireWeapon,
   isFireablePowerUp,
+  PLAYABLE_MARGIN,
   raycastAhead,
   tryJump,
-  WALL_MARGIN,
   type CurveState,
   type TurnDirection,
 } from "@party-games/shared";
 
-const LOOK_ANGLES = [-0.8, -0.4, 0, 0.4, 0.8] as const;
+const LOOK_ANGLES = [-1.2, -0.8, -0.5, -0.25, 0, 0.25, 0.5, 0.8, 1.2] as const;
+
+function lookDistance(difficulty: string): number {
+  if (difficulty === "easy") return 100;
+  if (difficulty === "hard") return 200;
+  return 140;
+}
+
+function turnThreshold(difficulty: string): number {
+  if (difficulty === "easy") return 45;
+  if (difficulty === "hard") return 75;
+  return 58;
+}
+
+function obstacleDistance(
+  state: CurveState,
+  bot: { x: number; y: number; angle: number },
+  selfId: string,
+  angle: number,
+  lookDist: number,
+): number {
+  const trailDist = raycastAhead(
+    bot.x,
+    bot.y,
+    angle,
+    state.players,
+    selfId,
+    lookDist,
+    state.width,
+    state.height,
+    state.wallHoles,
+  );
+  const wallDist = distanceToWallAlongAngle(
+    bot.x,
+    bot.y,
+    angle,
+    state.width,
+    state.height,
+    state.wallHoles,
+  );
+  return Math.min(trailDist, wallDist);
+}
 
 export function tickBots(state: CurveState): void {
   if (state.phase !== "playing") return;
@@ -16,6 +58,8 @@ export function tickBots(state: CurveState): void {
   for (const p of state.players) {
     if (!p.isBot || !p.alive) continue;
     const difficulty = state.options.botDifficulty;
+    const lookDist = lookDistance(difficulty);
+    const threshold = turnThreshold(difficulty);
 
     if (isFireablePowerUp(p.heldPowerUp)) {
       if (p.heldPowerUp === "burst") {
@@ -30,29 +74,23 @@ export function tickBots(state: CurveState): void {
       }
     }
 
-    const lookDist = difficulty === "easy" ? 70 : difficulty === "hard" ? 120 : 90;
-    const turnThreshold = difficulty === "easy" ? 35 : difficulty === "hard" ? 55 : 45;
+    const ahead = obstacleDistance(state, p, p.id, p.angle, lookDist);
 
-    const ahead = raycastAhead(
-      p.x,
-      p.y,
-      p.angle,
-      state.players,
-      p.id,
-      lookDist,
-      state.width,
-      state.height,
-    );
-
-    if (ahead < turnThreshold) {
-      if (p.jumpCooldownTicks <= 0 && Math.random() < (difficulty === "easy" ? 0.35 : 0.75)) {
+    if (ahead < threshold) {
+      if (p.jumpCooldownTicks <= 0 && Math.random() < (difficulty === "easy" ? 0.4 : 0.85)) {
         tryJump(p);
       }
       p.direction = pickBestDirection(state, p.id, p.angle, lookDist, difficulty);
       continue;
     }
 
-    if (difficulty === "easy" && Math.random() < 0.04) {
+    const wallBias = wallAvoidanceDirection(p, state.width, state.height, p.angle);
+    if (wallBias) {
+      p.direction = wallBias;
+      continue;
+    }
+
+    if (difficulty === "easy" && Math.random() < 0.03) {
       p.direction = Math.random() < 0.5 ? "left" : "right";
       continue;
     }
@@ -60,16 +98,13 @@ export function tickBots(state: CurveState): void {
     const coin = nearestCoin(state, p);
     const powerUp = difficulty === "hard" ? nearestPowerUp(state, p) : null;
     const target = powerUp ?? coin;
-    if (target && dist(p.x, p.y, target.x, target.y) < 140) {
+    if (target && dist(p.x, p.y, target.x, target.y) < 120) {
       const targetAngle = Math.atan2(target.y - p.y, target.x - p.x);
-      p.direction = angleDiff(p.angle, targetAngle) > 0 ? "right" : "left";
-      continue;
-    }
-
-    const wallBias = wallAvoidanceDirection(p, state.width, state.height);
-    if (wallBias) {
-      p.direction = wallBias;
-      continue;
+      const pathClear = obstacleDistance(state, p, p.id, targetAngle, lookDist);
+      if (pathClear > 70) {
+        p.direction = angleDiff(p.angle, targetAngle) > 0 ? "right" : "left";
+        continue;
+      }
     }
 
     p.direction = pickBestDirection(state, p.id, p.angle, lookDist, difficulty);
@@ -98,24 +133,14 @@ function pickBestDirection(
   if (!bot) return "none";
 
   let bestAngle = angle;
-  let bestClear = -1;
+  let bestClear = -Infinity;
 
   for (const offset of LOOK_ANGLES) {
     const testAngle = angle + offset;
-    const clear = raycastAhead(
-      bot.x,
-      bot.y,
-      testAngle,
-      state.players,
-      selfId,
-      lookDist,
-      state.width,
-      state.height,
-    );
-    const wallPenalty =
-      wallProximityPenalty(bot.x, bot.y, testAngle, state.width, state.height) *
-      (difficulty === "hard" ? 1.5 : 1);
-    const score = clear - wallPenalty;
+    const clear = obstacleDistance(state, bot, selfId, testAngle, lookDist);
+    const wallPenalty = wallProximityPenalty(bot.x, bot.y, testAngle, state.width, state.height);
+    const turnPenalty = Math.abs(offset) * 8 * (difficulty === "hard" ? 0.7 : 1);
+    const score = clear - wallPenalty - turnPenalty;
     if (score > bestClear) {
       bestClear = score;
       bestAngle = testAngle;
@@ -123,7 +148,7 @@ function pickBestDirection(
   }
 
   const diff = angleDiff(angle, bestAngle);
-  if (Math.abs(diff) < 0.05) return "none";
+  if (Math.abs(diff) < 0.04) return "none";
   return diff > 0 ? "right" : "left";
 }
 
@@ -134,34 +159,51 @@ function wallProximityPenalty(
   width: number,
   height: number,
 ): number {
-  const margin = WALL_MARGIN + 30;
+  const buffer = PLAYABLE_MARGIN + 60;
   let penalty = 0;
-  if (x < margin && Math.cos(angle) < 0) penalty += (margin - x) * 0.15;
-  if (x > width - margin && Math.cos(angle) > 0) penalty += (x - (width - margin)) * 0.15;
-  if (y < margin && Math.sin(angle) < 0) penalty += (margin - y) * 0.15;
-  if (y > height - margin && Math.sin(angle) > 0) penalty += (y - (height - margin)) * 0.15;
+  const distLeft = x - PLAYABLE_MARGIN;
+  const distRight = width - PLAYABLE_MARGIN - x;
+  const distTop = y - PLAYABLE_MARGIN;
+  const distBottom = height - PLAYABLE_MARGIN - y;
+  const minDist = Math.min(distLeft, distRight, distTop, distBottom);
+
+  if (minDist < buffer) {
+    penalty += (buffer - minDist) * 0.35;
+  }
+  if (distLeft < buffer && Math.cos(angle) < 0) penalty += (buffer - distLeft) * 0.25;
+  if (distRight < buffer && Math.cos(angle) > 0) penalty += (buffer - distRight) * 0.25;
+  if (distTop < buffer && Math.sin(angle) < 0) penalty += (buffer - distTop) * 0.25;
+  if (distBottom < buffer && Math.sin(angle) > 0) penalty += (buffer - distBottom) * 0.25;
   return penalty;
 }
 
 function wallAvoidanceDirection(
-  p: { x: number; y: number },
+  p: { x: number; y: number; angle: number },
   width: number,
   height: number,
+  angle: number,
 ): TurnDirection | null {
-  const margin = WALL_MARGIN + 50;
-  const nearLeft = p.x < margin;
-  const nearRight = p.x > width - margin;
-  const nearTop = p.y < margin;
-  const nearBottom = p.y > height - margin;
+  const buffer = PLAYABLE_MARGIN + 70;
+  const nearLeft = p.x < buffer;
+  const nearRight = p.x > width - buffer;
+  const nearTop = p.y < buffer;
+  const nearBottom = p.y > height - buffer;
   if (!nearLeft && !nearRight && !nearTop && !nearBottom) return null;
+
+  const headingLeft = Math.cos(angle) < -0.15;
+  const headingRight = Math.cos(angle) > 0.15;
+  const headingUp = Math.sin(angle) < -0.15;
+  const headingDown = Math.sin(angle) > 0.15;
+
+  if (nearLeft && headingLeft) return "right";
+  if (nearRight && headingRight) return "left";
+  if (nearTop && headingUp) return "right";
+  if (nearBottom && headingDown) return "left";
+
   if (nearLeft && nearTop) return "right";
   if (nearRight && nearTop) return "left";
   if (nearLeft && nearBottom) return "right";
   if (nearRight && nearBottom) return "left";
-  if (nearLeft) return "right";
-  if (nearRight) return "left";
-  if (nearTop) return "right";
-  if (nearBottom) return "left";
   return null;
 }
 

@@ -18,6 +18,7 @@ export interface LobbyState {
   disconnectTimers: Map<string, ReturnType<typeof setTimeout>>;
   paused: boolean;
   pausedAt: number | null;
+  hostSessionActive: boolean;
 }
 
 export function createLobby(roomId: string): LobbyState {
@@ -31,6 +32,7 @@ export function createLobby(roomId: string): LobbyState {
     disconnectTimers: new Map(),
     paused: false,
     pausedAt: null,
+    hostSessionActive: false,
   };
 }
 

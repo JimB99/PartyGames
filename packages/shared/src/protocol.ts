@@ -14,7 +14,8 @@ export type ClientMessage =
   | { type: "extend_timer"; extraMs: number }
   | { type: "player_action"; action: GameAction }
   | { type: "host_action"; action: GameAction }
-  | { type: "ping" };
+  | { type: "ping" }
+  | { type: "check_room" };
 
 export type GameAction =
   | { kind: "submit_text"; text: string }
@@ -41,7 +42,8 @@ export type ServerMessage =
   | { type: "room_state"; state: RoomSnapshot }
   | { type: "player_view"; view: PlayerViewSnapshot }
   | { type: "error"; message: string }
-  | { type: "pong" };
+  | { type: "pong" }
+  | { type: "room_available" };
 
 export interface RoomSnapshot {
   roomId: string;
@@ -70,6 +72,7 @@ export interface HostViewSnapshot {
   round: number;
   maxRounds: number;
   timerEndsAt: number | null;
+  timerTotalMs?: number | null;
   data: Record<string, unknown>;
 }
 
@@ -79,6 +82,7 @@ export interface PlayerViewSnapshot {
   round: number;
   maxRounds: number;
   timerEndsAt: number | null;
+  timerTotalMs?: number | null;
   data: Record<string, unknown>;
   playerData: Record<string, unknown>;
 }

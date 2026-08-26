@@ -115,18 +115,6 @@ export function TrailDashOptionsPanel({
           <option value="chaos">Chaos</option>
         </select>
       </label>
-
-      <label className="flex items-center justify-between gap-4">
-        <span className="text-zinc-300">Wall holes</span>
-        <input
-          type="number"
-          min={0}
-          max={4}
-          value={td.wallHoles}
-          onChange={(e) => update({ wallHoles: Number(e.target.value) })}
-          className="w-20 rounded-lg border border-zinc-600 bg-zinc-900 px-2 py-1 text-sm"
-        />
-      </label>
     </div>
   );
 }

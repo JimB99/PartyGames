@@ -1,8 +1,6 @@
 import type { PowerUpKind, RoomSnapshot, TrailPoint } from "@party-games/shared";
-import { powerUpInfo } from "@party-games/shared";
+import { powerUpInfo, WALL_THICKNESS } from "@party-games/shared";
 import { playerColor } from "../hooks/usePartyRoom";
-
-const WALL_THICKNESS = 14;
 
 function splitTrailPolylines(trail: TrailPoint[]): TrailPoint[][] {
   const segments: TrailPoint[][] = [];
@@ -28,7 +26,14 @@ function WallEdge({
   edge: string;
   width: number;
   height: number;
-  holes: Array<{ edge: string; start: number; length: number }>;
+  holes: Array<{
+    edge: string;
+    start: number;
+    length: number;
+    pairColor?: string;
+    pairId?: string;
+    pairLabel?: string;
+  }>;
 }) {
   const edgeHoles = holes.filter((h) => h.edge === edge);
   const t = WALL_THICKNESS;
@@ -37,22 +42,38 @@ function WallEdge({
     <rect key={key} x={x} y={y} width={w} height={h} fill="#3f3f46" stroke="#71717a" strokeWidth={2} rx={2} />
   );
 
-  const portal = (key: string, x: number, y: number, w: number, h: number, label: string) => (
-    <g key={key}>
-      <rect x={x} y={y} width={w} height={h} fill="#0c4a6e" stroke="#22d3ee" strokeWidth={3} rx={3} />
-      <rect x={x + 3} y={y + 3} width={w - 6} height={h - 6} fill="#164e63" opacity={0.85} rx={2} />
-      <text
-        x={x + w / 2}
-        y={y + h / 2 + (edge === "left" || edge === "right" ? 0 : 4)}
-        textAnchor="middle"
-        fontSize={edge === "left" || edge === "right" ? 14 : 18}
-        fill="#67e8f9"
-        fontWeight="bold"
-      >
-        {label}
-      </text>
-    </g>
-  );
+  const portal = (
+    key: string,
+    x: number,
+    y: number,
+    w: number,
+    h: number,
+    color: string,
+    label: string,
+    portalEdge: string,
+  ) => {
+    const cx = x + w / 2;
+    const cy = y + h / 2;
+    const rotation = portalEdge === "left" || portalEdge === "right" ? -90 : 0;
+    return (
+      <g key={key}>
+        <rect x={x} y={y} width={w} height={h} fill="#0c1222" stroke={color} strokeWidth={4} rx={4} />
+        <rect x={x + 4} y={y + 4} width={w - 8} height={h - 8} fill={color} opacity={0.35} rx={3} />
+        <text
+          x={cx}
+          y={cy}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          fill={color}
+          fontSize={portalEdge === "left" || portalEdge === "right" ? 18 : 20}
+          fontWeight="bold"
+          transform={`rotate(${rotation} ${cx} ${cy})`}
+        >
+          {label}
+        </text>
+      </g>
+    );
+  };
 
   if (edge === "top" || edge === "bottom") {
     const y = edge === "top" ? 0 : height - t;
@@ -70,7 +91,9 @@ function WallEdge({
         {spans.map((span, i) => {
           const w = span.end - span.start;
           if (span.hole) {
-            return portal(`hole-${edge}-${i}`, span.start, y, w, t, edge === "top" ? "↓ wrap" : "↑ wrap");
+            const color = span.hole.pairColor ?? "#00E5FF";
+            const label = span.hole.pairLabel ?? "?";
+            return portal(`hole-${edge}-${i}`, span.start, y, w, t, color, label, edge);
           }
           return wallSeg(`wall-${edge}-${i}`, span.start, y, w, t);
         })}
@@ -93,7 +116,9 @@ function WallEdge({
       {spans.map((span, i) => {
         const h = span.end - span.start;
         if (span.hole) {
-          return portal(`hole-${edge}-${i}`, x, span.start, t, h, edge === "left" ? "→ wrap" : "← wrap");
+          const color = span.hole.pairColor ?? "#00E5FF";
+          const label = span.hole.pairLabel ?? "?";
+          return portal(`hole-${edge}-${i}`, x, span.start, t, h, color, label, edge);
         }
         return wallSeg(`wall-${edge}-${i}`, x, span.start, t, h);
       })}
@@ -125,14 +150,26 @@ export function CurveArena({
   const powerUps = (data.powerUps as Array<{ id: string; kind: string; x: number; y: number }>) ?? [];
   const projectiles = (data.projectiles as Array<{ id: string; x: number; y: number; kind: string }>) ?? [];
   const explosions = (data.explosions as Array<{ x: number; y: number; radius: number; ticksRemaining: number }>) ?? [];
-  const wallHoles = (data.wallHoles as Array<{ edge: string; start: number; length: number }>) ?? [];
+  const wallHoles =
+    (data.wallHoles as Array<{
+      edge: string;
+      start: number;
+      length: number;
+      pairColor?: string;
+      pairId?: string;
+      pairLabel?: string;
+    }>) ?? [];
   const botNames = (data.botNames as Record<string, string>) ?? {};
 
   const nickname = (id: string) =>
     room.players.find((pl) => pl.id === id)?.nickname ?? botNames[id] ?? id;
 
   return (
-    <svg viewBox={`0 0 ${width} ${height}`} className="w-full rounded-2xl bg-zinc-950">
+    <svg
+      viewBox={`0 0 ${width} ${height}`}
+      className="aspect-[4/3] w-full max-h-[72vh] rounded-2xl bg-zinc-950"
+      preserveAspectRatio="xMidYMid meet"
+    >
       <rect x={0} y={0} width={width} height={height} fill="#18181b" />
 
       {(["top", "bottom", "left", "right"] as const).map((edge) => (

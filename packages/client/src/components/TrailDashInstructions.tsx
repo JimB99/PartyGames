@@ -64,7 +64,7 @@ export function TrailDashInstructions({
       )}
 
       <p className="text-center text-sm text-zinc-500">
-        Cyan wall portals let you wrap to the opposite side — your trail won&apos;t connect through the arena.
+        Cyan (A) and orange (B) wall portals link in random pairs each round — drive through one to exit the other at the same angle. Coins and power-ups appear over time in open spots.
       </p>
     </div>
   );

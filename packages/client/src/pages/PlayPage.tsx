@@ -5,11 +5,13 @@ import { useParams } from "react-router-dom";
 export function PlayPage() {
   const { roomId = "" } = useParams();
   const nickname = sessionStorage.getItem(`pg-nickname-${roomId}`) ?? "Player";
+  const storedPlayerId = sessionStorage.getItem(`pg-player-${roomId}`) ?? undefined;
 
   const { roomState, playerView, connected, error, playerAction } = usePartyRoom({
     roomId,
     role: "player",
     nickname,
+    playerId: storedPlayerId,
     enabled: Boolean(roomId),
   });
 
@@ -24,9 +26,18 @@ export function PlayPage() {
 
       {error && <p className="bg-red-900/40 px-4 py-2 text-red-300">{error}</p>}
 
-      {!playerView && (
+      {!playerView && !error && (
         <div className="p-8 text-center text-zinc-400">
           {roomState?.phase === "playing" ? "Loading game…" : "Waiting for host to start a game…"}
+        </div>
+      )}
+
+      {error && !playerView && (
+        <div className="mx-auto max-w-md space-y-4 p-8 text-center">
+          <p className="text-red-300">{error}</p>
+          <a href="/join" className="inline-block rounded-xl bg-zinc-700 px-6 py-3 font-bold">
+            Back to join
+          </a>
         </div>
       )}
 
