@@ -18,7 +18,7 @@ export const bracketBattleGame: GameModule<BracketState> = {
     scoringRules: "+2000 to the author of the bracket champion.",
     minPlayers: 4,
     maxPlayers: 16,
-    category: "social",
+    category: "party",
     supportsDifficulty: true,
     supportsMatureContent: true,
   },

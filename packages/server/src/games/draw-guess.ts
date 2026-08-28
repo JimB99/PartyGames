@@ -18,7 +18,7 @@ export const drawGuessGame: GameModule<DrawState> = {
     scoringRules: "+500 for a correct guess (ranked by speed when enabled); +250 to the drawer per correct guesser.",
     minPlayers: 3,
     maxPlayers: 12,
-    category: "drawing",
+    category: "creative",
     supportsDifficulty: true,
     supportsMatureContent: true,
     supportsSpeedScoring: true,

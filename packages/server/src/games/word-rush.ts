@@ -18,7 +18,7 @@ export const wordRushGame: GameModule<WordRushState> = {
     scoringRules: "Valid words score length × 100; with speed scoring, fastest valid words rank higher.",
     minPlayers: 2,
     maxPlayers: 16,
-    category: "action",
+    category: "arcade",
     supportsDifficulty: true,
     supportsMatureContent: false,
     supportsSpeedScoring: true,

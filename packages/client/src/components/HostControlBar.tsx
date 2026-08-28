@@ -5,6 +5,7 @@ export function HostControlBar({
   onResume,
   onSkip,
   onExtend,
+  onPlayAgain,
   onEnd,
 }: {
   paused: boolean;
@@ -13,12 +14,19 @@ export function HostControlBar({
   onResume: () => void;
   onSkip: () => void;
   onExtend: () => void;
+  onPlayAgain?: () => void;
   onEnd: () => void;
 }) {
   const canSkip = ["instructions", "round_end", "reveal", "scoreboard"].includes(phase);
+  const canPlayAgain = phase === "ended" && onPlayAgain;
 
   return (
     <div className="fixed bottom-4 right-4 z-50 flex flex-wrap justify-end gap-2 max-w-xl">
+      {canPlayAgain && (
+        <button type="button" onClick={onPlayAgain} className="rounded-xl bg-violet-600 px-5 py-3 font-bold">
+          Play again
+        </button>
+      )}
       {paused ? (
         <button type="button" onClick={onResume} className="rounded-xl bg-green-600 px-5 py-3 font-bold">
           Resume

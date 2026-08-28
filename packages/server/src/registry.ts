@@ -15,6 +15,10 @@ import { fibbageReverseGame } from "./games/fibbage-reverse.js";
 import { teamCharadesGame } from "./games/team-charades.js";
 import { hotSeatGame } from "./games/hot-seat.js";
 import { lastOnTheDikeGame } from "./games/last-on-the-dike.js";
+import { tetrisBattleGame } from "./games/tetris-battle.js";
+import { battleshipsGame } from "./games/battleships.js";
+import { connectFourGame } from "./games/connect-four.js";
+import { ticTacToeGame } from "./games/tic-tac-toe.js";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const games: GameModule<any>[] = [
@@ -34,6 +38,10 @@ const games: GameModule<any>[] = [
   teamCharadesGame,
   hotSeatGame,
   lastOnTheDikeGame,
+  tetrisBattleGame,
+  battleshipsGame,
+  connectFourGame,
+  ticTacToeGame,
 ];
 
 export const gameRegistry = new Map(games.map((g) => [g.meta.id, g]));

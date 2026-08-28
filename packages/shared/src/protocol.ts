@@ -8,6 +8,7 @@ export type ClientMessage =
   | { type: "select_game"; gameId: GameId }
   | { type: "set_game_options"; gameId: GameId; options: GameOptions }
   | { type: "start_game" }
+  | { type: "play_again" }
   | { type: "return_to_lobby" }
   | { type: "pause_game" }
   | { type: "resume_game" }
@@ -36,7 +37,14 @@ export type GameAction =
   | { kind: "charades_skip" }
   | { kind: "hot_seat_pick"; submissionId: string }
   | { kind: "advance" }
-  | { kind: "dike_bid"; amount: number };
+  | { kind: "dike_bid"; amount: number }
+  | { kind: "tetris_input"; input: "left" | "right" | "rotate_cw" | "rotate_ccw" | "soft_drop" | "hard_drop" }
+  | { kind: "battleship_place"; shipIndex: number; x: number; y: number; horizontal: boolean }
+  | { kind: "battleship_ready" }
+  | { kind: "battleship_fire"; x: number; y: number; targetId?: string }
+  | { kind: "battleship_bet"; market: "next_elimination" | "most_hits"; pick: string; amount: number }
+  | { kind: "connect_four_drop"; column: number }
+  | { kind: "tic_tac_toe_move"; cell: number };
 
 export type ServerMessage =
   | { type: "room_state"; state: RoomSnapshot }

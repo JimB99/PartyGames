@@ -30,7 +30,7 @@ function ControlBtn({
     <button
       type="button"
       disabled={disabled}
-      className={`rounded-xl px-6 py-4 text-lg font-bold text-white transition active:scale-95 disabled:opacity-40 touch-none select-none ${styles} ${className}`}
+      className={`rounded-2xl px-4 py-5 text-lg font-bold text-white transition active:scale-95 disabled:opacity-40 touch-none select-none min-h-[3.25rem] landscape:min-h-[4.5rem] ${styles} ${className}`}
       onPointerDown={(e) => {
         e.preventDefault();
         onPointerDown?.();
@@ -58,16 +58,21 @@ export function CurvePlayerControls({
   extraJumps?: number;
 }) {
   const stopTurn = () => onAction({ kind: "curve_turn", direction: "none" });
+  const jumpLocked = jumpCooldown > 0 && extraJumps <= 0;
 
   return (
-    <div className="space-y-4">
-      <div className="grid grid-cols-2 gap-4">
+    <div className="fixed inset-x-0 bottom-0 z-30 mx-auto max-w-lg px-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] landscape:max-w-none landscape:px-4 landscape:pb-[max(0.5rem,env(safe-area-inset-bottom))]">
+      <div className="grid grid-cols-2 gap-3 landscape:gap-2">
         <ControlBtn
           variant="accent"
-          disabled={jumpCooldown > 0}
+          disabled={jumpLocked}
           onPointerDown={() => onAction({ kind: "curve_jump" })}
         >
-          {jumpCooldown > 0 ? `Jump (${Math.ceil(jumpCooldown / 25)}s)` : extraJumps > 0 ? `Jump (+${extraJumps})` : "Jump"}
+          {jumpLocked
+            ? `Jump (${Math.ceil(jumpCooldown / 25)}s)`
+            : extraJumps > 0
+              ? `Jump (+${extraJumps})`
+              : "Jump"}
         </ControlBtn>
         {canFire ? (
           <ControlBtn variant="danger" onPointerDown={() => onAction({ kind: "curve_fire" })}>
@@ -78,10 +83,8 @@ export function CurvePlayerControls({
             Fire
           </ControlBtn>
         )}
-      </div>
-      <div className="grid grid-cols-2 gap-4">
         <ControlBtn
-          className="py-12 text-2xl"
+          className="landscape:min-h-[32vh] landscape:text-3xl landscape:py-0"
           onPointerDown={() => onAction({ kind: "curve_turn", direction: "left" })}
           onPointerUp={stopTurn}
           onPointerLeave={stopTurn}
@@ -89,7 +92,7 @@ export function CurvePlayerControls({
           ◀
         </ControlBtn>
         <ControlBtn
-          className="py-12 text-2xl"
+          className="landscape:min-h-[32vh] landscape:text-3xl landscape:py-0"
           onPointerDown={() => onAction({ kind: "curve_turn", direction: "right" })}
           onPointerUp={stopTurn}
           onPointerLeave={stopTurn}
@@ -98,7 +101,7 @@ export function CurvePlayerControls({
         </ControlBtn>
       </div>
       {heldPowerUp && !canFire && (
-        <p className="text-center text-sm text-yellow-400">
+        <p className="mt-2 text-center text-sm text-yellow-400 landscape:mt-1">
           Active: {powerUpInfo(heldPowerUp as import("@party-games/shared").PowerUpKind).name}
         </p>
       )}

@@ -16,7 +16,23 @@ export const DEFAULT_TICK_MS = 40;
 
 export type PlayerColor = (typeof PLAYER_COLORS)[number];
 
-export type GameCategory = "social" | "trivia" | "drawing" | "action";
+export type GameCategory = "social" | "party" | "trivia" | "creative" | "arcade" | "strategy";
+
+export interface GameCategoryMeta {
+  id: GameCategory;
+  label: string;
+  description: string;
+  icon: string;
+}
+
+export const GAME_CATEGORIES: GameCategoryMeta[] = [
+  { id: "social", label: "Social & Voting", description: "Bluff, vote, and laugh together", icon: "💬" },
+  { id: "party", label: "Party & Teams", description: "Teams, roles, and group challenges", icon: "🎉" },
+  { id: "trivia", label: "Trivia", description: "Test your knowledge", icon: "🧠" },
+  { id: "creative", label: "Creative", description: "Draw and imagine", icon: "🎨" },
+  { id: "arcade", label: "Arcade", description: "Fast reflexes and survival", icon: "🕹️" },
+  { id: "strategy", label: "Strategy", description: "Classic board games", icon: "♟️" },
+];
 
 export interface GameMeta {
   id: GameId;
@@ -51,6 +67,10 @@ export const ALL_GAME_IDS = [
   "team-charades",
   "hot-seat",
   "last-on-the-dike",
+  "tetris-battle",
+  "battleships",
+  "connect-four",
+  "tic-tac-toe",
 ] as const;
 
 export type GameId = (typeof ALL_GAME_IDS)[number];

@@ -17,7 +17,7 @@ export const lastOnTheDikeGame: GameModule<DikeState> = {
     scoringRules: "3000 for 1st, 1500 for 2nd, 750 for 3rd, 250 for other survivors.",
     minPlayers: 4,
     maxPlayers: 16,
-    category: "social",
+    category: "party",
     supportsDifficulty: false,
     supportsMatureContent: false,
   },

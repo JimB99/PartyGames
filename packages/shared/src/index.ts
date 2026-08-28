@@ -10,3 +10,7 @@ export * from "./trail-dash-options.js";
 export * from "./trail-dash-powerups.js";
 export * from "./curve-logic.js";
 export * from "./speed-scoring.js";
+export * from "./tetris-logic.js";
+export * from "./battleship-logic.js";
+export * from "./connect-four-logic.js";
+export * from "./tic-tac-toe-logic.js";

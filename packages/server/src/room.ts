@@ -154,6 +154,9 @@ export class RoomServer extends Server {
       case "start_game":
         if (this.isHost(sender)) this.startGame();
         return;
+      case "play_again":
+        if (this.isHost(sender)) this.playGameAgain();
+        return;
       case "return_to_lobby":
         if (this.isHost(sender)) this.returnToLobby();
         return;
@@ -284,6 +287,33 @@ export class RoomServer extends Server {
     this.gameState = game.init(ctx);
     this.roomPhase = "playing";
     this.activeGameId = gameId;
+    this.startTick();
+    this.broadcastAll();
+  }
+
+  playGameAgain() {
+    if (!this.activeGameId || !this.gameModule || !this.gameState) return;
+    if (!this.gameModule.isGameOver(this.gameState)) return;
+
+    const gameId = this.activeGameId;
+    const game = getGame(gameId);
+    if (!game) return;
+
+    const ctx = this.getRoomContext();
+
+    if (gameId === "curve-fever") {
+      const opts = resolveTrailDashOptions(getGameOptions(this.lobby, gameId));
+      const total = ctx.playerIds.length + opts.botCount;
+      if (total < 2 || total > 8) return;
+    } else if (ctx.playerIds.length < game.meta.minPlayers) {
+      return;
+    }
+
+    this.gameModule = game;
+    this.gameState = game.init(ctx);
+    this.roomPhase = "playing";
+    this.lobby.paused = false;
+    this.lobby.pausedAt = null;
     this.startTick();
     this.broadcastAll();
   }

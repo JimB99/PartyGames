@@ -18,7 +18,7 @@ export const roleSortGame: GameModule<RoleSortState> = {
     scoringRules: "+500 when your role assignment matches the majority for a player.",
     minPlayers: 3,
     maxPlayers: 8,
-    category: "social",
+    category: "party",
     supportsDifficulty: false,
     supportsMatureContent: false,
   },

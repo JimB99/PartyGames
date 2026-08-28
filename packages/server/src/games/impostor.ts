@@ -17,7 +17,7 @@ export const impostorGame: GameModule<ImpostorState> = {
     scoringRules: "+1500 to each surviving member of the winning team when the game ends.",
     minPlayers: 4,
     maxPlayers: 10,
-    category: "social",
+    category: "party",
     supportsDifficulty: false,
     supportsMatureContent: false,
   },

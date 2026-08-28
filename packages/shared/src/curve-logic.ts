@@ -1,5 +1,5 @@
 import type { PowerUpMode, TrailDashOptions } from "./trail-dash-options.js";
-import { rankPointsForPlace } from "./trail-dash-options.js";
+import { rankPointsByPercentile } from "./speed-scoring.js";
 
 export type CurvePhase = "instructions" | "playing" | "round_end" | "ended";
 export type TurnDirection = "left" | "right" | "none";
@@ -18,21 +18,24 @@ export const WALL_MARGIN = 5;
 export const WALL_THICKNESS = 24;
 export const JUMP_DURATION_TICKS = 15;
 export const JUMP_COOLDOWN_TICKS = 75;
-/** Ticks where the player passes through trails (jump arc + landing grace). */
+/** @deprecated Jump phasing is tied to jumpTicksRemaining, not a separate timer. */
 export const JUMP_PHASE_TICKS = 40;
 /** Ticks of trail immunity after using a warp portal. */
 export const WARP_PHASE_TICKS = 35;
 export const SPEED_MULTIPLIER = 1.6;
 export const SPEED_EFFECT_TICKS = 125;
-export const GAP_EFFECT_TICKS = 50;
+/** ~⅓ arena width at base speed (1200 / 3 = 400px → 135 ticks × 3px). */
+export const GAP_EFFECT_TICKS = 135;
 export const COIN_PICKUP_RADIUS = 12;
 export const POWERUP_PICKUP_RADIUS = 14;
-export const GRENADE_FUSE_TICKS = 38;
+export const GRENADE_FUSE_TICKS = 55;
 export const GRENADE_RADIUS = 60;
 export const MISSILE_SPEED = 8;
-export const GRENADE_SPEED = 7.5;
+export const GRENADE_SPEED = 9;
+export const MISSILE_HOMING_TURN_RATE = 0.045;
+export const MISSILE_EXPLOSION_RADIUS = 35;
 export const BURST_VOLLEYS = 3;
-export const BURST_BULLETS_PER_VOLLEY = 6;
+export const BURST_BULLETS_PER_VOLLEY = 10;
 export const WARP_PAIR_COUNT = 2;
 export const WARP_PORTAL_LENGTH = 90;
 export const PORTAL_EDGE_MARGIN = 80;
@@ -113,6 +116,8 @@ export interface Projectile {
   vx: number;
   vy: number;
   fuseTicks: number | null;
+  /** Heat-seeking missiles track the nearest enemy with a limited turn rate. */
+  homing?: boolean;
 }
 
 export interface Explosion {
@@ -578,7 +583,7 @@ export function checkTrailCollisions(state: CurveState): void {
       continue;
     }
 
-    if (p.phasingTicks > 0) continue;
+    if (p.gapTicksRemaining > 0 || p.jumpTicksRemaining > 0) continue;
 
     for (const other of state.players) {
       if (other.id === p.id) continue;
@@ -670,7 +675,6 @@ export function applyPowerUp(p: CurvePlayer, kind: PowerUpKind): void {
     case "gap":
       appendTrailBreak(p);
       p.gapTicksRemaining = GAP_EFFECT_TICKS;
-      p.phasingTicks = Math.max(p.phasingTicks, GAP_EFFECT_TICKS);
       break;
     case "double_jump":
       p.extraJumps += 1;
@@ -691,16 +695,20 @@ export function tryJump(p: CurvePlayer): boolean {
     p.extraJumps--;
     appendTrailBreak(p);
     p.jumpTicksRemaining = JUMP_DURATION_TICKS;
-    p.phasingTicks = Math.max(p.phasingTicks, JUMP_PHASE_TICKS);
     return true;
   }
 
-  if (p.jumpCooldownTicks > 0) return false;
+  if (p.jumpCooldownTicks > 0) {
+    if (p.extraJumps <= 0) return false;
+    p.extraJumps--;
+    appendTrailBreak(p);
+    p.jumpTicksRemaining = JUMP_DURATION_TICKS;
+    return true;
+  }
 
   appendTrailBreak(p);
   p.jumpTicksRemaining = JUMP_DURATION_TICKS;
   p.jumpCooldownTicks = JUMP_COOLDOWN_TICKS;
-  p.phasingTicks = Math.max(p.phasingTicks, JUMP_PHASE_TICKS);
   return true;
 }
 
@@ -716,6 +724,7 @@ function spawnBurstVolley(state: CurveState, p: CurvePlayer): void {
       vx: Math.cos(angle) * MISSILE_SPEED,
       vy: Math.sin(angle) * MISSILE_SPEED,
       fuseTicks: null,
+      homing: false,
     });
   }
 }
@@ -746,6 +755,7 @@ export function fireWeapon(state: CurveState, p: CurvePlayer): boolean {
       vx: Math.cos(p.angle) * MISSILE_SPEED,
       vy: Math.sin(p.angle) * MISSILE_SPEED,
       fuseTicks: null,
+      homing: true,
     });
   } else if (kind === "burst") {
     spawnBurstVolley(state, p);
@@ -766,12 +776,57 @@ export function fireWeapon(state: CurveState, p: CurvePlayer): boolean {
   return true;
 }
 
+function missileHitsWall(
+  x: number,
+  y: number,
+  width: number,
+  height: number,
+  portals: WallHole[],
+): boolean {
+  if (isInHole(x, y, portals, width, height)) return false;
+  return (
+    x < PLAYABLE_MARGIN ||
+    x > width - PLAYABLE_MARGIN ||
+    y < PLAYABLE_MARGIN ||
+    y > height - PLAYABLE_MARGIN
+  );
+}
+
+function steerHomingMissile(proj: Projectile, players: CurvePlayer[]): void {
+  let nearest: CurvePlayer | null = null;
+  let nearestDist = Infinity;
+  for (const p of players) {
+    if (!p.alive || p.id === proj.ownerId) continue;
+    const d = dist(proj.x, proj.y, p.x, p.y);
+    if (d < nearestDist) {
+      nearestDist = d;
+      nearest = p;
+    }
+  }
+  if (!nearest) return;
+
+  const targetAngle = Math.atan2(nearest.y - proj.y, nearest.x - proj.x);
+  const currentAngle = Math.atan2(proj.vy, proj.vx);
+  let delta = targetAngle - currentAngle;
+  while (delta > Math.PI) delta -= 2 * Math.PI;
+  while (delta < -Math.PI) delta += 2 * Math.PI;
+  const turn = Math.max(-MISSILE_HOMING_TURN_RATE, Math.min(MISSILE_HOMING_TURN_RATE, delta));
+  const speed = Math.hypot(proj.vx, proj.vy);
+  const newAngle = currentAngle + turn;
+  proj.vx = Math.cos(newAngle) * speed;
+  proj.vy = Math.sin(newAngle) * speed;
+}
+
 export function tickProjectiles(state: CurveState): void {
   const width = state.width;
   const height = state.height;
   const remaining: Projectile[] = [];
 
   for (const proj of state.projectiles) {
+    if (proj.kind === "missile" && proj.homing) {
+      steerHomingMissile(proj, state.players);
+    }
+
     proj.x += proj.vx;
     proj.y += proj.vy;
 
@@ -781,6 +836,11 @@ export function tickProjectiles(state: CurveState): void {
         detonateGrenade(state, proj.x, proj.y, proj.ownerId);
         continue;
       }
+    }
+
+    if (proj.kind === "missile" && missileHitsWall(proj.x, proj.y, width, height, state.wallHoles)) {
+      detonateMissile(state, proj.x, proj.y, proj.ownerId);
+      continue;
     }
 
     if (proj.x < 0 || proj.x > width || proj.y < 0 || proj.y > height) {
@@ -793,17 +853,35 @@ export function tickProjectiles(state: CurveState): void {
     let hit = false;
     for (const p of state.players) {
       if (!p.alive || p.id === proj.ownerId) continue;
-      if (dist(proj.x, proj.y, p.x, p.y) < p.hitRadius + 4) {
+      if (dist(proj.x, proj.y, p.x, p.y) < p.hitRadius + 6) {
         killPlayer(state, p);
         hit = true;
         break;
       }
     }
-    if (hit && proj.kind === "missile") continue;
+    if (hit && proj.kind === "missile") {
+      detonateMissile(state, proj.x, proj.y, proj.ownerId);
+      continue;
+    }
 
     remaining.push(proj);
   }
   state.projectiles = remaining;
+}
+
+export function detonateMissile(state: CurveState, x: number, y: number, ownerId: string): void {
+  state.explosions.push({
+    x,
+    y,
+    radius: MISSILE_EXPLOSION_RADIUS,
+    ticksRemaining: EXPLOSION_DISPLAY_TICKS,
+  });
+  for (const p of state.players) {
+    if (!p.alive) continue;
+    if (dist(x, y, p.x, p.y) < MISSILE_EXPLOSION_RADIUS) {
+      killPlayer(state, p);
+    }
+  }
 }
 
 export function detonateGrenade(state: CurveState, x: number, y: number, ownerId: string): void {
@@ -865,7 +943,7 @@ export function computeRoundScores(state: CurveState): Record<string, number> {
   // Survivors get best ranks first
   let rank = 1;
   for (const p of alive) {
-    const pts = rankPointsForPlace(rank, state.options.rankPointScale);
+    const pts = rankPointsByPercentile(rank, totalPlayers, state.options.rankPointScale);
     scores[p.id] = (scores[p.id] ?? 0) + pts + p.coinsThisRound;
     rank++;
   }
@@ -875,7 +953,7 @@ export function computeRoundScores(state: CurveState): Record<string, number> {
   for (const id of deadReversed) {
     const p = state.players.find((pl) => pl.id === id);
     if (!p) continue;
-    const pts = rankPointsForPlace(rank, state.options.rankPointScale);
+    const pts = rankPointsByPercentile(rank, totalPlayers, state.options.rankPointScale);
     scores[id] = (scores[id] ?? 0) + pts + p.coinsThisRound;
     rank++;
   }

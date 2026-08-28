@@ -15,7 +15,7 @@ export const TRAIL_DASH_POWERUPS: TrailDashPowerUpInfo[] = [
     icon: "⚡",
     name: "Speed",
     description: "Move faster for a short time",
-    color: "#FF6B6B",
+    color: "#00E5FF",
   },
   {
     kind: "gap",
@@ -28,14 +28,14 @@ export const TRAIL_DASH_POWERUPS: TrailDashPowerUpInfo[] = [
     kind: "double_jump",
     icon: "🦘",
     name: "Double Jump",
-    description: "Gain an extra jump (use while airborne)",
+    description: "Gain a jump usable mid-air or without cooldown",
     color: "#AA96DA",
   },
   {
     kind: "missile",
     icon: "🚀",
     name: "Missile",
-    description: "Fire straight ahead — tap Fire to shoot",
+    description: "Heat-seeking shot — tracks enemies, explodes on walls",
     color: "#FFE66D",
   },
   {
@@ -49,7 +49,7 @@ export const TRAIL_DASH_POWERUPS: TrailDashPowerUpInfo[] = [
     kind: "burst",
     icon: "💥",
     name: "Burst",
-    description: "3 volleys of 6 shots in all directions",
+    description: "3 volleys of 10 shots in all directions",
     color: "#FF9F43",
   },
 ];

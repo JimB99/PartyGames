@@ -23,7 +23,7 @@ export const curveFeverGame: GameModule<CurveState> = {
       "Rank points by survival (last alive = most). Collect coins for bonus points. Power-ups: speed, ghost, double jump, missile, grenade, burst.",
     minPlayers: 1,
     maxPlayers: 8,
-    category: "action",
+    category: "arcade",
     supportsDifficulty: false,
     supportsMatureContent: false,
     supportsTrailDashOptions: true,

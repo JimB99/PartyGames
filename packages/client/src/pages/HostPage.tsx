@@ -22,6 +22,7 @@ export function HostPage() {
     error,
     selectGame,
     startGame,
+    playAgain,
     returnToLobby,
     pauseGame,
     resumeGame,
@@ -165,6 +166,7 @@ export function HostPage() {
             onResume={resumeGame}
             onSkip={() => hostAction({ kind: "advance" })}
             onExtend={() => extendTimer(30000)}
+            onPlayAgain={playAgain}
             onEnd={handleEndGame}
           />
         </>

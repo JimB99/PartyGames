@@ -27,8 +27,8 @@ import {
 } from "./curve-logic.js";
 import {
   DEFAULT_TRAIL_DASH_OPTIONS,
-  rankPointsForPlace,
 } from "./trail-dash-options.js";
+import { rankPointsByPercentile } from "./speed-scoring.js";
 
 function playingState(playerIds: string[]): CurveState {
   const state = createCurveState(playerIds, [], {}, DEFAULT_TRAIL_DASH_OPTIONS);
@@ -67,7 +67,7 @@ describe("curve-logic collision", () => {
     ];
     p.x = 250;
     p.y = 100;
-    p.phasingTicks = 20;
+    p.gapTicksRemaining = 20;
     checkTrailCollisions(state);
     assert.equal(p.alive, true);
   });
@@ -84,7 +84,7 @@ describe("curve-logic scoring", () => {
     state.timerEndsAt = Date.now() - 1;
     tickCurveState(state);
     assert.equal(state.phase, "round_end");
-    assert.equal(state.roundScores["c"], rankPointsForPlace(1, 1));
+    assert.equal(state.roundScores["c"], rankPointsByPercentile(1, 3, 1));
   });
 
   it("coin pickup increments player coin tally", () => {
@@ -192,7 +192,7 @@ describe("curve-logic warp pairs", () => {
     ];
     p.x = 250;
     p.y = 100;
-    p.phasingTicks = 30;
+    p.jumpTicksRemaining = 30;
     checkTrailCollisions(state);
     assert.equal(p.alive, true);
   });
@@ -205,7 +205,7 @@ describe("curve-logic warp pairs", () => {
     p.x = entry.start + entry.length / 2;
     p.y = PLAYABLE_MARGIN - 4;
     checkTrailCollisions(state);
-    assert.equal(p.phasingTicks, 0);
+    assert.equal(p.jumpTicksRemaining, 0);
   });
 
   it("never places overlapping portals on the same edge", () => {
@@ -240,7 +240,7 @@ describe("curve-logic bounds", () => {
   it("kills phasing player who leaves the arena", () => {
     const state = playingState(["a"]);
     const p = state.players[0];
-    p.phasingTicks = 30;
+    p.jumpTicksRemaining = 30;
     p.x = 2;
     p.y = 200;
     checkTrailCollisions(state);
@@ -271,16 +271,28 @@ describe("curve-logic arena", () => {
 });
 
 describe("curve-logic trail breaks", () => {
-  it("jump leaves a gap and grants phasing", () => {
+  it("jump leaves a gap; phasing ends when jump ends", () => {
     const state = playingState(["a"]);
     const p = state.players[0];
     for (let i = 0; i < 10; i++) movePlayer(p, 0.08);
     tryJump(p);
-    assert.ok(p.phasingTicks > 0);
+    assert.ok(p.jumpTicksRemaining > 0);
     assert.ok(p.trail.some((pt) => pt.break));
+    p.jumpTicksRemaining = 0;
+    p.x = 150;
+    p.y = 100;
+    p.trail = [
+      { x: 100, y: 100 },
+      { x: 400, y: 100 },
+      { x: 400, y: 100, break: true },
+      { x: 401, y: 100 },
+      { x: 450, y: 100 },
+    ];
+    checkTrailCollisions(state);
+    assert.equal(p.alive, false);
   });
 
-  it("burst fires six missiles per volley", () => {
+  it("burst fires ten missiles per volley", () => {
     const state = playingState(["a"]);
     const p = state.players[0];
     p.heldPowerUp = "burst";
@@ -291,14 +303,18 @@ describe("curve-logic trail breaks", () => {
 });
 
 describe("curve-logic jump", () => {
-  it("double jump works mid-air", () => {
+  it("double jump bypasses cooldown and works mid-air", () => {
     const state = playingState(["a"]);
     const p = state.players[0];
     applyPowerUp(p, "double_jump");
     assert.equal(tryJump(p), true);
     assert.equal(p.jumpTicksRemaining > 0, true);
+    assert.equal(p.extraJumps, 1);
     assert.equal(tryJump(p), true);
     assert.equal(p.extraJumps, 0);
-    assert.equal(tryJump(p), false);
+    p.jumpCooldownTicks = 100;
+    applyPowerUp(p, "double_jump");
+    assert.equal(tryJump(p), true);
+    assert.equal(p.extraJumps, 0);
   });
 });

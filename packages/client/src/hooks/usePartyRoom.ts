@@ -124,6 +124,7 @@ export function usePartyRoom({
     [send],
   );
   const startGame = useCallback(() => send({ type: "start_game" }), [send]);
+  const playAgain = useCallback(() => send({ type: "play_again" }), [send]);
   const returnToLobby = useCallback(() => send({ type: "return_to_lobby" }), [send]);
   const pauseGame = useCallback(() => send({ type: "pause_game" }), [send]);
   const resumeGame = useCallback(() => send({ type: "resume_game" }), [send]);
@@ -144,6 +145,7 @@ export function usePartyRoom({
     selectGame,
     setGameOptions,
     startGame,
+    playAgain,
     returnToLobby,
     pauseGame,
     resumeGame,

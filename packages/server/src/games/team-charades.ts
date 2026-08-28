@@ -36,7 +36,7 @@ export const teamCharadesGame: GameModule<CharadesState> = {
     scoringRules: "+500 for each word the actor marks as correctly guessed.",
     minPlayers: 3,
     maxPlayers: 12,
-    category: "social",
+    category: "party",
     supportsDifficulty: true,
     supportsMatureContent: true,
   },

@@ -3,6 +3,13 @@ import { useState } from "react";
 import { CurveArena } from "./CurveArena";
 import { TrailDashInstructions } from "./TrailDashInstructions";
 import { CurvePlayerControls } from "./CurvePlayerControls";
+import { TetrisArena } from "./TetrisArena";
+import { TetrisBoard } from "./TetrisBoard";
+import { TetrisPhoneControls } from "./TetrisArena";
+import { BattleshipArena } from "./BattleshipArena";
+import { BattleshipGrid } from "./BattleshipGrid";
+import { ConnectFourBoard } from "./ConnectFourBoard";
+import { TicTacToeBoard } from "./TicTacToeBoard";
 import { RevealBreakdown, ScoringRulesPanel } from "./RevealBreakdown";
 import { RoundScorePanel } from "./RoundScorePanel";
 import { TimerBar } from "./TimerBar";
@@ -271,6 +278,36 @@ export function HostGameView({
         <CurveArena data={data} room={room} />
       )}
 
+      {phase === "playing" && hostView.gameId === "tetris-battle" && data.players && (
+        <TetrisArena data={data} room={room} />
+      )}
+
+      {(phase === "placement" || phase === "battle" || phase === "betting" || phase === "fire" || phase === "reveal") &&
+        hostView.gameId === "battleships" && (
+        <BattleshipArena data={data} room={room} />
+      )}
+
+      {(phase === "playing" || phase === "match_end") && hostView.gameId === "connect-four" && data.board && (
+        <div className="flex flex-col items-center gap-4">
+          <ConnectFourBoard board={data.board as import("@party-games/shared").CfCell[][]} />
+          {data.currentTurn && (
+            <p className="text-xl">
+              Turn: {room.players.find((p) => p.id === data.currentTurn)?.nickname}
+            </p>
+          )}
+        </div>
+      )}
+
+      {(phase === "playing" || phase === "match_end") && hostView.gameId === "tic-tac-toe" && data.match && (
+        <div className="flex flex-col items-center gap-4">
+          <TicTacToeBoard board={(data.match as { board: import("@party-games/shared").Cell[] }).board} disabled />
+          <p className="text-lg text-zinc-400">
+            {(data.match as { xPlayer: string | null }).xPlayer &&
+              `${room.players.find((p) => p.id === (data.match as { xPlayer: string }).xPlayer)?.nickname ?? "?"} (✕) vs ${room.players.find((p) => p.id === (data.match as { oPlayer: string }).oPlayer)?.nickname ?? "?"} (○)`}
+          </p>
+        </div>
+      )}
+
       {(phase === "drawing" || phase === "guessing") && data.strokes && (
         <DrawCanvas strokes={data.strokes as Array<{ points: number[]; color: string }>} readOnly />
       )}
@@ -353,7 +390,13 @@ export function PlayerGameView({
   const [year, setYear] = useState(2000);
 
   return (
-    <div className="mx-auto max-w-md space-y-4 p-4 pb-8 relative">
+    <div
+      className={`mx-auto max-w-md space-y-4 p-4 relative landscape:pb-4 ${
+        phase === "playing" && playerView.gameId === "curve-fever"
+          ? "pb-[calc(11rem+env(safe-area-inset-bottom))] landscape:pb-[calc(34vh+env(safe-area-inset-bottom))]"
+          : "pb-8"
+      }`}
+    >
       {room.paused && (
         <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/70">
           <p className="rounded-2xl bg-zinc-900 px-6 py-4 text-xl font-bold text-center">
@@ -494,6 +537,114 @@ export function PlayerGameView({
           heldPowerUp={(playerData.heldPowerUp as string | null) ?? null}
           extraJumps={(playerData.extraJumps as number) ?? 0}
         />
+      )}
+
+      {phase === "playing" && playerView.gameId === "tetris-battle" && (
+        <div className="space-y-3">
+          <TetrisBoard board={(playerData.board as number[][]) ?? []} alive={(playerData.alive as boolean) ?? true} />
+          <TetrisPhoneControls
+            disabled={!(playerData.alive as boolean)}
+            onInput={(input) => onAction({ kind: "tetris_input", input })}
+          />
+          <p className="text-center text-sm text-zinc-400">Score: {String(playerData.score ?? 0)}</p>
+        </div>
+      )}
+
+      {playerView.gameId === "battleships" && phase === "placement" && (
+        <div className="space-y-4">
+          <p className="text-center text-sm text-zinc-400">Tap cells to place ships (auto-place on timer)</p>
+          <div className="flex justify-center">
+            <BattleshipGrid
+              size={(data.gridSize as number) ?? 10}
+              ships={(playerData.fleet as import("@party-games/shared").Ship[]) ?? []}
+              showShips
+            />
+          </div>
+      {(playerData.placed as boolean) !== false && (
+            <Btn className="w-full" onClick={() => onAction({ kind: "battleship_ready" })}>Ready!</Btn>
+          )}
+        </div>
+      )}
+
+      {playerView.gameId === "battleships" && (phase === "battle" || phase === "fire") && (
+        <div className="space-y-4">
+          <p className="text-center text-sm text-zinc-400">
+            {phase === "fire" ? "Pick a target cell" : playerData.myTurn ? "Your turn — fire!" : "Waiting for opponent…"}
+          </p>
+          <div className="flex justify-center">
+            <BattleshipGrid
+              size={(data.gridSize as number) ?? 10}
+              shots={(playerData.opponentShots as Array<{ x: number; y: number; hit: boolean }>) ?? []}
+              disabled={phase === "battle" ? !playerData.myTurn : false}
+              onCellClick={(x, y) =>
+                onAction({
+                  kind: "battleship_fire",
+                  x,
+                  y,
+                  targetId: (data.mode as string) === "royale" ? (data.opponentId as string) : (data.opponentId as string),
+                })
+              }
+            />
+          </div>
+        </div>
+      )}
+
+      {playerView.gameId === "battleships" && phase === "betting" && (
+        <div className="space-y-3">
+          <p className="text-center">Place a bet (optional)</p>
+          {(data.playerIds as string[] | undefined)?.map((id) => {
+            const nick = room.players.find((p) => p.id === id)?.nickname ?? id;
+            return (
+              <Btn
+                key={id}
+                variant="secondary"
+                className="w-full text-base"
+                onClick={() => onAction({ kind: "battleship_bet", market: "next_elimination", pick: id, amount: 100 })}
+              >
+                Bet 100 on {nick} eliminated
+              </Btn>
+            );
+          })}
+        </div>
+      )}
+
+      {(phase === "playing" || phase === "match_end") && playerView.gameId === "connect-four" && (
+        <div className="space-y-4">
+          {playerData.inMatch ? (
+            <>
+              <ConnectFourBoard
+                board={(data.board as import("@party-games/shared").CfCell[][]) ?? []}
+                disabled={!playerData.myTurn}
+                onColumnClick={(column) => onAction({ kind: "connect_four_drop", column })}
+              />
+              <p className="text-center text-sm text-zinc-400">
+                {playerData.myTurn ? "Your turn" : "Waiting…"}
+              </p>
+            </>
+          ) : (
+            <p className="text-center text-lg">Watch the TV!</p>
+          )}
+        </div>
+      )}
+
+      {(phase === "playing" || phase === "match_end") && playerView.gameId === "tic-tac-toe" && (
+        <div className="space-y-4">
+          {data.inMatch ? (
+            <>
+              <TicTacToeBoard
+                board={((data.match as { board: import("@party-games/shared").Cell[] })?.board) ?? []}
+                disabled={!playerData.myTurn}
+                myMark={(playerData.mark as "x" | "o") ?? null}
+                onCellClick={(cell) => onAction({ kind: "tic_tac_toe_move", cell })}
+              />
+              <p className="text-center text-sm text-zinc-400">
+                {playerData.myTurn ? "Your turn" : "Waiting…"}
+              </p>
+            </>
+          ) : (
+            <p className="text-center text-lg">Watch the TV — your match is coming up!</p>
+          )}
+        </div>
       )}
 
       {phase === "playing" && data.letters && !playerView.gameId.includes("curve") && (
