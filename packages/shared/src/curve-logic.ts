@@ -412,9 +412,12 @@ export function createCurveState(
   botNames: Record<string, string>,
   options: TrailDashOptions,
   round = 1,
+  colorIndexByPlayer: Record<string, number> = {},
 ): CurveState {
   const allIds = [...playerIds, ...botIds];
-  const players = allIds.map((id, i) => createPlayer(id, i, botIds.includes(id)));
+  const players = allIds.map((id, i) =>
+    createPlayer(id, colorIndexByPlayer[id] ?? i, botIds.includes(id)),
+  );
   const seed = round * 1000 + allIds.length;
   return {
     phase: "instructions",
@@ -993,12 +996,16 @@ export function tickCurveState(state: CurveState): CurveState {
 }
 
 export function resetCurveRound(state: CurveState, playerIds: string[], botIds: string[]): CurveState {
+  const colorIndexByPlayer = Object.fromEntries(
+    state.players.map((p) => [p.id, p.colorIndex]),
+  );
   const fresh = createCurveState(
     playerIds.filter((id) => !botIds.includes(id)),
     botIds,
     state.botNames,
     state.options,
     state.round,
+    colorIndexByPlayer,
   );
   fresh.roundScores = { ...state.roundScores };
   return fresh;

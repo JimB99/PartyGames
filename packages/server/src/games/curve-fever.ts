@@ -32,7 +32,10 @@ export const curveFeverGame: GameModule<CurveState> = {
     const options = resolveTrailDashOptions(ctx.gameOptions);
     const botIds = createBotIds(options.botCount);
     const botNames = createBotNames(botIds);
-    return createCurveGameState(ctx.playerIds, botIds, botNames, options);
+    const colorIndexByPlayer = Object.fromEntries(
+      ctx.players.filter((p) => ctx.playerIds.includes(p.id)).map((p) => [p.id, p.colorIndex]),
+    );
+    return createCurveGameState(ctx.playerIds, botIds, botNames, options, colorIndexByPlayer);
   },
   onPlayerAction(state, playerId, action) {
     return onCurveAction(state, playerId, action);

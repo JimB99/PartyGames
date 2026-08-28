@@ -39,7 +39,7 @@ export function TimerBar({
   const seconds = Math.ceil(remaining / 1000);
 
   return (
-    <div className="w-full min-w-[18rem] max-w-lg">
+    <div className="w-full min-w-0 max-w-md">
       <div className="mb-1 flex justify-between text-xs text-zinc-400">
         <span>Time</span>
         <span>{seconds}s</span>

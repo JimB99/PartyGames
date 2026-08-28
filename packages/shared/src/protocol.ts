@@ -4,7 +4,7 @@ import type { GameOptions } from "./content.js";
 import type { ConnectionRole } from "./room.js";
 
 export type ClientMessage =
-  | { type: "join"; role: ConnectionRole; nickname?: string; playerId?: string }
+  | { type: "join"; role: ConnectionRole; nickname?: string; playerId?: string; colorIndex?: number }
   | { type: "select_game"; gameId: GameId }
   | { type: "set_game_options"; gameId: GameId; options: GameOptions }
   | { type: "start_game" }
@@ -16,7 +16,8 @@ export type ClientMessage =
   | { type: "player_action"; action: GameAction }
   | { type: "host_action"; action: GameAction }
   | { type: "ping" }
-  | { type: "check_room" };
+  | { type: "check_room" }
+  | { type: "update_profile"; nickname?: string; colorIndex?: number };
 
 export type GameAction =
   | { kind: "submit_text"; text: string }
@@ -66,6 +67,7 @@ export interface RoomSnapshot {
   selectedGameId: GameId | null;
   activeGameId: GameId | null;
   sessionScores: Record<string, number>;
+  gameScores: Record<string, number>;
   gameOptionsByGame: Partial<Record<GameId, GameOptions>>;
   activeGameOptions: GameOptions | null;
   hostView: HostViewSnapshot | null;

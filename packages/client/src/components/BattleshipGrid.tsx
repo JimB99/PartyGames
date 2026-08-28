@@ -38,10 +38,11 @@ export function BattleshipGrid({
   }
 
   return (
-    <div
-      className="inline-grid gap-0.5"
-      style={{ gridTemplateColumns: `repeat(${size}, minmax(0, 1fr))` }}
-    >
+    <div className="w-full max-w-[min(100%,18rem)]">
+      <div
+        className="grid w-full gap-0.5"
+        style={{ gridTemplateColumns: `repeat(${size}, minmax(0, 1fr))` }}
+      >
       {cells.flatMap((row, y) =>
         row.map((cell, x) => (
           <button
@@ -49,12 +50,13 @@ export function BattleshipGrid({
             type="button"
             disabled={disabled || cell === "hit" || cell === "miss"}
             onClick={() => onCellClick?.(x, y)}
-            className="aspect-square w-7 sm:w-8 rounded-sm border border-zinc-700 disabled:cursor-default"
+            className="aspect-square w-full rounded-sm border border-zinc-700 disabled:cursor-default"
             style={{ backgroundColor: cellColor(cell, showShips) }}
             aria-label={`Cell ${x},${y}`}
           />
         )),
       )}
+      </div>
     </div>
   );
 }

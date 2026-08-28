@@ -1,5 +1,6 @@
 import {
   DISCONNECT_GRACE_MS,
+  HOST_DISCONNECT_GRACE_MS,
   DEFAULT_GAME_OPTIONS,
   type ClientMessage,
   type ConnectionRole,
@@ -24,6 +25,8 @@ import {
   getGameOptions,
   mergeScores,
   removePlayer,
+  sanitizeNickname,
+  setPlayerColor,
   type LobbyState,
 } from "./lobby.js";
 import { getGame, listGames } from "./registry.js";
@@ -57,6 +60,7 @@ export class RoomServer extends Server {
 
     if (meta.role === "host") {
       this.lobby.hostConnectionId = null;
+      this.startHostDisconnectGrace();
     }
 
     if (meta.playerId) {
@@ -79,14 +83,37 @@ export class RoomServer extends Server {
 
   maybeShutdownEmptyRoom() {
     if (this.connectionCount() > 0) return;
-    // Keep in-progress games alive through brief disconnects / lag spikes.
     if (this.roomPhase === "playing") return;
+    if (this.lobby.hostDisconnectTimer) return;
+    if (this.lobby.hostSessionActive) return;
     this.shutdownRoom();
   }
 
+  startHostDisconnectGrace() {
+    if (this.lobby.hostDisconnectTimer) {
+      clearTimeout(this.lobby.hostDisconnectTimer);
+    }
+    this.lobby.hostDisconnectTimer = setTimeout(() => {
+      this.lobby.hostDisconnectTimer = null;
+      if (this.hasActiveHost()) return;
+      if (this.roomPhase === "playing") return;
+      this.shutdownRoom();
+    }, HOST_DISCONNECT_GRACE_MS);
+  }
+
+  clearHostDisconnectGrace() {
+    if (this.lobby.hostDisconnectTimer) {
+      clearTimeout(this.lobby.hostDisconnectTimer);
+      this.lobby.hostDisconnectTimer = null;
+    }
+  }
+
   hasActiveHost(): boolean {
-    if (!this.lobby.hostConnectionId) return false;
-    return this.getConnection(this.lobby.hostConnectionId) != null;
+    if (this.lobby.hostConnectionId) {
+      const host = this.getConnection(this.lobby.hostConnectionId);
+      if (host) return true;
+    }
+    return this.lobby.hostSessionActive && this.lobby.hostDisconnectTimer != null;
   }
 
   connectionCount(): number {
@@ -101,6 +128,7 @@ export class RoomServer extends Server {
       clearTimeout(timer);
     }
     this.lobby.disconnectTimers.clear();
+    this.clearHostDisconnectGrace();
     this.gameModule = null;
     this.gameState = null;
     this.roomPhase = "lobby";
@@ -175,14 +203,48 @@ export class RoomServer extends Server {
       case "host_action":
         this.handleGameAction(sender, message.action, true);
         return;
+      case "update_profile":
+        this.handleUpdateProfile(message, sender);
+        return;
     }
   }
 
+  handleUpdateProfile(
+    message: { nickname?: string; colorIndex?: number },
+    sender: Connection,
+  ) {
+    const meta = this.connectionMeta.get(sender.id);
+    if (!meta?.playerId) {
+      sender.send(JSON.stringify({ type: "error", message: "Not joined as a player" }));
+      return;
+    }
+
+    const player = this.lobby.players.find((p) => p.id === meta.playerId);
+    if (!player) return;
+
+    if (message.nickname !== undefined) {
+      const nickname = sanitizeNickname(message.nickname);
+      player.nickname = nickname;
+      meta.nickname = nickname;
+    }
+
+    if (message.colorIndex !== undefined) {
+      const ok = setPlayerColor(this.lobby, meta.playerId, message.colorIndex);
+      if (!ok) {
+        sender.send(JSON.stringify({ type: "error", message: "Color already taken" }));
+        return;
+      }
+    }
+
+    this.broadcastAll();
+  }
+
   handleJoin(
-    message: { role: ConnectionRole; nickname?: string; playerId?: string },
+    message: { role: ConnectionRole; nickname?: string; playerId?: string; colorIndex?: number },
     sender: Connection,
   ) {
     if (message.role === "host") {
+      this.clearHostDisconnectGrace();
       this.lobby.hostConnectionId = sender.id;
       this.lobby.hostSessionActive = true;
       this.connectionMeta.set(sender.id, {
@@ -195,7 +257,7 @@ export class RoomServer extends Server {
       return;
     }
 
-    const nickname = (message.nickname ?? "Player").trim().slice(0, 24) || "Player";
+    const nickname = sanitizeNickname(message.nickname ?? "Player");
     let playerId = message.playerId;
 
     if (!playerId && this.roomPhase === "playing") {
@@ -226,6 +288,10 @@ export class RoomServer extends Server {
     if (!player) {
       sender.send(JSON.stringify({ type: "error", message: "Room is full" }));
       return;
+    }
+
+    if (message.colorIndex !== undefined) {
+      setPlayerColor(this.lobby, playerId, message.colorIndex);
     }
 
     this.connectionMeta.set(sender.id, { role: "player", playerId, nickname });
@@ -452,6 +518,10 @@ export class RoomServer extends Server {
       selectedGameId: this.lobby.selectedGameId,
       activeGameId: this.activeGameId,
       sessionScores: this.lobby.sessionScores,
+      gameScores:
+        this.roomPhase === "playing" && this.gameModule && this.gameState
+          ? this.gameModule.getRoundScores(this.gameState)
+          : {},
       gameOptionsByGame: this.lobby.gameOptionsByGame,
       activeGameOptions:
         this.roomPhase === "playing" && this.activeGameId

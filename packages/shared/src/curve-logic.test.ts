@@ -318,3 +318,17 @@ describe("curve-logic jump", () => {
     assert.equal(p.extraJumps, 0);
   });
 });
+
+describe("curve-logic lobby colors", () => {
+  it("uses lobby colorIndex when provided", () => {
+    const state = createCurveState(
+      ["human-a"],
+      ["bot-b"],
+      { "bot-b": "Bot" },
+      { maxRounds: 1, roundTimeSec: 60, coinValue: 50, powerUpMode: "normal", botCount: 1 },
+      1,
+      { "human-a": 5 },
+    );
+    assert.equal(state.players.find((p) => p.id === "human-a")?.colorIndex, 5);
+  });
+});

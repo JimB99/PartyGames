@@ -13,6 +13,23 @@ import { TicTacToeBoard } from "./TicTacToeBoard";
 import { RevealBreakdown, ScoringRulesPanel } from "./RevealBreakdown";
 import { RoundScorePanel } from "./RoundScorePanel";
 import { TimerBar } from "./TimerBar";
+import { LiveScoreBar } from "./LiveScoreBar";
+import { PauseOverlay } from "./PauseOverlay";
+import { playerColor } from "../hooks/usePartyRoom";
+
+function markColorsForPlayers(room: RoomSnapshot, xPlayerId: string, oPlayerId: string) {
+  const xPl = room.players.find((p) => p.id === xPlayerId);
+  const oPl = room.players.find((p) => p.id === oPlayerId);
+  return {
+    x: playerColor(xPl?.colorIndex ?? 0),
+    o: playerColor(oPl?.colorIndex ?? 1),
+  };
+}
+
+function connectFourMarkColors(room: RoomSnapshot, pair: unknown) {
+  if (!Array.isArray(pair) || pair.length < 2) return undefined;
+  return markColorsForPlayers(room, String(pair[0]), String(pair[1]));
+}
 
 function Btn({
   children,
@@ -59,11 +76,13 @@ export function HostGameView({
 
   return (
     <div
-      className={`mx-auto space-y-6 ${isTrailDashPlaying ? "max-w-6xl p-4" : "max-w-5xl p-6"}`}
+      className={`mx-auto w-full max-w-full space-y-6 ${
+        isTrailDashPlaying ? "max-w-6xl p-4" : "max-w-5xl p-6"
+      }`}
     >
-      <header className={`flex items-center justify-between ${isTrailDashPlaying ? "px-2" : ""}`}>
-        <div>
-          <div className="flex items-center gap-3">
+      <header className={`flex flex-wrap items-start justify-between gap-4 min-w-0 ${isTrailDashPlaying ? "px-2" : ""}`}>
+        <div className="min-w-0 flex-1">
+          <div className="flex flex-wrap items-center gap-3">
             <h2 className="text-3xl font-black">{gameName}</h2>
             {room.activeGameOptions?.contentRating === "mature" && (
               <span className="rounded-full bg-red-600/90 px-3 py-1 text-sm font-bold uppercase tracking-wide">
@@ -75,7 +94,9 @@ export function HostGameView({
             Round {hostView.round}/{hostView.maxRounds} · {phase}
           </p>
         </div>
-        <TimerBar endsAt={hostView.timerEndsAt} totalMs={hostView.timerTotalMs} />
+        <div className="w-full sm:w-auto sm:shrink-0 min-w-0">
+          <TimerBar endsAt={hostView.timerEndsAt} totalMs={hostView.timerTotalMs} />
+        </div>
       </header>
 
       {phase === "instructions" && (
@@ -289,7 +310,10 @@ export function HostGameView({
 
       {(phase === "playing" || phase === "match_end") && hostView.gameId === "connect-four" && data.board && (
         <div className="flex flex-col items-center gap-4">
-          <ConnectFourBoard board={data.board as import("@party-games/shared").CfCell[][]} />
+          <ConnectFourBoard
+            board={data.board as import("@party-games/shared").CfCell[][]}
+            markColors={connectFourMarkColors(room, data.players)}
+          />
           {data.currentTurn && (
             <p className="text-xl">
               Turn: {room.players.find((p) => p.id === data.currentTurn)?.nickname}
@@ -300,7 +324,19 @@ export function HostGameView({
 
       {(phase === "playing" || phase === "match_end") && hostView.gameId === "tic-tac-toe" && data.match && (
         <div className="flex flex-col items-center gap-4">
-          <TicTacToeBoard board={(data.match as { board: import("@party-games/shared").Cell[] }).board} disabled />
+          <TicTacToeBoard
+            board={(data.match as { board: import("@party-games/shared").Cell[] }).board}
+            disabled
+            markColors={
+              (data.match as { xPlayer: string; oPlayer: string }).xPlayer
+                ? markColorsForPlayers(
+                    room,
+                    (data.match as { xPlayer: string }).xPlayer,
+                    (data.match as { oPlayer: string }).oPlayer,
+                  )
+                : undefined
+            }
+          />
           <p className="text-lg text-zinc-400">
             {(data.match as { xPlayer: string | null }).xPlayer &&
               `${room.players.find((p) => p.id === (data.match as { xPlayer: string }).xPlayer)?.nickname ?? "?"} (✕) vs ${room.players.find((p) => p.id === (data.match as { oPlayer: string }).oPlayer)?.nickname ?? "?"} (○)`}
@@ -391,19 +427,18 @@ export function PlayerGameView({
 
   return (
     <div
-      className={`mx-auto max-w-md space-y-4 p-4 relative landscape:pb-4 ${
+      className={`mx-auto w-full max-w-md space-y-4 p-4 relative min-w-0 landscape:pb-4 ${
         phase === "playing" && playerView.gameId === "curve-fever"
           ? "pb-[calc(11rem+env(safe-area-inset-bottom))] landscape:pb-[calc(34vh+env(safe-area-inset-bottom))]"
           : "pb-8"
       }`}
     >
-      {room.paused && (
-        <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/70">
-          <p className="rounded-2xl bg-zinc-900 px-6 py-4 text-xl font-bold text-center">
-            Game paused — waiting for host
-          </p>
-        </div>
-      )}
+      <PauseOverlay paused={room.paused} phase={phase} variant="player" />
+      <LiveScoreBar
+        room={room}
+        gameScores={room.gameScores}
+        compact
+      />
       <TimerBar endsAt={playerView.timerEndsAt} totalMs={playerView.timerTotalMs} />
       <p className="text-center text-sm text-zinc-400">
         {gameName} · {phase}
@@ -615,6 +650,7 @@ export function PlayerGameView({
               <ConnectFourBoard
                 board={(data.board as import("@party-games/shared").CfCell[][]) ?? []}
                 disabled={!playerData.myTurn}
+                markColors={connectFourMarkColors(room, data.players)}
                 onColumnClick={(column) => onAction({ kind: "connect_four_drop", column })}
               />
               <p className="text-center text-sm text-zinc-400">
@@ -635,6 +671,15 @@ export function PlayerGameView({
                 board={((data.match as { board: import("@party-games/shared").Cell[] })?.board) ?? []}
                 disabled={!playerData.myTurn}
                 myMark={(playerData.mark as "x" | "o") ?? null}
+                markColors={
+                  (data.match as { xPlayer: string; oPlayer: string } | undefined)?.xPlayer
+                    ? markColorsForPlayers(
+                        room,
+                        (data.match as { xPlayer: string }).xPlayer,
+                        (data.match as { oPlayer: string }).oPlayer,
+                      )
+                    : undefined
+                }
                 onCellClick={(cell) => onAction({ kind: "tic_tac_toe_move", cell })}
               />
               <p className="text-center text-sm text-zinc-400">

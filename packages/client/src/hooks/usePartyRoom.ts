@@ -37,6 +37,7 @@ interface UsePartyRoomOptions {
   role: "host" | "player";
   nickname?: string;
   playerId?: string;
+  colorIndex?: number;
   enabled?: boolean;
 }
 
@@ -45,16 +46,20 @@ export function usePartyRoom({
   role,
   nickname,
   playerId: initialPlayerId,
+  colorIndex: initialColorIndex,
   enabled = true,
 }: UsePartyRoomOptions) {
   const [roomState, setRoomState] = useState<RoomSnapshot | null>(null);
   const [playerView, setPlayerView] = useState<PlayerViewSnapshot | null>(null);
   const [connected, setConnected] = useState(false);
+  const [connectionEpoch, setConnectionEpoch] = useState(0);
   const [error, setError] = useState<string | null>(null);
   const socketRef = useRef<PartySocket | null>(null);
   const playerIdRef = useRef(initialPlayerId ?? sessionStorage.getItem(`pg-player-${roomId}`));
   const nicknameRef = useRef(nickname ?? "Player");
+  const colorIndexRef = useRef(initialColorIndex);
   nicknameRef.current = nickname ?? "Player";
+  if (initialColorIndex !== undefined) colorIndexRef.current = initialColorIndex;
 
   const send = useCallback((message: ClientMessage) => {
     const socket = socketRef.current;
@@ -80,6 +85,7 @@ export function usePartyRoom({
 
     socket.onopen = () => {
       setConnected(true);
+      setConnectionEpoch((n) => n + 1);
       setError(null);
       const storedId = playerIdRef.current;
       send({
@@ -87,6 +93,7 @@ export function usePartyRoom({
         role,
         nickname: nicknameRef.current,
         playerId: role === "player" ? storedId ?? undefined : undefined,
+        colorIndex: role === "player" ? colorIndexRef.current : undefined,
       });
     };
 
@@ -135,11 +142,20 @@ export function usePartyRoom({
   const hostAction = useCallback((action: ClientMessage extends { type: "host_action"; action: infer A } ? A : never) => {
     send({ type: "host_action", action });
   }, [send]);
+  const updateProfile = useCallback(
+    (update: { nickname?: string; colorIndex?: number }) => {
+      if (update.colorIndex !== undefined) colorIndexRef.current = update.colorIndex;
+      if (update.nickname !== undefined) nicknameRef.current = update.nickname;
+      send({ type: "update_profile", ...update });
+    },
+    [send],
+  );
 
   return {
     roomState,
     playerView,
     connected,
+    connectionEpoch,
     error,
     playerId: playerIdRef.current,
     selectGame,
@@ -152,5 +168,6 @@ export function usePartyRoom({
     extendTimer,
     playerAction,
     hostAction,
+    updateProfile,
   };
 }

@@ -12,7 +12,7 @@ export function Scoreboard({
 
   return (
     <div className="rounded-2xl bg-zinc-800/60 p-4">
-      <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-zinc-400">Scores</h3>
+      <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-zinc-400">Session total</h3>
       <ul className="space-y-2">
         {sorted.map((p, i) => (
           <li key={p.id} className="flex items-center gap-3">

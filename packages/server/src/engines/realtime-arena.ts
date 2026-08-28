@@ -18,8 +18,9 @@ export function createCurveGameState(
   botIds: string[],
   botNames: Record<string, string>,
   options: TrailDashOptions,
+  colorIndexByPlayer: Record<string, number> = {},
 ): CurveState {
-  return createCurveState(humanIds, botIds, botNames, options);
+  return createCurveState(humanIds, botIds, botNames, options, 1, colorIndexByPlayer);
 }
 
 export function advanceCurve(state: CurveState, playerIds: string[], botIds: string[]): CurveState {

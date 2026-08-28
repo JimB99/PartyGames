@@ -167,7 +167,7 @@ export function CurveArena({
   return (
     <svg
       viewBox={`0 0 ${width} ${height}`}
-      className="aspect-[4/3] w-full max-h-[72vh] rounded-2xl bg-zinc-950"
+      className="aspect-[4/3] w-full max-w-full max-h-[72vh] rounded-2xl bg-zinc-950"
       preserveAspectRatio="xMidYMid meet"
     >
       <rect x={0} y={0} width={width} height={height} fill="#18181b" />

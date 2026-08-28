@@ -1,4 +1,6 @@
 import { PlayerGameView } from "../components/GameViews";
+import { PlayerProfileBar } from "../components/PlayerProfileBar";
+import { getStoredColorIndex } from "../components/ColorPicker";
 import { usePartyRoom } from "../hooks/usePartyRoom";
 import { useParams } from "react-router-dom";
 
@@ -6,21 +8,29 @@ export function PlayPage() {
   const { roomId = "" } = useParams();
   const nickname = sessionStorage.getItem(`pg-nickname-${roomId}`) ?? "Player";
   const storedPlayerId = sessionStorage.getItem(`pg-player-${roomId}`) ?? undefined;
+  const storedColorIndex = getStoredColorIndex(roomId);
 
-  const { roomState, playerView, connected, error, playerAction } = usePartyRoom({
-    roomId,
-    role: "player",
-    nickname,
-    playerId: storedPlayerId,
-    enabled: Boolean(roomId),
-  });
+  const { roomState, playerView, connected, error, playerId, playerAction, updateProfile } =
+    usePartyRoom({
+      roomId,
+      role: "player",
+      nickname,
+      playerId: storedPlayerId,
+      colorIndex: storedColorIndex,
+      enabled: Boolean(roomId),
+    });
 
   return (
-    <div className="min-h-dvh bg-[#0f1117]">
-      <header className="flex items-center justify-between border-b border-zinc-800 px-4 py-3">
-        <span className="font-bold">{nickname}</span>
-        <span className={`text-sm ${connected ? "text-green-400" : "text-red-400"}`}>
-          {connected ? `Room ${roomId}` : "Connecting…"}
+    <div className="pg-page min-h-dvh bg-[#0f1117]">
+      <header className="flex items-center justify-between gap-2 border-b border-zinc-800 px-4 py-3 min-w-0">
+        <PlayerProfileBar
+          roomId={roomId}
+          roomState={roomState}
+          playerId={playerId}
+          onUpdateProfile={updateProfile}
+        />
+        <span className={`shrink-0 text-sm ${connected ? "text-green-400" : "text-amber-400"}`}>
+          {connected ? `Room ${roomId}` : "Reconnecting…"}
         </span>
       </header>
 

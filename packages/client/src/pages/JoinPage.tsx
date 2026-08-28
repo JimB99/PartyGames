@@ -1,12 +1,15 @@
 import { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { ColorPicker, getStoredColorIndex, storeColorIndex } from "../components/ColorPicker";
 import { probeRoomAvailable } from "../hooks/probeRoom";
 
 export function JoinPage() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const [code, setCode] = useState((searchParams.get("code") ?? "").toUpperCase().slice(0, 4));
+  const initialCode = (searchParams.get("code") ?? "").toUpperCase().slice(0, 4);
+  const [code, setCode] = useState(initialCode);
   const [nickname, setNickname] = useState("");
+  const [colorIndex, setColorIndex] = useState(() => getStoredColorIndex(initialCode) ?? 0);
   const [checking, setChecking] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -23,18 +26,24 @@ export function JoinPage() {
     }
     const name = nickname.trim() || "Player";
     sessionStorage.setItem(`pg-nickname-${roomId}`, name);
+    storeColorIndex(roomId, colorIndex);
     navigate(`/play/${roomId}`);
   };
 
   return (
-    <div className="flex min-h-dvh flex-col items-center justify-center gap-6 p-6">
+    <div className="pg-page flex min-h-dvh flex-col items-center justify-center gap-6 p-6">
       <h1 className="text-3xl font-bold">Join game</h1>
       <input
         className="w-full max-w-xs rounded-xl bg-zinc-800 px-4 py-4 text-center text-2xl font-bold tracking-[0.3em] uppercase"
         placeholder="CODE"
         maxLength={4}
         value={code}
-        onChange={(e) => setCode(e.target.value.toUpperCase().replace(/[^A-Z]/g, ""))}
+        onChange={(e) => {
+          const next = e.target.value.toUpperCase().replace(/[^A-Z]/g, "");
+          setCode(next);
+          const stored = getStoredColorIndex(next);
+          if (stored !== undefined) setColorIndex(stored);
+        }}
       />
       <input
         className="w-full max-w-xs rounded-xl bg-zinc-800 px-4 py-4 text-lg"
@@ -42,6 +51,10 @@ export function JoinPage() {
         value={nickname}
         onChange={(e) => setNickname(e.target.value)}
       />
+      <div className="w-full max-w-xs space-y-2">
+        <p className="text-center text-sm text-zinc-400">Pick your color</p>
+        <ColorPicker value={colorIndex} onChange={setColorIndex} />
+      </div>
       <button
         type="button"
         onClick={submit}

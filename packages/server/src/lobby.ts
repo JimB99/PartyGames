@@ -16,6 +16,7 @@ export interface LobbyState {
   sessionScores: Record<string, number>;
   gameOptionsByGame: Partial<Record<GameId, GameOptions>>;
   disconnectTimers: Map<string, ReturnType<typeof setTimeout>>;
+  hostDisconnectTimer: ReturnType<typeof setTimeout> | null;
   paused: boolean;
   pausedAt: number | null;
   hostSessionActive: boolean;
@@ -30,10 +31,48 @@ export function createLobby(roomId: string): LobbyState {
     sessionScores: {},
     gameOptionsByGame: {},
     disconnectTimers: new Map(),
+    hostDisconnectTimer: null,
     paused: false,
     pausedAt: null,
     hostSessionActive: false,
   };
+}
+
+export function nextAvailableColorIndex(lobby: LobbyState): number {
+  const taken = new Set(
+    lobby.players.filter((p) => p.connected).map((p) => p.colorIndex),
+  );
+  for (let i = 0; i < PLAYER_COLORS.length; i++) {
+    if (!taken.has(i)) return i;
+  }
+  return lobby.players.length % PLAYER_COLORS.length;
+}
+
+export function isColorTaken(
+  lobby: LobbyState,
+  colorIndex: number,
+  exceptPlayerId?: string,
+): boolean {
+  if (colorIndex < 0 || colorIndex >= PLAYER_COLORS.length) return true;
+  return lobby.players.some(
+    (p) => p.connected && p.id !== exceptPlayerId && p.colorIndex === colorIndex,
+  );
+}
+
+export function setPlayerColor(
+  lobby: LobbyState,
+  playerId: string,
+  colorIndex: number,
+): boolean {
+  if (isColorTaken(lobby, colorIndex, playerId)) return false;
+  const player = lobby.players.find((p) => p.id === playerId);
+  if (!player) return false;
+  player.colorIndex = colorIndex;
+  return true;
+}
+
+export function sanitizeNickname(raw: string): string {
+  return raw.trim().slice(0, 24) || "Player";
 }
 
 export function getGameOptions(lobby: LobbyState, gameId: GameId): GameOptions {
@@ -60,7 +99,7 @@ export function addPlayer(
     existing.connected = true;
     return existing;
   }
-  const colorIndex = lobby.players.length % PLAYER_COLORS.length;
+  const colorIndex = nextAvailableColorIndex(lobby);
   const player: Player = { id: playerId, nickname, colorIndex, connected: true };
   lobby.players.push(player);
   lobby.sessionScores[playerId] = lobby.sessionScores[playerId] ?? 0;

@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 export function HostControlBar({
   paused,
   phase,
@@ -20,8 +22,28 @@ export function HostControlBar({
   const canSkip = ["instructions", "round_end", "reveal", "scoreboard"].includes(phase);
   const canPlayAgain = phase === "ended" && onPlayAgain;
 
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.code !== "Space" && e.key !== " ") return;
+      const target = e.target;
+      if (
+        target instanceof HTMLInputElement ||
+        target instanceof HTMLTextAreaElement ||
+        target instanceof HTMLSelectElement ||
+        (target instanceof HTMLElement && target.isContentEditable)
+      ) {
+        return;
+      }
+      e.preventDefault();
+      if (paused) onResume();
+      else onPause();
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [paused, onPause, onResume]);
+
   return (
-    <div className="fixed bottom-4 right-4 z-50 flex flex-wrap justify-end gap-2 max-w-xl">
+    <div className="fixed bottom-4 left-4 right-4 z-50 flex flex-wrap justify-end gap-2 sm:left-auto sm:right-4 sm:max-w-xl">
       {canPlayAgain && (
         <button type="button" onClick={onPlayAgain} className="rounded-xl bg-violet-600 px-5 py-3 font-bold">
           Play again

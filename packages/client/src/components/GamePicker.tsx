@@ -1,6 +1,6 @@
 import type { GameCategory, GameId, GameMeta, GameOptions } from "@party-games/shared";
 import { GAME_CATEGORIES, resolveTrailDashOptions } from "@party-games/shared";
-import { useEffect, useMemo, useState } from "react";
+import { Fragment, useEffect, useMemo, useState, type ReactNode } from "react";
 import { GameCategorySection } from "./GameCategorySection";
 
 const STORAGE_KEY = "party-games-category-open";
@@ -92,12 +92,14 @@ export function GamePicker({
   playerCount,
   gameOptionsByGame,
   onSelect,
+  optionsSlot,
 }: {
   games: GameMeta[];
   selectedId: GameId | null;
   playerCount: number;
   gameOptionsByGame?: Partial<Record<GameId, GameOptions>>;
   onSelect: (id: GameId) => void;
+  optionsSlot?: (gameId: GameId) => ReactNode;
 }) {
   const gamesByCategory = useMemo(() => {
     const map = new Map<GameCategory, GameMeta[]>();
@@ -167,14 +169,18 @@ export function GamePicker({
           >
             <div className="grid gap-3 sm:grid-cols-2">
               {catGames.map((game) => (
-                <GameCard
-                  key={game.id}
-                  game={game}
-                  selected={selectedId === game.id}
-                  playerCount={playerCount}
-                  gameOptionsByGame={gameOptionsByGame}
-                  onSelect={onSelect}
-                />
+                <Fragment key={game.id}>
+                  <GameCard
+                    game={game}
+                    selected={selectedId === game.id}
+                    playerCount={playerCount}
+                    gameOptionsByGame={gameOptionsByGame}
+                    onSelect={onSelect}
+                  />
+                  {selectedId === game.id && optionsSlot && (
+                    <div className="sm:col-span-2 space-y-3 xl:hidden">{optionsSlot(game.id)}</div>
+                  )}
+                </Fragment>
               ))}
             </div>
           </GameCategorySection>
