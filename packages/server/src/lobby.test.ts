@@ -33,4 +33,13 @@ describe("lobby color helpers", () => {
     assert.equal(setPlayerColor(lobby, "p2", 3), true);
     assert.equal(lobby.players[1].colorIndex, 3);
   });
+
+  it("assigns a unique color for each player up to MAX_PLAYERS", () => {
+    const lobby = createLobby("ABCD");
+    for (let i = 0; i < 16; i++) {
+      addPlayer(lobby, `p${i}`, `Player ${i}`);
+    }
+    const indices = lobby.players.map((p) => p.colorIndex);
+    assert.equal(new Set(indices).size, 16);
+  });
 });

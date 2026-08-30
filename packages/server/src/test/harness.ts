@@ -1,5 +1,6 @@
 import {
   DEFAULT_GAME_OPTIONS,
+  PLAYER_COLORS,
   type GameAction,
   type GameId,
   type GameModule,
@@ -12,7 +13,7 @@ export function makePlayers(count: number) {
   return Array.from({ length: count }, (_, i) => ({
     id: `p${i + 1}`,
     nickname: `Player ${i + 1}`,
-    colorIndex: i % 8,
+    colorIndex: i % PLAYER_COLORS.length,
     connected: true,
   }));
 }

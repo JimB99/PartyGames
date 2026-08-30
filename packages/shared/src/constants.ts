@@ -1,12 +1,21 @@
+/** Sixteen hues ~22.5° apart, saturated for contrast on dark UI backgrounds. */
 export const PLAYER_COLORS = [
-  "#FF6B6B",
-  "#4ECDC4",
-  "#FFE66D",
-  "#95E1D3",
-  "#F38181",
-  "#AA96DA",
-  "#FCBAD3",
-  "#A8D8EA",
+  "#FF4D4D", // red
+  "#FF7733", // orange-red
+  "#FFAA22", // orange
+  "#FFCC22", // gold
+  "#BBDD22", // yellow-green
+  "#77DD22", // lime
+  "#22DD66", // green
+  "#22DDAA", // spring green
+  "#22CCCC", // cyan
+  "#33BBEE", // sky blue
+  "#4488FF", // blue
+  "#6666FF", // indigo
+  "#9944FF", // purple
+  "#CC44FF", // violet
+  "#FF44DD", // magenta
+  "#FF4477", // pink
 ] as const;
 
 export const MAX_PLAYERS = 16;
