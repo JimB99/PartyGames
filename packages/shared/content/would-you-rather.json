@@ -2434,5 +2434,23 @@
     "b": "never partake in them again",
     "rating": "family",
     "difficulty": "medium"
+  },
+  {
+    "a": "Would you rather have a threesome with two of your sex",
+    "b": "two of the other sex",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Would you rather be cheated on with your best friend",
+    "b": "worst enemy",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Would you rather give",
+    "b": "receive head",
+    "rating": "mature",
+    "difficulty": "medium"
   }
 ]

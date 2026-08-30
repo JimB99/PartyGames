@@ -140,5 +140,6 @@ export function isPlayerTurn(match: BracketMatch, playerId: string): boolean {
 }
 
 export function matchFinished(match: BracketMatch): boolean {
+  if (match.winner !== null) return true;
   return checkWinner(match.board) !== null;
 }

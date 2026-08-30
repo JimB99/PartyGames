@@ -144,6 +144,21 @@ export function allShipsPlaced(fleet: PlayerFleet): boolean {
   return fleet.ships.every((s) => s.cells.length === s.length);
 }
 
+export function clearFleetPlacement(fleet: PlayerFleet): void {
+  for (const ship of fleet.ships) {
+    ship.cells = [];
+    ship.hits = 0;
+  }
+}
+
+export function sunkShipLengths(fleet: PlayerFleet): number[] {
+  return fleet.ships.filter((s) => s.hits >= s.length).map((s) => s.length);
+}
+
+export function fleetLengths(fleet: PlayerFleet): number[] {
+  return fleet.ships.map((s) => s.length);
+}
+
 export function autoPlaceFleet(fleet: PlayerFleet, gridSize: number): void {
   for (let i = 0; i < fleet.ships.length; i++) {
     let placed = false;

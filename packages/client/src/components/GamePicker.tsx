@@ -61,6 +61,7 @@ function GameCard({
     <button
       type="button"
       disabled={overMax}
+      data-testid={`game-picker-${game.id}`}
       onClick={() => onSelect(game.id)}
       className={`rounded-2xl border p-4 text-left transition ${
         selected

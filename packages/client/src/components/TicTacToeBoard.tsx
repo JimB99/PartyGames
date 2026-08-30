@@ -16,13 +16,14 @@ export function TicTacToeBoard({
   const colorX = markColors?.x ?? "#4ECDC4";
   const colorO = markColors?.o ?? "#FF6B6B";
   return (
-    <div className="grid grid-cols-3 gap-2 w-fit mx-auto">
+    <div className="grid grid-cols-3 gap-2 w-fit mx-auto" data-testid="tic-tac-toe-board">
       {board.map((cell, i) => (
         <button
           key={i}
           type="button"
           disabled={disabled || cell !== null}
           onClick={() => onCellClick?.(i)}
+          data-testid={`tic-tac-toe-cell-${i}`}
           className="flex h-20 w-20 items-center justify-center rounded-xl border border-zinc-600 bg-zinc-800 text-4xl font-black disabled:opacity-60"
           style={{ color: cell === "x" ? colorX : cell === "o" ? colorO : undefined }}
         >

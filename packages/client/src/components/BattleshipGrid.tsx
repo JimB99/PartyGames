@@ -1,9 +1,9 @@
 import type { Ship } from "@party-games/shared";
 
-type GridCell = null | "ship" | "hit" | "miss" | "pending";
+type GridCell = null | "ship" | "hit" | "miss" | "pending" | "sunk";
 
 function cellColor(cell: GridCell, showShips: boolean): string {
-  if (cell === "hit") return "#ef4444";
+  if (cell === "hit" || cell === "sunk") return "#ef4444";
   if (cell === "miss") return "#3b82f6";
   if (cell === "ship" && showShips) return "#52525b";
   if (cell === "pending") return "#a855f7";
@@ -14,6 +14,7 @@ export function BattleshipGrid({
   size,
   ships,
   shots,
+  sunkCells,
   showShips = false,
   onCellClick,
   disabled,
@@ -21,6 +22,7 @@ export function BattleshipGrid({
   size: number;
   ships?: Ship[];
   shots?: Array<{ x: number; y: number; hit: boolean }>;
+  sunkCells?: Array<{ x: number; y: number }>;
   showShips?: boolean;
   onCellClick?: (x: number, y: number) => void;
   disabled?: boolean;
@@ -33,12 +35,15 @@ export function BattleshipGrid({
       }
     }
   }
+  for (const c of sunkCells ?? []) {
+    if (c.y < size && c.x < size) cells[c.y][c.x] = "sunk";
+  }
   for (const s of shots ?? []) {
     if (s.y < size && s.x < size) cells[s.y][s.x] = s.hit ? "hit" : "miss";
   }
 
   return (
-    <div className="w-full max-w-[min(100%,18rem)]">
+    <div className="w-full max-w-[min(100%,18rem)]" data-testid="battleship-grid">
       <div
         className="grid w-full gap-0.5"
         style={{ gridTemplateColumns: `repeat(${size}, minmax(0, 1fr))` }}

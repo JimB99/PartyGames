@@ -7,9 +7,13 @@
     "import-content": "node --import tsx scripts/import-content.mts",
     "import-content:local": "node --import tsx scripts/import-content.mts --local-only",
     "deploy": "pnpm build && npx wrangler deploy",
-    "typecheck": "pnpm -r typecheck"
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm -r test",
+    "test:unit": "pnpm --filter @party-games/shared test && pnpm --filter @party-games/server test:unit",
+    "test:e2e": "playwright test"
   },
   "devDependencies": {
+    "@playwright/test": "^1.51.0",
     "concurrently": "^9.1.2",
     "partyserver": "^0.5.10",
     "tsx": "^4.19.2",

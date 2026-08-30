@@ -1,6 +1,12 @@
 node_modules
 dist
 .partykit
+.wrangler
+test-results
+playwright-report
 *.local
 .env
 .DS_Store
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal

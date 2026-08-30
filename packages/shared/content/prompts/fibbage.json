@@ -90,12 +90,6 @@
     "difficulty": "easy"
   },
   {
-    "prompt": "The worst thing to yell during a quiet movie scene is...",
-    "truth": "That's what my therapist said!",
-    "rating": "family",
-    "difficulty": "medium"
-  },
-  {
     "prompt": "A rejected candy bar flavor would be...",
     "truth": "Regret with almonds",
     "rating": "family",
@@ -120,296 +114,3380 @@
     "difficulty": "medium"
   },
   {
-    "prompt": "Which is your favorite kind of sex: soft, slow, and sweet or aggressive, fast...",
-    "truth": "That's what my therapist said!",
-    "rating": "family",
-    "difficulty": "easy"
-  },
-  {
-    "prompt": "If you had to do 'seven minutes in heaven' with someone here, who would you p...",
-    "truth": "That's what my therapist said!",
-    "rating": "family",
-    "difficulty": "medium"
-  },
-  {
-    "prompt": "Who in this group would you want to see naked the least",
-    "truth": "That's what my therapist said!",
-    "rating": "family",
-    "difficulty": "easy"
-  },
-  {
-    "prompt": "Have you ever fantasized about a person in front of you",
-    "truth": "That's what my therapist said!",
-    "rating": "family",
-    "difficulty": "medium"
-  },
-  {
-    "prompt": "Have you ever had an STD",
-    "truth": "That's what my therapist said!",
-    "rating": "family",
-    "difficulty": "easy"
-  },
-  {
-    "prompt": "What is your favourite type of foreplay",
-    "truth": "That's what my therapist said!",
-    "rating": "family",
-    "difficulty": "medium"
-  },
-  {
-    "prompt": "If you could go back and change anything about the first time you had sex, wh...",
-    "truth": "That's what my therapist said!",
-    "rating": "family",
-    "difficulty": "easy"
-  },
-  {
-    "prompt": "Are you carrying any condoms",
-    "truth": "That's what my therapist said!",
-    "rating": "family",
-    "difficulty": "medium"
-  },
-  {
-    "prompt": "Which do you think is hotter: sex standing against a wall or bent over a table",
-    "truth": "That's what my therapist said!",
-    "rating": "family",
-    "difficulty": "easy"
-  },
-  {
-    "prompt": "What kind of foreplay would you like to try",
-    "truth": "That's what my therapist said!",
-    "rating": "family",
-    "difficulty": "medium"
-  },
-  {
-    "prompt": "Have you ever been in a friends with benefits situation",
-    "truth": "That's what my therapist said!",
-    "rating": "family",
-    "difficulty": "easy"
-  },
-  {
-    "prompt": "In the server/room, who's most likely to lose their virginity first",
-    "truth": "That's what my therapist said!",
-    "rating": "family",
-    "difficulty": "medium"
-  },
-  {
-    "prompt": "Who is the last person that you stalked on social media",
-    "truth": "That's what my therapist said!",
-    "rating": "family",
-    "difficulty": "easy"
-  },
-  {
-    "prompt": "Did you smoke or drink before you turned the legal age",
-    "truth": "That's what my therapist said!",
-    "rating": "family",
-    "difficulty": "medium"
-  },
-  {
-    "prompt": "What is the the dirtiest thing you've said/done",
-    "truth": "That's what my therapist said!",
-    "rating": "family",
-    "difficulty": "easy"
-  },
-  {
-    "prompt": "Have you ever paid or been paid for any form of sex? If so, how much",
-    "truth": "That's what my therapist said!",
-    "rating": "family",
-    "difficulty": "medium"
-  },
-  {
-    "prompt": "After how many dates do you usually have sex",
-    "truth": "That's what my therapist said!",
-    "rating": "family",
-    "difficulty": "easy"
-  },
-  {
-    "prompt": "Have you ever wanted to have an orgy",
-    "truth": "That's what my therapist said!",
-    "rating": "family",
-    "difficulty": "medium"
-  },
-  {
-    "prompt": "How many people have you kissed",
-    "truth": "That's what my therapist said!",
-    "rating": "family",
-    "difficulty": "easy"
-  },
-  {
-    "prompt": "Which do you think is hotter: sex standing against a wall or bent over a table",
-    "truth": "That's what my therapist said!",
-    "rating": "family",
-    "difficulty": "medium"
-  },
-  {
-    "prompt": "Have you ever done anything dirty with someone",
-    "truth": "That's what my therapist said!",
-    "rating": "family",
-    "difficulty": "easy"
-  },
-  {
-    "prompt": "What type of music do you like to have sex to",
-    "truth": "That's what my therapist said!",
-    "rating": "family",
-    "difficulty": "medium"
-  },
-  {
-    "prompt": "How about an orgy",
-    "truth": "That's what my therapist said!",
-    "rating": "family",
-    "difficulty": "easy"
-  },
-  {
-    "prompt": "What is your favourite position",
-    "truth": "That's what my therapist said!",
-    "rating": "family",
-    "difficulty": "medium"
-  },
-  {
-    "prompt": "Who is the best roommate that you have ever had",
-    "truth": "That's what my therapist said!",
-    "rating": "family",
-    "difficulty": "easy"
-  },
-  {
-    "prompt": "Have you ever done hard drugs",
-    "truth": "That's what my therapist said!",
-    "rating": "family",
-    "difficulty": "medium"
-  },
-  {
-    "prompt": "How do you feel when touching yourself",
-    "truth": "That's what my therapist said!",
-    "rating": "family",
-    "difficulty": "easy"
-  },
-  {
-    "prompt": "If you had to choose between only oral sex or only penetrative sex for the re...",
-    "truth": "That's what my therapist said!",
-    "rating": "family",
-    "difficulty": "medium"
-  },
-  {
-    "prompt": "How often do you masturbate? How often is it about someone here",
-    "truth": "That's what my therapist said!",
-    "rating": "family",
-    "difficulty": "easy"
-  },
-  {
-    "prompt": "Have you ever done it in the great outdoors? If so, where",
-    "truth": "That's what my therapist said!",
-    "rating": "family",
-    "difficulty": "medium"
-  },
-  {
-    "prompt": "Do you love giving blowjobs",
-    "truth": "That's what my therapist said!",
-    "rating": "family",
-    "difficulty": "easy"
-  },
-  {
-    "prompt": "What are some things you don’t understand about the opposite sex",
-    "truth": "That's what my therapist said!",
-    "rating": "family",
-    "difficulty": "medium"
-  },
-  {
-    "prompt": "How many times a week do you touch yourself",
-    "truth": "That's what my therapist said!",
+    "prompt": "The worst thing about this is: Worst thing: played with a vibrator during sex.",
+    "truth": "Worst thing: played with a vibrator during sex.",
     "rating": "mature",
     "difficulty": "medium"
   },
   {
-    "prompt": "Would you have sex with someone in this group",
-    "truth": "That's what my therapist said!",
+    "prompt": "The worst thing about this is: Worst thing: had an affair with an exchange student.",
+    "truth": "Worst thing: had an affair with an exchange student.",
     "rating": "mature",
     "difficulty": "medium"
   },
   {
-    "prompt": "Have you ever gotten a DUI",
-    "truth": "That's what my therapist said!",
+    "prompt": "The worst thing about this is: Worst thing: had sex at a party.",
+    "truth": "Worst thing: had sex at a party.",
     "rating": "mature",
     "difficulty": "medium"
   },
   {
-    "prompt": "Have you ever had a sexual dream about anyone here",
-    "truth": "That's what my therapist said!",
+    "prompt": "The worst thing about this is: Worst thing: had sex in the forest.",
+    "truth": "Worst thing: had sex in the forest.",
     "rating": "mature",
     "difficulty": "medium"
   },
   {
-    "prompt": "Do you like it smooth or rough",
-    "truth": "That's what my therapist said!",
+    "prompt": "The worst thing about this is: Worst thing: had sex to get a job or a promotion.",
+    "truth": "Worst thing: had sex to get a job or a promotion.",
     "rating": "mature",
     "difficulty": "medium"
   },
   {
-    "prompt": "What bad thing have you done that no one else has found out about",
-    "truth": "That's what my therapist said!",
+    "prompt": "The worst thing about this is: Worst thing: had sex in a car.",
+    "truth": "Worst thing: had sex in a car.",
     "rating": "mature",
     "difficulty": "medium"
   },
   {
-    "prompt": "If you could pick your dick size/boob size, what would you choose",
-    "truth": "That's what my therapist said!",
+    "prompt": "The worst thing about this is: Worst thing: called a sex number.",
+    "truth": "Worst thing: called a sex number.",
     "rating": "mature",
     "difficulty": "medium"
   },
   {
-    "prompt": "Have you ever had a friend with benefits",
-    "truth": "That's what my therapist said!",
+    "prompt": "The worst thing about this is: Worst thing: had sex while listening to the music.",
+    "truth": "Worst thing: had sex while listening to the music.",
     "rating": "mature",
     "difficulty": "medium"
   },
   {
-    "prompt": "Who here do you want to have sex with the most",
-    "truth": "That's what my therapist said!",
+    "prompt": "The worst thing about this is: Worst thing: searched for nude pictures of a star on the internet.",
+    "truth": "Worst thing: searched for nude pictures of a star on the internet.",
     "rating": "mature",
     "difficulty": "medium"
   },
   {
-    "prompt": "Where is your favourite place to be kissed",
-    "truth": "That's what my therapist said!",
+    "prompt": "The worst thing about this is: Worst thing: had sex at school.",
+    "truth": "Worst thing: had sex at school.",
     "rating": "mature",
     "difficulty": "medium"
   },
   {
-    "prompt": "Have you ever watched another couple have sex",
-    "truth": "That's what my therapist said!",
+    "prompt": "The worst thing about this is: Worst thing: had a sex dream about a professor.",
+    "truth": "Worst thing: had a sex dream about a professor.",
     "rating": "mature",
     "difficulty": "medium"
   },
   {
-    "prompt": "Did you ever stay in a relationship because of sex (and not love)",
-    "truth": "That's what my therapist said!",
+    "prompt": "The worst thing about this is: Worst thing: eaten food off of someone's naked body.",
+    "truth": "Worst thing: eaten food off of someone's naked body.",
     "rating": "mature",
     "difficulty": "medium"
   },
   {
-    "prompt": "What's an experience of yours that belongs most in a young adult romance novel",
-    "truth": "That's what my therapist said!",
+    "prompt": "The worst thing about this is: Worst thing: been tied up during sex.",
+    "truth": "Worst thing: been tied up during sex.",
     "rating": "mature",
     "difficulty": "medium"
   },
   {
-    "prompt": "Have you ever tried cocaine",
-    "truth": "That's what my therapist said!",
+    "prompt": "The worst thing about this is: Worst thing: spent two weeks without an orgasm (in the last two years)",
+    "truth": "Worst thing: spent two weeks without an orgasm (in the last two years).",
     "rating": "mature",
     "difficulty": "medium"
   },
   {
-    "prompt": "If you could pick your dick size/boob size, what would you choose",
-    "truth": "That's what my therapist said!",
+    "prompt": "The worst thing about this is: Worst thing: had sex with someone who was bisexual.",
+    "truth": "Worst thing: had sex with someone who was bisexual.",
     "rating": "mature",
     "difficulty": "medium"
   },
   {
-    "prompt": "Are you a dominating person",
-    "truth": "That's what my therapist said!",
+    "prompt": "The worst thing about this is: Worst thing: had sex when other people were in the same room.",
+    "truth": "Worst thing: had sex when other people were in the same room.",
     "rating": "mature",
     "difficulty": "medium"
   },
   {
-    "prompt": "Who would make your parents freak out if you brought them home",
-    "truth": "That's what my therapist said!",
+    "prompt": "The worst thing about this is: Worst thing: had sex with someone I wasn't attracted to, because I wan",
+    "truth": "Worst thing: had sex with someone I wasn't attracted to, because I wanted to get laid t…",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: Worst thing: had sex with someone who wasn't my partner.",
+    "truth": "Worst thing: had sex with someone who wasn't my partner.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: Worst thing: had sex in nature.",
+    "truth": "Worst thing: had sex in nature.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: Worst thing: made a sex tape.",
+    "truth": "Worst thing: made a sex tape.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: Worst thing: had scratches or bite marks after sex.",
+    "truth": "Worst thing: had scratches or bite marks after sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: Worst thing: repurposed a common household item as a sex toy.",
+    "truth": "Worst thing: repurposed a common household item as a sex toy.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: Worst thing: thought about a celebrity during sex.",
+    "truth": "Worst thing: thought about a celebrity during sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: Worst thing: bought sex toys.",
+    "truth": "Worst thing: bought sex toys.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: Worst thing: had sex blindfolded.",
+    "truth": "Worst thing: had sex blindfolded.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: Worst thing: had sex with a siblings's partner.",
+    "truth": "Worst thing: had sex with a siblings's partner.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: Worst thing: dreamed of having sex with a total stranger.",
+    "truth": "Worst thing: dreamed of having sex with a total stranger.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: Worst thing: had sex with someone who had children.",
+    "truth": "Worst thing: had sex with someone who had children.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: Worst thing: broken up with someone right after sex.",
+    "truth": "Worst thing: broken up with someone right after sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: Worst thing: had sex while on my period/while my partner had a period.",
+    "truth": "Worst thing: had sex while on my period/while my partner had a period.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: Worst thing: called a sex hotline.",
+    "truth": "Worst thing: called a sex hotline.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: Worst thing: tied someone up during sex.",
+    "truth": "Worst thing: tied someone up during sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: Worst thing: had sex in a dressing room.",
+    "truth": "Worst thing: had sex in a dressing room.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: Worst thing: had sex in a toilet.",
+    "truth": "Worst thing: had sex in a toilet.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: Worst thing: talked about sex with a sibling.",
+    "truth": "Worst thing: talked about sex with a sibling.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: Worst thing: had sex with a blow up doll.",
+    "truth": "Worst thing: had sex with a blow up doll.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: Worst thing: had more than one orgasm during sex.",
+    "truth": "Worst thing: had more than one orgasm during sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: Worst thing: had sex with more than 15 different people in my life.",
+    "truth": "Worst thing: had sex with more than 15 different people in my life.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: Worst thing: used a sex toy on someone.",
+    "truth": "Worst thing: used a sex toy on someone.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: Worst thing: had significantly more sex than I have now.",
+    "truth": "Worst thing: had significantly more sex than I have now.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: Worst thing: had sex in a nightclub.",
+    "truth": "Worst thing: had sex in a nightclub.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: Worst thing: had sex on a dining room table.",
+    "truth": "Worst thing: had sex on a dining room table.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: Worst thing: talked about sex with my parents.",
+    "truth": "Worst thing: talked about sex with my parents.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: Worst thing: dreamed of having sex with a person providing a service (",
+    "truth": "Worst thing: dreamed of having sex with a person providing a service (plumber, nurse).",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: Worst thing: had sex with my supervisor/teacher.",
+    "truth": "Worst thing: had sex with my supervisor/teacher.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: Worst thing: had sex on an airplane.",
+    "truth": "Worst thing: had sex on an airplane.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: Worst thing: had sex in the club's bathroom.",
+    "truth": "Worst thing: had sex in the club's bathroom.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: Worst thing: had sex with an ex.",
+    "truth": "Worst thing: had sex with an ex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: Worst thing: screamed with pleasure during sex.",
+    "truth": "Worst thing: screamed with pleasure during sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: Worst thing: done the mad searching for clothes after sex.",
+    "truth": "Worst thing: done the mad searching for clothes after sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: Worst thing: found someobodys sex toys.",
+    "truth": "Worst thing: found someobodys sex toys.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: Worst thing: had sex with more than one person within 24 hours.",
+    "truth": "Worst thing: had sex with more than one person within 24 hours.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: Worst thing: made out with someone of the same sex.",
+    "truth": "Worst thing: made out with someone of the same sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: Worst thing: had more than three orgasm in one day.",
+    "truth": "Worst thing: had more than three orgasm in one day.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: Worst thing: had a partner who wanted to have sex much more frequently",
+    "truth": "Worst thing: had a partner who wanted to have sex much more frequently than I did.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: Worst thing: had sex with two people on the same day.",
+    "truth": "Worst thing: had sex with two people on the same day.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: Worst thing: had \"spontaneous\" sex although I was already late.",
+    "truth": "Worst thing: had \"spontaneous\" sex although I was already late.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: Worst thing: tried more than seven sex positions.",
+    "truth": "Worst thing: tried more than seven sex positions.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: Worst thing: surprised someone butt-naked.",
+    "truth": "Worst thing: surprised someone butt-naked.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: Worst thing: had sex with someone whose age was under 15 years old.",
+    "truth": "Worst thing: had sex with someone whose age was under 15 years old.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: Worst thing: had sex in public and got caught.",
+    "truth": "Worst thing: had sex in public and got caught.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: Worst thing: had sex in a hot tub.",
+    "truth": "Worst thing: had sex in a hot tub.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: Worst thing: watched porn together with other people.",
+    "truth": "Worst thing: watched porn together with other people.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: Worst thing: licked food off someone during sex.",
+    "truth": "Worst thing: licked food off someone during sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: After how many dates do you usually have sex",
+    "truth": "After how many dates do you usually have sex",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: Worst thing: heard my neighbors having sex.",
+    "truth": "Worst thing: heard my neighbors having sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: Worst thing: had a sore penis or vagina because of sex.",
+    "truth": "Worst thing: had a sore penis or vagina because of sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: Worst thing: moaned during sex or masturbation.",
+    "truth": "Worst thing: moaned during sex or masturbation.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: Worst thing: watched the porn channel in a hotel.",
+    "truth": "Worst thing: watched the porn channel in a hotel.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: Worst thing: had sex on the kitchen table.",
+    "truth": "Worst thing: had sex on the kitchen table.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: Worst thing: had sex in public swimming pool or on the beach.",
+    "truth": "Worst thing: had sex in public swimming pool or on the beach.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: Worst thing: fallen asleep during sex.",
+    "truth": "Worst thing: fallen asleep during sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: Worst thing: left most of my clothes on during sex.",
+    "truth": "Worst thing: left most of my clothes on during sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: Worst thing: had sex without using a contraceptive.",
+    "truth": "Worst thing: had sex without using a contraceptive.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: Worst thing: had sex with a model.",
+    "truth": "Worst thing: had sex with a model.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing about this is: Worst thing: said something inappropriate during sex.",
+    "truth": "Worst thing: said something inappropriate during sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A terrible name for a pet would be...",
+    "truth": "moist congress and chaos and nutmeg",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing to hear your gym teacher say is...",
+    "truth": "aggressive politeness, but make it weaponized nostalgia",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "A new law requires you to ___ before driving a car",
+    "truth": "Tax-deductible crying",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The secret ingredient in grandma's cookies is...",
+    "truth": "unlicensed dolphins and moist congress",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The title of the worst self-help book ever is...",
+    "truth": "emotional baggage, but make it competitive sighing",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst possible wedding toast would start with...",
+    "truth": "A raccoon with opinions",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "A rejected Olympic sport would be...",
+    "truth": "mildly haunted yogurt and a limp handshake from fate",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The real reason dinosaurs went extinct is...",
+    "truth": "competitive sighing, but make it cheese-based trauma",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "A horrible theme for a children's birthday party is...",
+    "truth": "chaos and nutmeg and suspiciously warm milk",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The worst notification to get at 3 AM is...",
+    "truth": "passive-aggressive jazz, but make it main-character syndrome",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "An awful name for a coffee shop would be...",
+    "truth": "A TED talk about nothing",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The least helpful GPS direction ever is...",
+    "truth": "suspiciously warm milk and unlicensed dolphins",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A terrible superhero weakness would be...",
+    "truth": "vibes only parking, but make it passive-aggressive jazz",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "A rejected candy bar flavor would be...",
+    "truth": "A haunted spreadsheet",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst advice a fortune cookie could give is...",
+    "truth": "aggressive small talk and premium awkwardness",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "An inappropriate thing to bring to a potluck is...",
+    "truth": "weaponized nostalgia, but make it aggressive politeness",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst possible airline announcement is...",
+    "truth": "A goose in HR",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "A banned baby name in my country would be...",
+    "truth": "unresolved backstory and aggressive small talk",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing to yell in a library is...",
+    "truth": "main-character syndrome, but make it feral politeness",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "A terrible slogan for a dentist would be...",
+    "truth": "Beefy disappointment",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The most useless college major would be...",
+    "truth": "a limp handshake from fate and mildly haunted yogurt",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "A horrible perfume scent would be called...",
+    "truth": "feral politeness, but make it vibes only parking",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing to step on barefoot is...",
+    "truth": "A conspiracy of ducks",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "A rejected Pixar movie plot is...",
+    "truth": "premium awkwardness and aggressive neutrality",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst prize in a cereal box would be...",
+    "truth": "sweaty confidence, but make it emotional baggage",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "A terrible name for a yacht would be...",
+    "truth": "A podcast about silence",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The least romantic Valentine's gift is...",
+    "truth": "aggressive neutrality and unresolved backstory",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "A horrible name for a metal band is...",
+    "truth": "cheese-based trauma, but make it sweaty confidence",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "played with a vibrator during sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had an affair with an exchange student.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex at a party.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex in the forest.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex to get a job or a promotion.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex in a car.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "called a sex number.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex while listening to the music.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "searched for nude pictures of a star on the internet.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex at school.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had a sex dream about a professor.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "eaten food off of someone's naked body.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "been tied up during sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "spent two weeks without an orgasm (in the last two years).",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex with someone who was bisexual.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex when other people were in the same room.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex with someone I wasn't attracted to, because I wanted to get laid that badly.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex with someone who wasn't my partner.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex in nature.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "made a sex tape.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had scratches or bite marks after sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "repurposed a common household item as a sex toy.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "thought about a celebrity during sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "bought sex toys.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex blindfolded.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex with a siblings's partner.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "dreamed of having sex with a total stranger.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex with someone who had children.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "broken up with someone right after sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex while on my period/while my partner had a period.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "called a sex hotline.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "tied someone up during sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex in a dressing room.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex in a toilet.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "talked about sex with a sibling.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex with a blow up doll.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had more than one orgasm during sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex with more than 15 different people in my life.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "used a sex toy on someone.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had significantly more sex than I have now.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex in a nightclub.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex on a dining room table.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "talked about sex with my parents.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "dreamed of having sex with a person providing a service (plumber, nurse).",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex with my supervisor/teacher.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex on an airplane.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex in the club's bathroom.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex with an ex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "screamed with pleasure during sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "done the mad searching for clothes after sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "found someobodys sex toys.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex with more than one person within 24 hours.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "made out with someone of the same sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had more than three orgasm in one day.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had a partner who wanted to have sex much more frequently than I did.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex with two people on the same day.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had \"spontaneous\" sex although I was already late.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "tried more than seven sex positions.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "surprised someone butt-naked.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex with someone whose age was under 15 years old.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex in public and got caught.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex in a hot tub.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "watched porn together with other people.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "licked food off someone during sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "Something I've done that I can't take back is...",
+    "truth": "Ever paid or been paid for any form of sex? If so, how much",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "heard my neighbors having sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had a sore penis or vagina because of sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "moaned during sex or masturbation.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "watched the porn channel in a hotel.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex on the kitchen table.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex in public swimming pool or on the beach.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "fallen asleep during sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "left most of my clothes on during sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex without using a contraceptive.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex with a model.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "said something inappropriate during sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "taken pictures during sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "faked an orgasm.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had anal sex without lubricant.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex in a friend's bed.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "cancelled sex because I didn't have any contraceptives.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "preferred a sex toy over my partner.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex with someone five or more years younger than me.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "sent someone my naked picture.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had phone sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "offered someone sex without ties.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "paid for sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "played strip poker.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "Googled \"sex addiction\".",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had doggie-style sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex when a friend entered the room.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "been to a strip club.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex without a condom.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "gifted a sex toy to someone.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex on the first date.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex but wasn't satisfied afterwards.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "been told what to do during sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had oral sex while driving.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "used sex toys like penis rings or vibrators.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "posted a video of me and my partner having sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "eavesdropped on somebody having sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex during my/her period.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "received a noise complaint after sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex in a park.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "dreamed about some friends having sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex with a celebrity.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "made someone neigh like a horse during sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex with a stranger in the bathroom of a bar or club.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex in the sea.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex while there was an animal in the same room.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex in two different countries in one day.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had oral sex with a woman.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "hidden porn on my computer.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "used a contraceptive during oral sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "been sitting in front of a webcam partially or fully naked.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "watched gay porn.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "woke up with oral sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "made someone bark like a dog during sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "laughed out loud during sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex in front of an audience.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had telephone sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex in the back of a pickup truck.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex with an animal.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex more than one time in a row.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex in another country.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "broken the bed during sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "been in a relationship for over a month before having sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex in every of my flat's rooms.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex with two people from the same group of friends.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex in the shower.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "tried more than 10 sex positions.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "broken my furniture while having sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "sent naked pictures of myself over the internet.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex in my parents' bed.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "caught somebody watching porn.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had a sex-relationship with someone.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex with someone who was married.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "fantasized about being dominated during sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex that lasted longer than 3 hours.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "paid for something with sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "bought a sex toy.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "masturbated after sex because I wasn't satisfied.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had scratch or bite marks after sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex while watching porn.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex in an elevator.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex in a sleeping bag.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "tried bondage sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had somebody strip for me.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "ended up naked and can't remember why.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "called someone the wrong name while having sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex at a very special place.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex with the lights on.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex in a hotel.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had to ask someone whether or not we had sex, because I wasn't so sure.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex with someone more than twice my age.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "bought porn magazines.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex in a forest.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "copied sex positions from a movie or a book.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "received someone's naked pictures.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "turned off the lights for sex, because I couldn't look at my partner.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "hidden porn in my room.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex in a tent.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "bought something in a sex shop.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "Something I've done that I can't take back is...",
+    "truth": "Ever watched another couple have sex",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "Something I've done that I can't take back is...",
+    "truth": "Ever stay in a relationship because of sex (and not love)",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "Something I've done that I can't take back is...",
+    "truth": "Ever tried cocaine",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "Something I've done that I can't take back is...",
+    "truth": "Ever had a one night stand? If so, how many have you had",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "made someone have an orgasm only by oral sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had to go to the hospital because of a sex accident.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex in a hospital.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "watched porn with someone else.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "been naked in front of a webcam.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex on a tree.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "paid for a hotel room for one night only to have sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex while standing.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "taken dominance when having sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "experimented with household objects during sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "experimented sexually with a member of the same sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had a really extraordinary sex experience.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "taken nude photos of myself or someone else.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex in a car, bus or train.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "been in a 69 position during sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had anal sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "shot a porn movie.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex with a person that was much older than I was at this time.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex more than three times in one day.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex with a coworker.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "experimented with food during sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex in a group setting.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had aching muscles because of sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex in this room.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "used food during sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex without taking off my shoes.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had unsafe sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex without having an orgasm.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "owned sex toys.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "told my partner how sex with my ex was.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had an orgasm at the same time as my partner.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "used a lubricant for sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "smoked while having sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "watched porn.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex with a virgin.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "watched somebody having sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex with three different people in one month.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex on the beach (activity, not the cocktail).",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex in the bathtub.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had Skype sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex with two different people without showering in between.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "worn latex clothing during sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "dreamed of having sex at an extraordinary place.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "cried during sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "performed oral sex on someone without ever kissing them on the mouth.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex on a kitchen counter.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had multiple orgasms during sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "passed gas during sex.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had an orgasm.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex during daylight.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex while I was able to see myself in a mirror.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "had sex while another person was in the same room.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "Something I've done that I can't take back is...",
+    "truth": "Ever had sex outside",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "Something I've done that I can't take back is...",
+    "truth": "Had sex with someone in this group",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "The group chat still has screenshots from when I been told what to do during sex",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "Nobody knows I once spanked someone",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "masturbated at someone else's house",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "had oral sex while driving",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "they've used sex toys like penis rings or vibrators",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "I'll never live down the time I posted a video of me and my partner having sex",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "The group chat still has screenshots from when I done the \"Walk of Shame\"",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "Nobody knows I once eavesdropped on somebody having sex",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "peed on someone",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "had the \"lights on/lights off\" arguments",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "they've had sex during my/her period",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "I'll never live down the time I lied to my peers about my sexual experiences",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "The group chat still has screenshots from when I been in an open relationship",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "Nobody knows I once received a noise complaint after sex",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "had sex in a park",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "hidden sexy text messages from a partner",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "they've dreamed about some friends having sex",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "I'll never live down the time I had sex with a celebrity",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "The group chat still has screenshots from when I made someone neigh like a horse during…",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "Nobody knows I once slept with someone and regretted it",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "played with a vibrator during sex",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "had an affair with an exchange student",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "they've had sex at a party",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "I'll never live down the time I visited a party with the plan to not leave alone",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "The group chat still has screenshots from when I had sex in the forest",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "Nobody knows I once had sex to get a job or a promotion",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "had sex in a car",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "called a sex number",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "they've photocopied my ass or genitals",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "I'll never live down the time I had sex while listening to the music",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "The group chat still has screenshots from when I searched for nude pictures of a star o…",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "Nobody knows I once had sex at school",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "had a sex dream about a professor",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "walked in on someone masturbating",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "they've had a sexual injury",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "I'll never live down the time I eaten food off of someone's naked body",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "The group chat still has screenshots from when I masturbated at a place not at home",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "Nobody knows I once gone commando",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "been tied up during sex",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "spent two weeks without an orgasm (in the last two years)",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "they've had sex with someone who was bisexual",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "I'll never live down the time I done it in a public place",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "The group chat still has screenshots from when I had sex when other people were in the…",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "Nobody knows I once had sex with someone I wasn't attracted to, because I wanted to get…",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "had sex with someone who wasn't my partner",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "left a used condom",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "they've had sex in nature",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "I'll never live down the time I thought about visiting a brothel",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "The group chat still has screenshots from when I put baby powder on my balls",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "Nobody knows I once slept with a co-worker",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "made a sex tape",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "had scratches or bite marks after sex",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "they've repurposed a common household item as a sex toy",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "I'll never live down the time I thought about a celebrity during sex",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "The group chat still has screenshots from when I worn edible underwear",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "Nobody knows I once worn sexy underwear",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "bought sex toys",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "had a friend who became a fuck buddy",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "they've had sex blindfolded",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "I'll never live down the time I held a dildo in my hands",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "The group chat still has screenshots from when I tried something uncomforting, disgusti…",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "Nobody knows I once had sex with a siblings's partner",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "dreamed of having sex with a total stranger",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "lied about being a virgin",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "they've dated/fooled around with two or more people at the same time",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "I'll never live down the time I forgotten the name of people I slept with",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "The group chat still has screenshots from when I had sex with someone who had children",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "Nobody knows I once broken up with someone right after sex",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "said kinky things in order to tease somebody",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "masturbated in the shower",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "they've let somebody watch while masturbating",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "I'll never live down the time I had sex while on my period/while my partner had a period",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "The group chat still has screenshots from when I used food for masturbating",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "Nobody knows I once had fantasies about being tortured or put in chains",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "called a sex hotline",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "tied someone up during sex",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "they've had sex in a dressing room",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "I'll never live down the time I taken someones virginity",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "The group chat still has screenshots from when I stimulated my partner with my hands",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "Nobody knows I once had sex in a toilet",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "been approached by a hooker",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "talked about sex with a sibling",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "they've hooked up with someone I met online",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "I'll never live down the time I shaved my pubic hair",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "The group chat still has screenshots from when I turned down an invite for a threesome",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "Nobody knows I once slept with my friend's partner",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "let my partner dominate me when sleeping with him/her",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "masturbated, because I was bored",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "they've had sex with a blow up doll",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "I'll never live down the time I had more than one orgasm during sex",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "The group chat still has screenshots from when I had sex with more than 15 different pe…",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "Nobody knows I once gone to a nudist beach",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "used a sex toy on someone",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "thought about visiting a bondage studio",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "they've had significantly more sex than I have now",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "I'll never live down the time I peed on somebody",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "The group chat still has screenshots from when I had sex in a nightclub",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "Nobody knows I once performed cunnilingus",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "had sex on a dining room table",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "fooled around in my sibling's bed",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "they've talked about sex with my parents",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "I'll never live down the time I made love in an elevator",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "The group chat still has screenshots from when I dreamed of having sex with a person pr…",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "Nobody knows I once had sex with my supervisor/teacher",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "slept with someone I know from school/office",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "had sex on an airplane",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "they've had sex in the club's bathroom",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "I'll never live down the time I had sex with an ex",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "The group chat still has screenshots from when I been accused of having an STD",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "Nobody knows I once tried cybersex",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "said \"I love you\" just to get laid",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "had an STD scare",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "they've screamed with pleasure during sex",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "I'll never live down the time I done the mad searching for clothes after sex",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "The group chat still has screenshots from when I found someobodys sex toys",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "Nobody knows I once been called a slut or a player",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "had sex with more than one person within 24 hours",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "made out with someone of the same sex",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "they've sniffed someone's underwear",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "I'll never live down the time I had more than three orgasm in one day",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "Something I've done that I can't take back is...",
+    "truth": "Ever used a toy while having sex",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "Something I've done that I can't take back is...",
+    "truth": "Ever been caught masturbating",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "Fuck, Marry, Kill. Three people of the question asker's choice.",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "Something I've done that I can't take back is...",
+    "truth": "Ever gone skinny dipping",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "Something I've done that I can't take back is...",
+    "truth": "Ever gone streaking? If so, how was it and who were you with",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "The group chat still has screenshots from when I had sex in public",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "paid for any kind of porn (magazines, movies, cams?)",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "wanted to sleep with someone who was in a relationship at the time",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "they've had sex with more than one person at the same time",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "I'll never live down the time I worn sexy lingerie",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "The group chat still has screenshots from when I talked dirty during sex",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "Nobody knows I once had bruises after making love",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "had sex for over one hour",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "had a problem with unhooking a bra",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "they've used lube",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "I'll never live down the time I hidden porn movies somewhere in the house",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "The group chat still has screenshots from when I gotten a blowjob",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "seen a swinger club from the inside",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "had sex on a trampoline",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "they've bitten someone's ass",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "I'll never live down the time I been in a sex shop",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "The group chat still has screenshots from when I bought sexy underwear",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "Nobody knows I once fantasized about anyone in this room",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "been excited about getting a period",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "jerked off to furry porn",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "they've refused oral sex",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "I'll never live down the time I had sex with a friend's ex girlfriend or boyfriend",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "The group chat still has screenshots from when I taken the morning after pill",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "Nobody knows I once had a cramp during sex",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "watched as my partner had sex with someone else",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "used whips / handcuffs during sex",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "they've made love in a hammock",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "I'll never live down the time I gotten a happy ending",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "Nobody knows I once end a relationship because of bad sex",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "had my penis stuck in a zipper",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "participated in an orgy",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "they've watched porn when someone walked in",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "I'll never live down the time I made someone have an orgasm only by oral sex",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "Nobody knows I once taken a shower/bath with someone",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "had to lie about my \"number\" to avoid judgment",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "had sex in a hospital",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "they've masturbated at school/work",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "I'll never live down the time I watched porn with someone else",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "The group chat still has screenshots from when I been naked in front of a webcam",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "Nobody knows I once had sex on a tree",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "masturbated with an electric toothbrush",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "paid for a hotel room for one night only to have sex",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "they've had sex while standing",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "I'll never live down the time I taken dominance when having sex",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "Nobody knows I once done it outside",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "experimented sexually with a member of the same sex",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "moaned so loud that I was afraid that somebody could hear me",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "they've had a really extraordinary sex experience",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "I'll never live down the time I exposed myself to someone just because they asked",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "Nobody knows I once had sex in a car, bus or train",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "left my underwear at someone's place",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "been in a 69 position during sex",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "they've touched silicon breasts",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "I'll never live down the time I had anal sex",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "The group chat still has screenshots from when I shot a porn movie",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "Nobody knows I once had sex with a person that was much older than I was at this time",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "taken part in a very embarrassing role play",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "had sex more than three times in one day",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "they've watched someone masturbate",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "I'll never live down the time I lied to protect a cheating friend",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "The group chat still has screenshots from when I had sex with a coworker",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "Nobody knows I once experimented with food during sex",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "had sex in a group setting",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "used viagra",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "they've had aching muscles because of sex",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "I'll never live down the time I worn vinyl clothing",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "The group chat still has screenshots from when I had sex in this room",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "Nobody knows I once used food during sex",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "had sex without taking off my shoes",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "had unsafe sex",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "they've gotten a brazillian wax",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "I'll never live down the time I stripped in front of anyone after losing a bet",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "The group chat still has screenshots from when I had sex without having an orgasm",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "Nobody knows I once owned sex toys",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "told my partner how sex with my ex was",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "had an orgasm at the same time as my partner",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "they've used a lubricant for sex",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "I'll never live down the time I watched somebody masturbating",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "The group chat still has screenshots from when I smoked while having sex",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "Nobody knows I once fooled around in a sibling's room",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "watched porn",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "had sex with a virgin",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "they've gotten a blowjob in a forest",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "I'll never live down the time I talked to someone about my sexual fantasies",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "The group chat still has screenshots from when I watched somebody having sex",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "Nobody knows I once had sex with three different people in one month",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "had sex on the beach (activity, not the cocktail)",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "had sex in the bathtub",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "they've had Skype sex",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "I'll never live down the time I shaved my balls",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "The group chat still has screenshots from when I been spanked",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "Nobody knows I once had sex with two different people without showering in between",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "fucked a friend's sister",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "made love on a yacht",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "they've worn latex clothing during sex",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "I'll never live down the time I used a flavored condom",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "Nobody knows I once used a mirror to view my genitals",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "cried during sex",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "performed oral sex on someone without ever kissing them on the mouth",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "they've had sex on a kitchen counter",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "I'll never live down the time I had multiple orgasms during sex",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "The group chat still has screenshots from when I passed gas during sex",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "Nobody knows I once had an orgasm",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "had sex during daylight",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "had sex while I was able to see myself in a mirror",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "they've had sex while another person was in the same room",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "I'll never live down the time I paid for sexual services",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "The group chat still has screenshots from when I sent a kinky picture on Snapchat",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "Nobody knows I once had sex with a stranger in the bathroom of a bar or club",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "had sex in the sea",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "had sex while there was an animal in the same room",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The story that still haunts the group chat is...",
+    "truth": "they've sexted with a colleague",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A confession nobody asked for:",
+    "truth": "I'll never live down the time I had sex in two different countries in one day",
     "rating": "mature",
     "difficulty": "medium"
   }

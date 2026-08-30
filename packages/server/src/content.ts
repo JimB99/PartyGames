@@ -10,7 +10,7 @@ import drawWordsJson from "../../shared/content/words/draw.json";
 import charadesWordsJson from "../../shared/content/words/charades.json";
 import muppetsJson from "../../shared/content/categories/muppets.json";
 import bracketCategoriesJson from "../../shared/content/categories/bracket.json";
-import dictionaryRaw from "../../shared/content/words/dictionary.txt?raw";
+import { dictionary } from "./dictionary.js";
 
 import type {
   CategoryEntry,
@@ -35,7 +35,5 @@ export const content = {
   charadesWords: charadesWordsJson as WordEntry[],
   muppets: muppetsJson as string[],
   bracketCategories: bracketCategoriesJson as CategoryEntry[],
-  dictionary: new Set(
-    dictionaryRaw.split(",").map((w: string) => w.trim().toLowerCase()).filter(Boolean),
-  ),
+  dictionary,
 };

@@ -307,11 +307,9 @@ export function HostPage() {
             )}
 
             <button
-
               type="button"
-
+              data-testid="start-game"
               disabled={!canStart}
-
               onClick={startGame}
 
               className="w-full rounded-2xl bg-violet-600 py-5 text-xl font-bold hover:bg-violet-500 disabled:opacity-40"

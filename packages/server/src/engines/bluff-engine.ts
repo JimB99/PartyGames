@@ -131,13 +131,25 @@ export function advanceBluff(state: BluffState, gameOptions?: GameOptions): Bluf
 
 function buildOptions(state: BluffState) {
   const options: BluffOption[] = [
-    { id: state.truthId, text: state.truthText, authorId: null, isTruth: true },
+    { id: state.truthId, text: state.truthText.trim(), authorId: null, isTruth: true },
   ];
   for (const [playerId, text] of Object.entries(state.submissions)) {
     if (text.trim()) {
       options.push({ id: uniqueId(), text: text.trim(), authorId: playerId, isTruth: false });
     }
   }
+
+  const minOptions = Math.min(6, Math.max(4, state.playerCount + 1));
+  if (options.length < minOptions) {
+    const decoyCandidates = state.promptsPool
+      .map((p) => p.truth.trim())
+      .filter((t) => t && t !== state.truthText.trim() && t.length >= 4 && t.length <= 120);
+    const decoys = shuffle([...new Set(decoyCandidates)]).slice(0, minOptions - options.length);
+    for (const text of decoys) {
+      options.push({ id: uniqueId(), text, authorId: "house", isTruth: false });
+    }
+  }
+
   state.options = shuffle(options);
 }
 

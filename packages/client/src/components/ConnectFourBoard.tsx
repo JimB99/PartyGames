@@ -15,7 +15,7 @@ export function ConnectFourBoard({
   const colorX = markColors?.x ?? "#ef4444";
   const colorO = markColors?.o ?? "#eab308";
   return (
-    <div className="inline-flex w-full max-w-[min(100%,20rem)] flex-col gap-1">
+    <div className="inline-flex w-full max-w-[min(100%,20rem)] flex-col gap-1" data-testid="connect-four-board">
       <div className="grid gap-1" style={{ gridTemplateColumns: `repeat(${CF_COLS}, 1fr)` }}>
         {Array.from({ length: CF_COLS }, (_, col) => (
           <button
@@ -23,6 +23,7 @@ export function ConnectFourBoard({
             type="button"
             disabled={disabled || board[0][col] !== null}
             onClick={() => onColumnClick?.(col)}
+            data-testid={`connect-four-col-${col}`}
             className="h-8 rounded bg-zinc-700 text-xs font-bold hover:bg-zinc-600 disabled:opacity-30"
           >
             ▼

@@ -16,6 +16,7 @@ export function TetrisArena({ data, room }: { data: Record<string, unknown>; roo
   return (
     <div
       className="grid w-full gap-3"
+      data-testid="tetris-arena"
       style={{ gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))" }}
     >
       {players.map((p) => {
@@ -55,6 +56,7 @@ export function TetrisPhoneControls({
   return (
     <div
       className="relative min-h-[320px] rounded-2xl border border-zinc-700 bg-zinc-900/40 touch-none select-none"
+      data-testid="tetris-phone-controls"
       onPointerDown={(e) => {
         if (disabled) return;
         startX = e.clientX;

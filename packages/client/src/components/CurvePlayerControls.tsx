@@ -9,6 +9,7 @@ function ControlBtn({
   disabled,
   variant = "primary",
   className = "",
+  testId,
 }: {
   children: React.ReactNode;
   onPointerDown?: () => void;
@@ -17,6 +18,7 @@ function ControlBtn({
   disabled?: boolean;
   variant?: "primary" | "secondary" | "danger" | "accent";
   className?: string;
+  testId?: string;
 }) {
   const styles =
     variant === "primary"
@@ -29,6 +31,7 @@ function ControlBtn({
   return (
     <button
       type="button"
+      data-testid={testId}
       disabled={disabled}
       className={`rounded-2xl px-4 py-5 text-lg font-bold text-white transition active:scale-95 disabled:opacity-40 touch-none select-none min-h-[3.25rem] landscape:min-h-[4.5rem] ${styles} ${className}`}
       onPointerDown={(e) => {
@@ -61,7 +64,7 @@ export function CurvePlayerControls({
   const jumpLocked = jumpCooldown > 0 && extraJumps <= 0;
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-30 mx-auto max-w-lg px-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] landscape:max-w-none landscape:px-4 landscape:pb-[max(0.5rem,env(safe-area-inset-bottom))]">
+    <div className="fixed inset-x-0 bottom-0 z-30 mx-auto max-w-lg px-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] landscape:max-w-none landscape:px-4 landscape:pb-[max(0.5rem,env(safe-area-inset-bottom))]" data-testid="curve-player-controls">
       <div className="grid grid-cols-2 gap-3 landscape:gap-2">
         <ControlBtn
           variant="accent"
@@ -85,6 +88,7 @@ export function CurvePlayerControls({
         )}
         <ControlBtn
           className="landscape:min-h-[32vh] landscape:text-3xl landscape:py-0"
+          testId="curve-turn-left"
           onPointerDown={() => onAction({ kind: "curve_turn", direction: "left" })}
           onPointerUp={stopTurn}
           onPointerLeave={stopTurn}
@@ -93,6 +97,7 @@ export function CurvePlayerControls({
         </ControlBtn>
         <ControlBtn
           className="landscape:min-h-[32vh] landscape:text-3xl landscape:py-0"
+          testId="curve-turn-right"
           onPointerDown={() => onAction({ kind: "curve_turn", direction: "right" })}
           onPointerUp={stopTurn}
           onPointerLeave={stopTurn}

@@ -44,6 +44,10 @@ function finishMatch(state: TicTacToeState): TicTacToeState {
 }
 
 export function onTttAction(state: TicTacToeState, playerId: string, action: GameAction): TicTacToeState {
+  if (state.phase === "playing") {
+    const active = currentMatch(state);
+    if (active?.winner) return finishMatch(state);
+  }
   if (action.kind === "advance") {
     if (state.phase === "instructions") return startPlaying(state);
     if (state.phase === "match_end") return advanceBracket(state);

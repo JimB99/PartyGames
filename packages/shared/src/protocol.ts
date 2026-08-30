@@ -41,6 +41,7 @@ export type GameAction =
   | { kind: "dike_bid"; amount: number }
   | { kind: "tetris_input"; input: "left" | "right" | "rotate_cw" | "rotate_ccw" | "soft_drop" | "hard_drop" }
   | { kind: "battleship_place"; shipIndex: number; x: number; y: number; horizontal: boolean }
+  | { kind: "battleship_random" }
   | { kind: "battleship_ready" }
   | { kind: "battleship_fire"; x: number; y: number; targetId?: string }
   | { kind: "battleship_bet"; market: "next_elimination" | "most_hits"; pick: string; amount: number }

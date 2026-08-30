@@ -5,9 +5,10 @@ import { TrailDashInstructions } from "./TrailDashInstructions";
 import { CurvePlayerControls } from "./CurvePlayerControls";
 import { TetrisArena } from "./TetrisArena";
 import { TetrisBoard } from "./TetrisBoard";
-import { TetrisPhoneControls } from "./TetrisArena";
 import { BattleshipArena } from "./BattleshipArena";
+import { BattleshipFleetStatus } from "./BattleshipFleetStatus";
 import { BattleshipGrid } from "./BattleshipGrid";
+import { BattleshipPlacement } from "./BattleshipPlacement";
 import { ConnectFourBoard } from "./ConnectFourBoard";
 import { TicTacToeBoard } from "./TicTacToeBoard";
 import { RevealBreakdown, ScoringRulesPanel } from "./RevealBreakdown";
@@ -37,12 +38,14 @@ function Btn({
   variant = "primary",
   className = "",
   disabled = false,
+  testId,
 }: {
   children: React.ReactNode;
   onClick?: () => void;
   variant?: "primary" | "secondary" | "danger";
   className?: string;
   disabled?: boolean;
+  testId?: string;
 }) {
   const base = "rounded-xl px-6 py-4 text-lg font-bold transition active:scale-95";
   const styles =
@@ -52,7 +55,7 @@ function Btn({
         ? "bg-red-600 hover:bg-red-500 text-white"
         : "bg-zinc-700 hover:bg-zinc-600 text-white";
   return (
-    <button type="button" className={`${base} ${styles} ${className} disabled:opacity-40`} onClick={onClick} disabled={disabled}>
+    <button type="button" data-testid={testId} className={`${base} ${styles} ${className} disabled:opacity-40`} onClick={onClick} disabled={disabled}>
       {children}
     </button>
   );
@@ -76,6 +79,7 @@ export function HostGameView({
 
   return (
     <div
+      data-testid="host-game-view"
       className={`mx-auto w-full max-w-full space-y-6 ${
         isTrailDashPlaying ? "max-w-6xl p-4" : "max-w-5xl p-6"
       }`}
@@ -471,13 +475,14 @@ export function PlayerGameView({
             <p className="text-center text-zinc-400">Watch the TV and guess the drawing!</p>
           )}
           <textarea
+            data-testid="player-text-input"
             className="w-full rounded-xl bg-zinc-800 p-4 text-lg"
             rows={3}
             value={text}
             onChange={(e) => setText(e.target.value)}
             placeholder="Type your answer…"
           />
-          <Btn onClick={() => { onAction({ kind: "submit_text", text }); setText(""); }} className="w-full">
+          <Btn testId="player-submit" onClick={() => { onAction({ kind: "submit_text", text }); setText(""); }} className="w-full">
             Submit
           </Btn>
         </div>
@@ -520,7 +525,7 @@ export function PlayerGameView({
           {data.question && <p className="text-center text-lg font-bold">{String(data.question)}</p>}
           <div className="grid gap-2">
             {(data.choices as string[] | undefined)?.map((c, i) => (
-              <Btn key={i} variant="secondary" className="w-full text-base text-left" onClick={() => onAction({ kind: "trivia_answer", choiceIndex: i })}>
+              <Btn key={i} testId={i === 0 ? "player-answer-0" : undefined} variant="secondary" className="w-full text-base text-left" onClick={() => onAction({ kind: "trivia_answer", choiceIndex: i })}>
                 {c}
               </Btn>
             ))}
@@ -575,34 +580,48 @@ export function PlayerGameView({
       )}
 
       {phase === "playing" && playerView.gameId === "tetris-battle" && (
-        <div className="space-y-3">
-          <TetrisBoard board={(playerData.board as number[][]) ?? []} alive={(playerData.alive as boolean) ?? true} />
-          <TetrisPhoneControls
-            disabled={!(playerData.alive as boolean)}
-            onInput={(input) => onAction({ kind: "tetris_input", input })}
-          />
-          <p className="text-center text-sm text-zinc-400">Score: {String(playerData.score ?? 0)}</p>
+        <div className="flex h-[calc(100dvh-9rem)] min-h-0 flex-col gap-2">
+          <div className="relative min-h-0 flex-1">
+            <TetrisBoard
+              board={(playerData.board as number[][]) ?? []}
+              alive={(playerData.alive as boolean) ?? true}
+              interactive
+              className="h-full"
+              onInput={(input) => onAction({ kind: "tetris_input", input })}
+            />
+          </div>
+          <p className="shrink-0 text-center text-sm text-zinc-400">
+            Score: {String(playerData.score ?? 0)} · Swipe to move/drop · Tap to rotate
+          </p>
         </div>
       )}
 
       {playerView.gameId === "battleships" && phase === "placement" && (
-        <div className="space-y-4">
-          <p className="text-center text-sm text-zinc-400">Tap cells to place ships (auto-place on timer)</p>
-          <div className="flex justify-center">
-            <BattleshipGrid
-              size={(data.gridSize as number) ?? 10}
-              ships={(playerData.fleet as import("@party-games/shared").Ship[]) ?? []}
-              showShips
-            />
-          </div>
-      {(playerData.placed as boolean) !== false && (
-            <Btn className="w-full" onClick={() => onAction({ kind: "battleship_ready" })}>Ready!</Btn>
-          )}
-        </div>
+        <BattleshipPlacement
+          gridSize={(data.gridSize as number) ?? 10}
+          fleet={(playerData.fleet as import("@party-games/shared").Ship[]) ?? []}
+          fleetLengths={(playerData.fleetLengths as number[]) ?? []}
+          onAction={onAction}
+        />
       )}
 
       {playerView.gameId === "battleships" && (phase === "battle" || phase === "fire") && (
         <div className="space-y-4">
+          <div className="grid gap-3 sm:grid-cols-2">
+            <BattleshipFleetStatus
+              label="Your fleet"
+              fleetLengths={(playerData.fleetLengths as number[]) ?? []}
+              sunkLengths={(playerData.ownSunkLengths as number[]) ?? []}
+              placedLengths={(playerData.fleet as import("@party-games/shared").Ship[] | undefined)
+                ?.filter((s) => s.cells.length === s.length)
+                .map((s) => s.length)}
+            />
+            <BattleshipFleetStatus
+              label="Enemy fleet"
+              fleetLengths={(playerData.fleetLengths as number[]) ?? []}
+              sunkLengths={(playerData.opponentSunkLengths as number[]) ?? []}
+            />
+          </div>
           <p className="text-center text-sm text-zinc-400">
             {phase === "fire" ? "Pick a target cell" : playerData.myTurn ? "Your turn — fire!" : "Waiting for opponent…"}
           </p>
@@ -610,6 +629,7 @@ export function PlayerGameView({
             <BattleshipGrid
               size={(data.gridSize as number) ?? 10}
               shots={(playerData.opponentShots as Array<{ x: number; y: number; hit: boolean }>) ?? []}
+              sunkCells={(playerData.opponentSunkCells as Array<{ x: number; y: number }>) ?? []}
               disabled={phase === "battle" ? !playerData.myTurn : false}
               onCellClick={(x, y) =>
                 onAction({
@@ -700,13 +720,14 @@ export function PlayerGameView({
             ))}
           </div>
           <textarea
+            data-testid="player-text-input"
             className="w-full rounded-xl bg-zinc-800 p-4 text-lg"
             rows={2}
             value={text}
             onChange={(e) => setText(e.target.value)}
             placeholder="Type a word…"
           />
-          <Btn onClick={() => { onAction({ kind: "submit_text", text }); setText(""); }} className="w-full">
+          <Btn testId="player-submit" onClick={() => { onAction({ kind: "submit_text", text }); setText(""); }} className="w-full">
             Submit
           </Btn>
         </div>

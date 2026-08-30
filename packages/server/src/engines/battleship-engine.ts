@@ -3,12 +3,15 @@ import {
   alivePlayers,
   allShipsPlaced,
   autoPlaceFleet,
+  clearFleetPlacement,
   computeBattleshipScores,
   createBattleshipState,
   fireAt,
   fleetDestroyed,
+  fleetLengths,
   MAX_BET,
   placeShip,
+  sunkShipLengths,
   resolveBets,
   resolveRoyaleRound,
   type BattleshipState,
@@ -36,7 +39,7 @@ function startPlacement(state: BattleshipState): BattleshipState {
   state.timerEndsAt = Date.now() + PLACEMENT_MS;
   state.timerTotalMs = PLACEMENT_MS;
   for (const id of state.playerIds) {
-    autoPlaceFleet(state.fleets[id], state.gridSize);
+    clearFleetPlacement(state.fleets[id]);
     state.ready[id] = false;
   }
   return state;
@@ -127,10 +130,17 @@ export function onBsAction(state: BattleshipState, playerId: string, action: Gam
     return state;
   }
 
-  if (action.kind === "battleship_ready" && state.phase === "placement") {
+  if (action.kind === "battleship_random" && state.phase === "placement") {
     const fleet = state.fleets[playerId];
     if (!fleet) return state;
-    if (!allShipsPlaced(fleet)) autoPlaceFleet(fleet, state.gridSize);
+    clearFleetPlacement(fleet);
+    autoPlaceFleet(fleet, state.gridSize);
+    return state;
+  }
+
+  if (action.kind === "battleship_ready" && state.phase === "placement") {
+    const fleet = state.fleets[playerId];
+    if (!fleet || !allShipsPlaced(fleet)) return state;
     state.ready[playerId] = true;
     if (allReady(state)) {
       return state.mode === "duel" ? startDuelBattle(state) : startRoyaleBetting(state);
@@ -243,8 +253,14 @@ export function bsPlayerView(state: BattleshipState, playerId: string) {
     },
     playerData: {
       fleet: fleet?.ships ?? [],
+      fleetLengths: fleet ? fleetLengths(fleet) : [],
       ownShots: fleet?.shots ?? [],
       opponentShots: opponent?.shots ?? [],
+      ownSunkLengths: fleet ? sunkShipLengths(fleet) : [],
+      opponentSunkLengths: opponent ? sunkShipLengths(opponent) : [],
+      opponentSunkCells: opponent
+        ? opponent.ships.filter((s) => s.hits >= s.length).flatMap((s) => s.cells)
+        : [],
       ready: state.ready[playerId] ?? false,
       myTurn: state.mode === "duel" ? state.playerIds[state.currentTurn] === playerId : fleet?.alive,
       placed: fleet ? allShipsPlaced(fleet) : false,

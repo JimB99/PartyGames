@@ -4,13 +4,18 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test:unit": "node --import tsx --test src/lobby.test.ts",
+    "test:integration": "node --import tsx --test --test-concurrency=1 src/test/**/*.test.ts",
+    "test": "pnpm test:unit && pnpm test:integration"
   },
   "dependencies": {
     "@party-games/shared": "workspace:*",
     "partyserver": "^0.5.10"
   },
   "devDependencies": {
+    "partysocket": "^1.0.2",
+    "tsx": "^4.19.2",
     "typescript": "^5.7.3"
   }
 }

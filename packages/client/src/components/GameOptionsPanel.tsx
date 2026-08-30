@@ -56,7 +56,7 @@ export function GameOptionsPanel({
 
   return (
 
-    <div className="rounded-2xl border border-zinc-700 bg-zinc-800/40 p-4 space-y-4">
+    <div className="rounded-2xl border border-zinc-700 bg-zinc-800/40 p-4 space-y-4" data-testid="game-options-panel">
 
       <h3 className="text-sm font-semibold uppercase tracking-wide text-zinc-400">Game options</h3>
 
@@ -74,6 +74,8 @@ export function GameOptionsPanel({
 
               label="Family"
 
+              testId="game-option-content-family"
+
               active={options.contentRating === "family"}
 
               onClick={() => onChange({ ...options, contentRating: "family" })}
@@ -83,6 +85,8 @@ export function GameOptionsPanel({
             <RatingButton
 
               label="18+"
+
+              testId="game-option-content-mature"
 
               active={options.contentRating === "mature"}
 
@@ -258,6 +262,8 @@ function RatingButton({
 
   onClick,
 
+  testId,
+
 }: {
 
   label: string;
@@ -266,6 +272,8 @@ function RatingButton({
 
   onClick: () => void;
 
+  testId?: string;
+
 }) {
 
   return (
@@ -273,6 +281,8 @@ function RatingButton({
     <button
 
       type="button"
+
+      data-testid={testId}
 
       onClick={onClick}
 

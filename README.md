@@ -8,9 +8,33 @@ Jackbox-style party games: one big screen (host/TV) + phones as controllers.
 - **React + Vite + Tailwind** (client, served from the same Worker)
 - **TypeScript monorepo** (`shared`, `server`, `client`)
 
-## Games (16)
+## Games (20)
 
-Fibbage, Quiplash, Quick Quiz, Would You Rather, Caption This, Draw & Guess, Bracket Battle, Role Sort, Timeline, Impostor, Curve Fever, Word Rush, Fibbage Reverse, Team Charades, Hot Seat, Last on the Dike.
+Fact Check, Wit Showdown, Quick Quiz, Would You Rather, Caption This, Draw & Guess, Bracket Battle, Friend Sort, When Was It, Impostor, Trail Dash, Word Rush, Reverse Fact, Team Charades, Hot Seat, Last on the Dike, Tetris Battle, Battleships, Connect Four, Tic-Tac-Toe.
+
+## Testing
+
+```bash
+npx pnpm test              # unit + integration (shared + server)
+npx pnpm test:unit         # shared logic tests only
+npx pnpm test:e2e          # Playwright UI smoke tests (all 20 games)
+npx pnpm test:e2e -- e2e/games/quick-quiz.spec.ts   # single game
+```
+
+Prerequisites for E2E:
+
+1. `npx playwright install chromium` (once)
+2. Dev servers running (`npx pnpm dev`) or let Playwright start them via `playwright.config.ts`
+3. Optional WebSocket integration tests: `npx wrangler dev --port 8787` in another terminal
+
+Test layers:
+
+- **Unit** — scoring, board logic, content filters (\`packages/shared\`)
+- **Content validation** — all JSON question/word pools
+- **Game integration** — all 20 games at min/max players via \`GameModule\` simulation
+- **Settings matrix** — family/mature, difficulty, speed scoring, Trail Dash options
+- **Room WebSocket** — join/start/max players (requires wrangler dev)
+- **Playwright E2E** — host + player UI smoke per game
 
 ## Go live (one-time setup)
 
