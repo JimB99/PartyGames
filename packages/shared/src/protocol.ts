@@ -6,8 +6,12 @@ import type { ConnectionRole } from "./room.js";
 export type ClientMessage =
   | { type: "join"; role: ConnectionRole; nickname?: string; playerId?: string; colorIndex?: number }
   | { type: "select_game"; gameId: GameId }
-  | { type: "set_game_options"; gameId: GameId; options: GameOptions }
   | { type: "start_game" }
+  | { type: "set_game_options"; gameId: GameId; options: GameOptions }
+  | { type: "set_session_playlist"; gameIds: GameId[] }
+  | { type: "start_session" }
+  | { type: "next_session_game" }
+  | { type: "clear_session_playlist" }
   | { type: "play_again" }
   | { type: "return_to_lobby" }
   | { type: "pause_game" }
@@ -26,27 +30,45 @@ export type GameAction =
   | { kind: "trivia_answer"; choiceIndex: number }
   | { kind: "year_slider"; year: number }
   | { kind: "would_you_rather"; choice: "a" | "b" }
-  | { kind: "draw_stroke"; points: number[]; color: string }
+  | { kind: "draw_stroke"; points: number[]; color: string; width?: number }
+  | { kind: "draw_undo" }
   | { kind: "draw_clear" }
+  | { kind: "draw_tool"; tool: "pen" | "eraser"; width?: number }
   | { kind: "assign_role"; assignments: Record<string, string> }
   | { kind: "impostor_task"; result: "success" | "fail" }
   | { kind: "impostor_eject"; targetId: string }
-  | { kind: "curve_turn"; direction: "left" | "right" | "none" }
-  | { kind: "curve_jump" }
-  | { kind: "curve_fire" }
+  | { kind: "trail_dash_turn"; direction: "left" | "right" | "none" }
+  | { kind: "trail_dash_jump" }
+  | { kind: "trail_dash_fire" }
   | { kind: "charades_correct" }
   | { kind: "charades_skip" }
   | { kind: "hot_seat_pick"; submissionId: string }
   | { kind: "advance" }
   | { kind: "dike_bid"; amount: number }
-  | { kind: "tetris_input"; input: "left" | "right" | "rotate_cw" | "rotate_ccw" | "soft_drop" | "hard_drop" }
-  | { kind: "battleship_place"; shipIndex: number; x: number; y: number; horizontal: boolean }
-  | { kind: "battleship_random" }
-  | { kind: "battleship_ready" }
-  | { kind: "battleship_fire"; x: number; y: number; targetId?: string }
-  | { kind: "battleship_bet"; market: "next_elimination" | "most_hits"; pick: string; amount: number }
-  | { kind: "connect_four_drop"; column: number }
-  | { kind: "tic_tac_toe_move"; cell: number };
+  | { kind: "block_stack_input"; input: "left" | "right" | "rotate_cw" | "rotate_ccw" | "soft_drop" | "hard_drop" | "hold" }
+  | { kind: "spectrum_guess"; value: number }
+  | { kind: "split_vote"; side: "a" | "b" }
+  | { kind: "crowd_predict"; choiceIndex: number }
+  | { kind: "crowd_answer"; choiceIndex: number }
+  | { kind: "star_rate"; submissionId: string; stars: number }
+  | { kind: "fleet_duel_place"; shipIndex: number; x: number; y: number; horizontal: boolean }
+  | { kind: "fleet_duel_random" }
+  | { kind: "fleet_duel_ready" }
+  | { kind: "fleet_duel_fire"; x: number; y: number; targetId?: string }
+  | { kind: "fleet_duel_bet"; market: "next_elimination" | "most_hits"; pick: string; amount: number }
+  | { kind: "four_in_a_row_drop"; column: number }
+  | { kind: "tic_tac_toe_move"; cell: number }
+  | { kind: "stranger_accuse"; targetId: string }
+  | { kind: "stranger_guess"; itemIndex: number }
+  | { kind: "agent_clue"; word: string; count: number }
+  | { kind: "agent_guess"; index: number }
+  | { kind: "agent_pass" }
+  | { kind: "forbidden_correct" }
+  | { kind: "forbidden_skip" }
+  | { kind: "forbidden_foul" }
+  | { kind: "hangman_letter"; letter: string }
+  | { kind: "paddle_move"; y: number }
+  | { kind: "grid_blast_input"; input: "up" | "down" | "left" | "right" | "bomb" };
 
 export type ServerMessage =
   | { type: "room_state"; state: RoomSnapshot }
@@ -75,6 +97,9 @@ export interface RoomSnapshot {
   role: ConnectionRole;
   playerId: string | null;
   games: GameMeta[];
+  sessionPlaylist: GameId[];
+  sessionPlaylistIndex: number;
+  sessionActive: boolean;
 }
 
 export interface HostViewSnapshot {

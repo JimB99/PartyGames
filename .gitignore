@@ -4,6 +4,7 @@ dist
 .wrangler
 test-results
 playwright-report
+test-reports
 *.local
 .env
 .DS_Store

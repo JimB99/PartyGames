@@ -52,8 +52,8 @@ export interface GameMeta {
 }
 
 export const ALL_GAME_IDS = [
-  "fibbage",
-  "quiplash",
+  "fact-check",
+  "wit-showdown",
   "quick-quiz",
   "would-you-rather",
   "caption-this",
@@ -62,16 +62,27 @@ export const ALL_GAME_IDS = [
   "role-sort",
   "timeline",
   "impostor",
-  "curve-fever",
+  "trail-dash",
   "word-rush",
-  "fibbage-reverse",
+  "reverse-fact",
   "team-charades",
   "hot-seat",
   "last-on-the-dike",
-  "tetris-battle",
-  "battleships",
-  "connect-four",
+  "block-stack",
+  "fleet-duel",
+  "four-in-a-row",
   "tic-tac-toe",
+  "split-the-room",
+  "spectrum",
+  "chain-sketch",
+  "crowd-call",
+  "star-rate",
+  "out-of-place",
+  "agent-grid",
+  "forbidden-clue",
+  "hangman-race",
+  "paddle-clash",
+  "grid-blast",
 ] as const;
 
 export type GameId = (typeof ALL_GAME_IDS)[number];

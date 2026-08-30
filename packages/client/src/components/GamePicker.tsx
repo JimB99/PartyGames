@@ -28,9 +28,9 @@ function effectivePlayerCount(
   humanCount: number,
   gameOptionsByGame?: Partial<Record<GameId, GameOptions>>,
 ): number {
-  if (game.id === "curve-fever") {
+  if (game.id === "trail-dash") {
     const opts = resolveTrailDashOptions(
-      gameOptionsByGame?.["curve-fever"] ?? { contentRating: "family", difficulty: "mixed" },
+      gameOptionsByGame?.["trail-dash"] ?? { contentRating: "family", difficulty: "mixed" },
     );
     return humanCount + opts.botCount;
   }
@@ -53,7 +53,7 @@ function GameCard({
   const total = effectivePlayerCount(game, playerCount, gameOptionsByGame);
   const overMax = total > game.maxPlayers;
   const readyToStart =
-    game.id === "curve-fever"
+    game.id === "trail-dash"
       ? total >= 2 && total <= 8
       : total >= game.minPlayers && total <= game.maxPlayers;
 
@@ -76,11 +76,11 @@ function GameCard({
       <h3 className="font-bold text-lg">{game.name}</h3>
       <p className="mt-1 text-sm text-zinc-400">{game.description}</p>
       <p className="mt-2 text-xs text-zinc-500">
-        {game.id === "curve-fever" ? "1–8 players (+ bots)" : `${game.minPlayers}–${game.maxPlayers} players`}
+        {game.id === "trail-dash" ? "1–8 players (+ bots)" : `${game.minPlayers}–${game.maxPlayers} players`}
       </p>
       {!readyToStart && !overMax && (
         <p className="mt-1 text-xs text-amber-400">
-          {game.id === "curve-fever" ? "Add bots or invite players" : `Need ${game.minPlayers - total} more`}
+          {game.id === "trail-dash" ? "Add bots or invite players" : `Need ${game.minPlayers - total} more`}
         </p>
       )}
     </button>

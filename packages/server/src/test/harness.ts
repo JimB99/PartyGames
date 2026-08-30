@@ -111,8 +111,8 @@ export function runUntilEnded<TState>(
       const phase = getPhase(state);
       const shouldExpire =
         actions.length === 0 ||
-        (options.gameId === "curve-fever" && phase === "playing") ||
-        (options.gameId === "tetris-battle" && phase === "playing");
+        (options.gameId === "trail-dash" && phase === "playing") ||
+        (options.gameId === "block-stack" && phase === "playing");
       if (shouldExpire) expireTimers(state);
       state = game.onTick(state);
     }

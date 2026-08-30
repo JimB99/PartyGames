@@ -1,6 +1,9 @@
-import fibbageJson from "../../shared/content/prompts/fibbage.json";
-import fibbageReverseJson from "../../shared/content/prompts/fibbage-reverse.json";
-import quiplashJson from "../../shared/content/prompts/quiplash.json";
+import factCheckJson from "../../shared/content/prompts/fact-check.json";
+import splitRoomJson from "../../shared/content/prompts/split-room.json";
+import spectrumJson from "../../shared/content/prompts/spectrum.json";
+import crowdCallJson from "../../shared/content/prompts/crowd-call.json";
+import reverseFactJson from "../../shared/content/prompts/reverse-fact.json";
+import witShowdownJson from "../../shared/content/prompts/wit-showdown.json";
 import captionJson from "../../shared/content/prompts/caption.json";
 import hotSeatJson from "../../shared/content/prompts/hot-seat.json";
 import quizJson from "../../shared/content/trivia/quiz.json";
@@ -8,13 +11,17 @@ import timelineJson from "../../shared/content/trivia/timeline.json";
 import wouldYouRatherJson from "../../shared/content/would-you-rather.json";
 import drawWordsJson from "../../shared/content/words/draw.json";
 import charadesWordsJson from "../../shared/content/words/charades.json";
-import muppetsJson from "../../shared/content/categories/muppets.json";
+import outOfPlaceJson from "../../shared/content/categories/out-of-place.json";
+import forbiddenClueJson from "../../shared/content/words/forbidden-clue.json";
+import friendSortRolesJson from "../../shared/content/categories/friend-sort-roles.json";
 import bracketCategoriesJson from "../../shared/content/categories/bracket.json";
 import { dictionary } from "./dictionary.js";
 
 import type {
   CategoryEntry,
-  FibbageEntry,
+  FactCheckEntry,
+  ForbiddenClueCard,
+  OutOfPlaceCategory,
   PromptEntry,
   QuizEntry,
   TimelineEntry,
@@ -23,9 +30,9 @@ import type {
 } from "@party-games/shared";
 
 export const content = {
-  fibbage: fibbageJson as FibbageEntry[],
-  fibbageReverse: fibbageReverseJson as FibbageEntry[],
-  quiplash: quiplashJson as PromptEntry[],
+  factCheck: factCheckJson as FactCheckEntry[],
+  reverseFact: reverseFactJson as FactCheckEntry[],
+  witShowdown: witShowdownJson as PromptEntry[],
   caption: captionJson as PromptEntry[],
   hotSeat: hotSeatJson as PromptEntry[],
   quiz: quizJson as QuizEntry[],
@@ -33,7 +40,12 @@ export const content = {
   wouldYouRather: wouldYouRatherJson as WouldYouRatherEntry[],
   drawWords: drawWordsJson as WordEntry[],
   charadesWords: charadesWordsJson as WordEntry[],
-  muppets: muppetsJson as string[],
+  friendSortRoles: friendSortRolesJson as string[],
   bracketCategories: bracketCategoriesJson as CategoryEntry[],
+  splitRoom: splitRoomJson as Array<{ text: string; labelA: string; labelB: string }>,
+  spectrum: spectrumJson as Array<{ left: string; right: string }>,
+  crowdCall: crowdCallJson as Array<{ text: string; choices: string[] }>,
+  outOfPlace: outOfPlaceJson as OutOfPlaceCategory[],
+  forbiddenClue: forbiddenClueJson as ForbiddenClueCard[],
   dictionary,
 };

@@ -3,24 +3,31 @@ import { useEffect } from "react";
 export function HostControlBar({
   paused,
   phase,
+  sessionActive = false,
+  hasNextSessionGame = false,
   onPause,
   onResume,
   onSkip,
   onExtend,
   onPlayAgain,
+  onNextSessionGame,
   onEnd,
 }: {
   paused: boolean;
   phase: string;
+  sessionActive?: boolean;
+  hasNextSessionGame?: boolean;
   onPause: () => void;
   onResume: () => void;
   onSkip: () => void;
   onExtend: () => void;
   onPlayAgain?: () => void;
+  onNextSessionGame?: () => void;
   onEnd: () => void;
 }) {
   const canSkip = ["instructions", "round_end", "reveal", "scoreboard"].includes(phase);
-  const canPlayAgain = phase === "ended" && onPlayAgain;
+  const canPlayAgain = phase === "ended" && onPlayAgain && !sessionActive;
+  const canNextSession = phase === "ended" && sessionActive && hasNextSessionGame && onNextSessionGame;
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
@@ -44,27 +51,32 @@ export function HostControlBar({
 
   return (
     <div className="fixed bottom-4 left-4 right-4 z-50 flex flex-wrap justify-end gap-2 sm:left-auto sm:right-4 sm:max-w-xl">
+      {canNextSession && (
+        <button type="button" data-testid="next-session-game" onClick={onNextSessionGame} className="rounded-xl bg-emerald-600 px-5 py-3 font-bold">
+          Next game
+        </button>
+      )}
       {canPlayAgain && (
-        <button type="button" onClick={onPlayAgain} className="rounded-xl bg-violet-600 px-5 py-3 font-bold">
+        <button type="button" data-testid="host-play-again" onClick={onPlayAgain} className="rounded-xl bg-violet-600 px-5 py-3 font-bold">
           Play again
         </button>
       )}
       {paused ? (
-        <button type="button" onClick={onResume} className="rounded-xl bg-green-600 px-5 py-3 font-bold">
+        <button type="button" data-testid="host-resume" onClick={onResume} className="rounded-xl bg-green-600 px-5 py-3 font-bold">
           Resume
         </button>
       ) : (
-        <button type="button" onClick={onPause} className="rounded-xl bg-amber-600 px-5 py-3 font-bold">
+        <button type="button" data-testid="host-pause" onClick={onPause} className="rounded-xl bg-amber-600 px-5 py-3 font-bold">
           Pause
         </button>
       )}
       {!paused && canSkip && (
-        <button type="button" onClick={onSkip} className="rounded-xl bg-violet-600 px-5 py-3 font-bold">
+        <button type="button" data-testid="host-skip" onClick={onSkip} className="rounded-xl bg-violet-600 px-5 py-3 font-bold">
           {phase === "instructions" ? "Start round" : "Skip"}
         </button>
       )}
       {!paused && (
-        <button type="button" onClick={onExtend} className="rounded-xl bg-zinc-600 px-5 py-3 font-bold">
+        <button type="button" data-testid="host-extend" onClick={onExtend} className="rounded-xl bg-zinc-600 px-5 py-3 font-bold">
           +30s
         </button>
       )}

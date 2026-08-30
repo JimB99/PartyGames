@@ -60,7 +60,7 @@ export function CurvePlayerControls({
   heldPowerUp: string | null;
   extraJumps?: number;
 }) {
-  const stopTurn = () => onAction({ kind: "curve_turn", direction: "none" });
+  const stopTurn = () => onAction({ kind: "trail_dash_turn", direction: "none" });
   const jumpLocked = jumpCooldown > 0 && extraJumps <= 0;
 
   return (
@@ -69,7 +69,7 @@ export function CurvePlayerControls({
         <ControlBtn
           variant="accent"
           disabled={jumpLocked}
-          onPointerDown={() => onAction({ kind: "curve_jump" })}
+          onPointerDown={() => onAction({ kind: "trail_dash_jump" })}
         >
           {jumpLocked
             ? `Jump (${Math.ceil(jumpCooldown / 25)}s)`
@@ -78,7 +78,7 @@ export function CurvePlayerControls({
               : "Jump"}
         </ControlBtn>
         {canFire ? (
-          <ControlBtn variant="danger" onPointerDown={() => onAction({ kind: "curve_fire" })}>
+          <ControlBtn variant="danger" onPointerDown={() => onAction({ kind: "trail_dash_fire" })}>
             Fire {heldPowerUp ? powerUpInfo(heldPowerUp as import("@party-games/shared").PowerUpKind).icon : "🚀"}
           </ControlBtn>
         ) : (
@@ -88,8 +88,8 @@ export function CurvePlayerControls({
         )}
         <ControlBtn
           className="landscape:min-h-[32vh] landscape:text-3xl landscape:py-0"
-          testId="curve-turn-left"
-          onPointerDown={() => onAction({ kind: "curve_turn", direction: "left" })}
+          testId="trail-dash-turn-left"
+          onPointerDown={() => onAction({ kind: "trail_dash_turn", direction: "left" })}
           onPointerUp={stopTurn}
           onPointerLeave={stopTurn}
         >
@@ -97,8 +97,8 @@ export function CurvePlayerControls({
         </ControlBtn>
         <ControlBtn
           className="landscape:min-h-[32vh] landscape:text-3xl landscape:py-0"
-          testId="curve-turn-right"
-          onPointerDown={() => onAction({ kind: "curve_turn", direction: "right" })}
+          testId="trail-dash-turn-right"
+          onPointerDown={() => onAction({ kind: "trail_dash_turn", direction: "right" })}
           onPointerUp={stopTurn}
           onPointerLeave={stopTurn}
         >

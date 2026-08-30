@@ -23,7 +23,7 @@ export const roleSortGame: GameModule<RoleSortState> = {
     supportsMatureContent: false,
   },
   init(ctx) {
-    return createRoleSortState("Muppets", content.muppets, ctx.playerIds);
+    return createRoleSortState("Archetypes", content.friendSortRoles, ctx.playerIds);
   },
   onPlayerAction(state, playerId, action, ctx) {
     return onRoleSortAction(state, playerId, action, ctx);

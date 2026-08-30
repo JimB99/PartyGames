@@ -179,6 +179,27 @@ export class RoomServer extends Server {
         }
         this.broadcastAll();
         return;
+      case "set_session_playlist":
+        if (this.isHost(sender) && this.roomPhase === "lobby") {
+          this.lobby.sessionPlaylist = message.gameIds;
+          this.lobby.sessionPlaylistIndex = 0;
+        }
+        this.broadcastAll();
+        return;
+      case "start_session":
+        if (this.isHost(sender)) this.startSession();
+        return;
+      case "next_session_game":
+        if (this.isHost(sender)) this.nextSessionGame();
+        return;
+      case "clear_session_playlist":
+        if (this.isHost(sender) && this.roomPhase === "lobby") {
+          this.lobby.sessionPlaylist = [];
+          this.lobby.sessionPlaylistIndex = 0;
+          this.lobby.sessionActive = false;
+        }
+        this.broadcastAll();
+        return;
       case "start_game":
         if (this.isHost(sender)) this.startGame();
         return;
@@ -260,8 +281,10 @@ export class RoomServer extends Server {
     const nickname = sanitizeNickname(message.nickname ?? "Player");
     let playerId = message.playerId;
 
-    if (!playerId && this.roomPhase === "playing") {
-      const byName = this.lobby.players.find((p) => !p.connected && p.nickname === nickname);
+    if (!playerId) {
+      const byName = this.lobby.players.find(
+        (p) => !p.connected && p.nickname.toLowerCase() === nickname.toLowerCase(),
+      );
       if (byName) playerId = byName.id;
     }
     if (!playerId) playerId = uniqueId();
@@ -315,17 +338,17 @@ export class RoomServer extends Server {
     };
   }
 
-  startGame() {
-    const gameId = this.lobby.selectedGameId;
-    if (!gameId) return;
+  startGame(gameId?: GameId) {
+    const selected = gameId ?? this.lobby.selectedGameId;
+    if (!selected) return;
 
-    const game = getGame(gameId);
+    const game = getGame(selected);
     if (!game) return;
 
     const ctx = this.getRoomContext();
 
-    if (gameId === "curve-fever") {
-      const opts = resolveTrailDashOptions(getGameOptions(this.lobby, gameId));
+    if (selected === "trail-dash") {
+      const opts = resolveTrailDashOptions(getGameOptions(this.lobby, selected));
       const total = ctx.playerIds.length + opts.botCount;
       if (total < 2) {
         this.sendToHost({
@@ -352,9 +375,38 @@ export class RoomServer extends Server {
     this.gameModule = game;
     this.gameState = game.init(ctx);
     this.roomPhase = "playing";
-    this.activeGameId = gameId;
+    this.activeGameId = selected;
+    this.lobby.selectedGameId = selected;
     this.startTick();
     this.broadcastAll();
+  }
+
+  startSession() {
+    if (this.roomPhase !== "lobby" || this.lobby.sessionPlaylist.length === 0) return;
+    this.lobby.sessionActive = true;
+    this.lobby.sessionPlaylistIndex = 0;
+    this.startGame(this.lobby.sessionPlaylist[0]);
+  }
+
+  nextSessionGame() {
+    if (!this.lobby.sessionActive || !this.gameModule || !this.gameState) return;
+    if (!this.gameModule.isGameOver(this.gameState)) return;
+
+    const nextIndex = this.lobby.sessionPlaylistIndex + 1;
+    if (nextIndex >= this.lobby.sessionPlaylist.length) {
+      this.lobby.sessionActive = false;
+      this.returnToLobby();
+      return;
+    }
+
+    this.lobby.sessionPlaylistIndex = nextIndex;
+    const nextId = this.lobby.sessionPlaylist[nextIndex];
+    this.stopTick();
+    this.gameModule = null;
+    this.gameState = null;
+    this.lobby.paused = false;
+    this.lobby.pausedAt = null;
+    this.startGame(nextId);
   }
 
   playGameAgain() {
@@ -367,7 +419,7 @@ export class RoomServer extends Server {
 
     const ctx = this.getRoomContext();
 
-    if (gameId === "curve-fever") {
+    if (gameId === "trail-dash") {
       const opts = resolveTrailDashOptions(getGameOptions(this.lobby, gameId));
       const total = ctx.playerIds.length + opts.botCount;
       if (total < 2 || total > 8) return;
@@ -531,6 +583,9 @@ export class RoomServer extends Server {
       role,
       playerId,
       games: listGames(),
+      sessionPlaylist: this.lobby.sessionPlaylist,
+      sessionPlaylistIndex: this.lobby.sessionPlaylistIndex,
+      sessionActive: this.lobby.sessionActive,
     };
   }
 

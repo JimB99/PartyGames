@@ -10,7 +10,7 @@ import {
   filterWordList,
   filterCategoryList,
   type CategoryEntry,
-  type FibbageEntry,
+  type FactCheckEntry,
   type PromptEntry,
   type QuizEntry,
   type TimelineEntry,
@@ -19,7 +19,7 @@ import {
 } from "./content.js";
 import {
   duplicateTruthRate,
-  isFibbageTruthValid,
+  isFactCheckTruthValid,
   isObviousBluffTruth,
   isPlaceholderTruth,
   isQuestionForm,
@@ -86,9 +86,9 @@ describe("content validation", () => {
     }
   });
 
-  for (const file of ["fibbage.json", "fibbage-reverse.json"] as const) {
+  for (const file of ["fact-check.json", "reverse-fact.json"] as const) {
     it(`prompts/${file} entries are valid`, () => {
-      const items = loadJson<FibbageEntry[]>(`prompts/${file}`);
+      const items = loadJson<FactCheckEntry[]>(`prompts/${file}`);
       assert.ok(items.length >= MIN_CONTENT_POOL_SIZE, `${file} pool below ${MIN_CONTENT_POOL_SIZE}`);
       for (const [i, item] of items.entries()) {
         assertNonEmpty(item.truth, `${file}[${i}].truth`);
@@ -97,7 +97,7 @@ describe("content validation", () => {
     });
   }
 
-  for (const file of ["quiplash.json", "caption.json", "hot-seat.json"] as const) {
+  for (const file of ["wit-showdown.json", "caption.json", "hot-seat.json"] as const) {
     it(`prompts/${file} entries are valid`, () => {
       const items = loadJson<PromptEntry[]>(`prompts/${file}`);
       assert.ok(items.length >= MIN_CONTENT_POOL_SIZE, `${file} pool below ${MIN_CONTENT_POOL_SIZE}`);
@@ -142,8 +142,8 @@ describe("content validation", () => {
     assert.equal(json.length, words.length, "dictionary.json out of sync with dictionary.txt");
   });
 
-  it("fibbage pool avoids placeholder truths and duplicate truth spam", () => {
-    const items = loadJson<FibbageEntry[]>("prompts/fibbage.json");
+  it("fact-check pool avoids placeholder truths and duplicate truth spam", () => {
+    const items = loadJson<FactCheckEntry[]>("prompts/fact-check.json");
     const truths = items.map((i) => i.truth);
     const placeholders = truths.filter((t) => isPlaceholderTruth(t));
     assert.ok(placeholders.length <= 1, `too many placeholder truths: ${placeholders.length}`);
@@ -152,17 +152,17 @@ describe("content validation", () => {
       `duplicate truth rate ${duplicateTruthRate(truths)} exceeds ${MAX_DUPLICATE_TRUTH_RATE}`,
     );
     const questions = items.filter((i) => isQuestionForm(i.truth));
-    assert.equal(questions.length, 0, "fibbage truths must not be questions");
+    assert.equal(questions.length, 0, "fact-check truths must not be questions");
     for (const item of items) {
       assert.ok(
-        isFibbageTruthValid(item.prompt ?? "", item.truth),
-        `invalid fibbage pair: ${item.prompt} -> ${item.truth}`,
+        isFactCheckTruthValid(item.prompt ?? "", item.truth),
+        `invalid fact-check pair: ${item.prompt} -> ${item.truth}`,
       );
     }
   });
 
-  it("fibbage-reverse pool is large and mostly non-trivial", () => {
-    const items = loadJson<FibbageEntry[]>("prompts/fibbage-reverse.json");
+  it("reverse-fact pool is large and mostly non-trivial", () => {
+    const items = loadJson<FactCheckEntry[]>("prompts/reverse-fact.json");
     assert.ok(items.length >= MIN_CONTENT_POOL_SIZE, "reverse fact pool too small");
     assert.ok(
       duplicateTruthRate(items.map((i) => i.truth)) <= MAX_SHARED_REVERSE_TRUTH_RATE,
@@ -172,7 +172,7 @@ describe("content validation", () => {
     assert.equal(yearQuestion.length, 0, "timeline-style duplicate truths must be excluded");
     const sample = items.slice(0, Math.min(200, items.length));
     const trivial = sample.filter((item) => {
-      const fact = (item as FibbageEntry & { fact?: string }).fact ?? "";
+      const fact = (item as FactCheckEntry & { fact?: string }).fact ?? "";
       return isReverseFactTrivial(fact, item.truth);
     });
     const trivialRate = trivial.length / sample.length;
@@ -184,7 +184,7 @@ describe("content validation", () => {
   });
 
   it("prompt pools are not alphabetically ordered", () => {
-    for (const file of ["quiplash.json", "caption.json", "hot-seat.json"] as const) {
+    for (const file of ["wit-showdown.json", "caption.json", "hot-seat.json"] as const) {
       const items = loadJson<PromptEntry[]>(`prompts/${file}`);
       const texts = items.map((i) => i.text);
       const ratio = orderedSequenceRatio(texts, 20);
@@ -192,11 +192,11 @@ describe("content validation", () => {
         ratio <= MAX_ORDERED_SEQUENCE_RATIO,
         `${file} ordered sequence ratio ${ratio} exceeds ${MAX_ORDERED_SEQUENCE_RATIO}`,
       );
-      if (file === "quiplash.json") {
+      if (file === "wit-showdown.json") {
         const worst = texts.filter((t) => /^worst thing:/i.test(t)).length;
         assert.ok(
           worst / texts.length <= 0.25,
-          `quiplash 'Worst thing:' prefix exceeds 25% (${worst}/${texts.length})`,
+          `wit-showdown 'Worst thing:' prefix exceeds 25% (${worst}/${texts.length})`,
         );
       }
     }
@@ -214,8 +214,8 @@ describe("content validation", () => {
   });
 
   it("voting truths are not obvious outliers vs sample decoys", () => {
-    const fibbage = loadJson<FibbageEntry[]>("prompts/fibbage.json").filter((f) => f.rating === "family");
-    const sample = fibbage.slice(0, 40);
+    const factCheck = loadJson<FactCheckEntry[]>("prompts/fact-check.json").filter((f) => f.rating === "family");
+    const sample = factCheck.slice(0, 40);
     for (const item of sample) {
       const decoys = sample
         .filter((other) => other.truth !== item.truth)
@@ -229,9 +229,9 @@ describe("content validation", () => {
     const familyOpts = { ...DEFAULT_GAME_OPTIONS, contentRating: "family" as const };
     const matureOpts = { ...DEFAULT_GAME_OPTIONS, contentRating: "mature" as const };
 
-    const fibbageFamily = filterPromptList(loadJson<FibbageEntry[]>("prompts/fibbage.json"), familyOpts);
-    const fibbageMature = filterPromptList(loadJson<FibbageEntry[]>("prompts/fibbage.json"), matureOpts);
-    assert.ok(fibbageMature.length > fibbageFamily.length, "fibbage mature pool should be larger than family");
+    const factCheckFamily = filterContentPool(loadJson<FactCheckEntry[]>("prompts/fact-check.json"), familyOpts);
+    const factCheckMature = filterContentPool(loadJson<FactCheckEntry[]>("prompts/fact-check.json"), matureOpts);
+    assert.ok(factCheckMature.length > factCheckFamily.length, "fact-check mature pool should be larger than family");
 
     const quizFamily = filterContentPool(loadJson<QuizEntry[]>("trivia/quiz.json"), familyOpts);
     const quizMature = filterContentPool(loadJson<QuizEntry[]>("trivia/quiz.json"), matureOpts);

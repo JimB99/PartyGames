@@ -345,14 +345,14 @@ export function curveActions(state: unknown, ctx: RoomContext): SimAction[] {
 
   if (phase === "playing") {
     for (const playerId of ctx.playerIds) {
-      actions.push({ role: "player", playerId, action: { kind: "curve_turn", direction: "left" } });
+      actions.push({ role: "player", playerId, action: { kind: "trail_dash_turn", direction: "left" } });
     }
   }
 
   return actions;
 }
 
-export function tetrisActions(state: unknown, ctx: RoomContext): SimAction[] {
+export function blockStackActions(state: unknown, ctx: RoomContext): SimAction[] {
   const phase = getPhase(state);
   const actions: SimAction[] = [];
 
@@ -363,14 +363,14 @@ export function tetrisActions(state: unknown, ctx: RoomContext): SimAction[] {
 
   if (phase === "playing") {
     for (const playerId of ctx.playerIds) {
-      actions.push({ role: "player", playerId, action: { kind: "tetris_input", input: "left" } });
+      actions.push({ role: "player", playerId, action: { kind: "block_stack_input", input: "left" } });
     }
   }
 
   return actions;
 }
 
-export function battleshipActions(state: unknown, ctx: RoomContext): SimAction[] {
+export function fleetDuelActions(state: unknown, ctx: RoomContext): SimAction[] {
   const phase = getPhase(state);
   const s = state as {
     mode?: string;
@@ -387,8 +387,8 @@ export function battleshipActions(state: unknown, ctx: RoomContext): SimAction[]
 
   if (phase === "placement") {
     for (const playerId of ctx.playerIds) {
-      actions.push({ role: "player", playerId, action: { kind: "battleship_random" } });
-      actions.push({ role: "player", playerId, action: { kind: "battleship_ready" } });
+      actions.push({ role: "player", playerId, action: { kind: "fleet_duel_random" } });
+      actions.push({ role: "player", playerId, action: { kind: "fleet_duel_ready" } });
     }
     return actions;
   }
@@ -401,7 +401,7 @@ export function battleshipActions(state: unknown, ctx: RoomContext): SimAction[]
         role: "player",
         playerId,
         action: {
-          kind: "battleship_fire",
+          kind: "fleet_duel_fire",
           x: shotCount % 10,
           y: Math.floor(shotCount / 10) % 10,
           targetId,
@@ -417,7 +417,7 @@ export function battleshipActions(state: unknown, ctx: RoomContext): SimAction[]
     actions.push({
       role: "player",
       playerId: turnId,
-      action: { kind: "battleship_fire", x: shotCount % 10, y: Math.floor(shotCount / 10) % 10 },
+      action: { kind: "fleet_duel_fire", x: shotCount % 10, y: Math.floor(shotCount / 10) % 10 },
     });
     return actions;
   }
@@ -455,7 +455,7 @@ export function connectFourActions(state: unknown, ctx: RoomContext): SimAction[
           break;
         }
       }
-      actions.push({ role: "player", playerId: turnId, action: { kind: "connect_four_drop", column: col } });
+      actions.push({ role: "player", playerId: turnId, action: { kind: "four_in_a_row_drop", column: col } });
     }
   }
 
@@ -519,5 +519,284 @@ export function ticTacToeActions(state: unknown, ctx: RoomContext): SimAction[] 
     actions.push({ role: "player", playerId: turnPlayer, action: { kind: "tic_tac_toe_move", cell } });
   }
 
+  return actions;
+}
+
+export function splitRoomActions(state: unknown, ctx: RoomContext): SimAction[] {
+  const phase = getPhase(state);
+  const actions: SimAction[] = [];
+  if (phase === "instructions") {
+    actions.push({ role: "host", action: { kind: "advance" } });
+    return actions;
+  }
+  if (phase === "submit") {
+    for (const playerId of ctx.playerIds) {
+      actions.push({ role: "player", playerId, action: { kind: "submit_text", text: `Take ${playerId}` } });
+    }
+    return actions;
+  }
+  if (phase === "vote") {
+    for (const playerId of ctx.playerIds) {
+      actions.push({ role: "player", playerId, action: { kind: "split_vote", side: "a" } });
+    }
+    return actions;
+  }
+  if (phase === "reveal" || phase === "scoreboard") {
+    actions.push({ role: "host", action: { kind: "advance" } });
+  }
+  return actions;
+}
+
+export function spectrumActions(state: unknown, ctx: RoomContext): SimAction[] {
+  const phase = getPhase(state);
+  const s = state as { clueGiverId?: string };
+  const actions: SimAction[] = [];
+  if (phase === "instructions") {
+    actions.push({ role: "host", action: { kind: "advance" } });
+    return actions;
+  }
+  if (phase === "clue" && s.clueGiverId) {
+    actions.push({ role: "player", playerId: s.clueGiverId, action: { kind: "submit_text", text: "clue" } });
+    return actions;
+  }
+  if (phase === "guess") {
+    for (const playerId of ctx.playerIds) {
+      if (playerId === s.clueGiverId) continue;
+      actions.push({ role: "player", playerId, action: { kind: "spectrum_guess", value: 50 } });
+    }
+    return actions;
+  }
+  if (phase === "reveal" || phase === "scoreboard") {
+    actions.push({ role: "host", action: { kind: "advance" } });
+  }
+  return actions;
+}
+
+export function crowdCallActions(state: unknown, ctx: RoomContext): SimAction[] {
+  const phase = getPhase(state);
+  const actions: SimAction[] = [];
+  if (phase === "instructions") {
+    actions.push({ role: "host", action: { kind: "advance" } });
+    return actions;
+  }
+  if (phase === "predict") {
+    for (const playerId of ctx.playerIds) {
+      actions.push({ role: "player", playerId, action: { kind: "crowd_predict", choiceIndex: 0 } });
+    }
+    return actions;
+  }
+  if (phase === "answer") {
+    for (const playerId of ctx.playerIds) {
+      actions.push({ role: "player", playerId, action: { kind: "crowd_answer", choiceIndex: 0 } });
+    }
+    return actions;
+  }
+  if (phase === "reveal" || phase === "scoreboard") {
+    actions.push({ role: "host", action: { kind: "advance" } });
+  }
+  return actions;
+}
+
+export function starRateActions(state: unknown, ctx: RoomContext): SimAction[] {
+  const phase = getPhase(state);
+  const s = state as { submissions?: Array<{ id: string; playerId: string }> };
+  const actions: SimAction[] = [];
+  if (phase === "instructions") {
+    actions.push({ role: "host", action: { kind: "advance" } });
+    return actions;
+  }
+  if (phase === "submit") {
+    for (const playerId of ctx.playerIds) {
+      actions.push({ role: "player", playerId, action: { kind: "submit_text", text: `Stars ${playerId}` } });
+    }
+    return actions;
+  }
+  if (phase === "rate" && s.submissions?.[0]) {
+    for (const playerId of ctx.playerIds) {
+      const sub = s.submissions.find((x) => x.playerId !== playerId);
+      if (sub) {
+        actions.push({ role: "player", playerId, action: { kind: "star_rate", submissionId: sub.id, stars: 4 } });
+      }
+    }
+    return actions;
+  }
+  if (phase === "reveal" || phase === "scoreboard") {
+    actions.push({ role: "host", action: { kind: "advance" } });
+  }
+  return actions;
+}
+
+export function chainSketchActions(state: unknown, ctx: RoomContext): SimAction[] {
+  const phase = getPhase(state);
+  const s = state as { linkIndex?: number };
+  const active = ctx.playerIds[(s.linkIndex ?? 0) % ctx.playerIds.length];
+  const actions: SimAction[] = [];
+  if (phase === "instructions") {
+    actions.push({ role: "host", action: { kind: "advance" } });
+    return actions;
+  }
+  if (phase === "draw") {
+    actions.push({
+      role: "player",
+      playerId: active,
+      action: { kind: "draw_stroke", points: [10, 10, 30, 30], color: "#fff" },
+    });
+    actions.push({ role: "player", playerId: active, action: { kind: "advance" } });
+    return actions;
+  }
+  if (phase === "guess") {
+    actions.push({ role: "player", playerId: active, action: { kind: "submit_text", text: "guess" } });
+    return actions;
+  }
+  if (phase === "reveal" || phase === "scoreboard") {
+    actions.push({ role: "host", action: { kind: "advance" } });
+  }
+  return actions;
+}
+
+export function outOfPlaceActions(state: unknown, ctx: RoomContext): SimAction[] {
+  const phase = getPhase(state);
+  const s = state as { spyId?: string };
+  const actions: SimAction[] = [];
+  if (phase === "instructions") {
+    actions.push({ role: "host", action: { kind: "advance" } });
+    return actions;
+  }
+  if (phase === "questioning" && s.spyId) {
+    actions.push({ role: "player", playerId: s.spyId, action: { kind: "stranger_guess", itemIndex: 0 } });
+    return actions;
+  }
+  if (phase === "accusation") {
+    for (const pid of ctx.playerIds) {
+      actions.push({ role: "player", playerId: pid, action: { kind: "stranger_accuse", targetId: s.spyId ?? ctx.playerIds[0] } });
+    }
+    return actions;
+  }
+  if (phase === "reveal" || phase === "scoreboard") {
+    actions.push({ role: "host", action: { kind: "advance" } });
+  }
+  return actions;
+}
+
+export function forbiddenClueActions(state: unknown, ctx: RoomContext): SimAction[] {
+  const phase = getPhase(state);
+  const s = state as { clueGiverId?: string };
+  const actions: SimAction[] = [];
+  if (phase === "instructions") {
+    actions.push({ role: "host", action: { kind: "advance" } });
+    return actions;
+  }
+  if (phase === "clue" && s.clueGiverId) {
+    actions.push({ role: "player", playerId: s.clueGiverId, action: { kind: "forbidden_correct" } });
+    actions.push({ role: "player", playerId: s.clueGiverId, action: { kind: "advance" } });
+    return actions;
+  }
+  if (phase === "reveal" || phase === "scoreboard") {
+    actions.push({ role: "host", action: { kind: "advance" } });
+  }
+  return actions;
+}
+
+export function agentGridActions(state: unknown, ctx: RoomContext): SimAction[] {
+  const phase = getPhase(state);
+  const s = state as {
+    spymasterA?: string;
+    spymasterB?: string;
+    activeTeam?: "a" | "b";
+    teamA?: string[];
+    teamB?: string[];
+    revealed?: boolean[];
+    guessesRemaining?: number;
+    key?: Array<"a" | "b" | "neutral" | "assassin">;
+  };
+  const actions: SimAction[] = [];
+  if (phase === "instructions") {
+    actions.push({ role: "host", action: { kind: "advance" } });
+    return actions;
+  }
+  const spy = s.activeTeam === "a" ? s.spymasterA : s.spymasterB;
+  const teamIds = s.activeTeam === "a" ? s.teamA : s.teamB;
+  const operative = teamIds?.find((id) => id !== spy);
+  if (phase === "clue" && spy) {
+    actions.push({ role: "player", playerId: spy, action: { kind: "agent_clue", word: "test", count: 8 } });
+    return actions;
+  }
+  if (phase === "guess" && operative) {
+    const ownIndices =
+      s.key
+        ?.map((tile, i) => (tile === s.activeTeam && !s.revealed?.[i] ? i : -1))
+        .filter((i) => i >= 0) ?? [];
+    let sent = 0;
+    const budget = s.guessesRemaining ?? 0;
+    for (const idx of ownIndices) {
+      if (sent >= budget) break;
+      actions.push({ role: "player", playerId: operative, action: { kind: "agent_guess", index: idx } });
+      sent += 1;
+    }
+    if (sent === 0 && budget > 0) {
+      const assassinIdx = s.key?.indexOf("assassin") ?? 0;
+      actions.push({ role: "player", playerId: operative, action: { kind: "agent_guess", index: assassinIdx } });
+    } else if (sent < budget) {
+      actions.push({ role: "player", playerId: operative, action: { kind: "agent_pass" } });
+    }
+    return actions;
+  }
+  if (phase === "reveal") {
+    actions.push({ role: "host", action: { kind: "advance" } });
+  }
+  return actions;
+}
+
+export function hangmanRaceActions(state: unknown, ctx: RoomContext): SimAction[] {
+  const phase = getPhase(state);
+  const s = state as { word?: string };
+  const actions: SimAction[] = [];
+  if (phase === "instructions") {
+    actions.push({ role: "host", action: { kind: "advance" } });
+    return actions;
+  }
+  if (phase === "playing" && s.word) {
+    const letters = [...new Set(s.word.replace(/[^a-z]/gi, "").toLowerCase())];
+    for (const pid of ctx.playerIds) {
+      for (const letter of letters) {
+        actions.push({ role: "player", playerId: pid, action: { kind: "hangman_letter", letter } });
+      }
+    }
+    return actions;
+  }
+  if (phase === "reveal" || phase === "scoreboard") {
+    actions.push({ role: "host", action: { kind: "advance" } });
+  }
+  return actions;
+}
+
+export function paddleClashActions(state: unknown, ctx: RoomContext): SimAction[] {
+  const phase = getPhase(state);
+  const actions: SimAction[] = [];
+  if (phase === "instructions") {
+    actions.push({ role: "host", action: { kind: "advance" } });
+    return actions;
+  }
+  if (phase === "playing") {
+    for (const pid of ctx.playerIds) {
+      actions.push({ role: "player", playerId: pid, action: { kind: "paddle_move", y: 0.5 } });
+    }
+  }
+  return actions;
+}
+
+export function gridBlastActions(state: unknown, ctx: RoomContext): SimAction[] {
+  const phase = getPhase(state);
+  const actions: SimAction[] = [];
+  if (phase === "instructions" || phase === "round_end") {
+    actions.push({ role: "host", action: { kind: "advance" } });
+    return actions;
+  }
+  if (phase === "playing") {
+    for (const pid of ctx.playerIds) {
+      actions.push({ role: "player", playerId: pid, action: { kind: "grid_blast_input", input: "bomb" } });
+      actions.push({ role: "player", playerId: pid, action: { kind: "grid_blast_input", input: "left" } });
+    }
+  }
   return actions;
 }

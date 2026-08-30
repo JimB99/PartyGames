@@ -1,0 +1,32 @@
+[
+  {
+    "id": "places",
+    "label": "Places",
+    "items": [
+      "Casino", "Hospital", "School", "Airport", "Beach", "Library", "Museum",
+      "Submarine", "Space Station", "Pirate Ship", "Wedding", "Supermarket",
+      "Police Station", "Circus", "Zoo", "Restaurant", "Movie Theater",
+      "Amusement Park", "Bank", "Gym", "Hotel", "Farm", "Church", "Prison"
+    ]
+  },
+  {
+    "id": "things",
+    "label": "Things",
+    "items": [
+      "Piano", "Volcano", "Rainbow", "Telescope", "Bicycle", "Snowman",
+      "Lighthouse", "Dragon", "Pizza", "Robot", "Castle", "Helicopter",
+      "Diamond", "Umbrella", "Guitar", "Rocket", "Dinosaur", "Camera",
+      "Treasure Chest", "Compass", "Anchor", "Crown", "Hourglass", "Lantern"
+    ]
+  },
+  {
+    "id": "jobs",
+    "label": "Jobs",
+    "items": [
+      "Pilot", "Chef", "Doctor", "Teacher", "Firefighter", "Astronaut",
+      "Detective", "Librarian", "Mechanic", "Artist", "Farmer", "Judge",
+      "Magician", "Scientist", "Soldier", "Barber", "Lifeguard", "Veterinarian",
+      "Journalist", "Architect", "Dentist", "Photographer", "Sailor", "Nurse"
+    ]
+  }
+]

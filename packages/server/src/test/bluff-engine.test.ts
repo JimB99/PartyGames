@@ -9,7 +9,7 @@ const POOL = Array.from({ length: 10 }, (_, i) => ({
 
 describe("bluff-engine voting options", () => {
   it("adds house decoys when few player submissions", () => {
-    let state = createBluffState("fibbage", POOL, 5, 2);
+    let state = createBluffState("fact-check", POOL, 5, 2);
     state = advanceBluff(state);
     state.submissions = { p1: "Lie one", p2: "Lie two" };
     state = advanceBluff(state);

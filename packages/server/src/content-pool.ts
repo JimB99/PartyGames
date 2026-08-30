@@ -5,6 +5,7 @@ import {
   filterWordList,
   type Difficulty,
   type GameOptions,
+  type OutOfPlaceCategory,
 } from "@party-games/shared";
 import { content } from "./content.js";
 
@@ -20,16 +21,16 @@ export function wouldYouRatherPool(options: GameOptions) {
   return filterContentPool(content.wouldYouRather, options);
 }
 
-export function fibbagePool(options: GameOptions) {
-  return filterContentPool(content.fibbage, options);
+export function factCheckPool(options: GameOptions) {
+  return filterContentPool(content.factCheck, options);
 }
 
-export function fibbageReversePool(options: GameOptions) {
-  return filterContentPool(content.fibbageReverse, options);
+export function reverseFactPool(options: GameOptions) {
+  return filterContentPool(content.reverseFact, options);
 }
 
-export function quiplashPool(options: GameOptions) {
-  return filterPromptList(content.quiplash, options);
+export function witShowdownPool(options: GameOptions) {
+  return filterPromptList(content.witShowdown, options);
 }
 
 export function captionPool(options: GameOptions) {
@@ -50,6 +51,44 @@ export function charadesWordPool(options: GameOptions) {
 
 export function bracketCategoryPool(options: GameOptions) {
   return filterCategoryList(content.bracketCategories, options);
+}
+
+export function splitRoomPool(_options: GameOptions) {
+  return content.splitRoom;
+}
+
+export function spectrumPool(_options: GameOptions) {
+  return content.spectrum;
+}
+
+export function crowdCallPool(_options: GameOptions) {
+  return content.crowdCall;
+}
+
+export function outOfPlacePool(options: GameOptions): OutOfPlaceCategory[] {
+  const cat = options.outOfPlaceCategory ?? "all";
+  if (cat === "all" || cat === "random") return content.outOfPlace;
+  return content.outOfPlace.filter((c) => c.id === cat);
+}
+
+export function forbiddenCluePool(options: GameOptions) {
+  return filterContentPool(content.forbiddenClue, options);
+}
+
+export function agentGridWordPool(options: GameOptions) {
+  return filterWordList(content.drawWords, options);
+}
+
+export function hangmanWordPool(options: GameOptions): string[] {
+  const bounds: Record<Difficulty, { min: number; max: number }> = {
+    easy: { min: 5, max: 7 },
+    medium: { min: 6, max: 9 },
+    hard: { min: 8, max: 12 },
+  };
+  const dict = [...content.dictionary];
+  if (options.difficulty === "mixed") return dict.filter((w) => w.length >= 5 && w.length <= 10);
+  const { min, max } = bounds[options.difficulty];
+  return dict.filter((w) => w.length >= min && w.length <= max);
 }
 
 export function dictionaryForWordRush(options: GameOptions): Set<string> {

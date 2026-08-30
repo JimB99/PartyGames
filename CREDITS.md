@@ -13,6 +13,24 @@ Party Games bundles question and prompt data from these sources:
 | [nhie.io](https://nhie.io/) | API terms | Never-have-I-ever style prompts |
 | Original prompts in this repo | Project license | All games (baseline content) |
 
+## Implementation inspiration
+
+Design and algorithm references (no code copied):
+
+| Project | License | Used for |
+|--------|---------|----------|
+| [doot-games](https://github.com/virgilvox/doot-games) | MIT | Party-game platform patterns; future game ideas (Spectrum, Split the Room, Chain Sketch) |
+| [blockris](https://github.com/moinsen-dev/blockris) | MIT | Trademark-safe falling-block visual approach (Block Stack) |
+| [scribble-rs/scribble.rs](https://github.com/scribble-rs/scribble.rs) | BSD-3-Clause | Draw-and-guess UX reference |
+| [ngehlert/kurve](https://github.com/ngehlert/kurve) | MIT | Trail-arena game reference (Trail Dash) |
+| [kenrick95/c4](https://github.com/kenrick95/c4) | MIT | Four-in-a-row logic reference |
+| Codenames-style word game rules | — | Agent Grid team/key mechanics |
+| Taboo-style party game rules | — | Forbidden Clue verbal clue flow |
+| Spyfall-style social deduction rules | — | Out of Place stranger/category flow |
+| Classic hangman word game rules | — | Hangman Race letter/solve scoring |
+| Pong / air-hockey arcade rules | — | Paddle Clash ball physics |
+| Grid bomber battle game rules (Wikipedia / community writeups) | — | Grid Blast bombs, chains, power-ups |
+
 When redistributing modified trivia from OpenTDB or OpenTriviaQA, comply with CC BY-SA 4.0 (attribution + share-alike).
 
 Regenerate bundled content: `pnpm import-content`

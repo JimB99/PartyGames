@@ -11,15 +11,15 @@ import {
   diversifyNhieStatement,
   duplicateTruthRate,
   filterRepetitiveTruths,
-  generateFibbageFamilyPairs,
-  isFibbageTruthValid,
+  generateFactCheckFamilyPairs,
+  isFactCheckTruthValid,
   isPlaceholderTruth,
   isQuestionForm,
   isReverseFactTrivial,
-  matureTruthToFibbagePair,
+  matureTruthToFactCheckPair,
   MIN_CONTENT_POOL_SIZE,
   orderedSequenceRatio,
-  rebalanceQuiplashPrefixes,
+  rebalanceWitShowdownPrefixes,
   buildReverseFactsFromQuiz,
 } from "../packages/shared/src/content-quality.ts";
 
@@ -275,7 +275,7 @@ function flattenPqWords(
 
 async function fetchBulkSources(): Promise<{
   quiz: QuizRow[];
-  quiplash: Array<{ text: string; rating: Rating; difficulty?: Difficulty }>;
+  witShowdown: Array<{ text: string; rating: Rating; difficulty?: Difficulty }>;
   hotSeat: Array<{ text: string; rating: Rating; difficulty?: Difficulty }>;
   caption: Array<{ text: string; rating: Rating; difficulty?: Difficulty }>;
   wyr: Array<{ a: string; b: string; rating: Rating; difficulty: Difficulty }>;
@@ -288,7 +288,7 @@ async function fetchBulkSources(): Promise<{
   console.log("  fetching bulk static datasets…");
 
   const quiz: QuizRow[] = [];
-  const quiplash: Array<{ text: string; rating: Rating; difficulty?: Difficulty }> = [];
+  const wit-showdown: Array<{ text: string; rating: Rating; difficulty?: Difficulty }> = [];
   const hotSeat: Array<{ text: string; rating: Rating; difficulty?: Difficulty }> = [];
   const caption: Array<{ text: string; rating: Rating; difficulty?: Difficulty }> = [];
   const wyr: Array<{ a: string; b: string; rating: Rating; difficulty: Difficulty }> = [];
@@ -344,7 +344,7 @@ async function fetchBulkSources(): Promise<{
     for (const sentence of pgsNhie) {
       const text = sentence.replace(/^Never have I ever /i, "").trim();
       const rating: Rating = isMatureText(text) ? "mature" : "family";
-      quiplash.push(promptEntry(diversifyNhieStatement(sentence, quiplash.length), rating));
+      wit-showdown.push(promptEntry(diversifyNhieStatement(sentence, wit-showdown.length), rating));
       hotSeat.push(promptEntry(adaptTruthToHotSeat(text), rating));
     }
     console.log(`    party-game-sentences NHIE: +${pgsNhie.length}`);
@@ -352,7 +352,7 @@ async function fetchBulkSources(): Promise<{
     const pgsTod = await fetchJson<{ truth?: string[]; dare?: string[] }>(`${PGS_BASE}/truth-or-dare.json`);
     for (const truth of pgsTod.truth ?? []) {
       const rating: Rating = isMatureText(truth) ? "mature" : "family";
-      quiplash.push(promptEntry(adaptTruthToQuiplash(truth), rating));
+      wit-showdown.push(promptEntry(adaptTruthToWitShowdown(truth), rating));
       hotSeat.push(promptEntry(adaptTruthToHotSeat(truth), rating));
     }
     for (const dare of pgsTod.dare ?? []) {
@@ -425,7 +425,7 @@ async function fetchBulkSources(): Promise<{
 
   return {
     quiz,
-    quiplash,
+    wit-showdown,
     hotSeat,
     caption,
     wyr,
@@ -588,7 +588,7 @@ function adaptTruthToHotSeat(text: string): string {
   return `What they'd say about: ${t}`;
 }
 
-function adaptTruthToQuiplash(text: string): string {
+function adaptTruthToWitShowdown(text: string): string {
   const t = text.replace(/\?+$/, "").trim();
   if (t.length < 80) return t;
   return t.slice(0, 77) + "...";
@@ -608,7 +608,7 @@ async function main() {
   console.log(localOnly ? "Tagging local content (no API harvest)…" : "Importing party game content…");
 
   // --- Fibbage: strip placeholder truths and fix ratings ---
-  function cleanFibbagePool(
+  function cleanFactCheckPool(
     rows: Array<{ prompt?: string; truth: string; rating?: Rating; difficulty?: Difficulty }>,
   ) {
     const seenTruths = new Set<string>();
@@ -620,7 +620,7 @@ async function main() {
       const truth = row.truth.trim();
       const prompt = row.prompt.trim();
 
-      if (!isFibbageTruthValid(prompt, truth)) continue;
+      if (!isFactCheckTruthValid(prompt, truth)) continue;
       if (truth.length > 90) continue;
 
       if (isPlaceholderTruth(truth)) {
@@ -651,12 +651,12 @@ async function main() {
     }
 
     const dupeRate = duplicateTruthRate(out.map((r) => r.truth));
-    console.log(`  fibbage: ${out.length} entries, duplicate truth rate ${(dupeRate * 100).toFixed(1)}%`);
+    console.log(`  factCheck: ${out.length} entries, duplicate truth rate ${(dupeRate * 100).toFixed(1)}%`);
     return out;
   }
 
-  const fibbageRaw = readJson<Array<{ prompt?: string; truth: string; rating?: Rating; difficulty?: Difficulty }>>(
-    "prompts/fibbage.json",
+  const fact-checkRaw = readJson<Array<{ prompt?: string; truth: string; rating?: Rating; difficulty?: Difficulty }>>(
+    "prompts/fact-check.json",
   );
 
   // --- Migrate string arrays to PromptEntry ---
@@ -670,21 +670,21 @@ async function main() {
     return entries;
   }
 
-  migratePrompts("prompts/quiplash.json");
+  migratePrompts("prompts/wit-showdown.json");
   migratePrompts("prompts/caption.json");
   migratePrompts("prompts/hot-seat.json");
 
-  function extendFibbageFromQuiplash(
-    fibbage: Array<{ prompt: string; truth: string; rating: Rating; difficulty: Difficulty }>,
+  function extendFactCheckFromWitShowdown(
+    factCheck: Array<{ prompt: string; truth: string; rating: Rating; difficulty: Difficulty }>,
   ) {
-    const quiplash = readJson<Array<{ text: string; rating?: Rating }>>("prompts/quiplash.json");
-    const seen = new Set(fibbage.map((f) => f.truth.toLowerCase()));
-    const out = [...fibbage];
-    for (const row of quiplash) {
+    const wit-showdown = readJson<Array<{ text: string; rating?: Rating }>>("prompts/wit-showdown.json");
+    const seen = new Set(fact-check.map((f) => f.truth.toLowerCase()));
+    const out = [...fact-check];
+    for (const row of wit-showdown) {
       if (row.rating !== "mature") continue;
       if (isQuestionForm(row.text) || row.text.length > 90) continue;
-      const pair = matureTruthToFibbagePair(row.text);
-      if (!pair || !isFibbageTruthValid(pair.prompt, pair.truth)) continue;
+      const pair = matureTruthToFactCheckPair(row.text);
+      if (!pair || !isFactCheckTruthValid(pair.prompt, pair.truth)) continue;
       if (seen.has(pair.truth.toLowerCase()) || isPlaceholderTruth(pair.truth)) continue;
       seen.add(pair.truth.toLowerCase());
       out.push({
@@ -697,23 +697,23 @@ async function main() {
     return out;
   }
 
-  function finalizeFibbagePool(
+  function finalizeFactCheckPool(
     rows: Array<{ prompt?: string; truth: string; rating?: Rating; difficulty?: Difficulty }>,
   ) {
-    let pool = cleanFibbagePool(rows);
+    let pool = cleanFactCheckPool(rows);
     if (pool.length < MIN_CONTENT_POOL_SIZE) {
       const needed = MIN_CONTENT_POOL_SIZE - pool.length + 20;
-      pool = cleanFibbagePool([...pool, ...generateFibbageFamilyPairs(needed)]);
+      pool = cleanFactCheckPool([...pool, ...generateFactCheckFamilyPairs(needed)]);
     }
-    pool = extendFibbageFromQuiplash(pool);
-    pool = cleanFibbagePool(pool);
+    pool = extendFactCheckFromWitShowdown(pool);
+    pool = cleanFactCheckPool(pool);
     if (pool.length < MIN_CONTENT_POOL_SIZE) {
-      console.warn(`  fibbage pool ${pool.length} below minimum ${MIN_CONTENT_POOL_SIZE}`);
+      console.warn(`  fact-check pool ${pool.length} below minimum ${MIN_CONTENT_POOL_SIZE}`);
     }
     return pool;
   }
 
-  writeJson("prompts/fibbage.json", finalizeFibbagePool(fibbageRaw));
+  writeJson("prompts/fact-check.json", finalizeFactCheckPool(fact-checkRaw));
 
   // --- Quiz: bulk datasets + OpenTDB + existing ---
   const existingQuiz = readJson<Array<{ question: string; choices: string[]; correct: number }>>("trivia/quiz.json");
@@ -790,8 +790,8 @@ async function main() {
   // --- Merge bulk static datasets ---
   if (bulk) {
     writeJson(
-      "prompts/quiplash.json",
-      dedupePrompts([...readJson("prompts/quiplash.json"), ...bulk.quiplash]),
+      "prompts/wit-showdown.json",
+      dedupePrompts([...readJson("prompts/wit-showdown.json"), ...bulk.wit-showdown]),
     );
     writeJson(
       "prompts/hot-seat.json",
@@ -852,7 +852,7 @@ async function main() {
     } else {
       console.log(`  reverse facts: ${reverseDeduped.length} entries (quiz ${reverseFromQuiz.length})`);
     }
-    writeJson("prompts/fibbage-reverse.json", reverseDeduped);
+    writeJson("prompts/reverse-fact.json", reverseDeduped);
   }
 
   rebuildReverseFacts();
@@ -887,16 +887,16 @@ async function main() {
   }).filter(Boolean);
 
   // Extend pools (read current files — bulk merge may have run above)
-  const quiplashExtended = rebalanceQuiplashPrefixes(
+  const wit-showdownExtended = rebalanceWitShowdownPrefixes(
     dedupePrompts([
-      ...readJson<Array<{ text: string }>>("prompts/quiplash.json"),
-      ...matureTruths.map((t) => promptEntry(adaptTruthToQuiplash(t.text), "mature")),
+      ...readJson<Array<{ text: string }>>("prompts/wit-showdown.json"),
+      ...matureTruths.map((t) => promptEntry(adaptTruthToWitShowdown(t.text), "mature")),
       ...nhieOffensive.map((t, i) =>
         promptEntry(diversifyNhieStatement(t.text, i + 100), "mature"),
       ),
     ]),
   );
-  writeJson("prompts/quiplash.json", quiplashExtended);
+  writeJson("prompts/wit-showdown.json", wit-showdownExtended);
 
   const hotSeatExtended = [
     ...readJson<Array<{ text: string }>>("prompts/hot-seat.json"),
@@ -911,11 +911,11 @@ async function main() {
   writeJson("prompts/caption.json", dedupePrompts(captionExtended));
 
   const currentFibbage = readJson<Array<{ prompt?: string; truth: string; rating?: Rating; difficulty?: Difficulty }>>(
-    "prompts/fibbage.json",
+    "prompts/fact-check.json",
   );
-  const fibbageExtended = [
+  const fact-checkExtended = [
     ...currentFibbage
-      .filter((row) => row.prompt && isFibbageTruthValid(row.prompt, row.truth))
+      .filter((row) => row.prompt && isFactCheckTruthValid(row.prompt, row.truth))
       .map((row, i) => ({
         prompt: row.prompt!,
         truth: row.truth,
@@ -924,8 +924,8 @@ async function main() {
       })),
     ...matureTruths
       .map((t) => {
-        const pair = matureTruthToFibbagePair(t.text);
-        if (!pair || !isFibbageTruthValid(pair.prompt, pair.truth)) return null;
+        const pair = matureTruthToFactCheckPair(t.text);
+        if (!pair || !isFactCheckTruthValid(pair.prompt, pair.truth)) return null;
         return {
           prompt: pair.prompt,
           truth: pair.truth,
@@ -935,7 +935,7 @@ async function main() {
       })
       .filter(Boolean) as Array<{ prompt: string; truth: string; rating: Rating; difficulty: Difficulty }>,
   ];
-  writeJson("prompts/fibbage.json", finalizeFibbagePool(fibbageExtended));
+  writeJson("prompts/fact-check.json", finalizeFactCheckPool(fact-checkExtended));
 
   const drawExtended = [
     ...readJson<Array<{ word: unknown }>>("words/draw.json").map((w) => {
@@ -1017,10 +1017,10 @@ async function main() {
     console.log(`  wrote words/dictionary.txt (${dictWords.length} words)`);
   }
 
-  const fibbageFinal = readJson<Array<{ truth: string }>>("prompts/fibbage.json");
-  const fibbageTexts = fibbageFinal.map((r) => r.truth);
+  const fact-checkFinal = readJson<Array<{ truth: string }>>("prompts/fact-check.json");
+  const fact-checkTexts = fact-checkFinal.map((r) => r.truth);
   console.log(
-    `  quality report: fibbage dupes ${(duplicateTruthRate(fibbageTexts) * 100).toFixed(1)}%, ordered ${(orderedSequenceRatio(fibbageTexts) * 100).toFixed(1)}%`,
+    `  quality report: fact-check dupes ${(duplicateTruthRate(fact-checkTexts) * 100).toFixed(1)}%, ordered ${(orderedSequenceRatio(fact-checkTexts) * 100).toFixed(1)}%`,
   );
 
   console.log("Done.");

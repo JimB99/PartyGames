@@ -24,7 +24,7 @@ export interface BluffState {
   round: number;
   maxRounds: number;
   timerEndsAt: number | null;
-  mode: "fibbage" | "reverse";
+  mode: "fact-check" | "reverse-fact";
   displayText: string;
   truthText: string;
   truthId: string;
@@ -46,14 +46,14 @@ const REVEAL_MS = 8000;
 const SCOREBOARD_MS = 5000;
 
 export function createBluffState(
-  mode: "fibbage" | "reverse",
+  mode: "fact-check" | "reverse-fact",
   prompts: Array<{ prompt?: string; truth: string; fact?: string }>,
   maxRounds = 5,
   playerCount = 2,
 ): BluffState {
   const idx = Math.floor(Math.random() * prompts.length);
   const item = prompts[idx];
-  const displayText = mode === "reverse" ? item.fact ?? item.truth : item.prompt ?? "";
+  const displayText = mode === "reverse-fact" ? item.fact ?? item.truth : item.prompt ?? "";
   const truthText = item.truth;
   return {
     phase: "instructions",
@@ -82,7 +82,7 @@ function nextPrompt(state: BluffState, prompts: Array<{ prompt?: string; truth: 
   const idx = pickRandom(pool);
   state.usedPrompts.push(idx);
   const item = prompts[idx];
-  state.displayText = state.mode === "reverse" ? item.fact ?? item.truth : item.prompt ?? "";
+  state.displayText = state.mode === "reverse-fact" ? item.fact ?? item.truth : item.prompt ?? "";
   state.truthText = item.truth;
   state.truthId = uniqueId();
 }

@@ -21,6 +21,7 @@ import { RoomCodeDisplay } from "../components/RoomCodeDisplay";
 import { Scoreboard } from "../components/Scoreboard";
 
 import { generateRoomCode, usePartyRoom } from "../hooks/usePartyRoom";
+import { SessionPlaylistPanel } from "../components/SessionPlaylistPanel";
 
 import { useParams } from "react-router-dom";
 
@@ -66,6 +67,14 @@ export function HostPage() {
 
     setGameOptions,
 
+    setSessionPlaylist,
+
+    startSession,
+
+    nextSessionGame,
+
+    clearSessionPlaylist,
+
   } = usePartyRoom({ roomId, role: "host", enabled: true });
 
 
@@ -92,7 +101,7 @@ export function HostPage() {
 
   const needsMoreForTrailDash =
 
-    roomState?.selectedGameId === "curve-fever" &&
+    roomState?.selectedGameId === "trail-dash" &&
 
     connectedPlayers.length > 0 &&
 
@@ -106,11 +115,11 @@ export function HostPage() {
 
     connectedPlayers.length > 0 &&
 
-    (roomState.selectedGameId === "curve-fever"
+    (roomState.selectedGameId === "trail-dash"
 
       ? effectivePlayerCount(
 
-          roomState.games.find((g) => g.id === "curve-fever")!,
+          roomState.games.find((g) => g.id === "trail-dash")!,
 
           connectedPlayers.length,
 
@@ -126,15 +135,15 @@ export function HostPage() {
 
     selectGame(gameId);
 
-    if (gameId === "curve-fever" && connectedPlayers.length === 1 && roomState) {
+    if (gameId === "trail-dash" && connectedPlayers.length === 1 && roomState) {
 
-      const opts = resolveGameOptions("curve-fever", roomState.gameOptionsByGame);
+      const opts = resolveGameOptions("trail-dash", roomState.gameOptionsByGame);
 
       const td = resolveTrailDashOptions(opts);
 
       if (td.botCount === 0) {
 
-        setGameOptions("curve-fever", {
+        setGameOptions("trail-dash", {
 
           ...opts,
 
@@ -306,6 +315,14 @@ export function HostPage() {
 
             )}
 
+            <SessionPlaylistPanel
+              games={roomState.games}
+              playlist={roomState.sessionPlaylist ?? []}
+              onChange={setSessionPlaylist}
+              onStartSession={startSession}
+              onClear={clearSessionPlaylist}
+            />
+
             <button
               type="button"
               data-testid="start-game"
@@ -364,6 +381,16 @@ export function HostPage() {
 
             phase={roomState.hostView.phase}
 
+            sessionActive={roomState.sessionActive}
+
+            hasNextSessionGame={
+
+              roomState.sessionActive &&
+
+              (roomState.sessionPlaylistIndex ?? 0) < (roomState.sessionPlaylist?.length ?? 0) - 1
+
+            }
+
             onPause={pauseGame}
 
             onResume={resumeGame}
@@ -373,6 +400,8 @@ export function HostPage() {
             onExtend={() => extendTimer(30000)}
 
             onPlayAgain={playAgain}
+
+            onNextSessionGame={nextSessionGame}
 
             onEnd={handleEndGame}
 

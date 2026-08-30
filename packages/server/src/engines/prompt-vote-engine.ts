@@ -1,6 +1,6 @@
 import { pickRandom, shuffle, uniqueId, votersByOption, type GameAction, type RoomContext, type RevealEntry } from "@party-games/shared";
 
-export type PromptVoteMode = "quiplash" | "caption" | "hot-seat" | "vote-all";
+export type PromptVoteMode = "wit-showdown" | "caption" | "hot-seat" | "vote-all";
 
 export type PromptVotePhase =
   | "instructions"
@@ -168,7 +168,7 @@ function accumulateVotes(state: PromptVoteState) {
 
 function buildPromptVoteReveal(state: PromptVoteState): RevealEntry[] {
   let voterMap: Record<string, string[]> = {};
-  if (state.mode === "quiplash") {
+  if (state.mode === "wit-showdown") {
     voterMap = state.cumulativeVoters;
   } else if (state.mode === "vote-all") {
     voterMap = votersByOption(state.votes);

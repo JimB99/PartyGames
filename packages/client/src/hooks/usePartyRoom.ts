@@ -136,6 +136,13 @@ export function usePartyRoom({
   const pauseGame = useCallback(() => send({ type: "pause_game" }), [send]);
   const resumeGame = useCallback(() => send({ type: "resume_game" }), [send]);
   const extendTimer = useCallback((extraMs: number) => send({ type: "extend_timer", extraMs }), [send]);
+  const setSessionPlaylist = useCallback(
+    (gameIds: GameId[]) => send({ type: "set_session_playlist", gameIds }),
+    [send],
+  );
+  const startSession = useCallback(() => send({ type: "start_session" }), [send]);
+  const nextSessionGame = useCallback(() => send({ type: "next_session_game" }), [send]);
+  const clearSessionPlaylist = useCallback(() => send({ type: "clear_session_playlist" }), [send]);
   const playerAction = useCallback((action: ClientMessage extends { type: "player_action"; action: infer A } ? A : never) => {
     send({ type: "player_action", action });
   }, [send]);
@@ -166,6 +173,10 @@ export function usePartyRoom({
     pauseGame,
     resumeGame,
     extendTimer,
+    setSessionPlaylist,
+    startSession,
+    nextSessionGame,
+    clearSessionPlaylist,
     playerAction,
     hostAction,
     updateProfile,

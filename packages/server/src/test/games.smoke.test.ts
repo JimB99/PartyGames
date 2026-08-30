@@ -18,7 +18,7 @@ import {
 function contextForGame(gameId: GameId, playerCount: number): ReturnType<typeof makeRoomContext> {
   let gameOptions: GameOptions = { ...DEFAULT_GAME_OPTIONS };
 
-  if (gameId === "curve-fever") {
+  if (gameId === "trail-dash") {
     gameOptions = {
       ...DEFAULT_GAME_OPTIONS,
       trailDash: {
@@ -61,7 +61,7 @@ describe("game smoke tests", () => {
 
         assert.equal(getPhase(state), "ended");
 
-        if (meta.id === "fibbage" || meta.id === "quiplash") {
+        if (meta.id === "fact-check" || meta.id === "wit-showdown") {
           const round = (state as { round?: number }).round ?? 0;
           assert.ok(round >= 2, `${meta.id} should play multiple rounds (got round ${round})`);
         }

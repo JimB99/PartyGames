@@ -51,20 +51,27 @@ export function createBracketState(categories: string[]): BracketState {
 }
 
 function padToPowerOf2(entries: BracketEntry[]): BracketEntry[] {
+  if (entries.length === 0) return [];
   let n = 1;
   while (n < entries.length) n *= 2;
+  if (n < 2) n = 2;
   const padded = [...entries];
   while (padded.length < n) {
-    padded.push({ id: uniqueId(), text: padded[padded.length % entries.length].text, authorId: "" });
+    const source = entries[padded.length % entries.length];
+    padded.push({ id: uniqueId(), text: source.text, authorId: "" });
   }
   return shuffle(padded).slice(0, n);
 }
 
 function buildBracket(entries: BracketEntry[]): BracketMatch[] {
   const padded = padToPowerOf2(entries);
+  if (padded.length < 2) return [];
   const matches: BracketMatch[] = [];
   for (let i = 0; i < padded.length; i += 2) {
-    matches.push({ a: padded[i].id, b: padded[i + 1].id });
+    const a = padded[i];
+    const b = padded[i + 1];
+    if (!a || !b) continue;
+    matches.push({ a: a.id, b: b.id });
   }
   return matches;
 }
@@ -77,7 +84,17 @@ export function advanceBracket(state: BracketState): BracketState {
     return state;
   }
   if (state.phase === "submit") {
+    if (state.entries.length === 0) {
+      state.phase = "ended";
+      state.timerEndsAt = null;
+      return state;
+    }
     state.bracket = buildBracket(state.entries);
+    if (state.bracket.length === 0) {
+      state.phase = "ended";
+      state.timerEndsAt = null;
+      return state;
+    }
     state.matchIndex = 0;
     state.phase = "vote";
     state.timerEndsAt = Date.now() + VOTE_MS;

@@ -1,0 +1,22 @@
+[
+  {
+    "text": "Best pizza topping?",
+    "choices": ["Pepperoni", "Mushroom", "Pineapple", "Plain cheese"]
+  },
+  {
+    "text": "Ideal vacation?",
+    "choices": ["Beach", "Mountains", "City break", "Staycation"]
+  },
+  {
+    "text": "Preferred superpower?",
+    "choices": ["Fly", "Invisibility", "Time travel", "Read minds"]
+  },
+  {
+    "text": "Go-to comfort food?",
+    "choices": ["Pasta", "Soup", "Ice cream", "Burgers"]
+  },
+  {
+    "text": "Best way to spend Sunday?",
+    "choices": ["Sleep in", "Brunch", "Hike", "Gaming"]
+  }
+]

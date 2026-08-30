@@ -5,6 +5,8 @@ export type DrawPhase = "instructions" | "drawing" | "guessing" | "reveal" | "sc
 export interface Stroke {
   points: number[];
   color: string;
+  width: number;
+  erase?: boolean;
 }
 
 export interface DrawState {
@@ -16,6 +18,8 @@ export interface DrawState {
   drawerIndex: number;
   word: string;
   strokes: Stroke[];
+  drawerTool: "pen" | "eraser";
+  drawerWidth: number;
   guesses: Record<string, string>;
   guessTimes: Record<string, number>;
   guessPhaseStartedAt: number | null;
@@ -42,6 +46,8 @@ export function createDrawState(words: string[], playerIds: string[], maxRounds?
     drawerIndex: 0,
     word,
     strokes: [],
+    drawerTool: "pen",
+    drawerWidth: 4,
     guesses: {},
     guessTimes: {},
     guessPhaseStartedAt: null,
@@ -137,8 +143,17 @@ export function onDrawAction(
   ctx: RoomContext,
 ): DrawState {
   const drawerId = ctx.playerIds[state.drawerIndex];
+  if (action.kind === "draw_tool" && state.phase === "drawing" && playerId === drawerId) {
+    state.drawerTool = action.tool;
+    if (action.width !== undefined) state.drawerWidth = Math.max(2, Math.min(16, action.width));
+  }
   if (action.kind === "draw_stroke" && state.phase === "drawing" && playerId === drawerId) {
-    state.strokes.push({ points: action.points, color: action.color });
+    const width = action.width ?? state.drawerWidth;
+    const erase = state.drawerTool === "eraser" || action.color === "erase";
+    state.strokes.push({ points: action.points, color: erase ? "#000" : action.color, width, erase });
+  }
+  if (action.kind === "draw_undo" && state.phase === "drawing" && playerId === drawerId) {
+    state.strokes.pop();
   }
   if (action.kind === "draw_clear" && state.phase === "drawing" && playerId === drawerId) {
     state.strokes = [];

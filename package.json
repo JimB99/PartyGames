@@ -10,7 +10,13 @@
     "typecheck": "pnpm -r typecheck",
     "test": "pnpm -r test",
     "test:unit": "pnpm --filter @party-games/shared test && pnpm --filter @party-games/server test:unit",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "test:games:audit": "node --import tsx scripts/audit-test-coverage.mts",
+    "test:games:unit": "pnpm test:unit",
+    "test:games:sim": "pnpm --filter @party-games/server test:integration",
+    "test:games:e2e:smoke": "playwright test --grep @smoke",
+    "test:games:e2e:full": "playwright test --grep @full",
+    "test:games": "node --import tsx scripts/test-games.mts"
   },
   "devDependencies": {
     "@playwright/test": "^1.51.0",

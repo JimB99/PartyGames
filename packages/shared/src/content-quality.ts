@@ -101,7 +101,7 @@ export function isQuestionForm(text: string): boolean {
 }
 
 /** Fibbage truths must read like answers/lies, not trivia questions. */
-export function isFibbageTruthValid(prompt: string, truth: string): boolean {
+export function isFactCheckTruthValid(prompt: string, truth: string): boolean {
   const p = prompt.trim();
   const t = truth.trim();
   if (!p || !t || isPlaceholderTruth(t)) return false;
@@ -150,7 +150,7 @@ export function diversifyNhieStatement(text: string, index: number): string {
   return templates[index % templates.length](statement);
 }
 
-export function rebalanceQuiplashPrefixes(
+export function rebalanceWitShowdownPrefixes(
   items: Array<{ text: string; rating?: "family" | "mature"; difficulty?: string }>,
 ): Array<{ text: string; rating?: "family" | "mature"; difficulty?: string }> {
   const worstIdx: number[] = [];
@@ -177,14 +177,14 @@ export function rebalanceQuiplashPrefixes(
   return out;
 }
 
-export function adaptMatureTruthToFibbage(truthText: string): string {
+export function adaptMatureTruthToFactCheck(truthText: string): string {
   const t = truthText.replace(/\?+$/, "").replace(/^worst thing:\s*/i, "").trim();
   if (t.length <= 90) return t;
   const cut = t.slice(0, 87).trim();
   return cut.endsWith(",") ? cut.slice(0, -1) + "…" : cut + "…";
 }
 
-export function matureTruthToFibbagePair(text: string): { prompt: string; truth: string } | null {
+export function matureTruthToFactCheckPair(text: string): { prompt: string; truth: string } | null {
   const raw = text.replace(/^worst thing:\s*/i, "").replace(/\?+$/, "").trim();
   if (!raw || isPlaceholderTruth(raw)) return null;
 
@@ -203,18 +203,18 @@ export function matureTruthToFibbagePair(text: string): { prompt: string; truth:
     const inner = text.replace(/^[^:]+:\s*/i, "").trim();
     return {
       prompt: "The story that still haunts the group chat is...",
-      truth: adaptMatureTruthToFibbage(inner),
+      truth: adaptMatureTruthToFactCheck(inner),
     };
   }
 
   return {
     prompt: "A confession nobody asked for:",
-    truth: adaptMatureTruthToFibbage(raw),
+    truth: adaptMatureTruthToFactCheck(raw),
   };
 }
 
-export function adaptMaturePromptToFibbage(truthText: string): string {
-  return matureTruthToFibbagePair(truthText)?.prompt ?? "A confession nobody asked for:";
+export function adaptMaturePromptToFactCheck(truthText: string): string {
+  return matureTruthToFactCheckPair(truthText)?.prompt ?? "A confession nobody asked for:";
 }
 
 export type QuizLike = {
@@ -289,7 +289,7 @@ export function scoreDataset<T>(
   return { accepted, rejected, rejectRate };
 }
 
-const FIBBAGE_PROMPTS = [
+const FACT_CHECK_PROMPTS = [
   "The world's worst superpower would be...",
   "A terrible name for a pet would be...",
   "The worst thing to hear your gym teacher say is...",
@@ -322,7 +322,7 @@ const FIBBAGE_PROMPTS = [
   "A horrible name for a metal band is...",
 ];
 
-const FIBBAGE_TRUTH_BITS = [
+const FACT_CHECK_TRUTH_BITS = [
   "existential dread",
   "moist congress",
   "aggressive politeness",
@@ -355,22 +355,22 @@ const FIBBAGE_TRUTH_BITS = [
   "cheese-based trauma",
 ];
 
-export type FibbagePair = {
+export type FactCheckPair = {
   prompt: string;
   truth: string;
   rating: "family" | "mature";
   difficulty: "easy" | "medium" | "hard";
 };
 
-/** Generate unique family fibbage pairs to reach pool minimums. */
-export function generateFibbageFamilyPairs(target = MIN_CONTENT_POOL_SIZE): FibbagePair[] {
-  const out: FibbagePair[] = [];
+/** Generate unique family fact-check pairs to reach pool minimums. */
+export function generateFactCheckFamilyPairs(target = MIN_CONTENT_POOL_SIZE): FactCheckPair[] {
+  const out: FactCheckPair[] = [];
   const seen = new Set<string>();
   let i = 0;
   while (out.length < target && i < target * 40) {
-    const prompt = FIBBAGE_PROMPTS[i % FIBBAGE_PROMPTS.length];
-    const a = FIBBAGE_TRUTH_BITS[i % FIBBAGE_TRUTH_BITS.length];
-    const b = FIBBAGE_TRUTH_BITS[(i * 7 + 3) % FIBBAGE_TRUTH_BITS.length];
+    const prompt = FACT_CHECK_PROMPTS[i % FACT_CHECK_PROMPTS.length];
+    const a = FACT_CHECK_TRUTH_BITS[i % FACT_CHECK_TRUTH_BITS.length];
+    const b = FACT_CHECK_TRUTH_BITS[(i * 7 + 3) % FACT_CHECK_TRUTH_BITS.length];
     const base =
       i % 4 === 0
         ? `${a.charAt(0).toUpperCase() + a.slice(1)}`
@@ -381,7 +381,7 @@ export function generateFibbageFamilyPairs(target = MIN_CONTENT_POOL_SIZE): Fibb
             : `${b} with extra ${a}`;
     const truth = i % 8 === 0 ? `${base} (${Math.floor(i / 8) + 1})` : base;
     const key = `${prompt}|${truth}`.toLowerCase();
-    if (!seen.has(key) && isFibbageTruthValid(prompt, truth)) {
+    if (!seen.has(key) && isFactCheckTruthValid(prompt, truth)) {
       seen.add(key);
       out.push({
         prompt,

@@ -20,6 +20,8 @@ export interface GameOptions {
   speedBonusMax?: number;
   /** Timeline accuracy: points deducted per year off (1–1000; 1000 = exact year only). */
   timelinePtsPerYearOff?: number;
+  outOfPlaceCategory?: "all" | "places" | "things" | "jobs" | "random";
+  paddleMode?: "pong" | "hockey";
 }
 export const DEFAULT_TIMELINE_PTS_PER_YEAR_OFF = 20;
 export const TIMELINE_PTS_PER_YEAR_MAX = 1000;
@@ -61,7 +63,7 @@ export interface PromptEntry extends ContentMeta {
   text: string;
 }
 
-export interface FibbageEntry extends ContentMeta {
+export interface FactCheckEntry extends ContentMeta {
   prompt?: string;
   truth: string;
   fact?: string;
@@ -89,6 +91,17 @@ export interface WordEntry extends ContentMeta {
 
 export interface CategoryEntry extends ContentMeta {
   name: string;
+}
+
+export interface OutOfPlaceCategory {
+  id: string;
+  label: string;
+  items: string[];
+}
+
+export interface ForbiddenClueCard extends ContentMeta {
+  word: string;
+  forbidden: string[];
 }
 
 function itemRating(item: ContentMeta): ContentRating {

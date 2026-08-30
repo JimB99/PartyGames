@@ -7,7 +7,11 @@ export default defineConfig({
   retries: 0,
   workers: 1,
   timeout: 120_000,
-  reporter: "list",
+  reporter: [
+    ["list"],
+    ["html", { open: "never" }],
+    ["json", { outputFile: "test-reports/playwright-results.json" }],
+  ],
   use: {
     baseURL: "http://localhost:5173",
     trace: "on-first-retry",

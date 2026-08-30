@@ -11,11 +11,11 @@ import {
   captionPool,
   charadesWordPool,
   drawWordPool,
-  fibbagePool,
-  fibbageReversePool,
+  factCheckPool,
+  reverseFactPool,
   hotSeatPool,
   quizPool,
-  quiplashPool,
+  witShowdownPool,
   timelinePool,
   wouldYouRatherPool,
 } from "../content-pool.js";
@@ -23,9 +23,9 @@ import { getGame } from "../registry.js";
 import { makeRoomContext, runUntilEnded } from "./harness.js";
 
 const POOL_GETTERS: Partial<Record<string, (opts: GameOptions) => unknown[]>> = {
-  fibbage: fibbagePool,
-  "fibbage-reverse": fibbageReversePool,
-  quiplash: quiplashPool,
+  "fact-check": factCheckPool,
+  "reverse-fact": reverseFactPool,
+  "wit-showdown": witShowdownPool,
   "quick-quiz": quizPool,
   "would-you-rather": wouldYouRatherPool,
   "caption-this": captionPool,
@@ -92,24 +92,24 @@ describe("settings matrix", () => {
     assert.doesNotThrow(() => game.init(ctx));
   });
 
-  it("fibbage completes with speed scoring on and off", () => {
-    const game = getGame("fibbage")!;
+  it("fact-check completes with speed scoring on and off", () => {
+    const game = getGame("fact-check")!;
     for (const speedScoring of ["off", "bonus"] as const) {
       const ctx = makeRoomContext(2, { ...DEFAULT_GAME_OPTIONS, speedScoring });
-      const { ended, state } = runUntilEnded(game, ctx, { gameId: "fibbage", maxSteps: 2000 });
-      assert.ok(ended, `fibbage did not end with speedScoring=${speedScoring}`);
-      assert.ok((state as { round?: number }).round && (state as { round: number }).round >= 2, "fibbage should reach round 2+");
+      const { ended, state } = runUntilEnded(game, ctx, { gameId: "fact-check", maxSteps: 2000 });
+      assert.ok(ended, `fact-check did not end with speedScoring=${speedScoring}`);
+      assert.ok((state as { round?: number }).round && (state as { round: number }).round >= 2, "fact-check should reach round 2+");
     }
   });
 
-  it("family and mature fibbage pools differ in size", () => {
-    const family = fibbagePool({ ...DEFAULT_GAME_OPTIONS, contentRating: "family" });
-    const mature = fibbagePool({ ...DEFAULT_GAME_OPTIONS, contentRating: "mature" });
+  it("family and mature fact-check pools differ in size", () => {
+    const family = factCheckPool({ ...DEFAULT_GAME_OPTIONS, contentRating: "family" });
+    const mature = factCheckPool({ ...DEFAULT_GAME_OPTIONS, contentRating: "mature" });
     assert.ok(mature.length > family.length);
   });
 
-  it("curve-fever min: 1 human + 1 bot initializes", () => {
-    const game = getGame("curve-fever")!;
+  it("trail-dash min: 1 human + 1 bot initializes", () => {
+    const game = getGame("trail-dash")!;
     const ctx = makeRoomContext(1, {
       ...DEFAULT_GAME_OPTIONS,
       trailDash: { botCount: 1, maxRounds: 1, roundTimeSec: 30 },
@@ -118,12 +118,37 @@ describe("settings matrix", () => {
     assert.equal((state as { players: unknown[] }).players.length, 2);
   });
 
-  it("curve-fever with 0 bots and 1 human still inits (start guard is in room)", () => {
-    const game = getGame("curve-fever")!;
+  it("trail-dash with 0 bots and 1 human still inits (start guard is in room)", () => {
+    const game = getGame("trail-dash")!;
     const ctx = makeRoomContext(1, {
       ...DEFAULT_GAME_OPTIONS,
       trailDash: { botCount: 0, maxRounds: 1, roundTimeSec: 30 },
     });
     assert.doesNotThrow(() => game.init(ctx));
+  });
+
+  it("paddle-clash inits with pong and hockey modes", () => {
+    const game = getGame("paddle-clash")!;
+    for (const paddleMode of ["pong", "hockey"] as const) {
+      const ctx = makeRoomContext(2, { ...DEFAULT_GAME_OPTIONS, paddleMode });
+      assert.doesNotThrow(() => game.init(ctx));
+    }
+  });
+
+  it("out-of-place inits with each category", () => {
+    const game = getGame("out-of-place")!;
+    for (const outOfPlaceCategory of ["all", "places", "things", "jobs", "random"] as const) {
+      const ctx = makeRoomContext(4, { ...DEFAULT_GAME_OPTIONS, outOfPlaceCategory });
+      assert.doesNotThrow(() => game.init(ctx));
+    }
+  });
+
+  it("hangman-race completes with speed scoring on and off", () => {
+    const game = getGame("hangman-race")!;
+    for (const speedScoring of ["off", "bonus"] as const) {
+      const ctx = makeRoomContext(2, { ...DEFAULT_GAME_OPTIONS, speedScoring });
+      const { ended } = runUntilEnded(game, ctx, { gameId: "hangman-race", maxSteps: 3000 });
+      assert.ok(ended, `hangman-race did not end with speedScoring=${speedScoring}`);
+    }
   });
 });

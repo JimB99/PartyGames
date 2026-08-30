@@ -47,15 +47,15 @@ export function advanceCurve(state: CurveState, playerIds: string[], botIds: str
 }
 
 export function onCurveAction(state: CurveState, playerId: string, action: GameAction): CurveState {
-  if (action.kind === "curve_turn" && state.phase === "playing") {
+  if (action.kind === "trail_dash_turn" && state.phase === "playing") {
     const p = state.players.find((pl) => pl.id === playerId);
     if (p?.alive) p.direction = action.direction;
   }
-  if (action.kind === "curve_jump" && state.phase === "playing") {
+  if (action.kind === "trail_dash_jump" && state.phase === "playing") {
     const p = state.players.find((pl) => pl.id === playerId);
     if (p) tryJump(p);
   }
-  if (action.kind === "curve_fire" && state.phase === "playing") {
+  if (action.kind === "trail_dash_fire" && state.phase === "playing") {
     const p = state.players.find((pl) => pl.id === playerId);
     if (p) fireWeapon(state, p);
   }

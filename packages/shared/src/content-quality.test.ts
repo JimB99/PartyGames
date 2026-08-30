@@ -4,15 +4,15 @@ import {
   buildReverseFactsFromQuiz,
   diversifyNhieStatement,
   duplicateTruthRate,
-  generateFibbageFamilyPairs,
-  isFibbageTruthValid,
+  generateFactCheckFamilyPairs,
+  isFactCheckTruthValid,
   isObviousBluffTruth,
   isPlaceholderTruth,
   isQuestionForm,
   isReverseFactTrivial,
-  matureTruthToFibbagePair,
+  matureTruthToFactCheckPair,
   orderedSequenceRatio,
-  rebalanceQuiplashPrefixes,
+  rebalanceWitShowdownPrefixes,
 } from "./content-quality.js";
 
 describe("content-quality heuristics", () => {
@@ -54,13 +54,13 @@ describe("content-quality heuristics", () => {
     assert.equal(orderedSequenceRatio(shuffled, 20), 0);
   });
 
-  it("rejects question-form fibbage truths", () => {
-    assert.ok(!isFibbageTruthValid("Prompt", "What is your favorite color?"));
-    assert.ok(isFibbageTruthValid("Prompt", "Tax Deduction"));
+  it("rejects question-form fact-check truths", () => {
+    assert.ok(!isFactCheckTruthValid("Prompt", "What is your favorite color?"));
+    assert.ok(isFactCheckTruthValid("Prompt", "Tax Deduction"));
   });
 
-  it("generates enough family fibbage pairs", () => {
-    const pairs = generateFibbageFamilyPairs(200);
+  it("generates enough family fact-check pairs", () => {
+    const pairs = generateFactCheckFamilyPairs(200);
     assert.ok(pairs.length >= 200);
   });
 
@@ -70,8 +70,8 @@ describe("content-quality heuristics", () => {
     assert.notEqual(a, b);
   });
 
-  it("converts mature truths to fibbage pairs without questions", () => {
-    const pair = matureTruthToFibbagePair("Have you ever skinny-dipped?");
+  it("converts mature truths to fact-check pairs without questions", () => {
+    const pair = matureTruthToFactCheckPair("Have you ever skinny-dipped?");
     assert.ok(pair);
     assert.ok(!isQuestionForm(pair!.truth));
   });

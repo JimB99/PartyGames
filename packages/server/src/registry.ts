@@ -1,6 +1,6 @@
 import type { GameModule } from "@party-games/shared";
-import { fibbageGame } from "./games/fibbage.js";
-import { quiplashGame } from "./games/quiplash.js";
+import { factCheckGame } from "./games/fact-check.js";
+import { witShowdownGame } from "./games/wit-showdown.js";
 import { quickQuizGame } from "./games/quick-quiz.js";
 import { wouldYouRatherGame } from "./games/would-you-rather.js";
 import { captionThisGame } from "./games/caption-this.js";
@@ -9,21 +9,32 @@ import { bracketBattleGame } from "./games/bracket-battle.js";
 import { roleSortGame } from "./games/role-sort.js";
 import { timelineGame } from "./games/timeline.js";
 import { impostorGame } from "./games/impostor.js";
-import { curveFeverGame } from "./games/curve-fever.js";
+import { trailDashGame } from "./games/trail-dash.js";
 import { wordRushGame } from "./games/word-rush.js";
-import { fibbageReverseGame } from "./games/fibbage-reverse.js";
+import { reverseFactGame } from "./games/reverse-fact.js";
 import { teamCharadesGame } from "./games/team-charades.js";
 import { hotSeatGame } from "./games/hot-seat.js";
 import { lastOnTheDikeGame } from "./games/last-on-the-dike.js";
-import { tetrisBattleGame } from "./games/tetris-battle.js";
-import { battleshipsGame } from "./games/battleships.js";
-import { connectFourGame } from "./games/connect-four.js";
+import { blockStackGame } from "./games/block-stack.js";
+import { fleetDuelGame } from "./games/fleet-duel.js";
+import { fourInARowGame } from "./games/four-in-a-row.js";
 import { ticTacToeGame } from "./games/tic-tac-toe.js";
+import { splitTheRoomGame } from "./games/split-the-room.js";
+import { spectrumGame } from "./games/spectrum.js";
+import { chainSketchGame } from "./games/chain-sketch.js";
+import { crowdCallGame } from "./games/crowd-call.js";
+import { starRateGame } from "./games/star-rate.js";
+import { outOfPlaceGame } from "./games/out-of-place.js";
+import { agentGridGame } from "./games/agent-grid.js";
+import { forbiddenClueGame } from "./games/forbidden-clue.js";
+import { hangmanRaceGame } from "./games/hangman-race.js";
+import { paddleClashGame } from "./games/paddle-clash.js";
+import { gridBlastGame } from "./games/grid-blast.js";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const games: GameModule<any>[] = [
-  fibbageGame,
-  quiplashGame,
+  factCheckGame,
+  witShowdownGame,
   quickQuizGame,
   wouldYouRatherGame,
   captionThisGame,
@@ -32,16 +43,27 @@ const games: GameModule<any>[] = [
   roleSortGame,
   timelineGame,
   impostorGame,
-  curveFeverGame,
+  trailDashGame,
   wordRushGame,
-  fibbageReverseGame,
+  reverseFactGame,
   teamCharadesGame,
   hotSeatGame,
   lastOnTheDikeGame,
-  tetrisBattleGame,
-  battleshipsGame,
-  connectFourGame,
+  blockStackGame,
+  fleetDuelGame,
+  fourInARowGame,
   ticTacToeGame,
+  splitTheRoomGame,
+  spectrumGame,
+  chainSketchGame,
+  crowdCallGame,
+  starRateGame,
+  outOfPlaceGame,
+  agentGridGame,
+  forbiddenClueGame,
+  hangmanRaceGame,
+  paddleClashGame,
+  gridBlastGame,
 ];
 
 export const gameRegistry = new Map(games.map((g) => [g.meta.id, g]));

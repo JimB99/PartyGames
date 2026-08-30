@@ -1,0 +1,10 @@
+[
+  { "text": "Pineapple on pizza", "labelA": "Delicious", "labelB": "Crime against Italy" },
+  { "text": "Working from home", "labelA": "Best invention ever", "labelB": "Never leaving the house again" },
+  { "text": "Alarm clocks", "labelA": "Necessary evil", "labelB": "Should be illegal before 9am" },
+  { "text": "Movie theaters", "labelA": "Worth the popcorn prices", "labelB": "Just wait for streaming" },
+  { "text": "Group chats", "labelA": "Love the chaos", "labelB": "Mute forever" },
+  { "text": "Cats vs responsibility", "labelA": "Cats are perfect roommates", "labelB": "They judge me and I deserve it" },
+  { "text": "Breakfast for dinner", "labelA": "Always yes", "labelB": "That's just sad brunch" },
+  { "text": "Public karaoke", "labelA": "Sign me up", "labelB": "Witness protection please" }
+]

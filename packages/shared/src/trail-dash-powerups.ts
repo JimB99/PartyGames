@@ -1,4 +1,4 @@
-import type { PowerUpKind } from "./curve-logic.js";
+import type { PowerUpKind } from "./trail-dash-logic.js";
 import type { PowerUpMode } from "./trail-dash-options.js";
 
 export interface TrailDashPowerUpInfo {
