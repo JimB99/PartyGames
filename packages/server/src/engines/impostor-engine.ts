@@ -1,7 +1,7 @@
 import { pickRandom, type GameAction, type RoomContext } from "@party-games/shared";
-import type { OutOfPlaceCategory } from "@party-games/shared";
+import type { ImpostorCategory } from "@party-games/shared";
 
-export type OutOfPlacePhase =
+export type ImpostorPhase =
   | "instructions"
   | "questioning"
   | "accusation"
@@ -9,27 +9,27 @@ export type OutOfPlacePhase =
   | "scoreboard"
   | "ended";
 
-export interface OutOfPlaceRound {
+export interface ImpostorRound {
   categoryId: string;
   categoryLabel: string;
   secretItem: string;
   itemList: string[];
 }
 
-export interface OutOfPlaceState {
-  phase: OutOfPlacePhase;
+export interface ImpostorState {
+  phase: ImpostorPhase;
   round: number;
   maxRounds: number;
   timerEndsAt: number | null;
   spyId: string;
-  roundInfo: OutOfPlaceRound;
+  roundInfo: ImpostorRound;
   accusations: Record<string, string>;
   accusationStarter: string | null;
   spyGuessed: boolean;
   spyGuessIndex: number | null;
   roundScores: Record<string, number>;
   usedSecrets: string[];
-  pool: OutOfPlaceCategory[];
+  pool: ImpostorCategory[];
   playerIds: string[];
 }
 
@@ -38,7 +38,7 @@ const ACCUSE_MS = 30_000;
 const REVEAL_MS = 8000;
 const SCOREBOARD_MS = 5000;
 
-function pickRound(pool: OutOfPlaceCategory[], used: string[]): OutOfPlaceRound {
+function pickRound(pool: ImpostorCategory[], used: string[]): ImpostorRound {
   const category = pickRandom(pool);
   const available = category.items.filter((item) => !used.includes(`${category.id}:${item}`));
   const secretItem = available.length > 0 ? pickRandom(available) : pickRandom(category.items);
@@ -50,11 +50,11 @@ function pickRound(pool: OutOfPlaceCategory[], used: string[]): OutOfPlaceRound 
   };
 }
 
-export function createOutOfPlaceState(
-  pool: OutOfPlaceCategory[],
+export function createImpostorState(
+  pool: ImpostorCategory[],
   playerIds: string[],
   maxRounds = 4,
-): OutOfPlaceState {
+): ImpostorState {
   const spyId = pickRandom(playerIds);
   const roundInfo = pickRound(pool, []);
   return {
@@ -75,7 +75,7 @@ export function createOutOfPlaceState(
   };
 }
 
-function scoreRound(state: OutOfPlaceState): void {
+function scoreRound(state: ImpostorState): void {
   state.roundScores = {};
   const accused = Object.entries(state.accusations).reduce<Record<string, number>>((acc, [, target]) => {
     acc[target] = (acc[target] ?? 0) + 1;
@@ -104,7 +104,7 @@ function scoreRound(state: OutOfPlaceState): void {
   }
 }
 
-export function advanceOutOfPlace(state: OutOfPlaceState): OutOfPlaceState {
+export function advanceImpostor(state: ImpostorState): ImpostorState {
   if (state.phase === "instructions") {
     state.phase = "questioning";
     state.timerEndsAt = Date.now() + QUESTION_MS;
@@ -149,13 +149,13 @@ export function advanceOutOfPlace(state: OutOfPlaceState): OutOfPlaceState {
   return state;
 }
 
-export function onOutOfPlaceAction(
-  state: OutOfPlaceState,
+export function onImpostorAction(
+  state: ImpostorState,
   playerId: string,
   action: GameAction,
   _ctx: RoomContext,
-): OutOfPlaceState {
-  if (action.kind === "stranger_accuse" && (state.phase === "questioning" || state.phase === "accusation")) {
+): ImpostorState {
+  if (action.kind === "impostor_accuse" && (state.phase === "questioning" || state.phase === "accusation")) {
     if (!state.accusationStarter) {
       state.accusationStarter = playerId;
       state.phase = "accusation";
@@ -165,26 +165,26 @@ export function onOutOfPlaceAction(
     state.accusations[playerId] = action.targetId;
     const votes = Object.values(state.accusations);
     if (votes.length >= state.playerIds.length) {
-      return advanceOutOfPlace(state);
+      return advanceImpostor(state);
     }
   }
-  if (action.kind === "stranger_guess" && state.phase === "questioning" && playerId === state.spyId) {
+  if (action.kind === "impostor_guess" && state.phase === "questioning" && playerId === state.spyId) {
     state.spyGuessed = true;
     state.spyGuessIndex = action.itemIndex;
-    return advanceOutOfPlace(state);
+    return advanceImpostor(state);
   }
   if (action.kind === "advance" && state.phase === "instructions") {
-    return advanceOutOfPlace(state);
+    return advanceImpostor(state);
   }
   return state;
 }
 
-export function onOutOfPlaceTick(state: OutOfPlaceState): OutOfPlaceState {
+export function onImpostorTick(state: ImpostorState): ImpostorState {
   if (!state.timerEndsAt || Date.now() < state.timerEndsAt) return state;
-  return advanceOutOfPlace(state);
+  return advanceImpostor(state);
 }
 
-export function outOfPlaceHostView(state: OutOfPlaceState) {
+export function impostorHostView(state: ImpostorState) {
   const showSecret = state.phase === "reveal" || state.phase === "scoreboard" || state.phase === "ended";
   return {
     phase: state.phase,
@@ -201,7 +201,7 @@ export function outOfPlaceHostView(state: OutOfPlaceState) {
   };
 }
 
-export function outOfPlacePlayerView(state: OutOfPlaceState, playerId: string) {
+export function impostorPlayerView(state: ImpostorState, playerId: string) {
   const isSpy = playerId === state.spyId;
   const showSecret = state.phase === "reveal" || state.phase === "scoreboard" || state.phase === "ended";
   return {

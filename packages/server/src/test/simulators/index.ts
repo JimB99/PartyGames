@@ -254,7 +254,7 @@ export function roleSortActions(state: unknown, ctx: RoomContext): SimAction[] {
 
 export function impostorActions(state: unknown, ctx: RoomContext): SimAction[] {
   const phase = getPhase(state);
-  const s = state as { alive?: string[] };
+  const s = state as { spyId?: string };
   const actions: SimAction[] = [];
 
   if (phase === "instructions") {
@@ -262,20 +262,20 @@ export function impostorActions(state: unknown, ctx: RoomContext): SimAction[] {
     return actions;
   }
 
-  if (phase === "task") {
-    for (const playerId of ctx.playerIds) {
-      actions.push({ role: "player", playerId, action: { kind: "impostor_task", result: "success" } });
+  if (phase === "questioning" && s.spyId) {
+    actions.push({ role: "player", playerId: s.spyId, action: { kind: "impostor_guess", itemIndex: 0 } });
+    return actions;
+  }
+
+  if (phase === "accusation") {
+    for (const pid of ctx.playerIds) {
+      actions.push({ role: "player", playerId: pid, action: { kind: "impostor_accuse", targetId: s.spyId ?? ctx.playerIds[0] } });
     }
     return actions;
   }
 
-  if (phase === "eject") {
-    const alive = s.alive ?? ctx.playerIds;
-    const target = alive[alive.length - 1];
-    for (const playerId of alive) {
-      actions.push({ role: "player", playerId, action: { kind: "impostor_eject", targetId: target } });
-    }
-    return actions;
+  if (phase === "reveal" || phase === "scoreboard") {
+    actions.push({ role: "host", action: { kind: "advance" } });
   }
 
   return actions;
@@ -646,30 +646,6 @@ export function chainSketchActions(state: unknown, ctx: RoomContext): SimAction[
   }
   if (phase === "guess") {
     actions.push({ role: "player", playerId: active, action: { kind: "submit_text", text: "guess" } });
-    return actions;
-  }
-  if (phase === "reveal" || phase === "scoreboard") {
-    actions.push({ role: "host", action: { kind: "advance" } });
-  }
-  return actions;
-}
-
-export function outOfPlaceActions(state: unknown, ctx: RoomContext): SimAction[] {
-  const phase = getPhase(state);
-  const s = state as { spyId?: string };
-  const actions: SimAction[] = [];
-  if (phase === "instructions") {
-    actions.push({ role: "host", action: { kind: "advance" } });
-    return actions;
-  }
-  if (phase === "questioning" && s.spyId) {
-    actions.push({ role: "player", playerId: s.spyId, action: { kind: "stranger_guess", itemIndex: 0 } });
-    return actions;
-  }
-  if (phase === "accusation") {
-    for (const pid of ctx.playerIds) {
-      actions.push({ role: "player", playerId: pid, action: { kind: "stranger_accuse", targetId: s.spyId ?? ctx.playerIds[0] } });
-    }
     return actions;
   }
   if (phase === "reveal" || phase === "scoreboard") {

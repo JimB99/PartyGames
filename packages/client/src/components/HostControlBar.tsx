@@ -1,8 +1,10 @@
 import { useEffect } from "react";
+import type { HostControls } from "@party-games/shared";
 
 export function HostControlBar({
   paused,
   phase,
+  controls,
   sessionActive = false,
   hasNextSessionGame = false,
   onPause,
@@ -15,6 +17,7 @@ export function HostControlBar({
 }: {
   paused: boolean;
   phase: string;
+  controls: HostControls;
   sessionActive?: boolean;
   hasNextSessionGame?: boolean;
   onPause: () => void;
@@ -25,7 +28,6 @@ export function HostControlBar({
   onNextSessionGame?: () => void;
   onEnd: () => void;
 }) {
-  const canSkip = ["instructions", "round_end", "reveal", "scoreboard"].includes(phase);
   const canPlayAgain = phase === "ended" && onPlayAgain && !sessionActive;
   const canNextSession = phase === "ended" && sessionActive && hasNextSessionGame && onNextSessionGame;
 
@@ -42,12 +44,13 @@ export function HostControlBar({
         return;
       }
       e.preventDefault();
+      if (!controls.canPause) return;
       if (paused) onResume();
       else onPause();
     };
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [paused, onPause, onResume]);
+  }, [paused, onPause, onResume, controls.canPause]);
 
   return (
     <div className="fixed bottom-4 left-4 right-4 z-50 flex flex-wrap justify-end gap-2 sm:left-auto sm:right-4 sm:max-w-xl">
@@ -61,32 +64,37 @@ export function HostControlBar({
           Play again
         </button>
       )}
-      {paused ? (
-        <button type="button" data-testid="host-resume" onClick={onResume} className="rounded-xl bg-green-600 px-5 py-3 font-bold">
-          Resume
-        </button>
-      ) : (
-        <button type="button" data-testid="host-pause" onClick={onPause} className="rounded-xl bg-amber-600 px-5 py-3 font-bold">
-          Pause
-        </button>
+      {controls.canPause && (
+        paused ? (
+          <button type="button" data-testid="host-resume" onClick={onResume} className="rounded-xl bg-green-600 px-5 py-3 font-bold">
+            Resume
+          </button>
+        ) : (
+          <button type="button" data-testid="host-pause" onClick={onPause} className="rounded-xl bg-amber-600 px-5 py-3 font-bold">
+            Pause
+          </button>
+        )
       )}
-      {!paused && canSkip && (
+      {!paused && controls.canSkip && (
         <button type="button" data-testid="host-skip" onClick={onSkip} className="rounded-xl bg-violet-600 px-5 py-3 font-bold">
           {phase === "instructions" ? "Start round" : "Skip"}
         </button>
       )}
-      {!paused && (
+      {!paused && controls.canExtendTime && (
         <button type="button" data-testid="host-extend" onClick={onExtend} className="rounded-xl bg-zinc-600 px-5 py-3 font-bold">
           +30s
         </button>
       )}
-      <button
-        type="button"
-        onClick={onEnd}
-        className="rounded-xl bg-zinc-700 px-5 py-3 font-bold"
-      >
-        End game
-      </button>
+      {controls.canReturnToLobby && (
+        <button
+          type="button"
+          data-testid="host-return-lobby"
+          onClick={onEnd}
+          className="rounded-xl bg-zinc-700 px-5 py-3 font-bold"
+        >
+          Back to lobby
+        </button>
+      )}
     </div>
   );
 }

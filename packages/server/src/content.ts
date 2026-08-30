@@ -11,7 +11,7 @@ import timelineJson from "../../shared/content/trivia/timeline.json";
 import wouldYouRatherJson from "../../shared/content/would-you-rather.json";
 import drawWordsJson from "../../shared/content/words/draw.json";
 import charadesWordsJson from "../../shared/content/words/charades.json";
-import outOfPlaceJson from "../../shared/content/categories/out-of-place.json";
+import impostorJson from "../../shared/content/categories/impostor.json";
 import forbiddenClueJson from "../../shared/content/words/forbidden-clue.json";
 import friendSortRolesJson from "../../shared/content/categories/friend-sort-roles.json";
 import bracketCategoriesJson from "../../shared/content/categories/bracket.json";
@@ -21,7 +21,7 @@ import type {
   CategoryEntry,
   FactCheckEntry,
   ForbiddenClueCard,
-  OutOfPlaceCategory,
+  ImpostorCategory,
   PromptEntry,
   QuizEntry,
   TimelineEntry,
@@ -45,7 +45,7 @@ export const content = {
   splitRoom: splitRoomJson as Array<{ text: string; labelA: string; labelB: string }>,
   spectrum: spectrumJson as Array<{ left: string; right: string }>,
   crowdCall: crowdCallJson as Array<{ text: string; choices: string[] }>,
-  outOfPlace: outOfPlaceJson as OutOfPlaceCategory[],
+  impostor: impostorJson as ImpostorCategory[],
   forbiddenClue: forbiddenClueJson as ForbiddenClueCard[],
   dictionary,
 };

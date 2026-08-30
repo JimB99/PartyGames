@@ -86,7 +86,6 @@ export const ALL_GAME_IDS = [
   "chain-sketch",
   "crowd-call",
   "star-rate",
-  "out-of-place",
   "agent-grid",
   "forbidden-clue",
   "hangman-race",

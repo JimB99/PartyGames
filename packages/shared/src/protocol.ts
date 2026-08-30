@@ -1,6 +1,7 @@
 import type { GameId } from "./constants.js";
 import type { GameMeta } from "./constants.js";
 import type { GameOptions } from "./content.js";
+import type { HostControls } from "./host-controls.js";
 import type { ConnectionRole } from "./room.js";
 
 export type ClientMessage =
@@ -35,8 +36,8 @@ export type GameAction =
   | { kind: "draw_clear" }
   | { kind: "draw_tool"; tool: "pen" | "eraser"; width?: number }
   | { kind: "assign_role"; assignments: Record<string, string> }
-  | { kind: "impostor_task"; result: "success" | "fail" }
-  | { kind: "impostor_eject"; targetId: string }
+  | { kind: "impostor_accuse"; targetId: string }
+  | { kind: "impostor_guess"; itemIndex: number }
   | { kind: "trail_dash_turn"; direction: "left" | "right" | "none" }
   | { kind: "trail_dash_jump" }
   | { kind: "trail_dash_fire" }
@@ -58,8 +59,6 @@ export type GameAction =
   | { kind: "fleet_duel_bet"; market: "next_elimination" | "most_hits"; pick: string; amount: number }
   | { kind: "four_in_a_row_drop"; column: number }
   | { kind: "tic_tac_toe_move"; cell: number }
-  | { kind: "stranger_accuse"; targetId: string }
-  | { kind: "stranger_guess"; itemIndex: number }
   | { kind: "agent_clue"; word: string; count: number }
   | { kind: "agent_guess"; index: number }
   | { kind: "agent_pass" }
@@ -109,6 +108,7 @@ export interface HostViewSnapshot {
   maxRounds: number;
   timerEndsAt: number | null;
   timerTotalMs?: number | null;
+  hostControls: HostControls;
   data: Record<string, unknown>;
 }
 

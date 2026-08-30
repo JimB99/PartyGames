@@ -24,7 +24,6 @@ import { spectrumGame } from "./games/spectrum.js";
 import { chainSketchGame } from "./games/chain-sketch.js";
 import { crowdCallGame } from "./games/crowd-call.js";
 import { starRateGame } from "./games/star-rate.js";
-import { outOfPlaceGame } from "./games/out-of-place.js";
 import { agentGridGame } from "./games/agent-grid.js";
 import { forbiddenClueGame } from "./games/forbidden-clue.js";
 import { hangmanRaceGame } from "./games/hangman-race.js";
@@ -58,7 +57,6 @@ const games: GameModule<any>[] = [
   chainSketchGame,
   crowdCallGame,
   starRateGame,
-  outOfPlaceGame,
   agentGridGame,
   forbiddenClueGame,
   hangmanRaceGame,

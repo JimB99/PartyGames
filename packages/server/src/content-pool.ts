@@ -5,7 +5,7 @@ import {
   filterWordList,
   type Difficulty,
   type GameOptions,
-  type OutOfPlaceCategory,
+  type ImpostorCategory,
 } from "@party-games/shared";
 import { content } from "./content.js";
 
@@ -65,10 +65,10 @@ export function crowdCallPool(_options: GameOptions) {
   return content.crowdCall;
 }
 
-export function outOfPlacePool(options: GameOptions): OutOfPlaceCategory[] {
-  const cat = options.outOfPlaceCategory ?? "all";
-  if (cat === "all" || cat === "random") return content.outOfPlace;
-  return content.outOfPlace.filter((c) => c.id === cat);
+export function impostorPool(options: GameOptions): ImpostorCategory[] {
+  const cat = options.impostorCategory ?? "all";
+  if (cat === "all" || cat === "random") return content.impostor;
+  return content.impostor.filter((c) => c.id === cat);
 }
 
 export function forbiddenCluePool(options: GameOptions) {

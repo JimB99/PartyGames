@@ -287,19 +287,6 @@ export function HostGameView({
         </div>
       )}
 
-      {phase === "ended" && hostView.gameId === "impostor" && (
-        <div className="space-y-4 rounded-2xl bg-zinc-800/60 p-6 text-center">
-          <p className="text-2xl font-bold">{data.crewWon ? "Crew wins!" : "Aliens win!"}</p>
-          {data.aliens && (
-            <p className="text-zinc-400">
-              Aliens were: {(data.aliens as string[]).map((id) => room.players.find((p) => p.id === id)?.nickname).join(", ")}
-            </p>
-          )}
-          {data.ejected && (
-            <p>Ejected: {room.players.find((p) => p.id === data.ejected)?.nickname}</p>
-          )}
-        </div>
-      )}
 
       {phase === "playing" && hostView.gameId === "trail-dash" && data.players && (
         <CurveArena data={data} room={room} />
@@ -444,7 +431,7 @@ export function HostGameView({
         </div>
       )}
 
-      {hostView.gameId === "out-of-place" && (
+      {hostView.gameId === "impostor" && (
         <div className="rounded-2xl bg-zinc-800/60 p-8 text-center space-y-4">
           <p className="text-3xl font-bold">{String(data.categoryLabel ?? "")}</p>
           {(phase === "questioning" || phase === "accusation") && (
@@ -989,27 +976,6 @@ export function PlayerGameView({
         </div>
       )}
 
-      {phase === "task" && (
-        <div className="space-y-3 text-center">
-          <p className="text-lg">Complete the task on screen!</p>
-          <Btn onClick={() => onAction({ kind: "impostor_task", result: "success" })}>Done</Btn>
-          <Btn variant="danger" onClick={() => onAction({ kind: "impostor_task", result: "fail" })}>Failed</Btn>
-        </div>
-      )}
-
-      {phase === "eject" && data.alive && (
-        <div className="grid gap-2">
-          {(data.alive as string[]).map((id) => {
-            const p = room.players.find((pl) => pl.id === id);
-            return (
-              <Btn key={id} variant="danger" onClick={() => onAction({ kind: "impostor_eject", targetId: id })}>
-                Eject {p?.nickname ?? id}
-              </Btn>
-            );
-          })}
-        </div>
-      )}
-
       {phase === "assign" && data.roles && data.players && (
         <RoleSortAssign
           roles={data.roles as string[]}
@@ -1138,7 +1104,7 @@ export function PlayerGameView({
         </div>
       )}
 
-      {playerView.gameId === "out-of-place" && (
+      {playerView.gameId === "impostor" && (
         <div className="space-y-4">
           {playerData.isSpy ? (
             <p className="text-center text-xl font-bold text-amber-400">You are the stranger!</p>
@@ -1148,7 +1114,7 @@ export function PlayerGameView({
           {phase === "questioning" && playerData.isSpy && playerData.itemList && (
             <div className="grid gap-2">
               {(playerData.itemList as string[]).map((item, i) => (
-                <Btn key={item} className="w-full text-base" onClick={() => onAction({ kind: "stranger_guess", itemIndex: i })}>
+                <Btn key={item} className="w-full text-base" onClick={() => onAction({ kind: "impostor_guess", itemIndex: i })}>
                   Guess: {item}
                 </Btn>
               ))}
@@ -1158,7 +1124,7 @@ export function PlayerGameView({
             <div className="grid gap-2">
               <p className="text-center text-sm text-zinc-400">Accuse someone:</p>
               {(data.playerIds as string[]).filter((id) => id !== room.playerId).map((id) => (
-                <Btn key={id} variant="danger" className="w-full" disabled={Boolean(playerData.accused)} onClick={() => onAction({ kind: "stranger_accuse", targetId: id })}>
+                <Btn key={id} variant="danger" className="w-full" disabled={Boolean(playerData.accused)} onClick={() => onAction({ kind: "impostor_accuse", targetId: id })}>
                   {room.players.find((p) => p.id === id)?.nickname ?? id}
                 </Btn>
               ))}

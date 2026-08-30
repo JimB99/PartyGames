@@ -1,28 +1,26 @@
 import type { GameModule } from "@party-games/shared";
+import { impostorPool } from "../content-pool.js";
 import {
   createImpostorState,
-  impostorHostView,
-  impostorPlayerView,
   onImpostorAction,
   onImpostorTick,
-} from "../engines/hidden-role-engine.js";
-
-import type { ImpostorState } from "../engines/hidden-role-engine.js";
+  impostorHostView,
+  impostorPlayerView,
+  type ImpostorState,
+} from "../engines/impostor-engine.js";
 
 export const impostorGame: GameModule<ImpostorState> = {
   meta: {
     id: "impostor",
     name: "Impostor",
-    description: "Find the aliens among the crew",
-    scoringRules: "+1500 to each surviving member of the winning team when the game ends.",
+    description: "One stranger doesn't know the secret — question them before they guess it",
+    scoringRules: "Spy +400 for correct guess, +200 if uncaught. Others +200 if spy is caught.",
     minPlayers: 4,
-    maxPlayers: 10,
-    category: "party",
-    supportsDifficulty: false,
-    supportsMatureContent: false,
+    maxPlayers: 8,
+    category: "social",
   },
   init(ctx) {
-    return createImpostorState(ctx.playerIds);
+    return createImpostorState(impostorPool(ctx.gameOptions), ctx.playerIds, 4);
   },
   onPlayerAction(state, playerId, action, ctx) {
     return onImpostorAction(state, playerId, action, ctx);
@@ -37,10 +35,10 @@ export const impostorGame: GameModule<ImpostorState> = {
     return state.phase !== "ended";
   },
   tickIntervalMs: 500,
-  getHostView(state) {
+  getHostView(state, _ctx) {
     return impostorHostView(state);
   },
-  getPlayerView(state, playerId) {
+  getPlayerView(state, playerId, _ctx) {
     return impostorPlayerView(state, playerId);
   },
   getRoundScores(state) {

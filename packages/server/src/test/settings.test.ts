@@ -135,10 +135,10 @@ describe("settings matrix", () => {
     }
   });
 
-  it("out-of-place inits with each category", () => {
-    const game = getGame("out-of-place")!;
-    for (const outOfPlaceCategory of ["all", "places", "things", "jobs", "random"] as const) {
-      const ctx = makeRoomContext(4, { ...DEFAULT_GAME_OPTIONS, outOfPlaceCategory });
+  it("impostor inits with each category", () => {
+    const game = getGame("impostor")!;
+    for (const impostorCategory of ["all", "places", "things", "jobs", "random"] as const) {
+      const ctx = makeRoomContext(4, { ...DEFAULT_GAME_OPTIONS, impostorCategory });
       assert.doesNotThrow(() => game.init(ctx));
     }
   });

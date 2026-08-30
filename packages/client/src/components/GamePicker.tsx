@@ -94,6 +94,7 @@ export function GamePicker({
   gameOptionsByGame,
   onSelect,
   optionsSlot,
+  actionSlot,
 }: {
   games: GameMeta[];
   selectedId: GameId | null;
@@ -101,6 +102,7 @@ export function GamePicker({
   gameOptionsByGame?: Partial<Record<GameId, GameOptions>>;
   onSelect: (id: GameId) => void;
   optionsSlot?: (gameId: GameId) => ReactNode;
+  actionSlot?: (gameId: GameId) => ReactNode;
 }) {
   const gamesByCategory = useMemo(() => {
     const map = new Map<GameCategory, GameMeta[]>();
@@ -180,6 +182,9 @@ export function GamePicker({
                   />
                   {selectedId === game.id && optionsSlot && (
                     <div className="sm:col-span-2 space-y-3 xl:hidden">{optionsSlot(game.id)}</div>
+                  )}
+                  {selectedId === game.id && actionSlot && (
+                    <div className="sm:col-span-2 xl:hidden">{actionSlot(game.id)}</div>
                   )}
                 </Fragment>
               ))}

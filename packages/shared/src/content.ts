@@ -20,7 +20,7 @@ export interface GameOptions {
   speedBonusMax?: number;
   /** Timeline accuracy: points deducted per year off (1–1000; 1000 = exact year only). */
   timelinePtsPerYearOff?: number;
-  outOfPlaceCategory?: "all" | "places" | "things" | "jobs" | "random";
+  impostorCategory?: "all" | "places" | "things" | "jobs" | "random";
   paddleMode?: "pong" | "hockey";
 }
 export const DEFAULT_TIMELINE_PTS_PER_YEAR_OFF = 20;
@@ -93,7 +93,7 @@ export interface CategoryEntry extends ContentMeta {
   name: string;
 }
 
-export interface OutOfPlaceCategory {
+export interface ImpostorCategory {
   id: string;
   label: string;
   items: string[];

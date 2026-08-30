@@ -11,6 +11,7 @@ import {
   type ServerMessage,
   uniqueId,
   resolveTrailDashOptions,
+  resolveHostControls,
 } from "@party-games/shared";
 import {
   Server,
@@ -493,10 +494,25 @@ export class RoomServer extends Server {
 
     const meta = this.connectionMeta.get(sender.id);
     const ctx = this.getRoomContext();
+    const prevState = this.gameState;
 
     if (isHostAction && this.isHost(sender)) {
       if (this.gameModule.onHostAction) {
         this.gameState = this.gameModule.onHostAction(this.gameState, action, ctx);
+      }
+      if (
+        action.kind === "advance" &&
+        this.gameState === prevState &&
+        typeof this.gameState === "object" &&
+        this.gameState !== null
+      ) {
+        const timed = this.gameState as { timerEndsAt?: number | null };
+        if (timed.timerEndsAt != null) {
+          timed.timerEndsAt = Date.now();
+          if (this.gameModule.onTick && this.gameModule.needsTick?.(this.gameState)) {
+            this.gameState = this.gameModule.onTick(this.gameState);
+          }
+        }
       }
     } else if (meta?.playerId) {
       this.gameState = this.gameModule.onPlayerAction(this.gameState, meta.playerId, action, ctx);
@@ -558,6 +574,7 @@ export class RoomServer extends Server {
         maxRounds: view.maxRounds,
         timerEndsAt: view.timerEndsAt,
         timerTotalMs: view.timerTotalMs ?? null,
+        hostControls: resolveHostControls(view),
         data: view.data,
       };
     }

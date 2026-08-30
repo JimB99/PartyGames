@@ -7,7 +7,7 @@ export const NEW_GAME_IDS = [
   "chain-sketch",
   "crowd-call",
   "star-rate",
-  "out-of-place",
+  "impostor",
   "agent-grid",
   "forbidden-clue",
   "hangman-race",
@@ -27,7 +27,7 @@ export const GAME_MAX_PLAYERS: Partial<Record<GameId, number>> = {
   "bracket-battle": 16,
   "role-sort": 8,
   timeline: 16,
-  impostor: 10,
+  impostor: 8,
   "trail-dash": 8,
   "word-rush": 16,
   "reverse-fact": 16,
@@ -43,7 +43,6 @@ export const GAME_MAX_PLAYERS: Partial<Record<GameId, number>> = {
   "chain-sketch": 8,
   "crowd-call": 16,
   "star-rate": 16,
-  "out-of-place": 8,
   "agent-grid": 12,
   "forbidden-clue": 12,
   "hangman-race": 16,
@@ -137,8 +136,8 @@ export const GAME_E2E_CONFIGS: Record<GameId, GameE2EConfig> = {
     id: "impostor",
     minPlayers: 4,
     playerAction: async (page) => {
-      const done = page.getByRole("button", { name: /done/i });
-      if (await done.isVisible().catch(() => false)) await done.click();
+      const accuse = page.getByRole("button", { name: /accuse|guess/i }).first();
+      if (await accuse.isVisible().catch(() => false)) await accuse.click();
     },
   },
   "trail-dash": {
@@ -258,14 +257,6 @@ export const GAME_E2E_CONFIGS: Record<GameId, GameE2EConfig> = {
         return;
       }
       await submitText(page);
-    },
-  },
-  "out-of-place": {
-    id: "out-of-place",
-    minPlayers: 4,
-    playerAction: async (page) => {
-      const accuse = page.getByRole("button", { name: /accuse|guess/i }).first();
-      if (await accuse.isVisible().catch(() => false)) await accuse.click();
     },
   },
   "agent-grid": {

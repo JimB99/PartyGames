@@ -20,3 +20,4 @@ export * from "./agent-grid-logic.js";
 export * from "./paddle-clash-logic.js";
 export * from "./grid-blast-logic.js";
 export * from "./content-quality.js";
+export * from "./host-controls.js";
