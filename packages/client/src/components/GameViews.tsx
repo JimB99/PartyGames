@@ -453,6 +453,12 @@ export function HostGameView({
           </p>
           <p className="text-xl text-zinc-300">Shout your guesses!</p>
           <p className="text-zinc-400">{String(data.correct ?? 0)} words guessed this round</p>
+          {data.teamsMode && data.teamScores && (
+            <div className="flex justify-center gap-6 text-lg">
+              <span className="text-violet-300">Team A: {String((data.teamScores as { A?: number }).A ?? 0)}</span>
+              <span className="text-cyan-300">Team B: {String((data.teamScores as { B?: number }).B ?? 0)}</span>
+            </div>
+          )}
         </div>
       )}
 
@@ -486,7 +492,12 @@ export function HostGameView({
           {data.guesses && (
             <ul className="space-y-1 text-center text-zinc-300">
               {Object.entries(data.guesses as Record<string, number>).map(([pid, val]) => (
-                <li key={pid}>{room.players.find((p) => p.id === pid)?.nickname ?? pid}: {val}</li>
+                <li key={pid}>
+                  {room.players.find((p) => p.id === pid)?.nickname ?? pid}: {val}
+                  {(data.lastRoundScores as Record<string, number> | undefined)?.[pid] !== undefined && (
+                    <span className="text-emerald-400"> (+{(data.lastRoundScores as Record<string, number>)[pid]}g)</span>
+                  )}
+                </li>
               ))}
             </ul>
           )}
@@ -606,9 +617,17 @@ export function HostGameView({
             <p className="text-center text-3xl font-bold text-yellow-400">
               {room.players.find((p) => p.id === data.winnerId)?.nickname ?? "Someone"} wins
               {(() => {
+                const left = data.leftScore as number | undefined;
+                const right = data.rightScore as number | undefined;
+                if (left !== undefined && right !== undefined) {
+                  return ` ${left}–${right}!`;
+                }
                 const players = data.players as Array<{ score: number }> | undefined;
                 if (!players || players.length < 2) return "!";
-                return ` ${players[0].score}–${players[1].score}!`;
+                const mid = Math.ceil(players.length / 2);
+                const leftSum = players.slice(0, mid).reduce((s, p) => s + p.score, 0);
+                const rightSum = players.slice(mid).reduce((s, p) => s + p.score, 0);
+                return ` ${leftSum}–${rightSum}!`;
               })()}
             </p>
           )}
@@ -788,6 +807,7 @@ export function PlayerGameView({
   const [text, setText] = useState("");
   const [year, setYear] = useState(2000);
   const [spectrumGuess, setSpectrumGuess] = useState(50);
+  const [fleetTargetId, setFleetTargetId] = useState<string | null>(null);
   const [drawTool, setDrawTool] = useState<"pen" | "eraser">("pen");
   const [drawWidth, setDrawWidth] = useState(4);
 
@@ -798,6 +818,16 @@ export function PlayerGameView({
   useEffect(() => {
     if (playerData.submitted) setText("");
   }, [playerData.submitted]);
+
+  const royaleTargets = data.royaleTargets as
+    | Record<string, { shots: Array<{ x: number; y: number; hit: boolean }>; sunkCells: Array<{ x: number; y: number }> }>
+    | undefined;
+  const targetOpponents = (data.targetOpponents as string[] | undefined) ?? [];
+  const activeFleetTarget =
+    fleetTargetId && targetOpponents.includes(fleetTargetId)
+      ? fleetTargetId
+      : (data.opponentId as string | undefined) ?? targetOpponents[0] ?? null;
+  const activeTargetGrid = activeFleetTarget && royaleTargets ? royaleTargets[activeFleetTarget] : null;
 
   return (
     <div
@@ -1100,6 +1130,24 @@ export function PlayerGameView({
               sunkLengths={(playerData.opponentSunkLengths as number[]) ?? []}
             />
           </div>
+          {data.mode === "royale" && targetOpponents.length > 1 && (
+            <div className="flex flex-wrap justify-center gap-2">
+              {targetOpponents.map((id) => {
+                const nick = room.players.find((p) => p.id === id)?.nickname ?? id;
+                const selected = activeFleetTarget === id;
+                return (
+                  <button
+                    key={id}
+                    type="button"
+                    className={`rounded-lg px-3 py-1 text-sm font-semibold ${selected ? "bg-violet-600 text-white" : "bg-zinc-800 text-zinc-300"}`}
+                    onClick={() => setFleetTargetId(id)}
+                  >
+                    {nick}
+                  </button>
+                );
+              })}
+            </div>
+          )}
           <p className="text-center text-sm text-zinc-400">
             {phase === "fire" ? "Pick a target cell" : playerData.myTurn ? "Your turn — fire!" : "Waiting for opponent…"}
           </p>
@@ -1110,28 +1158,45 @@ export function PlayerGameView({
                 <FleetDuelGrid
                   size={(data.gridSize as number) ?? 10}
                   ships={(playerData.fleet as import("@party-games/shared").Ship[]) ?? []}
-                  shots={(playerData.opponentShots as Array<{ x: number; y: number; hit: boolean }>) ?? []}
+                  shots={(playerData.incomingShots as Array<{ x: number; y: number; hit: boolean }>) ?? []}
                   showShips
                   disabled
                 />
               </div>
             </div>
             <div className="space-y-2">
-              <p className="text-center text-sm font-semibold text-zinc-300">Enemy waters</p>
+              <p className="text-center text-sm font-semibold text-zinc-300">
+                Enemy waters
+                {activeFleetTarget && (
+                  <span className="text-zinc-500">
+                    {" "}
+                    — {room.players.find((p) => p.id === activeFleetTarget)?.nickname ?? "?"}
+                  </span>
+                )}
+              </p>
               <div className="flex justify-center">
                 <FleetDuelGrid
                   size={(data.gridSize as number) ?? 10}
-                  shots={(playerData.opponentShots as Array<{ x: number; y: number; hit: boolean }>) ?? []}
-                  sunkCells={(playerData.opponentSunkCells as Array<{ x: number; y: number }>) ?? []}
-                  disabled={phase === "battle" ? !playerData.myTurn : false}
-                  onCellClick={(x, y) =>
+                  shots={
+                    activeTargetGrid?.shots ??
+                    (playerData.opponentShots as Array<{ x: number; y: number; hit: boolean }>) ??
+                    []
+                  }
+                  sunkCells={
+                    activeTargetGrid?.sunkCells ??
+                    (playerData.opponentSunkCells as Array<{ x: number; y: number }>) ??
+                    []
+                  }
+                  disabled={phase === "battle" ? !playerData.myTurn : !activeFleetTarget}
+                  onCellClick={(x, y) => {
+                    if (!activeFleetTarget) return;
                     onAction({
                       kind: "fleet_duel_fire",
                       x,
                       y,
-                      targetId: (data.mode as string) === "royale" ? (data.opponentId as string) : (data.opponentId as string),
-                    })
-                  }
+                      targetId: activeFleetTarget,
+                    });
+                  }}
                 />
               </div>
             </div>
@@ -1435,6 +1500,9 @@ export function PlayerGameView({
           <p className="text-lg font-bold">
             {room.players.find((p) => p.id === (data.actorId as string | undefined))?.nickname ?? "Someone"} is acting
           </p>
+          {playerData.team && (
+            <p className="mt-1 text-sm text-violet-300">You&apos;re on Team {String(playerData.team)}</p>
+          )}
           <p className="mt-2 text-sm">Shout your guesses!</p>
         </div>
       )}

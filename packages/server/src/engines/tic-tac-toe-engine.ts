@@ -38,6 +38,13 @@ function finishMatch(state: TicTacToeState): TicTacToeState {
     state.roundScores = tttPlacementScores(state.playerIds, state.championId, state.bracket);
     return state;
   }
+  if (state.matchIndex < state.bracket.length - 1) {
+    state.matchIndex += 1;
+    state.phase = "playing";
+    state.timerEndsAt = null;
+    state.timerTotalMs = null;
+    return state;
+  }
   state.phase = "match_end";
   state.timerEndsAt = Date.now() + MATCH_END_MS;
   state.timerTotalMs = MATCH_END_MS;

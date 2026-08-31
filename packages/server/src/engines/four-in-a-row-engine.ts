@@ -1,15 +1,15 @@
 import type { GameAction } from "@party-games/shared";
 import {
   activePlayers,
-  CF_WIN_TARGET,
+  advanceCfBracket,
   checkConnectFourWinner,
   computeCfRoundScores,
   createFourInARowState,
+  currentCfMatch,
   currentTurnPlayer,
   dropDisc,
   findConnectFourWinningCells,
   markForPlayer,
-  nextChallenger,
   resetBoard,
   type FourInARowState,
 } from "@party-games/shared";
@@ -33,48 +33,41 @@ function startPlaying(state: FourInARowState): FourInARowState {
 function finishMatch(state: FourInARowState, winnerId: string | null): FourInARowState {
   state.winnerId = winnerId;
   if (state.playerIds.length === 2) {
+    state.championId = winnerId;
     state.phase = "ended";
-    state.roundScores = computeCfRoundScores(state);
-    return state;
-  }
-  if (winnerId === state.championId) state.championWins++;
-  else if (winnerId === state.challengerId) state.challengerWins++;
-
-  if (state.championWins >= CF_WIN_TARGET) {
-    state.phase = "ended";
-    state.winnerId = state.championId;
-    state.roundScores = computeCfRoundScores(state);
-    return state;
-  }
-  if (state.challengerWins >= CF_WIN_TARGET) {
-    state.phase = "ended";
-    state.winnerId = state.challengerId;
     state.roundScores = computeCfRoundScores(state);
     return state;
   }
 
+  const match = currentCfMatch(state);
+  if (match) match.winner = winnerId;
+
+  if (state.matchIndex < state.bracket.length - 1) {
+    state.matchIndex += 1;
+    state.round += 1;
+    resetBoard(state);
+    state.phase = "playing";
+    state.timerEndsAt = null;
+    state.timerTotalMs = null;
+    return state;
+  }
+
+  state.round += 1;
   state.phase = "match_end";
   state.timerEndsAt = Date.now() + MATCH_END_MS;
   state.timerTotalMs = MATCH_END_MS;
   return state;
 }
 
-function startNextMatch(state: FourInARowState): FourInARowState {
-  if (state.winnerId && state.winnerId !== state.championId) {
-    state.championId = state.winnerId;
-  }
-  state.challengerId = nextChallenger(state);
+function startNextBracketRound(state: FourInARowState): FourInARowState {
   resetBoard(state);
-  state.phase = "playing";
-  state.timerEndsAt = null;
-  state.timerTotalMs = null;
-  return state;
+  return advanceCfBracket(state);
 }
 
 export function onFourInARowAction(state: FourInARowState, playerId: string, action: GameAction): FourInARowState {
   if (action.kind === "advance") {
     if (state.phase === "instructions") return startPlaying(state);
-    if (state.phase === "match_end") return startNextMatch(state);
+    if (state.phase === "match_end") return startNextBracketRound(state);
     return state;
   }
   if (action.kind === "four_in_a_row_drop" && state.phase === "playing") {
@@ -92,7 +85,8 @@ export function onFourInARowAction(state: FourInARowState, playerId: string, act
     }
     if (outcome === "draw") {
       state.winningCells = null;
-      return finishMatch(state, null);
+      const pair = activePlayers(state);
+      return finishMatch(state, pair?.[0] ?? null);
     }
     state.currentPlayerIndex = state.currentPlayerIndex === 0 ? 1 : 0;
   }
@@ -102,13 +96,14 @@ export function onFourInARowAction(state: FourInARowState, playerId: string, act
 export function onFourInARowTick(state: FourInARowState): FourInARowState {
   if (state.timerEndsAt && Date.now() >= state.timerEndsAt) {
     if (state.phase === "instructions") return startPlaying(state);
-    if (state.phase === "match_end") return startNextMatch(state);
+    if (state.phase === "match_end") return startNextBracketRound(state);
   }
   return state;
 }
 
 export function fourInARowHostView(state: FourInARowState) {
   const pair = activePlayers(state);
+  const match = currentCfMatch(state);
   return {
     phase: state.phase,
     round: state.round,
@@ -119,15 +114,14 @@ export function fourInARowHostView(state: FourInARowState) {
       board: state.board,
       currentTurn: currentTurnPlayer(state),
       championId: state.championId,
-      challengerId: state.challengerId,
-      championWins: state.championWins,
-      challengerWins: state.challengerWins,
-      winTarget: CF_WIN_TARGET,
+      matchIndex: state.matchIndex,
+      bracketSize: state.bracket.length,
       players: pair,
       winnerId: state.winnerId,
       winningCells: state.winningCells,
       roundScores: state.roundScores,
       kingOfHill: state.playerIds.length > 2,
+      match,
     },
   };
 }
@@ -142,17 +136,14 @@ export function fourInARowPlayerView(state: FourInARowState, playerId: string) {
     data: {
       board: state.board,
       players: activePlayers(state),
-      championWins: state.championWins,
-      challengerWins: state.challengerWins,
-      winTarget: CF_WIN_TARGET,
-      kingOfHill: state.playerIds.length > 2,
       winnerId: state.winnerId,
       winningCells: state.winningCells,
+      kingOfHill: state.playerIds.length > 2,
     },
     playerData: {
       myTurn: currentTurnPlayer(state) === playerId,
       mark: markForPlayer(state, playerId),
-      inMatch: activePlayers(state)?.includes(playerId) ?? false,
+      inMatch: activePlayers(state)?.includes(playerId) ?? state.playerIds.length === 2,
     },
   };
 }

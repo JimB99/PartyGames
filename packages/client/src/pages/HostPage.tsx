@@ -82,7 +82,7 @@ export function HostPage() {
 
   const handleEndGame = () => {
     if (!roomState?.hostView) return;
-    if (roomState.paused || roomState.hostView.phase === "ended" || confirm("Return to lobby?")) {
+    if (confirm("Return to lobby?")) {
       returnToLobby();
     }
   };

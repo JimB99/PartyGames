@@ -20,7 +20,7 @@ export const reverseFactGame: GameModule<BluffState> = {
     maxPlayers: 16,
     category: "social",
     supportsDifficulty: true,
-    supportsMatureContent: false,
+    supportsMatureContent: true,
     supportsSpeedScoring: true,
     roundScoresAreCumulative: true,
   },

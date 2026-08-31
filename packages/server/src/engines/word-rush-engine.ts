@@ -113,7 +113,8 @@ export function scoreWordRush(state: WordRushState, gameOptions?: GameOptions) {
 
   for (const [playerId, word] of Object.entries(state.submissions)) {
     const w = word.toLowerCase().trim();
-    const valid = w.length >= state.minWordLength && canFormWord(w, state.letters);
+    const inDictionary = state.dictionary.size === 0 || state.dictionary.has(w);
+    const valid = w.length >= state.minWordLength && canFormWord(w, state.letters) && inDictionary;
     state.validWords[playerId] = valid && !seen.has(w);
     if (state.validWords[playerId]) {
       seen.add(w);

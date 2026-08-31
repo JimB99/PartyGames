@@ -1,7 +1,8 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import { mergeScores, resetInGameScores, createLobby, applyInGameScoresToSession, snapshotSessionScores } from "../lobby.js";
+import { mergeScores, resetInGameScores, createLobby, applyInGameScoresToSession, snapshotSessionScores, addPlayer } from "../lobby.js";
 import { advanceBracket, createBracketState } from "../engines/bracket-engine.js";
+import { commitRoundScores, hydrateLobbySnapshot, serializeLobbySnapshot } from "../lobby-scoring.js";
 
 describe("lobby score helpers", () => {
   it("mergeScores accumulates without mutating the original", () => {
@@ -51,5 +52,56 @@ describe("bracket-engine start round", () => {
     state = advanceBracket(state);
     assert.equal(state.phase, "submit");
     assert.equal(state.entries.length, 0);
+  });
+
+  it("ends with reason when fewer than 2 entries", () => {
+    let state = createBracketState(["Food"]);
+    state = advanceBracket(state);
+    state.entries.push({ id: "e1", text: "only one", authorId: "p1" });
+    state = advanceBracket(state);
+    assert.equal(state.phase, "ended");
+    assert.equal(state.endedReason, "Need at least 2 entries to run a bracket.");
+  });
+});
+
+describe("score commit keys", () => {
+  it("does not double-commit final when last round already committed", () => {
+    const keys = new Set<string>(["draw-guess:r5"]);
+    let scores: Record<string, number> = {};
+    const r1 = commitRoundScores(scores, keys, "draw-guess", "ended", 5, { p1: 500 });
+    assert.equal(r1.committed, false);
+    assert.deepEqual(r1.inGameScores, {});
+  });
+
+  it("commits round scores once per key", () => {
+    const keys = new Set<string>();
+    let scores: Record<string, number> = {};
+    const r1 = commitRoundScores(scores, keys, "forbidden-clue", "scoreboard", 2, { p1: 500 });
+    assert.equal(r1.committed, true);
+    scores = r1.inGameScores;
+    const r2 = commitRoundScores(scores, keys, "forbidden-clue", "scoreboard", 2, { p1: 500 });
+    assert.equal(r2.committed, false);
+    assert.equal(r2.inGameScores.p1, 500);
+  });
+});
+
+describe("lobby persistence snapshot", () => {
+  it("preserves session totals when third player joins after hydrate", () => {
+    const lobby = createLobby("WQHF");
+    addPlayer(lobby, "p1", "P1");
+    addPlayer(lobby, "p2", "P2");
+    lobby.sessionScores = { p1: 6000, p2: 6025 };
+
+    const stored = serializeLobbySnapshot(lobby);
+    const hydrated = hydrateLobbySnapshot(stored);
+    const restored = createLobby("WQHF");
+    restored.players = hydrated.players;
+    restored.sessionScores = hydrated.sessionScores;
+    restored.committedRoundKeys = hydrated.committedRoundKeys;
+
+    addPlayer(restored, "p3", "P3");
+    assert.equal(restored.sessionScores.p1, 6000);
+    assert.equal(restored.sessionScores.p2, 6025);
+    assert.equal(restored.players.length, 3);
   });
 });

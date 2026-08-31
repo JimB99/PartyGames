@@ -38,6 +38,7 @@ export interface TriviaState {
   rankPlaces: Record<string, number>;
   roundScores: Record<string, number>;
   cumulativeScores: Record<string, number>;
+  lastRoundScores: Record<string, number>;
   usedIndices: number[];
   results?: Record<string, number>;
   itemsPool: unknown[];
@@ -99,6 +100,7 @@ export function createTriviaState(
     rankPlaces: {},
     roundScores: {},
     cumulativeScores: {},
+    lastRoundScores: {},
     usedIndices: [],
     itemsPool: items,
     playerCount,
@@ -175,6 +177,21 @@ export function advanceTrivia(state: TriviaState, items: unknown[], gameOptions?
   return state;
 }
 
+function allPlayersAnswered(state: TriviaState, playerIds: string[]): boolean {
+  if (playerIds.length === 0) return false;
+  return playerIds.every((id) => state.answers[id] !== undefined);
+}
+
+function pruneStaleAnswers(state: TriviaState, playerIds: string[]): void {
+  const active = new Set(playerIds);
+  for (const id of Object.keys(state.answers)) {
+    if (!active.has(id)) delete state.answers[id];
+  }
+  for (const id of Object.keys(state.answerTimes)) {
+    if (!active.has(id)) delete state.answerTimes[id];
+  }
+}
+
 function scoreTrivia(state: TriviaState, gameOptions?: GameOptions) {
   const roundDelta: Record<string, number> = {};
   state.results = {};
@@ -213,6 +230,7 @@ function scoreTrivia(state: TriviaState, gameOptions?: GameOptions) {
       }
     }
     state.roundScores = roundDelta;
+    state.lastRoundScores = { ...roundDelta };
     for (const [playerId, pts] of Object.entries(roundDelta)) {
       state.cumulativeScores[playerId] = (state.cumulativeScores[playerId] ?? 0) + pts;
     }
@@ -248,6 +266,7 @@ function scoreTrivia(state: TriviaState, gameOptions?: GameOptions) {
       }
     }
     state.roundScores = roundDelta;
+    state.lastRoundScores = { ...roundDelta };
     for (const [playerId, pts] of Object.entries(roundDelta)) {
       state.cumulativeScores[playerId] = (state.cumulativeScores[playerId] ?? 0) + pts;
     }
@@ -267,6 +286,8 @@ export function onTriviaAction(
     return state;
   }
   const now = Date.now();
+  state.playerCount = ctx.playerIds.length;
+  pruneStaleAnswers(state, ctx.playerIds);
   if (action.kind === "trivia_answer") {
     if (state.answers[playerId] === undefined) {
       state.answers[playerId] = action.choiceIndex;
@@ -283,7 +304,7 @@ export function onTriviaAction(
       state.answerTimes[playerId] = now;
     }
   }
-  if (Object.keys(state.answers).length >= ctx.playerIds.length) {
+  if (allPlayersAnswered(state, ctx.playerIds)) {
     return advanceTrivia(state, state.itemsPool, ctx.gameOptions);
   }
   return state;
@@ -343,6 +364,7 @@ export function triviaHostView(state: TriviaState, gameOptions?: GameOptions) {
       playerCount: state.playerCount,
       roundScores: state.roundScores,
       cumulativeScores: state.cumulativeScores,
+      lastRoundScores: state.lastRoundScores,
       results: state.results,
       playerAnswers: showReveal ? buildTriviaPlayerAnswers(state) : undefined,
     },

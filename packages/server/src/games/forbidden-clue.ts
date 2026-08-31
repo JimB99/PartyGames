@@ -19,6 +19,7 @@ export const forbiddenClueGame: GameModule<ForbiddenState> = {
     maxPlayers: 12,
     category: "party",
     supportsMatureContent: true,
+    roundScoresAreCumulative: true,
   },
   init(ctx) {
     return createForbiddenState(forbiddenCluePool(ctx.gameOptions), ctx.playerIds);

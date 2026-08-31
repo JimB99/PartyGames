@@ -22,6 +22,7 @@ export const hotSeatGame: GameModule<PromptVoteState> = {
     category: "social",
     supportsDifficulty: true,
     supportsMatureContent: true,
+    roundScoresAreCumulative: true,
   },
   init(ctx) {
     const targetPlayerId = pickRandom(ctx.playerIds);
@@ -48,7 +49,7 @@ export const hotSeatGame: GameModule<PromptVoteState> = {
     return promptVotePlayerView(state, playerId, ctx);
   },
   getRoundScores(state) {
-    return state.roundScores;
+    return state.cumulativeScores;
   },
   isGameOver(state) {
     return state.phase === "ended";

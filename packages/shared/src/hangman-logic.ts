@@ -62,6 +62,7 @@ export function tryHangmanSolve(
 ): ReturnType<typeof createHangmanPlayerState> {
   if (state.solved || hangmanLost(state)) return state;
   const normalized = guess.trim().toLowerCase();
+  if (!normalized) return state;
   if (normalized === state.word) {
     return { ...state, solved: true, solvedAt: now };
   }

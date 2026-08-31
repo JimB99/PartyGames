@@ -71,6 +71,22 @@ function lastDrawStrokes(state: ChainSketchState): Stroke[] | undefined {
   return state.strokes.length > 0 ? state.strokes : undefined;
 }
 
+function scoreChainRound(state: ChainSketchState): void {
+  const original = state.chain.find((l) => l.kind === "draw")?.prompt ?? "";
+  const final = state.currentPrompt.toLowerCase().trim();
+  const origin = original.toLowerCase().trim();
+  state.roundScores = {};
+  if (origin && final === origin) {
+    const starter = state.chain[0]?.playerId ?? state.playerIds[0];
+    state.roundScores[starter] = 500;
+  }
+  for (const link of state.chain) {
+    if (link.kind === "guess" && link.guess && link.guess !== "?") {
+      state.roundScores[link.playerId] = (state.roundScores[link.playerId] ?? 0) + 150;
+    }
+  }
+}
+
 export function advanceChain(state: ChainSketchState): ChainSketchState {
   if (state.phase === "instructions") {
     state.phase = isDrawTurn(state) ? "draw" : "guess";
@@ -93,9 +109,10 @@ export function advanceChain(state: ChainSketchState): ChainSketchState {
     return state;
   }
   if (state.phase === "guess") {
-    const guess = Object.values(state.guesses)[0] ?? "?";
+    const guesserId = currentPlayer(state);
+    const guess = state.guesses[guesserId] ?? "?";
     state.chain.push({
-      playerId: currentPlayer(state),
+      playerId: guesserId,
       kind: "guess",
       prompt: state.currentPrompt,
       guess,
@@ -103,9 +120,9 @@ export function advanceChain(state: ChainSketchState): ChainSketchState {
     state.currentPrompt = guess;
     state.linkIndex += 1;
     if (state.linkIndex >= state.playerIds.length * 2) {
+      scoreChainRound(state);
       state.phase = "reveal";
       Object.assign(state, startPhaseTimer(REVEAL_MS));
-      state.roundScores = { [state.playerIds[0]]: 500 };
       return state;
     }
     state.phase = isDrawTurn(state) ? "draw" : "guess";

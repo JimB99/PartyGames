@@ -41,6 +41,17 @@ interface ConnectionMeta {
   nickname: string;
 }
 
+const ROOM_STORAGE_KEY = "room-state";
+
+interface PersistedRoomState {
+  lobby: Omit<LobbyState, "disconnectTimers" | "hostDisconnectTimer" | "committedRoundKeys"> & {
+    committedRoundKeys: string[];
+  };
+  roomPhase: "lobby" | "playing";
+  gameState: unknown;
+  activeGameId: GameId | null;
+}
+
 export class RoomServer extends Server {
   lobby!: LobbyState;
   gameModule: ReturnType<typeof getGame> | null = null;
@@ -53,6 +64,41 @@ export class RoomServer extends Server {
   private gamePhase(state: unknown): string {
     if (!state || typeof state !== "object") return "";
     return String((state as { phase?: string }).phase ?? "");
+  }
+
+  private hydrateLobby(stored: PersistedRoomState["lobby"]): LobbyState {
+    return {
+      ...stored,
+      disconnectTimers: new Map(),
+      hostDisconnectTimer: null,
+      committedRoundKeys: new Set(stored.committedRoundKeys),
+      players: stored.players.map((p) => ({ ...p, connected: false })),
+    };
+  }
+
+  private async persistRoom(): Promise<void> {
+    const { disconnectTimers: _dt, hostDisconnectTimer: _ht, committedRoundKeys, ...lobbyRest } = this.lobby;
+    const payload: PersistedRoomState = {
+      lobby: {
+        ...lobbyRest,
+        committedRoundKeys: [...committedRoundKeys],
+      },
+      roomPhase: this.roomPhase,
+      gameState: this.gameState,
+      activeGameId: this.activeGameId,
+    };
+    await this.ctx.storage.put(ROOM_STORAGE_KEY, payload);
+  }
+
+  private restoreGameModule(): void {
+    if (!this.activeGameId || !this.gameState) {
+      this.gameModule = null;
+      return;
+    }
+    this.gameModule = getGame(this.activeGameId) ?? null;
+    if (this.gameModule?.needsTick?.(this.gameState)) {
+      this.startTick();
+    }
   }
 
   private syncInGameScores(): void {
@@ -78,6 +124,11 @@ export class RoomServer extends Server {
         : `${this.activeGameId}:r${view.round}`;
     if (this.lobby.committedRoundKeys.has(commitKey)) return;
 
+    if (view.phase === "ended") {
+      const lastRoundKey = `${this.activeGameId}:r${view.round}`;
+      if (this.lobby.committedRoundKeys.has(lastRoundKey)) return;
+    }
+
     this.lobby.inGameScores = mergeScores(this.lobby.inGameScores, roundScores);
     this.lobby.committedRoundKeys.add(commitKey);
   }
@@ -96,7 +147,16 @@ export class RoomServer extends Server {
   }
 
   async onStart() {
-    this.lobby = createLobby(this.name);
+    const stored = await this.ctx.storage.get<PersistedRoomState>(ROOM_STORAGE_KEY);
+    if (stored?.lobby) {
+      this.lobby = this.hydrateLobby(stored.lobby);
+      this.roomPhase = stored.roomPhase;
+      this.gameState = stored.gameState;
+      this.activeGameId = stored.activeGameId;
+      this.restoreGameModule();
+    } else {
+      this.lobby = createLobby(this.name);
+    }
   }
 
   onConnect(connection: Connection, _ctx: ConnectionContext) {
@@ -719,6 +779,7 @@ export class RoomServer extends Server {
   }
 
   broadcastAll() {
+    void this.persistRoom();
     for (const conn of this.getConnections()) {
       try {
         this.sendState(conn);

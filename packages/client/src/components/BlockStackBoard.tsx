@@ -1,4 +1,5 @@
 import { BLOCK_STACK_COLS, BLOCK_STACK_ROWS, parseBlockStackGesture } from "@party-games/shared";
+import { useRef } from "react";
 
 /** Distinct pastel palette — not Tetris guideline colors. */
 const PIECE_COLORS = [
@@ -38,8 +39,7 @@ export function BlockStackBoard({
   const cellSize = compact ? 8 : 14;
   const w = BLOCK_STACK_COLS * cellSize;
   const h = BLOCK_STACK_ROWS * cellSize;
-  let startX = 0;
-  let startY = 0;
+  const touchStart = useRef({ x: 0, y: 0 });
 
   return (
     <div className={`relative ${alive ? "" : "opacity-40"} ${className}`}>
@@ -93,13 +93,13 @@ export function BlockStackBoard({
             data-testid="block-stack-board-touch"
             onPointerDown={(e) => {
               if (!alive) return;
-              startX = e.clientX;
-              startY = e.clientY;
+              touchStart.current = { x: e.clientX, y: e.clientY };
               e.currentTarget.setPointerCapture(e.pointerId);
             }}
             onPointerUp={(e) => {
               if (!alive) return;
-              const gesture = parseBlockStackGesture(e.clientX - startX, e.clientY - startY);
+              const { x, y } = touchStart.current;
+              const gesture = parseBlockStackGesture(e.clientX - x, e.clientY - y);
               if (gesture) onInput(gesture);
             }}
           />

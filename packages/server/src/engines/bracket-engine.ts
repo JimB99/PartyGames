@@ -29,6 +29,7 @@ export interface BracketState {
   championId?: string;
   roundScores: Record<string, number>;
   usedCategories: string[];
+  endedReason?: string;
 }
 
 const INSTRUCTIONS_MS = 5000;
@@ -89,6 +90,7 @@ export function advanceBracket(state: BracketState): BracketState {
   if (state.phase === "submit") {
     if (state.entries.length < 2) {
       state.phase = "ended";
+      state.endedReason = "Need at least 2 entries to run a bracket.";
       Object.assign(state, clearPhaseTimer());
       return state;
     }
@@ -209,6 +211,7 @@ export function bracketHostView(state: BracketState) {
       champion: state.championId ? entryById[state.championId] : undefined,
       roundScores: state.roundScores,
       submitCount: state.entries.length,
+      endedReason: state.endedReason,
     },
   };
 }

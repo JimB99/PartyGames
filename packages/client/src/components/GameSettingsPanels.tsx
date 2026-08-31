@@ -16,7 +16,9 @@ export function GameSettingsPanels({
     game.supportsMatureContent ||
     game.supportsQuestionDisplay ||
     game.supportsTimelinePtsPerYear ||
-    game.supportsSpeedScoring;
+    game.supportsSpeedScoring ||
+    game.supportsPaddleMode ||
+    game.supportsCharadesMode;
 
   if (!hasStandardOptions && !game.supportsTrailDashOptions) {
     return null;

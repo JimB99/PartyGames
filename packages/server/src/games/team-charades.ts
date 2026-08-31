@@ -2,6 +2,7 @@ import { pickRandom, type GameModule } from "@party-games/shared";
 import { charadesWordPool } from "../content-pool.js";
 
 export type CharadesPhase = "instructions" | "acting" | "reveal" | "scoreboard" | "ended";
+export type CharadesTeam = "A" | "B";
 
 export interface CharadesState {
   phase: CharadesPhase;
@@ -16,10 +17,21 @@ export interface CharadesState {
   roundScores: Record<string, number>;
   usedWords: string[];
   wordsPool: string[];
+  teamsMode: boolean;
+  teamByPlayerId: Record<string, CharadesTeam>;
+  teamScores: Record<CharadesTeam, number>;
 }
 
 const ACT_MS = 60000;
 const REVEAL_MS = 5000;
+
+function assignTeams(playerIds: string[]): Record<string, CharadesTeam> {
+  const teams: Record<string, CharadesTeam> = {};
+  for (let i = 0; i < playerIds.length; i++) {
+    teams[playerIds[i]] = i % 2 === 0 ? "A" : "B";
+  }
+  return teams;
+}
 
 function pickCharadesWord(state: CharadesState): string {
   const available = state.wordsPool.filter((w) => !state.usedWords.includes(w));
@@ -39,10 +51,13 @@ export const teamCharadesGame: GameModule<CharadesState> = {
     category: "party",
     supportsDifficulty: true,
     supportsMatureContent: true,
+    supportsCharadesMode: true,
+    roundScoresAreCumulative: true,
   },
   init(ctx) {
     const wordsPool = charadesWordPool(ctx.gameOptions);
     const word = pickRandom(wordsPool);
+    const teamsMode = ctx.gameOptions.charadesMode === "teams";
     return {
       phase: "instructions",
       round: 1,
@@ -56,6 +71,9 @@ export const teamCharadesGame: GameModule<CharadesState> = {
       roundScores: {},
       usedWords: [word],
       wordsPool,
+      teamsMode,
+      teamByPlayerId: teamsMode ? assignTeams(ctx.playerIds) : {},
+      teamScores: { A: 0, B: 0 },
     };
   },
   onPlayerAction(state, playerId, action, ctx) {
@@ -64,6 +82,10 @@ export const teamCharadesGame: GameModule<CharadesState> = {
     if (action.kind === "charades_correct" && state.phase === "acting") {
       state.correct += 1;
       state.roundScores[playerId] = (state.roundScores[playerId] ?? 0) + 500;
+      if (state.teamsMode) {
+        const team = state.teamByPlayerId[playerId];
+        if (team) state.teamScores[team] = (state.teamScores[team] ?? 0) + 500;
+      }
       state.word = pickCharadesWord(state);
     }
     if (action.kind === "charades_skip" && state.phase === "acting") {
@@ -130,10 +152,13 @@ export const teamCharadesGame: GameModule<CharadesState> = {
       timerEndsAt: state.timerEndsAt,
       data: {
         actorId,
-        word: state.phase === "reveal" ? state.word : undefined,
+        word: undefined,
         correct: state.correct,
         skipped: state.skipped,
         roundScores: state.roundScores,
+        teamsMode: state.teamsMode,
+        teamByPlayerId: state.teamsMode ? state.teamByPlayerId : undefined,
+        teamScores: state.teamsMode ? state.teamScores : undefined,
       },
     };
   },
@@ -148,9 +173,13 @@ export const teamCharadesGame: GameModule<CharadesState> = {
       data: {
         isActor,
         actorId,
+        teamsMode: state.teamsMode,
+        teamByPlayerId: state.teamsMode ? state.teamByPlayerId : undefined,
+        teamScores: state.teamsMode ? state.teamScores : undefined,
       },
       playerData: {
         word: isActor && state.phase === "acting" ? state.word : undefined,
+        team: state.teamsMode ? state.teamByPlayerId[playerId] : undefined,
       },
     };
   },

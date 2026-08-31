@@ -13,7 +13,7 @@ export const paddleClashGame: GameModule<PaddleClashGameState> = {
     id: "paddle-clash",
     name: "Paddle Clash",
     description: "Pong and air-hockey on the big screen — phones control your paddle",
-    scoringRules: "First to 7 points wins.",
+    scoringRules: "200 pts per arena goal + 400 win bonus. First to 7 goals wins.",
     minPlayers: 2,
     maxPlayers: 4,
     category: "arcade",

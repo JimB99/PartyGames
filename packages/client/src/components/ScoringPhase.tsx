@@ -35,10 +35,20 @@ export function ScoringPhase({
     }
   }
 
-  if (Object.keys(scores).length === 0) return null;
+  const endedReason = data.endedReason as string | undefined;
+  const hasScores = Object.keys(scores).length > 0;
+
+  if (!hasScores && isEnded) {
+    scores = Object.fromEntries(room.players.map((p) => [p.id, 0]));
+  }
+
+  if (!hasScores && !isEnded) return null;
 
   return (
     <>
+      {endedReason && isEnded && (
+        <p className="text-center text-lg text-zinc-300 mb-4">{endedReason}</p>
+      )}
       <RoundScorePanel
         room={room}
         title={title}

@@ -18,6 +18,7 @@ export const spectrumGame: GameModule<SpectrumState> = {
     minPlayers: 3,
     maxPlayers: 12,
     category: "social",
+    roundScoresAreCumulative: true,
   },
   init(ctx) {
     return createSpectrumState(spectrumPool(ctx.gameOptions), ctx.playerIds, ctx.playerIds.length);
@@ -42,7 +43,7 @@ export const spectrumGame: GameModule<SpectrumState> = {
     return spectrumPlayerView(state, playerId);
   },
   getRoundScores(state) {
-    return state.roundScores;
+    return state.cumulativeScores;
   },
   isGameOver(state) {
     return state.phase === "ended";

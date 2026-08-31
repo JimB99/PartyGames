@@ -15,7 +15,7 @@ export const wordRushGame: GameModule<WordRushState> = {
     id: "word-rush",
     name: "Word Rush",
     description: "Race to type words from random letters",
-    scoringRules: "Valid words score length × 100; with speed scoring, fastest valid words rank higher.",
+    scoringRules: "Valid dictionary words from the tiles score points; with speed scoring on, fastest valid words rank higher.",
     minPlayers: 2,
     maxPlayers: 16,
     category: "arcade",

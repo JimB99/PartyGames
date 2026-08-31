@@ -241,4 +241,38 @@ describe("content validation", () => {
       "quiz mature pool should differ when mature entries exist",
     );
   });
+
+  it("mature charades pool has enough entries after filters", () => {
+    const charades = loadJson<WordEntry[]>("words/charades.json");
+    const extra = loadJson<WordEntry[]>("words/charades-mature-extra.json");
+    const all = [...charades, ...extra];
+    const matureOpts = { ...DEFAULT_GAME_OPTIONS, contentRating: "mature" as const };
+    const pool = filterWordList(all, matureOpts).filter(
+      (w) => w.length <= 32 && !/^(perform|do a |call a )/i.test(w),
+    );
+    assert.ok(pool.length >= 100, `mature charades pool too small: ${pool.length}`);
+  });
+
+  it("family hot-seat prompts exclude mature blocklist", () => {
+    const items = loadJson<PromptEntry[]>("prompts/hot-seat.json");
+    const blocklist =
+      /\b(sex|sexy|naked|nude|porn|bdsm|orgasm|horny|fetish|threesome|masturbat|hard drugs|cocaine|heroin|meth)\b/i;
+    const family = items.filter((i) => (i.rating ?? "family") === "family");
+    for (const item of family) {
+      assert.ok(!blocklist.test(item.text), `family hot-seat mature content: ${item.text}`);
+    }
+  });
+
+  it("reverse-fact facts are not malformed questions", () => {
+    const items = loadJson<FactCheckEntry[]>("prompts/reverse-fact.json");
+    for (const item of items) {
+      if (item.fact) {
+        assert.ok(!item.fact.endsWith("?"), `fact should not be a question: ${item.fact}`);
+      }
+      if (item.truth) {
+        assert.ok(!item.truth.endsWith(".?"), `malformed truth: ${item.truth}`);
+        assert.ok(!/\.\.+\?$/.test(item.truth), `malformed truth: ${item.truth}`);
+      }
+    }
+  });
 });

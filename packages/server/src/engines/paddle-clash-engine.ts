@@ -8,6 +8,22 @@ import {
   type PaddleState,
 } from "@party-games/shared";
 
+export const PADDLE_POINTS_PER_GOAL = 200;
+export const PADDLE_WIN_BONUS = 400;
+
+function paddleTeamIds(playerIds: string[], playerId: string): string[] {
+  const idx = playerIds.indexOf(playerId);
+  if (idx < 0) return [];
+  if (playerIds.length <= 2) return [playerId];
+  const onLeft = idx < 2;
+  return playerIds.filter((_, i) => (i < 2) === onLeft);
+}
+
+function teamScore(playerIds: string[], players: Array<{ id: string; score: number }>, side: "left" | "right"): number {
+  const teamIds = playerIds.filter((_, i) => (i < 2 ? "left" : "right") === side);
+  return players.filter((p) => teamIds.includes(p.id)).reduce((sum, p) => sum + p.score, 0);
+}
+
 export type PaddleClashPhase = "instructions" | "playing" | "round_end" | "ended";
 
 export interface PaddleClashGameState {
@@ -58,12 +74,29 @@ export function onPaddleClashAction(
   return state;
 }
 
+function computePaddleRoundScores(state: PaddleClashGameState): Record<string, number> {
+  const winner = paddleWinner(state.paddle);
+  const scores: Record<string, number> = {};
+  for (const p of state.paddle.players) {
+    scores[p.id] = p.score * PADDLE_POINTS_PER_GOAL;
+  }
+  if (!winner) return scores;
+
+  const winners =
+    state.playerIds.length <= 2
+      ? [winner]
+      : paddleTeamIds(state.playerIds, winner);
+  for (const id of winners) {
+    scores[id] = (scores[id] ?? 0) + PADDLE_WIN_BONUS;
+  }
+  return scores;
+}
+
 export function onPaddleClashTick(state: PaddleClashGameState): PaddleClashGameState {
   if (state.phase === "playing") {
     state.paddle = tickPaddleState(state.paddle);
     if (paddleGameOver(state.paddle)) {
-      const winner = paddleWinner(state.paddle);
-      if (winner) state.roundScores[winner] = 2000;
+      state.roundScores = computePaddleRoundScores(state);
       state.phase = "ended";
       state.timerEndsAt = null;
     }
@@ -78,6 +111,8 @@ export function onPaddleClashTick(state: PaddleClashGameState): PaddleClashGameS
 
 export function paddleClashHostView(state: PaddleClashGameState) {
   const winnerId = paddleGameOver(state.paddle) ? paddleWinner(state.paddle) : null;
+  const leftScore = teamScore(state.playerIds, state.paddle.players, "left");
+  const rightScore = teamScore(state.playerIds, state.paddle.players, "right");
   return {
     phase: state.phase,
     round: state.round,
@@ -90,6 +125,8 @@ export function paddleClashHostView(state: PaddleClashGameState) {
       mode: state.mode,
       roundScores: state.roundScores,
       winnerId,
+      leftScore,
+      rightScore,
     },
   };
 }
@@ -98,10 +135,15 @@ export function paddleClashPlayerView(state: PaddleClashGameState, playerId: str
   const idx = state.playerIds.indexOf(playerId);
   const side = idx === 0 || (state.playerIds.length > 2 && idx < 2) ? "left" : "right";
   const winnerId = paddleGameOver(state.paddle) ? paddleWinner(state.paddle) : null;
-  const myScore = state.paddle.players.find((p) => p.id === playerId)?.score ?? 0;
-  const opponentScore =
-    state.paddle.players.find((p) => p.id !== playerId)?.score ??
-    state.paddle.players.reduce((max, p) => (p.id !== playerId && p.score > max ? p.score : max), 0);
+  const myTeam = paddleTeamIds(state.playerIds, playerId);
+  const myScore = state.paddle.players
+    .filter((p) => myTeam.includes(p.id))
+    .reduce((sum, p) => sum + p.score, 0);
+  const opponentScore = state.paddle.players
+    .filter((p) => !myTeam.includes(p.id))
+    .reduce((sum, p) => sum + p.score, 0);
+  const won = winnerId !== null && myTeam.includes(winnerId);
+  const lost = winnerId !== null && !won;
   return {
     phase: state.phase,
     round: state.round,
@@ -116,8 +158,8 @@ export function paddleClashPlayerView(state: PaddleClashGameState, playerId: str
       side,
       myScore,
       opponentScore,
-      won: winnerId === playerId,
-      lost: winnerId !== null && winnerId !== playerId,
+      won,
+      lost,
     },
   };
 }

@@ -92,6 +92,7 @@ export function advanceDraw(state: DrawState, words: string[], playerIds: string
     if (state.round >= state.maxRounds) {
       state.phase = "ended";
       Object.assign(state, clearPhaseTimer());
+      state.roundScores = {};
       return state;
     }
     state.round += 1;
@@ -100,6 +101,11 @@ export function advanceDraw(state: DrawState, words: string[], playerIds: string
     const word = available.length > 0 ? pickRandom(available) : pickRandom(words);
     state.word = word;
     state.usedWords.push(word);
+    state.roundScores = {};
+    state.correctGuessers = [];
+    state.guesses = {};
+    state.guessTimes = {};
+    state.strokes = [];
     state.phase = "instructions";
     Object.assign(state, startPhaseTimer(5000));
     return state;
@@ -145,7 +151,8 @@ export function onDrawAction(
   action: GameAction,
   ctx: RoomContext,
 ): DrawState {
-  const drawerId = ctx.playerIds[state.drawerIndex];
+  state.playerIds = [...ctx.playerIds];
+  const drawerId = ctx.playerIds[state.drawerIndex % ctx.playerIds.length];
   if (action.kind === "draw_tool" && state.phase === "drawing" && playerId === drawerId) {
     state.drawerTool = action.tool;
     if (action.width !== undefined) state.drawerWidth = Math.max(2, Math.min(16, action.width));

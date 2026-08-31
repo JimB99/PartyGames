@@ -3,7 +3,12 @@ export type FourInARowPhase = "instructions" | "playing" | "match_end" | "round_
 
 export const CF_COLS = 7;
 export const CF_ROWS = 6;
-export const CF_WIN_TARGET = 2;
+
+export interface CfBracketMatch {
+  a: string | null;
+  b: string | null;
+  winner: string | null;
+}
 
 export interface FourInARowState {
   phase: FourInARowPhase;
@@ -15,9 +20,8 @@ export interface FourInARowState {
   board: CfCell[][];
   currentPlayerIndex: number;
   championId: string | null;
-  challengerId: string | null;
-  championWins: number;
-  challengerWins: number;
+  bracket: CfBracketMatch[];
+  matchIndex: number;
   winnerId: string | null;
   roundScores: Record<string, number>;
   winningCells: Array<{ row: number; col: number }> | null;
@@ -27,34 +31,60 @@ function emptyGrid(): CfCell[][] {
   return Array.from({ length: CF_ROWS }, () => Array(CF_COLS).fill(null));
 }
 
+export function buildCfBracket(playerIds: string[]): CfBracketMatch[] {
+  const ids: (string | null)[] = [...playerIds];
+  while (ids.length & (ids.length - 1)) ids.push(null);
+  const matches: CfBracketMatch[] = [];
+  for (let i = 0; i < ids.length; i += 2) {
+    const a = ids[i];
+    const b = ids[i + 1];
+    if (!a && b) matches.push({ a: b, b: null, winner: b });
+    else if (a && !b) matches.push({ a, b: null, winner: a });
+    else matches.push({ a, b, winner: null });
+  }
+  return matches;
+}
+
+export function cfBracketMatchCount(playerIds: string[]): number {
+  if (playerIds.length <= 2) return 1;
+  let n = 1;
+  while (n < playerIds.length) n *= 2;
+  return n - 1;
+}
+
 export function createFourInARowState(playerIds: string[]): FourInARowState {
-  const isKingOfHill = playerIds.length > 2;
+  const multi = playerIds.length > 2;
   return {
     phase: "instructions",
     round: 1,
-    maxRounds: isKingOfHill ? playerIds.length : 1,
+    maxRounds: multi ? cfBracketMatchCount(playerIds) : 1,
     timerEndsAt: Date.now() + 4000,
     timerTotalMs: 4000,
     playerIds: [...playerIds],
     board: emptyGrid(),
     currentPlayerIndex: 0,
-    championId: isKingOfHill ? playerIds[0] : playerIds[0] ?? null,
-    challengerId: isKingOfHill ? playerIds[1] ?? null : playerIds[1] ?? null,
-    championWins: 0,
-    challengerWins: 0,
+    championId: null,
+    bracket: multi ? buildCfBracket(playerIds) : [],
+    matchIndex: 0,
     winnerId: null,
     roundScores: {},
     winningCells: null,
   };
 }
 
+export function currentCfMatch(state: FourInARowState): CfBracketMatch | null {
+  if (state.playerIds.length <= 2) {
+    return { a: state.playerIds[0] ?? null, b: state.playerIds[1] ?? null, winner: null };
+  }
+  return state.bracket[state.matchIndex] ?? null;
+}
+
 export function activePlayers(state: FourInARowState): [string, string] | null {
   if (state.playerIds.length === 2) {
     return [state.playerIds[0], state.playerIds[1]];
   }
-  if (state.championId && state.challengerId) {
-    return [state.championId, state.challengerId];
-  }
+  const match = currentCfMatch(state);
+  if (match?.a && match?.b) return [match.a, match.b];
   return null;
 }
 
@@ -120,13 +150,31 @@ export function resetBoard(state: FourInARowState): void {
   state.winningCells = null;
 }
 
-export function nextChallenger(state: FourInARowState): string | null {
-  const idx = state.playerIds.indexOf(state.challengerId ?? "");
-  for (let i = 1; i < state.playerIds.length; i++) {
-    const next = state.playerIds[(idx + i) % state.playerIds.length];
-    if (next !== state.championId) return next;
+export function advanceCfBracket(state: FourInARowState): FourInARowState {
+  const winners: (string | null)[] = state.bracket.map((m) => m.winner);
+  if (winners.length === 1) {
+    state.championId = winners[0];
+    state.winnerId = winners[0];
+    state.phase = "ended";
+    state.timerEndsAt = null;
+    state.timerTotalMs = null;
+    state.roundScores = computeCfRoundScores(state);
+    return state;
   }
-  return null;
+  const nextMatches: CfBracketMatch[] = [];
+  for (let i = 0; i < winners.length; i += 2) {
+    const a = winners[i];
+    const b = winners[i + 1] ?? null;
+    if (!a && b) nextMatches.push({ a: b, b: null, winner: b });
+    else if (a && !b) nextMatches.push({ a, b: null, winner: a });
+    else nextMatches.push({ a, b, winner: null });
+  }
+  state.bracket = nextMatches;
+  state.matchIndex = 0;
+  state.phase = "playing";
+  state.timerEndsAt = null;
+  state.timerTotalMs = null;
+  return state;
 }
 
 export function computeCfRoundScores(state: FourInARowState): Record<string, number> {

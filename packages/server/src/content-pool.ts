@@ -43,8 +43,9 @@ export function drawWordPool(options: GameOptions) {
 }
 
 export function charadesWordPool(options: GameOptions) {
+  const maxLen = options.contentRating === "mature" ? 32 : 28;
   return filterWordList(content.charadesWords, options).filter(
-    (w) => w.length <= 28 && !/^(perform|do a |call a )/i.test(w),
+    (w) => w.length <= maxLen && !/^(perform|do a |call a )/i.test(w),
   );
 }
 
@@ -60,7 +61,7 @@ export function splitRoomPool(options: GameOptions): SplitScenario[] {
     { text: "Talking politics at dinner", labelA: "Keep it spicy", labelB: "Hard pass" },
     { text: "Sleeping in on weekends", labelA: "Sacred ritual", labelB: "Wasted daylight" },
   ];
-  return options.contentRating === "mature" ? [...family, ...mature] : family;
+  return options.contentRating === "mature" ? mature : family;
 }
 
 export function spectrumPool(_options: GameOptions) {
@@ -94,11 +95,18 @@ export function starRatePool(options: GameOptions) {
 }
 
 export function agentGridWordPool(options: GameOptions): string[] {
-  const dict = [...content.dictionary].filter(
-    (w) => w.length >= 4 && w.length <= 12 && /^[a-z]+$/i.test(w),
+  const common = [...content.dictionary].filter(
+    (w) =>
+      w.length >= 4 &&
+      w.length <= 10 &&
+      /^[a-z]+$/i.test(w) &&
+      !w.includes("-") &&
+      !w.startsWith("a") &&
+      !w.startsWith("un") &&
+      w.length <= 8,
   );
-  if (dict.length === 0) return filterWordList(content.drawWords, options).filter((w) => w.length <= 20);
-  return dict;
+  if (common.length >= 25) return common;
+  return filterWordList(content.drawWords, options).filter((w) => w.length >= 4 && w.length <= 12);
 }
 
 export function hangmanWordPool(options: GameOptions): string[] {

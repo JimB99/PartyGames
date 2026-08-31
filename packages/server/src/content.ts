@@ -10,6 +10,7 @@ import timelineJson from "../../shared/content/trivia/timeline.json";
 import wouldYouRatherJson from "../../shared/content/would-you-rather.json";
 import drawWordsJson from "../../shared/content/words/draw.json";
 import charadesWordsJson from "../../shared/content/words/charades.json";
+import charadesMatureExtraJson from "../../shared/content/words/charades-mature-extra.json";
 import impostorJson from "../../shared/content/categories/impostor.json";
 import forbiddenClueJson from "../../shared/content/words/forbidden-clue.json";
 import friendSortRolesJson from "../../shared/content/categories/friend-sort-roles.json";
@@ -37,7 +38,7 @@ export const content = {
   timeline: timelineJson as TimelineEntry[],
   wouldYouRather: wouldYouRatherJson as WouldYouRatherEntry[],
   drawWords: drawWordsJson as WordEntry[],
-  charadesWords: charadesWordsJson as WordEntry[],
+  charadesWords: [...(charadesWordsJson as WordEntry[]), ...(charadesMatureExtraJson as WordEntry[])],
   friendSortRoles: friendSortRolesJson as string[],
   bracketCategories: bracketCategoriesJson as CategoryEntry[],
   splitRoom: splitRoomJson as Array<{ text: string; labelA: string; labelB: string }>,

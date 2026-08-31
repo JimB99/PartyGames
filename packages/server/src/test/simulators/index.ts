@@ -437,14 +437,18 @@ export function connectFourActions(state: unknown, ctx: RoomContext): SimAction[
   if (phase === "playing") {
     const s = state as {
       currentPlayerIndex?: number;
-      championId?: string;
-      challengerId?: string;
+      playerIds?: string[];
+      bracket?: Array<{ a: string | null; b: string | null; winner: string | null }>;
+      matchIndex?: number;
       board?: (string | null)[][];
     };
-    const pair =
-      ctx.playerIds.length === 2
-        ? ctx.playerIds
-        : ([s.championId, s.challengerId].filter(Boolean) as string[]);
+    let pair: string[] = [];
+    if ((ctx.playerIds.length ?? 0) === 2) {
+      pair = ctx.playerIds;
+    } else if (s.bracket && s.matchIndex !== undefined) {
+      const match = s.bracket[s.matchIndex];
+      if (match?.a && match?.b) pair = [match.a, match.b];
+    }
     const turnId = pair[s.currentPlayerIndex ?? 0];
     if (turnId) {
       const board = s.board ?? [];

@@ -59,6 +59,7 @@ export interface GameMeta {
   supportsQuestionDisplay?: boolean;
   supportsTimelinePtsPerYear?: boolean;
   supportsPaddleMode?: boolean;
+  supportsCharadesMode?: boolean;
   /** When true, `getRoundScores` is already cumulative for the whole game (arcade/board). */
   roundScoresAreCumulative?: boolean;
 }

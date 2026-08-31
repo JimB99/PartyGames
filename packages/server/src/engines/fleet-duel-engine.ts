@@ -234,8 +234,28 @@ export function fdHostView(state: FleetDuelState) {
 
 export function fdPlayerView(state: FleetDuelState, playerId: string) {
   const fleet = state.fleets[playerId];
-  const opponentId = state.playerIds.find((id) => id !== playerId);
+  const aliveOpponents = alivePlayers(state).filter((id) => id !== playerId);
+  const opponentId =
+    state.mode === "duel"
+      ? (state.playerIds.find((id) => id !== playerId) ?? null)
+      : (aliveOpponents[0] ?? null);
   const opponent = opponentId ? state.fleets[opponentId] : null;
+  const royaleTargets =
+    state.mode === "royale"
+      ? Object.fromEntries(
+          aliveOpponents.map((id) => [
+            id,
+            {
+              shots: state.fleets[id]?.shots ?? [],
+              sunkCells:
+                state.fleets[id]?.ships
+                  .filter((s) => s.hits >= s.length)
+                  .flatMap((s) => s.cells) ?? [],
+            },
+          ]),
+        )
+      : undefined;
+
   return {
     phase: state.phase,
     round: state.round,
@@ -248,12 +268,15 @@ export function fdPlayerView(state: FleetDuelState, playerId: string) {
       alive: alivePlayers(state),
       currentTurn: state.mode === "duel" ? state.playerIds[state.currentTurn] : null,
       opponentId,
+      royaleTargets,
+      targetOpponents: aliveOpponents,
       lastReveal: state.lastReveal,
       playerIds: state.playerIds,
     },
     playerData: {
       fleet: fleet?.ships ?? [],
       fleetLengths: fleet ? fleetLengths(fleet) : [],
+      incomingShots: fleet?.shots ?? [],
       ownShots: fleet?.shots ?? [],
       opponentShots: opponent?.shots ?? [],
       ownSunkLengths: fleet ? sunkShipLengths(fleet) : [],

@@ -22,6 +22,7 @@ export interface GameOptions {
   timelinePtsPerYearOff?: number;
   impostorCategory?: "all" | "places" | "things" | "jobs" | "random";
   paddleMode?: "pong" | "hockey";
+  charadesMode?: "solo" | "teams";
 }
 export const DEFAULT_TIMELINE_PTS_PER_YEAR_OFF = 20;
 export const TIMELINE_PTS_PER_YEAR_MAX = 1000;

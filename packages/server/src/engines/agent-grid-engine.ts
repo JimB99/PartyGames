@@ -164,7 +164,10 @@ export function onAgentGridAction(
       return advanceAgentGrid(state);
     }
     if (outcome === "continue") {
-      void tile;
+      state.guessesRemaining -= 1;
+      if (state.guessesRemaining <= 0) {
+        return advanceAgentGrid(state);
+      }
       return state;
     }
     state.guessesRemaining -= 1;

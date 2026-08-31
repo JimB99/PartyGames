@@ -156,9 +156,24 @@ function buildOptions(state: BluffState) {
 
   const minOptions = Math.min(6, Math.max(4, state.playerCount + 1));
   if (options.length < minOptions) {
+    const display = state.displayText.trim();
+    const excludedPrompts = new Set(
+      state.promptsPool
+        .map((p) => (state.mode === "fact-check" ? p.prompt?.trim() : ""))
+        .filter((p): p is string => Boolean(p)),
+    );
     const decoyCandidates = state.promptsPool
-      .map((p) => p.truth.trim())
-      .filter((t) => t && t !== state.truthText.trim() && t.length >= 4 && t.length <= 120);
+      .map((p) => p.truth?.trim() ?? "")
+      .filter(
+        (t) =>
+          t &&
+          t !== state.truthText.trim() &&
+          t !== display &&
+          !excludedPrompts.has(t) &&
+          t.length >= 4 &&
+          t.length <= 120 &&
+          (state.mode !== "reverse-fact" || isPlausibleReverseFactDecoy(t)),
+      );
     const decoys: string[] = [];
     for (const text of shuffle([...new Set(decoyCandidates)])) {
       if (decoys.length >= minOptions - options.length) break;
@@ -173,6 +188,12 @@ function buildOptions(state: BluffState) {
   }
 
   state.options = shuffle(options);
+}
+
+function isPlausibleReverseFactDecoy(text: string): boolean {
+  if (text.endsWith(".?") || text.endsWith("?.")) return false;
+  if (!text.includes("?")) return false;
+  return /^(who|what|which|when|where|how|why|can|is|are|do|does|did|was|were|name)\b/i.test(text);
 }
 
 function scoreBluff(state: BluffState, gameOptions?: GameOptions) {
