@@ -1,4 +1,5 @@
 import { pickRandom, shuffle, uniqueId, type GameAction, type RoomContext } from "@party-games/shared";
+import { clearPhaseTimer, startPhaseTimer } from "./phase-timer.js";
 
 export type BracketPhase = "instructions" | "submit" | "bracket" | "vote" | "reveal" | "scoreboard" | "ended";
 
@@ -19,6 +20,7 @@ export interface BracketState {
   round: number;
   maxRounds: number;
   timerEndsAt: number | null;
+  timerTotalMs: number | null;
   category: string;
   entries: BracketEntry[];
   bracket: BracketMatch[];
@@ -29,6 +31,7 @@ export interface BracketState {
   usedCategories: string[];
 }
 
+const INSTRUCTIONS_MS = 5000;
 const SUBMIT_MS = 45000;
 const VOTE_MS = 20000;
 const REVEAL_MS = 5000;
@@ -39,7 +42,7 @@ export function createBracketState(categories: string[]): BracketState {
     phase: "instructions",
     round: 1,
     maxRounds: 1,
-    timerEndsAt: Date.now() + 5000,
+    ...startPhaseTimer(INSTRUCTIONS_MS),
     category,
     entries: [],
     bracket: [],
@@ -79,25 +82,25 @@ function buildBracket(entries: BracketEntry[]): BracketMatch[] {
 export function advanceBracket(state: BracketState): BracketState {
   if (state.phase === "instructions") {
     state.phase = "submit";
-    state.timerEndsAt = Date.now() + SUBMIT_MS;
+    Object.assign(state, startPhaseTimer(SUBMIT_MS));
     state.entries = [];
     return state;
   }
   if (state.phase === "submit") {
-    if (state.entries.length === 0) {
+    if (state.entries.length < 2) {
       state.phase = "ended";
-      state.timerEndsAt = null;
+      Object.assign(state, clearPhaseTimer());
       return state;
     }
     state.bracket = buildBracket(state.entries);
     if (state.bracket.length === 0) {
       state.phase = "ended";
-      state.timerEndsAt = null;
+      Object.assign(state, clearPhaseTimer());
       return state;
     }
     state.matchIndex = 0;
     state.phase = "vote";
-    state.timerEndsAt = Date.now() + VOTE_MS;
+    Object.assign(state, startPhaseTimer(VOTE_MS));
     state.votes = {};
     return state;
   }
@@ -109,24 +112,24 @@ export function advanceBracket(state: BracketState): BracketState {
       if (winners.length === 1) {
         state.championId = winners[0];
         state.phase = "reveal";
-        state.timerEndsAt = Date.now() + REVEAL_MS;
+        Object.assign(state, startPhaseTimer(REVEAL_MS));
         scoreChampion(state);
       } else {
         const winnerEntries = state.entries.filter((e) => winners.includes(e.id));
         state.bracket = buildBracket(winnerEntries);
         state.matchIndex = 0;
         state.votes = {};
-        state.timerEndsAt = Date.now() + VOTE_MS;
+        Object.assign(state, startPhaseTimer(VOTE_MS));
       }
     } else {
       state.votes = {};
-      state.timerEndsAt = Date.now() + VOTE_MS;
+      Object.assign(state, startPhaseTimer(VOTE_MS));
     }
     return state;
   }
   if (state.phase === "reveal") {
     state.phase = "ended";
-    state.timerEndsAt = null;
+    Object.assign(state, clearPhaseTimer());
     return state;
   }
   return state;
@@ -187,6 +190,7 @@ export function bracketHostView(state: BracketState) {
     round: state.round,
     maxRounds: state.maxRounds,
     timerEndsAt: state.timerEndsAt,
+    timerTotalMs: state.timerTotalMs,
     data: {
       category: state.category,
       entries: showReveal ? state.entries : undefined,
@@ -204,6 +208,7 @@ export function bracketHostView(state: BracketState) {
         : undefined,
       champion: state.championId ? entryById[state.championId] : undefined,
       roundScores: state.roundScores,
+      submitCount: state.entries.length,
     },
   };
 }
@@ -217,6 +222,7 @@ export function bracketPlayerView(state: BracketState, playerId: string) {
     round: state.round,
     maxRounds: state.maxRounds,
     timerEndsAt: state.timerEndsAt,
+    timerTotalMs: state.timerTotalMs,
     data: {
       category: state.phase !== "instructions" ? state.category : undefined,
       match: match && state.phase === "vote"

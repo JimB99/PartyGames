@@ -17,6 +17,7 @@ export const gridBlastGame: GameModule<GridBlastGameState> = {
     minPlayers: 2,
     maxPlayers: 8,
     category: "arcade",
+    roundScoresAreCumulative: true,
   },
   init(ctx) {
     return createGridBlastGameState(ctx.playerIds, 3);

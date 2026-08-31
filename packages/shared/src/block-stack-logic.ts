@@ -14,7 +14,7 @@ export type BlockStackInput =
 export const BLOCK_STACK_COLS = 8;
 export const BLOCK_STACK_ROWS = 16;
 export const BLOCK_STACK_MAX_ROUNDS = 3;
-export const GRAVITY_INTERVAL_TICKS = 2;
+export const GRAVITY_INTERVAL_TICKS = 20;
 export const LOCK_DELAY_TICKS = 20;
 export const LINE_SCORES = [0, 100, 300, 500, 800] as const;
 
@@ -397,6 +397,12 @@ export function tickBlockStackState(state: BlockStackState): BlockStackState {
       state.deathOrder.unshift(survivor.id);
     }
     state.roundWinner = state.deathOrder[0] ?? null;
+    state.roundScores = computeBlockStackRoundScores(state);
+    state.phase = "round_end";
+    state.timerEndsAt = Date.now() + 6000;
+    state.timerTotalMs = 6000;
+  } else if (alive === 0 && state.players.length > 1) {
+    state.roundWinner = state.deathOrder[state.deathOrder.length - 1] ?? null;
     state.roundScores = computeBlockStackRoundScores(state);
     state.phase = "round_end";
     state.timerEndsAt = Date.now() + 6000;

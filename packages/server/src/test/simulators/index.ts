@@ -529,12 +529,6 @@ export function splitRoomActions(state: unknown, ctx: RoomContext): SimAction[] 
     actions.push({ role: "host", action: { kind: "advance" } });
     return actions;
   }
-  if (phase === "submit") {
-    for (const playerId of ctx.playerIds) {
-      actions.push({ role: "player", playerId, action: { kind: "submit_text", text: `Take ${playerId}` } });
-    }
-    return actions;
-  }
   if (phase === "vote") {
     for (const playerId of ctx.playerIds) {
       actions.push({ role: "player", playerId, action: { kind: "split_vote", side: "a" } });

@@ -17,6 +17,8 @@ export const paddleClashGame: GameModule<PaddleClashGameState> = {
     minPlayers: 2,
     maxPlayers: 4,
     category: "arcade",
+    roundScoresAreCumulative: true,
+    supportsPaddleMode: true,
   },
   init(ctx) {
     const mode = ctx.gameOptions.paddleMode ?? "pong";

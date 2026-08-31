@@ -3,7 +3,6 @@ import { factCheckGame } from "./games/fact-check.js";
 import { witShowdownGame } from "./games/wit-showdown.js";
 import { quickQuizGame } from "./games/quick-quiz.js";
 import { wouldYouRatherGame } from "./games/would-you-rather.js";
-import { captionThisGame } from "./games/caption-this.js";
 import { drawGuessGame } from "./games/draw-guess.js";
 import { bracketBattleGame } from "./games/bracket-battle.js";
 import { roleSortGame } from "./games/role-sort.js";
@@ -36,7 +35,6 @@ const games: GameModule<any>[] = [
   witShowdownGame,
   quickQuizGame,
   wouldYouRatherGame,
-  captionThisGame,
   drawGuessGame,
   bracketBattleGame,
   roleSortGame,

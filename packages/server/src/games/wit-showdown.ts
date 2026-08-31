@@ -21,9 +21,10 @@ export const witShowdownGame: GameModule<PromptVoteState> = {
     category: "social",
     supportsDifficulty: true,
     supportsMatureContent: true,
+    roundScoresAreCumulative: true,
   },
   init(ctx) {
-    return createPromptVoteState("wit-showdown", witShowdownPool(ctx.gameOptions));
+    return createPromptVoteState("wit-showdown", witShowdownPool(ctx.gameOptions), 4, undefined, ctx.playerIds);
   },
   onPlayerAction(state, playerId, action, ctx) {
     return onPromptVoteAction(state, playerId, action, ctx);
@@ -38,14 +39,14 @@ export const witShowdownGame: GameModule<PromptVoteState> = {
     return state.phase !== "ended";
   },
   tickIntervalMs: 500,
-  getHostView(state) {
-    return promptVoteHostView(state);
+  getHostView(state, ctx) {
+    return promptVoteHostView(state, ctx);
   },
-  getPlayerView(state, playerId) {
-    return promptVotePlayerView(state, playerId);
+  getPlayerView(state, playerId, ctx) {
+    return promptVotePlayerView(state, playerId, ctx);
   },
   getRoundScores(state) {
-    return state.roundScores;
+    return state.cumulativeScores;
   },
   isGameOver(state) {
     return state.phase === "ended";

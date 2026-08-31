@@ -1,4 +1,5 @@
 import { pickRandom, shuffle, uniqueId, isSpeedScoringEnabled, scoreByAnswerRank, type GameAction, type GameOptions, type RoomContext } from "@party-games/shared";
+import { clearPhaseTimer, startPhaseTimer } from "./phase-timer.js";
 
 export type DrawPhase = "instructions" | "drawing" | "guessing" | "reveal" | "scoreboard" | "ended";
 
@@ -14,6 +15,7 @@ export interface DrawState {
   round: number;
   maxRounds: number;
   timerEndsAt: number | null;
+  timerTotalMs: number | null;
   playerIds: string[];
   drawerIndex: number;
   word: string;
@@ -41,7 +43,7 @@ export function createDrawState(words: string[], playerIds: string[], maxRounds?
     phase: "instructions",
     round: 1,
     maxRounds: maxRounds ?? playerIds.length,
-    timerEndsAt: Date.now() + 5000,
+    ...startPhaseTimer(5000),
     playerIds,
     drawerIndex: 0,
     word,
@@ -61,7 +63,7 @@ export function createDrawState(words: string[], playerIds: string[], maxRounds?
 export function advanceDraw(state: DrawState, words: string[], playerIds: string[]): DrawState {
   if (state.phase === "instructions") {
     state.phase = "drawing";
-    state.timerEndsAt = Date.now() + DRAW_MS;
+    Object.assign(state, startPhaseTimer(DRAW_MS));
     state.strokes = [];
     state.guesses = {};
     state.correctGuessers = [];
@@ -70,25 +72,26 @@ export function advanceDraw(state: DrawState, words: string[], playerIds: string
   if (state.phase === "drawing") {
     state.phase = "guessing";
     state.guessPhaseStartedAt = Date.now();
-    state.timerEndsAt = state.guessPhaseStartedAt + GUESS_MS;
+    state.timerTotalMs = GUESS_MS;
+    state.timerEndsAt = state.guessPhaseStartedAt! + GUESS_MS;
     state.guessTimes = {};
     return state;
   }
   if (state.phase === "guessing") {
     scoreDraw(state, playerIds, state.gameOptions);
     state.phase = "reveal";
-    state.timerEndsAt = Date.now() + REVEAL_MS;
+    Object.assign(state, startPhaseTimer(REVEAL_MS));
     return state;
   }
   if (state.phase === "reveal") {
     state.phase = "scoreboard";
-    state.timerEndsAt = Date.now() + SCOREBOARD_MS;
+    Object.assign(state, startPhaseTimer(SCOREBOARD_MS));
     return state;
   }
   if (state.phase === "scoreboard") {
     if (state.round >= state.maxRounds) {
       state.phase = "ended";
-      state.timerEndsAt = null;
+      Object.assign(state, clearPhaseTimer());
       return state;
     }
     state.round += 1;
@@ -98,7 +101,7 @@ export function advanceDraw(state: DrawState, words: string[], playerIds: string
     state.word = word;
     state.usedWords.push(word);
     state.phase = "instructions";
-    state.timerEndsAt = Date.now() + 5000;
+    Object.assign(state, startPhaseTimer(5000));
     return state;
   }
   return state;
@@ -167,13 +170,16 @@ export function onDrawAction(
     if (action.text.toLowerCase().trim() === normalizedWord) {
       scoreDraw(state, ctx.playerIds, ctx.gameOptions);
       state.phase = "reveal";
-      state.timerEndsAt = Date.now() + REVEAL_MS;
+      Object.assign(state, startPhaseTimer(REVEAL_MS));
       state.guessPhaseStartedAt = null;
       return state;
     }
   }
   if (action.kind === "advance" && state.phase === "instructions") {
-    return advanceDraw(state, [], ctx.playerIds);
+    return advanceDraw(state, state.wordsPool, ctx.playerIds);
+  }
+  if (action.kind === "advance" && state.phase === "drawing" && playerId === drawerId) {
+    return advanceDraw(state, state.wordsPool, ctx.playerIds);
   }
   return state;
 }
@@ -191,6 +197,7 @@ export function drawHostView(state: DrawState, playerIds: string[]) {
     round: state.round,
     maxRounds: state.maxRounds,
     timerEndsAt: state.timerEndsAt,
+    timerTotalMs: state.timerTotalMs,
     data: {
       drawerId,
       word: showReveal ? state.word : undefined,
@@ -217,6 +224,7 @@ export function drawPlayerView(state: DrawState, playerId: string, playerIds: st
     round: state.round,
     maxRounds: state.maxRounds,
     timerEndsAt: state.timerEndsAt,
+    timerTotalMs: state.timerTotalMs,
     data: {
       isDrawer,
       strokes: state.strokes,
@@ -231,6 +239,8 @@ export function drawPlayerView(state: DrawState, playerId: string, playerIds: st
         : undefined,
     },
     playerData: {
+      isDrawer,
+      drawerId: isDrawer ? undefined : drawerId,
       word: isDrawer && state.phase !== "ended" && state.phase !== "reveal" && state.phase !== "scoreboard" ? state.word : undefined,
       guessed: state.guesses[playerId] !== undefined,
       myGuess: state.guesses[playerId],

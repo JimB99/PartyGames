@@ -21,7 +21,7 @@ export function PlayPage() {
     });
 
   return (
-    <div className="pg-page min-h-dvh bg-[#0f1117]">
+    <div className="pg-page min-h-dvh bg-[#0f1117] overflow-x-hidden">
       <header className="flex items-center justify-between gap-2 border-b border-zinc-800 px-4 py-3 min-w-0">
         <PlayerProfileBar
           roomId={roomId}
@@ -42,6 +42,10 @@ export function PlayPage() {
         </div>
       )}
 
+      {roomState?.phase === "lobby" && playerView && (
+        <div className="p-8 text-center text-zinc-400">Waiting for host to start a game…</div>
+      )}
+
       {error && !playerView && (
         <div className="mx-auto max-w-md space-y-4 p-8 text-center">
           <p className="text-red-300">{error}</p>
@@ -51,7 +55,7 @@ export function PlayPage() {
         </div>
       )}
 
-      {playerView && roomState && (
+      {playerView && roomState && roomState.phase === "playing" && (
         <PlayerGameView room={roomState} playerView={playerView} onAction={playerAction} />
       )}
     </div>

@@ -118,9 +118,22 @@ export function HostPage() {
     );
   };
 
+  const startHint =
+    !canStart && selectedGame
+      ? connectedPlayers.length === 0
+        ? "Waiting for at least 1 player to join."
+        : selectedGame.id === "trail-dash"
+          ? "Add bots or invite another player to start Trail Dash."
+          : connectedPlayers.length < selectedGame.minPlayers
+            ? `Need ${selectedGame.minPlayers - connectedPlayers.length} more player${
+                selectedGame.minPlayers - connectedPlayers.length === 1 ? "" : "s"
+              } to start.`
+            : undefined
+      : undefined;
+
   const actionSlot = (gameId: GameId) => {
     if (!roomState || gameId !== roomState.selectedGameId) return null;
-    return <StartGameButton canStart={Boolean(canStart)} onStart={startGame} />;
+    return <StartGameButton canStart={Boolean(canStart)} onStart={startGame} hint={startHint} />;
   };
 
   const gameScores = roomState?.gameScores ?? {};
@@ -148,6 +161,19 @@ export function HostPage() {
           </span>
         </div>
       </header>
+
+      {!connected && !playing && (
+        <div className="bg-amber-900/40 px-6 py-3 text-center text-sm text-amber-200 space-y-2">
+          <p>Connecting to the game server — share the room code once the header shows Connected.</p>
+          <button
+            type="button"
+            className="rounded-lg bg-zinc-700 px-4 py-2 text-sm font-semibold hover:bg-zinc-600"
+            onClick={() => window.location.reload()}
+          >
+            Retry connection
+          </button>
+        </div>
+      )}
 
       {!connected && playing && (
         <p className="bg-amber-900/50 px-6 py-2 text-center text-sm text-amber-200">
@@ -193,6 +219,7 @@ export function HostPage() {
               onStart={startGame}
               settings={settingsPanels}
               warning={trailDashWarning}
+              startHint={startHint}
             />
           </div>
         </div>

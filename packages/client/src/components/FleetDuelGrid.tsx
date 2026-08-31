@@ -53,12 +53,14 @@ export function FleetDuelGrid({
           <button
             key={`${x}-${y}`}
             type="button"
-            disabled={disabled || cell === "hit" || cell === "miss"}
+            disabled={disabled || cell === "hit" || cell === "miss" || cell === "sunk"}
             onClick={() => onCellClick?.(x, y)}
-            className="aspect-square w-full rounded-sm border border-zinc-700 disabled:cursor-default"
+            className="aspect-square w-full rounded-sm border border-zinc-700 text-xs font-bold disabled:cursor-default"
             style={{ backgroundColor: cellColor(cell, showShips) }}
             aria-label={`Cell ${x},${y}`}
-          />
+          >
+            {cell === "hit" || cell === "sunk" ? "✕" : cell === "miss" ? "·" : ""}
+          </button>
         )),
       )}
       </div>

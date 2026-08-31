@@ -6,6 +6,7 @@ import {
   createTicTacToeState,
   currentMatch,
   emptyBoard,
+  findTttWinningCells,
   isPlayerTurn,
   matchFinished,
   tttPlacementScores,
@@ -85,6 +86,7 @@ export function onTttTick(state: TicTacToeState): TicTacToeState {
 
 export function tttHostView(state: TicTacToeState) {
   const match = currentMatch(state);
+  const winningCells = match ? findTttWinningCells(match.board) : null;
   return {
     phase: state.phase,
     round: state.round,
@@ -98,6 +100,7 @@ export function tttHostView(state: TicTacToeState) {
       championId: state.championId,
       roundScores: state.roundScores,
       playerIds: state.playerIds,
+      winningCells,
     },
   };
 }
@@ -106,6 +109,7 @@ export function tttPlayerView(state: TicTacToeState, playerId: string) {
   const match = currentMatch(state);
   const myTurn = match ? isPlayerTurn(match, playerId) : false;
   const inMatch = match && (match.xPlayer === playerId || match.oPlayer === playerId);
+  const winningCells = match ? findTttWinningCells(match.board) : null;
   return {
     phase: state.phase,
     round: state.round,
@@ -116,6 +120,8 @@ export function tttPlayerView(state: TicTacToeState, playerId: string) {
       match,
       inMatch,
       roundScores: state.roundScores,
+      championId: state.championId,
+      winningCells,
     },
     playerData: { myTurn, mark: match?.xPlayer === playerId ? "x" : match?.oPlayer === playerId ? "o" : null },
   };

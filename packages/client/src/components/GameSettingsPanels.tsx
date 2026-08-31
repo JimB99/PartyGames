@@ -11,6 +11,17 @@ export function GameSettingsPanels({
   options: GameOptions;
   onChange: (options: GameOptions) => void;
 }) {
+  const hasStandardOptions =
+    game.supportsDifficulty ||
+    game.supportsMatureContent ||
+    game.supportsQuestionDisplay ||
+    game.supportsTimelinePtsPerYear ||
+    game.supportsSpeedScoring;
+
+  if (!hasStandardOptions && !game.supportsTrailDashOptions) {
+    return null;
+  }
+
   return (
     <div className="space-y-4">
       <GameOptionsPanel game={game} options={options} onChange={onChange} />

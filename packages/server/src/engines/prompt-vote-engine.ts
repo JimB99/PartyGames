@@ -1,4 +1,5 @@
-import { pickRandom, shuffle, uniqueId, votersByOption, type GameAction, type RoomContext, type RevealEntry } from "@party-games/shared";
+import { pickRandom, shuffle, uniqueId, votersByOption, personalizeHotSeatPrompt, type GameAction, type RoomContext, type RevealEntry } from "@party-games/shared";
+import { clearPhaseTimer, startPhaseTimer } from "./phase-timer.js";
 
 export type PromptVoteMode = "wit-showdown" | "caption" | "hot-seat" | "vote-all";
 
@@ -23,6 +24,7 @@ export interface PromptVoteState {
   round: number;
   maxRounds: number;
   timerEndsAt: number | null;
+  timerTotalMs: number | null;
   mode: PromptVoteMode;
   prompt: string;
   imageCaption?: string;
@@ -34,8 +36,10 @@ export interface PromptVoteState {
   pickVotes: Record<string, string>;
   cumulativeVoters: Record<string, string[]>;
   roundScores: Record<string, number>;
+  cumulativeScores: Record<string, number>;
   usedPrompts: number[];
   promptsPool: string[];
+  playerIds: string[];
 }
 
 const SUBMIT_MS = 45000;
@@ -48,13 +52,14 @@ export function createPromptVoteState(
   prompts: string[],
   maxRounds = 4,
   targetPlayerId?: string,
+  playerIds: string[] = [],
 ): PromptVoteState {
   const idx = Math.floor(Math.random() * prompts.length);
   return {
     phase: "instructions",
     round: 1,
     maxRounds,
-    timerEndsAt: Date.now() + 5000,
+    ...startPhaseTimer(5000),
     mode,
     prompt: prompts[idx],
     imageCaption: mode === "caption" ? prompts[idx] : undefined,
@@ -66,8 +71,10 @@ export function createPromptVoteState(
     pickVotes: {},
     cumulativeVoters: {},
     roundScores: {},
+    cumulativeScores: {},
     usedPrompts: [idx],
     promptsPool: prompts,
+    playerIds,
   };
 }
 
@@ -87,7 +94,7 @@ function buildMatchups(state: PromptVoteState) {
 export function advancePromptVote(state: PromptVoteState, prompts: string[]): PromptVoteState {
   if (state.phase === "instructions") {
     state.phase = "submit";
-    state.timerEndsAt = Date.now() + SUBMIT_MS;
+    Object.assign(state, startPhaseTimer(SUBMIT_MS));
     state.submissions = [];
     state.votes = {};
     state.pickVotes = {};
@@ -97,17 +104,23 @@ export function advancePromptVote(state: PromptVoteState, prompts: string[]): Pr
   if (state.phase === "submit") {
     if (state.mode === "hot-seat") {
       state.phase = "pick";
-      state.timerEndsAt = Date.now() + VOTE_MS;
+      Object.assign(state, startPhaseTimer(VOTE_MS));
       return state;
     }
     if (state.mode === "vote-all") {
+      if (state.submissions.length < 2) {
+        state.roundScores = {};
+        state.phase = "scoreboard";
+        Object.assign(state, startPhaseTimer(SCOREBOARD_MS));
+        return state;
+      }
       state.phase = "vote";
-      state.timerEndsAt = Date.now() + VOTE_MS;
+      Object.assign(state, startPhaseTimer(VOTE_MS));
       return state;
     }
     buildMatchups(state);
     state.phase = state.matchups.length > 0 ? "matchup" : "scoreboard";
-    state.timerEndsAt = Date.now() + VOTE_MS;
+    Object.assign(state, startPhaseTimer(VOTE_MS));
     return state;
   }
   if (state.phase === "matchup") {
@@ -115,45 +128,50 @@ export function advancePromptVote(state: PromptVoteState, prompts: string[]): Pr
     state.matchupIndex += 1;
     if (state.matchupIndex >= state.matchups.length) {
       state.phase = "reveal";
-      state.timerEndsAt = Date.now() + REVEAL_MS;
+      Object.assign(state, startPhaseTimer(REVEAL_MS));
     } else {
       state.votes = {};
-      state.timerEndsAt = Date.now() + VOTE_MS;
+      Object.assign(state, startPhaseTimer(VOTE_MS));
     }
     return state;
   }
   if (state.phase === "vote") {
     scoreVoteAll(state);
     state.phase = "reveal";
-    state.timerEndsAt = Date.now() + REVEAL_MS;
+    Object.assign(state, startPhaseTimer(REVEAL_MS));
     return state;
   }
   if (state.phase === "pick") {
     scoreHotSeat(state);
     state.phase = "reveal";
-    state.timerEndsAt = Date.now() + REVEAL_MS;
+    Object.assign(state, startPhaseTimer(REVEAL_MS));
     return state;
   }
   if (state.phase === "reveal") {
     state.phase = "scoreboard";
-    state.timerEndsAt = Date.now() + SCOREBOARD_MS;
+    Object.assign(state, startPhaseTimer(SCOREBOARD_MS));
     return state;
   }
   if (state.phase === "scoreboard") {
     if (state.round >= state.maxRounds) {
       state.phase = "ended";
-      state.timerEndsAt = null;
+      Object.assign(state, clearPhaseTimer());
       return state;
     }
     state.round += 1;
+    state.roundScores = {};
     const available = prompts.map((_, i) => i).filter((i) => !state.usedPrompts.includes(i));
     const pool = available.length > 0 ? available : prompts.map((_, i) => i);
     const idx = pickRandom(pool);
     state.usedPrompts.push(idx);
     state.prompt = prompts[idx];
     if (state.mode === "caption") state.imageCaption = prompts[idx];
+    if (state.mode === "hot-seat" && state.targetPlayerId && state.playerIds.length > 0) {
+      const idx = state.playerIds.indexOf(state.targetPlayerId);
+      state.targetPlayerId = state.playerIds[(idx + 1) % state.playerIds.length];
+    }
     state.phase = "instructions";
-    state.timerEndsAt = Date.now() + 5000;
+    Object.assign(state, startPhaseTimer(5000));
     return state;
   }
   return state;
@@ -190,7 +208,9 @@ function scoreMatchup(state: PromptVoteState) {
   accumulateVotes(state);
   let votesA = 0;
   let votesB = 0;
-  for (const optionId of Object.values(state.votes)) {
+  for (const [voterId, optionId] of Object.entries(state.votes)) {
+    const voterSubmission = state.submissions.find((s) => s.playerId === voterId);
+    if (voterSubmission?.id === optionId) continue;
     if (optionId === matchup.a) votesA++;
     if (optionId === matchup.b) votesB++;
   }
@@ -198,6 +218,7 @@ function scoreMatchup(state: PromptVoteState) {
   const winner = state.submissions.find((s) => s.id === winnerId);
   if (winner) {
     state.roundScores[winner.playerId] = (state.roundScores[winner.playerId] ?? 0) + 1000;
+    state.cumulativeScores[winner.playerId] = (state.cumulativeScores[winner.playerId] ?? 0) + 1000;
   }
 }
 
@@ -217,6 +238,7 @@ function scoreVoteAll(state: PromptVoteState) {
   const winner = state.submissions.find((s) => s.id === bestId);
   if (winner) {
     state.roundScores[winner.playerId] = (state.roundScores[winner.playerId] ?? 0) + 1000;
+    state.cumulativeScores[winner.playerId] = (state.cumulativeScores[winner.playerId] ?? 0) + 1000;
   }
 }
 
@@ -226,6 +248,7 @@ function scoreHotSeat(state: PromptVoteState) {
   const chosen = state.submissions.find((s) => s.id === pick);
   if (chosen) {
     state.roundScores[chosen.playerId] = (state.roundScores[chosen.playerId] ?? 0) + 1000;
+    state.cumulativeScores[chosen.playerId] = (state.cumulativeScores[chosen.playerId] ?? 0) + 1000;
   }
 }
 
@@ -249,6 +272,10 @@ export function onPromptVoteAction(
     if (state.submissions.length >= expected) return advancePromptVote(state, state.promptsPool);
   }
   if (action.kind === "vote_pair" && state.phase === "matchup") {
+    const matchup = state.matchups[state.matchupIndex];
+    if (!matchup) return state;
+    const picked = state.submissions.find((s) => s.id === action.winnerId);
+    if (picked?.playerId === playerId) return state;
     state.votes[playerId] = action.winnerId;
     if (Object.keys(state.votes).length >= ctx.playerIds.length) {
       return advancePromptVote(state, state.promptsPool);
@@ -275,25 +302,36 @@ export function onPromptVoteTick(state: PromptVoteState, prompts?: string[]): Pr
   return advancePromptVote(state, prompts ?? state.promptsPool);
 }
 
-export function promptVoteHostView(state: PromptVoteState) {
+export function promptVoteHostView(state: PromptVoteState, ctx?: RoomContext) {
   const currentMatchup = state.matchups[state.matchupIndex];
   const subById = Object.fromEntries(state.submissions.map((s) => [s.id, s]));
   const showReveal = state.phase === "reveal" || state.phase === "scoreboard";
+  const targetName = state.targetPlayerId
+    ? ctx?.players.find((p) => p.id === state.targetPlayerId)?.nickname ?? "Player"
+    : undefined;
+  const displayPrompt =
+    state.mode === "hot-seat" && targetName
+      ? personalizeHotSeatPrompt(state.prompt, targetName)
+      : state.prompt;
   return {
     phase: state.phase,
     round: state.round,
     maxRounds: state.maxRounds,
     timerEndsAt: state.timerEndsAt,
+    timerTotalMs: state.timerTotalMs,
     data: {
       mode: state.mode,
-      prompt: state.prompt,
+      prompt: displayPrompt,
       imageCaption: state.imageCaption,
       targetPlayerId: state.targetPlayerId,
+      targetName,
       submissions: showReveal
         ? state.submissions
         : state.phase === "vote" || state.phase === "pick"
           ? state.submissions.map((s) => ({ id: s.id, text: s.text }))
           : undefined,
+      submitCount: state.phase === "submit" ? state.submissions.length : undefined,
+      playerCount: state.playerIds.length,
       reveal: showReveal ? buildPromptVoteReveal(state) : undefined,
       matchup: currentMatchup
         ? {
@@ -304,25 +342,36 @@ export function promptVoteHostView(state: PromptVoteState) {
           }
         : undefined,
       roundScores: state.roundScores,
+      cumulativeScores: state.cumulativeScores,
     },
   };
 }
 
-export function promptVotePlayerView(state: PromptVoteState, playerId: string) {
+export function promptVotePlayerView(state: PromptVoteState, playerId: string, ctx?: RoomContext) {
   const currentMatchup = state.matchups[state.matchupIndex];
   const subById = Object.fromEntries(state.submissions.map((s) => [s.id, s]));
+  const ownSubmission = state.submissions.find((s) => s.playerId === playerId);
   const isTarget = state.targetPlayerId === playerId;
   const showReveal = state.phase === "reveal" || state.phase === "scoreboard";
+  const targetName = state.targetPlayerId
+    ? ctx?.players.find((p) => p.id === state.targetPlayerId)?.nickname ?? "Player"
+    : undefined;
+  const displayPrompt =
+    state.mode === "hot-seat" && targetName
+      ? personalizeHotSeatPrompt(state.prompt, targetName)
+      : state.prompt;
   return {
     phase: state.phase,
     round: state.round,
     maxRounds: state.maxRounds,
     timerEndsAt: state.timerEndsAt,
+    timerTotalMs: state.timerTotalMs,
     data: {
       mode: state.mode,
-      prompt: state.phase !== "instructions" ? state.prompt : undefined,
+      prompt: state.phase !== "instructions" ? displayPrompt : undefined,
       imageCaption: state.imageCaption,
       isTarget,
+      targetName,
       matchup: state.phase === "matchup" && currentMatchup
         ? { a: subById[currentMatchup.a], b: subById[currentMatchup.b] }
         : undefined,
@@ -337,6 +386,8 @@ export function promptVotePlayerView(state: PromptVoteState, playerId: string) {
       submitted: state.submissions.some((s) => s.playerId === playerId),
       voted: state.votes[playerId] !== undefined,
       picked: state.pickVotes[playerId] !== undefined,
+      ownSubmissionId: ownSubmission?.id,
+      mySubmission: ownSubmission?.text,
     },
   };
 }

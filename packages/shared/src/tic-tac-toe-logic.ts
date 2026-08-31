@@ -44,6 +44,15 @@ export function checkWinner(board: Cell[]): "x" | "o" | "draw" | null {
   return null;
 }
 
+export function findTttWinningCells(board: Cell[]): number[] | null {
+  for (const [a, b, c] of WIN_LINES) {
+    if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+      return [a, b, c];
+    }
+  }
+  return null;
+}
+
 export function buildBracket(playerIds: string[]): BracketMatch[] {
   const ids: (string | null)[] = [...playerIds];
   while (ids.length & (ids.length - 1)) ids.push(null);

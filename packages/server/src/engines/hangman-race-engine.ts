@@ -3,10 +3,13 @@ import {
   createHangmanPlayerState,
   hangmanLost,
   hangmanMask,
+  isSpeedScoringEnabled,
   pickRandom,
   scoreByAnswerRank,
+  shuffle,
   tryHangmanSolve,
   type GameAction,
+  type GameOptions,
   type RoomContext,
 } from "@party-games/shared";
 
@@ -24,6 +27,8 @@ export interface HangmanRaceState {
   round: number;
   maxRounds: number;
   timerEndsAt: number | null;
+  timerTotalMs: number | null;
+  phaseStartedAt: number | null;
   word: string;
   players: Record<string, PlayerHangman>;
   roundScores: Record<string, number>;
@@ -33,9 +38,16 @@ export interface HangmanRaceState {
   gameOptions?: import("@party-games/shared").GameOptions;
 }
 
+const INSTRUCTIONS_MS = 5000;
 const PLAY_MS = 45_000;
 const REVEAL_MS = 5000;
 const SCOREBOARD_MS = 4000;
+
+function setPhaseTimer(state: HangmanRaceState, durationMs: number): void {
+  state.phaseStartedAt = Date.now();
+  state.timerTotalMs = durationMs;
+  state.timerEndsAt = state.phaseStartedAt + durationMs;
+}
 
 function pickWord(state: HangmanRaceState): string {
   const available = state.wordPool.filter((w) => !state.usedWords.includes(w));
@@ -48,8 +60,10 @@ export function createHangmanRaceState(
   words: string[],
   playerIds: string[],
   maxRounds = 4,
+  gameOptions?: GameOptions,
 ): HangmanRaceState {
-  const word = pickRandom(words);
+  const pool = shuffle(words);
+  const word = pickRandom(pool);
   const players: Record<string, PlayerHangman> = {};
   for (const id of playerIds) {
     const s = createHangmanPlayerState(word);
@@ -60,18 +74,23 @@ export function createHangmanRaceState(
       solvedAt: s.solvedAt,
     };
   }
-  return {
+  const state: HangmanRaceState = {
     phase: "instructions",
     round: 1,
     maxRounds,
-    timerEndsAt: Date.now() + 5000,
+    timerEndsAt: null,
+    timerTotalMs: null,
+    phaseStartedAt: null,
     word,
     players,
     roundScores: {},
     usedWords: [word],
-    wordPool: words,
+    wordPool: pool,
     playerIds,
+    gameOptions,
   };
+  setPhaseTimer(state, INSTRUCTIONS_MS);
+  return state;
 }
 
 function syncPlayer(state: HangmanRaceState, playerId: string): ReturnType<typeof createHangmanPlayerState> {
@@ -94,11 +113,18 @@ function savePlayer(state: HangmanRaceState, playerId: string, s: ReturnType<typ
 }
 
 function scoreRound(state: HangmanRaceState): void {
+  const speedOn = state.gameOptions ? isSpeedScoringEnabled(state.gameOptions) : true;
+  state.roundScores = {};
+  if (!speedOn) {
+    for (const id of state.playerIds) {
+      if (state.players[id]?.solved) state.roundScores[id] = 800;
+    }
+    return;
+  }
   const solved = state.playerIds
     .filter((id) => state.players[id]?.solved && state.players[id].solvedAt)
     .map((id) => ({ playerId: id, answeredAt: state.players[id].solvedAt! }));
   const ranked = scoreByAnswerRank(solved, state.playerIds.length, 1);
-  state.roundScores = {};
   for (const [id, score] of Object.entries(ranked)) {
     state.roundScores[id] = score.points;
   }
@@ -107,24 +133,26 @@ function scoreRound(state: HangmanRaceState): void {
 function advanceHangman(state: HangmanRaceState): HangmanRaceState {
   if (state.phase === "instructions") {
     state.phase = "playing";
-    state.timerEndsAt = Date.now() + PLAY_MS;
+    setPhaseTimer(state, PLAY_MS);
     return state;
   }
   if (state.phase === "playing") {
     scoreRound(state);
     state.phase = "reveal";
-    state.timerEndsAt = Date.now() + REVEAL_MS;
+    setPhaseTimer(state, REVEAL_MS);
     return state;
   }
   if (state.phase === "reveal") {
     state.phase = "scoreboard";
-    state.timerEndsAt = Date.now() + SCOREBOARD_MS;
+    setPhaseTimer(state, SCOREBOARD_MS);
     return state;
   }
   if (state.phase === "scoreboard") {
     if (state.round >= state.maxRounds) {
       state.phase = "ended";
       state.timerEndsAt = null;
+      state.timerTotalMs = null;
+      state.phaseStartedAt = null;
       return state;
     }
     state.round += 1;
@@ -140,7 +168,7 @@ function advanceHangman(state: HangmanRaceState): HangmanRaceState {
       };
     }
     state.phase = "instructions";
-    state.timerEndsAt = Date.now() + 5000;
+    setPhaseTimer(state, INSTRUCTIONS_MS);
     return state;
   }
   return state;
@@ -200,6 +228,7 @@ export function hangmanRaceHostView(state: HangmanRaceState) {
     round: state.round,
     maxRounds: state.maxRounds,
     timerEndsAt: state.timerEndsAt,
+    timerTotalMs: state.timerTotalMs,
     data: {
       word: showWord ? state.word : undefined,
       leaderboard,
@@ -216,12 +245,14 @@ export function hangmanRacePlayerView(state: HangmanRaceState, playerId: string)
     round: state.round,
     maxRounds: state.maxRounds,
     timerEndsAt: state.timerEndsAt,
+    timerTotalMs: state.timerTotalMs,
     data: {},
     playerData: {
       mask: p ? hangmanMask(state.word, guessed) : "",
       strikes: p?.strikes ?? 0,
       solved: p?.solved ?? false,
       lost: p ? hangmanLost({ strikes: p.strikes }) && !p.solved : false,
+      guessedLetters: p?.guessed ?? [],
     },
   };
 }

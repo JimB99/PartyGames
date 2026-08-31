@@ -22,7 +22,7 @@ export const hangmanRaceGame: GameModule<HangmanRaceState> = {
     supportsSpeedScoring: true,
   },
   init(ctx) {
-    return createHangmanRaceState(hangmanWordPool(ctx.gameOptions), ctx.playerIds, 4);
+    return createHangmanRaceState(hangmanWordPool(ctx.gameOptions), ctx.playerIds, 4, ctx.gameOptions);
   },
   onPlayerAction(state, playerId, action, ctx) {
     return onHangmanRaceAction(state, playerId, action, ctx);

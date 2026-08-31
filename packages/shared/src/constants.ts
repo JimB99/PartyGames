@@ -58,6 +58,9 @@ export interface GameMeta {
   supportsSpeedScoring?: boolean;
   supportsQuestionDisplay?: boolean;
   supportsTimelinePtsPerYear?: boolean;
+  supportsPaddleMode?: boolean;
+  /** When true, `getRoundScores` is already cumulative for the whole game (arcade/board). */
+  roundScoresAreCumulative?: boolean;
 }
 
 export const ALL_GAME_IDS = [
@@ -65,7 +68,6 @@ export const ALL_GAME_IDS = [
   "wit-showdown",
   "quick-quiz",
   "would-you-rather",
-  "caption-this",
   "draw-guess",
   "bracket-battle",
   "role-sort",

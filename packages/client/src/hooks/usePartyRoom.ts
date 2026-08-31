@@ -20,6 +20,8 @@ function getPartyHost(): string {
 
 const PARTY_NAME = "room-server";
 
+export const HOST_ROOM_STORAGE_KEY = "pg-host-room";
+
 export function generateRoomCode(): string {
   let code = "";
   for (let i = 0; i < 4; i++) {
@@ -87,6 +89,9 @@ export function usePartyRoom({
       setConnected(true);
       setConnectionEpoch((n) => n + 1);
       setError(null);
+      if (role === "host") {
+        sessionStorage.setItem(HOST_ROOM_STORAGE_KEY, roomId);
+      }
       const storedId = playerIdRef.current;
       send({
         type: "join",
@@ -104,12 +109,17 @@ export function usePartyRoom({
         const message = JSON.parse(String(event.data)) as ServerMessage;
         if (message.type === "room_state") {
           setRoomState(message.state);
+          if (message.state.phase === "lobby") {
+            setPlayerView(null);
+          }
           if (message.state.playerId) {
             playerIdRef.current = message.state.playerId;
             sessionStorage.setItem(`pg-player-${roomId}`, message.state.playerId);
           }
         } else if (message.type === "player_view") {
           setPlayerView(message.view);
+        } else if (message.type === "player_view_clear") {
+          setPlayerView(null);
         } else if (message.type === "error") {
           setError(message.message);
         }

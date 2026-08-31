@@ -7,6 +7,7 @@ import {
   createFourInARowState,
   currentTurnPlayer,
   dropDisc,
+  findConnectFourWinningCells,
   markForPlayer,
   nextChallenger,
   resetBoard,
@@ -84,11 +85,15 @@ export function onFourInARowAction(state: FourInARowState, playerId: string, act
     state.board = result.board;
     const outcome = checkConnectFourWinner(state.board);
     if (outcome === "x" || outcome === "o") {
+      state.winningCells = findConnectFourWinningCells(state.board);
       const pair = activePlayers(state);
       const winner = outcome === "x" ? pair?.[0] : pair?.[1];
       return finishMatch(state, winner ?? null);
     }
-    if (outcome === "draw") return finishMatch(state, null);
+    if (outcome === "draw") {
+      state.winningCells = null;
+      return finishMatch(state, null);
+    }
     state.currentPlayerIndex = state.currentPlayerIndex === 0 ? 1 : 0;
   }
   return state;
@@ -120,6 +125,7 @@ export function fourInARowHostView(state: FourInARowState) {
       winTarget: CF_WIN_TARGET,
       players: pair,
       winnerId: state.winnerId,
+      winningCells: state.winningCells,
       roundScores: state.roundScores,
       kingOfHill: state.playerIds.length > 2,
     },
@@ -135,10 +141,13 @@ export function fourInARowPlayerView(state: FourInARowState, playerId: string) {
     timerTotalMs: state.timerTotalMs,
     data: {
       board: state.board,
+      players: activePlayers(state),
       championWins: state.championWins,
       challengerWins: state.challengerWins,
       winTarget: CF_WIN_TARGET,
       kingOfHill: state.playerIds.length > 2,
+      winnerId: state.winnerId,
+      winningCells: state.winningCells,
     },
     playerData: {
       myTurn: currentTurnPlayer(state) === playerId,

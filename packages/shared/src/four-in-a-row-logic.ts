@@ -20,6 +20,7 @@ export interface FourInARowState {
   challengerWins: number;
   winnerId: string | null;
   roundScores: Record<string, number>;
+  winningCells: Array<{ row: number; col: number }> | null;
 }
 
 function emptyGrid(): CfCell[][] {
@@ -43,6 +44,7 @@ export function createFourInARowState(playerIds: string[]): FourInARowState {
     challengerWins: 0,
     winnerId: null,
     roundScores: {},
+    winningCells: null,
   };
 }
 
@@ -75,25 +77,33 @@ export function dropDisc(board: CfCell[][], col: number, mark: CfCell): { board:
 }
 
 export function checkConnectFourWinner(board: CfCell[][]): CfCell | "draw" | null {
+  const cells = findConnectFourWinningCells(board);
+  if (cells) return board[cells[0].row][cells[0].col];
+  if (board[0].every((c) => c !== null)) return "draw";
+  return null;
+}
+
+export function findConnectFourWinningCells(
+  board: CfCell[][],
+): Array<{ row: number; col: number }> | null {
   const dirs = [[1, 0], [0, 1], [1, 1], [1, -1]] as const;
   for (let r = 0; r < CF_ROWS; r++) {
     for (let c = 0; c < CF_COLS; c++) {
       const cell = board[r][c];
       if (!cell) continue;
       for (const [dc, dr] of dirs) {
-        let count = 1;
+        const run: Array<{ row: number; col: number }> = [{ row: r, col: c }];
         for (let i = 1; i < 4; i++) {
           const nr = r + dr * i;
           const nc = c + dc * i;
           if (nr < 0 || nr >= CF_ROWS || nc < 0 || nc >= CF_COLS) break;
           if (board[nr][nc] !== cell) break;
-          count++;
+          run.push({ row: nr, col: nc });
         }
-        if (count >= 4) return cell;
+        if (run.length >= 4) return run;
       }
     }
   }
-  if (board[0].every((c) => c !== null)) return "draw";
   return null;
 }
 
@@ -107,6 +117,7 @@ export function resetBoard(state: FourInARowState): void {
   state.board = emptyGrid();
   state.currentPlayerIndex = 0;
   state.winnerId = null;
+  state.winningCells = null;
 }
 
 export function nextChallenger(state: FourInARowState): string | null {

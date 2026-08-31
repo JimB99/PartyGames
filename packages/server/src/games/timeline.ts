@@ -24,6 +24,7 @@ export const timelineGame: GameModule<TriviaState> = {
     supportsSpeedScoring: true,
     supportsQuestionDisplay: true,
     supportsTimelinePtsPerYear: true,
+    roundScoresAreCumulative: true,
   },
   init(ctx) {
     const state = createTriviaState("timeline", timelinePool(ctx.gameOptions), 8, ctx.playerIds.length);
@@ -50,7 +51,7 @@ export const timelineGame: GameModule<TriviaState> = {
     return triviaPlayerView(state, playerId);
   },
   getRoundScores(state) {
-    return state.roundScores;
+    return state.cumulativeScores;
   },
   isGameOver(state) {
     return state.phase === "ended";

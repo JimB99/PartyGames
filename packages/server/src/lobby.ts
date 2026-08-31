@@ -23,6 +23,12 @@ export interface LobbyState {
   paused: boolean;
   pausedAt: number | null;
   hostSessionActive: boolean;
+  /** Points earned in the current game (all completed rounds). */
+  inGameScores: Record<string, number>;
+  /** Session totals at the start of the current game (for cumulative scoring). */
+  sessionScoresAtGameStart: Record<string, number>;
+  committedRoundKeys: Set<string>;
+  gameScoresCommitted: boolean;
 }
 
 export function createLobby(roomId: string): LobbyState {
@@ -41,7 +47,17 @@ export function createLobby(roomId: string): LobbyState {
     paused: false,
     pausedAt: null,
     hostSessionActive: false,
+    inGameScores: {},
+    sessionScoresAtGameStart: {},
+    committedRoundKeys: new Set(),
+    gameScoresCommitted: false,
   };
+}
+
+export function resetInGameScores(lobby: LobbyState): void {
+  lobby.inGameScores = {};
+  lobby.committedRoundKeys = new Set();
+  lobby.gameScoresCommitted = false;
 }
 
 export function nextAvailableColorIndex(lobby: LobbyState): number {
@@ -131,4 +147,28 @@ export function mergeScores(
     merged[id] = (merged[id] ?? 0) + pts;
   }
   return merged;
+}
+
+/** Apply in-game totals to session — cumulative games use snapshot + totals, others merge deltas. */
+export function applyInGameScoresToSession(
+  lobby: LobbyState,
+  cumulative: boolean,
+): void {
+  if (cumulative) {
+    const start = lobby.sessionScoresAtGameStart;
+    const ids = new Set([
+      ...Object.keys(start),
+      ...Object.keys(lobby.inGameScores),
+      ...lobby.players.map((p) => p.id),
+    ]);
+    for (const id of ids) {
+      lobby.sessionScores[id] = (start[id] ?? 0) + (lobby.inGameScores[id] ?? 0);
+    }
+    return;
+  }
+  lobby.sessionScores = mergeScores(lobby.sessionScores, lobby.inGameScores);
+}
+
+export function snapshotSessionScores(lobby: LobbyState): void {
+  lobby.sessionScoresAtGameStart = { ...lobby.sessionScores };
 }

@@ -1,4 +1,5 @@
 import { pickRandom, type GameAction, type RoomContext } from "@party-games/shared";
+import { clearPhaseTimer, startPhaseTimer } from "./phase-timer.js";
 import type { Stroke } from "./drawing-engine.js";
 
 export type ChainPhase = "instructions" | "draw" | "guess" | "reveal" | "scoreboard" | "ended";
@@ -16,6 +17,7 @@ export interface ChainSketchState {
   round: number;
   maxRounds: number;
   timerEndsAt: number | null;
+  timerTotalMs: number | null;
   playerIds: string[];
   linkIndex: number;
   chain: ChainLink[];
@@ -39,7 +41,7 @@ export function createChainSketchState(words: string[], playerIds: string[]): Ch
     phase: "instructions",
     round: 1,
     maxRounds: playerIds.length,
-    timerEndsAt: Date.now() + 5000,
+    ...startPhaseTimer(5000),
     playerIds,
     linkIndex: 0,
     chain: [],
@@ -61,10 +63,18 @@ function isDrawTurn(state: ChainSketchState): boolean {
   return state.linkIndex % 2 === 0;
 }
 
+function lastDrawStrokes(state: ChainSketchState): Stroke[] | undefined {
+  for (let i = state.chain.length - 1; i >= 0; i--) {
+    const link = state.chain[i];
+    if (link.kind === "draw" && link.strokes?.length) return link.strokes;
+  }
+  return state.strokes.length > 0 ? state.strokes : undefined;
+}
+
 export function advanceChain(state: ChainSketchState): ChainSketchState {
   if (state.phase === "instructions") {
     state.phase = isDrawTurn(state) ? "draw" : "guess";
-    state.timerEndsAt = Date.now() + (isDrawTurn(state) ? DRAW_MS : GUESS_MS);
+    Object.assign(state, startPhaseTimer(isDrawTurn(state) ? DRAW_MS : GUESS_MS));
     state.strokes = [];
     state.guesses = {};
     return state;
@@ -78,7 +88,7 @@ export function advanceChain(state: ChainSketchState): ChainSketchState {
     });
     state.linkIndex += 1;
     state.phase = "guess";
-    state.timerEndsAt = Date.now() + GUESS_MS;
+    Object.assign(state, startPhaseTimer(GUESS_MS));
     state.guesses = {};
     return state;
   }
@@ -94,24 +104,24 @@ export function advanceChain(state: ChainSketchState): ChainSketchState {
     state.linkIndex += 1;
     if (state.linkIndex >= state.playerIds.length * 2) {
       state.phase = "reveal";
-      state.timerEndsAt = Date.now() + REVEAL_MS;
+      Object.assign(state, startPhaseTimer(REVEAL_MS));
       state.roundScores = { [state.playerIds[0]]: 500 };
       return state;
     }
     state.phase = isDrawTurn(state) ? "draw" : "guess";
-    state.timerEndsAt = Date.now() + (isDrawTurn(state) ? DRAW_MS : GUESS_MS);
+    Object.assign(state, startPhaseTimer(isDrawTurn(state) ? DRAW_MS : GUESS_MS));
     state.strokes = [];
     state.guesses = {};
     return state;
   }
   if (state.phase === "reveal") {
     state.phase = "scoreboard";
-    state.timerEndsAt = Date.now() + SCOREBOARD_MS;
+    Object.assign(state, startPhaseTimer(SCOREBOARD_MS));
     return state;
   }
   if (state.phase === "scoreboard") {
     state.phase = "ended";
-    state.timerEndsAt = null;
+    Object.assign(state, clearPhaseTimer());
     return state;
   }
   return state;
@@ -162,10 +172,13 @@ export function chainHostView(state: ChainSketchState) {
     round: state.round,
     maxRounds: state.maxRounds,
     timerEndsAt: state.timerEndsAt,
+    timerTotalMs: state.timerTotalMs,
     data: {
       chain: state.phase === "reveal" || state.phase === "scoreboard" || state.phase === "ended" ? state.chain : undefined,
       strokes: state.phase === "draw" ? state.strokes : state.chain[state.chain.length - 1]?.strokes,
-      currentPrompt: state.phase !== "reveal" ? state.currentPrompt : undefined,
+      currentPrompt: state.phase === "reveal" || state.phase === "scoreboard" || state.phase === "ended"
+        ? state.currentPrompt
+        : undefined,
       activePlayerId: state.phase === "draw" || state.phase === "guess" ? currentPlayer(state) : undefined,
       roundScores: state.roundScores,
     },
@@ -179,14 +192,23 @@ export function chainPlayerView(state: ChainSketchState, playerId: string) {
     round: state.round,
     maxRounds: state.maxRounds,
     timerEndsAt: state.timerEndsAt,
+    timerTotalMs: state.timerTotalMs,
     data: {
-      strokes: state.phase === "draw" && playerId === active ? state.strokes : undefined,
+      strokes:
+        state.phase === "draw" && playerId === active
+          ? state.strokes
+          : state.phase === "guess"
+            ? lastDrawStrokes(state)
+            : undefined,
       isDrawTurn: state.phase === "draw",
+      chain: state.phase === "reveal" || state.phase === "scoreboard" ? state.chain : undefined,
+      activePlayerId: state.phase === "draw" || state.phase === "guess" ? currentPlayer(state) : undefined,
     },
     playerData: {
       isActive: playerId === active,
       prompt: playerId === active ? state.currentPrompt : undefined,
-      showChain: state.phase === "reveal" || state.phase === "scoreboard",
+      submitted: state.phase === "guess" && state.guesses[playerId] !== undefined,
+      myGuess: state.guesses[playerId],
     },
   };
 }

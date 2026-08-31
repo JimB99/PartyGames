@@ -13541,12 +13541,12 @@
   },
   {
     "word": "Tell everyone your darkest secret",
-    "rating": "family",
+    "rating": "mature",
     "difficulty": "medium"
   },
   {
     "word": "Send the group a sexy photo",
-    "rating": "family",
+    "rating": "mature",
     "difficulty": "medium"
   },
   {
@@ -13555,12 +13555,87 @@
     "difficulty": "hard"
   },
   {
-    "word": "Describe one of your sexual experiences ",
+    "word": "Describe one of your sexual experiences",
     "rating": "mature",
     "difficulty": "hard"
   },
   {
-    "word": "Suck on the toes of one person in the gr",
+    "word": "Suck on the toes of one person in the group",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "Give someone a lap dance",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "Read your last three texts out loud",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "Let the group pick your dating profile photo",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "Do your best stripper impression",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "Whisper something dirty to the person on your left",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "Show the group your most embarrassing photo",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "Let someone go through your camera roll for 30 seconds",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "Act out your worst hookup story",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "Let the group rename your ex in your phone",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "Do a body shot off someone here",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "Send a flirty text to your crush right now",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "Let the group post one story on your social media",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "Swap shirts with someone for one round",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "Give your honest hot take on everyone here",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "Recreate your most awkward date",
     "rating": "mature",
     "difficulty": "hard"
   }

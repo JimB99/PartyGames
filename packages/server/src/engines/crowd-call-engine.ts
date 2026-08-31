@@ -12,6 +12,7 @@ export interface CrowdState {
   round: number;
   maxRounds: number;
   timerEndsAt: number | null;
+  timerTotalMs: number | null;
   question: CrowdQuestion;
   predictions: Record<string, number>;
   answers: Record<string, number>;
@@ -40,6 +41,7 @@ export function createCrowdState(pool: CrowdQuestion[], playerIds: string[], max
     round: 1,
     maxRounds,
     timerEndsAt: Date.now() + 5000,
+    timerTotalMs: 5000,
     question,
     predictions: {},
     answers: {},
@@ -64,16 +66,30 @@ function majorityChoice(answers: Record<string, number>, choiceCount: number): n
 
 function scoreCrowd(state: CrowdState, playerIds: string[]): void {
   const majority = majorityChoice(state.answers, state.question.choices.length);
+  const hasAnswers = Object.keys(state.answers).length > 0;
   state.roundScores = {};
   for (const pid of playerIds) {
-    if (state.predictions[pid] === majority) state.roundScores[pid] = 1000;
-    else state.roundScores[pid] = 200;
+    let pts = 0;
+    if (state.answers[pid] !== undefined) pts += 200;
+    if (hasAnswers && state.predictions[pid] === majority) pts += 1000;
+    if (pts > 0) state.roundScores[pid] = pts;
   }
+}
+
+function expectedCrowdCount(state: CrowdState, phase: CrowdPhase): number {
+  return state.playerIds.length;
+}
+
+function crowdReadyToAdvance(state: CrowdState, phase: CrowdPhase): boolean {
+  if (phase === "predict") return Object.keys(state.predictions).length >= expectedCrowdCount(state, phase);
+  if (phase === "answer") return Object.keys(state.answers).length >= expectedCrowdCount(state, phase);
+  return false;
 }
 
 export function advanceCrowd(state: CrowdState, playerIds: string[]): CrowdState {
   if (state.phase === "instructions") {
     state.phase = "predict";
+    state.timerTotalMs = PREDICT_MS;
     state.timerEndsAt = Date.now() + PREDICT_MS;
     state.predictions = {};
     state.answers = {};
@@ -81,6 +97,7 @@ export function advanceCrowd(state: CrowdState, playerIds: string[]): CrowdState
   }
   if (state.phase === "predict") {
     state.phase = "answer";
+    state.timerTotalMs = ANSWER_MS;
     state.timerEndsAt = Date.now() + ANSWER_MS;
     return state;
   }
@@ -112,10 +129,20 @@ export function advanceCrowd(state: CrowdState, playerIds: string[]): CrowdState
 
 export function onCrowdAction(state: CrowdState, playerId: string, action: GameAction, ctx: RoomContext): CrowdState {
   if (action.kind === "crowd_predict" && state.phase === "predict") {
-    state.predictions[playerId] = action.choiceIndex;
+    if (state.predictions[playerId] === undefined) {
+      state.predictions[playerId] = action.choiceIndex;
+    }
+    if (crowdReadyToAdvance(state, "predict")) {
+      return advanceCrowd(state, ctx.playerIds);
+    }
   }
   if (action.kind === "crowd_answer" && state.phase === "answer") {
-    state.answers[playerId] = action.choiceIndex;
+    if (state.answers[playerId] === undefined) {
+      state.answers[playerId] = action.choiceIndex;
+    }
+    if (crowdReadyToAdvance(state, "answer")) {
+      return advanceCrowd(state, ctx.playerIds);
+    }
   }
   if (action.kind === "advance" && state.phase === "instructions") {
     return advanceCrowd(state, ctx.playerIds);
@@ -138,6 +165,7 @@ export function crowdHostView(state: CrowdState) {
     round: state.round,
     maxRounds: state.maxRounds,
     timerEndsAt: state.timerEndsAt,
+    timerTotalMs: state.timerTotalMs,
     data: {
       question: state.question,
       majority,
@@ -154,10 +182,13 @@ export function crowdPlayerView(state: CrowdState, playerId: string) {
     round: state.round,
     maxRounds: state.maxRounds,
     timerEndsAt: state.timerEndsAt,
+    timerTotalMs: state.timerTotalMs,
     data: { question: state.question },
     playerData: {
       predicted: state.predictions[playerId] !== undefined,
       answered: state.answers[playerId] !== undefined,
+      myPrediction: state.predictions[playerId],
+      myAnswer: state.answers[playerId],
     },
   };
 }

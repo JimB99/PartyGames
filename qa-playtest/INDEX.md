@@ -15,9 +15,9 @@ Hand a file to Cursor to fix that game. Do not start with GitHub issues.
 - Player counts per game: min, typical couch (4), and max if max ≤ 8 (otherwise 8 as crowded couch)
 - Settings: defaults first, then the options that actually change content or rules (family/mature, difficulty, speed scoring, game-specific)
 
-## Queue (31)
+## Queue (30 live games)
 
-Status: pending until tested.
+Status: initial playtest done; **retest against `RETEST-HANDOFF.md`** after 2026-08-31 deploy.
 
 ### Trivia / prompt
 - [x] Fact Check (min 2 / max 16) — issues: session totals reset, no submit confirm, back-to-lobby doesn't push players
@@ -35,7 +35,6 @@ Status: pending until tested.
 - [x] Bracket Battle (min 4 / max 16) — BLOCKER: Start round on instructions ends the game; 1-entry bracket still pays +2000
 
 ### Creative / talking
-- [x] Caption This (min 3 / max 16) — issues: no images, TV blank on vote, session total 0, recycled dare prompts
 - [x] Draw & Guess (min 3 / max 12) — playable; issues: scores don't accumulate, guessers blank 60s, no Done drawing
 - [x] Chain Sketch (min 3 / max 8) — BLOCKER: phones blank until reload every phase, Draw: ?, previous sketch never shown
 - [x] Team Charades (min 3 / max 12) — issues: no teams, TV blank while acting, 18+ words unchanged
@@ -44,7 +43,6 @@ Status: pending until tested.
 
 ### Hidden role / social
 - [x] Impostor (min 4 / max 10) — issues: no accuse UI on crew phones, scores don't accumulate, secret stuck on phones after lobby
-- [x] Out of Place (min 4 / max 8) — BLOCKER: not on live catalog (31 games, no card)
 - [x] Agent Grid (min 4 / max 12) — issues: guesser phones blank on clue, tap ends turn at 2, 18+ truncated dares
 - [x] Forbidden Clue (min 4 / max 12) — issues: points only to giver, 18+ same deck, dead Submit clue box
 - [x] Last on the Dike (min 4 / max 16) — issues: SESSION TOTAL 2x, ranking ignores survivors, ends at round 2/3

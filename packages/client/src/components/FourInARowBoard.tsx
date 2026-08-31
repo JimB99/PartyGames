@@ -6,14 +6,19 @@ export function FourInARowBoard({
   onColumnClick,
   disabled,
   markColors,
+  highlightedCells,
 }: {
   board: CfCell[][];
   onColumnClick?: (col: number) => void;
   disabled?: boolean;
   markColors?: { x: string; o: string };
+  highlightedCells?: Array<{ row: number; col: number }>;
 }) {
   const colorX = markColors?.x ?? "#ef4444";
   const colorO = markColors?.o ?? "#eab308";
+  const highlightSet = new Set(
+    (highlightedCells ?? []).map((c) => `${c.row},${c.col}`),
+  );
   return (
     <div className="inline-flex w-full max-w-[min(100%,20rem)] flex-col gap-1" data-testid="four-in-a-row-board">
       <div className="grid gap-1" style={{ gridTemplateColumns: `repeat(${CF_COLS}, 1fr)` }}>
@@ -38,7 +43,9 @@ export function FourInARowBoard({
           row.map((cell, c) => (
             <div
               key={`${r}-${c}`}
-              className="aspect-square w-full rounded-full border border-blue-800"
+              className={`aspect-square w-full rounded-full border ${
+                highlightSet.has(`${r},${c}`) ? "border-yellow-300 ring-2 ring-yellow-400" : "border-blue-800"
+              }`}
               style={{
                 backgroundColor: cell === "x" ? colorX : cell === "o" ? colorO : "#1e3a5f",
               }}

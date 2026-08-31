@@ -1,4 +1,5 @@
 import { pickRandom, shuffle, type GameAction, type RoomContext } from "@party-games/shared";
+import { clearPhaseTimer, startPhaseTimer } from "./phase-timer.js";
 
 export type RoleSortPhase = "instructions" | "assign" | "reveal" | "scoreboard" | "ended";
 
@@ -7,14 +8,18 @@ export interface RoleSortState {
   round: number;
   maxRounds: number;
   timerEndsAt: number | null;
+  timerTotalMs: number | null;
   playerIds: string[];
   category: string;
   roles: string[];
   assignments: Record<string, Record<string, string>>;
   results: Record<string, { role: string; count: number }>;
   roundScores: Record<string, number>;
+  cumulativeScores: Record<string, number>;
 }
 
+const INSTRUCTIONS_MS = 5000;
+const SCOREBOARD_MS = 5000;
 const ASSIGN_MS = 60000;
 const REVEAL_MS = 10000;
 
@@ -24,44 +29,46 @@ export function createRoleSortState(category: string, roles: string[], playerIds
     phase: "instructions",
     round: 1,
     maxRounds: 3,
-    timerEndsAt: Date.now() + 5000,
+    ...startPhaseTimer(INSTRUCTIONS_MS),
     playerIds,
     category,
     roles: shuffledRoles.length >= playerIds.length ? shuffledRoles : [...shuffledRoles, ...roles].slice(0, playerIds.length),
     assignments: {},
     results: {},
     roundScores: {},
+    cumulativeScores: {},
   };
 }
 
 export function advanceRoleSort(state: RoleSortState, playerIds: string[]): RoleSortState {
   if (state.phase === "instructions") {
     state.phase = "assign";
-    state.timerEndsAt = Date.now() + ASSIGN_MS;
+    Object.assign(state, startPhaseTimer(ASSIGN_MS));
     state.assignments = {};
     return state;
   }
   if (state.phase === "assign") {
     computeResults(state, playerIds);
     state.phase = "reveal";
-    state.timerEndsAt = Date.now() + REVEAL_MS;
+    Object.assign(state, startPhaseTimer(REVEAL_MS));
     return state;
   }
   if (state.phase === "reveal") {
     state.phase = "scoreboard";
-    state.timerEndsAt = Date.now() + 5000;
+    Object.assign(state, startPhaseTimer(SCOREBOARD_MS));
     return state;
   }
   if (state.phase === "scoreboard") {
     if (state.round >= state.maxRounds) {
       state.phase = "ended";
-      state.timerEndsAt = null;
+      Object.assign(state, clearPhaseTimer());
       return state;
     }
     state.round += 1;
     state.roles = shuffle(state.roles);
-    state.phase = "instructions";
-    state.timerEndsAt = Date.now() + 5000;
+    state.phase = "assign";
+    Object.assign(state, startPhaseTimer(ASSIGN_MS));
+    state.assignments = {};
     return state;
   }
   return state;
@@ -91,6 +98,9 @@ function computeResults(state: RoleSortState, playerIds: string[]) {
         state.roundScores[assignerId] = (state.roundScores[assignerId] ?? 0) + 500;
       }
     }
+  }
+  for (const [playerId, pts] of Object.entries(state.roundScores)) {
+    state.cumulativeScores[playerId] = (state.cumulativeScores[playerId] ?? 0) + pts;
   }
 }
 
@@ -124,13 +134,17 @@ export function roleSortHostView(state: RoleSortState) {
     round: state.round,
     maxRounds: state.maxRounds,
     timerEndsAt: state.timerEndsAt,
+    timerTotalMs: state.timerTotalMs,
     data: {
       category: state.category,
       roles: state.roles,
       results: showReveal ? state.results : undefined,
       assignments: showReveal ? state.assignments : undefined,
       roundScores: state.roundScores,
+      cumulativeScores: state.cumulativeScores,
       assignmentCount: Object.keys(state.assignments).length,
+      submittedPlayerIds: Object.keys(state.assignments),
+      playerCount: state.playerIds.length,
     },
   };
 }
@@ -141,6 +155,7 @@ export function roleSortPlayerView(state: RoleSortState, playerId: string, playe
     round: state.round,
     maxRounds: state.maxRounds,
     timerEndsAt: state.timerEndsAt,
+    timerTotalMs: state.timerTotalMs,
     data: {
       category: state.phase !== "instructions" ? state.category : undefined,
       roles: state.phase === "assign" ? state.roles : undefined,

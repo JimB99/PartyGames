@@ -18,6 +18,7 @@ export const blockStackGame: GameModule<BlockStackState> = {
     minPlayers: 2,
     maxPlayers: 8,
     category: "arcade",
+    roundScoresAreCumulative: true,
   },
   init(ctx) {
     return createBlockStackGameState(ctx.playerIds);

@@ -8,7 +8,6 @@ import {
 import { listGames } from "../registry.js";
 import {
   bracketCategoryPool,
-  captionPool,
   charadesWordPool,
   drawWordPool,
   factCheckPool,
@@ -28,7 +27,6 @@ const POOL_GETTERS: Partial<Record<string, (opts: GameOptions) => unknown[]>> = 
   "wit-showdown": witShowdownPool,
   "quick-quiz": quizPool,
   "would-you-rather": wouldYouRatherPool,
-  "caption-this": captionPool,
   "draw-guess": (o) => [...drawWordPool(o)],
   "bracket-battle": (o) => [...bracketCategoryPool(o)],
   timeline: timelinePool,

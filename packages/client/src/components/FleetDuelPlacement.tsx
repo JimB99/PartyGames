@@ -55,7 +55,9 @@ export function FleetDuelPlacement({
     <div className="space-y-4">
       <FleetDuelFleetStatus label="Your fleet" fleetLengths={fleetLengths} placedLengths={placedLengths} />
       <p className="text-center text-sm text-zinc-400">
-        Place ship {activeIndex + 1} of {fleet.length} ({fleet[activeIndex]?.length ?? 0} cells) · {horizontal ? "Horizontal" : "Vertical"}
+        {allPlaced
+          ? "Fleet ready — tap Ready! when you're set."
+          : `Place ship ${activeIndex + 1} of ${fleet.length} (${fleet[activeIndex]?.length ?? 0} cells) · ${horizontal ? "Horizontal" : "Vertical"}`}
       </p>
       <div className="flex flex-wrap justify-center gap-2">
         {fleet.map((ship, i) => {
@@ -64,7 +66,7 @@ export function FleetDuelPlacement({
             <button
               key={i}
               type="button"
-              disabled={placed}
+              disabled={placed || allPlaced}
               onClick={() => setShipIndex(i)}
               className={`min-h-11 min-w-11 rounded-lg border px-3 py-2 text-sm font-bold ${
                 i === activeIndex ? "border-violet-400 bg-violet-950" : "border-zinc-700 bg-zinc-900"
@@ -74,7 +76,7 @@ export function FleetDuelPlacement({
             </button>
           );
         })}
-        <Btn variant="secondary" onClick={() => setHorizontal((h) => !h)}>
+        <Btn variant="secondary" disabled={allPlaced} onClick={() => setHorizontal((h) => !h)}>
           Rotate
         </Btn>
         <Btn variant="secondary" testId="fleet-duel-random" onClick={() => onAction({ kind: "fleet_duel_random" })}>
@@ -86,7 +88,9 @@ export function FleetDuelPlacement({
           size={gridSize}
           ships={fleet}
           showShips
+          disabled={allPlaced}
           onCellClick={(x, y) =>
+            !allPlaced &&
             onAction({ kind: "fleet_duel_place", shipIndex: activeIndex, x, y, horizontal })
           }
         />

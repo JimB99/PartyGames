@@ -117,6 +117,7 @@ export function curveHostView(state: CurveState) {
       botNames: state.botNames,
       roundWinner: state.roundWinner,
       roundScores: state.roundScores,
+      lastRoundScores: state.lastRoundScores,
       deathOrder: state.deathOrder,
       coinValue: state.options.coinValue,
       powerUpMode: state.options.powerUpMode,

@@ -37,7 +37,6 @@ const SIMULATORS: Record<GameId, SimulatorFn> = {
   "fact-check": bluffActions,
   "reverse-fact": bluffActions,
   "wit-showdown": promptVoteActions,
-  "caption-this": promptVoteActions,
   "hot-seat": promptVoteActions,
   "draw-guess": drawingActions,
   "word-rush": wordRushActions,

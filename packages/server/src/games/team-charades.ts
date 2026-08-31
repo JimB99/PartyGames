@@ -108,6 +108,7 @@ export const teamCharadesGame: GameModule<CharadesState> = {
       } else {
         state.round += 1;
         state.actorIndex = (state.actorIndex + 1) % state.playerIds.length;
+        state.word = pickCharadesWord(state);
         state.correct = 0;
         state.skipped = 0;
         state.phase = "instructions";

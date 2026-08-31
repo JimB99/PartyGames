@@ -13,6 +13,7 @@ export interface StarRateState {
   round: number;
   maxRounds: number;
   timerEndsAt: number | null;
+  timerTotalMs: number | null;
   prompt: string;
   submissions: StarSubmission[];
   ratings: Record<string, Record<string, number>>;
@@ -34,6 +35,7 @@ export function createStarRateState(prompts: string[], playerIds: string[], maxR
     round: 1,
     maxRounds,
     timerEndsAt: Date.now() + 5000,
+    timerTotalMs: 5000,
     prompt: prompts[idx],
     submissions: [],
     ratings: {},
@@ -49,13 +51,12 @@ function scoreStarRate(state: StarRateState, playerIds: string[]): void {
   for (const sub of state.submissions) {
     totals[sub.id] = { sum: 0, count: 0 };
   }
-  for (const [raterId, rates] of Object.entries(state.ratings)) {
+  for (const rates of Object.values(state.ratings)) {
     for (const [subId, stars] of Object.entries(rates)) {
       if (totals[subId]) {
         totals[subId].sum += stars;
         totals[subId].count++;
       }
-      void raterId;
     }
   }
   state.roundScores = {};
@@ -69,11 +70,13 @@ function scoreStarRate(state: StarRateState, playerIds: string[]): void {
       winnerId = sub.playerId;
     }
   }
-  if (winnerId) state.roundScores[winnerId] = 1500;
   for (const pid of playerIds) {
-    if (pid !== winnerId && state.submissions.some((s) => s.playerId === pid)) {
+    if (state.submissions.some((s) => s.playerId === pid)) {
       state.roundScores[pid] = 400;
     }
+  }
+  if (winnerId && bestAvg > 0) {
+    state.roundScores[winnerId] = (state.roundScores[winnerId] ?? 0) + Math.round(bestAvg * 220);
   }
 }
 
@@ -81,29 +84,40 @@ export function advanceStarRate(state: StarRateState, prompts: string[]): StarRa
   if (state.phase === "instructions") {
     state.phase = "submit";
     state.timerEndsAt = Date.now() + SUBMIT_MS;
+    state.timerTotalMs = SUBMIT_MS;
     state.submissions = [];
     state.ratings = {};
     return state;
   }
   if (state.phase === "submit") {
+    if (state.submissions.length === 0) {
+      state.phase = "scoreboard";
+      state.timerEndsAt = Date.now() + SCOREBOARD_MS;
+      state.timerTotalMs = SCOREBOARD_MS;
+      return state;
+    }
     state.phase = "rate";
     state.timerEndsAt = Date.now() + RATE_MS;
+    state.timerTotalMs = RATE_MS;
     return state;
   }
   if (state.phase === "rate") {
     state.phase = "reveal";
     state.timerEndsAt = Date.now() + REVEAL_MS;
+    state.timerTotalMs = REVEAL_MS;
     return state;
   }
   if (state.phase === "reveal") {
     state.phase = "scoreboard";
     state.timerEndsAt = Date.now() + SCOREBOARD_MS;
+    state.timerTotalMs = SCOREBOARD_MS;
     return state;
   }
   if (state.phase === "scoreboard") {
     if (state.round >= state.maxRounds) {
       state.phase = "ended";
       state.timerEndsAt = null;
+      state.timerTotalMs = null;
       return state;
     }
     state.round += 1;
@@ -113,6 +127,7 @@ export function advanceStarRate(state: StarRateState, prompts: string[]): StarRa
     state.prompt = prompts[idx];
     state.phase = "instructions";
     state.timerEndsAt = Date.now() + 5000;
+    state.timerTotalMs = 5000;
     return state;
   }
   return state;
@@ -128,20 +143,33 @@ export function onStarRateAction(
     if (!state.submissions.some((s) => s.playerId === playerId)) {
       state.submissions.push({ id: uniqueId(), playerId, text: action.text.slice(0, 120) });
     }
+    if (state.submissions.length >= ctx.playerIds.length) {
+      scoreStarRate(state, ctx.playerIds);
+      return advanceStarRate(state, state.promptsPool);
+    }
   }
   if (action.kind === "star_rate" && state.phase === "rate") {
     const sub = state.submissions.find((s) => s.id === action.submissionId);
     if (!sub || sub.playerId === playerId) return state;
     if (!state.ratings[playerId]) state.ratings[playerId] = {};
     state.ratings[playerId][action.submissionId] = Math.max(1, Math.min(5, action.stars));
+    const expectedRatings = state.submissions.filter((s) => s.playerId !== playerId).length;
+    if (Object.keys(state.ratings[playerId]).length >= expectedRatings && expectedRatings > 0) {
+      scoreStarRate(state, ctx.playerIds);
+      return advanceStarRate(state, state.promptsPool);
+    }
+    const allRated = ctx.playerIds.every((pid) => {
+      const toRate = state.submissions.filter((s) => s.playerId !== pid);
+      if (toRate.length === 0) return true;
+      return Object.keys(state.ratings[pid] ?? {}).length >= toRate.length;
+    });
+    if (allRated) {
+      scoreStarRate(state, ctx.playerIds);
+      return advanceStarRate(state, state.promptsPool);
+    }
   }
   if (action.kind === "advance" && state.phase === "instructions") {
     return advanceStarRate(state, state.promptsPool);
-  }
-  if (state.phase === "rate" && action.kind === "advance") {
-    scoreStarRate(state, ctx.playerIds);
-    state.phase = "reveal";
-    state.timerEndsAt = Date.now() + REVEAL_MS;
   }
   return state;
 }
@@ -161,9 +189,12 @@ export function starRateHostView(state: StarRateState) {
     round: state.round,
     maxRounds: state.maxRounds,
     timerEndsAt: state.timerEndsAt,
+    timerTotalMs: state.timerTotalMs,
     data: {
       prompt: state.prompt,
       submissions: showSubs ? shuffle(state.submissions).map((s) => ({ id: s.id, text: s.text })) : undefined,
+      submitCount: state.phase === "submit" ? state.submissions.length : undefined,
+      playerCount: state.playerIds.length,
       roundScores: state.roundScores,
     },
   };
@@ -172,16 +203,26 @@ export function starRateHostView(state: StarRateState) {
 export function starRatePlayerView(state: StarRateState, playerId: string) {
   const mySub = state.submissions.find((s) => s.playerId === playerId);
   const toRate = state.submissions.filter((s) => s.playerId !== playerId);
+  const myRatings = state.ratings[playerId] ?? {};
   return {
     phase: state.phase,
     round: state.round,
     maxRounds: state.maxRounds,
     timerEndsAt: state.timerEndsAt,
-    data: { prompt: state.prompt, displayText: state.prompt },
+    timerTotalMs: state.timerTotalMs,
+    data: {
+      prompt: state.phase !== "instructions" ? state.prompt : undefined,
+    },
     playerData: {
       submitted: mySub !== undefined,
-      toRate: state.phase === "rate" ? toRate.map((s) => ({ id: s.id, text: s.text })) : undefined,
-      ratedCount: Object.keys(state.ratings[playerId] ?? {}).length,
+      mySubmission: mySub?.text,
+      toRate:
+        state.phase === "rate" && toRate.length > 0
+          ? toRate.map((s) => ({ id: s.id, text: s.text }))
+          : undefined,
+      myRatings,
+      ratedCount: Object.keys(myRatings).length,
+      noAnswers: state.phase === "rate" && toRate.length === 0,
     },
   };
 }

@@ -8,16 +8,16 @@ Couch party games: one big screen (host/TV) + phones as controllers.
 - **React + Vite + Tailwind** (client, served from the same Worker)
 - **TypeScript monorepo** (`shared`, `server`, `client`)
 
-## Games (31)
+## Games (30)
 
-Fact Check, Wit Showdown, Quick Quiz, Would You Rather, Caption This, Draw & Guess, Bracket Battle, Friend Sort, When Was It, Impostor, Trail Dash, Word Rush, Reverse Fact, Team Charades, Hot Seat, Last on the Dike, Block Stack, Fleet Duel, Four in a Row, Tic-Tac-Toe, Split the Room, Spectrum, Chain Sketch, Crowd Call, Star Rate, Out of Place, Agent Grid, Forbidden Clue, Hangman Race, Paddle Clash, Grid Blast.
+Fact Check, Wit Showdown, Quick Quiz, Would You Rather, Draw & Guess, Bracket Battle, Friend Sort, When Was It, Impostor, Trail Dash, Word Rush, Reverse Fact, Team Charades, Hot Seat, Last on the Dike, Block Stack, Fleet Duel, Four in a Row, Tic-Tac-Toe, Split the Room, Spectrum, Chain Sketch, Crowd Call, Star Rate, Agent Grid, Forbidden Clue, Hangman Race, Paddle Clash, Grid Blast.
 
 ## Testing
 
 ```bash
 npx pnpm test              # unit + integration (shared + server)
 npx pnpm test:unit         # shared logic tests only
-npx pnpm test:e2e          # Playwright UI smoke tests (all 31 games)
+npx pnpm test:e2e          # Playwright UI smoke tests (all 30 games)
 npx pnpm test:e2e -- e2e/games/quick-quiz.spec.ts   # single game
 ```
 

@@ -22,7 +22,6 @@ export const GAME_MAX_PLAYERS: Partial<Record<GameId, number>> = {
   "wit-showdown": 16,
   "quick-quiz": 16,
   "would-you-rather": 16,
-  "caption-this": 16,
   "draw-guess": 12,
   "bracket-battle": 16,
   "role-sort": 8,
@@ -116,7 +115,6 @@ export const GAME_E2E_CONFIGS: Record<GameId, GameE2EConfig> = {
       await page.getByRole("button").first().click({ timeout: 15_000 });
     },
   },
-  "caption-this": { id: "caption-this", minPlayers: 3, playerAction: submitText },
   "draw-guess": { id: "draw-guess", minPlayers: 3, playerAction: submitText },
   "bracket-battle": { id: "bracket-battle", minPlayers: 4, playerAction: submitText },
   "role-sort": {

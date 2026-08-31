@@ -21,6 +21,7 @@ export const roleSortGame: GameModule<RoleSortState> = {
     category: "party",
     supportsDifficulty: false,
     supportsMatureContent: false,
+    roundScoresAreCumulative: true,
   },
   init(ctx) {
     return createRoleSortState("Archetypes", content.friendSortRoles, ctx.playerIds);
@@ -45,7 +46,7 @@ export const roleSortGame: GameModule<RoleSortState> = {
     return roleSortPlayerView(state, playerId, ctx.playerIds);
   },
   getRoundScores(state) {
-    return state.roundScores;
+    return state.cumulativeScores;
   },
   isGameOver(state) {
     return state.phase === "ended";

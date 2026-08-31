@@ -115,21 +115,25 @@ export function SessionPlaylistPanel({
         <div className="overflow-hidden">
           <div className="space-y-4 px-4 pb-4">
             <div className="flex flex-wrap gap-2 max-h-40 overflow-y-auto">
-              {games.map((g) => (
-                <button
-                  key={g.id}
-                  type="button"
-                  disabled={disabled}
-                  onClick={() => toggle(g.id)}
-                  className={`rounded-lg px-3 py-1.5 text-sm font-medium transition ${
-                    playlist.includes(g.id)
-                      ? "bg-violet-600 text-white"
-                      : "bg-zinc-800 text-zinc-300 hover:bg-zinc-700"
-                  }`}
-                >
-                  {g.name}
-                </button>
-              ))}
+              {games.map((g) => {
+                const selected = playlist.includes(g.id);
+                return (
+                  <button
+                    key={g.id}
+                    type="button"
+                    disabled={disabled}
+                    onClick={() => toggle(g.id)}
+                    className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium transition ${
+                      selected
+                        ? "bg-violet-600 text-white"
+                        : "bg-zinc-800 text-zinc-300 hover:bg-zinc-700"
+                    }`}
+                  >
+                    <span>{g.name}</span>
+                    {selected && <span className="text-violet-200" aria-hidden>×</span>}
+                  </button>
+                );
+              })}
             </div>
 
             {playlist.length > 0 && (

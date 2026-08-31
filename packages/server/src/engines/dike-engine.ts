@@ -8,6 +8,7 @@ import {
   type GameAction,
   type RoomContext,
 } from "@party-games/shared";
+import { clearPhaseTimer, startPhaseTimer } from "./phase-timer.js";
 
 export type DikePhase = "instructions" | "bid" | "reveal" | "ended";
 
@@ -16,6 +17,7 @@ export interface DikeState {
   round: number;
   maxRounds: number;
   timerEndsAt: number | null;
+  timerTotalMs: number | null;
   alive: string[];
   balances: Record<string, number>;
   bids: Record<string, number>;
@@ -37,7 +39,7 @@ export function createDikeState(playerIds: string[]): DikeState {
     phase: "instructions",
     round: 1,
     maxRounds: Math.max(1, playerIds.length - 1),
-    timerEndsAt: Date.now() + INSTRUCTIONS_MS,
+    ...startPhaseTimer(INSTRUCTIONS_MS),
     alive: [...playerIds],
     balances,
     bids: {},
@@ -63,9 +65,14 @@ function fillMissingBids(state: DikeState): Record<string, number> {
 }
 
 function finishGame(state: DikeState, winnerId: string): DikeState {
+  for (const id of state.alive) {
+    if (id !== winnerId && !state.placement.includes(id)) {
+      state.placement.unshift(id);
+    }
+  }
   state.winnerId = winnerId;
   state.phase = "ended";
-  state.timerEndsAt = null;
+  Object.assign(state, clearPhaseTimer());
   state.roundScores = placementScores(winnerId, state.placement, state.eliminationRound);
   return state;
 }
@@ -94,14 +101,14 @@ function resolveRound(state: DikeState): DikeState {
   }
 
   state.phase = "reveal";
-  state.timerEndsAt = Date.now() + REVEAL_MS;
+  Object.assign(state, startPhaseTimer(REVEAL_MS));
   return state;
 }
 
 export function advanceDike(state: DikeState): DikeState {
   if (state.phase === "instructions") {
     state.phase = "bid";
-    state.timerEndsAt = Date.now() + BID_MS;
+    Object.assign(state, startPhaseTimer(BID_MS));
     state.bids = {};
     return state;
   }
@@ -123,7 +130,7 @@ export function advanceDike(state: DikeState): DikeState {
 
     state.round += 1;
     state.phase = "bid";
-    state.timerEndsAt = Date.now() + BID_MS;
+    Object.assign(state, startPhaseTimer(BID_MS));
     state.bids = {};
     state.lastReveal = [];
     return state;
@@ -182,6 +189,7 @@ export function dikeHostView(state: DikeState) {
     round: state.round,
     maxRounds: state.maxRounds,
     timerEndsAt: state.timerEndsAt,
+    timerTotalMs: state.timerTotalMs,
     data: {
       ...dikeCommonData(state),
       alive: state.alive,
@@ -200,6 +208,7 @@ export function dikePlayerView(state: DikeState, playerId: string) {
     round: state.round,
     maxRounds: state.maxRounds,
     timerEndsAt: state.timerEndsAt,
+    timerTotalMs: state.timerTotalMs,
     data: {
       ...dikeCommonData(state),
       displayText:

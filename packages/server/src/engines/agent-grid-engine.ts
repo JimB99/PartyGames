@@ -16,6 +16,7 @@ export interface AgentGridState {
   round: number;
   maxRounds: number;
   timerEndsAt: number | null;
+  timerTotalMs: number | null;
   words: string[];
   key: Array<"a" | "b" | "neutral" | "assassin">;
   revealed: boolean[];
@@ -52,6 +53,7 @@ export function createAgentGridState(words: string[], playerIds: string[]): Agen
     round: 1,
     maxRounds: 1,
     timerEndsAt: Date.now() + 5000,
+    timerTotalMs: 5000,
     words: picked,
     key: buildAgentKey(starting),
     revealed: Array(AGENT_GRID_SIZE).fill(false),
@@ -85,12 +87,14 @@ export function advanceAgentGrid(state: AgentGridState): AgentGridState {
   if (state.phase === "instructions") {
     state.phase = "clue";
     state.timerEndsAt = Date.now() + CLUE_MS;
+    state.timerTotalMs = CLUE_MS;
     state.currentClue = null;
     return state;
   }
   if (state.phase === "clue") {
     state.phase = "guess";
     state.timerEndsAt = Date.now() + GUESS_MS;
+    state.timerTotalMs = GUESS_MS;
     return state;
   }
   if (state.phase === "guess") {
@@ -99,11 +103,13 @@ export function advanceAgentGrid(state: AgentGridState): AgentGridState {
     state.guessesRemaining = 0;
     state.currentClue = null;
     state.timerEndsAt = Date.now() + CLUE_MS;
+    state.timerTotalMs = CLUE_MS;
     return state;
   }
   if (state.phase === "reveal") {
     state.phase = "ended";
     state.timerEndsAt = null;
+    state.timerTotalMs = null;
     return state;
   }
   return state;
@@ -121,6 +127,7 @@ export function onAgentGridAction(
     state.guessesRemaining = action.count + 1;
     state.phase = "guess";
     state.timerEndsAt = Date.now() + GUESS_MS;
+    state.timerTotalMs = GUESS_MS;
     return state;
   }
   if (action.kind === "agent_guess" && state.phase === "guess") {
@@ -129,32 +136,38 @@ export function onAgentGridAction(
     if (state.guessesRemaining <= 0) return state;
     const { outcome, tile } = resolveAgentGuess(state.key, state.revealed, action.index, state.activeTeam);
     state.revealed[action.index] = true;
-    state.guessesRemaining -= 1;
     if (outcome === "assassin_loss") {
       state.loser = state.activeTeam;
       state.winner = state.activeTeam === "a" ? "b" : "a";
       scoreWin(state, state.winner);
       state.phase = "reveal";
       state.timerEndsAt = Date.now() + REVEAL_MS;
+      state.timerTotalMs = REVEAL_MS;
       return state;
     }
-    if (outcome === "win") {
+    if (outcome === "win" || (outcome === "continue" && teamWon(state.key, state.revealed, state.activeTeam))) {
       scoreWin(state, state.activeTeam);
       state.phase = "reveal";
       state.timerEndsAt = Date.now() + REVEAL_MS;
+      state.timerTotalMs = REVEAL_MS;
       return state;
     }
     if (outcome === "opponent_bonus") {
       const other = state.activeTeam === "a" ? "b" : "a";
-      state.revealed[action.index] = true;
       if (teamWon(state.key, state.revealed, other)) {
         scoreWin(state, other);
         state.phase = "reveal";
         state.timerEndsAt = Date.now() + REVEAL_MS;
+        state.timerTotalMs = REVEAL_MS;
         return state;
       }
       return advanceAgentGrid(state);
     }
+    if (outcome === "continue") {
+      void tile;
+      return state;
+    }
+    state.guessesRemaining -= 1;
     if (outcome === "end_turn" || state.guessesRemaining <= 0) {
       return advanceAgentGrid(state);
     }
@@ -182,16 +195,25 @@ export function onAgentGridTick(state: AgentGridState): AgentGridState {
   return advanceAgentGrid(state);
 }
 
+function hostKeyTiles(state: AgentGridState): Array<"a" | "b" | "neutral" | "assassin" | undefined> | undefined {
+  if (state.phase === "reveal" || state.phase === "ended") return state.key;
+  if (state.phase === "clue" || state.phase === "guess") {
+    return state.key.map((t, i) => (state.revealed[i] ? t : undefined));
+  }
+  return undefined;
+}
+
 export function agentGridHostView(state: AgentGridState) {
   return {
     phase: state.phase,
     round: state.round,
     maxRounds: state.maxRounds,
     timerEndsAt: state.timerEndsAt,
+    timerTotalMs: state.timerTotalMs,
     data: {
       words: state.words,
       revealed: state.revealed,
-      key: state.phase === "reveal" || state.phase === "ended" ? state.key : undefined,
+      key: hostKeyTiles(state),
       activeTeam: state.activeTeam,
       currentClue: state.currentClue,
       guessesRemaining: state.guessesRemaining,
@@ -208,11 +230,17 @@ export function agentGridPlayerView(state: AgentGridState, playerId: string) {
   const onB = state.teamB.includes(playerId);
   const team = onA ? "a" : onB ? "b" : null;
   const showKey = (isSpyA || isSpyB) && state.phase !== "ended";
+  const spymasterId = state.activeTeam === "a" ? state.spymasterA : state.spymasterB;
+  const isOperative =
+    state.phase === "guess" &&
+    team === state.activeTeam &&
+    playerId !== spymasterId;
   return {
     phase: state.phase,
     round: state.round,
     maxRounds: state.maxRounds,
     timerEndsAt: state.timerEndsAt,
+    timerTotalMs: state.timerTotalMs,
     data: {
       words: state.words,
       revealed: state.revealed,
@@ -222,12 +250,14 @@ export function agentGridPlayerView(state: AgentGridState, playerId: string) {
     },
     playerData: {
       team,
+      teamLabel: team ? `Team ${team.toUpperCase()}` : undefined,
+      roleLabel: isSpyA || isSpyB ? "Spymaster" : team ? "Guesser" : undefined,
       isSpymaster: isSpyA || isSpyB,
       key: showKey ? state.key : undefined,
-      canGuess:
-        state.phase === "guess" &&
-        team === state.activeTeam &&
-        playerId !== (state.activeTeam === "a" ? state.spymasterA : state.spymasterB),
+      canGuess: isOperative,
+      waitingForClue:
+        state.phase === "clue" && team === state.activeTeam && playerId !== spymasterId,
+      tileKey: hostKeyTiles(state),
     },
   };
 }

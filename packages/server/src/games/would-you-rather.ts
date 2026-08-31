@@ -21,7 +21,7 @@ export const wouldYouRatherGame: GameModule<TriviaState> = {
     category: "social",
     supportsDifficulty: true,
     supportsMatureContent: true,
-    supportsSpeedScoring: true,
+    supportsSpeedScoring: false,
     supportsQuestionDisplay: true,
   },
   init(ctx) {

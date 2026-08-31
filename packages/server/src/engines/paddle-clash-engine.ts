@@ -15,11 +15,14 @@ export interface PaddleClashGameState {
   round: number;
   maxRounds: number;
   timerEndsAt: number | null;
+  timerTotalMs: number | null;
   paddle: PaddleState;
   roundScores: Record<string, number>;
   playerIds: string[];
   mode: "pong" | "hockey";
 }
+
+const INSTRUCTIONS_MS = 5000;
 
 export function createPaddleClashState(
   playerIds: string[],
@@ -29,7 +32,8 @@ export function createPaddleClashState(
     phase: "instructions",
     round: 1,
     maxRounds: 1,
-    timerEndsAt: Date.now() + 5000,
+    timerEndsAt: Date.now() + INSTRUCTIONS_MS,
+    timerTotalMs: INSTRUCTIONS_MS,
     paddle: createPaddleState(playerIds, mode),
     roundScores: {},
     playerIds,
@@ -49,6 +53,7 @@ export function onPaddleClashAction(
   if (action.kind === "advance" && state.phase === "instructions") {
     state.phase = "playing";
     state.timerEndsAt = null;
+    state.timerTotalMs = null;
   }
   return state;
 }
@@ -66,21 +71,25 @@ export function onPaddleClashTick(state: PaddleClashGameState): PaddleClashGameS
   if (state.timerEndsAt && Date.now() >= state.timerEndsAt && state.phase === "instructions") {
     state.phase = "playing";
     state.timerEndsAt = null;
+    state.timerTotalMs = null;
   }
   return state;
 }
 
 export function paddleClashHostView(state: PaddleClashGameState) {
+  const winnerId = paddleGameOver(state.paddle) ? paddleWinner(state.paddle) : null;
   return {
     phase: state.phase,
     round: state.round,
     maxRounds: state.maxRounds,
     timerEndsAt: state.timerEndsAt,
+    timerTotalMs: state.timerTotalMs,
     data: {
       ball: state.paddle.ball,
       players: state.paddle.players,
       mode: state.mode,
       roundScores: state.roundScores,
+      winnerId,
     },
   };
 }
@@ -88,17 +97,27 @@ export function paddleClashHostView(state: PaddleClashGameState) {
 export function paddleClashPlayerView(state: PaddleClashGameState, playerId: string) {
   const idx = state.playerIds.indexOf(playerId);
   const side = idx === 0 || (state.playerIds.length > 2 && idx < 2) ? "left" : "right";
+  const winnerId = paddleGameOver(state.paddle) ? paddleWinner(state.paddle) : null;
+  const myScore = state.paddle.players.find((p) => p.id === playerId)?.score ?? 0;
+  const opponentScore =
+    state.paddle.players.find((p) => p.id !== playerId)?.score ??
+    state.paddle.players.reduce((max, p) => (p.id !== playerId && p.score > max ? p.score : max), 0);
   return {
     phase: state.phase,
     round: state.round,
     maxRounds: state.maxRounds,
     timerEndsAt: state.timerEndsAt,
+    timerTotalMs: state.timerTotalMs,
     data: {
       scores: state.paddle.players.map((p) => ({ id: p.id, score: p.score })),
+      winnerId,
     },
     playerData: {
       side,
-      myScore: state.paddle.players.find((p) => p.id === playerId)?.score ?? 0,
+      myScore,
+      opponentScore,
+      won: winnerId === playerId,
+      lost: winnerId !== null && winnerId !== playerId,
     },
   };
 }

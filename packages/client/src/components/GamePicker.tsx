@@ -73,16 +73,11 @@ function GameCard({
               : "border-amber-700/50 bg-zinc-800/40 hover:border-amber-600/60"
       }`}
     >
-      <h3 className="font-bold text-lg">{game.name}</h3>
+      <h3 className="font-bold text-lg break-words">{game.name}</h3>
       <p className="mt-1 text-sm text-zinc-400">{game.description}</p>
       <p className="mt-2 text-xs text-zinc-500">
         {game.id === "trail-dash" ? "1–8 players (+ bots)" : `${game.minPlayers}–${game.maxPlayers} players`}
       </p>
-      {!readyToStart && !overMax && (
-        <p className="mt-1 text-xs text-amber-400">
-          {game.id === "trail-dash" ? "Add bots or invite players" : `Need ${game.minPlayers - total} more`}
-        </p>
-      )}
     </button>
   );
 }

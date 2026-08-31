@@ -1,5 +1,5 @@
 import type { GameModule } from "@party-games/shared";
-import { witShowdownPool } from "../content-pool.js";
+import { starRatePool } from "../content-pool.js";
 import {
   createStarRateState,
   onStarRateAction,
@@ -22,7 +22,7 @@ export const starRateGame: GameModule<StarRateState> = {
     supportsDifficulty: true,
   },
   init(ctx) {
-    return createStarRateState(witShowdownPool(ctx.gameOptions), ctx.playerIds, 4);
+    return createStarRateState(starRatePool(ctx.gameOptions), ctx.playerIds, 4);
   },
   onPlayerAction(state, playerId, action, ctx) {
     return onStarRateAction(state, playerId, action, ctx);

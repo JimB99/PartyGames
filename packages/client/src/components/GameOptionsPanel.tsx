@@ -45,7 +45,8 @@ export function GameOptionsPanel({
     !game.supportsMatureContent &&
     !game.supportsQuestionDisplay &&
     !game.supportsTimelinePtsPerYear &&
-    !game.supportsSpeedScoring
+    !game.supportsSpeedScoring &&
+    !game.supportsPaddleMode
   ) {
 
     return null;
@@ -243,6 +244,26 @@ export function GameOptionsPanel({
 
           </select>
 
+        </div>
+      )}
+
+      {game.supportsPaddleMode && (
+        <div className="flex items-center justify-between gap-4">
+          <span className="text-zinc-300">Mode</span>
+          <div className="flex rounded-xl bg-zinc-900 p-1">
+            <RatingButton
+              label="Pong"
+              testId="game-option-paddle-pong"
+              active={(options.paddleMode ?? "pong") === "pong"}
+              onClick={() => onChange({ ...options, paddleMode: "pong" })}
+            />
+            <RatingButton
+              label="Air hockey"
+              testId="game-option-paddle-hockey"
+              active={options.paddleMode === "hockey"}
+              onClick={() => onChange({ ...options, paddleMode: "hockey" })}
+            />
+          </div>
         </div>
       )}
 

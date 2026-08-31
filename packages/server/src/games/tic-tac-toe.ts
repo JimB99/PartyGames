@@ -17,6 +17,7 @@ export const ticTacToeGame: GameModule<TicTacToeState> = {
     minPlayers: 2,
     maxPlayers: 8,
     category: "strategy",
+    roundScoresAreCumulative: true,
   },
   init(ctx) {
     return createTttGameState(ctx.playerIds);

@@ -23,6 +23,7 @@ export const quickQuizGame: GameModule<TriviaState> = {
     supportsMatureContent: true,
     supportsSpeedScoring: true,
     supportsQuestionDisplay: true,
+    roundScoresAreCumulative: true,
   },
   init(ctx) {
     const state = createTriviaState("quiz", quizPool(ctx.gameOptions), 8, ctx.playerIds.length);
@@ -49,7 +50,7 @@ export const quickQuizGame: GameModule<TriviaState> = {
     return triviaPlayerView(state, playerId);
   },
   getRoundScores(state) {
-    return state.roundScores;
+    return state.cumulativeScores;
   },
   isGameOver(state) {
     return state.phase === "ended";

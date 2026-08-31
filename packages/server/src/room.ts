@@ -21,13 +21,16 @@ import {
 } from "partyserver";
 import {
   addPlayer,
+  applyInGameScoresToSession,
   createLobby,
   deletePlayer,
   getGameOptions,
   mergeScores,
   removePlayer,
+  resetInGameScores,
   sanitizeNickname,
   setPlayerColor,
+  snapshotSessionScores,
   type LobbyState,
 } from "./lobby.js";
 import { getGame, listGames } from "./registry.js";
@@ -46,6 +49,51 @@ export class RoomServer extends Server {
   activeGameId: GameId | null = null;
   connectionMeta = new Map<string, ConnectionMeta>();
   tickTimer: ReturnType<typeof setInterval> | null = null;
+
+  private gamePhase(state: unknown): string {
+    if (!state || typeof state !== "object") return "";
+    return String((state as { phase?: string }).phase ?? "");
+  }
+
+  private syncInGameScores(): void {
+    if (this.roomPhase !== "playing" || !this.gameModule || !this.gameState || !this.activeGameId) {
+      return;
+    }
+
+    const roundScores = this.gameModule.getRoundScores(this.gameState);
+    if (this.gameModule.meta.roundScoresAreCumulative) {
+      this.lobby.inGameScores = { ...roundScores };
+      return;
+    }
+
+    const view = this.gameModule.getHostView(this.gameState, this.getRoomContext());
+    const scoringPhases = new Set(["reveal", "scoreboard", "ended", "match_end", "round_end"]);
+    if (!scoringPhases.has(view.phase) || Object.keys(roundScores).length === 0) {
+      return;
+    }
+
+    const commitKey =
+      view.phase === "ended"
+        ? `${this.activeGameId}:final`
+        : `${this.activeGameId}:r${view.round}`;
+    if (this.lobby.committedRoundKeys.has(commitKey)) return;
+
+    this.lobby.inGameScores = mergeScores(this.lobby.inGameScores, roundScores);
+    this.lobby.committedRoundKeys.add(commitKey);
+  }
+
+  private commitSessionScoresIfEnded(): void {
+    if (!this.gameModule || !this.gameState) return;
+    if (!this.gameModule.isGameOver(this.gameState)) return;
+    if (this.lobby.gameScoresCommitted) return;
+
+    this.syncInGameScores();
+    applyInGameScoresToSession(
+      this.lobby,
+      this.gameModule.meta.roundScoresAreCumulative ?? false,
+    );
+    this.lobby.gameScoresCommitted = true;
+  }
 
   async onStart() {
     this.lobby = createLobby(this.name);
@@ -157,6 +205,13 @@ export class RoomServer extends Server {
       case "check_room":
         if (this.hasActiveHost()) {
           sender.send(JSON.stringify({ type: "room_available" }));
+        } else if (this.lobby.hostSessionActive) {
+          sender.send(
+            JSON.stringify({
+              type: "error",
+              message: "Host is reconnecting — wait a moment and try again.",
+            }),
+          );
         } else {
           sender.send(
             JSON.stringify({
@@ -378,6 +433,8 @@ export class RoomServer extends Server {
     this.roomPhase = "playing";
     this.activeGameId = selected;
     this.lobby.selectedGameId = selected;
+    snapshotSessionScores(this.lobby);
+    resetInGameScores(this.lobby);
     this.startTick();
     this.broadcastAll();
   }
@@ -433,6 +490,8 @@ export class RoomServer extends Server {
     this.roomPhase = "playing";
     this.lobby.paused = false;
     this.lobby.pausedAt = null;
+    snapshotSessionScores(this.lobby);
+    resetInGameScores(this.lobby);
     this.startTick();
     this.broadcastAll();
   }
@@ -444,12 +503,23 @@ export class RoomServer extends Server {
     }
     this.lobby.disconnectTimers.clear();
     this.lobby.players = this.lobby.players.filter((p) => p.connected);
+    if (this.roomPhase === "playing") {
+      this.syncInGameScores();
+      if (!this.lobby.gameScoresCommitted) {
+        applyInGameScoresToSession(
+          this.lobby,
+          this.gameModule?.meta.roundScoresAreCumulative ?? false,
+        );
+        this.lobby.gameScoresCommitted = true;
+      }
+    }
     this.gameModule = null;
     this.gameState = null;
     this.roomPhase = "lobby";
     this.activeGameId = null;
     this.lobby.paused = false;
     this.lobby.pausedAt = null;
+    resetInGameScores(this.lobby);
     this.broadcastAll();
   }
 
@@ -495,6 +565,7 @@ export class RoomServer extends Server {
     const meta = this.connectionMeta.get(sender.id);
     const ctx = this.getRoomContext();
     const prevState = this.gameState;
+    const phaseBefore = this.gamePhase(prevState);
 
     if (isHostAction && this.isHost(sender)) {
       if (this.gameModule.onHostAction) {
@@ -503,6 +574,7 @@ export class RoomServer extends Server {
       if (
         action.kind === "advance" &&
         this.gameState === prevState &&
+        phaseBefore === this.gamePhase(this.gameState) &&
         typeof this.gameState === "object" &&
         this.gameState !== null
       ) {
@@ -518,10 +590,8 @@ export class RoomServer extends Server {
       this.gameState = this.gameModule.onPlayerAction(this.gameState, meta.playerId, action, ctx);
     }
 
-    if (this.gameModule.isGameOver(this.gameState)) {
-      const roundScores = this.gameModule.getRoundScores(this.gameState);
-      this.lobby.sessionScores = mergeScores(this.lobby.sessionScores, roundScores);
-    }
+    this.syncInGameScores();
+    this.commitSessionScoresIfEnded();
 
     this.broadcastAll();
   }
@@ -539,9 +609,10 @@ export class RoomServer extends Server {
       try {
         this.gameState = this.gameModule.onTick(this.gameState);
 
+        this.syncInGameScores();
+        this.commitSessionScoresIfEnded();
+
         if (this.gameModule.isGameOver(this.gameState)) {
-          const roundScores = this.gameModule.getRoundScores(this.gameState);
-          this.lobby.sessionScores = mergeScores(this.lobby.sessionScores, roundScores);
           this.stopTick();
         }
 
@@ -587,10 +658,7 @@ export class RoomServer extends Server {
       selectedGameId: this.lobby.selectedGameId,
       activeGameId: this.activeGameId,
       sessionScores: this.lobby.sessionScores,
-      gameScores:
-        this.roomPhase === "playing" && this.gameModule && this.gameState
-          ? this.gameModule.getRoundScores(this.gameState)
-          : {},
+      gameScores: this.roomPhase === "playing" ? this.lobby.inGameScores : {},
       gameOptionsByGame: this.lobby.gameOptionsByGame,
       activeGameOptions:
         this.roomPhase === "playing" && this.activeGameId
@@ -633,6 +701,11 @@ export class RoomServer extends Server {
     const playerView = this.buildPlayerView(conn.id);
     if (playerView) {
       conn.send(JSON.stringify(playerView));
+    } else {
+      const meta = this.connectionMeta.get(conn.id);
+      if (meta?.role === "player") {
+        conn.send(JSON.stringify({ type: "player_view_clear" }));
+      }
     }
   }
 

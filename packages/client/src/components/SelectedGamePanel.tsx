@@ -5,21 +5,28 @@ export function StartGameButton({
   canStart,
   onStart,
   className = "",
+  hint,
 }: {
   canStart: boolean;
   onStart: () => void;
   className?: string;
+  hint?: string;
 }) {
   return (
-    <button
+    <div className="space-y-2">
+      {hint && !canStart && (
+        <p className="text-center text-sm text-amber-400">{hint}</p>
+      )}
+      <button
       type="button"
       data-testid="start-game"
       disabled={!canStart}
       onClick={onStart}
       className={`w-full rounded-2xl bg-violet-600 py-4 text-lg font-bold hover:bg-violet-500 disabled:opacity-40 ${className}`}
-    >
-      Start game
-    </button>
+      >
+        Start game
+      </button>
+    </div>
   );
 }
 
@@ -29,12 +36,14 @@ export function SelectedGamePanel({
   onStart,
   settings,
   warning,
+  startHint,
 }: {
   game: GameMeta | undefined;
   canStart: boolean;
   onStart: () => void;
   settings: ReactNode;
   warning?: ReactNode;
+  startHint?: string;
 }) {
   return (
     <div className="sticky top-4 self-start min-w-0 max-h-[calc(100dvh-2rem)] overflow-y-auto rounded-2xl border border-zinc-700 bg-zinc-900/60 p-4 space-y-4">
@@ -47,7 +56,7 @@ export function SelectedGamePanel({
           </div>
           {settings}
           {warning}
-          <StartGameButton canStart={canStart} onStart={onStart} />
+          <StartGameButton canStart={canStart} onStart={onStart} hint={startHint} />
         </>
       ) : (
         <p className="text-center text-sm text-zinc-500 py-8">Pick a game from the list to configure and start.</p>

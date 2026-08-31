@@ -137,6 +137,7 @@ export interface CurveState {
   height: number;
   players: CurvePlayer[];
   roundScores: Record<string, number>;
+  lastRoundScores: Record<string, number>;
   roundWinner?: string;
   botNames: Record<string, string>;
   coins: Coin[];
@@ -430,6 +431,7 @@ export function createCurveState(
     height: ARENA_H,
     players,
     roundScores: {},
+    lastRoundScores: {},
     botNames,
     coins: [],
     powerUps: [],
@@ -964,6 +966,7 @@ export function computeRoundScores(state: CurveState): Record<string, number> {
   }
 
   // Merge into roundScores
+  state.lastRoundScores = scores;
   for (const [id, pts] of Object.entries(scores)) {
     state.roundScores[id] = (state.roundScores[id] ?? 0) + pts;
   }

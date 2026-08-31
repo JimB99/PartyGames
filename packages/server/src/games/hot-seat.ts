@@ -25,7 +25,8 @@ export const hotSeatGame: GameModule<PromptVoteState> = {
   },
   init(ctx) {
     const targetPlayerId = pickRandom(ctx.playerIds);
-    return createPromptVoteState("hot-seat", hotSeatPool(ctx.gameOptions), 4, targetPlayerId);
+    const state = createPromptVoteState("hot-seat", hotSeatPool(ctx.gameOptions), 4, targetPlayerId, ctx.playerIds);
+    return state;
   },
   onPlayerAction(state, playerId, action, ctx) {
     return onPromptVoteAction(state, playerId, action, ctx);
@@ -40,11 +41,11 @@ export const hotSeatGame: GameModule<PromptVoteState> = {
     return state.phase !== "ended";
   },
   tickIntervalMs: 500,
-  getHostView(state) {
-    return promptVoteHostView(state);
+  getHostView(state, ctx) {
+    return promptVoteHostView(state, ctx);
   },
-  getPlayerView(state, playerId) {
-    return promptVotePlayerView(state, playerId);
+  getPlayerView(state, playerId, ctx) {
+    return promptVotePlayerView(state, playerId, ctx);
   },
   getRoundScores(state) {
     return state.roundScores;

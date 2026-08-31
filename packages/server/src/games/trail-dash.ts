@@ -27,6 +27,7 @@ export const trailDashGame: GameModule<CurveState> = {
     supportsDifficulty: false,
     supportsMatureContent: false,
     supportsTrailDashOptions: true,
+    roundScoresAreCumulative: true,
   },
   init(ctx) {
     const options = resolveTrailDashOptions(ctx.gameOptions);

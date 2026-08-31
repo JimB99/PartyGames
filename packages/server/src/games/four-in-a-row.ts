@@ -17,6 +17,7 @@ export const fourInARowGame: GameModule<FourInARowState> = {
     minPlayers: 2,
     maxPlayers: 4,
     category: "strategy",
+    roundScoresAreCumulative: true,
   },
   init(ctx) {
     return createFourInARowGameState(ctx.playerIds);

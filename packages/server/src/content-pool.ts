@@ -8,6 +8,7 @@ import {
   type ImpostorCategory,
 } from "@party-games/shared";
 import { content } from "./content.js";
+import type { SplitScenario } from "../engines/split-room-engine.js";
 
 export function quizPool(options: GameOptions) {
   return filterContentPool(content.quiz, options);
@@ -33,10 +34,6 @@ export function witShowdownPool(options: GameOptions) {
   return filterPromptList(content.witShowdown, options);
 }
 
-export function captionPool(options: GameOptions) {
-  return filterPromptList(content.caption, options);
-}
-
 export function hotSeatPool(options: GameOptions) {
   return filterPromptList(content.hotSeat, options);
 }
@@ -46,15 +43,24 @@ export function drawWordPool(options: GameOptions) {
 }
 
 export function charadesWordPool(options: GameOptions) {
-  return filterWordList(content.charadesWords, options);
+  return filterWordList(content.charadesWords, options).filter(
+    (w) => w.length <= 28 && !/^(perform|do a |call a )/i.test(w),
+  );
 }
 
 export function bracketCategoryPool(options: GameOptions) {
   return filterCategoryList(content.bracketCategories, options);
 }
 
-export function splitRoomPool(_options: GameOptions) {
-  return content.splitRoom;
+export function splitRoomPool(options: GameOptions): SplitScenario[] {
+  const family = content.splitRoom;
+  const mature: SplitScenario[] = [
+    { text: "Dating apps", labelA: "Found love there", labelB: "Never again" },
+    { text: "Office parties", labelA: "Free drinks!", labelB: "Mandatory fun" },
+    { text: "Talking politics at dinner", labelA: "Keep it spicy", labelB: "Hard pass" },
+    { text: "Sleeping in on weekends", labelA: "Sacred ritual", labelB: "Wasted daylight" },
+  ];
+  return options.contentRating === "mature" ? [...family, ...mature] : family;
 }
 
 export function spectrumPool(_options: GameOptions) {
@@ -75,8 +81,24 @@ export function forbiddenCluePool(options: GameOptions) {
   return filterContentPool(content.forbiddenClue, options);
 }
 
-export function agentGridWordPool(options: GameOptions) {
-  return filterWordList(content.drawWords, options);
+export function starRatePool(options: GameOptions) {
+  const all = filterPromptList(content.witShowdown, options);
+  const confession = all.filter(
+    (p) =>
+      p.startsWith("Nobody knows") ||
+      p.startsWith("Unfiltered truth") ||
+      p.startsWith("Worst thing") ||
+      p.startsWith("Have you ever"),
+  );
+  return confession.length > 0 ? confession : all;
+}
+
+export function agentGridWordPool(options: GameOptions): string[] {
+  const dict = [...content.dictionary].filter(
+    (w) => w.length >= 4 && w.length <= 12 && /^[a-z]+$/i.test(w),
+  );
+  if (dict.length === 0) return filterWordList(content.drawWords, options).filter((w) => w.length <= 20);
+  return dict;
 }
 
 export function hangmanWordPool(options: GameOptions): string[] {

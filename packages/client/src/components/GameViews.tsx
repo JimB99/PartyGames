@@ -1,5 +1,5 @@
 import type { DikeRevealEntry, HostViewSnapshot, PlayerAnswerReveal, PlayerViewSnapshot, RevealEntry, RoomSnapshot } from "@party-games/shared";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CurveArena } from "./CurveArena";
 import { TrailDashInstructions } from "./TrailDashInstructions";
 import { CurvePlayerControls } from "./CurvePlayerControls";
@@ -12,7 +12,7 @@ import { FleetDuelPlacement } from "./FleetDuelPlacement";
 import { FourInARowBoard } from "./FourInARowBoard";
 import { TicTacToeBoard } from "./TicTacToeBoard";
 import { RevealBreakdown, ScoringRulesPanel } from "./RevealBreakdown";
-import { RoundScorePanel } from "./RoundScorePanel";
+import { ScoringPhase } from "./ScoringPhase";
 import { TimerBar } from "./TimerBar";
 import { LiveScoreBar } from "./LiveScoreBar";
 import { PauseOverlay } from "./PauseOverlay";
@@ -86,8 +86,8 @@ export function HostGameView({
         isTrailDashPlaying ? "max-w-6xl p-4" : "max-w-5xl p-6"
       }`}
     >
-      <header className={`flex flex-wrap items-start justify-between gap-4 min-w-0 ${isTrailDashPlaying ? "px-2" : ""}`}>
-        <div className="min-w-0 flex-1">
+      <header className={`space-y-4 min-w-0 ${isTrailDashPlaying ? "px-2" : ""}`}>
+        <div className="min-w-0">
           <div className="flex flex-wrap items-center gap-3">
             <h2 className="text-3xl font-black">{gameName}</h2>
             {room.activeGameOptions?.contentRating === "mature" && (
@@ -100,9 +100,13 @@ export function HostGameView({
             Round {hostView.round}/{hostView.maxRounds} · {phase}
           </p>
         </div>
-        <div className="w-full sm:w-auto sm:shrink-0 min-w-0">
-          <TimerBar endsAt={hostView.timerEndsAt} totalMs={hostView.timerTotalMs} />
-        </div>
+        {hostView.timerEndsAt && (
+          <TimerBar
+            endsAt={hostView.timerEndsAt}
+            totalMs={hostView.timerTotalMs}
+            size="host"
+          />
+        )}
       </header>
 
       {phase === "instructions" && (
@@ -115,7 +119,16 @@ export function HostGameView({
             {hostView.gameId === "trail-dash" && (
               <p className="mt-2 text-zinc-400">Last rider standing wins — collect coins and power-ups!</p>
             )}
-            {hostView.gameId !== "last-on-the-dike" && hostView.gameId !== "trail-dash" && (
+            {hostView.gameId === "paddle-clash" && (
+              <p className="mt-2 text-zinc-400">Drag your paddle on your phone — first to 7 points wins!</p>
+            )}
+            {hostView.gameId === "tic-tac-toe" && (
+              <p className="mt-2 text-zinc-400">Get three in a row to win!</p>
+            )}
+            {hostView.gameId !== "last-on-the-dike" &&
+              hostView.gameId !== "trail-dash" &&
+              hostView.gameId !== "paddle-clash" &&
+              hostView.gameId !== "tic-tac-toe" && (
               <p className="mt-2 text-zinc-400">Starting soon…</p>
             )}
           </div>
@@ -138,8 +151,37 @@ export function HostGameView({
         </div>
       )}
 
-      {(phase === "submit" || phase === "question") && (
+      {phase === "assign" && hostView.gameId === "role-sort" && (
+        <div className="rounded-2xl bg-zinc-800/60 p-8 text-center space-y-4">
+          <p className="text-2xl font-bold">{String(data.category)}</p>
+          <p className="text-zinc-400">Sort everyone into these roles on your phone:</p>
+          <div className="flex flex-wrap justify-center gap-2">
+            {(data.roles as string[]).map((role) => (
+              <span key={role} className="rounded-lg bg-violet-600/40 px-4 py-2 text-lg font-semibold">{role}</span>
+            ))}
+          </div>
+          <p className="text-zinc-400">
+            Submitted: {String(data.assignmentCount ?? 0)}/{String(data.playerCount ?? room.players.length)}
+          </p>
+          <ul className="mx-auto max-w-md space-y-2 text-left">
+            {room.players.map((player) => {
+              const submitted = ((data.submittedPlayerIds as string[] | undefined) ?? []).includes(player.id);
+              return (
+                <li key={player.id} className="flex items-center justify-between rounded-xl bg-zinc-700/80 px-4 py-2">
+                  <span>{player.nickname}</span>
+                  <span className={submitted ? "text-green-400" : "text-zinc-500"}>{submitted ? "✓" : "…"}</span>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      )}
+
+      {(phase === "submit" || phase === "question" || phase === "pick") && (
         <div className="rounded-2xl bg-zinc-800/60 p-8 text-center">
+          {data.targetName && (
+            <p className="mb-4 text-xl font-bold text-amber-300">{String(data.targetName)} is in the hot seat</p>
+          )}
           <p className="text-3xl font-bold">{String(data.displayText ?? data.prompt ?? data.question ?? data.event ?? data.category ?? "")}</p>
           {data.choices && !data.hideChoicesOnTv && (
             <div className="mt-6 grid gap-2 sm:grid-cols-2">
@@ -152,7 +194,12 @@ export function HostGameView({
             <p className="mt-4 text-zinc-400">Answer on your phone!</p>
           )}
           {data.wyrPromptOnly ? (
-            <p className="mt-6 text-xl text-zinc-400">Vote on your phone!</p>
+            <>
+              {data.wyrDilemma && (
+                <p className="mt-4 text-2xl font-bold">{String(data.wyrDilemma)}</p>
+              )}
+              <p className="mt-6 text-xl text-zinc-400">Vote on your phone!</p>
+            </>
           ) : (
             <>
               {data.optionA && data.optionB && (
@@ -170,13 +217,57 @@ export function HostGameView({
               ))}
             </div>
           )}
+          {phase === "pick" && data.submissions && (
+            <ul className="mt-6 space-y-2 text-left">
+              {(data.submissions as Array<{ id: string; text: string }>).map((s) => (
+                <li key={s.id} className="rounded-xl bg-zinc-700/80 px-4 py-3 text-lg">{s.text}</li>
+              ))}
+            </ul>
+          )}
           <p className="mt-4 text-zinc-400">
-            Waiting for players… ({String(data.playerCount ?? data.answerCount ?? data.submitCount ?? 0)})
+            {phase === "pick"
+              ? "Waiting for the hot seat player to pick…"
+              : `Waiting for players… (${String(data.submitCount ?? data.answerCount ?? 0)}/${String(data.playerCount ?? room.players.length)})`}
           </p>
         </div>
       )}
 
-      {(phase === "vote" || phase === "matchup") && data.options && (
+      {phase === "playing" && hostView.gameId === "word-rush" && data.letters && (
+        <div className="rounded-2xl bg-zinc-800/60 p-8 text-center">
+          <div className="flex justify-center gap-2">
+            {(data.letters as string[]).map((l, i) => (
+              <span key={`${l}-${i}`} className="rounded-lg bg-violet-600 px-4 py-2 text-2xl font-black">{l}</span>
+            ))}
+          </div>
+          <p className="mt-4 text-zinc-400">
+            Waiting for players… ({String(data.submitCount ?? 0)})
+          </p>
+        </div>
+      )}
+
+      {phase === "vote" && data.options && !data.submissions && (
+        <div className="rounded-2xl bg-zinc-800/60 p-8 text-center space-y-4">
+          {data.displayText && <p className="text-3xl font-bold">{String(data.displayText)}</p>}
+          <p className="text-zinc-400">
+            Waiting for players… ({String(data.voteCount ?? 0)}/{String(data.playerCount ?? room.players.length)})
+          </p>
+        </div>
+      )}
+
+      {phase === "vote" && data.submissions && !data.options && (
+        <div className="rounded-2xl bg-zinc-800/60 p-8 text-center space-y-4">
+          {data.prompt && <p className="text-2xl font-bold">{String(data.prompt)}</p>}
+          {data.imageCaption && <p className="text-lg text-zinc-300">{String(data.imageCaption)}</p>}
+          <ul className="space-y-2 text-left">
+            {(data.submissions as Array<{ id: string; text: string }>).map((s) => (
+              <li key={s.id} className="rounded-xl bg-zinc-700/80 px-4 py-3 text-lg">{s.text}</li>
+            ))}
+          </ul>
+          <p className="text-zinc-400">Vote on your phone!</p>
+        </div>
+      )}
+
+      {phase === "vote" && data.options && (
         <div className="grid gap-3">
           {(data.options as Array<{ id: string; text: string; isTruth?: boolean }>).map((o) => (
             <div key={o.id} className="rounded-xl bg-zinc-800 p-4 text-xl">
@@ -301,13 +392,19 @@ export function HostGameView({
         <FleetDuelArena data={data} room={room} />
       )}
 
-      {(phase === "playing" || phase === "match_end") && hostView.gameId === "four-in-a-row" && data.board && (
+      {(phase === "playing" || phase === "match_end" || phase === "ended") && hostView.gameId === "four-in-a-row" && data.board && (
         <div className="flex flex-col items-center gap-4">
+          {phase === "ended" && data.winnerId && (
+            <p className="text-center text-3xl font-bold text-yellow-400">
+              {room.players.find((p) => p.id === data.winnerId)?.nickname ?? "Someone"} wins!
+            </p>
+          )}
           <FourInARowBoard
             board={data.board as import("@party-games/shared").CfCell[][]}
             markColors={connectFourMarkColors(room, data.players)}
+            highlightedCells={data.winningCells as Array<{ row: number; col: number }> | undefined}
           />
-          {data.currentTurn && (
+          {phase !== "ended" && data.currentTurn && (
             <p className="text-xl">
               Turn: {room.players.find((p) => p.id === data.currentTurn)?.nickname}
             </p>
@@ -315,11 +412,17 @@ export function HostGameView({
         </div>
       )}
 
-      {(phase === "playing" || phase === "match_end") && hostView.gameId === "tic-tac-toe" && data.match && (
+      {(phase === "playing" || phase === "match_end" || phase === "ended") && hostView.gameId === "tic-tac-toe" && data.match && (
         <div className="flex flex-col items-center gap-4">
+          {phase === "ended" && data.championId && (
+            <p className="text-center text-3xl font-bold text-yellow-400">
+              {room.players.find((p) => p.id === data.championId)?.nickname ?? "Someone"} wins!
+            </p>
+          )}
           <TicTacToeBoard
             board={(data.match as { board: import("@party-games/shared").Cell[] }).board}
             disabled
+            winningCells={data.winningCells as number[] | undefined}
             markColors={
               (data.match as { xPlayer: string; oPlayer: string }).xPlayer
                 ? markColorsForPlayers(
@@ -330,15 +433,27 @@ export function HostGameView({
                 : undefined
             }
           />
-          <p className="text-lg text-zinc-400">
-            {(data.match as { xPlayer: string | null }).xPlayer &&
-              `${room.players.find((p) => p.id === (data.match as { xPlayer: string }).xPlayer)?.nickname ?? "?"} (✕) vs ${room.players.find((p) => p.id === (data.match as { oPlayer: string }).oPlayer)?.nickname ?? "?"} (○)`}
-          </p>
+          {phase !== "ended" && (
+            <p className="text-lg text-zinc-400">
+              {(data.match as { xPlayer: string | null }).xPlayer &&
+                `${room.players.find((p) => p.id === (data.match as { xPlayer: string }).xPlayer)?.nickname ?? "?"} (✕) vs ${room.players.find((p) => p.id === (data.match as { oPlayer: string }).oPlayer)?.nickname ?? "?"} (○)`}
+            </p>
+          )}
         </div>
       )}
 
       {(phase === "drawing" || phase === "guessing" || phase === "draw") && data.strokes && (
         <DrawCanvas strokes={data.strokes as DrawStroke[]} readOnly />
+      )}
+
+      {hostView.gameId === "team-charades" && phase === "acting" && data.actorId && (
+        <div className="rounded-2xl bg-zinc-800/60 p-8 text-center space-y-4">
+          <p className="text-3xl font-bold">
+            {room.players.find((p) => p.id === data.actorId)?.nickname ?? "?"} is acting
+          </p>
+          <p className="text-xl text-zinc-300">Shout your guesses!</p>
+          <p className="text-zinc-400">{String(data.correct ?? 0)} words guessed this round</p>
+        </div>
       )}
 
       {hostView.gameId === "split-the-room" && data.scenario && (
@@ -394,7 +509,7 @@ export function HostGameView({
         </div>
       )}
 
-      {hostView.gameId === "star-rate" && data.prompt && (
+      {hostView.gameId === "star-rate" && data.prompt && phase !== "submit" && (
         <div className="rounded-2xl bg-zinc-800/60 p-8 text-center space-y-4">
           <p className="text-3xl font-bold">{String(data.prompt)}</p>
           {data.submissions && (
@@ -438,6 +553,14 @@ export function HostGameView({
             <p className="text-zinc-400">Ask questions out loud! Use phones to accuse or guess.</p>
           )}
           {data.secretItem && <p className="text-2xl text-violet-300">Secret: {String(data.secretItem)}</p>}
+          {data.roundOutcome && (
+            <p className="text-xl text-emerald-400">
+              {data.roundOutcome === "spy_guessed" && "Stranger guessed correctly!"}
+              {data.roundOutcome === "spy_caught" && "Stranger was caught!"}
+              {data.roundOutcome === "spy_escaped" && "Stranger escaped!"}
+              {data.roundOutcome === "no_majority" && "No majority — stranger slips away."}
+            </p>
+          )}
           {data.spyId && (
             <p className="text-zinc-400">Stranger was {room.players.find((p) => p.id === data.spyId)?.nickname}</p>
           )}
@@ -477,31 +600,27 @@ export function HostGameView({
         </ul>
       )}
 
-      {hostView.gameId === "paddle-clash" && phase === "playing" && (
-        <PaddleClashArena data={data} room={room} />
+      {hostView.gameId === "paddle-clash" && (phase === "playing" || phase === "ended") && (
+        <div className="flex flex-col items-center gap-4">
+          {phase === "ended" && data.winnerId && (
+            <p className="text-center text-3xl font-bold text-yellow-400">
+              {room.players.find((p) => p.id === data.winnerId)?.nickname ?? "Someone"} wins
+              {(() => {
+                const players = data.players as Array<{ score: number }> | undefined;
+                if (!players || players.length < 2) return "!";
+                return ` ${players[0].score}–${players[1].score}!`;
+              })()}
+            </p>
+          )}
+          <PaddleClashArena data={data} room={room} />
+        </div>
       )}
 
       {hostView.gameId === "grid-blast" && (phase === "playing" || phase === "round_end") && (
         <GridBlastArena data={data} room={room} />
       )}
 
-      {(phase === "scoreboard" || phase === "round_end" || phase === "ended") && (
-        <>
-          <RoundScorePanel
-            room={room}
-            roundScores={(data.roundScores as Record<string, number>) ?? {}}
-            extraNames={(data.botNames as Record<string, string>) ?? undefined}
-          />
-          {data.roundWinner && (
-            <p className="text-center text-2xl text-yellow-400">
-              Winner:{" "}
-              {room.players.find((p) => p.id === data.roundWinner)?.nickname ??
-                (data.botNames as Record<string, string> | undefined)?.[data.roundWinner as string] ??
-                "—"}
-            </p>
-          )}
-        </>
-      )}
+      <ScoringPhase room={room} hostView={hostView} data={data} />
     </div>
   );
 }
@@ -526,7 +645,7 @@ function AgentGridBoard({
 }: {
   words: string[];
   revealed: boolean[];
-  keyTiles?: Array<"a" | "b" | "neutral" | "assassin">;
+  keyTiles?: Array<"a" | "b" | "neutral" | "assassin" | undefined>;
   activeTeam?: "a" | "b";
   currentClue?: { word: string; count: number } | null;
   spymasterView?: boolean;
@@ -672,6 +791,14 @@ export function PlayerGameView({
   const [drawTool, setDrawTool] = useState<"pen" | "eraser">("pen");
   const [drawWidth, setDrawWidth] = useState(4);
 
+  useEffect(() => {
+    setText("");
+  }, [playerView.round, playerView.phase, playerView.gameId]);
+
+  useEffect(() => {
+    if (playerData.submitted) setText("");
+  }, [playerData.submitted]);
+
   return (
     <div
       className={`mx-auto w-full max-w-md space-y-4 p-4 relative min-w-0 landscape:pb-4 ${
@@ -707,8 +834,17 @@ export function PlayerGameView({
         </div>
       )}
 
-      {(phase === "submit" || phase === "guessing") && (
+      {(phase === "submit" || (phase === "guessing" && !playerData.isDrawer)) && (
         <div className="space-y-3">
+          {data.targetName && playerData.isTarget && (
+            <div className="rounded-xl bg-amber-900/30 border border-amber-500/40 p-4 text-center">
+              <p className="text-lg font-bold text-amber-200">You&apos;re in the hot seat!</p>
+              <p className="mt-1 text-sm text-zinc-300">Everyone else is answering about you.</p>
+            </div>
+          )}
+          {data.targetName && !playerData.isTarget && (
+            <p className="text-center text-lg font-bold text-amber-300">{String(data.targetName)} is in the hot seat</p>
+          )}
           {data.displayText && <p className="text-center text-xl font-bold">{String(data.displayText)}</p>}
           {data.prompt && <p className="text-center text-xl font-bold">{String(data.prompt)}</p>}
           {data.imageCaption && <p className="text-center text-lg text-zinc-300">{String(data.imageCaption)}</p>}
@@ -717,27 +853,61 @@ export function PlayerGameView({
           {phase === "guessing" && !playerData.word && (
             <p className="text-center text-zinc-400">Watch the TV and guess the drawing!</p>
           )}
-          <textarea
-            data-testid="player-text-input"
-            className="w-full rounded-xl bg-zinc-800 p-4 text-lg"
-            rows={3}
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-            placeholder="Type your answer…"
-          />
-          <Btn testId="player-submit" onClick={() => { onAction({ kind: "submit_text", text }); setText(""); }} className="w-full">
-            Submit
-          </Btn>
+          {playerData.submitted ? (
+            <div className="rounded-xl bg-green-900/40 border border-green-500/40 p-6 text-center">
+              <p className="text-xl font-bold text-green-300">Submitted!</p>
+              {playerData.mySubmission && (
+                <p className="mt-2 text-zinc-300">&ldquo;{String(playerData.mySubmission)}&rdquo;</p>
+              )}
+              <p className="mt-2 text-sm text-zinc-400">Waiting for other players…</p>
+            </div>
+          ) : playerData.isTarget ? (
+            <div className="rounded-xl bg-zinc-800/60 p-6 text-center text-zinc-300">
+              <p className="text-lg">Sit tight — pick your favorite answer soon.</p>
+            </div>
+          ) : (
+            <>
+              <textarea
+                data-testid="player-text-input"
+                className="w-full rounded-xl bg-zinc-800 p-4 text-lg"
+                rows={3}
+                maxLength={120}
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+                placeholder="Type your answer…"
+              />
+              <p className="text-right text-xs text-zinc-500">{text.length}/120</p>
+              <Btn testId="player-submit" onClick={() => onAction({ kind: "submit_text", text })} className="w-full">
+                Submit
+              </Btn>
+            </>
+          )}
         </div>
       )}
 
       {phase === "vote" && data.options && (
         <div className="grid gap-2">
-          {(data.options as Array<{ id: string; text: string }>).map((o) => (
-            <Btn key={o.id} variant="secondary" className="w-full text-base" onClick={() => onAction({ kind: "vote", optionId: o.id })}>
-              {o.text}
-            </Btn>
-          ))}
+          {playerData.voted ? (
+            <div className="rounded-xl bg-green-900/40 border border-green-500/40 p-6 text-center">
+              <p className="text-xl font-bold text-green-300">Vote recorded</p>
+              <p className="mt-2 text-sm text-zinc-400">Waiting for other players…</p>
+            </div>
+          ) : (
+            (data.options as Array<{ id: string; text: string; authorId?: string | null }>).map((o) => {
+              const isOwn = o.authorId === room.playerId;
+              return (
+                <Btn
+                  key={o.id}
+                  variant="secondary"
+                  className={`w-full text-base text-left break-words ${isOwn ? "opacity-50" : ""}`}
+                  disabled={isOwn}
+                  onClick={() => onAction({ kind: "vote", optionId: o.id })}
+                >
+                  {o.text}{isOwn ? " (yours)" : ""}
+                </Btn>
+              );
+            })
+          )}
         </div>
       )}
 
@@ -754,41 +924,105 @@ export function PlayerGameView({
 
       {phase === "matchup" && data.matchup && (
         <div className="grid gap-3">
-          <Btn className="w-full" onClick={() => onAction({ kind: "vote_pair", winnerId: (data.matchup as { a: { id: string } }).a.id })}>
-            {(data.matchup as { a: { text: string } }).a.text}
-          </Btn>
-          <Btn className="w-full" variant="secondary" onClick={() => onAction({ kind: "vote_pair", winnerId: (data.matchup as { b: { id: string } }).b.id })}>
-            {(data.matchup as { b: { text: string } }).b.text}
-          </Btn>
+          {playerData.voted ? (
+            <div className="rounded-xl bg-green-900/40 border border-green-500/40 p-6 text-center">
+              <p className="text-xl font-bold text-green-300">Vote recorded</p>
+              <p className="mt-2 text-sm text-zinc-400">Waiting for other players…</p>
+            </div>
+          ) : (
+            <>
+              {(() => {
+                const a = (data.matchup as { a: { id: string; text: string; playerId?: string } }).a;
+                const b = (data.matchup as { b: { id: string; text: string; playerId?: string } }).b;
+                const ownId = playerData.ownSubmissionId as string | undefined;
+                return (
+                  <>
+                    <Btn
+                      className="w-full text-left break-words"
+                      disabled={a?.id === ownId}
+                      onClick={() => onAction({ kind: "vote_pair", winnerId: a.id })}
+                    >
+                      {a?.text}{a?.id === ownId ? " (your answer)" : ""}
+                    </Btn>
+                    <Btn
+                      className="w-full text-left break-words"
+                      variant="secondary"
+                      disabled={b?.id === ownId}
+                      onClick={() => onAction({ kind: "vote_pair", winnerId: b.id })}
+                    >
+                      {b?.text}{b?.id === ownId ? " (your answer)" : ""}
+                    </Btn>
+                  </>
+                );
+              })()}
+            </>
+          )}
         </div>
       )}
 
       {phase === "question" && data.mode === "quiz" && (
         <div className="space-y-3">
           {data.question && <p className="text-center text-lg font-bold">{String(data.question)}</p>}
-          <div className="grid gap-2">
-            {(data.choices as string[] | undefined)?.map((c, i) => (
-              <Btn key={i} testId={i === 0 ? "player-answer-0" : undefined} variant="secondary" className="w-full text-base text-left" onClick={() => onAction({ kind: "trivia_answer", choiceIndex: i })}>
-                {c}
-              </Btn>
-            ))}
-          </div>
+          {playerData.answered ? (
+            <div className="rounded-xl bg-green-900/40 border border-green-500/40 p-6 text-center">
+              <p className="text-xl font-bold text-green-300">Answer locked in</p>
+              <p className="mt-2 text-sm text-zinc-400">Waiting for other players…</p>
+            </div>
+          ) : (
+            <div className="grid gap-2">
+              {(data.choices as string[] | undefined)?.map((c, i) => (
+                <Btn key={i} testId={`player-answer-${i}`} variant="secondary" className="w-full text-base text-left" onClick={() => onAction({ kind: "trivia_answer", choiceIndex: i })}>
+                  {c}
+                </Btn>
+              ))}
+            </div>
+          )}
         </div>
       )}
 
       {phase === "question" && data.mode === "timeline" && (
         <div className="space-y-3">
           {data.event && <p className="text-center text-xl font-bold">{String(data.event)}</p>}
-          <input type="range" min={data.minYear as number} max={data.maxYear as number} value={year} onChange={(e) => setYear(Number(e.target.value))} className="w-full" />
-          <p className="text-center text-2xl font-bold">{year}</p>
-          <Btn className="w-full" onClick={() => onAction({ kind: "year_slider", year })}>Lock in</Btn>
+          {playerData.answered ? (
+            <div className="rounded-xl bg-green-900/40 border border-green-500/40 p-6 text-center">
+              <p className="text-xl font-bold text-green-300">Year locked in</p>
+              <p className="mt-2 text-2xl font-bold">{String(playerData.myAnswer)}</p>
+            </div>
+          ) : (
+            <>
+              <input type="range" min={data.minYear as number} max={data.maxYear as number} value={year} onChange={(e) => setYear(Number(e.target.value))} className="w-full" />
+              <p className="text-center text-2xl font-bold">{year}</p>
+              <Btn className="w-full" onClick={() => onAction({ kind: "year_slider", year })}>Lock in</Btn>
+            </>
+          )}
         </div>
       )}
 
       {phase === "question" && data.mode === "would-you-rather" && (
         <div className="grid gap-3">
-          <Btn onClick={() => onAction({ kind: "would_you_rather", choice: "a" })}>{data.optionA as string}</Btn>
-          <Btn variant="secondary" onClick={() => onAction({ kind: "would_you_rather", choice: "b" })}>{data.optionB as string}</Btn>
+          {playerData.answered ? (
+            <div className="rounded-xl bg-green-900/40 border border-green-500/40 p-6 text-center">
+              <p className="text-xl font-bold text-green-300">Choice locked in</p>
+              <p className="mt-2 text-lg text-zinc-300">
+                {playerData.myAnswer === "a" ? String(data.optionA) : String(data.optionB)}
+              </p>
+            </div>
+          ) : (
+            <>
+              <Btn
+                variant={playerData.myAnswer === "a" ? "primary" : "secondary"}
+                onClick={() => onAction({ kind: "would_you_rather", choice: "a" })}
+              >
+                {data.optionA as string}
+              </Btn>
+              <Btn
+                variant={playerData.myAnswer === "b" ? "primary" : "secondary"}
+                onClick={() => onAction({ kind: "would_you_rather", choice: "b" })}
+              >
+                {data.optionB as string}
+              </Btn>
+            </>
+          )}
         </div>
       )}
 
@@ -819,6 +1053,7 @@ export function PlayerGameView({
           canFire={(playerData.canFire as boolean) ?? false}
           heldPowerUp={(playerData.heldPowerUp as string | null) ?? null}
           extraJumps={(playerData.extraJumps as number) ?? 0}
+          powerUpMode={(playerView.data.powerUpMode as import("@party-games/shared").PowerUpMode) ?? "normal"}
         />
       )}
 
@@ -868,21 +1103,38 @@ export function PlayerGameView({
           <p className="text-center text-sm text-zinc-400">
             {phase === "fire" ? "Pick a target cell" : playerData.myTurn ? "Your turn — fire!" : "Waiting for opponent…"}
           </p>
-          <div className="flex justify-center">
-            <FleetDuelGrid
-              size={(data.gridSize as number) ?? 10}
-              shots={(playerData.opponentShots as Array<{ x: number; y: number; hit: boolean }>) ?? []}
-              sunkCells={(playerData.opponentSunkCells as Array<{ x: number; y: number }>) ?? []}
-              disabled={phase === "battle" ? !playerData.myTurn : false}
-              onCellClick={(x, y) =>
-                onAction({
-                  kind: "fleet_duel_fire",
-                  x,
-                  y,
-                  targetId: (data.mode as string) === "royale" ? (data.opponentId as string) : (data.opponentId as string),
-                })
-              }
-            />
+          <div className="grid gap-6 sm:grid-cols-2">
+            <div className="space-y-2">
+              <p className="text-center text-sm font-semibold text-zinc-300">Your waters</p>
+              <div className="flex justify-center">
+                <FleetDuelGrid
+                  size={(data.gridSize as number) ?? 10}
+                  ships={(playerData.fleet as import("@party-games/shared").Ship[]) ?? []}
+                  shots={(playerData.opponentShots as Array<{ x: number; y: number; hit: boolean }>) ?? []}
+                  showShips
+                  disabled
+                />
+              </div>
+            </div>
+            <div className="space-y-2">
+              <p className="text-center text-sm font-semibold text-zinc-300">Enemy waters</p>
+              <div className="flex justify-center">
+                <FleetDuelGrid
+                  size={(data.gridSize as number) ?? 10}
+                  shots={(playerData.opponentShots as Array<{ x: number; y: number; hit: boolean }>) ?? []}
+                  sunkCells={(playerData.opponentSunkCells as Array<{ x: number; y: number }>) ?? []}
+                  disabled={phase === "battle" ? !playerData.myTurn : false}
+                  onCellClick={(x, y) =>
+                    onAction({
+                      kind: "fleet_duel_fire",
+                      x,
+                      y,
+                      targetId: (data.mode as string) === "royale" ? (data.opponentId as string) : (data.opponentId as string),
+                    })
+                  }
+                />
+              </div>
+            </div>
           </div>
         </div>
       )}
@@ -906,19 +1158,29 @@ export function PlayerGameView({
         </div>
       )}
 
-      {(phase === "playing" || phase === "match_end") && playerView.gameId === "four-in-a-row" && (
+      {(phase === "playing" || phase === "match_end" || phase === "ended") && playerView.gameId === "four-in-a-row" && (
         <div className="space-y-4">
-          {playerData.inMatch ? (
+          {phase === "ended" && data.winnerId && (
+            <p className="text-center text-2xl font-bold text-yellow-400">
+              {data.winnerId === room.playerId
+                ? "You win!"
+                : `${room.players.find((p) => p.id === data.winnerId)?.nickname ?? "Opponent"} wins!`}
+            </p>
+          )}
+          {playerData.inMatch || phase === "ended" ? (
             <>
               <FourInARowBoard
                 board={(data.board as import("@party-games/shared").CfCell[][]) ?? []}
-                disabled={!playerData.myTurn}
+                disabled={phase !== "playing" && phase !== "match_end" ? true : !playerData.myTurn}
                 markColors={connectFourMarkColors(room, data.players)}
+                highlightedCells={data.winningCells as Array<{ row: number; col: number }> | undefined}
                 onColumnClick={(column) => onAction({ kind: "four_in_a_row_drop", column })}
               />
-              <p className="text-center text-sm text-zinc-400">
-                {playerData.myTurn ? "Your turn" : "Waiting…"}
-              </p>
+              {phase !== "ended" && (
+                <p className="text-center text-sm text-zinc-400">
+                  {playerData.myTurn ? "Your turn" : "Waiting…"}
+                </p>
+              )}
             </>
           ) : (
             <p className="text-center text-lg">Watch the TV!</p>
@@ -926,14 +1188,22 @@ export function PlayerGameView({
         </div>
       )}
 
-      {(phase === "playing" || phase === "match_end") && playerView.gameId === "tic-tac-toe" && (
+      {(phase === "playing" || phase === "match_end" || phase === "ended") && playerView.gameId === "tic-tac-toe" && (
         <div className="space-y-4">
-          {data.inMatch ? (
+          {phase === "ended" && data.championId && (
+            <p className="text-center text-2xl font-bold text-yellow-400">
+              {data.championId === room.playerId
+                ? "You win!"
+                : `${room.players.find((p) => p.id === data.championId)?.nickname ?? "Opponent"} wins!`}
+            </p>
+          )}
+          {data.inMatch || phase === "ended" ? (
             <>
               <TicTacToeBoard
                 board={((data.match as { board: import("@party-games/shared").Cell[] })?.board) ?? []}
-                disabled={!playerData.myTurn}
+                disabled={phase !== "playing" && phase !== "match_end" ? true : !playerData.myTurn}
                 myMark={(playerData.mark as "x" | "o") ?? null}
+                winningCells={data.winningCells as number[] | undefined}
                 markColors={
                   (data.match as { xPlayer: string; oPlayer: string } | undefined)?.xPlayer
                     ? markColorsForPlayers(
@@ -945,9 +1215,11 @@ export function PlayerGameView({
                 }
                 onCellClick={(cell) => onAction({ kind: "tic_tac_toe_move", cell })}
               />
-              <p className="text-center text-sm text-zinc-400">
-                {playerData.myTurn ? "Your turn" : "Waiting…"}
-              </p>
+              {phase !== "ended" && (
+                <p className="text-center text-sm text-zinc-400">
+                  {playerData.myTurn ? "Your turn" : "Waiting…"}
+                </p>
+              )}
             </>
           ) : (
             <p className="text-center text-lg">Watch the TV — your match is coming up!</p>
@@ -958,31 +1230,61 @@ export function PlayerGameView({
       {phase === "playing" && data.letters && !playerView.gameId.includes("curve") && (
         <div className="space-y-3">
           <div className="flex justify-center gap-2">
-            {(data.letters as string[]).map((l) => (
-              <span key={l} className="rounded-lg bg-violet-600 px-4 py-2 text-2xl font-black">{l}</span>
+            {(data.letters as string[]).map((l, i) => (
+              <span key={`${l}-${i}`} className="rounded-lg bg-violet-600 px-4 py-2 text-2xl font-black">{l}</span>
             ))}
           </div>
-          <textarea
-            data-testid="player-text-input"
-            className="w-full rounded-xl bg-zinc-800 p-4 text-lg"
-            rows={2}
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-            placeholder="Type a word…"
-          />
-          <Btn testId="player-submit" onClick={() => { onAction({ kind: "submit_text", text }); setText(""); }} className="w-full">
-            Submit
-          </Btn>
+          {playerData.submitted ? (
+            <div className="rounded-xl bg-green-900/40 border border-green-500/40 p-6 text-center">
+              <p className="text-xl font-bold text-green-300">Submitted!</p>
+              {playerData.myWord && (
+                <p className="mt-2 text-2xl font-bold">&ldquo;{String(playerData.myWord)}&rdquo;</p>
+              )}
+              <p className="mt-2 text-sm text-zinc-400">Waiting for other players…</p>
+            </div>
+          ) : (
+            <>
+              <textarea
+                data-testid="player-text-input"
+                className="w-full rounded-xl bg-zinc-800 p-4 text-lg"
+                rows={2}
+                maxLength={120}
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+                placeholder="Type a word…"
+              />
+              <p className="text-right text-xs text-zinc-500">{text.length}/120</p>
+              <Btn testId="player-submit" onClick={() => onAction({ kind: "submit_text", text })} className="w-full">
+                Submit
+              </Btn>
+            </>
+          )}
         </div>
       )}
 
       {phase === "assign" && data.roles && data.players && (
-        <RoleSortAssign
-          roles={data.roles as string[]}
-          targetIds={(data.players as string[])}
-          room={room}
-          onSubmit={(assignments) => onAction({ kind: "assign_role", assignments })}
-        />
+        playerData.assigned ? (
+          <div className="rounded-xl bg-green-900/40 border border-green-500/40 p-6 text-center">
+            <p className="text-xl font-bold text-green-300">Assignments submitted!</p>
+            <p className="mt-2 text-sm text-zinc-400">Waiting for other players…</p>
+          </div>
+        ) : (
+          <RoleSortAssign
+            roles={data.roles as string[]}
+            targetIds={(data.players as string[])}
+            room={room}
+            onSubmit={(assignments) => onAction({ kind: "assign_role", assignments })}
+          />
+        )
+      )}
+
+      {phase === "drawing" && !playerData.word && (
+        <div className="rounded-xl bg-zinc-800/60 p-6 text-center text-zinc-300">
+          <p className="text-lg">
+            {room.players.find((p) => p.id === (playerData.drawerId as string | undefined))?.nickname ?? "Someone"} is drawing…
+          </p>
+          <p className="mt-2 text-sm">Look at the TV!</p>
+        </div>
       )}
 
       {phase === "drawing" && playerData.word && (
@@ -1003,10 +1305,66 @@ export function PlayerGameView({
             onUndo={() => onAction({ kind: "draw_undo" })}
             onClear={() => onAction({ kind: "draw_clear" })}
           />
+          <Btn variant="secondary" className="w-full" onClick={() => onAction({ kind: "advance" })}>Done drawing</Btn>
         </div>
       )}
 
-      {phase === "draw" && playerData.isActive && playerData.prompt && (
+      {phase === "draw" && playerView.gameId === "chain-sketch" && (
+        playerData.isActive && playerData.prompt ? (
+          <div className="space-y-3">
+            <p className="text-center text-xl font-bold">Draw: {String(playerData.prompt)}</p>
+            <DrawCanvas
+              strokes={(data.strokes as DrawStroke[]) ?? []}
+              tool={drawTool}
+              brushWidth={drawWidth}
+              onToolChange={(t, w) => {
+                setDrawTool(t);
+                if (w !== undefined) setDrawWidth(w);
+                onAction({ kind: "draw_tool", tool: t, width: w ?? drawWidth });
+              }}
+              onStroke={(points, color, width) =>
+                onAction({ kind: "draw_stroke", points, color, width: width ?? drawWidth })
+              }
+              onUndo={() => onAction({ kind: "draw_undo" })}
+              onClear={() => onAction({ kind: "draw_clear" })}
+            />
+            <Btn variant="secondary" className="w-full" onClick={() => onAction({ kind: "advance" })}>Done drawing</Btn>
+          </div>
+        ) : (
+          <div className="rounded-xl bg-zinc-800/60 p-6 text-center text-zinc-300">
+            <p className="text-lg">
+              {room.players.find((p) => p.id === (data as { activePlayerId?: string }).activePlayerId)?.nickname ?? "Someone"} is drawing…
+            </p>
+          </div>
+        )
+      )}
+
+      {phase === "guess" && playerView.gameId === "chain-sketch" && (
+        playerData.isActive ? (
+          <div className="space-y-3">
+            {data.strokes && <DrawCanvas strokes={data.strokes as DrawStroke[]} readOnly />}
+            <p className="text-center text-lg text-zinc-400">What is this?</p>
+            {playerData.submitted ? (
+              <div className="rounded-xl bg-green-900/40 border border-green-500/40 p-6 text-center">
+                <p className="text-xl font-bold text-green-300">Guess submitted!</p>
+              </div>
+            ) : (
+              <>
+                <textarea className="w-full rounded-xl bg-zinc-800 p-4 text-lg" rows={2} value={text} onChange={(e) => setText(e.target.value)} />
+                <Btn className="w-full" onClick={() => { onAction({ kind: "submit_text", text }); setText(""); }}>Submit guess</Btn>
+              </>
+            )}
+          </div>
+        ) : (
+          <div className="rounded-xl bg-zinc-800/60 p-6 text-center text-zinc-300">
+            <p className="text-lg">
+              {room.players.find((p) => p.id === (data as { activePlayerId?: string }).activePlayerId)?.nickname ?? "Someone"} is guessing…
+            </p>
+          </div>
+        )
+      )}
+
+      {phase === "draw" && playerView.gameId !== "chain-sketch" && playerData.isActive && playerData.prompt && (
         <div className="space-y-3">
           <p className="text-center text-xl font-bold">Draw: {String(playerData.prompt)}</p>
           <DrawCanvas
@@ -1028,7 +1386,7 @@ export function PlayerGameView({
         </div>
       )}
 
-      {phase === "guess" && playerData.isActive && playerData.prompt && (
+      {phase === "guess" && playerView.gameId !== "chain-sketch" && playerData.isActive && playerData.prompt && (
         <div className="space-y-3">
           <p className="text-center text-lg text-zinc-400">What is this?</p>
           <textarea className="w-full rounded-xl bg-zinc-800 p-4 text-lg" rows={2} value={text} onChange={(e) => setText(e.target.value)} />
@@ -1037,17 +1395,50 @@ export function PlayerGameView({
       )}
 
       {phase === "vote" && data.scenario && playerView.gameId === "split-the-room" && (
-        <div className="grid gap-3">
-          <Btn testId="split-vote-a" className="w-full" disabled={Boolean(playerData.voted)} onClick={() => onAction({ kind: "split_vote", side: "a" })}>
-            {(data.scenario as { labelA: string }).labelA}
-          </Btn>
-          <Btn testId="split-vote-b" className="w-full" variant="secondary" disabled={Boolean(playerData.voted)} onClick={() => onAction({ kind: "split_vote", side: "b" })}>
-            {(data.scenario as { labelB: string }).labelB}
-          </Btn>
+        <div className="space-y-3">
+          <p className="text-center text-xl font-bold">{(data.scenario as { text: string }).text}</p>
+          {playerData.voted ? (
+            <div className="rounded-xl bg-green-900/40 border border-green-500/40 p-6 text-center">
+              <p className="text-xl font-bold text-green-300">Vote recorded</p>
+              <p className="mt-2 text-sm text-zinc-400">Waiting for other players…</p>
+            </div>
+          ) : (
+            <>
+              <Btn testId="split-vote-a" className="w-full" onClick={() => onAction({ kind: "split_vote", side: "a" })}>
+                {(data.scenario as { labelA: string }).labelA}
+              </Btn>
+              <Btn testId="split-vote-b" className="w-full" variant="secondary" onClick={() => onAction({ kind: "split_vote", side: "b" })}>
+                {(data.scenario as { labelB: string }).labelB}
+              </Btn>
+            </>
+          )}
         </div>
       )}
 
-      {phase === "clue" && playerData.isClueGiver && (
+      {(phase === "reveal" || phase === "scoreboard") && playerView.gameId === "split-the-room" && data.scenario && (
+        <div className="rounded-xl bg-zinc-800/60 p-6 text-center space-y-2">
+          {data.voteCounts && (
+            <p className="text-lg">
+              A: {(data.voteCounts as { a: number }).a} · B: {(data.voteCounts as { b: number }).b}
+            </p>
+          )}
+          {playerData.wonRound ? (
+            <p className="text-xl font-bold text-green-300">+{String(data.myPoints ?? 1000)} minority bonus!</p>
+          ) : playerData.voted ? (
+            <p className="text-zinc-400">You were with the majority this round.</p>
+          ) : null}
+        </div>
+      )}
+
+      {playerView.gameId === "team-charades" && phase === "acting" && !playerData.word && (
+        <div className="rounded-xl bg-zinc-800/60 p-6 text-center text-zinc-300">
+          <p className="text-lg font-bold">
+            {room.players.find((p) => p.id === (data.actorId as string | undefined))?.nickname ?? "Someone"} is acting
+          </p>
+          <p className="mt-2 text-sm">Shout your guesses!</p>
+        </div>
+      )}
+      {phase === "clue" && playerView.gameId === "spectrum" && playerData.isClueGiver && (
         <div className="space-y-3">
           <p className="text-center text-sm text-zinc-400">
             {(data.pair as { left: string; right: string })?.left} ↔ {(data.pair as { left: string; right: string })?.right}
@@ -1055,38 +1446,95 @@ export function PlayerGameView({
           {playerData.target !== undefined && (
             <p className="text-center text-2xl font-bold">Target: {String(playerData.target)}</p>
           )}
-          <textarea className="w-full rounded-xl bg-zinc-800 p-4 text-lg" rows={2} value={text} onChange={(e) => setText(e.target.value)} placeholder="Your clue…" />
-          <Btn className="w-full" onClick={() => { onAction({ kind: "submit_text", text }); setText(""); }}>Submit clue</Btn>
+          {playerData.clueSubmitted ? (
+            <div className="rounded-xl bg-green-900/40 border border-green-500/40 p-6 text-center">
+              <p className="text-xl font-bold text-green-300">Clue submitted!</p>
+              <p className="mt-2 text-sm text-zinc-400">Waiting for guesses…</p>
+            </div>
+          ) : (
+            <>
+              <textarea className="w-full rounded-xl bg-zinc-800 p-4 text-lg" rows={2} value={text} onChange={(e) => setText(e.target.value)} placeholder="Your clue…" />
+              <Btn className="w-full" onClick={() => { onAction({ kind: "submit_text", text }); setText(""); }}>Submit clue</Btn>
+            </>
+          )}
+        </div>
+      )}
+
+      {phase === "clue" && playerView.gameId === "spectrum" && !playerData.isClueGiver && (
+        <div className="rounded-xl bg-zinc-800/60 p-6 text-center text-zinc-300">
+          <p className="text-lg">Waiting for the clue giver…</p>
         </div>
       )}
 
       {phase === "guess" && playerView.gameId === "spectrum" && !playerData.isClueGiver && (
         <div className="space-y-4">
-          <p className="text-center text-lg">{String(data.clue ?? "")}</p>
-          <input type="range" min={0} max={100} value={spectrumGuess} onChange={(e) => setSpectrumGuess(Number(e.target.value))} className="w-full" data-testid="spectrum-slider" />
-          <p className="text-center text-2xl font-bold">{spectrumGuess}</p>
-          <Btn testId="spectrum-lock-in" className="w-full" disabled={Boolean(playerData.guessed)} onClick={() => onAction({ kind: "spectrum_guess", value: spectrumGuess })}>Lock in</Btn>
+          <p className="text-center text-sm text-zinc-400">
+            {(data.pair as { left: string; right: string })?.left} ↔ {(data.pair as { left: string; right: string })?.right}
+          </p>
+          <p className="text-center text-lg font-bold">{String(data.clue ?? "")}</p>
+          {playerData.guessed ? (
+            <div className="rounded-xl bg-green-900/40 border border-green-500/40 p-6 text-center">
+              <p className="text-xl font-bold text-green-300">Locked in at {String(playerData.myGuess)}</p>
+            </div>
+          ) : (
+            <>
+              <input type="range" min={0} max={100} value={spectrumGuess} onChange={(e) => setSpectrumGuess(Number(e.target.value))} className="w-full" data-testid="spectrum-slider" />
+              <p className="text-center text-2xl font-bold">{spectrumGuess}</p>
+              <Btn testId="spectrum-lock-in" className="w-full" onClick={() => onAction({ kind: "spectrum_guess", value: spectrumGuess })}>Lock in</Btn>
+            </>
+          )}
         </div>
       )}
 
       {phase === "predict" && data.question && (
         <div className="grid gap-2">
-          {((data.question as { choices: string[] }).choices ?? []).map((c, i) => (
-            <Btn key={i} testId={`crowd-call-option-${i}`} variant="secondary" className="w-full text-base" disabled={Boolean(playerData.predicted)} onClick={() => onAction({ kind: "crowd_predict", choiceIndex: i })}>
-              {c}
-            </Btn>
-          ))}
+          <p className="text-center text-sm font-semibold text-violet-300">Predict what the crowd will pick</p>
+          {playerData.predicted ? (
+            <div className="rounded-xl bg-green-900/40 border border-green-500/40 p-6 text-center">
+              <p className="text-xl font-bold text-green-300">Prediction locked in</p>
+              <p className="mt-2 text-zinc-300">
+                {((data.question as { choices: string[] }).choices ?? [])[Number(playerData.myPrediction)]}
+              </p>
+            </div>
+          ) : (
+            ((data.question as { choices: string[] }).choices ?? []).map((c, i) => (
+              <Btn key={i} testId={`crowd-call-option-${i}`} variant="secondary" className="w-full text-base" onClick={() => onAction({ kind: "crowd_predict", choiceIndex: i })}>
+                {c}
+              </Btn>
+            ))
+          )}
         </div>
       )}
 
       {phase === "answer" && data.question && (
         <div className="grid gap-2">
-          {((data.question as { choices: string[] }).choices ?? []).map((c, i) => (
-            <Btn key={i} testId={`crowd-call-option-${i}`} variant="secondary" className="w-full text-base" disabled={Boolean(playerData.answered)} onClick={() => onAction({ kind: "crowd_answer", choiceIndex: i })}>
-              {c}
-            </Btn>
-          ))}
+          <p className="text-center text-sm font-semibold text-emerald-300">Now pick your own answer</p>
+          {playerData.answered ? (
+            <div className="rounded-xl bg-green-900/40 border border-green-500/40 p-6 text-center">
+              <p className="text-xl font-bold text-green-300">Answer locked in</p>
+              <p className="mt-2 text-zinc-300">
+                {((data.question as { choices: string[] }).choices ?? [])[Number(playerData.myAnswer)]}
+              </p>
+            </div>
+          ) : (
+            ((data.question as { choices: string[] }).choices ?? []).map((c, i) => (
+              <Btn key={i} testId={`crowd-call-option-${i}`} variant="secondary" className="w-full text-base" onClick={() => onAction({ kind: "crowd_answer", choiceIndex: i })}>
+                {c}
+              </Btn>
+            ))
+          )}
         </div>
+      )}
+
+      {phase === "guessing" && playerData.isDrawer && (
+        <div className="rounded-xl bg-zinc-800/60 p-6 text-center text-zinc-300">
+          <p className="text-lg font-bold">You&apos;re the drawer</p>
+          <p className="mt-2 text-sm">Others are guessing your drawing…</p>
+        </div>
+      )}
+
+      {phase === "rate" && playerData.noAnswers && (
+        <p className="text-center text-zinc-400">No answers this round.</p>
       )}
 
       {phase === "rate" && playerData.toRate && (
@@ -1095,15 +1543,25 @@ export function PlayerGameView({
             <div key={sub.id} className="rounded-xl bg-zinc-800 p-4 space-y-2">
               <p>{sub.text}</p>
               <div className="flex gap-2">
-                {[1, 2, 3, 4, 5].map((stars) => (
-                  <button key={stars} type="button" data-testid={`star-rate-${stars}`} className="text-2xl" onClick={() => onAction({ kind: "star_rate", submissionId: sub.id, stars })}>★</button>
-                ))}
+                {[1, 2, 3, 4, 5].map((stars) => {
+                  const selected = Number((playerData.myRatings as Record<string, number> | undefined)?.[sub.id] ?? 0) >= stars;
+                  return (
+                    <button
+                      key={stars}
+                      type="button"
+                      data-testid={`star-rate-${stars}`}
+                      className={`text-2xl ${selected ? "text-amber-400" : "text-zinc-600"}`}
+                      onClick={() => onAction({ kind: "star_rate", submissionId: sub.id, stars })}
+                    >
+                      ★
+                    </button>
+                  );
+                })}
               </div>
             </div>
           ))}
         </div>
       )}
-
       {playerView.gameId === "impostor" && (
         <div className="space-y-4">
           {playerData.isSpy ? (
@@ -1120,7 +1578,7 @@ export function PlayerGameView({
               ))}
             </div>
           )}
-          {(phase === "questioning" || phase === "accusation") && data.playerIds && (
+          {(phase === "questioning" || phase === "accusation") && data.playerIds && !playerData.isSpy && (
             <div className="grid gap-2">
               <p className="text-center text-sm text-zinc-400">Accuse someone:</p>
               {(data.playerIds as string[]).filter((id) => id !== room.playerId).map((id) => (
@@ -1149,6 +1607,32 @@ export function PlayerGameView({
         <p className="text-center text-lg text-zinc-400">Listen and shout guesses!</p>
       )}
 
+      {phase === "ended" && (playerView.gameId === "forbidden-clue" || playerView.gameId === "team-charades") && (
+        <div className="rounded-xl bg-zinc-800/60 p-6 text-center">
+          <p className="text-lg font-bold">Game over</p>
+          <p className="mt-2 text-violet-300 font-mono">
+            {room.gameScores[room.playerId ?? ""] ?? 0} points this game
+          </p>
+        </div>
+      )}
+
+      {playerView.gameId === "agent-grid" && (playerData.teamLabel || playerData.roleLabel) && (
+        <p className="text-center text-lg font-bold text-violet-300">
+          {String(playerData.teamLabel ?? "")}{playerData.roleLabel ? ` · ${String(playerData.roleLabel)}` : ""}
+        </p>
+      )}
+
+      {playerView.gameId === "agent-grid" && playerData.waitingForClue && (
+        <div className="rounded-xl bg-zinc-800/60 p-6 text-center text-zinc-300 space-y-2">
+          <p className="text-lg">Waiting for your spymaster&apos;s clue…</p>
+          <AgentGridBoard
+            words={data.words as string[]}
+            revealed={data.revealed as boolean[]}
+            keyTiles={playerData.tileKey as Array<"a" | "b" | "neutral" | "assassin" | undefined>}
+          />
+        </div>
+      )}
+
       {playerView.gameId === "agent-grid" && playerData.isSpymaster && playerData.key && (
         <AgentGridBoard
           words={data.words as string[]}
@@ -1166,7 +1650,16 @@ export function PlayerGameView({
       )}
 
       {playerView.gameId === "agent-grid" && playerData.canGuess && (
-        <div className="grid gap-2">
+        <div className="space-y-3">
+          {data.currentClue && (
+            <p className="text-center text-lg font-bold">
+              Clue: {(data.currentClue as { word: string; count: number }).word} · {(data.currentClue as { word: string; count: number }).count}
+              <span className="block text-sm font-normal text-zinc-400">
+                {String(data.guessesRemaining ?? 0)} guesses left
+              </span>
+            </p>
+          )}
+          <div className="grid gap-2">
           {(data.words as string[]).map((word, i) => (
             !(data.revealed as boolean[])?.[i] && (
               <Btn key={i} testId={`agent-grid-tile-${i}`} variant="secondary" className="w-full text-base" onClick={() => onAction({ kind: "agent_guess", index: i })}>
@@ -1175,6 +1668,7 @@ export function PlayerGameView({
             )
           ))}
           <Btn variant="secondary" className="w-full" onClick={() => onAction({ kind: "agent_pass" })}>End turn</Btn>
+        </div>
         </div>
       )}
 
@@ -1185,11 +1679,14 @@ export function PlayerGameView({
           {!(playerData.solved || playerData.lost) && (
             <>
               <div className="grid grid-cols-6 gap-2">
-                {"abcdefghijklmnopqrstuvwxyz".split("").map((l) => (
-                  <button key={l} type="button" data-testid={`hangman-key-${l}`} className="rounded-lg bg-zinc-700 py-2 font-bold uppercase" onClick={() => onAction({ kind: "hangman_letter", letter: l })}>
+                {"abcdefghijklmnopqrstuvwxyz".split("").map((l) => {
+                  const used = ((playerData.guessedLetters as string[]) ?? []).includes(l);
+                  return (
+                  <button key={l} type="button" data-testid={`hangman-key-${l}`} disabled={used} className={`rounded-lg py-2 font-bold uppercase ${used ? "bg-zinc-900 text-zinc-600" : "bg-zinc-700"}`} onClick={() => onAction({ kind: "hangman_letter", letter: l })}>
                     {l}
                   </button>
-                ))}
+                  );
+                })}
               </div>
               <textarea className="w-full rounded-xl bg-zinc-800 p-3" rows={2} value={text} onChange={(e) => setText(e.target.value)} placeholder="Solve whole word…" />
               <Btn className="w-full" onClick={() => { onAction({ kind: "submit_text", text }); setText(""); }}>Solve</Btn>
@@ -1214,6 +1711,16 @@ export function PlayerGameView({
             <Btn onClick={() => onAction({ kind: "paddle_move", y: 0.2 })}>Up</Btn>
             <Btn onClick={() => onAction({ kind: "paddle_move", y: 0.8 })}>Down</Btn>
           </div>
+        </div>
+      )}
+
+      {playerView.gameId === "paddle-clash" && phase === "ended" && (
+        <div className="rounded-2xl bg-zinc-800/60 p-8 text-center space-y-3">
+          {playerData.won && <p className="text-2xl font-bold text-yellow-400">You won!</p>}
+          {playerData.lost && <p className="text-2xl font-bold text-zinc-300">You lost</p>}
+          <p className="text-lg text-zinc-400">
+            Final score: {String(playerData.myScore ?? 0)}–{String(playerData.opponentScore ?? 0)}
+          </p>
         </div>
       )}
 
@@ -1247,12 +1754,28 @@ export function PlayerGameView({
       )}
 
       {(phase === "reveal" || phase === "scoreboard") && playerView.gameId !== "last-on-the-dike" && (
-        <RevealBreakdown
-          room={room}
-          reveal={data.reveal as RevealEntry[] | undefined}
-          playerAnswers={data.playerAnswers as PlayerAnswerReveal[] | undefined}
-          compact
-        />
+        <>
+          {(data.playerAnswers as PlayerAnswerReveal[] | undefined)?.length ? (
+            <RevealBreakdown
+              room={room}
+              reveal={data.reveal as RevealEntry[] | undefined}
+              playerAnswers={data.playerAnswers as PlayerAnswerReveal[] | undefined}
+              compact
+            />
+          ) : phase === "reveal" && data.mode === "quiz" && data.correctIndex !== undefined ? (
+            <div className="rounded-xl bg-zinc-800/60 p-6 text-center space-y-2">
+              <p className="text-lg text-zinc-400">You didn&apos;t answer</p>
+              <p className="text-xl font-bold">
+                Correct: {(data.choices as string[] | undefined)?.[data.correctIndex as number] ?? "—"}
+              </p>
+            </div>
+          ) : phase === "reveal" && data.mode === "would-you-rather" && data.wyrDilemma ? (
+            <div className="rounded-xl bg-zinc-800/60 p-6 text-center space-y-2">
+              <p className="text-lg text-zinc-400">No votes this round</p>
+              <p className="text-xl font-bold">{String(data.wyrDilemma)}</p>
+            </div>
+          ) : null}
+        </>
       )}
 
       {phase === "reveal" && (data.myResult as { role: string } | undefined) && (

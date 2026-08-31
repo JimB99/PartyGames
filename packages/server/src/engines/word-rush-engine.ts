@@ -7,6 +7,7 @@ export interface WordRushState {
   round: number;
   maxRounds: number;
   timerEndsAt: number | null;
+  timerTotalMs: number | null;
   letters: string[];
   submissions: Record<string, string>;
   submissionTimes: Record<string, number>;
@@ -34,6 +35,7 @@ export function createWordRushState(
     round: 1,
     maxRounds,
     timerEndsAt: Date.now() + 5000,
+    timerTotalMs: 5000,
     letters: generateLetters(),
     submissions: {},
     submissionTimes: {},
@@ -56,6 +58,7 @@ export function advanceWordRush(state: WordRushState): WordRushState {
   if (state.phase === "instructions") {
     state.phase = "playing";
     state.playPhaseStartedAt = Date.now();
+    state.timerTotalMs = PLAY_MS;
     state.timerEndsAt = state.playPhaseStartedAt + PLAY_MS;
     state.submissions = {};
     state.submissionTimes = {};
@@ -65,11 +68,13 @@ export function advanceWordRush(state: WordRushState): WordRushState {
   if (state.phase === "playing") {
     scoreWordRush(state, state.gameOptions);
     state.phase = "reveal";
+    state.timerTotalMs = REVEAL_MS;
     state.timerEndsAt = Date.now() + REVEAL_MS;
     return state;
   }
   if (state.phase === "reveal") {
     state.phase = "scoreboard";
+    state.timerTotalMs = SCOREBOARD_MS;
     state.timerEndsAt = Date.now() + SCOREBOARD_MS;
     return state;
   }
@@ -82,6 +87,7 @@ export function advanceWordRush(state: WordRushState): WordRushState {
     state.round += 1;
     state.letters = generateLetters();
     state.phase = "instructions";
+    state.timerTotalMs = 5000;
     state.timerEndsAt = Date.now() + 5000;
     return state;
   }
@@ -107,10 +113,7 @@ export function scoreWordRush(state: WordRushState, gameOptions?: GameOptions) {
 
   for (const [playerId, word] of Object.entries(state.submissions)) {
     const w = word.toLowerCase().trim();
-    const valid =
-      w.length >= state.minWordLength &&
-      canFormWord(w, state.letters) &&
-      (state.dictionary.size === 0 || state.dictionary.has(w));
+    const valid = w.length >= state.minWordLength && canFormWord(w, state.letters);
     state.validWords[playerId] = valid && !seen.has(w);
     if (state.validWords[playerId]) {
       seen.add(w);
@@ -166,15 +169,18 @@ export function wordRushHostView(state: WordRushState) {
     round: state.round,
     maxRounds: state.maxRounds,
     timerEndsAt: state.timerEndsAt,
+    timerTotalMs: state.timerTotalMs,
     data: {
-      letters: state.letters,
+      letters: state.phase !== "instructions" ? state.letters : undefined,
       submissions: showReveal
         ? Object.entries(state.submissions).map(([playerId, word]) => ({
             playerId,
             word,
             valid: state.validWords[playerId],
           }))
-        : undefined,
+        : state.phase === "playing"
+          ? Object.keys(state.submissions).map((playerId) => ({ playerId, word: "…", valid: true }))
+          : undefined,
       playerAnswers: showReveal
         ? Object.entries(state.submissions).map(([playerId, word]) => ({
             playerId,
@@ -196,6 +202,7 @@ export function wordRushPlayerView(state: WordRushState, playerId: string) {
     round: state.round,
     maxRounds: state.maxRounds,
     timerEndsAt: state.timerEndsAt,
+    timerTotalMs: state.timerTotalMs,
     data: {
       letters: state.phase !== "instructions" ? state.letters : undefined,
       playerAnswers: showReveal

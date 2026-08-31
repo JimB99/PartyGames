@@ -22,7 +22,7 @@ export const chainSketchGame: GameModule<ChainSketchState> = {
     supportsDifficulty: true,
   },
   init(ctx) {
-    const words = drawWordPool(ctx.gameOptions).map((w) => w.word);
+    const words = drawWordPool(ctx.gameOptions);
     return createChainSketchState(words, ctx.playerIds);
   },
   onPlayerAction(state, playerId, action, ctx) {

@@ -12,6 +12,7 @@ export interface SpectrumState {
   round: number;
   maxRounds: number;
   timerEndsAt: number | null;
+  timerTotalMs: number | null;
   pair: SpectrumPair;
   target: number;
   clueGiverId: string;
@@ -42,6 +43,7 @@ export function createSpectrumState(pool: SpectrumPair[], playerIds: string[], m
     round: 1,
     maxRounds: Math.min(maxRounds, playerIds.length),
     timerEndsAt: Date.now() + 5000,
+    timerTotalMs: 5000,
     pair,
     target: Math.floor(Math.random() * 101),
     clueGiverId: playerIds[0],
@@ -68,13 +70,21 @@ function scoreSpectrum(state: SpectrumState): void {
 export function advanceSpectrum(state: SpectrumState): SpectrumState {
   if (state.phase === "instructions") {
     state.phase = "clue";
+    state.timerTotalMs = CLUE_MS;
     state.timerEndsAt = Date.now() + CLUE_MS;
     state.clue = "";
     state.guesses = {};
     return state;
   }
   if (state.phase === "clue") {
+    if (!state.clue.trim()) {
+      state.phase = "scoreboard";
+      state.timerTotalMs = SCOREBOARD_MS;
+      state.timerEndsAt = Date.now() + SCOREBOARD_MS;
+      return state;
+    }
     state.phase = "guess";
+    state.timerTotalMs = GUESS_MS;
     state.timerEndsAt = Date.now() + GUESS_MS;
     return state;
   }
@@ -106,16 +116,38 @@ export function advanceSpectrum(state: SpectrumState): SpectrumState {
   return state;
 }
 
-export function onSpectrumAction(state: SpectrumState, playerId: string, action: GameAction, _ctx: RoomContext): SpectrumState {
+function guessersExpected(state: SpectrumState): number {
+  return state.playerIds.filter((id) => id !== state.clueGiverId).length;
+}
+
+function allGuessesIn(state: SpectrumState): boolean {
+  return Object.keys(state.guesses).length >= guessersExpected(state);
+}
+
+export function onSpectrumAction(state: SpectrumState, playerId: string, action: GameAction, ctx: RoomContext): SpectrumState {
   if (action.kind === "submit_text" && state.phase === "clue" && playerId === state.clueGiverId) {
     state.clue = action.text.slice(0, 80);
+    if (state.clue.trim()) {
+      state.phase = "guess";
+      state.timerTotalMs = GUESS_MS;
+      state.timerEndsAt = Date.now() + GUESS_MS;
+    }
   }
   if (action.kind === "spectrum_guess" && state.phase === "guess" && playerId !== state.clueGiverId) {
-    state.guesses[playerId] = Math.max(0, Math.min(100, Math.round(action.value)));
+    if (state.guesses[playerId] === undefined) {
+      state.guesses[playerId] = Math.max(0, Math.min(100, Math.round(action.value)));
+    }
+    if (allGuessesIn(state)) {
+      scoreSpectrum(state);
+      state.phase = "reveal";
+      state.timerTotalMs = REVEAL_MS;
+      state.timerEndsAt = Date.now() + REVEAL_MS;
+    }
   }
   if (action.kind === "advance" && state.phase === "instructions") {
     return advanceSpectrum(state);
   }
+  void ctx;
   return state;
 }
 
@@ -131,6 +163,7 @@ export function spectrumHostView(state: SpectrumState) {
     round: state.round,
     maxRounds: state.maxRounds,
     timerEndsAt: state.timerEndsAt,
+    timerTotalMs: state.timerTotalMs,
     data: {
       pair: state.pair,
       clueGiverId: state.clueGiverId,
@@ -150,10 +183,12 @@ export function spectrumPlayerView(state: SpectrumState, playerId: string) {
     round: state.round,
     maxRounds: state.maxRounds,
     timerEndsAt: state.timerEndsAt,
+    timerTotalMs: state.timerTotalMs,
     data: { pair: state.pair, clue: state.phase === "guess" || state.phase === "reveal" ? state.clue : undefined },
     playerData: {
       isClueGiver,
       target: showTarget ? state.target : undefined,
+      clueSubmitted: state.clue.trim().length > 0,
       guessed: state.guesses[playerId] !== undefined,
       myGuess: state.guesses[playerId],
     },

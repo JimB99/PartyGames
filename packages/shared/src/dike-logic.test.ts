@@ -114,4 +114,12 @@ describe("placementScores", () => {
     assert.equal(scores.fourth, 250);
     assert.equal(scores.early, undefined);
   });
+
+  it("gives survivor points to non-podium players eliminated after round 1", () => {
+    const scores = placementScores("winner", ["second"], { second: 2, third: 2, early: 1 });
+    assert.equal(scores.winner, 3000);
+    assert.equal(scores.second, 1500);
+    assert.equal(scores.third, 250);
+    assert.equal(scores.early, undefined);
+  });
 });

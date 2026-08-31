@@ -22,6 +22,7 @@ export const reverseFactGame: GameModule<BluffState> = {
     supportsDifficulty: true,
     supportsMatureContent: false,
     supportsSpeedScoring: true,
+    roundScoresAreCumulative: true,
   },
   init(ctx) {
     const state = createBluffState("reverse-fact", reverseFactPool(ctx.gameOptions), 5, ctx.playerIds.length);
@@ -48,7 +49,7 @@ export const reverseFactGame: GameModule<BluffState> = {
     return bluffPlayerView(state, playerId);
   },
   getRoundScores(state) {
-    return state.roundScores;
+    return state.cumulativeScores;
   },
   isGameOver(state) {
     return state.phase === "ended";

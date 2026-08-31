@@ -22,6 +22,7 @@ export interface GridBlastBomb {
   fuseTicks: number;
   range: number;
   exploded: boolean;
+  ownerImmunityTicks: number;
 }
 
 export interface GridBlastPlayer {
@@ -32,6 +33,7 @@ export interface GridBlastPlayer {
   maxBombs: number;
   blastRange: number;
   speedTicks: number;
+  lastMoveTick: number;
   canKick: boolean;
   deathRank: number | null;
   score: number;
@@ -47,9 +49,10 @@ export interface GridBlastState {
   tick: number;
 }
 
-const FUSE_TICKS = 50;
+const FUSE_TICKS = 55;
+const OWNER_IMMUNITY_TICKS = 25;
 const FIRE_TICKS = 15;
-const MOVE_COOLDOWN = 6;
+const MOVE_COOLDOWN = 4;
 
 export function createClassicGrid(cols = GRID_BLAST_COLS, rows = GRID_BLAST_ROWS): number[][] {
   const grid: number[][] = [];
@@ -101,6 +104,7 @@ export function createGridBlastState(playerIds: string[]): GridBlastState {
       maxBombs: 1,
       blastRange: 2,
       speedTicks: MOVE_COOLDOWN,
+      lastMoveTick: -MOVE_COOLDOWN,
       canKick: false,
       deathRank: null,
       score: 0,
@@ -168,10 +172,11 @@ export function applyGridBlastInput(state: GridBlastState, playerId: string, inp
       fuseTicks: FUSE_TICKS,
       range: player.blastRange,
       exploded: false,
+      ownerImmunityTicks: OWNER_IMMUNITY_TICKS,
     });
     return state;
   }
-  if (state.tick % player.speedTicks !== 0) return state;
+  if (state.tick - player.lastMoveTick < player.speedTicks) return state;
   const dir = DIRS[input];
   if (!dir) return state;
   const nx = player.x + dir.dx;
@@ -179,6 +184,7 @@ export function applyGridBlastInput(state: GridBlastState, playerId: string, inp
   if (!cellFreeForPlayer(state.grid, state.bombs, nx, ny)) return state;
   player.x = nx;
   player.y = ny;
+  player.lastMoveTick = state.tick;
   collectPowerUp(state, player);
   return state;
 }
@@ -189,7 +195,14 @@ function explodeBomb(state: GridBlastState, bomb: GridBlastBomb): void {
   const addFire = (x: number, y: number) => {
     state.fires.push({ x, y, ticks: FIRE_TICKS });
     const player = state.players.find((p) => p.alive && p.x === x && p.y === y);
-    if (player) killPlayer(state, player.id);
+    if (player) {
+      const onOwnBomb =
+        player.id === bomb.ownerId &&
+        bomb.ownerImmunityTicks > 0 &&
+        bomb.x === player.x &&
+        bomb.y === player.y;
+      if (!onOwnBomb) killPlayer(state, player.id);
+    }
     const other = state.bombs.find((b) => !b.exploded && b.x === x && b.y === y);
     if (other) explodeBomb(state, other);
   };
@@ -235,6 +248,7 @@ export function tickGridBlastState(state: GridBlastState): GridBlastState {
   state.tick += 1;
   for (const bomb of state.bombs) {
     if (!bomb.exploded) {
+      if (bomb.ownerImmunityTicks > 0) bomb.ownerImmunityTicks -= 1;
       bomb.fuseTicks -= 1;
       if (bomb.fuseTicks <= 0) explodeBomb(state, bomb);
     }

@@ -44,7 +44,7 @@ export const lastOnTheDikeGame: GameModule<DikeState> = {
     return dikePlayerView(state, playerId);
   },
   getRoundScores(state) {
-    return state.roundScores;
+    return state.phase === "ended" ? state.roundScores : {};
   },
   isGameOver(state) {
     return state.phase === "ended";

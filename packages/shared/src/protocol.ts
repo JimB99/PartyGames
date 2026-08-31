@@ -72,6 +72,7 @@ export type GameAction =
 export type ServerMessage =
   | { type: "room_state"; state: RoomSnapshot }
   | { type: "player_view"; view: PlayerViewSnapshot }
+  | { type: "player_view_clear" }
   | { type: "error"; message: string }
   | { type: "pong" }
   | { type: "room_available" };

@@ -3,9 +3,11 @@ import { useEffect, useRef, useState } from "react";
 export function TimerBar({
   endsAt,
   totalMs,
+  size = "default",
 }: {
   endsAt: number | null;
   totalMs?: number | null;
+  size?: "default" | "host";
 }) {
   const [remaining, setRemaining] = useState(0);
   const fallbackTotalRef = useRef<number | null>(null);
@@ -38,15 +40,19 @@ export function TimerBar({
   const pct = Math.min(100, Math.max(0, (remaining / total) * 100));
   const seconds = Math.ceil(remaining / 1000);
 
+  const isHost = size === "host";
+
   return (
-    <div className="w-full min-w-0 max-w-md">
-      <div className="mb-1 flex justify-between text-xs text-zinc-400">
+    <div className={`w-full min-w-0 ${isHost ? "" : "max-w-md"}`}>
+      <div
+        className={`mb-1 flex justify-between text-zinc-400 ${isHost ? "text-base" : "text-xs"}`}
+      >
         <span>Time</span>
-        <span>{seconds}s</span>
+        <span className={isHost ? "font-mono font-semibold text-zinc-200" : ""}>{seconds}s</span>
       </div>
-      <div className="h-2 overflow-hidden rounded-full bg-zinc-700">
+      <div className={`overflow-hidden rounded-full bg-zinc-700 ${isHost ? "h-4" : "h-2"}`}>
         <div
-          className="h-2 rounded-full bg-violet-500"
+          className={`rounded-full bg-violet-500 ${isHost ? "h-4" : "h-2"}`}
           style={{ width: `${pct}%` }}
         />
       </div>
