@@ -19,6 +19,7 @@ export const hangmanRaceGame: GameModule<HangmanRaceState> = {
     maxPlayers: 16,
     category: "arcade",
     supportsDifficulty: true,
+    supportsMatureContent: true,
     supportsSpeedScoring: true,
   },
   init(ctx) {

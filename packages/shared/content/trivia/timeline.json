@@ -5090,7 +5090,7 @@
   {
     "event": "Prohibition in the United States enforced",
     "year": 1920,
-    "rating": "family",
+    "rating": "mature",
     "difficulty": "medium"
   },
   {
@@ -5624,7 +5624,7 @@
   {
     "event": "Prohibition in the United States is abolished",
     "year": 1933,
-    "rating": "family",
+    "rating": "mature",
     "difficulty": "medium"
   },
   {

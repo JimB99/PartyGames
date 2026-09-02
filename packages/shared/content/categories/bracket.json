@@ -1538,5 +1538,75 @@
     "name": "worst karaoke duets",
     "rating": "mature",
     "difficulty": "medium"
+  },
+  {
+    "name": "hangover breakfasts",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "dating red flags",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "bar orders",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "drunk foods",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "wedding afterparty crimes",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "group-chat sins",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "open-bar strategies",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "rideshare confessions",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "situationship labels",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "club-night roles",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "toast disasters",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "minibar crimes",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "plus-one types",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "name": "last-call excuses",
+    "rating": "mature",
+    "difficulty": "medium"
   }
 ]

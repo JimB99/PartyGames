@@ -10,6 +10,10 @@ import {
   isPlaceholderTruth,
   isQuestionForm,
   isReverseFactTrivial,
+  looksLikeConvertedNhieFactCheck,
+  looksLikeGeneratedFactCheckTruth,
+  looksLikeGeneratedFriendSortRole,
+  looksLikeTemplateCrowdCall,
   matureTruthToFactCheckPair,
   orderedSequenceRatio,
   rebalanceWitShowdownPrefixes,
@@ -57,6 +61,16 @@ describe("content-quality heuristics", () => {
   it("rejects question-form fact-check truths", () => {
     assert.ok(!isFactCheckTruthValid("Prompt", "What is your favorite color?"));
     assert.ok(isFactCheckTruthValid("Prompt", "Tax Deduction"));
+  });
+
+  it("flags generated fact-check filler and crowd-call templates", () => {
+    assert.ok(looksLikeGeneratedFactCheckTruth("regret with almonds, but make it chaos and nutmeg"));
+    assert.ok(looksLikeGeneratedFactCheckTruth("chaos and nutmeg with extra moist congress"));
+    assert.ok(looksLikeConvertedNhieFactCheck("The worst thing about this is..."));
+    assert.ok(looksLikeTemplateCrowdCall("Best tacos in this room?", ["Always", "Sometimes", "Rarely", "Never"]));
+    assert.ok(!looksLikeTemplateCrowdCall("Ideal vacation?", ["Beach", "Mountains", "City break", "Staycation"]));
+    assert.ok(looksLikeGeneratedFriendSortRole("Chaotic Wizard"));
+    assert.ok(!looksLikeGeneratedFriendSortRole("Wizard"));
   });
 
   it("generates enough family fact-check pairs", () => {

@@ -1,7 +1,7 @@
 [
   {
-    "left": "Totally overrated",
-    "right": "Secretly amazing",
+    "left": "Gardening",
+    "right": "Houseplants",
     "rating": "family"
   },
   {
@@ -10,148 +10,8 @@
     "rating": "family"
   },
   {
-    "left": "Public PDA",
-    "right": "Keep it private",
-    "rating": "mature"
-  },
-  {
-    "left": "Dogs at parks",
-    "right": "Cats at home",
-    "rating": "family"
-  },
-  {
-    "left": "Cheddar",
-    "right": "Mozzarella",
-    "rating": "family"
-  },
-  {
-    "left": "Ranch",
-    "right": "Blue cheese",
-    "rating": "family"
-  },
-  {
-    "left": "Museum",
-    "right": "Theme park",
-    "rating": "family"
-  },
-  {
-    "left": "Work trip energy",
-    "right": "Stay professional",
-    "rating": "mature"
-  },
-  {
-    "left": "Origami",
-    "right": "Paper airplanes",
-    "rating": "family"
-  },
-  {
-    "left": "Loud concerts",
-    "right": "Headphones at home",
-    "rating": "family"
-  },
-  {
-    "left": "Love bombing",
-    "right": "Slow burn",
-    "rating": "mature"
-  },
-  {
-    "left": "Flashlights",
-    "right": "Lanterns",
-    "rating": "family"
-  },
-  {
-    "left": "City",
-    "right": "Countryside",
-    "rating": "family"
-  },
-  {
-    "left": "Wagons",
-    "right": "Strollers",
-    "rating": "family"
-  },
-  {
-    "left": "The ex still follows",
-    "right": "Clean unfollow",
-    "rating": "mature"
-  },
-  {
-    "left": "Charades",
-    "right": "Twenty questions",
-    "rating": "family"
-  },
-  {
-    "left": "Catan",
-    "right": "Ticket to Ride",
-    "rating": "family"
-  },
-  {
-    "left": "Sunday crossword",
-    "right": "Sunday nap",
-    "rating": "family"
-  },
-  {
-    "left": "Cheap and cheerful",
-    "right": "Worth every penny",
-    "rating": "family"
-  },
-  {
-    "left": "Puzzles",
-    "right": "Races",
-    "rating": "family"
-  },
-  {
-    "left": "Cats",
-    "right": "Dogs",
-    "rating": "family"
-  },
-  {
-    "left": "Compasses",
-    "right": "Trail markers",
-    "rating": "family"
-  },
-  {
-    "left": "Pancakes",
-    "right": "Waffles",
-    "rating": "family"
-  },
-  {
-    "left": "Paper maps",
-    "right": "GPS",
-    "rating": "family"
-  },
-  {
-    "left": "Monopoly",
-    "right": "Uno",
-    "rating": "family"
-  },
-  {
-    "left": "Board game night",
-    "right": "Movie night",
-    "rating": "family"
-  },
-  {
-    "left": "Glow sticks",
-    "right": "Sparklers",
-    "rating": "family"
-  },
-  {
-    "left": "Venmo the tab",
-    "right": "Forget you paid",
-    "rating": "mature"
-  },
-  {
-    "left": "Define it tomorrow",
-    "right": "Define it now",
-    "rating": "mature"
-  },
-  {
-    "left": "Sweet breakfast",
-    "right": "Savory breakfast",
-    "rating": "family"
-  },
-  {
-    "left": "Kites",
-    "right": "Frisbees",
+    "left": "Sushi",
+    "right": "Dumplings",
     "rating": "family"
   },
   {
@@ -160,843 +20,18 @@
     "rating": "family"
   },
   {
-    "left": "Clue",
-    "right": "Guess Who",
+    "left": "Bike",
+    "right": "Walk",
     "rating": "family"
   },
   {
-    "left": "Fuzzy socks",
-    "right": "Bare feet",
+    "left": "Ranch",
+    "right": "Blue cheese",
     "rating": "family"
-  },
-  {
-    "left": "Story time",
-    "right": "Joke time",
-    "rating": "family"
-  },
-  {
-    "left": "Live theater",
-    "right": "Streaming",
-    "rating": "family"
-  },
-  {
-    "left": "Snow",
-    "right": "Sand",
-    "rating": "family"
-  },
-  {
-    "left": "Tennis",
-    "right": "Golf",
-    "rating": "family"
-  },
-  {
-    "left": "Helmets",
-    "right": "Knee pads",
-    "rating": "family"
-  },
-  {
-    "left": "Handmade gifts",
-    "right": "Store-bought",
-    "rating": "family"
-  },
-  {
-    "left": "Road trip snacks",
-    "right": "Sit-down meals",
-    "rating": "family"
-  },
-  {
-    "left": "Islands",
-    "right": "Mainland",
-    "rating": "family"
-  },
-  {
-    "left": "Spaghetti",
-    "right": "Lasagna",
-    "rating": "family"
-  },
-  {
-    "left": "Beanbags",
-    "right": "Office chairs",
-    "rating": "family"
-  },
-  {
-    "left": "Sushi",
-    "right": "Dumplings",
-    "rating": "family"
-  },
-  {
-    "left": "Food trucks",
-    "right": "Sit down",
-    "rating": "family"
-  },
-  {
-    "left": "Sunrise alarms",
-    "right": "Gentle alarms",
-    "rating": "family"
-  },
-  {
-    "left": "Friends with benefits",
-    "right": "Catching feelings",
-    "rating": "mature"
-  },
-  {
-    "left": "Dance",
-    "right": "Martial arts",
-    "rating": "family"
-  },
-  {
-    "left": "Soda",
-    "right": "Juice",
-    "rating": "family"
-  },
-  {
-    "left": "Big party",
-    "right": "Small hang",
-    "rating": "family"
-  },
-  {
-    "left": "Friends know too much",
-    "right": "Plausible deniability",
-    "rating": "mature"
-  },
-  {
-    "left": "Trains",
-    "right": "Buses",
-    "rating": "family"
-  },
-  {
-    "left": "Yoga",
-    "right": "Weights",
-    "rating": "family"
-  },
-  {
-    "left": "Slip n slide",
-    "right": "Kiddie pools",
-    "rating": "family"
-  },
-  {
-    "left": "RVs",
-    "right": "Motels",
-    "rating": "family"
-  },
-  {
-    "left": "Sunrise",
-    "right": "Sunset",
-    "rating": "family"
-  },
-  {
-    "left": "Ice cream",
-    "right": "Frozen yogurt",
-    "rating": "family"
-  },
-  {
-    "left": "Overshare",
-    "right": "Keep it cute",
-    "rating": "mature"
-  },
-  {
-    "left": "Sweet snacks",
-    "right": "Crunchy snacks",
-    "rating": "family"
-  },
-  {
-    "left": "Soup",
-    "right": "Salad",
-    "rating": "family"
-  },
-  {
-    "left": "Popcorn",
-    "right": "Candy",
-    "rating": "family"
-  },
-  {
-    "left": "Desk lamps",
-    "right": "Overhead lights",
-    "rating": "family"
-  },
-  {
-    "left": "Never tell them",
-    "right": "They already know",
-    "rating": "mature"
-  },
-  {
-    "left": "Regret tomorrow",
-    "right": "Story forever",
-    "rating": "mature"
-  },
-  {
-    "left": "Marble runs",
-    "right": "Train sets",
-    "rating": "family"
-  },
-  {
-    "left": "Hookup hangover",
-    "right": "Brunch feelings",
-    "rating": "mature"
-  },
-  {
-    "left": "Card houses",
-    "right": "Domino runs",
-    "rating": "family"
-  },
-  {
-    "left": "Pixar",
-    "right": "Ghibli",
-    "rating": "family"
-  },
-  {
-    "left": "Ice cold",
-    "right": "Boiling hot",
-    "rating": "family"
-  },
-  {
-    "left": "Hostels",
-    "right": "Airbnbs",
-    "rating": "family"
-  },
-  {
-    "left": "Smoothies",
-    "right": "Milk",
-    "rating": "family"
-  },
-  {
-    "left": "Sweet",
-    "right": "Salty",
-    "rating": "family"
-  },
-  {
-    "left": "Sitcoms",
-    "right": "Cartoons",
-    "rating": "family"
-  },
-  {
-    "left": "Never again",
-    "right": "Tell me more",
-    "rating": "mature"
-  },
-  {
-    "left": "Apple pie",
-    "right": "Peach cobbler",
-    "rating": "family"
-  },
-  {
-    "left": "Last call",
-    "right": "We already left",
-    "rating": "mature"
-  },
-  {
-    "left": "Flirt with the bartender",
-    "right": "Water please",
-    "rating": "mature"
-  },
-  {
-    "left": "Fort building",
-    "right": "Pillow forts",
-    "rating": "family"
-  },
-  {
-    "left": "Zoos",
-    "right": "Aquariums",
-    "rating": "family"
-  },
-  {
-    "left": "Stay over",
-    "right": "Call a car",
-    "rating": "mature"
-  },
-  {
-    "left": "Floor picnics",
-    "right": "Dining table",
-    "rating": "family"
-  },
-  {
-    "left": "Capture the flag",
-    "right": "Dodgeball",
-    "rating": "family"
-  },
-  {
-    "left": "Color-coded notes",
-    "right": "Messy notes",
-    "rating": "family"
-  },
-  {
-    "left": "Oatmeal",
-    "right": "Eggs",
-    "rating": "family"
-  },
-  {
-    "left": "Too spicy",
-    "right": "Keep it PG",
-    "rating": "mature"
-  },
-  {
-    "left": "Water balloons",
-    "right": "Sprinklers",
-    "rating": "family"
-  },
-  {
-    "left": "Stuffed animals",
-    "right": "Pillows",
-    "rating": "family"
-  },
-  {
-    "left": "Trampolines",
-    "right": "Bounce houses",
-    "rating": "family"
-  },
-  {
-    "left": "Climbing walls",
-    "right": "Rope ladders",
-    "rating": "family"
-  },
-  {
-    "left": "S'mores",
-    "right": "Hot dogs",
-    "rating": "family"
-  },
-  {
-    "left": "One night",
-    "right": "A whole weekend",
-    "rating": "mature"
-  },
-  {
-    "left": "Crunchy peanut butter",
-    "right": "Smooth",
-    "rating": "family"
-  },
-  {
-    "left": "Thin crust",
-    "right": "Deep dish",
-    "rating": "family"
-  },
-  {
-    "left": "Sticker books",
-    "right": "Coloring books",
-    "rating": "family"
-  },
-  {
-    "left": "Blankets",
-    "right": "Hoodies",
-    "rating": "family"
-  },
-  {
-    "left": "Chaos energy",
-    "right": "Calm vibes",
-    "rating": "family"
-  },
-  {
-    "left": "Popcorn balls",
-    "right": "Kettle corn",
-    "rating": "family"
-  },
-  {
-    "left": "Delivery",
-    "right": "Dine in",
-    "rating": "family"
-  },
-  {
-    "left": "Cake",
-    "right": "Pie",
-    "rating": "family"
-  },
-  {
-    "left": "Snowball fights",
-    "right": "Leaf piles",
-    "rating": "family"
-  },
-  {
-    "left": "Knitting",
-    "right": "Sewing",
-    "rating": "family"
-  },
-  {
-    "left": "Rain",
-    "right": "Sunshine",
-    "rating": "family"
-  },
-  {
-    "left": "Bikes",
-    "right": "Scooters",
-    "rating": "family"
-  },
-  {
-    "left": "Honey",
-    "right": "Jam",
-    "rating": "family"
-  },
-  {
-    "left": "Texting",
-    "right": "Calling",
-    "rating": "family"
-  },
-  {
-    "left": "Early flights",
-    "right": "Red-eyes",
-    "rating": "family"
-  },
-  {
-    "left": "Hotel key chaos",
-    "right": "Separate rooms",
-    "rating": "mature"
-  },
-  {
-    "left": "Sandcastles",
-    "right": "Snowmen",
-    "rating": "family"
-  },
-  {
-    "left": "Weird but harmless",
-    "right": "Actually dangerous",
-    "rating": "family"
-  },
-  {
-    "left": "Diners",
-    "right": "Fancy restaurants",
-    "rating": "family"
-  },
-  {
-    "left": "Office party",
-    "right": "Hard pass",
-    "rating": "mature"
-  },
-  {
-    "left": "Comedy",
-    "right": "Drama",
-    "rating": "family"
-  },
-  {
-    "left": "Chocolate",
-    "right": "Vanilla",
-    "rating": "family"
-  },
-  {
-    "left": "Ice skating",
-    "right": "Sledding",
-    "rating": "family"
-  },
-  {
-    "left": "Skateboards",
-    "right": "Rollerblades",
-    "rating": "family"
-  },
-  {
-    "left": "Botanical gardens",
-    "right": "National parks",
-    "rating": "family"
-  },
-  {
-    "left": "To-do lists",
-    "right": "Memory",
-    "rating": "family"
-  },
-  {
-    "left": "Soccer",
-    "right": "Basketball",
-    "rating": "family"
-  },
-  {
-    "left": "Vinyl",
-    "right": "Playlists",
-    "rating": "family"
-  },
-  {
-    "left": "Introvert",
-    "right": "Extrovert",
-    "rating": "family"
-  },
-  {
-    "left": "Sneakers",
-    "right": "Boots",
-    "rating": "family"
-  },
-  {
-    "left": "Parades",
-    "right": "Fireworks",
-    "rating": "family"
-  },
-  {
-    "left": "Minecraft",
-    "right": "Roblox",
-    "rating": "family"
-  },
-  {
-    "left": "Farmers market",
-    "right": "Supermarket",
-    "rating": "family"
-  },
-  {
-    "left": "Bubble machines",
-    "right": "Foam pits",
-    "rating": "family"
-  },
-  {
-    "left": "Horses",
-    "right": "Ponies",
-    "rating": "family"
-  },
-  {
-    "left": "Dogs",
-    "right": "Hamsters",
-    "rating": "family"
-  },
-  {
-    "left": "Beaches",
-    "right": "Lakes",
-    "rating": "family"
-  },
-  {
-    "left": "Cotton candy",
-    "right": "Funnel cake",
-    "rating": "family"
-  },
-  {
-    "left": "Afterparty",
-    "right": "Early night",
-    "rating": "mature"
-  },
-  {
-    "left": "Ghosting",
-    "right": "Awkward closure",
-    "rating": "mature"
-  },
-  {
-    "left": "Burgers",
-    "right": "Sandwiches",
-    "rating": "family"
-  },
-  {
-    "left": "Deserts",
-    "right": "Forests",
-    "rating": "family"
-  },
-  {
-    "left": "Stilt walkers",
-    "right": "Living statues",
-    "rating": "family"
-  },
-  {
-    "left": "Podcasts",
-    "right": "Audiobooks",
-    "rating": "family"
-  },
-  {
-    "left": "Soup season",
-    "right": "Salad season",
-    "rating": "family"
-  },
-  {
-    "left": "Paper calendars",
-    "right": "Phone calendars",
-    "rating": "family"
-  },
-  {
-    "left": "Arcades",
-    "right": "Carnivals",
-    "rating": "family"
-  },
-  {
-    "left": "Sandbox",
-    "right": "Mud kitchen",
-    "rating": "family"
-  },
-  {
-    "left": "Planner",
-    "right": "Improviser",
-    "rating": "family"
-  },
-  {
-    "left": "Karaoke",
-    "right": "Open mic",
-    "rating": "family"
-  },
-  {
-    "left": "Fries",
-    "right": "Onion rings",
-    "rating": "family"
-  },
-  {
-    "left": "Trail mix",
-    "right": "Granola bars",
-    "rating": "family"
-  },
-  {
-    "left": "Scooters",
-    "right": "Balance bikes",
-    "rating": "family"
-  },
-  {
-    "left": "Mad Libs",
-    "right": "Pictionary",
-    "rating": "family"
-  },
-  {
-    "left": "Roast",
-    "right": "Toast",
-    "rating": "mature"
-  },
-  {
-    "left": "Short hikes",
-    "right": "All-day trails",
-    "rating": "family"
-  },
-  {
-    "left": "Corn dogs",
-    "right": "Pretzels",
-    "rating": "family"
-  },
-  {
-    "left": "Exes at the wedding",
-    "right": "Plus-one of peace",
-    "rating": "mature"
-  },
-  {
-    "left": "No labels",
-    "right": "Need a label",
-    "rating": "mature"
-  },
-  {
-    "left": "Magic shows",
-    "right": "Puppet shows",
-    "rating": "family"
-  },
-  {
-    "left": "Science museums",
-    "right": "Art museums",
-    "rating": "family"
-  },
-  {
-    "left": "Ramen",
-    "right": "Pho",
-    "rating": "family"
-  },
-  {
-    "left": "Street fairs",
-    "right": "Indoor markets",
-    "rating": "family"
-  },
-  {
-    "left": "Escape rooms",
-    "right": "Scavenger hunts",
-    "rating": "family"
-  },
-  {
-    "left": "Binoculars",
-    "right": "Cameras",
-    "rating": "family"
-  },
-  {
-    "left": "Backyard",
-    "right": "Front porch",
-    "rating": "family"
-  },
-  {
-    "left": "Painting",
-    "right": "Drawing",
-    "rating": "family"
-  },
-  {
-    "left": "Snow cones",
-    "right": "Ice cream bars",
-    "rating": "family"
-  },
-  {
-    "left": "Swimming",
-    "right": "Running",
-    "rating": "family"
-  },
-  {
-    "left": "Butter",
-    "right": "Olive oil",
-    "rating": "family"
-  },
-  {
-    "left": "Bacon",
-    "right": "Sausage",
-    "rating": "family"
-  },
-  {
-    "left": "Reunion drama",
-    "right": "Small talk only",
-    "rating": "mature"
-  },
-  {
-    "left": "Mac and cheese",
-    "right": "Grilled cheese",
-    "rating": "family"
-  },
-  {
-    "left": "Canteens",
-    "right": "Water bottles",
-    "rating": "family"
-  },
-  {
-    "left": "Open bar",
-    "right": "Designated driver",
-    "rating": "mature"
-  },
-  {
-    "left": "Mini golf",
-    "right": "Bowling",
-    "rating": "family"
-  },
-  {
-    "left": "Team sports",
-    "right": "Solo sports",
-    "rating": "family"
-  },
-  {
-    "left": "Park maps",
-    "right": "Ranger talks",
-    "rating": "family"
-  },
-  {
-    "left": "Ketchup",
-    "right": "Mustard",
-    "rating": "family"
-  },
-  {
-    "left": "Jenga",
-    "right": "Connect Four",
-    "rating": "family"
-  },
-  {
-    "left": "Live sports",
-    "right": "Recorded later",
-    "rating": "family"
-  },
-  {
-    "left": "I spy",
-    "right": "Hide and seek",
-    "rating": "family"
-  },
-  {
-    "left": "Nostalgia bait",
-    "right": "Timeless classic",
-    "rating": "family"
-  },
-  {
-    "left": "Carnivals",
-    "right": "County fairs",
-    "rating": "family"
-  },
-  {
-    "left": "Visitor centers",
-    "right": "Overlooks",
-    "rating": "family"
-  },
-  {
-    "left": "Mayo",
-    "right": "Aioli",
-    "rating": "family"
-  },
-  {
-    "left": "Marvel",
-    "right": "DC",
-    "rating": "family"
-  },
-  {
-    "left": "Camp songs",
-    "right": "Campfire stories",
-    "rating": "family"
-  },
-  {
-    "left": "Orchestra",
-    "right": "Garage band",
-    "rating": "family"
-  },
-  {
-    "left": "Water",
-    "right": "Sparkling water",
-    "rating": "family"
-  },
-  {
-    "left": "Tacos",
-    "right": "Burritos",
-    "rating": "family"
-  },
-  {
-    "left": "Too many toasts",
-    "right": "One kind speech",
-    "rating": "mature"
-  },
-  {
-    "left": "Sneakers",
-    "right": "Sandals",
-    "rating": "family"
-  },
-  {
-    "left": "Flake",
-    "right": "Show up anyway",
-    "rating": "mature"
-  },
-  {
-    "left": "Library",
-    "right": "Cafe",
-    "rating": "family"
-  },
-  {
-    "left": "The ex table",
-    "right": "Opposite side of the room",
-    "rating": "mature"
-  },
-  {
-    "left": "Window seat",
-    "right": "Aisle seat",
-    "rating": "family"
-  },
-  {
-    "left": "Bad idea",
-    "right": "Great story",
-    "rating": "mature"
   },
   {
     "left": "DIY",
     "right": "Buy it",
-    "rating": "family"
-  },
-  {
-    "left": "Scenic drives",
-    "right": "Walking loops",
-    "rating": "family"
-  },
-  {
-    "left": "Field guides",
-    "right": "Phone apps",
-    "rating": "family"
-  },
-  {
-    "left": "The texts exist",
-    "right": "We deleted them",
-    "rating": "mature"
-  },
-  {
-    "left": "Rain boots",
-    "right": "Umbrella only",
-    "rating": "family"
-  },
-  {
-    "left": "Ferris views",
-    "right": "Carousel rides",
-    "rating": "family"
-  },
-  {
-    "left": "Pepperoni",
-    "right": "Mushroom",
-    "rating": "family"
-  },
-  {
-    "left": "Too honest",
-    "right": "Polite lie",
-    "rating": "mature"
-  },
-  {
-    "left": "Minibar raid",
-    "right": "Leave it sealed",
-    "rating": "mature"
-  },
-  {
-    "left": "Swing sets",
-    "right": "Slides",
     "rating": "family"
   },
   {
@@ -1005,38 +40,38 @@
     "rating": "mature"
   },
   {
-    "left": "Laser tag",
-    "right": "Go-karts",
+    "left": "Bad idea",
+    "right": "Great story",
+    "rating": "mature"
+  },
+  {
+    "left": "Charades",
+    "right": "Twenty questions",
     "rating": "family"
   },
   {
-    "left": "Birds",
-    "right": "Fish",
+    "left": "Totally overrated",
+    "right": "Secretly amazing",
     "rating": "family"
   },
   {
-    "left": "Flash mobs",
-    "right": "Parades",
+    "left": "Exes at the wedding",
+    "right": "Plus-one of peace",
+    "rating": "mature"
+  },
+  {
+    "left": "Museum",
+    "right": "Theme park",
     "rating": "family"
   },
   {
-    "left": "Muffins",
-    "right": "Scones",
+    "left": "have the power of flight",
+    "right": "the power of telekinesis",
     "rating": "family"
   },
   {
-    "left": "Boardwalks",
-    "right": "Dirt trails",
-    "rating": "family"
-  },
-  {
-    "left": "Spicy food",
-    "right": "Mild food",
-    "rating": "family"
-  },
-  {
-    "left": "Summer",
-    "right": "Winter",
+    "left": "have unlimited money",
+    "right": "unlimited knowledge",
     "rating": "family"
   },
   {
@@ -1045,408 +80,13 @@
     "rating": "mature"
   },
   {
-    "left": "Goodie bags",
-    "right": "Thank-you notes",
+    "left": "Boardwalks",
+    "right": "Dirt trails",
     "rating": "family"
   },
   {
-    "left": "Limbo",
-    "right": "Hula hoop",
-    "rating": "family"
-  },
-  {
-    "left": "Situationship",
-    "right": "Define the relationship",
-    "rating": "mature"
-  },
-  {
-    "left": "Beach",
-    "right": "Mountains",
-    "rating": "family"
-  },
-  {
-    "left": "Bike",
-    "right": "Walk",
-    "rating": "family"
-  },
-  {
-    "left": "Group trip",
-    "right": "Solo trip",
-    "rating": "family"
-  },
-  {
-    "left": "Training wheels",
-    "right": "Push bikes",
-    "rating": "family"
-  },
-  {
-    "left": "Caramel apples",
-    "right": "Candy apples",
-    "rating": "family"
-  },
-  {
-    "left": "Action figures",
-    "right": "Dolls",
-    "rating": "family"
-  },
-  {
-    "left": "Pokemon",
-    "right": "Digimon",
-    "rating": "family"
-  },
-  {
-    "left": "Jump rope",
-    "right": "Hopscotch",
-    "rating": "family"
-  },
-  {
-    "left": "Group vacation",
-    "right": "Solo hotel",
-    "rating": "mature"
-  },
-  {
-    "left": "Treehouses",
-    "right": "Playhouses",
-    "rating": "family"
-  },
-  {
-    "left": "Planetariums",
-    "right": "Observatories",
-    "rating": "family"
-  },
-  {
-    "left": "Milkshakes",
-    "right": "Floats",
-    "rating": "family"
-  },
-  {
-    "left": "Leftovers",
-    "right": "Cook fresh",
-    "rating": "family"
-  },
-  {
-    "left": "Tag",
-    "right": "Red rover",
-    "rating": "family"
-  },
-  {
-    "left": "One more round",
-    "right": "Call the ride",
-    "rating": "mature"
-  },
-  {
-    "left": "Wedding afterparty",
-    "right": "Quiet reception",
-    "rating": "mature"
-  },
-  {
-    "left": "Mario",
-    "right": "Zelda",
-    "rating": "family"
-  },
-  {
-    "left": "Kid stuff",
-    "right": "Adult luxury",
-    "rating": "family"
-  },
-  {
-    "left": "The group chat knows",
-    "right": "Nobody needs to know",
-    "rating": "mature"
-  },
-  {
-    "left": "Hash browns",
-    "right": "Home fries",
-    "rating": "family"
-  },
-  {
-    "left": "Rabbits",
-    "right": "Guinea pigs",
-    "rating": "family"
-  },
-  {
-    "left": "Choir",
-    "right": "Garage band",
-    "rating": "family"
-  },
-  {
-    "left": "Baseball",
-    "right": "Football",
-    "rating": "family"
-  },
-  {
-    "left": "Chess",
-    "right": "Checkers",
-    "rating": "family"
-  },
-  {
-    "left": "Star Wars",
-    "right": "Star Trek",
-    "rating": "family"
-  },
-  {
-    "left": "Drunk karaoke",
-    "right": "Sober singalong",
-    "rating": "mature"
-  },
-  {
-    "left": "Loud music",
-    "right": "Quiet night",
-    "rating": "family"
-  },
-  {
-    "left": "Relay races",
-    "right": "Tug of war",
-    "rating": "family"
-  },
-  {
-    "left": "Rideshare nap",
-    "right": "Stay awake",
-    "rating": "mature"
-  },
-  {
-    "left": "Plus-one surprise",
-    "right": "RSVP as listed",
-    "rating": "mature"
-  },
-  {
-    "left": "Sidewalk chalk",
-    "right": "Finger paint",
-    "rating": "family"
-  },
-  {
-    "left": "It's complicated",
-    "right": "It's over",
-    "rating": "mature"
-  },
-  {
-    "left": "Meal prep",
-    "right": "Daily cooking",
-    "rating": "family"
-  },
-  {
-    "left": "Morning person",
-    "right": "Night owl",
-    "rating": "family"
-  },
-  {
-    "left": "Baking",
-    "right": "Grilling",
-    "rating": "family"
-  },
-  {
-    "left": "New songs",
-    "right": "Old favorites",
-    "rating": "family"
-  },
-  {
-    "left": "Shot roulette",
-    "right": "One and done",
-    "rating": "mature"
-  },
-  {
-    "left": "Pottery",
-    "right": "Woodworking",
-    "rating": "family"
-  },
-  {
-    "left": "Hot weather",
-    "right": "Cold weather",
-    "rating": "family"
-  },
-  {
-    "left": "Cereal",
-    "right": "Toast",
-    "rating": "family"
-  },
-  {
-    "left": "House party crash",
-    "right": "Invite only",
-    "rating": "mature"
-  },
-  {
-    "left": "Lego",
-    "right": "Puzzles",
-    "rating": "family"
-  },
-  {
-    "left": "Screenshots",
-    "right": "Trust",
-    "rating": "mature"
-  },
-  {
-    "left": "Trivia",
-    "right": "Charades",
-    "rating": "family"
-  },
-  {
-    "left": "Yogurt",
-    "right": "Cottage cheese",
-    "rating": "family"
-  },
-  {
-    "left": "Board game cafes",
-    "right": "Home game night",
-    "rating": "family"
-  },
-  {
-    "left": "Riddles",
-    "right": "Tongue twisters",
-    "rating": "family"
-  },
-  {
-    "left": "Camping",
-    "right": "Hotels",
-    "rating": "family"
-  },
-  {
-    "left": "Fiction",
-    "right": "Nonfiction",
-    "rating": "family"
-  },
-  {
-    "left": "Hot sauce",
-    "right": "BBQ",
-    "rating": "family"
-  },
-  {
-    "left": "Early bird",
-    "right": "Night owl",
-    "rating": "family"
-  },
-  {
-    "left": "Roller coasters",
-    "right": "Ferris wheels",
-    "rating": "family"
-  },
-  {
-    "left": "Books",
-    "right": "Movies",
-    "rating": "family"
-  },
-  {
-    "left": "Secret Santa roast",
-    "right": "Safe gift",
-    "rating": "mature"
-  },
-  {
-    "left": "Seesaws",
-    "right": "Monkey bars",
-    "rating": "family"
-  },
-  {
-    "left": "Open bar sprint",
-    "right": "Two drink max",
-    "rating": "mature"
-  },
-  {
-    "left": "Coffee",
-    "right": "Tea",
-    "rating": "family"
-  },
-  {
-    "left": "Party hats",
-    "right": "Name tags",
-    "rating": "family"
-  },
-  {
-    "left": "Open relationship talks",
-    "right": "Not tonight",
-    "rating": "mature"
-  },
-  {
-    "left": "Documentaries",
-    "right": "Nature shows",
-    "rating": "family"
-  },
-  {
-    "left": "Last night energy",
-    "right": "This morning regret",
-    "rating": "mature"
-  },
-  {
-    "left": "Confetti",
-    "right": "Streamers",
-    "rating": "family"
-  },
-  {
-    "left": "Potato sack races",
-    "right": "Egg races",
-    "rating": "family"
-  },
-  {
-    "left": "Sweet tea",
-    "right": "Lemonade",
-    "rating": "family"
-  },
-  {
-    "left": "Granola",
-    "right": "Pastries",
-    "rating": "family"
-  },
-  {
-    "left": "Bagels",
-    "right": "Croissants",
-    "rating": "family"
-  },
-  {
-    "left": "Lookouts",
-    "right": "Hidden coves",
-    "rating": "family"
-  },
-  {
-    "left": "Cabins",
-    "right": "Tents",
-    "rating": "family"
-  },
-  {
-    "left": "Lemon shake-ups",
-    "right": "Iced tea",
-    "rating": "family"
-  },
-  {
-    "left": "Clowns",
-    "right": "Jugglers",
-    "rating": "family"
-  },
-  {
-    "left": "Street musicians",
-    "right": "Buskers",
-    "rating": "family"
-  },
-  {
-    "left": "Gardening",
-    "right": "Houseplants",
-    "rating": "family"
-  },
-  {
-    "left": "Pin the tail",
-    "right": "Musical chairs",
-    "rating": "family"
-  },
-  {
-    "left": "The group chat named it",
-    "right": "It never happened",
-    "rating": "mature"
-  },
-  {
-    "left": "Water parks",
-    "right": "Splash pads",
-    "rating": "family"
-  },
-  {
-    "left": "Dance floor confession",
-    "right": "Save it for later",
-    "rating": "mature"
-  },
-  {
-    "left": "Board games",
-    "right": "Video games",
-    "rating": "family"
-  },
-  {
-    "left": "Lighthouses",
-    "right": "Piers",
+    "left": "Snow cones",
+    "right": "Ice cream bars",
     "rating": "family"
   },
   {
@@ -1455,8 +95,1633 @@
     "rating": "family"
   },
   {
-    "left": "Balloon animals",
-    "right": "Face paint",
+    "left": "Ketchup",
+    "right": "Mustard",
     "rating": "family"
+  },
+  {
+    "left": "Color-coded notes",
+    "right": "Messy notes",
+    "rating": "family"
+  },
+  {
+    "left": "Teleport anywhere instantly",
+    "right": "Fly but only 10 mph",
+    "rating": "family"
+  },
+  {
+    "left": "Popcorn",
+    "right": "Candy",
+    "rating": "family"
+  },
+  {
+    "left": "Nostalgia bait",
+    "right": "Timeless classic",
+    "rating": "family"
+  },
+  {
+    "left": "Have unlimited pizza",
+    "right": "Have unlimited tacos",
+    "rating": "family"
+  },
+  {
+    "left": "New songs",
+    "right": "Old favorites",
+    "rating": "family"
+  },
+  {
+    "left": "Live sports",
+    "right": "Recorded later",
+    "rating": "family"
+  },
+  {
+    "left": "Action figures",
+    "right": "Dolls",
+    "rating": "family"
+  },
+  {
+    "left": "Apple pie",
+    "right": "Peach cobbler",
+    "rating": "family"
+  },
+  {
+    "left": "Caramel apples",
+    "right": "Candy apples",
+    "rating": "family"
+  },
+  {
+    "left": "Date only through apps",
+    "right": "Never use an app again",
+    "rating": "mature"
+  },
+  {
+    "left": "Always catch feelings first",
+    "right": "Never catch feelings at all",
+    "rating": "mature"
+  },
+  {
+    "left": "Sunrise alarms",
+    "right": "Gentle alarms",
+    "rating": "family"
+  },
+  {
+    "left": "Weird but harmless",
+    "right": "Actually dangerous",
+    "rating": "family"
+  },
+  {
+    "left": "Trains",
+    "right": "Buses",
+    "rating": "family"
+  },
+  {
+    "left": "Street fairs",
+    "right": "Indoor markets",
+    "rating": "family"
+  },
+  {
+    "left": "Hotel key chaos",
+    "right": "Separate rooms",
+    "rating": "mature"
+  },
+  {
+    "left": "Chaos energy",
+    "right": "Calm vibes",
+    "rating": "family"
+  },
+  {
+    "left": "Trampolines",
+    "right": "Bounce houses",
+    "rating": "family"
+  },
+  {
+    "left": "Corn dogs",
+    "right": "Pretzels",
+    "rating": "family"
+  },
+  {
+    "left": "Trivia",
+    "right": "Charades",
+    "rating": "family"
+  },
+  {
+    "left": "Wedding afterparty",
+    "right": "Quiet reception",
+    "rating": "mature"
+  },
+  {
+    "left": "I spy",
+    "right": "Hide and seek",
+    "rating": "family"
+  },
+  {
+    "left": "Flake",
+    "right": "Show up anyway",
+    "rating": "mature"
+  },
+  {
+    "left": "Comedy",
+    "right": "Drama",
+    "rating": "family"
+  },
+  {
+    "left": "Tennis",
+    "right": "Golf",
+    "rating": "family"
+  },
+  {
+    "left": "have unlimited wealth",
+    "right": "have unlimited wisdom",
+    "rating": "family"
+  },
+  {
+    "left": "Tag",
+    "right": "Red rover",
+    "rating": "family"
+  },
+  {
+    "left": "Fiction",
+    "right": "Nonfiction",
+    "rating": "family"
+  },
+  {
+    "left": "Rain boots",
+    "right": "Umbrella only",
+    "rating": "family"
+  },
+  {
+    "left": "Hot weather",
+    "right": "Cold weather",
+    "rating": "family"
+  },
+  {
+    "left": "The group chat named it",
+    "right": "It never happened",
+    "rating": "mature"
+  },
+  {
+    "left": "Magic shows",
+    "right": "Puppet shows",
+    "rating": "family"
+  },
+  {
+    "left": "Puzzles",
+    "right": "Races",
+    "rating": "family"
+  },
+  {
+    "left": "House party crash",
+    "right": "Invite only",
+    "rating": "mature"
+  },
+  {
+    "left": "Capture the flag",
+    "right": "Dodgeball",
+    "rating": "family"
+  },
+  {
+    "left": "Reunion drama",
+    "right": "Small talk only",
+    "rating": "mature"
+  },
+  {
+    "left": "Know how you die",
+    "right": "Know when you die",
+    "rating": "family"
+  },
+  {
+    "left": "Public PDA",
+    "right": "Keep it private",
+    "rating": "mature"
+  },
+  {
+    "left": "Stilt walkers",
+    "right": "Living statues",
+    "rating": "family"
+  },
+  {
+    "left": "Road trip snacks",
+    "right": "Sit-down meals",
+    "rating": "family"
+  },
+  {
+    "left": "Texting",
+    "right": "Calling",
+    "rating": "family"
+  },
+  {
+    "left": "Muffins",
+    "right": "Scones",
+    "rating": "family"
+  },
+  {
+    "left": "Ferris views",
+    "right": "Carousel rides",
+    "rating": "family"
+  },
+  {
+    "left": "be the chaser",
+    "right": "the chasee",
+    "rating": "family"
+  },
+  {
+    "left": "Potato sack races",
+    "right": "Egg races",
+    "rating": "family"
+  },
+  {
+    "left": "Rabbits",
+    "right": "Guinea pigs",
+    "rating": "family"
+  },
+  {
+    "left": "Kid stuff",
+    "right": "Adult luxury",
+    "rating": "family"
+  },
+  {
+    "left": "Rideshare nap",
+    "right": "Stay awake",
+    "rating": "mature"
+  },
+  {
+    "left": "Lookouts",
+    "right": "Hidden coves",
+    "rating": "family"
+  },
+  {
+    "left": "Summer",
+    "right": "Winter",
+    "rating": "family"
+  },
+  {
+    "left": "Last call",
+    "right": "We already left",
+    "rating": "mature"
+  },
+  {
+    "left": "Coffee",
+    "right": "Tea",
+    "rating": "family"
+  },
+  {
+    "left": "Knitting",
+    "right": "Sewing",
+    "rating": "family"
+  },
+  {
+    "left": "The ex table",
+    "right": "Opposite side of the room",
+    "rating": "mature"
+  },
+  {
+    "left": "Bacon",
+    "right": "Sausage",
+    "rating": "family"
+  },
+  {
+    "left": "Marble runs",
+    "right": "Train sets",
+    "rating": "family"
+  },
+  {
+    "left": "Ice cream",
+    "right": "Frozen yogurt",
+    "rating": "family"
+  },
+  {
+    "left": "Office party",
+    "right": "Hard pass",
+    "rating": "mature"
+  },
+  {
+    "left": "Baking",
+    "right": "Grilling",
+    "rating": "family"
+  },
+  {
+    "left": "Friends know too much",
+    "right": "Plausible deniability",
+    "rating": "mature"
+  },
+  {
+    "left": "Star Wars",
+    "right": "Star Trek",
+    "rating": "family"
+  },
+  {
+    "left": "have the ability to fly",
+    "right": "be invisible",
+    "rating": "family"
+  },
+  {
+    "left": "be a stripper",
+    "right": "a pornstar",
+    "rating": "mature"
+  },
+  {
+    "left": "Relay races",
+    "right": "Tug of war",
+    "rating": "family"
+  },
+  {
+    "left": "Monopoly",
+    "right": "Uno",
+    "rating": "family"
+  },
+  {
+    "left": "Early flights",
+    "right": "Red-eyes",
+    "rating": "family"
+  },
+  {
+    "left": "Botanical gardens",
+    "right": "National parks",
+    "rating": "family"
+  },
+  {
+    "left": "Cheddar",
+    "right": "Mozzarella",
+    "rating": "family"
+  },
+  {
+    "left": "Big party",
+    "right": "Small hang",
+    "rating": "family"
+  },
+  {
+    "left": "Sweet snacks",
+    "right": "Crunchy snacks",
+    "rating": "family"
+  },
+  {
+    "left": "Baseball",
+    "right": "Football",
+    "rating": "family"
+  },
+  {
+    "left": "Pancakes",
+    "right": "Waffles",
+    "rating": "family"
+  },
+  {
+    "left": "Story time",
+    "right": "Joke time",
+    "rating": "family"
+  },
+  {
+    "left": "have a personal translator",
+    "right": "a personal chef",
+    "rating": "family"
+  },
+  {
+    "left": "Karaoke",
+    "right": "Open mic",
+    "rating": "family"
+  },
+  {
+    "left": "live in a world without art",
+    "right": "a world without science",
+    "rating": "family"
+  },
+  {
+    "left": "Snowball fights",
+    "right": "Leaf piles",
+    "rating": "family"
+  },
+  {
+    "left": "Beanbags",
+    "right": "Office chairs",
+    "rating": "family"
+  },
+  {
+    "left": "Mayo",
+    "right": "Aioli",
+    "rating": "family"
+  },
+  {
+    "left": "Paper maps",
+    "right": "GPS",
+    "rating": "family"
+  },
+  {
+    "left": "Morning person",
+    "right": "Night owl",
+    "rating": "family"
+  },
+  {
+    "left": "Too many toasts",
+    "right": "One kind speech",
+    "rating": "mature"
+  },
+  {
+    "left": "Never mute a chat",
+    "right": "Never unmute one",
+    "rating": "mature"
+  },
+  {
+    "left": "Stay over",
+    "right": "Call a car",
+    "rating": "mature"
+  },
+  {
+    "left": "Sunrise",
+    "right": "Sunset",
+    "rating": "family"
+  },
+  {
+    "left": "Stuffed animals",
+    "right": "Pillows",
+    "rating": "family"
+  },
+  {
+    "left": "Lego",
+    "right": "Puzzles",
+    "rating": "family"
+  },
+  {
+    "left": "Fuzzy socks",
+    "right": "Bare feet",
+    "rating": "family"
+  },
+  {
+    "left": "Water parks",
+    "right": "Splash pads",
+    "rating": "family"
+  },
+  {
+    "left": "Never drink coffee again",
+    "right": "Never drink tea again",
+    "rating": "family"
+  },
+  {
+    "left": "have a personal assistant",
+    "right": "a personal stylist",
+    "rating": "family"
+  },
+  {
+    "left": "Too honest",
+    "right": "Polite lie",
+    "rating": "mature"
+  },
+  {
+    "left": "Early bird",
+    "right": "Night owl",
+    "rating": "family"
+  },
+  {
+    "left": "Glow sticks",
+    "right": "Sparklers",
+    "rating": "family"
+  },
+  {
+    "left": "Spicy food",
+    "right": "Mild food",
+    "rating": "family"
+  },
+  {
+    "left": "Delivery",
+    "right": "Dine in",
+    "rating": "family"
+  },
+  {
+    "left": "Sweet",
+    "right": "Salty",
+    "rating": "family"
+  },
+  {
+    "left": "Drunk karaoke",
+    "right": "Sober singalong",
+    "rating": "mature"
+  },
+  {
+    "left": "Clue",
+    "right": "Guess Who",
+    "rating": "family"
+  },
+  {
+    "left": "Sneakers",
+    "right": "Boots",
+    "rating": "family"
+  },
+  {
+    "left": "Flash mobs",
+    "right": "Parades",
+    "rating": "family"
+  },
+  {
+    "left": "Live in the city",
+    "right": "Live in the countryside",
+    "rating": "family"
+  },
+  {
+    "left": "Tacos",
+    "right": "Burritos",
+    "rating": "family"
+  },
+  {
+    "left": "Hostels",
+    "right": "Airbnbs",
+    "rating": "family"
+  },
+  {
+    "left": "Escape rooms",
+    "right": "Scavenger hunts",
+    "rating": "family"
+  },
+  {
+    "left": "Flirt with the bartender",
+    "right": "Water please",
+    "rating": "mature"
+  },
+  {
+    "left": "Mario",
+    "right": "Zelda",
+    "rating": "family"
+  },
+  {
+    "left": "Laser tag",
+    "right": "Go-karts",
+    "rating": "family"
+  },
+  {
+    "left": "Ramen",
+    "right": "Pho",
+    "rating": "family"
+  },
+  {
+    "left": "Shot roulette",
+    "right": "One and done",
+    "rating": "mature"
+  },
+  {
+    "left": "S'mores",
+    "right": "Hot dogs",
+    "rating": "family"
+  },
+  {
+    "left": "Window seat",
+    "right": "Aisle seat",
+    "rating": "family"
+  },
+  {
+    "left": "Soup season",
+    "right": "Salad season",
+    "rating": "family"
+  },
+  {
+    "left": "Board games",
+    "right": "Video games",
+    "rating": "family"
+  },
+  {
+    "left": "Party hats",
+    "right": "Name tags",
+    "rating": "family"
+  },
+  {
+    "left": "Flashlights",
+    "right": "Lanterns",
+    "rating": "family"
+  },
+  {
+    "left": "be able to change the past",
+    "right": "know the future",
+    "rating": "family"
+  },
+  {
+    "left": "Sidewalk chalk",
+    "right": "Finger paint",
+    "rating": "family"
+  },
+  {
+    "left": "Zoos",
+    "right": "Aquariums",
+    "rating": "family"
+  },
+  {
+    "left": "Open bar",
+    "right": "Designated driver",
+    "rating": "mature"
+  },
+  {
+    "left": "Binoculars",
+    "right": "Cameras",
+    "rating": "family"
+  },
+  {
+    "left": "Scenic drives",
+    "right": "Walking loops",
+    "rating": "family"
+  },
+  {
+    "left": "Snow",
+    "right": "Sand",
+    "rating": "family"
+  },
+  {
+    "left": "Kites",
+    "right": "Frisbees",
+    "rating": "family"
+  },
+  {
+    "left": "Always be the screenshot",
+    "right": "Always be the one who leaks",
+    "rating": "mature"
+  },
+  {
+    "left": "Bubble machines",
+    "right": "Foam pits",
+    "rating": "family"
+  },
+  {
+    "left": "City",
+    "right": "Countryside",
+    "rating": "family"
+  },
+  {
+    "left": "Crunchy peanut butter",
+    "right": "Smooth",
+    "rating": "family"
+  },
+  {
+    "left": "Popcorn balls",
+    "right": "Kettle corn",
+    "rating": "family"
+  },
+  {
+    "left": "Podcasts",
+    "right": "Audiobooks",
+    "rating": "family"
+  },
+  {
+    "left": "Hookup hangover",
+    "right": "Brunch feelings",
+    "rating": "mature"
+  },
+  {
+    "left": "Soda",
+    "right": "Juice",
+    "rating": "family"
+  },
+  {
+    "left": "Painting",
+    "right": "Drawing",
+    "rating": "family"
+  },
+  {
+    "left": "RVs",
+    "right": "Motels",
+    "rating": "family"
+  },
+  {
+    "left": "Swimming",
+    "right": "Running",
+    "rating": "family"
+  },
+  {
+    "left": "Cats",
+    "right": "Dogs",
+    "rating": "family"
+  },
+  {
+    "left": "Group vacation",
+    "right": "Solo hotel",
+    "rating": "mature"
+  },
+  {
+    "left": "Ice cold",
+    "right": "Boiling hot",
+    "rating": "family"
+  },
+  {
+    "left": "Water",
+    "right": "Sparkling water",
+    "rating": "family"
+  },
+  {
+    "left": "Orchestra",
+    "right": "Garage band",
+    "rating": "family"
+  },
+  {
+    "left": "Dance",
+    "right": "Martial arts",
+    "rating": "family"
+  },
+  {
+    "left": "Sneakers",
+    "right": "Sandals",
+    "rating": "family"
+  },
+  {
+    "left": "Never again",
+    "right": "Tell me more",
+    "rating": "mature"
+  },
+  {
+    "left": "live without your smartphone",
+    "right": "without your car",
+    "rating": "family"
+  },
+  {
+    "left": "Islands",
+    "right": "Mainland",
+    "rating": "family"
+  },
+  {
+    "left": "Pottery",
+    "right": "Woodworking",
+    "rating": "family"
+  },
+  {
+    "left": "The texts exist",
+    "right": "We deleted them",
+    "rating": "mature"
+  },
+  {
+    "left": "Confetti",
+    "right": "Streamers",
+    "rating": "family"
+  },
+  {
+    "left": "Park maps",
+    "right": "Ranger talks",
+    "rating": "family"
+  },
+  {
+    "left": "Riddles",
+    "right": "Tongue twisters",
+    "rating": "family"
+  },
+  {
+    "left": "Board game cafes",
+    "right": "Home game night",
+    "rating": "family"
+  },
+  {
+    "left": "Only eat breakfast foods",
+    "right": "Only eat dinner foods",
+    "rating": "family"
+  },
+  {
+    "left": "Board game night",
+    "right": "Movie night",
+    "rating": "family"
+  },
+  {
+    "left": "Camp songs",
+    "right": "Campfire stories",
+    "rating": "family"
+  },
+  {
+    "left": "Always speak in rhyme",
+    "right": "Always speak in questions",
+    "rating": "family"
+  },
+  {
+    "left": "Granola",
+    "right": "Pastries",
+    "rating": "family"
+  },
+  {
+    "left": "The group chat knows",
+    "right": "Nobody needs to know",
+    "rating": "mature"
+  },
+  {
+    "left": "Define it tomorrow",
+    "right": "Define it now",
+    "rating": "mature"
+  },
+  {
+    "left": "have unlimited wealth",
+    "right": "unlimited wisdom",
+    "rating": "family"
+  },
+  {
+    "left": "Limbo",
+    "right": "Hula hoop",
+    "rating": "family"
+  },
+  {
+    "left": "Work trip energy",
+    "right": "Stay professional",
+    "rating": "mature"
+  },
+  {
+    "left": "Introvert",
+    "right": "Extrovert",
+    "rating": "family"
+  },
+  {
+    "left": "Dogs at parks",
+    "right": "Cats at home",
+    "rating": "family"
+  },
+  {
+    "left": "Origami",
+    "right": "Paper airplanes",
+    "rating": "family"
+  },
+  {
+    "left": "Never use social media again",
+    "right": "Never watch movies again",
+    "rating": "family"
+  },
+  {
+    "left": "Beaches",
+    "right": "Lakes",
+    "rating": "family"
+  },
+  {
+    "left": "Library",
+    "right": "Cafe",
+    "rating": "family"
+  },
+  {
+    "left": "Jenga",
+    "right": "Connect Four",
+    "rating": "family"
+  },
+  {
+    "left": "Butter",
+    "right": "Olive oil",
+    "rating": "family"
+  },
+  {
+    "left": "live without music",
+    "right": "without movies",
+    "rating": "family"
+  },
+  {
+    "left": "have a pocket-sized dragon",
+    "right": "a pet unicorn",
+    "rating": "family"
+  },
+  {
+    "left": "Blankets",
+    "right": "Hoodies",
+    "rating": "family"
+  },
+  {
+    "left": "Sticker books",
+    "right": "Coloring books",
+    "rating": "family"
+  },
+  {
+    "left": "Soup",
+    "right": "Salad",
+    "rating": "family"
+  },
+  {
+    "left": "Soccer",
+    "right": "Basketball",
+    "rating": "family"
+  },
+  {
+    "left": "Love bombing",
+    "right": "Slow burn",
+    "rating": "mature"
+  },
+  {
+    "left": "Ghosting",
+    "right": "Awkward closure",
+    "rating": "mature"
+  },
+  {
+    "left": "Plus-one surprise",
+    "right": "RSVP as listed",
+    "rating": "mature"
+  },
+  {
+    "left": "Minecraft",
+    "right": "Roblox",
+    "rating": "family"
+  },
+  {
+    "left": "Short hikes",
+    "right": "All-day trails",
+    "rating": "family"
+  },
+  {
+    "left": "Oatmeal",
+    "right": "Eggs",
+    "rating": "family"
+  },
+  {
+    "left": "Spaghetti",
+    "right": "Lasagna",
+    "rating": "family"
+  },
+  {
+    "left": "Thin crust",
+    "right": "Deep dish",
+    "rating": "family"
+  },
+  {
+    "left": "Lighthouses",
+    "right": "Piers",
+    "rating": "family"
+  },
+  {
+    "left": "Live theater",
+    "right": "Streaming",
+    "rating": "family"
+  },
+  {
+    "left": "Books",
+    "right": "Movies",
+    "rating": "family"
+  },
+  {
+    "left": "Live without music",
+    "right": "Live without TV",
+    "rating": "family"
+  },
+  {
+    "left": "Cabins",
+    "right": "Tents",
+    "rating": "family"
+  },
+  {
+    "left": "Paper calendars",
+    "right": "Phone calendars",
+    "rating": "family"
+  },
+  {
+    "left": "Card houses",
+    "right": "Domino runs",
+    "rating": "family"
+  },
+  {
+    "left": "Pepperoni",
+    "right": "Mushroom",
+    "rating": "family"
+  },
+  {
+    "left": "It's complicated",
+    "right": "It's over",
+    "rating": "mature"
+  },
+  {
+    "left": "Screenshots",
+    "right": "Trust",
+    "rating": "mature"
+  },
+  {
+    "left": "be able to talk to animals",
+    "right": "speak all human languages",
+    "rating": "family"
+  },
+  {
+    "left": "be a famous singer",
+    "right": "a world-class dancer",
+    "rating": "family"
+  },
+  {
+    "left": "Smoothies",
+    "right": "Milk",
+    "rating": "family"
+  },
+  {
+    "left": "Pokemon",
+    "right": "Digimon",
+    "rating": "family"
+  },
+  {
+    "left": "One night",
+    "right": "A whole weekend",
+    "rating": "mature"
+  },
+  {
+    "left": "never have to sleep again",
+    "right": "never have to eat again",
+    "rating": "family"
+  },
+  {
+    "left": "Fight one horse-sized duck",
+    "right": "Fight 100 duck-sized horses",
+    "rating": "family"
+  },
+  {
+    "left": "Sandcastles",
+    "right": "Snowmen",
+    "rating": "family"
+  },
+  {
+    "left": "To-do lists",
+    "right": "Memory",
+    "rating": "family"
+  },
+  {
+    "left": "Fort building",
+    "right": "Pillow forts",
+    "rating": "family"
+  },
+  {
+    "left": "Cereal",
+    "right": "Toast",
+    "rating": "family"
+  },
+  {
+    "left": "be a famous actor/actress",
+    "right": "a renowned athlete",
+    "rating": "family"
+  },
+  {
+    "left": "Cheap and cheerful",
+    "right": "Worth every penny",
+    "rating": "family"
+  },
+  {
+    "left": "have the power to read minds",
+    "right": "to see into the future",
+    "rating": "family"
+  },
+  {
+    "left": "Group trip",
+    "right": "Solo trip",
+    "rating": "family"
+  },
+  {
+    "left": "Handmade gifts",
+    "right": "Store-bought",
+    "rating": "family"
+  },
+  {
+    "left": "Bikes",
+    "right": "Scooters",
+    "rating": "family"
+  },
+  {
+    "left": "Mac and cheese",
+    "right": "Grilled cheese",
+    "rating": "family"
+  },
+  {
+    "left": "Fries",
+    "right": "Onion rings",
+    "rating": "family"
+  },
+  {
+    "left": "Yoga",
+    "right": "Weights",
+    "rating": "family"
+  },
+  {
+    "left": "Hash browns",
+    "right": "Home fries",
+    "rating": "family"
+  },
+  {
+    "left": "Last night energy",
+    "right": "This morning regret",
+    "rating": "mature"
+  },
+  {
+    "left": "Planetariums",
+    "right": "Observatories",
+    "rating": "family"
+  },
+  {
+    "left": "Yogurt",
+    "right": "Cottage cheese",
+    "rating": "family"
+  },
+  {
+    "left": "Choir",
+    "right": "Garage band",
+    "rating": "family"
+  },
+  {
+    "left": "have a personal chauffeur",
+    "right": "a personal masseuse",
+    "rating": "family"
+  },
+  {
+    "left": "Horses",
+    "right": "Ponies",
+    "rating": "family"
+  },
+  {
+    "left": "Deserts",
+    "right": "Forests",
+    "rating": "family"
+  },
+  {
+    "left": "Meal prep",
+    "right": "Daily cooking",
+    "rating": "family"
+  },
+  {
+    "left": "Vinyl",
+    "right": "Playlists",
+    "rating": "family"
+  },
+  {
+    "left": "Team sports",
+    "right": "Solo sports",
+    "rating": "family"
+  },
+  {
+    "left": "Desk lamps",
+    "right": "Overhead lights",
+    "rating": "family"
+  },
+  {
+    "left": "Venmo the tab",
+    "right": "Forget you paid",
+    "rating": "mature"
+  },
+  {
+    "left": "Visitor centers",
+    "right": "Overlooks",
+    "rating": "family"
+  },
+  {
+    "left": "Marvel",
+    "right": "DC",
+    "rating": "family"
+  },
+  {
+    "left": "Backyard",
+    "right": "Front porch",
+    "rating": "family"
+  },
+  {
+    "left": "Pixar",
+    "right": "Ghibli",
+    "rating": "family"
+  },
+  {
+    "left": "Floor picnics",
+    "right": "Dining table",
+    "rating": "family"
+  },
+  {
+    "left": "Loud music",
+    "right": "Quiet night",
+    "rating": "family"
+  },
+  {
+    "left": "Rain",
+    "right": "Sunshine",
+    "rating": "family"
+  },
+  {
+    "left": "Lemon shake-ups",
+    "right": "Iced tea",
+    "rating": "family"
+  },
+  {
+    "left": "Cotton candy",
+    "right": "Funnel cake",
+    "rating": "family"
+  },
+  {
+    "left": "Diners",
+    "right": "Fancy restaurants",
+    "rating": "family"
+  },
+  {
+    "left": "live without music",
+    "right": "without books",
+    "rating": "family"
+  },
+  {
+    "left": "Roast",
+    "right": "Toast",
+    "rating": "mature"
+  },
+  {
+    "left": "Farmers market",
+    "right": "Supermarket",
+    "rating": "family"
+  },
+  {
+    "left": "Friends with benefits",
+    "right": "Catching feelings",
+    "rating": "mature"
+  },
+  {
+    "left": "Lose all photos",
+    "right": "Lose all contacts",
+    "rating": "family"
+  },
+  {
+    "left": "One more round",
+    "right": "Call the ride",
+    "rating": "mature"
+  },
+  {
+    "left": "Too spicy",
+    "right": "Keep it PG",
+    "rating": "mature"
+  },
+  {
+    "left": "Open bar sprint",
+    "right": "Two drink max",
+    "rating": "mature"
+  },
+  {
+    "left": "Canteens",
+    "right": "Water bottles",
+    "rating": "family"
+  },
+  {
+    "left": "Open relationship talks",
+    "right": "Not tonight",
+    "rating": "mature"
+  },
+  {
+    "left": "Food trucks",
+    "right": "Sit down",
+    "rating": "family"
+  },
+  {
+    "left": "Carnivals",
+    "right": "County fairs",
+    "rating": "family"
+  },
+  {
+    "left": "No labels",
+    "right": "Need a label",
+    "rating": "mature"
+  },
+  {
+    "left": "Secret Santa roast",
+    "right": "Safe gift",
+    "rating": "mature"
+  },
+  {
+    "left": "Keep every ex as a friend",
+    "right": "Never speak to an ex again",
+    "rating": "mature"
+  },
+  {
+    "left": "Birds",
+    "right": "Fish",
+    "rating": "family"
+  },
+  {
+    "left": "Climbing walls",
+    "right": "Rope ladders",
+    "rating": "family"
+  },
+  {
+    "left": "Loud concerts",
+    "right": "Headphones at home",
+    "rating": "family"
+  },
+  {
+    "left": "Street musicians",
+    "right": "Buskers",
+    "rating": "family"
+  },
+  {
+    "left": "Dance floor confession",
+    "right": "Save it for later",
+    "rating": "mature"
+  },
+  {
+    "left": "Field guides",
+    "right": "Phone apps",
+    "rating": "family"
+  },
+  {
+    "left": "be famous for something good",
+    "right": "infamous for something bad",
+    "rating": "family"
+  },
+  {
+    "left": "Milkshakes",
+    "right": "Floats",
+    "rating": "family"
+  },
+  {
+    "left": "Minibar raid",
+    "right": "Leave it sealed",
+    "rating": "mature"
+  },
+  {
+    "left": "Always be 10 minutes late",
+    "right": "Always be 20 minutes early",
+    "rating": "family"
+  },
+  {
+    "left": "Parades",
+    "right": "Fireworks",
+    "rating": "family"
+  },
+  {
+    "left": "Arcades",
+    "right": "Carnivals",
+    "rating": "family"
+  },
+  {
+    "left": "Compasses",
+    "right": "Trail markers",
+    "rating": "family"
+  },
+  {
+    "left": "Camping",
+    "right": "Hotels",
+    "rating": "family"
+  },
+  {
+    "left": "The ex still follows",
+    "right": "Clean unfollow",
+    "rating": "mature"
+  },
+  {
+    "left": "Bagels",
+    "right": "Croissants",
+    "rating": "family"
+  },
+  {
+    "left": "Never tell them",
+    "right": "They already know",
+    "rating": "mature"
+  },
+  {
+    "left": "Burgers",
+    "right": "Sandwiches",
+    "rating": "family"
+  },
+  {
+    "left": "Always send the drunk text",
+    "right": "Never text after 10pm",
+    "rating": "mature"
+  },
+  {
+    "left": "Documentaries",
+    "right": "Nature shows",
+    "rating": "family"
+  },
+  {
+    "left": "Water balloons",
+    "right": "Sprinklers",
+    "rating": "family"
+  },
+  {
+    "left": "Trail mix",
+    "right": "Granola bars",
+    "rating": "family"
+  },
+  {
+    "left": "Dogs",
+    "right": "Hamsters",
+    "rating": "family"
+  },
+  {
+    "left": "Mini golf",
+    "right": "Bowling",
+    "rating": "family"
+  },
+  {
+    "left": "Honey",
+    "right": "Jam",
+    "rating": "family"
+  },
+  {
+    "left": "Catan",
+    "right": "Ticket to Ride",
+    "rating": "family"
+  },
+  {
+    "left": "Sweet breakfast",
+    "right": "Savory breakfast",
+    "rating": "family"
+  },
+  {
+    "left": "Speak every language",
+    "right": "Talk to animals",
+    "rating": "family"
+  },
+  {
+    "left": "have a personal chef",
+    "right": "a personal trainer",
+    "rating": "family"
+  },
+  {
+    "left": "live without your smartphone",
+    "right": "without your computer/laptop",
+    "rating": "family"
+  },
+  {
+    "left": "Sweet tea",
+    "right": "Lemonade",
+    "rating": "family"
+  },
+  {
+    "left": "Afterparty",
+    "right": "Early night",
+    "rating": "mature"
+  },
+  {
+    "left": "Clowns",
+    "right": "Jugglers",
+    "rating": "family"
+  },
+  {
+    "left": "Mad Libs",
+    "right": "Pictionary",
+    "rating": "family"
+  },
+  {
+    "left": "Skateboards",
+    "right": "Rollerblades",
+    "rating": "family"
+  },
+  {
+    "left": "Planner",
+    "right": "Improviser",
+    "rating": "family"
+  },
+  {
+    "left": "Regret tomorrow",
+    "right": "Story forever",
+    "rating": "mature"
+  },
+  {
+    "left": "Sitcoms",
+    "right": "Cartoons",
+    "rating": "family"
+  },
+  {
+    "left": "Sunday crossword",
+    "right": "Sunday nap",
+    "rating": "family"
+  },
+  {
+    "left": "Science museums",
+    "right": "Art museums",
+    "rating": "family"
+  },
+  {
+    "left": "Beach",
+    "right": "Mountains",
+    "rating": "family"
+  },
+  {
+    "left": "Roller coasters",
+    "right": "Ferris wheels",
+    "rating": "family"
+  },
+  {
+    "left": "Situationship",
+    "right": "Define the relationship",
+    "rating": "mature"
+  },
+  {
+    "left": "Chess",
+    "right": "Checkers",
+    "rating": "family"
+  },
+  {
+    "left": "Cake",
+    "right": "Pie",
+    "rating": "family"
+  },
+  {
+    "left": "Ice skating",
+    "right": "Sledding",
+    "rating": "family"
+  },
+  {
+    "left": "Hot sauce",
+    "right": "BBQ",
+    "rating": "family"
+  },
+  {
+    "left": "Chocolate",
+    "right": "Vanilla",
+    "rating": "family"
+  },
+  {
+    "left": "Overshare",
+    "right": "Keep it cute",
+    "rating": "mature"
+  },
+  {
+    "left": "have the ability to teleport",
+    "right": "the ability to time travel",
+    "rating": "family"
+  },
+  {
+    "left": "Leftovers",
+    "right": "Cook fresh",
+    "rating": "family"
+  },
+  {
+    "left": "only have phone sex",
+    "right": "never have any sex",
+    "rating": "mature"
+  },
+  {
+    "left": "be a nudist",
+    "right": "be a nevernude",
+    "rating": "mature"
+  },
+  {
+    "left": "watch someone have sex",
+    "right": "be watched having sex",
+    "rating": "mature"
+  },
+  {
+    "left": "have sex while drunk",
+    "right": "have sex while hungover",
+    "rating": "mature"
+  },
+  {
+    "left": "be stoned to death",
+    "right": "be grounded",
+    "rating": "mature"
+  },
+  {
+    "left": "read erotica",
+    "right": "watch porn",
+    "rating": "mature"
+  },
+  {
+    "left": "have vaginal sex",
+    "right": "anal sex",
+    "rating": "mature"
+  },
+  {
+    "left": "be a good kisser",
+    "right": "be good in bed",
+    "rating": "mature"
+  },
+  {
+    "left": "have sex with your first ex",
+    "right": "with your last one",
+    "rating": "mature"
+  },
+  {
+    "left": "be an escort",
+    "right": "a pornstar",
+    "rating": "mature"
+  },
+  {
+    "left": "cuddle",
+    "right": "make out",
+    "rating": "mature"
+  },
+  {
+    "left": "have 1 minute of amazing sex",
+    "right": "10 minutes of average sex",
+    "rating": "mature"
+  },
+  {
+    "left": "get high",
+    "right": "get drunk",
+    "rating": "mature"
+  },
+  {
+    "left": "have a one night stand",
+    "right": "have a friend with benefits",
+    "rating": "mature"
+  },
+  {
+    "left": "make out",
+    "right": "have sex",
+    "rating": "mature"
+  },
+  {
+    "left": "have sex in the shower",
+    "right": "in the bathtub",
+    "rating": "mature"
+  },
+  {
+    "left": "only have sex in the shower",
+    "right": "only have sex on the floor",
+    "rating": "mature"
+  },
+  {
+    "left": "have your partner trim",
+    "right": "shave their pubes",
+    "rating": "mature"
+  },
+  {
+    "left": "only have sex doggystyle",
+    "right": "missionary",
+    "rating": "mature"
+  },
+  {
+    "left": "have sex in daylight",
+    "right": "with all the lights off",
+    "rating": "mature"
+  },
+  {
+    "left": "lose your sex organs forever",
+    "right": "lose half your teeth forever",
+    "rating": "mature"
+  },
+  {
+    "left": "cuddle post-sex",
+    "right": "jump in the shower",
+    "rating": "mature"
   }
 ]

@@ -100,7 +100,60 @@ export function isQuestionForm(text: string): boolean {
   );
 }
 
-/** Fibbage truths must read like answers/lies, not trivia questions. */
+const GENERATED_ROLE_PREFIX =
+  /^(Chaotic|Sleepy|Legendary|Tiny|Dramatic|Sneaky|Overcaffeinated|Unbothered|Sparkly|Grumpy|Heroic|Clumsy|Wise|Loud|Mysterious|Sunny|Feral|Fancy|Retro|Cosmic|Cozy|Spicy|Chill|Bold|Shy|Lucky|Cursed|Golden|Silver|Neon)\s/;
+
+/** Combinatorial filler from generateFactCheckFamilyPairs — not real facts. */
+export function looksLikeGeneratedFactCheckTruth(truth: string): boolean {
+  const t = truth.trim();
+  const lower = t.toLowerCase();
+  if (/,\s*but make it\s/i.test(t)) return true;
+  if (/\bwith extra\b/i.test(t)) return true;
+  if (/^Worst thing:/i.test(t)) return true;
+  if (/\(\d{1,2}\)$/.test(t)) return true;
+  if (FACT_CHECK_TRUTH_BITS.some((b) => lower === b)) return true;
+  const bitHits = FACT_CHECK_TRUTH_BITS.filter((b) => lower.includes(b)).length;
+  if (bitHits >= 2) return true;
+  return false;
+}
+
+export function looksLikeConvertedNhieFactCheck(prompt: string): boolean {
+  return /^(The worst thing about this is|A confession nobody asked for|Something I've done that I can't take back is|The story that still haunts the group chat is)/i.test(
+    prompt.trim(),
+  );
+}
+
+/** Template mash from expand-thin-pools crowd-call stems + recycled choice sets. */
+export function looksLikeTemplateCrowdCall(text: string, choices: string[]): boolean {
+  if (/ in this room\?$/i.test(text)) return true;
+  if (/^Who here is most into /i.test(text)) return true;
+  if (/^Ideal vibe for /i.test(text)) return true;
+  if (/^Go-to move for /i.test(text)) return true;
+  const blob = choices.join("|").toLowerCase();
+  const recycled = [
+    "always|sometimes|rarely|never",
+    "cheap|splurge|split the bill|whoever offers",
+    "quiet|loud|in between|depends",
+    "plan it|wing it|ask the group|flip a coin",
+  ];
+  if (recycled.some((p) => blob === p) && /^(Best |Ideal |Go-to |Who here )/i.test(text)) {
+    return true;
+  }
+  return false;
+}
+
+export function looksLikeGeneratedFriendSortRole(name: string): boolean {
+  return GENERATED_ROLE_PREFIX.test(name.trim());
+}
+
+export function looksLikePlaygroundSpectrumPole(left: string, right: string): boolean {
+  return /^(Wagons|Strollers|Training wheels|Push bikes|Seesaws|Monkey bars|Slip n slide|Kiddie pools|Sandbox|Mud kitchen|Hopscotch|Pin the tail|Musical chairs|Treehouses|Playhouses|Swing sets|Helmets|Knee pads|Balance bikes|Goodie bags|Face paint|Balloon animals)$/i.test(
+    left,
+  ) || /^(Wagons|Strollers|Training wheels|Push bikes|Seesaws|Monkey bars|Slip n slide|Kiddie pools|Sandbox|Mud kitchen|Hopscotch|Pin the tail|Musical chairs|Treehouses|Playhouses|Swing sets|Helmets|Knee pads|Balance bikes|Goodie bags|Face paint|Balloon animals)$/i.test(
+    right,
+  );
+}
+
 export function isFactCheckTruthValid(prompt: string, truth: string): boolean {
   const p = prompt.trim();
   const t = truth.trim();
@@ -244,6 +297,7 @@ export function buildReverseFactsFromQuiz(
     const answer = row.choices[row.correct]?.trim();
     const question = row.question.trim();
     if (!answer || !question || answer.length < 2 || answer.length > 80) continue;
+    if (/\.\s*$/.test(question)) continue;
     if (question.toLowerCase().includes(answer.toLowerCase())) continue;
 
     const fact = answer.endsWith(".") ? answer : answer;
@@ -289,7 +343,7 @@ export function scoreDataset<T>(
   return { accepted, rejected, rejectRate };
 }
 
-const FACT_CHECK_PROMPTS = [
+export const FACT_CHECK_PROMPTS = [
   "The world's worst superpower would be...",
   "A terrible name for a pet would be...",
   "The worst thing to hear your gym teacher say is...",
@@ -322,7 +376,7 @@ const FACT_CHECK_PROMPTS = [
   "A horrible name for a metal band is...",
 ];
 
-const FACT_CHECK_TRUTH_BITS = [
+export const FACT_CHECK_TRUTH_BITS = [
   "existential dread",
   "moist congress",
   "aggressive politeness",

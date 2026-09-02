@@ -18,6 +18,7 @@ export const crowdCallGame: GameModule<CrowdState> = {
     minPlayers: 3,
     maxPlayers: 16,
     category: "party",
+    supportsMatureContent: true,
   },
   init(ctx) {
     return createCrowdState(crowdCallPool(ctx.gameOptions), ctx.playerIds, 4);

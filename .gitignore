@@ -1,5 +1,6 @@
 node_modules
 dist
+scripts/.cache
 .partykit
 .wrangler
 test-results

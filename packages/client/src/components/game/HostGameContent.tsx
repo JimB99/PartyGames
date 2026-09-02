@@ -48,7 +48,10 @@ export function HostGameView({
           <div className="flex flex-wrap items-center gap-3">
             <h2 className="text-3xl font-black">{gameName}</h2>
             {room.activeGameOptions?.contentRating === "mature" && (
-              <span className="rounded-full bg-red-600/90 px-3 py-1 text-sm font-bold uppercase tracking-wide">
+              <span
+                data-testid="content-rating-badge"
+                className="rounded-full bg-red-600/90 px-3 py-1 text-sm font-bold uppercase tracking-wide"
+              >
                 18+
               </span>
             )}
@@ -142,7 +145,7 @@ export function HostGameView({
           {data.targetName && (
             <p className="mb-4 text-xl font-bold text-amber-300">{String(data.targetName)} is in the hot seat</p>
           )}
-          <p className="text-3xl font-bold">{String(data.displayText ?? data.prompt ?? data.question ?? data.event ?? data.category ?? "")}</p>
+          <p className="text-3xl font-bold" data-testid="host-prompt-text">{String(data.displayText ?? data.prompt ?? data.question ?? data.event ?? data.category ?? "")}</p>
           {data.choices && !data.hideChoicesOnTv && (
             <div className="mt-6 grid gap-2 sm:grid-cols-2">
               {(data.choices as string[]).map((c, i) => (

@@ -188,11 +188,11 @@ function auditFile(path: string, statsOut: PoolStats[]): AuditIssue[] {
       message: `Family split has ${family} entries (min ${MIN_FAMILY})`,
     });
   }
-  if (mature < MIN_MATURE && entries.length >= MIN_POOL_SIZE && !isDictionary && !matureExtra) {
+  if (mature < MIN_MATURE && !isDictionary && !matureExtra) {
     issues.push({
-      severity: "warning",
+      severity: thinSeverity,
       file: path,
-      message: `Mature split has ${mature} entries (target ${MIN_MATURE}+ when pool is large)`,
+      message: `Mature split has ${mature} entries (min ${MIN_MATURE} for 18+-only rooms)`,
     });
   }
 
@@ -220,7 +220,7 @@ function main() {
 
   console.log("Content inventory (family / mature / total)");
   for (const s of stats.sort((a, b) => a.file.localeCompare(b.file))) {
-    const flag = s.total < MIN_POOL_SIZE || s.family < MIN_FAMILY ? " THIN" : "";
+    const flag = s.total < MIN_POOL_SIZE || s.family < MIN_FAMILY || s.mature < MIN_MATURE ? " THIN" : "";
     console.log(`  ${s.file}: family=${s.family} mature=${s.mature} total=${s.total}${flag}`);
   }
 

@@ -110,17 +110,15 @@ function itemRating(item: ContentMeta): ContentRating {
 }
 
 export function filterContentPool<T extends ContentMeta>(items: T[], options: GameOptions): T[] {
-  let pool =
-    options.contentRating === "mature"
-      ? items.filter((i) => itemRating(i) === "family" || itemRating(i) === "mature")
-      : items.filter((i) => itemRating(i) === "family");
+  const want = options.contentRating;
+  let pool = items.filter((i) => itemRating(i) === want);
 
   if (options.difficulty !== "mixed") {
     const byDifficulty = pool.filter((i) => !i.difficulty || i.difficulty === options.difficulty);
     if (byDifficulty.length > 0) pool = byDifficulty;
   }
 
-  return pool.length > 0 ? pool : items;
+  return pool;
 }
 
 export function filterWordList(entries: WordEntry[], options: GameOptions): string[] {

@@ -11,12 +11,11 @@ import {
   diversifyNhieStatement,
   duplicateTruthRate,
   filterRepetitiveTruths,
-  generateFactCheckFamilyPairs,
   isFactCheckTruthValid,
+  looksLikeGeneratedFactCheckTruth,
+  looksLikeConvertedNhieFactCheck,
   isPlaceholderTruth,
-  isQuestionForm,
   isReverseFactTrivial,
-  matureTruthToFactCheckPair,
   MIN_CONTENT_POOL_SIZE,
   orderedSequenceRatio,
   rebalanceWitShowdownPrefixes,
@@ -621,6 +620,8 @@ async function main() {
       const prompt = row.prompt.trim();
 
       if (!isFactCheckTruthValid(prompt, truth)) continue;
+      if (looksLikeGeneratedFactCheckTruth(truth)) continue;
+      if (looksLikeConvertedNhieFactCheck(prompt)) continue;
       if (truth.length > 90) continue;
 
       if (isPlaceholderTruth(truth)) {
@@ -674,38 +675,15 @@ async function main() {
   migratePrompts("prompts/caption.json");
   migratePrompts("prompts/hot-seat.json");
 
-  function extendFactCheckFromWitShowdown(
-    factCheck: Array<{ prompt: string; truth: string; rating: Rating; difficulty: Difficulty }>,
-  ) {
-    const wit-showdown = readJson<Array<{ text: string; rating?: Rating }>>("prompts/wit-showdown.json");
-    const seen = new Set(fact-check.map((f) => f.truth.toLowerCase()));
-    const out = [...fact-check];
-    for (const row of wit-showdown) {
-      if (row.rating !== "mature") continue;
-      if (isQuestionForm(row.text) || row.text.length > 90) continue;
-      const pair = matureTruthToFactCheckPair(row.text);
-      if (!pair || !isFactCheckTruthValid(pair.prompt, pair.truth)) continue;
-      if (seen.has(pair.truth.toLowerCase()) || isPlaceholderTruth(pair.truth)) continue;
-      seen.add(pair.truth.toLowerCase());
-      out.push({
-        prompt: pair.prompt,
-        truth: pair.truth,
-        rating: "mature",
-        difficulty: "medium",
-      });
-    }
-    return out;
-  }
-
   function finalizeFactCheckPool(
     rows: Array<{ prompt?: string; truth: string; rating?: Rating; difficulty?: Difficulty }>,
   ) {
     let pool = cleanFactCheckPool(rows);
     if (pool.length < MIN_CONTENT_POOL_SIZE) {
-      const needed = MIN_CONTENT_POOL_SIZE - pool.length + 20;
-      pool = cleanFactCheckPool([...pool, ...generateFactCheckFamilyPairs(needed)]);
+      console.warn(
+        `  fact-check pool ${pool.length} below minimum ${MIN_CONTENT_POOL_SIZE} (not filling with generated facts)`,
+      );
     }
-    pool = extendFactCheckFromWitShowdown(pool);
     pool = cleanFactCheckPool(pool);
     if (pool.length < MIN_CONTENT_POOL_SIZE) {
       console.warn(`  fact-check pool ${pool.length} below minimum ${MIN_CONTENT_POOL_SIZE}`);
@@ -915,25 +893,14 @@ async function main() {
   );
   const fact-checkExtended = [
     ...currentFibbage
-      .filter((row) => row.prompt && isFactCheckTruthValid(row.prompt, row.truth))
+      .filter((row) => row.prompt && isFactCheckTruthValid(row.prompt, row.truth) && !looksLikeGeneratedFactCheckTruth(row.truth))
       .map((row, i) => ({
         prompt: row.prompt!,
         truth: row.truth,
         rating: row.rating ?? "family",
         difficulty: row.difficulty ?? ((i % 2 === 0 ? "easy" : "medium") as Difficulty),
       })),
-    ...matureTruths
-      .map((t) => {
-        const pair = matureTruthToFactCheckPair(t.text);
-        if (!pair || !isFactCheckTruthValid(pair.prompt, pair.truth)) return null;
-        return {
-          prompt: pair.prompt,
-          truth: pair.truth,
-          rating: "mature" as Rating,
-          difficulty: "medium" as Difficulty,
-        };
-      })
-      .filter(Boolean) as Array<{ prompt: string; truth: string; rating: Rating; difficulty: Difficulty }>,
+
   ];
   writeJson("prompts/fact-check.json", finalizeFactCheckPool(fact-checkExtended));
 

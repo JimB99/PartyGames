@@ -81,13 +81,15 @@ export function crowdCallPool(options: GameOptions) {
 }
 
 export function impostorPool(options: GameOptions): ImpostorCategory[] {
-  const packs =
+  const packs = content.impostor.filter((c) =>
     options.contentRating === "mature"
-      ? content.impostor
-      : content.impostor.filter((c) => (c.rating ?? "family") !== "mature");
+      ? (c.rating ?? "family") === "mature"
+      : (c.rating ?? "family") !== "mature",
+  );
   const cat = options.impostorCategory ?? "all";
   if (cat === "all" || cat === "random") return packs;
-  return packs.filter((c) => c.id === cat);
+  const narrowed = packs.filter((c) => c.id === cat);
+  return narrowed.length > 0 ? narrowed : packs;
 }
 
 export function friendSortPool(options: GameOptions): string[] {
@@ -111,6 +113,11 @@ export function starRatePool(options: GameOptions) {
 }
 
 export function agentGridWordPool(options: GameOptions): string[] {
+  if (options.contentRating === "mature") {
+    return filterWordList(content.drawWords, options).filter(
+      (w) => w.length >= 4 && w.length <= 12 && /^[a-z ]+$/i.test(w),
+    );
+  }
   const common = [...content.dictionary].filter(
     (w) =>
       w.length >= 4 &&
@@ -126,6 +133,11 @@ export function agentGridWordPool(options: GameOptions): string[] {
 }
 
 export function hangmanWordPool(options: GameOptions): string[] {
+  if (options.contentRating === "mature") {
+    return filterWordList(content.drawWords, options).filter(
+      (w) => w.length >= 5 && w.length <= 14 && !w.includes(" "),
+    );
+  }
   const bounds: Record<Difficulty, { min: number; max: number }> = {
     easy: { min: 5, max: 7 },
     medium: { min: 6, max: 9 },

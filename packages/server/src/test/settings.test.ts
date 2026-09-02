@@ -20,6 +20,12 @@ import {
   wouldYouRatherPool,
   friendSortPool,
   impostorPool,
+  crowdCallPool,
+  spectrumPool,
+  hangmanWordPool,
+  agentGridWordPool,
+  forbiddenCluePool,
+  splitRoomPool,
 } from "../content-pool.js";
 import { getGame } from "../registry.js";
 import { makeRoomContext, runUntilEnded } from "./harness.js";
@@ -38,6 +44,12 @@ const POOL_GETTERS: Partial<Record<string, (opts: GameOptions) => unknown[]>> = 
   "caption-this": (o) => captionPool(o).map((t) => t),
   "role-sort": (o) => friendSortPool(o),
   impostor: (o) => impostorPool(o).flatMap((p) => p.items),
+  "crowd-call": crowdCallPool,
+  spectrum: spectrumPool,
+  "hangman-race": (o) => [...hangmanWordPool(o)],
+  "agent-grid": (o) => [...agentGridWordPool(o)],
+  "forbidden-clue": forbiddenCluePool,
+  "split-the-room": splitRoomPool,
 };
 
 describe("settings matrix", () => {
@@ -109,7 +121,18 @@ describe("settings matrix", () => {
   it("family and mature fact-check pools differ in size", () => {
     const family = factCheckPool({ ...DEFAULT_GAME_OPTIONS, contentRating: "family" });
     const mature = factCheckPool({ ...DEFAULT_GAME_OPTIONS, contentRating: "mature" });
-    assert.ok(mature.length > family.length);
+    assert.ok(mature.length >= 50, `fact-check mature pool too small: ${mature.length}`);
+    assert.ok(mature.every((row) => row.rating === "mature"));
+    assert.ok(family.every((row) => (row.rating ?? "family") === "family"));
+  });
+
+  it("18+ impostor packs exclude family categories", () => {
+    const family = impostorPool({ ...DEFAULT_GAME_OPTIONS, contentRating: "family" });
+    const mature = impostorPool({ ...DEFAULT_GAME_OPTIONS, contentRating: "mature" });
+    assert.ok(mature.length >= 2, `impostor mature packs too few: ${mature.length}`);
+    assert.ok(mature.every((pack) => pack.rating === "mature"));
+    assert.ok(family.every((pack) => (pack.rating ?? "family") === "family"));
+    assert.ok(mature.flatMap((pack) => pack.items).length >= 50);
   });
 
   it("trail-dash min: 1 human + 1 bot initializes", () => {

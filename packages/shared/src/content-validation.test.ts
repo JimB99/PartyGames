@@ -24,6 +24,10 @@ import {
   isPlaceholderTruth,
   isQuestionForm,
   isReverseFactTrivial,
+  looksLikeConvertedNhieFactCheck,
+  looksLikeGeneratedFactCheckTruth,
+  looksLikeGeneratedFriendSortRole,
+  looksLikeTemplateCrowdCall,
   MIN_CONTENT_POOL_SIZE,
   orderedSequenceRatio,
   reverseFactTrivialityScore,
@@ -231,15 +235,20 @@ describe("content validation", () => {
 
     const factCheckFamily = filterContentPool(loadJson<FactCheckEntry[]>("prompts/fact-check.json"), familyOpts);
     const factCheckMature = filterContentPool(loadJson<FactCheckEntry[]>("prompts/fact-check.json"), matureOpts);
-    assert.ok(factCheckMature.length > factCheckFamily.length, "fact-check mature pool should be larger than family");
+    assert.ok(factCheckMature.every((i) => i.rating === "mature"), "18+ fact-check must be mature-only");
+    assert.ok(factCheckFamily.every((i) => (i.rating ?? "family") === "family"));
+    assert.ok(factCheckMature.length >= 50, `fact-check mature pool too small: ${factCheckMature.length}`);
+    assert.notEqual(factCheckMature.length, factCheckFamily.length);
 
     const quizFamily = filterContentPool(loadJson<QuizEntry[]>("trivia/quiz.json"), familyOpts);
     const quizMature = filterContentPool(loadJson<QuizEntry[]>("trivia/quiz.json"), matureOpts);
-    assert.ok(quizMature.length >= quizFamily.length);
-    assert.ok(
-      quizMature.length > quizFamily.length || quizFamily.every((q) => q.rating !== "mature"),
-      "quiz mature pool should differ when mature entries exist",
-    );
+    assert.ok(quizMature.every((q) => q.rating === "mature"), "18+ quiz must be mature-only");
+    assert.ok(quizFamily.every((q) => (q.rating ?? "family") === "family"));
+    assert.ok(quizMature.length >= 50, `quiz mature pool too small: ${quizMature.length}`);
+
+    const reverseMature = filterContentPool(loadJson<FactCheckEntry[]>("prompts/reverse-fact.json"), matureOpts);
+    assert.ok(reverseMature.every((i) => i.rating === "mature"), "18+ reverse-fact must be mature-only");
+    assert.ok(reverseMature.length >= 50, `reverse-fact mature pool too small: ${reverseMature.length}`);
   });
 
   it("mature charades pool has enough entries after filters", () => {
@@ -273,6 +282,25 @@ describe("content validation", () => {
         assert.ok(!item.truth.endsWith(".?"), `malformed truth: ${item.truth}`);
         assert.ok(!/\.\.+\?$/.test(item.truth), `malformed truth: ${item.truth}`);
       }
+    }
+  });
+
+  it("rejects generated filler that slipped into production pools", () => {
+    const facts = loadJson<FactCheckEntry[]>("prompts/fact-check.json");
+    for (const item of facts) {
+      assert.ok(!looksLikeGeneratedFactCheckTruth(item.truth), `generated fact-check truth: ${item.truth}`);
+      assert.ok(!looksLikeConvertedNhieFactCheck(item.prompt ?? ""), `converted NHIE prompt: ${item.prompt}`);
+    }
+    const crowd = loadJson<Array<{ text: string; choices: string[] }>>("prompts/crowd-call.json");
+    for (const item of crowd) {
+      assert.ok(
+        !looksLikeTemplateCrowdCall(item.text, item.choices),
+        `template crowd-call: ${item.text}`,
+      );
+    }
+    const roles = loadJson<CategoryEntry[]>("categories/friend-sort-roles.json");
+    for (const item of roles) {
+      assert.ok(!looksLikeGeneratedFriendSortRole(item.name), `generated role: ${item.name}`);
     }
   });
 });

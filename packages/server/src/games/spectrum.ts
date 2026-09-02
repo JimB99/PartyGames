@@ -18,6 +18,7 @@ export const spectrumGame: GameModule<SpectrumState> = {
     minPlayers: 3,
     maxPlayers: 12,
     category: "social",
+    supportsMatureContent: true,
     roundScoresAreCumulative: true,
   },
   init(ctx) {

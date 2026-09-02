@@ -16,9 +16,10 @@ describe("filterContentPool", () => {
     assert.ok(pool.every((i) => (i.rating ?? "family") === "family"));
   });
 
-  it("mature mode includes family and mature", () => {
+  it("mature mode excludes family", () => {
     const pool = filterContentPool(items, { ...DEFAULT_GAME_OPTIONS, contentRating: "mature" });
-    assert.equal(pool.length, 4);
+    assert.equal(pool.length, 2);
+    assert.ok(pool.every((i) => i.rating === "mature"));
   });
 
   it("difficulty filter narrows when matches exist", () => {
@@ -26,7 +27,8 @@ describe("filterContentPool", () => {
       contentRating: "mature",
       difficulty: "easy",
     });
-    assert.equal(pool.length, 2);
+    assert.equal(pool.length, 1);
+    assert.ok(pool.every((i) => i.rating === "mature"));
     assert.ok(pool.every((i) => !i.difficulty || i.difficulty === "easy"));
   });
 

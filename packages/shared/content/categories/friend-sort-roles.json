@@ -1,10 +1,450 @@
 [
   {
-    "name": "Pirate",
+    "name": "Buyer",
     "rating": "family"
   },
   {
-    "name": "Wizard",
+    "name": "The over-sharer",
+    "rating": "mature"
+  },
+  {
+    "name": "Cook",
+    "rating": "family"
+  },
+  {
+    "name": "The fake-ID legend",
+    "rating": "mature"
+  },
+  {
+    "name": "Carpenter",
+    "rating": "family"
+  },
+  {
+    "name": "The group-chat instigator",
+    "rating": "mature"
+  },
+  {
+    "name": "The tab closer",
+    "rating": "mature"
+  },
+  {
+    "name": "Farmworker",
+    "rating": "family"
+  },
+  {
+    "name": "Designer",
+    "rating": "family"
+  },
+  {
+    "name": "The dance-floor closer",
+    "rating": "mature"
+  },
+  {
+    "name": "Internist",
+    "rating": "family"
+  },
+  {
+    "name": "The 'one more round' captain",
+    "rating": "mature"
+  },
+  {
+    "name": "The Self",
+    "rating": "family"
+  },
+  {
+    "name": "The wedding crasher",
+    "rating": "mature"
+  },
+  {
+    "name": "Pediatrician",
+    "rating": "family"
+  },
+  {
+    "name": "The wingman",
+    "rating": "mature"
+  },
+  {
+    "name": "The Hedonist",
+    "rating": "mature"
+  },
+  {
+    "name": "Interviewer",
+    "rating": "family"
+  },
+  {
+    "name": "Chauffeur",
+    "rating": "family"
+  },
+  {
+    "name": "Locksmith",
+    "rating": "family"
+  },
+  {
+    "name": "The Gossip",
+    "rating": "family"
+  },
+  {
+    "name": "The Poet",
+    "rating": "family"
+  },
+  {
+    "name": "Engineer",
+    "rating": "family"
+  },
+  {
+    "name": "Farmer",
+    "rating": "family"
+  },
+  {
+    "name": "Agent",
+    "rating": "family"
+  },
+  {
+    "name": "Blaster",
+    "rating": "family"
+  },
+  {
+    "name": "Counselor",
+    "rating": "family"
+  },
+  {
+    "name": "Geoscientist",
+    "rating": "family"
+  },
+  {
+    "name": "Rancher",
+    "rating": "family"
+  },
+  {
+    "name": "Interpreter",
+    "rating": "family"
+  },
+  {
+    "name": "Dressmaker",
+    "rating": "family"
+  },
+  {
+    "name": "Messenger",
+    "rating": "family"
+  },
+  {
+    "name": "Firefighter",
+    "rating": "family"
+  },
+  {
+    "name": "The ex-file keeper",
+    "rating": "mature"
+  },
+  {
+    "name": "Demonstrator",
+    "rating": "family"
+  },
+  {
+    "name": "The Hero",
+    "rating": "family"
+  },
+  {
+    "name": "Shampooer",
+    "rating": "family"
+  },
+  {
+    "name": "The Trickster",
+    "rating": "family"
+  },
+  {
+    "name": "The Sycophant",
+    "rating": "mature"
+  },
+  {
+    "name": "Cabinetmaker",
+    "rating": "family"
+  },
+  {
+    "name": "Psychiatrist",
+    "rating": "family"
+  },
+  {
+    "name": "The messy texter",
+    "rating": "mature"
+  },
+  {
+    "name": "Drafter",
+    "rating": "family"
+  },
+  {
+    "name": "Machinist",
+    "rating": "family"
+  },
+  {
+    "name": "Editor",
+    "rating": "family"
+  },
+  {
+    "name": "Biochemist",
+    "rating": "family"
+  },
+  {
+    "name": "Historian",
+    "rating": "family"
+  },
+  {
+    "name": "Bookkeeper",
+    "rating": "family"
+  },
+  {
+    "name": "The hopeless romantic",
+    "rating": "mature"
+  },
+  {
+    "name": "Athlete",
+    "rating": "family"
+  },
+  {
+    "name": "The Shaman",
+    "rating": "family"
+  },
+  {
+    "name": "The afterparty planner",
+    "rating": "mature"
+  },
+  {
+    "name": "Detective",
+    "rating": "family"
+  },
+  {
+    "name": "The slow-burn texter",
+    "rating": "mature"
+  },
+  {
+    "name": "Fisher",
+    "rating": "family"
+  },
+  {
+    "name": "Adjudicator",
+    "rating": "family"
+  },
+  {
+    "name": "Dentist",
+    "rating": "family"
+  },
+  {
+    "name": "Obstetrician",
+    "rating": "family"
+  },
+  {
+    "name": "The Bureaucrat",
+    "rating": "family"
+  },
+  {
+    "name": "Optometrist",
+    "rating": "family"
+  },
+  {
+    "name": "The Analyst",
+    "rating": "family"
+  },
+  {
+    "name": "Concierge",
+    "rating": "family"
+  },
+  {
+    "name": "The Wanderer",
+    "rating": "family"
+  },
+  {
+    "name": "Shaper",
+    "rating": "family"
+  },
+  {
+    "name": "Barback",
+    "rating": "family"
+  },
+  {
+    "name": "The leave-on-read artist",
+    "rating": "mature"
+  },
+  {
+    "name": "Dietitian",
+    "rating": "family"
+  },
+  {
+    "name": "Engraver",
+    "rating": "family"
+  },
+  {
+    "name": "Plasterer",
+    "rating": "family"
+  },
+  {
+    "name": "Dishwasher",
+    "rating": "family"
+  },
+  {
+    "name": "Cartographer",
+    "rating": "family"
+  },
+  {
+    "name": "Barber",
+    "rating": "family"
+  },
+  {
+    "name": "The dive-bar poet",
+    "rating": "mature"
+  },
+  {
+    "name": "Baker",
+    "rating": "family"
+  },
+  {
+    "name": "Orthodontist",
+    "rating": "family"
+  },
+  {
+    "name": "The Mentor",
+    "rating": "family"
+  },
+  {
+    "name": "Receptionist",
+    "rating": "family"
+  },
+  {
+    "name": "Checker",
+    "rating": "family"
+  },
+  {
+    "name": "Butcher",
+    "rating": "family"
+  },
+  {
+    "name": "Instructor",
+    "rating": "family"
+  },
+  {
+    "name": "The Scholar",
+    "rating": "family"
+  },
+  {
+    "name": "Groundskeeper",
+    "rating": "family"
+  },
+  {
+    "name": "Mortician",
+    "rating": "family"
+  },
+  {
+    "name": "The lightweight",
+    "rating": "mature"
+  },
+  {
+    "name": "Illustrator",
+    "rating": "family"
+  },
+  {
+    "name": "Librarian",
+    "rating": "family"
+  },
+  {
+    "name": "Explorer",
+    "rating": "family"
+  },
+  {
+    "name": "The open-bar strategist",
+    "rating": "mature"
+  },
+  {
+    "name": "Plumber",
+    "rating": "family"
+  },
+  {
+    "name": "Teacher",
+    "rating": "family"
+  },
+  {
+    "name": "Roustabout",
+    "rating": "family"
+  },
+  {
+    "name": "The double-text champion",
+    "rating": "mature"
+  },
+  {
+    "name": "The club-queue diplomat",
+    "rating": "mature"
+  },
+  {
+    "name": "The Judge",
+    "rating": "family"
+  },
+  {
+    "name": "Caster",
+    "rating": "family"
+  },
+  {
+    "name": "Courier",
+    "rating": "family"
+  },
+  {
+    "name": "Economist",
+    "rating": "family"
+  },
+  {
+    "name": "Doctor",
+    "rating": "family"
+  },
+  {
+    "name": "The wedding-toast risk",
+    "rating": "mature"
+  },
+  {
+    "name": "Paramedic",
+    "rating": "family"
+  },
+  {
+    "name": "The hangover chef",
+    "rating": "mature"
+  },
+  {
+    "name": "Judge",
+    "rating": "family"
+  },
+  {
+    "name": "Astronomer",
+    "rating": "family"
+  },
+  {
+    "name": "The bachelor-party treasurer",
+    "rating": "mature"
+  },
+  {
+    "name": "Legislator",
+    "rating": "family"
+  },
+  {
+    "name": "The mocktail convert",
+    "rating": "mature"
+  },
+  {
+    "name": "Hairdresser",
+    "rating": "family"
+  },
+  {
+    "name": "Composer",
+    "rating": "family"
+  },
+  {
+    "name": "Jeweler",
+    "rating": "family"
+  },
+  {
+    "name": "The honeymoon researcher",
+    "rating": "mature"
+  },
+  {
+    "name": "Actor",
+    "rating": "family"
+  },
+  {
+    "name": "Geographer",
     "rating": "family"
   },
   {
@@ -16,1011 +456,7 @@
     "rating": "family"
   },
   {
-    "name": "Detective",
-    "rating": "family"
-  },
-  {
-    "name": "Viking",
-    "rating": "family"
-  },
-  {
-    "name": "Knight",
-    "rating": "family"
-  },
-  {
-    "name": "Ninja",
-    "rating": "family"
-  },
-  {
-    "name": "Scientist",
-    "rating": "family"
-  },
-  {
-    "name": "Artist",
-    "rating": "family"
-  },
-  {
-    "name": "Musician",
-    "rating": "family"
-  },
-  {
-    "name": "Athlete",
-    "rating": "family"
-  },
-  {
-    "name": "Teacher",
-    "rating": "family"
-  },
-  {
-    "name": "Pilot",
-    "rating": "family"
-  },
-  {
-    "name": "Farmer",
-    "rating": "family"
-  },
-  {
-    "name": "Explorer",
-    "rating": "family"
-  },
-  {
-    "name": "Chaotic Wizard",
-    "rating": "family"
-  },
-  {
-    "name": "Chaotic Pirate",
-    "rating": "family"
-  },
-  {
-    "name": "Chaotic Chef",
-    "rating": "family"
-  },
-  {
-    "name": "Chaotic Astronaut",
-    "rating": "family"
-  },
-  {
-    "name": "Chaotic Detective",
-    "rating": "family"
-  },
-  {
-    "name": "Chaotic Viking",
-    "rating": "family"
-  },
-  {
-    "name": "Chaotic Knight",
-    "rating": "family"
-  },
-  {
-    "name": "Chaotic Ninja",
-    "rating": "family"
-  },
-  {
-    "name": "Chaotic Scientist",
-    "rating": "family"
-  },
-  {
-    "name": "Chaotic Artist",
-    "rating": "family"
-  },
-  {
-    "name": "Chaotic Musician",
-    "rating": "family"
-  },
-  {
-    "name": "Chaotic Athlete",
-    "rating": "family"
-  },
-  {
-    "name": "Chaotic Teacher",
-    "rating": "family"
-  },
-  {
-    "name": "Chaotic Pilot",
-    "rating": "family"
-  },
-  {
-    "name": "Chaotic Farmer",
-    "rating": "family"
-  },
-  {
-    "name": "Chaotic Explorer",
-    "rating": "family"
-  },
-  {
-    "name": "Chaotic Librarian",
-    "rating": "family"
-  },
-  {
-    "name": "Chaotic Mayor",
-    "rating": "family"
-  },
-  {
-    "name": "Chaotic Coach",
-    "rating": "family"
-  },
-  {
-    "name": "Chaotic Ranger",
-    "rating": "family"
-  },
-  {
-    "name": "Chaotic Inventor",
-    "rating": "family"
-  },
-  {
-    "name": "Chaotic Storyteller",
-    "rating": "family"
-  },
-  {
-    "name": "Chaotic Gardener",
-    "rating": "family"
-  },
-  {
-    "name": "Chaotic Captain",
-    "rating": "family"
-  },
-  {
-    "name": "Chaotic Judge",
-    "rating": "family"
-  },
-  {
-    "name": "Chaotic Ambassador",
-    "rating": "family"
-  },
-  {
-    "name": "Chaotic Mechanic",
-    "rating": "family"
-  },
-  {
-    "name": "Chaotic Baker",
-    "rating": "family"
-  },
-  {
-    "name": "Chaotic Poet",
-    "rating": "family"
-  },
-  {
-    "name": "Sleepy Wizard",
-    "rating": "family"
-  },
-  {
-    "name": "Sleepy Pirate",
-    "rating": "family"
-  },
-  {
-    "name": "Sleepy Chef",
-    "rating": "family"
-  },
-  {
-    "name": "Sleepy Astronaut",
-    "rating": "family"
-  },
-  {
-    "name": "Sleepy Detective",
-    "rating": "family"
-  },
-  {
-    "name": "Sleepy Viking",
-    "rating": "family"
-  },
-  {
-    "name": "Sleepy Knight",
-    "rating": "family"
-  },
-  {
-    "name": "Sleepy Ninja",
-    "rating": "family"
-  },
-  {
-    "name": "Sleepy Scientist",
-    "rating": "family"
-  },
-  {
-    "name": "Sleepy Artist",
-    "rating": "family"
-  },
-  {
-    "name": "Sleepy Musician",
-    "rating": "family"
-  },
-  {
-    "name": "Sleepy Athlete",
-    "rating": "family"
-  },
-  {
-    "name": "Sleepy Teacher",
-    "rating": "family"
-  },
-  {
-    "name": "Sleepy Pilot",
-    "rating": "family"
-  },
-  {
-    "name": "Sleepy Farmer",
-    "rating": "family"
-  },
-  {
-    "name": "Sleepy Explorer",
-    "rating": "family"
-  },
-  {
-    "name": "Sleepy Librarian",
-    "rating": "family"
-  },
-  {
-    "name": "Sleepy Mayor",
-    "rating": "family"
-  },
-  {
-    "name": "Sleepy Coach",
-    "rating": "family"
-  },
-  {
-    "name": "Sleepy Ranger",
-    "rating": "family"
-  },
-  {
-    "name": "Sleepy Inventor",
-    "rating": "family"
-  },
-  {
-    "name": "Sleepy Storyteller",
-    "rating": "family"
-  },
-  {
-    "name": "Sleepy Gardener",
-    "rating": "family"
-  },
-  {
-    "name": "Sleepy Captain",
-    "rating": "family"
-  },
-  {
-    "name": "Sleepy Judge",
-    "rating": "family"
-  },
-  {
-    "name": "Sleepy Ambassador",
-    "rating": "family"
-  },
-  {
-    "name": "Sleepy Mechanic",
-    "rating": "family"
-  },
-  {
-    "name": "Sleepy Baker",
-    "rating": "family"
-  },
-  {
-    "name": "Sleepy Poet",
-    "rating": "family"
-  },
-  {
-    "name": "Legendary Wizard",
-    "rating": "family"
-  },
-  {
-    "name": "Legendary Pirate",
-    "rating": "family"
-  },
-  {
-    "name": "Legendary Chef",
-    "rating": "family"
-  },
-  {
-    "name": "Legendary Astronaut",
-    "rating": "family"
-  },
-  {
-    "name": "Legendary Detective",
-    "rating": "family"
-  },
-  {
-    "name": "Legendary Viking",
-    "rating": "family"
-  },
-  {
-    "name": "Legendary Knight",
-    "rating": "family"
-  },
-  {
-    "name": "Legendary Ninja",
-    "rating": "family"
-  },
-  {
-    "name": "Legendary Scientist",
-    "rating": "family"
-  },
-  {
-    "name": "Legendary Artist",
-    "rating": "family"
-  },
-  {
-    "name": "Legendary Musician",
-    "rating": "family"
-  },
-  {
-    "name": "Legendary Athlete",
-    "rating": "family"
-  },
-  {
-    "name": "Legendary Teacher",
-    "rating": "family"
-  },
-  {
-    "name": "Legendary Pilot",
-    "rating": "family"
-  },
-  {
-    "name": "Legendary Farmer",
-    "rating": "family"
-  },
-  {
-    "name": "Legendary Explorer",
-    "rating": "family"
-  },
-  {
-    "name": "Legendary Librarian",
-    "rating": "family"
-  },
-  {
-    "name": "Legendary Mayor",
-    "rating": "family"
-  },
-  {
-    "name": "Legendary Coach",
-    "rating": "family"
-  },
-  {
-    "name": "Legendary Ranger",
-    "rating": "family"
-  },
-  {
-    "name": "Legendary Inventor",
-    "rating": "family"
-  },
-  {
-    "name": "Legendary Storyteller",
-    "rating": "family"
-  },
-  {
-    "name": "Legendary Gardener",
-    "rating": "family"
-  },
-  {
-    "name": "Legendary Captain",
-    "rating": "family"
-  },
-  {
-    "name": "Legendary Judge",
-    "rating": "family"
-  },
-  {
-    "name": "Legendary Ambassador",
-    "rating": "family"
-  },
-  {
-    "name": "Legendary Mechanic",
-    "rating": "family"
-  },
-  {
-    "name": "Legendary Baker",
-    "rating": "family"
-  },
-  {
-    "name": "Legendary Poet",
-    "rating": "family"
-  },
-  {
-    "name": "Tiny Wizard",
-    "rating": "family"
-  },
-  {
-    "name": "Tiny Pirate",
-    "rating": "family"
-  },
-  {
-    "name": "Tiny Chef",
-    "rating": "family"
-  },
-  {
-    "name": "Tiny Astronaut",
-    "rating": "family"
-  },
-  {
-    "name": "Tiny Detective",
-    "rating": "family"
-  },
-  {
-    "name": "Tiny Viking",
-    "rating": "family"
-  },
-  {
-    "name": "Tiny Knight",
-    "rating": "family"
-  },
-  {
-    "name": "Tiny Ninja",
-    "rating": "family"
-  },
-  {
-    "name": "Tiny Scientist",
-    "rating": "family"
-  },
-  {
-    "name": "Tiny Artist",
-    "rating": "family"
-  },
-  {
-    "name": "Tiny Musician",
-    "rating": "family"
-  },
-  {
-    "name": "Tiny Athlete",
-    "rating": "family"
-  },
-  {
-    "name": "Tiny Teacher",
-    "rating": "family"
-  },
-  {
-    "name": "Tiny Pilot",
-    "rating": "family"
-  },
-  {
-    "name": "Tiny Farmer",
-    "rating": "family"
-  },
-  {
-    "name": "Tiny Explorer",
-    "rating": "family"
-  },
-  {
-    "name": "Tiny Librarian",
-    "rating": "family"
-  },
-  {
-    "name": "Tiny Mayor",
-    "rating": "family"
-  },
-  {
-    "name": "Tiny Coach",
-    "rating": "family"
-  },
-  {
-    "name": "Tiny Ranger",
-    "rating": "family"
-  },
-  {
-    "name": "Tiny Inventor",
-    "rating": "family"
-  },
-  {
-    "name": "Tiny Storyteller",
-    "rating": "family"
-  },
-  {
-    "name": "Tiny Gardener",
-    "rating": "family"
-  },
-  {
-    "name": "Tiny Captain",
-    "rating": "family"
-  },
-  {
-    "name": "Tiny Judge",
-    "rating": "family"
-  },
-  {
-    "name": "Tiny Ambassador",
-    "rating": "family"
-  },
-  {
-    "name": "Tiny Mechanic",
-    "rating": "family"
-  },
-  {
-    "name": "Tiny Baker",
-    "rating": "family"
-  },
-  {
-    "name": "Tiny Poet",
-    "rating": "family"
-  },
-  {
-    "name": "Dramatic Wizard",
-    "rating": "family"
-  },
-  {
-    "name": "Dramatic Pirate",
-    "rating": "family"
-  },
-  {
-    "name": "Dramatic Chef",
-    "rating": "family"
-  },
-  {
-    "name": "Dramatic Astronaut",
-    "rating": "family"
-  },
-  {
-    "name": "Dramatic Detective",
-    "rating": "family"
-  },
-  {
-    "name": "Dramatic Viking",
-    "rating": "family"
-  },
-  {
-    "name": "Dramatic Knight",
-    "rating": "family"
-  },
-  {
-    "name": "Dramatic Ninja",
-    "rating": "family"
-  },
-  {
-    "name": "Dramatic Scientist",
-    "rating": "family"
-  },
-  {
-    "name": "Dramatic Artist",
-    "rating": "family"
-  },
-  {
-    "name": "Dramatic Musician",
-    "rating": "family"
-  },
-  {
-    "name": "Dramatic Athlete",
-    "rating": "family"
-  },
-  {
-    "name": "Dramatic Teacher",
-    "rating": "family"
-  },
-  {
-    "name": "Dramatic Pilot",
-    "rating": "family"
-  },
-  {
-    "name": "Dramatic Farmer",
-    "rating": "family"
-  },
-  {
-    "name": "Dramatic Explorer",
-    "rating": "family"
-  },
-  {
-    "name": "Dramatic Librarian",
-    "rating": "family"
-  },
-  {
-    "name": "Dramatic Mayor",
-    "rating": "family"
-  },
-  {
-    "name": "Dramatic Coach",
-    "rating": "family"
-  },
-  {
-    "name": "Dramatic Ranger",
-    "rating": "family"
-  },
-  {
-    "name": "Dramatic Inventor",
-    "rating": "family"
-  },
-  {
-    "name": "Dramatic Storyteller",
-    "rating": "family"
-  },
-  {
-    "name": "Dramatic Gardener",
-    "rating": "family"
-  },
-  {
-    "name": "Dramatic Captain",
-    "rating": "family"
-  },
-  {
-    "name": "Dramatic Judge",
-    "rating": "family"
-  },
-  {
-    "name": "Dramatic Ambassador",
-    "rating": "family"
-  },
-  {
-    "name": "Dramatic Mechanic",
-    "rating": "family"
-  },
-  {
-    "name": "Dramatic Baker",
-    "rating": "family"
-  },
-  {
-    "name": "Dramatic Poet",
-    "rating": "family"
-  },
-  {
-    "name": "Sneaky Wizard",
-    "rating": "family"
-  },
-  {
-    "name": "Sneaky Pirate",
-    "rating": "family"
-  },
-  {
-    "name": "Sneaky Chef",
-    "rating": "family"
-  },
-  {
-    "name": "Sneaky Astronaut",
-    "rating": "family"
-  },
-  {
-    "name": "Sneaky Detective",
-    "rating": "family"
-  },
-  {
-    "name": "Sneaky Viking",
-    "rating": "family"
-  },
-  {
-    "name": "Sneaky Knight",
-    "rating": "family"
-  },
-  {
-    "name": "Sneaky Ninja",
-    "rating": "family"
-  },
-  {
-    "name": "Sneaky Scientist",
-    "rating": "family"
-  },
-  {
-    "name": "Sneaky Artist",
-    "rating": "family"
-  },
-  {
-    "name": "Sneaky Musician",
-    "rating": "family"
-  },
-  {
-    "name": "Sneaky Athlete",
-    "rating": "family"
-  },
-  {
-    "name": "Sneaky Teacher",
-    "rating": "family"
-  },
-  {
-    "name": "Sneaky Pilot",
-    "rating": "family"
-  },
-  {
-    "name": "Sneaky Farmer",
-    "rating": "family"
-  },
-  {
-    "name": "Sneaky Explorer",
-    "rating": "family"
-  },
-  {
-    "name": "Sneaky Librarian",
-    "rating": "family"
-  },
-  {
-    "name": "Sneaky Mayor",
-    "rating": "family"
-  },
-  {
-    "name": "Sneaky Coach",
-    "rating": "family"
-  },
-  {
-    "name": "Sneaky Ranger",
-    "rating": "family"
-  },
-  {
-    "name": "Sneaky Inventor",
-    "rating": "family"
-  },
-  {
-    "name": "Sneaky Storyteller",
-    "rating": "family"
-  },
-  {
-    "name": "Sneaky Gardener",
-    "rating": "family"
-  },
-  {
-    "name": "Sneaky Captain",
-    "rating": "family"
-  },
-  {
-    "name": "Sneaky Judge",
-    "rating": "family"
-  },
-  {
-    "name": "Sneaky Ambassador",
-    "rating": "family"
-  },
-  {
-    "name": "Sneaky Mechanic",
-    "rating": "family"
-  },
-  {
-    "name": "Sneaky Baker",
-    "rating": "family"
-  },
-  {
-    "name": "Sneaky Poet",
-    "rating": "family"
-  },
-  {
-    "name": "Overcaffeinated Wizard",
-    "rating": "family"
-  },
-  {
-    "name": "Overcaffeinated Pirate",
-    "rating": "family"
-  },
-  {
-    "name": "Overcaffeinated Chef",
-    "rating": "family"
-  },
-  {
-    "name": "Overcaffeinated Astronaut",
-    "rating": "family"
-  },
-  {
-    "name": "Overcaffeinated Detective",
-    "rating": "family"
-  },
-  {
-    "name": "Overcaffeinated Viking",
-    "rating": "family"
-  },
-  {
-    "name": "Overcaffeinated Knight",
-    "rating": "family"
-  },
-  {
-    "name": "Overcaffeinated Ninja",
-    "rating": "family"
-  },
-  {
-    "name": "Overcaffeinated Scientist",
-    "rating": "family"
-  },
-  {
-    "name": "Overcaffeinated Artist",
-    "rating": "family"
-  },
-  {
-    "name": "Overcaffeinated Musician",
-    "rating": "family"
-  },
-  {
-    "name": "Overcaffeinated Athlete",
-    "rating": "family"
-  },
-  {
-    "name": "Overcaffeinated Teacher",
-    "rating": "family"
-  },
-  {
-    "name": "Overcaffeinated Pilot",
-    "rating": "family"
-  },
-  {
-    "name": "Overcaffeinated Farmer",
-    "rating": "family"
-  },
-  {
-    "name": "Overcaffeinated Explorer",
-    "rating": "family"
-  },
-  {
-    "name": "Overcaffeinated Librarian",
-    "rating": "family"
-  },
-  {
-    "name": "Overcaffeinated Mayor",
-    "rating": "family"
-  },
-  {
-    "name": "Overcaffeinated Coach",
-    "rating": "family"
-  },
-  {
-    "name": "Overcaffeinated Ranger",
-    "rating": "family"
-  },
-  {
-    "name": "Overcaffeinated Inventor",
-    "rating": "family"
-  },
-  {
-    "name": "Overcaffeinated Storyteller",
-    "rating": "family"
-  },
-  {
-    "name": "Overcaffeinated Gardener",
-    "rating": "family"
-  },
-  {
-    "name": "Overcaffeinated Captain",
-    "rating": "family"
-  },
-  {
-    "name": "Overcaffeinated Judge",
-    "rating": "family"
-  },
-  {
-    "name": "Overcaffeinated Ambassador",
-    "rating": "family"
-  },
-  {
-    "name": "Overcaffeinated Mechanic",
-    "rating": "family"
-  },
-  {
-    "name": "Overcaffeinated Baker",
-    "rating": "family"
-  },
-  {
-    "name": "Overcaffeinated Poet",
-    "rating": "family"
-  },
-  {
-    "name": "Unbothered Wizard",
-    "rating": "family"
-  },
-  {
-    "name": "Unbothered Pirate",
-    "rating": "family"
-  },
-  {
-    "name": "Unbothered Chef",
-    "rating": "family"
-  },
-  {
-    "name": "Unbothered Astronaut",
-    "rating": "family"
-  },
-  {
-    "name": "Unbothered Detective",
-    "rating": "family"
-  },
-  {
-    "name": "Unbothered Viking",
-    "rating": "family"
-  },
-  {
-    "name": "Unbothered Knight",
-    "rating": "family"
-  },
-  {
-    "name": "Unbothered Ninja",
-    "rating": "family"
-  },
-  {
-    "name": "Unbothered Scientist",
-    "rating": "family"
-  },
-  {
-    "name": "Unbothered Artist",
-    "rating": "family"
-  },
-  {
-    "name": "Unbothered Musician",
-    "rating": "family"
-  },
-  {
-    "name": "Unbothered Athlete",
-    "rating": "family"
-  },
-  {
-    "name": "Unbothered Teacher",
-    "rating": "family"
-  },
-  {
-    "name": "Unbothered Pilot",
-    "rating": "family"
-  },
-  {
-    "name": "Unbothered Farmer",
-    "rating": "family"
-  },
-  {
-    "name": "Unbothered Explorer",
-    "rating": "family"
-  },
-  {
-    "name": "Unbothered Librarian",
-    "rating": "family"
-  },
-  {
-    "name": "Unbothered Mayor",
-    "rating": "family"
-  },
-  {
-    "name": "Unbothered Coach",
-    "rating": "family"
-  },
-  {
-    "name": "Unbothered Ranger",
-    "rating": "family"
-  },
-  {
-    "name": "Unbothered Inventor",
-    "rating": "family"
-  },
-  {
-    "name": "The last one dancing",
-    "rating": "mature"
-  },
-  {
-    "name": "The tab closer",
-    "rating": "mature"
-  },
-  {
-    "name": "The lightweight",
-    "rating": "mature"
-  },
-  {
-    "name": "The designated driver",
-    "rating": "mature"
-  },
-  {
-    "name": "The group-chat instigator",
-    "rating": "mature"
-  },
-  {
-    "name": "The karaoke hog",
-    "rating": "mature"
-  },
-  {
-    "name": "The plus-one magnet",
-    "rating": "mature"
-  },
-  {
-    "name": "The afterparty planner",
-    "rating": "mature"
-  },
-  {
-    "name": "The messy texter",
-    "rating": "mature"
-  },
-  {
-    "name": "The wedding crasher",
-    "rating": "mature"
-  },
-  {
-    "name": "The bartender's favorite",
-    "rating": "mature"
-  },
-  {
-    "name": "The coat-check lost cause",
-    "rating": "mature"
-  },
-  {
-    "name": "The over-sharer",
-    "rating": "mature"
-  },
-  {
-    "name": "The wingman",
-    "rating": "mature"
-  },
-  {
-    "name": "The wingwoman",
-    "rating": "mature"
-  },
-  {
-    "name": "The hopeless romantic",
+    "name": "The rooftop regular",
     "rating": "mature"
   },
   {
@@ -1032,67 +468,99 @@
     "rating": "mature"
   },
   {
-    "name": "The ex-file keeper",
-    "rating": "mature"
-  },
-  {
-    "name": "The revenge-era glow-up",
-    "rating": "mature"
-  },
-  {
-    "name": "The brunch hungover",
-    "rating": "mature"
-  },
-  {
-    "name": "The fake-ID legend",
-    "rating": "mature"
-  },
-  {
-    "name": "The shot-or-nothing friend",
-    "rating": "mature"
-  },
-  {
-    "name": "The dance-floor closer",
-    "rating": "mature"
-  },
-  {
-    "name": "The Uber-splitting accountant",
-    "rating": "mature"
-  },
-  {
     "name": "The hotel-key loser",
     "rating": "mature"
   },
   {
-    "name": "The rooftop regular",
-    "rating": "mature"
+    "name": "Artist",
+    "rating": "family"
   },
   {
-    "name": "The dive-bar poet",
-    "rating": "mature"
+    "name": "Nutritionist",
+    "rating": "family"
   },
   {
-    "name": "The club-queue diplomat",
-    "rating": "mature"
+    "name": "Movers",
+    "rating": "family"
   },
   {
-    "name": "The last-call philosopher",
-    "rating": "mature"
+    "name": "The Curmudgeon",
+    "rating": "family"
   },
   {
-    "name": "The group selfie director",
-    "rating": "mature"
+    "name": "Pedicurist",
+    "rating": "family"
   },
   {
-    "name": "The playlist tyrant",
-    "rating": "mature"
+    "name": "Referee",
+    "rating": "family"
   },
   {
-    "name": "The 'one more round' captain",
-    "rating": "mature"
+    "name": "Postmaster",
+    "rating": "family"
   },
   {
-    "name": "The hangover chef",
+    "name": "Proofreader",
+    "rating": "family"
+  },
+  {
+    "name": "Pharmacist",
+    "rating": "family"
+  },
+  {
+    "name": "The Hunter",
+    "rating": "family"
+  },
+  {
+    "name": "The Superhuman",
+    "rating": "family"
+  },
+  {
+    "name": "Roofer",
+    "rating": "family"
+  },
+  {
+    "name": "Escort",
+    "rating": "family"
+  },
+  {
+    "name": "Manicurist",
+    "rating": "family"
+  },
+  {
+    "name": "The Survivor",
+    "rating": "family"
+  },
+  {
+    "name": "Inspector",
+    "rating": "family"
+  },
+  {
+    "name": "Brickmason",
+    "rating": "family"
+  },
+  {
+    "name": "Janitor",
+    "rating": "family"
+  },
+  {
+    "name": "Curator",
+    "rating": "family"
+  },
+  {
+    "name": "Prosthodontist",
+    "rating": "family"
+  },
+  {
+    "name": "Attendant",
+    "rating": "family"
+  },
+  {
+    "name": "The Catalyst",
+    "rating": "family"
+  },
+  {
+    "name": "The designated driver",
     "rating": "mature"
   },
   {
@@ -1100,63 +568,535 @@
     "rating": "mature"
   },
   {
+    "name": "Ninja",
+    "rating": "family"
+  },
+  {
+    "name": "Sailor",
+    "rating": "family"
+  },
+  {
+    "name": "Reporter",
+    "rating": "family"
+  },
+  {
+    "name": "The plus-one magnet",
+    "rating": "mature"
+  },
+  {
+    "name": "Auditor",
+    "rating": "family"
+  },
+  {
+    "name": "The Dreamer",
+    "rating": "family"
+  },
+  {
+    "name": "Wizard",
+    "rating": "family"
+  },
+  {
+    "name": "The Caretaker",
+    "rating": "family"
+  },
+  {
     "name": "The red-flag detector",
     "rating": "mature"
   },
   {
-    "name": "The green-flag hoarder",
+    "name": "Priest",
+    "rating": "family"
+  },
+  {
+    "name": "Optician",
+    "rating": "family"
+  },
+  {
+    "name": "Sculptor",
+    "rating": "family"
+  },
+  {
+    "name": "The revenge-era glow-up",
     "rating": "mature"
   },
   {
-    "name": "The situationship specialist",
+    "name": "Architect",
+    "rating": "family"
+  },
+  {
+    "name": "The coat-check lost cause",
     "rating": "mature"
   },
   {
-    "name": "The slow-burn texter",
+    "name": "Maid",
+    "rating": "family"
+  },
+  {
+    "name": "Photographer",
+    "rating": "family"
+  },
+  {
+    "name": "Actuary",
+    "rating": "family"
+  },
+  {
+    "name": "Hairstylist",
+    "rating": "family"
+  },
+  {
+    "name": "The sunrise-commute survivor",
     "rating": "mature"
   },
   {
-    "name": "The double-text champion",
-    "rating": "mature"
+    "name": "Physician",
+    "rating": "family"
   },
   {
-    "name": "The leave-on-read artist",
-    "rating": "mature"
+    "name": "Choreographer",
+    "rating": "family"
   },
   {
-    "name": "The wedding-toast risk",
-    "rating": "mature"
+    "name": "The Leader",
+    "rating": "family"
   },
   {
-    "name": "The bachelor-party treasurer",
-    "rating": "mature"
+    "name": "Chiropractor",
+    "rating": "family"
   },
   {
-    "name": "The bachelorette itinerary",
-    "rating": "mature"
-  },
-  {
-    "name": "The honeymoon researcher",
-    "rating": "mature"
+    "name": "The Samaritan",
+    "rating": "family"
   },
   {
     "name": "The plus-one negotiator",
     "rating": "mature"
   },
   {
-    "name": "The open-bar strategist",
+    "name": "Offbearer",
+    "rating": "family"
+  },
+  {
+    "name": "The wingwoman",
     "rating": "mature"
   },
   {
-    "name": "The mocktail convert",
+    "name": "Producer",
+    "rating": "family"
+  },
+  {
+    "name": "The bartender's favorite",
     "rating": "mature"
+  },
+  {
+    "name": "The Guardian",
+    "rating": "family"
+  },
+  {
+    "name": "Dancer",
+    "rating": "family"
+  },
+  {
+    "name": "Knight",
+    "rating": "family"
+  },
+  {
+    "name": "Orthotist",
+    "rating": "family"
+  },
+  {
+    "name": "The karaoke hog",
+    "rating": "mature"
+  },
+  {
+    "name": "Host",
+    "rating": "family"
+  },
+  {
+    "name": "Investigator",
+    "rating": "family"
+  },
+  {
+    "name": "Brazer",
+    "rating": "family"
+  },
+  {
+    "name": "The Hermit",
+    "rating": "family"
+  },
+  {
+    "name": "Animator",
+    "rating": "family"
+  },
+  {
+    "name": "Lifeguard",
+    "rating": "family"
+  },
+  {
+    "name": "The shot-or-nothing friend",
+    "rating": "mature"
+  },
+  {
+    "name": "Director",
+    "rating": "family"
+  },
+  {
+    "name": "Bellhop",
+    "rating": "family"
+  },
+  {
+    "name": "Cashier",
+    "rating": "family"
+  },
+  {
+    "name": "Mathematician",
+    "rating": "family"
+  },
+  {
+    "name": "Jailer",
+    "rating": "family"
+  },
+  {
+    "name": "The last one dancing",
+    "rating": "mature"
+  },
+  {
+    "name": "Prosthetist",
+    "rating": "family"
+  },
+  {
+    "name": "Secretary",
+    "rating": "family"
+  },
+  {
+    "name": "Hostess",
+    "rating": "family"
+  },
+  {
+    "name": "Conservator",
+    "rating": "family"
+  },
+  {
+    "name": "Correspondent",
+    "rating": "family"
+  },
+  {
+    "name": "Embalmer",
+    "rating": "family"
+  },
+  {
+    "name": "Arbitrator",
+    "rating": "family"
+  },
+  {
+    "name": "Millwright",
+    "rating": "family"
+  },
+  {
+    "name": "The Giver",
+    "rating": "family"
+  },
+  {
+    "name": "Hunter",
+    "rating": "family"
+  },
+  {
+    "name": "Conciliator",
+    "rating": "family"
+  },
+  {
+    "name": "Cutter",
+    "rating": "family"
+  },
+  {
+    "name": "The green-flag hoarder",
+    "rating": "mature"
+  },
+  {
+    "name": "Scientist",
+    "rating": "family"
+  },
+  {
+    "name": "The Weaver",
+    "rating": "family"
+  },
+  {
+    "name": "Magistrate",
+    "rating": "family"
+  },
+  {
+    "name": "The Fool",
+    "rating": "family"
+  },
+  {
+    "name": "Accountant",
+    "rating": "family"
+  },
+  {
+    "name": "Glazier",
+    "rating": "family"
+  },
+  {
+    "name": "The Coward",
+    "rating": "family"
+  },
+  {
+    "name": "The bachelorette itinerary",
+    "rating": "mature"
+  },
+  {
+    "name": "Cleaner",
+    "rating": "family"
+  },
+  {
+    "name": "Bailiff",
+    "rating": "family"
+  },
+  {
+    "name": "Faller",
+    "rating": "family"
+  },
+  {
+    "name": "Paperhanger",
+    "rating": "family"
+  },
+  {
+    "name": "Pilot",
+    "rating": "family"
+  },
+  {
+    "name": "The group selfie director",
+    "rating": "mature"
+  },
+  {
+    "name": "Assembler",
+    "rating": "family"
+  },
+  {
+    "name": "Model",
+    "rating": "family"
+  },
+  {
+    "name": "Author",
+    "rating": "family"
+  },
+  {
+    "name": "Lawyer",
+    "rating": "family"
+  },
+  {
+    "name": "The Everyman",
+    "rating": "family"
+  },
+  {
+    "name": "The Minion",
+    "rating": "family"
+  },
+  {
+    "name": "Viking",
+    "rating": "family"
+  },
+  {
+    "name": "Dispatcher",
+    "rating": "family"
   },
   {
     "name": "The nightbus navigator",
     "rating": "mature"
   },
   {
-    "name": "The sunrise-commute survivor",
+    "name": "Pipelayer",
+    "rating": "family"
+  },
+  {
+    "name": "Mediator",
+    "rating": "family"
+  },
+  {
+    "name": "Podiatrist",
+    "rating": "family"
+  },
+  {
+    "name": "Boilermaker",
+    "rating": "family"
+  },
+  {
+    "name": "Pirate",
+    "rating": "family"
+  },
+  {
+    "name": "The last-call philosopher",
+    "rating": "mature"
+  },
+  {
+    "name": "Chemist",
+    "rating": "family"
+  },
+  {
+    "name": "Paralegal",
+    "rating": "family"
+  },
+  {
+    "name": "The Temptress",
+    "rating": "mature"
+  },
+  {
+    "name": "Singer",
+    "rating": "family"
+  },
+  {
+    "name": "The Martyr",
+    "rating": "family"
+  },
+  {
+    "name": "Scaler",
+    "rating": "family"
+  },
+  {
+    "name": "The Rebel",
+    "rating": "family"
+  },
+  {
+    "name": "The playlist tyrant",
+    "rating": "mature"
+  },
+  {
+    "name": "Sampler",
+    "rating": "family"
+  },
+  {
+    "name": "Fabricator",
+    "rating": "family"
+  },
+  {
+    "name": "The Tyrant",
+    "rating": "family"
+  },
+  {
+    "name": "Developer",
+    "rating": "family"
+  },
+  {
+    "name": "Measurer",
+    "rating": "family"
+  },
+  {
+    "name": "Rigger",
+    "rating": "family"
+  },
+  {
+    "name": "Orderly",
+    "rating": "family"
+  },
+  {
+    "name": "Etcher",
+    "rating": "family"
+  },
+  {
+    "name": "Blockmason",
+    "rating": "family"
+  },
+  {
+    "name": "The Anti-Hero",
+    "rating": "family"
+  },
+  {
+    "name": "Shipmate",
+    "rating": "family"
+  },
+  {
+    "name": "Molder",
+    "rating": "family"
+  },
+  {
+    "name": "Forester",
+    "rating": "family"
+  },
+  {
+    "name": "Physicist",
+    "rating": "family"
+  },
+  {
+    "name": "Electrician",
+    "rating": "family"
+  },
+  {
+    "name": "The Herald",
+    "rating": "family"
+  },
+  {
+    "name": "Hostler",
+    "rating": "family"
+  },
+  {
+    "name": "The brunch hungover",
+    "rating": "mature"
+  },
+  {
+    "name": "Musician",
+    "rating": "family"
+  },
+  {
+    "name": "The Child",
+    "rating": "family"
+  },
+  {
+    "name": "Archivist",
+    "rating": "family"
+  },
+  {
+    "name": "The last-call closer",
+    "rating": "mature"
+  },
+  {
+    "name": "The designated adult",
+    "rating": "mature"
+  },
+  {
+    "name": "The hangover philosopher",
+    "rating": "mature"
+  },
+  {
+    "name": "The Venmo ghost",
+    "rating": "mature"
+  },
+  {
+    "name": "The karaoke menace",
+    "rating": "mature"
+  },
+  {
+    "name": "The coat-check romantic",
+    "rating": "mature"
+  },
+  {
+    "name": "The brunch-with-regrets friend",
+    "rating": "mature"
+  },
+  {
+    "name": "The screenshot archivist",
+    "rating": "mature"
+  },
+  {
+    "name": "The situationship captain",
+    "rating": "mature"
+  },
+  {
+    "name": "The open-bar sprinter",
+    "rating": "mature"
+  },
+  {
+    "name": "The afterparty navigator",
+    "rating": "mature"
+  },
+  {
+    "name": "The ex-table diplomat",
+    "rating": "mature"
+  },
+  {
+    "name": "The minibar raider",
+    "rating": "mature"
+  },
+  {
+    "name": "The 2am-text historian",
     "rating": "mature"
   }
 ]

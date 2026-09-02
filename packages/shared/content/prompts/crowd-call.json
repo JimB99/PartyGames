@@ -1,391 +1,21 @@
 [
   {
-    "text": "Best beach days in this room?",
+    "text": "Spiral Island, a small Mexican artificial floating island, was situated on the coast of which sea?",
     "choices": [
-      "Always",
-      "Sometimes",
-      "Rarely",
-      "Never"
+      "The Black Sea",
+      "The Caribbean Sea",
+      "The Aegean Sea",
+      "The North Sea"
     ],
     "rating": "family"
   },
   {
-    "text": "Go-to move for fireworks?",
+    "text": "What national symbols are subject of study of vexillology?",
     "choices": [
-      "Cheap",
-      "Splurge",
-      "Split the bill",
-      "Whoever offers"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Ideal vibe for coffee?",
-    "choices": [
-      "Quiet",
-      "Loud",
-      "In between",
-      "Depends"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Best sandwiches in this room?",
-    "choices": [
-      "Always",
-      "Sometimes",
-      "Rarely",
-      "Never"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Ideal vacation?",
-    "choices": [
-      "Beach",
-      "Mountains",
-      "City break",
-      "Staycation"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Best karaoke in this room?",
-    "choices": [
-      "Always",
-      "Sometimes",
-      "Rarely",
-      "Never"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Best tacos in this room?",
-    "choices": [
-      "Plan it",
-      "Wing it",
-      "Ask the group",
-      "Flip a coin"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Ideal vibe for tacos?",
-    "choices": [
-      "Quiet",
-      "Loud",
-      "In between",
-      "Depends"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Best pizza in this room?",
-    "choices": [
-      "Always",
-      "Sometimes",
-      "Rarely",
-      "Never"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Best bicycles in this room?",
-    "choices": [
-      "Always",
-      "Sometimes",
-      "Rarely",
-      "Never"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Ideal vibe for swimming?",
-    "choices": [
-      "Quiet",
-      "Loud",
-      "In between",
-      "Depends"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Best rainy Sundays in this room?",
-    "choices": [
-      "Always",
-      "Sometimes",
-      "Rarely",
-      "Never"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Best picnics in this room?",
-    "choices": [
-      "Always",
-      "Sometimes",
-      "Rarely",
-      "Never"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Who here is most into soup?",
-    "choices": [
-      "Sweet",
-      "Salty",
-      "Spicy",
-      "Savory"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Morning-after plan?",
-    "choices": [
-      "Brunch",
-      "Ghost the group chat",
-      "Apologize in memes",
-      "Sleep"
-    ],
-    "rating": "mature"
-  },
-  {
-    "text": "Worst group trip bed?",
-    "choices": [
-      "Air mattress",
-      "Couch",
-      "Floor",
-      "The loudest room"
-    ],
-    "rating": "mature"
-  },
-  {
-    "text": "Who here is most into rainy Sundays?",
-    "choices": [
-      "Morning",
-      "Afternoon",
-      "Evening",
-      "Midnight"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Who here is most into bicycles?",
-    "choices": [
-      "Morning",
-      "Afternoon",
-      "Evening",
-      "Midnight"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Go-to move for dogs?",
-    "choices": [
-      "Cheap",
-      "Splurge",
-      "Split the bill",
-      "Whoever offers"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Who here is most into popcorn?",
-    "choices": [
-      "Sweet",
-      "Salty",
-      "Spicy",
-      "Savory"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Worst roommate confession?",
-    "choices": [
-      "Ate the leftovers",
-      "Never cleaned",
-      "Had people over",
-      "Used the charger"
-    ],
-    "rating": "mature"
-  },
-  {
-    "text": "Go-to move for coffee?",
-    "choices": [
-      "Indoors",
-      "Outdoors",
-      "Both",
-      "Couch forever"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Who here is most into trivia nights?",
-    "choices": [
-      "Sweet",
-      "Salty",
-      "Spicy",
-      "Savory"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Go-to move for cooking?",
-    "choices": [
-      "Indoors",
-      "Outdoors",
-      "Both",
-      "Couch forever"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Best puzzles in this room?",
-    "choices": [
-      "Always",
-      "Sometimes",
-      "Rarely",
-      "Never"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Go-to move for camping?",
-    "choices": [
-      "Cheap",
-      "Splurge",
-      "Split the bill",
-      "Whoever offers"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Ideal vibe for soup?",
-    "choices": [
-      "Quiet",
-      "Loud",
-      "In between",
-      "Depends"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Worst reunion drink?",
-    "choices": [
-      "Too strong",
-      "Too many",
-      "Someone else's",
-      "The one you don't remember"
-    ],
-    "rating": "mature"
-  },
-  {
-    "text": "Ideal vibe for snow days?",
-    "choices": [
-      "Quiet",
-      "Loud",
-      "In between",
-      "Depends"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Best pancakes in this room?",
-    "choices": [
-      "Always",
-      "Sometimes",
-      "Rarely",
-      "Never"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Best holidays in this room?",
-    "choices": [
-      "Always",
-      "Sometimes",
-      "Rarely",
-      "Never"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Ideal vibe for beach days?",
-    "choices": [
-      "Home",
-      "Out",
-      "Friends' place",
-      "Anywhere"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Best snow days in this room?",
-    "choices": [
-      "Plan it",
-      "Wing it",
-      "Ask the group",
-      "Flip a coin"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Best sports in this room?",
-    "choices": [
-      "Always",
-      "Sometimes",
-      "Rarely",
-      "Never"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Ideal vibe for camping?",
-    "choices": [
-      "Home",
-      "Out",
-      "Friends' place",
-      "Anywhere"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Party foul?",
-    "choices": [
-      "Spilling",
-      "Oversharing",
-      "Starting drama",
-      "Hogging the aux"
-    ],
-    "rating": "mature"
-  },
-  {
-    "text": "Best movies in this room?",
-    "choices": [
-      "Plan it",
-      "Wing it",
-      "Ask the group",
-      "Flip a coin"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Ideal vibe for picnics?",
-    "choices": [
-      "Home",
-      "Out",
-      "Friends' place",
-      "Anywhere"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Who here is most into hot chocolate?",
-    "choices": [
-      "Sweet",
-      "Salty",
-      "Spicy",
-      "Savory"
+      "flags",
+      "seals",
+      "national emblems",
+      "coat of arms"
     ],
     "rating": "family"
   },
@@ -400,582 +30,64 @@
     "rating": "mature"
   },
   {
-    "text": "Best board games in this room?",
+    "text": "ANZAC Day is a public holiday celebrated on April 25th, in this country.",
     "choices": [
-      "Plan it",
-      "Wing it",
-      "Ask the group",
-      "Flip a coin"
+      "Australia",
+      "Argentina",
+      "Angola",
+      "Austria"
     ],
     "rating": "family"
   },
   {
-    "text": "Best pizza topping?",
+    "text": "Would you rather Have one legendary messy night a year or Have mildly awkward nights every weekend?",
     "choices": [
-      "Pepperoni",
-      "Mushroom",
-      "Pineapple",
-      "Plain cheese"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Ideal vibe for brunch?",
-    "choices": [
-      "Home",
-      "Out",
-      "Friends' place",
-      "Anywhere"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Ideal vibe for puzzles?",
-    "choices": [
-      "Home",
-      "Out",
-      "Friends' place",
-      "Anywhere"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Go-to move for video games?",
-    "choices": [
-      "Indoors",
-      "Outdoors",
-      "Both",
-      "Couch forever"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Go-to move for rainy Sundays?",
-    "choices": [
-      "Cheap",
-      "Splurge",
-      "Split the bill",
-      "Whoever offers"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Go-to move for sleepovers?",
-    "choices": [
-      "Indoors",
-      "Outdoors",
-      "Both",
-      "Couch forever"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Party vice of choice?",
-    "choices": [
-      "Too loud",
-      "Too late",
-      "Too honest",
-      "Too many drinks"
+      "Have one legendary messy night a year",
+      "Have mildly awkward nights every weekend"
     ],
     "rating": "mature"
   },
   {
-    "text": "Who here is most into stargazing?",
+    "text": "Would you rather be able to speak every language fluently or be a master of every musical instrument?",
     "choices": [
-      "Sweet",
-      "Salty",
-      "Spicy",
-      "Savory"
+      "be able to speak every language fluently",
+      "be a master of every musical instrument"
     ],
     "rating": "family"
   },
   {
-    "text": "Best concerts in this room?",
+    "text": "Would you rather have the power to control electricity or have the power to control magnetism?",
     "choices": [
-      "Plan it",
-      "Wing it",
-      "Ask the group",
-      "Flip a coin"
+      "have the power to control electricity",
+      "have the power to control magnetism"
     ],
     "rating": "family"
   },
   {
-    "text": "Ideal vibe for gardening?",
+    "text": "Would you rather be a famous actor/actress or a renowned athlete?",
     "choices": [
-      "Quiet",
-      "Loud",
-      "In between",
-      "Depends"
+      "be a famous actor/actress",
+      "a renowned athlete"
     ],
     "rating": "family"
   },
   {
-    "text": "Ideal vibe for theme parks?",
+    "text": "Which cocktail should we order?",
     "choices": [
-      "Quiet",
-      "Loud",
-      "In between",
-      "Depends"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Relationship green flag?",
-    "choices": [
-      "Texts back",
-      "Likes your friends",
-      "Splits dinner",
-      "Has a therapist"
+      "Whisky Mac",
+      "Snowball",
+      "Pegu Club",
+      "Radler"
     ],
     "rating": "mature"
   },
   {
-    "text": "Best baking in this room?",
+    "text": "Who performed the hit song Having My Baby in 1976, in duet with Odia Coates?",
     "choices": [
-      "Always",
-      "Sometimes",
-      "Rarely",
-      "Never"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Best birthdays in this room?",
-    "choices": [
-      "Plan it",
-      "Wing it",
-      "Ask the group",
-      "Flip a coin"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Best theme parks in this room?",
-    "choices": [
-      "Plan it",
-      "Wing it",
-      "Ask the group",
-      "Flip a coin"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Who here is most into camping?",
-    "choices": [
-      "Morning",
-      "Afternoon",
-      "Evening",
-      "Midnight"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Best parades in this room?",
-    "choices": [
-      "Plan it",
-      "Wing it",
-      "Ask the group",
-      "Flip a coin"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Ideal vibe for ice cream?",
-    "choices": [
-      "Home",
-      "Out",
-      "Friends' place",
-      "Anywhere"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Best coffee in this room?",
-    "choices": [
-      "Plan it",
-      "Wing it",
-      "Ask the group",
-      "Flip a coin"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Ideal vibe for museums?",
-    "choices": [
-      "Quiet",
-      "Loud",
-      "In between",
-      "Depends"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Go-to move for stargazing?",
-    "choices": [
-      "Indoors",
-      "Outdoors",
-      "Both",
-      "Couch forever"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Afterparty location?",
-    "choices": [
-      "Someone's kitchen",
-      "A diner",
-      "The street",
-      "Absolutely not"
-    ],
-    "rating": "mature"
-  },
-  {
-    "text": "House party role?",
-    "choices": [
-      "DJ",
-      "Snack cop",
-      "Coat pile",
-      "The one who leaves last"
-    ],
-    "rating": "mature"
-  },
-  {
-    "text": "Best tea in this room?",
-    "choices": [
-      "Always",
-      "Sometimes",
-      "Rarely",
-      "Never"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Go-to move for concerts?",
-    "choices": [
-      "Indoors",
-      "Outdoors",
-      "Both",
-      "Couch forever"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Best popcorn in this room?",
-    "choices": [
-      "Plan it",
-      "Wing it",
-      "Ask the group",
-      "Flip a coin"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Best pets in this room?",
-    "choices": [
-      "Always",
-      "Sometimes",
-      "Rarely",
-      "Never"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Ideal vibe for parades?",
-    "choices": [
-      "Quiet",
-      "Loud",
-      "In between",
-      "Depends"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Ideal vibe for birthdays?",
-    "choices": [
-      "Quiet",
-      "Loud",
-      "In between",
-      "Depends"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Ideal vibe for hiking?",
-    "choices": [
-      "Quiet",
-      "Loud",
-      "In between",
-      "Depends"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Go-to move for arcade nights?",
-    "choices": [
-      "Cheap",
-      "Splurge",
-      "Split the bill",
-      "Whoever offers"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Ideal vibe for pets?",
-    "choices": [
-      "Home",
-      "Out",
-      "Friends' place",
-      "Anywhere"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Worst toast topic?",
-    "choices": [
-      "College stories",
-      "The divorce",
-      "How we met (too honest)",
-      "Work"
-    ],
-    "rating": "mature"
-  },
-  {
-    "text": "Best way to spend Sunday?",
-    "choices": [
-      "Sleep in",
-      "Brunch",
-      "Hike",
-      "Gaming"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Ideal vibe for cats?",
-    "choices": [
-      "Quiet",
-      "Loud",
-      "In between",
-      "Depends"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Worst after-work drinks?",
-    "choices": [
-      "One turns into five",
-      "The boss joins",
-      "Nobody splits",
-      "Last train missed"
-    ],
-    "rating": "mature"
-  },
-  {
-    "text": "Ideal vibe for trivia nights?",
-    "choices": [
-      "Quiet",
-      "Loud",
-      "In between",
-      "Depends"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Go-to move for theme parks?",
-    "choices": [
-      "Indoors",
-      "Outdoors",
-      "Both",
-      "Couch forever"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Best ice cream in this room?",
-    "choices": [
-      "Always",
-      "Sometimes",
-      "Rarely",
-      "Never"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Ideal vibe for karaoke?",
-    "choices": [
-      "Home",
-      "Out",
-      "Friends' place",
-      "Anywhere"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Ideal vibe for farmers markets?",
-    "choices": [
-      "Quiet",
-      "Loud",
-      "In between",
-      "Depends"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Ideal vibe for baking?",
-    "choices": [
-      "Home",
-      "Out",
-      "Friends' place",
-      "Anywhere"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Who here is most into pancakes?",
-    "choices": [
-      "Morning",
-      "Afternoon",
-      "Evening",
-      "Midnight"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Go-to move for tea?",
-    "choices": [
-      "Cheap",
-      "Splurge",
-      "Split the bill",
-      "Whoever offers"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Who here is most into picnics?",
-    "choices": [
-      "Morning",
-      "Afternoon",
-      "Evening",
-      "Midnight"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Who here is most into tea?",
-    "choices": [
-      "Morning",
-      "Afternoon",
-      "Evening",
-      "Midnight"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Ideal vibe for dogs?",
-    "choices": [
-      "Home",
-      "Out",
-      "Friends' place",
-      "Anywhere"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Who here is most into holidays?",
-    "choices": [
-      "Morning",
-      "Afternoon",
-      "Evening",
-      "Midnight"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Go-to move for gardening?",
-    "choices": [
-      "Indoors",
-      "Outdoors",
-      "Both",
-      "Couch forever"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Go-to move for museums?",
-    "choices": [
-      "Indoors",
-      "Outdoors",
-      "Both",
-      "Couch forever"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Ideal vibe for bicycles?",
-    "choices": [
-      "Home",
-      "Out",
-      "Friends' place",
-      "Anywhere"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Ideal vibe for pizza?",
-    "choices": [
-      "Home",
-      "Out",
-      "Friends' place",
-      "Anywhere"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Who here is most into arcade nights?",
-    "choices": [
-      "Morning",
-      "Afternoon",
-      "Evening",
-      "Midnight"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Who here is most into sports?",
-    "choices": [
-      "Morning",
-      "Afternoon",
-      "Evening",
-      "Midnight"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Ideal vibe for podcasts?",
-    "choices": [
-      "Home",
-      "Out",
-      "Friends' place",
-      "Anywhere"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Flirt via?",
-    "choices": [
-      "Texts",
-      "Memes",
-      "Voice notes",
-      "Showing up"
-    ],
-    "rating": "mature"
-  },
-  {
-    "text": "Ideal vibe for LEGO?",
-    "choices": [
-      "Quiet",
-      "Loud",
-      "In between",
-      "Depends"
+      "Paul Anka",
+      "Starbuck",
+      "Paul Revere and The Raiders",
+      "Paul Williams"
     ],
     "rating": "family"
   },
@@ -990,362 +102,20 @@
     "rating": "mature"
   },
   {
-    "text": "Who here is most into ice cream?",
+    "text": "Tonight's house special?",
     "choices": [
-      "Morning",
-      "Afternoon",
-      "Evening",
-      "Midnight"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Best hiking in this room?",
-    "choices": [
-      "Plan it",
-      "Wing it",
-      "Ask the group",
-      "Flip a coin"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Best fairs in this room?",
-    "choices": [
-      "Always",
-      "Sometimes",
-      "Rarely",
-      "Never"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Party legend status for?",
-    "choices": [
-      "The dance",
-      "The speech",
-      "The mess",
-      "The exit"
+      "Casino",
+      "Casa Blanca",
+      "Ace",
+      "Mint Julep"
     ],
     "rating": "mature"
   },
   {
-    "text": "Who here is most into theme parks?",
+    "text": "Would you rather have the ability to speak with the dead or have the ability to see the future?",
     "choices": [
-      "Sweet",
-      "Salty",
-      "Spicy",
-      "Savory"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Secret Santa crime?",
-    "choices": [
-      "Re-gift",
-      "Too cheap",
-      "Too personal",
-      "Forgot entirely"
-    ],
-    "rating": "mature"
-  },
-  {
-    "text": "Go-to move for karaoke?",
-    "choices": [
-      "Cheap",
-      "Splurge",
-      "Split the bill",
-      "Whoever offers"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "After-hours energy?",
-    "choices": [
-      "One more round",
-      "Uber home",
-      "Diner run",
-      "Regret tomorrow"
-    ],
-    "rating": "mature"
-  },
-  {
-    "text": "Go-to move for book clubs?",
-    "choices": [
-      "Indoors",
-      "Outdoors",
-      "Both",
-      "Couch forever"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Who here is most into puzzles?",
-    "choices": [
-      "Morning",
-      "Afternoon",
-      "Evening",
-      "Midnight"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Go-to move for farmers markets?",
-    "choices": [
-      "Indoors",
-      "Outdoors",
-      "Both",
-      "Couch forever"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Friends-with-benefits risk?",
-    "choices": [
-      "Catching feelings",
-      "Getting caught",
-      "The group knows",
-      "It was a dare"
-    ],
-    "rating": "mature"
-  },
-  {
-    "text": "Ideal vibe for sandwiches?",
-    "choices": [
-      "Home",
-      "Out",
-      "Friends' place",
-      "Anywhere"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Ideal vibe for libraries?",
-    "choices": [
-      "Home",
-      "Out",
-      "Friends' place",
-      "Anywhere"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Go-to move for pets?",
-    "choices": [
-      "Cheap",
-      "Splurge",
-      "Split the bill",
-      "Whoever offers"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Flake excuse quality?",
-    "choices": [
-      "Traffic",
-      "Stomach",
-      "Early morning",
-      "My plant needs me"
-    ],
-    "rating": "mature"
-  },
-  {
-    "text": "Worst plus-one story?",
-    "choices": [
-      "They knew everyone",
-      "They knew no one",
-      "They started a fight",
-      "They left with someone"
-    ],
-    "rating": "mature"
-  },
-  {
-    "text": "Go-to move for trivia nights?",
-    "choices": [
-      "Indoors",
-      "Outdoors",
-      "Both",
-      "Couch forever"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Go-to move for snow days?",
-    "choices": [
-      "Indoors",
-      "Outdoors",
-      "Both",
-      "Couch forever"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Who here is most into movies?",
-    "choices": [
-      "Sweet",
-      "Salty",
-      "Spicy",
-      "Savory"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Who here is most into hiking?",
-    "choices": [
-      "Sweet",
-      "Salty",
-      "Spicy",
-      "Savory"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Best swimming in this room?",
-    "choices": [
-      "Plan it",
-      "Wing it",
-      "Ask the group",
-      "Flip a coin"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Karaoke after drinks?",
-    "choices": [
-      "Power ballad",
-      "Rap verse",
-      "Duet with a stranger",
-      "Sit this one out"
-    ],
-    "rating": "mature"
-  },
-  {
-    "text": "Best LEGO in this room?",
-    "choices": [
-      "Plan it",
-      "Wing it",
-      "Ask the group",
-      "Flip a coin"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Best stargazing in this room?",
-    "choices": [
-      "Plan it",
-      "Wing it",
-      "Ask the group",
-      "Flip a coin"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Go-to move for picnics?",
-    "choices": [
-      "Cheap",
-      "Splurge",
-      "Split the bill",
-      "Whoever offers"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Who here is most into dogs?",
-    "choices": [
-      "Morning",
-      "Afternoon",
-      "Evening",
-      "Midnight"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Best museums in this room?",
-    "choices": [
-      "Plan it",
-      "Wing it",
-      "Ask the group",
-      "Flip a coin"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Best soup in this room?",
-    "choices": [
-      "Plan it",
-      "Wing it",
-      "Ask the group",
-      "Flip a coin"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Ideal vibe for concerts?",
-    "choices": [
-      "Quiet",
-      "Loud",
-      "In between",
-      "Depends"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Who here is most into podcasts?",
-    "choices": [
-      "Morning",
-      "Afternoon",
-      "Evening",
-      "Midnight"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Go-to comfort food?",
-    "choices": [
-      "Pasta",
-      "Soup",
-      "Ice cream",
-      "Burgers"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Ideal vibe for tea?",
-    "choices": [
-      "Home",
-      "Out",
-      "Friends' place",
-      "Anywhere"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Best dogs in this room?",
-    "choices": [
-      "Always",
-      "Sometimes",
-      "Rarely",
-      "Never"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Drunk food order?",
-    "choices": [
-      "Pizza",
-      "Tacos",
-      "Fries",
-      "Whatever is open"
-    ],
-    "rating": "mature"
-  },
-  {
-    "text": "Who here is most into birthdays?",
-    "choices": [
-      "Sweet",
-      "Salty",
-      "Spicy",
-      "Savory"
+      "have the ability to speak with the dead",
+      "have the ability to see the future"
     ],
     "rating": "family"
   },
@@ -1360,1032 +130,232 @@
     "rating": "mature"
   },
   {
-    "text": "Best camping in this room?",
+    "text": "Would you rather live in a world with no social media or no video games?",
     "choices": [
-      "Always",
-      "Sometimes",
-      "Rarely",
-      "Never"
+      "live in a world with no social media",
+      "no video games"
     ],
     "rating": "family"
   },
   {
-    "text": "Ideal vibe for fireworks?",
+    "text": "Pick the winning bar order",
     "choices": [
-      "Home",
-      "Out",
-      "Friends' place",
-      "Anywhere"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Ideal vibe for movies?",
-    "choices": [
-      "Quiet",
-      "Loud",
-      "In between",
-      "Depends"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Best hot chocolate in this room?",
-    "choices": [
-      "Plan it",
-      "Wing it",
-      "Ask the group",
-      "Flip a coin"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Go-to move for tacos?",
-    "choices": [
-      "Indoors",
-      "Outdoors",
-      "Both",
-      "Couch forever"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Go-to move for LEGO?",
-    "choices": [
-      "Indoors",
-      "Outdoors",
-      "Both",
-      "Couch forever"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Go-to move for birthdays?",
-    "choices": [
-      "Indoors",
-      "Outdoors",
-      "Both",
-      "Couch forever"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Ideal vibe for fairs?",
-    "choices": [
-      "Home",
-      "Out",
-      "Friends' place",
-      "Anywhere"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Ideal vibe for road trips?",
-    "choices": [
-      "Home",
-      "Out",
-      "Friends' place",
-      "Anywhere"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Who here is most into zoos?",
-    "choices": [
-      "Morning",
-      "Afternoon",
-      "Evening",
-      "Midnight"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Go-to move for ice cream?",
-    "choices": [
-      "Cheap",
-      "Splurge",
-      "Split the bill",
-      "Whoever offers"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Who here is most into gardening?",
-    "choices": [
-      "Sweet",
-      "Salty",
-      "Spicy",
-      "Savory"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Go-to move for holidays?",
-    "choices": [
-      "Cheap",
-      "Splurge",
-      "Split the bill",
-      "Whoever offers"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Hangover breakfast?",
-    "choices": [
-      "Greasy diner",
-      "Nothing but water",
-      "Bloody Mary",
-      "Sleep until Monday"
+      "The Laverstoke",
+      "Pink Moon",
+      "Jitterbug",
+      "Aviation"
     ],
     "rating": "mature"
   },
   {
-    "text": "Worst plus-one?",
+    "text": "Would you rather Never use social media again or Never watch movies again?",
     "choices": [
-      "The ex",
-      "A coworker",
-      "Someone's boss",
-      "A surprise plus-two"
+      "Never use social media again",
+      "Never watch movies again"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Which sign is considered to be most lucky and powerful?",
+    "choices": [
+      "Rooster",
+      "Ox",
+      "Dragon",
+      "Fox"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Which of these dishes is a traditional Mexican dish, prepared out of a tortilla dipped in a sauce, containing peppers?",
+    "choices": [
+      "Polenta",
+      "Enchilada",
+      "Baccala",
+      "Jambalaya"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "The Burnside Bridge is related to which Civil War battlefield?",
+    "choices": [
+      "Glorietta Pass",
+      "Chantilly",
+      "Cheat Mountain",
+      "Antietam"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "The fear of the fatal date is called this.",
+    "choices": [
+      "Paraskevidekatriaphobia",
+      "Aphenphosmphobia",
+      "Chronomentrophobia",
+      "Coitophobia"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Who was the first woman said to wear trousers?",
+    "choices": [
+      "Paula Abdul",
+      "Sarah Bernhardt",
+      "Gretta Garbo",
+      "Elizabeth Taylor"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Pick the winning bar order",
+    "choices": [
+      "Pure Passion",
+      "Freddy Kruger",
+      "Darkwood Sling",
+      "Hot Creamy Bush"
     ],
     "rating": "mature"
   },
   {
-    "text": "Who here is most into LEGO?",
+    "text": "Which novel by Ernest Hemingway was published in Great Britain under the title Fiesta?",
     "choices": [
-      "Sweet",
-      "Salty",
-      "Spicy",
-      "Savory"
+      "Death in the Afternoon",
+      "A Farewell to Arms",
+      "The Sun Also Rises",
+      "For Whom the Bell Tolls"
     ],
     "rating": "family"
   },
   {
-    "text": "Go-to move for baking?",
+    "text": "What was the name of Dr. Evils cat in the movie Austin Powers: International Man of Mystery?",
     "choices": [
-      "Cheap",
-      "Splurge",
-      "Split the bill",
-      "Whoever offers"
+      "Mr. Bigglesworth",
+      "Scott",
+      "Morris",
+      "Wench 00"
     ],
     "rating": "family"
   },
   {
-    "text": "Who here is most into snow days?",
+    "text": "Would you rather Your dating app bio is written by friends or Your friends write your wedding toast now?",
     "choices": [
-      "Sweet",
-      "Salty",
-      "Spicy",
-      "Savory"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Go-to move for zoos?",
-    "choices": [
-      "Cheap",
-      "Splurge",
-      "Split the bill",
-      "Whoever offers"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Best fireworks in this room?",
-    "choices": [
-      "Always",
-      "Sometimes",
-      "Rarely",
-      "Never"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Go-to move for beach days?",
-    "choices": [
-      "Cheap",
-      "Splurge",
-      "Split the bill",
-      "Whoever offers"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Worst dating app habit?",
-    "choices": [
-      "Ghosting",
-      "Double texting",
-      "Love bombing",
-      "Breadcrumbing"
+      "Your dating app bio is written by friends",
+      "Your friends write your wedding toast now"
     ],
     "rating": "mature"
   },
   {
-    "text": "Best libraries in this room?",
+    "text": "In which direction do the Tigris and Euphrates Rivers flow?",
     "choices": [
-      "Always",
-      "Sometimes",
-      "Rarely",
-      "Never"
+      "South to North",
+      "Northwest to Southeast",
+      "Southeast to Northwest",
+      "North to South"
     ],
     "rating": "family"
   },
   {
-    "text": "Ideal vibe for sleepovers?",
+    "text": "What classic satirical novel by Jonathan Swift was banned in Ireland for being wicked and obscene?",
     "choices": [
-      "Quiet",
-      "Loud",
-      "In between",
-      "Depends"
+      "A Journal to Stella",
+      "A Modest Proposal",
+      "Gullivers Travels",
+      "Robinson Crusoe"
     ],
     "rating": "family"
   },
   {
-    "text": "Ideal vibe for holidays?",
+    "text": "Tonight's house special?",
     "choices": [
-      "Home",
-      "Out",
-      "Friends' place",
-      "Anywhere"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Ideal vibe for arcade nights?",
-    "choices": [
-      "Home",
-      "Out",
-      "Friends' place",
-      "Anywhere"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Vacation romance odds?",
-    "choices": [
-      "Zero",
-      "A fling",
-      "A story for later",
-      "Already happening"
+      "Space Odyssey",
+      "Jack Rose Cocktail",
+      "Tequila Slammer",
+      "Bellini"
     ],
     "rating": "mature"
   },
   {
-    "text": "Ideal vibe for stargazing?",
+    "text": "Name the rarest and most endangered of all wolves.",
     "choices": [
-      "Quiet",
-      "Loud",
-      "In between",
-      "Depends"
+      "Red Wolf",
+      "Ethiopian Wolf",
+      "Black-backed Wolf",
+      "Gray Wolf"
     ],
     "rating": "family"
   },
   {
-    "text": "Ideal vibe for pancakes?",
+    "text": "Which cocktail should we order?",
     "choices": [
-      "Home",
-      "Out",
-      "Friends' place",
-      "Anywhere"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Dating dealbreaker lite?",
-    "choices": [
-      "Always late",
-      "Bad tipper",
-      "Hates pets",
-      "No sense of humor"
+      "Rum Sour",
+      "Orange Crush",
+      "The Jimmy Conway",
+      "H.D."
     ],
     "rating": "mature"
   },
   {
-    "text": "Ideal vibe for board games?",
+    "text": "Which former NFL running back played the sheriff in the Western classic 100 Rifles?",
     "choices": [
-      "Quiet",
-      "Loud",
-      "In between",
-      "Depends"
+      "Jim Brown",
+      "Alan Ameche",
+      "Jim Taylor",
+      "OJ Simpson"
     ],
     "rating": "family"
   },
   {
-    "text": "Worst 2am text?",
+    "text": "The 1962 Soccer World Cup tournament was held in this country.",
     "choices": [
-      "u up",
-      "we need to talk",
-      "I miss my ex",
-      "Can you pick me up"
+      "Switzerland",
+      "Mexico",
+      "Chile",
+      "Italy"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Tonight's house special?",
+    "choices": [
+      "Lazy Coconut Paloma",
+      "Long Island Tea",
+      "English Rose Cocktail",
+      "Whitecap Margarita"
     ],
     "rating": "mature"
   },
   {
-    "text": "Who here is most into swimming?",
+    "text": "Would you rather have a photographic memory or the ability to learn any skill instantly?",
     "choices": [
-      "Sweet",
-      "Salty",
-      "Spicy",
-      "Savory"
+      "have a photographic memory",
+      "the ability to learn any skill instantly"
     ],
     "rating": "family"
   },
   {
-    "text": "Night-out budget?",
+    "text": "Which drink belongs on the menu?",
     "choices": [
-      "Cash only",
-      "One card to rule them",
-      "Venmo later",
-      "I forgot my wallet"
+      "Jackhammer",
+      "Happy Skipper",
+      "Spice 75",
+      "Boston Sour"
     ],
     "rating": "mature"
   },
   {
-    "text": "Go-to move for hiking?",
+    "text": "What is the Iron Maiden song performed in Guitar Hero 3?",
     "choices": [
-      "Indoors",
-      "Outdoors",
-      "Both",
-      "Couch forever"
+      "The Metal",
+      "Enter Sandman",
+      "One",
+      "The Number of the Beast"
     ],
     "rating": "family"
   },
   {
-    "text": "Best farmers markets in this room?",
+    "text": "Would you rather live in a world without music or a world without laughter?",
     "choices": [
-      "Plan it",
-      "Wing it",
-      "Ask the group",
-      "Flip a coin"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Best cooking in this room?",
-    "choices": [
-      "Plan it",
-      "Wing it",
-      "Ask the group",
-      "Flip a coin"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Who here is most into fairs?",
-    "choices": [
-      "Morning",
-      "Afternoon",
-      "Evening",
-      "Midnight"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Worst toast drink?",
-    "choices": [
-      "Too many shots",
-      "Someone's homemade punch",
-      "An open bar sprint",
-      "Nothing, you're driving"
-    ],
-    "rating": "mature"
-  },
-  {
-    "text": "Ideal vibe for rainy Sundays?",
-    "choices": [
-      "Home",
-      "Out",
-      "Friends' place",
-      "Anywhere"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Go-to move for fairs?",
-    "choices": [
-      "Cheap",
-      "Splurge",
-      "Split the bill",
-      "Whoever offers"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Who here is most into book clubs?",
-    "choices": [
-      "Sweet",
-      "Salty",
-      "Spicy",
-      "Savory"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Ideal vibe for popcorn?",
-    "choices": [
-      "Quiet",
-      "Loud",
-      "In between",
-      "Depends"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Best sleepovers in this room?",
-    "choices": [
-      "Plan it",
-      "Wing it",
-      "Ask the group",
-      "Flip a coin"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Best book clubs in this room?",
-    "choices": [
-      "Plan it",
-      "Wing it",
-      "Ask the group",
-      "Flip a coin"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Go-to move for sandwiches?",
-    "choices": [
-      "Cheap",
-      "Splurge",
-      "Split the bill",
-      "Whoever offers"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Go-to move for movies?",
-    "choices": [
-      "Indoors",
-      "Outdoors",
-      "Both",
-      "Couch forever"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Group chat crime?",
-    "choices": [
-      "Screenshots",
-      "Leaving on read",
-      "Voice notes",
-      "Adding an ex"
-    ],
-    "rating": "mature"
-  },
-  {
-    "text": "Flake on a date via?",
-    "choices": [
-      "Text",
-      "Leave on read",
-      "A friend cancels for you",
-      "You just don't show"
-    ],
-    "rating": "mature"
-  },
-  {
-    "text": "Go-to move for road trips?",
-    "choices": [
-      "Cheap",
-      "Splurge",
-      "Split the bill",
-      "Whoever offers"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Go-to move for libraries?",
-    "choices": [
-      "Cheap",
-      "Splurge",
-      "Split the bill",
-      "Whoever offers"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Who here is most into beach days?",
-    "choices": [
-      "Morning",
-      "Afternoon",
-      "Evening",
-      "Midnight"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Go-to move for popcorn?",
-    "choices": [
-      "Indoors",
-      "Outdoors",
-      "Both",
-      "Couch forever"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Go-to move for hot chocolate?",
-    "choices": [
-      "Indoors",
-      "Outdoors",
-      "Both",
-      "Couch forever"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Preferred superpower?",
-    "choices": [
-      "Fly",
-      "Invisibility",
-      "Time travel",
-      "Read minds"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Worst wedding speech?",
-    "choices": [
-      "Inside jokes",
-      "The ex chapter",
-      "Crying immediately",
-      "A roast"
-    ],
-    "rating": "mature"
-  },
-  {
-    "text": "Ideal vibe for book clubs?",
-    "choices": [
-      "Quiet",
-      "Loud",
-      "In between",
-      "Depends"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Who here is most into pets?",
-    "choices": [
-      "Morning",
-      "Afternoon",
-      "Evening",
-      "Midnight"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Best road trips in this room?",
-    "choices": [
-      "Always",
-      "Sometimes",
-      "Rarely",
-      "Never"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Who here is most into pizza?",
-    "choices": [
-      "Morning",
-      "Afternoon",
-      "Evening",
-      "Midnight"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Best trivia nights in this room?",
-    "choices": [
-      "Plan it",
-      "Wing it",
-      "Ask the group",
-      "Flip a coin"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Go-to move for puzzles?",
-    "choices": [
-      "Cheap",
-      "Splurge",
-      "Split the bill",
-      "Whoever offers"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Who here is most into sandwiches?",
-    "choices": [
-      "Morning",
-      "Afternoon",
-      "Evening",
-      "Midnight"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Bar tab strategy?",
-    "choices": [
-      "Split evenly",
-      "Itemize everything",
-      "One person pays",
-      "Disappear"
-    ],
-    "rating": "mature"
-  },
-  {
-    "text": "Hotel minibar?",
-    "choices": [
-      "Touch nothing",
-      "One overpriced water",
-      "Raiding it",
-      "Hiding the receipt"
-    ],
-    "rating": "mature"
-  },
-  {
-    "text": "Who here is most into karaoke?",
-    "choices": [
-      "Morning",
-      "Afternoon",
-      "Evening",
-      "Midnight"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Who here is most into board games?",
-    "choices": [
-      "Sweet",
-      "Salty",
-      "Spicy",
-      "Savory"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Reunion small talk?",
-    "choices": [
-      "Work flex",
-      "Baby photos",
-      "The weather",
-      "Who dated who"
-    ],
-    "rating": "mature"
-  },
-  {
-    "text": "Go-to move for pizza?",
-    "choices": [
-      "Cheap",
-      "Splurge",
-      "Split the bill",
-      "Whoever offers"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Brunch with a hangover?",
-    "choices": [
-      "Mimosas anyway",
-      "Black coffee only",
-      "Cancel and sleep",
-      "Hash browns first"
-    ],
-    "rating": "mature"
-  },
-  {
-    "text": "Who here is most into video games?",
-    "choices": [
-      "Sweet",
-      "Salty",
-      "Spicy",
-      "Savory"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Who here is most into concerts?",
-    "choices": [
-      "Sweet",
-      "Salty",
-      "Spicy",
-      "Savory"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Rideshare confession?",
-    "choices": [
-      "Rating drama",
-      "Wrong pin",
-      "Too chatty",
-      "Fell asleep"
-    ],
-    "rating": "mature"
-  },
-  {
-    "text": "Who here is most into cats?",
-    "choices": [
-      "Sweet",
-      "Salty",
-      "Spicy",
-      "Savory"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Go-to move for parades?",
-    "choices": [
-      "Indoors",
-      "Outdoors",
-      "Both",
-      "Couch forever"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Office party red flag?",
-    "choices": [
-      "Too many shots",
-      "Talking to the boss",
-      "Karaoke ballad",
-      "Leaving at 8"
-    ],
-    "rating": "mature"
-  },
-  {
-    "text": "Ideal vibe for sports?",
-    "choices": [
-      "Home",
-      "Out",
-      "Friends' place",
-      "Anywhere"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Worst ex story starter?",
-    "choices": [
-      "It was fine until",
-      "My friends warned me",
-      "The texts exist",
-      "Vegas"
-    ],
-    "rating": "mature"
-  },
-  {
-    "text": "Best gardening in this room?",
-    "choices": [
-      "Plan it",
-      "Wing it",
-      "Ask the group",
-      "Flip a coin"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Bar game of choice?",
-    "choices": [
-      "Darts",
-      "Pool",
-      "Trivia",
-      "People-watching"
-    ],
-    "rating": "mature"
-  },
-  {
-    "text": "Best podcasts in this room?",
-    "choices": [
-      "Always",
-      "Sometimes",
-      "Rarely",
-      "Never"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Who here is most into libraries?",
-    "choices": [
-      "Morning",
-      "Afternoon",
-      "Evening",
-      "Midnight"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Go-to move for soup?",
-    "choices": [
-      "Indoors",
-      "Outdoors",
-      "Both",
-      "Couch forever"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Who here is most into coffee?",
-    "choices": [
-      "Sweet",
-      "Salty",
-      "Spicy",
-      "Savory"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Who here is most into sleepovers?",
-    "choices": [
-      "Sweet",
-      "Salty",
-      "Spicy",
-      "Savory"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Worst toast at a party?",
-    "choices": [
-      "Inside joke",
-      "Too honest",
-      "Too long",
-      "Naming an ex"
-    ],
-    "rating": "mature"
-  },
-  {
-    "text": "Go-to move for cats?",
-    "choices": [
-      "Indoors",
-      "Outdoors",
-      "Both",
-      "Couch forever"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Late-night confession style?",
-    "choices": [
-      "Too loud",
-      "Too true",
-      "Too soon",
-      "Already screenshotted"
-    ],
-    "rating": "mature"
-  },
-  {
-    "text": "Best zoos in this room?",
-    "choices": [
-      "Always",
-      "Sometimes",
-      "Rarely",
-      "Never"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Go-to move for podcasts?",
-    "choices": [
-      "Cheap",
-      "Splurge",
-      "Split the bill",
-      "Whoever offers"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Go-to move for bicycles?",
-    "choices": [
-      "Cheap",
-      "Splurge",
-      "Split the bill",
-      "Whoever offers"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Who here is most into farmers markets?",
-    "choices": [
-      "Sweet",
-      "Salty",
-      "Spicy",
-      "Savory"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Best video games in this room?",
-    "choices": [
-      "Plan it",
-      "Wing it",
-      "Ask the group",
-      "Flip a coin"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Who here is most into brunch?",
-    "choices": [
-      "Morning",
-      "Afternoon",
-      "Evening",
-      "Midnight"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Club night personality?",
-    "choices": [
-      "Main character",
-      "Wallflower",
-      "Designated adult",
-      "Lost in the coat check"
-    ],
-    "rating": "mature"
-  },
-  {
-    "text": "Wedding afterparty move?",
-    "choices": [
-      "Dance floor",
-      "Sneak out",
-      "Open bar sprint",
-      "Catch the bouquet"
-    ],
-    "rating": "mature"
-  },
-  {
-    "text": "Group chat name crime?",
-    "choices": [
-      "An inside joke",
-      "Someone's embarrassing moment",
-      "An ex reference",
-      "All lowercase chaos"
-    ],
-    "rating": "mature"
-  },
-  {
-    "text": "Go-to move for board games?",
-    "choices": [
-      "Indoors",
-      "Outdoors",
-      "Both",
-      "Couch forever"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Ideal vibe for cooking?",
-    "choices": [
-      "Quiet",
-      "Loud",
-      "In between",
-      "Depends"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Pre-game playlist?",
-    "choices": [
-      "Throwbacks",
-      "Club bangers",
-      "Ironic country",
-      "Silence and nerves"
-    ],
-    "rating": "mature"
-  },
-  {
-    "text": "Who here is most into fireworks?",
-    "choices": [
-      "Morning",
-      "Afternoon",
-      "Evening",
-      "Midnight"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Go-to move for brunch?",
-    "choices": [
-      "Cheap",
-      "Splurge",
-      "Split the bill",
-      "Whoever offers"
-    ],
-    "rating": "family"
-  },
-  {
-    "text": "Ideal vibe for hot chocolate?",
-    "choices": [
-      "Quiet",
-      "Loud",
-      "In between",
-      "Depends"
+      "live in a world without music",
+      "a world without laughter"
     ],
     "rating": "family"
   },
@@ -2400,6 +370,480 @@
     "rating": "mature"
   },
   {
+    "text": "Secret Santa crime?",
+    "choices": [
+      "Re-gift",
+      "Too cheap",
+      "Too personal",
+      "Forgot entirely"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "In the film Field of Dreams, while taking a late night walk in Chisholm, Minnesota, Ray sees a cinema marquee displaying which movie title?",
+    "choices": [
+      "Cabaret",
+      "The Exorcist",
+      "Shaft",
+      "The Godfather"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Three of the following four disorders are actually different names for the same disease. Which is the odd one?",
+    "choices": [
+      "Antisocial Personality",
+      "Psychopath",
+      "Maniac",
+      "Sociopath"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Name Emmett Kellys birth state, which is also the location of the Emmett Kelly Museum.",
+    "choices": [
+      "Iowa",
+      "Kansas",
+      "Nevada",
+      "Nebraska"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "The word nice is very popular nowadays, but its original meaning in Latin is not as nice.",
+    "choices": [
+      "Disobedient",
+      "Clumsy",
+      "Ignorant",
+      "Hideous"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Who invented the armonica, a musical instrument made up of a series of tuned spinning bowls?",
+    "choices": [
+      "Sir Edward Elgar",
+      "Benjamin Franklin",
+      "Dean Shostak",
+      "Thomas Edison"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Schnapps is a kind of fruit brandy and is typical for the country which gave the name of this beverage.",
+    "choices": [
+      "Austria",
+      "Italy",
+      "The Netherlands",
+      "Germany"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Would you rather Tell your group chat every dating thought or Never talk about dating with friends again?",
+    "choices": [
+      "Tell your group chat every dating thought",
+      "Never talk about dating with friends again"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "The following movie line was said by which actress: Why dont you just say This is the police! and it will open right up!?",
+    "choices": [
+      "Eddie Murphy to Nick Nolte",
+      "Stella Stevens to Ernest Borgnine",
+      "Charles Durning to Burt Reynolds",
+      "Eddie Murphy to Judge Reinhold"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Tonight's house special?",
+    "choices": [
+      "Bee's Knees",
+      "Manhattan",
+      "Margarita",
+      "Cosmopolitan"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Would you rather live without your smartphone or without your computer/laptop?",
+    "choices": [
+      "live without your smartphone",
+      "without your computer/laptop"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Which war was fought by El Salvador and Honduras in 1969?",
+    "choices": [
+      "Basketball War",
+      "Football War",
+      "Rugby War",
+      "Baseball War"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Would you rather Have a rewind button for life or Have a pause button for life?",
+    "choices": [
+      "Have a rewind button for life",
+      "Have a pause button for life"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "In which year was the pen and paper RPG \"Deadlands\" released?",
+    "choices": [
+      "2003",
+      "1999",
+      "1996",
+      "1993"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Which set contains only prime numbers?",
+    "choices": [
+      "2, 3, 5, 7,11,13, 17",
+      "1, 4, 11, 13, 15, 17",
+      "2, 3, 5, 7, 9, 11, 37",
+      "1, 3, 5, 7, 9, 11, 13"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Worst group trip bed?",
+    "choices": [
+      "Air mattress",
+      "Couch",
+      "Floor",
+      "The loudest room"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Night-out budget?",
+    "choices": [
+      "Cash only",
+      "One card to rule them",
+      "Venmo later",
+      "I forgot my wallet"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Would you rather Never drink again or Never stay out past midnight again?",
+    "choices": [
+      "Never drink again",
+      "Never stay out past midnight again"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "This conflict, which lasted from 1839 to 1842, is regarded as a trade-inspired war between Great Britain and the Qing Empire in China.",
+    "choices": [
+      "The War of the Roses",
+      "The First Opium War",
+      "The Shanghai Revolution",
+      "Boxer Rebellion"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Party vice of choice?",
+    "choices": [
+      "Too loud",
+      "Too late",
+      "Too honest",
+      "Too many drinks"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "The Bible tells the story of a woman that was turned into a pillar of salt near the Dead Sea. Who was her famous husband?",
+    "choices": [
+      "Issac",
+      "Abraham",
+      "Pharoah",
+      "Lot"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "This famous Latin maxim, which is the official motto of South Carolina, means While I breathe, I hope.",
+    "choices": [
+      "Si quaeris peninsulam amoenam circumspice",
+      "Nil sine numine",
+      "Salus populi suprema lex esto",
+      "Dum spiro spero"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Late-night confession style?",
+    "choices": [
+      "Too loud",
+      "Too true",
+      "Too soon",
+      "Already screenshotted"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Would you rather live in a world with no wars or live in a world with no poverty?",
+    "choices": [
+      "live in a world with no wars",
+      "live in a world with no poverty"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "The volcanoes - Akan, Aso, Mount Fuji and Rausu are located in this country.",
+    "choices": [
+      "Japan",
+      "Malaysia",
+      "North Korea",
+      "Indonesia"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "In the movie “Caddyshack”, Danny Noonan is a caddie trying to earn money to go to college. What actor played the role of Danny Noonan?",
+    "choices": [
+      "Bill Murray",
+      "Chevy Chase",
+      "Carl Spackler",
+      "Michael O Keefe"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Pick the winning bar order",
+    "choices": [
+      "Duchamp's Punch",
+      "Brigadier",
+      "Affair",
+      "Frisco Sour"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Pick the winning bar order",
+    "choices": [
+      "Negroni",
+      "Pornstar Martini",
+      "Espresso Rumtini",
+      "Oatmeal Cookie"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Would you rather have the power of flight or the power of telekinesis?",
+    "choices": [
+      "have the power of flight",
+      "the power of telekinesis"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "In what country did the Industrial Revolution start?",
+    "choices": [
+      "Germany",
+      "Italy",
+      "Great Britain",
+      "France"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Which of the following was the first womens advocacy show?",
+    "choices": [
+      "Leave It To The Girls",
+      "The Ladies Hour",
+      "The Ladies Home Journal Hour",
+      "Girl Talk"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Tonight's house special?",
+    "choices": [
+      "Allegheny",
+      "Cosmopolitan",
+      "Rum Cobbler",
+      "Pink Panty Pulldowns"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Would you rather Always be someone's rebound or Always be the person they almost dated?",
+    "choices": [
+      "Always be someone's rebound",
+      "Always be the person they almost dated"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Would you rather Be the story at every reunion or Have no one remember you from school?",
+    "choices": [
+      "Be the story at every reunion",
+      "Have no one remember you from school"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "This former baseball player, called The Ol Perfesser, left his mark on the game as a manager.",
+    "choices": [
+      "Miller Huggins",
+      "Earl Weaver",
+      "Connie Mack",
+      "Casey Stengel"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Which of these statements about the Abominable Snowmonster is false according to the Rudolph Christmas classic?",
+    "choices": [
+      "They bounce.",
+      "They sink.",
+      "They are very smart.",
+      "They like to eat pigs."
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Both in the year when Mark Twain was born and the year when he died, the Halleys Comet passed by Earth.",
+    "choices": [
+      "Johann Kaspar Schmidt",
+      "Samuel Langhorne Clemens",
+      "Don Novello",
+      "Charles Farrar Browne"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Who is head of the fictional Gryffindor house?",
+    "choices": [
+      "Snape",
+      "McGonagall",
+      "Lupin",
+      "Trelawney"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Would you rather Your ex is in the wedding party or Your ex is the DJ?",
+    "choices": [
+      "Your ex is in the wedding party",
+      "Your ex is the DJ"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Which drink belongs on the menu?",
+    "choices": [
+      "Diesel",
+      "Ramos Gin Fizz",
+      "Victor",
+      "Citrus Coke"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Would you rather have the ability to control fire or have the ability to control ice?",
+    "choices": [
+      "have the ability to control fire",
+      "have the ability to control ice"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Would you rather Always be the screenshot or Always be the one who leaks?",
+    "choices": [
+      "Always be the screenshot",
+      "Always be the one who leaks"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Worst roommate confession?",
+    "choices": [
+      "Ate the leftovers",
+      "Never cleaned",
+      "Had people over",
+      "Used the charger"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Which drink belongs on the menu?",
+    "choices": [
+      "Bellini",
+      "Pisco Sour",
+      "Tom Collins",
+      "Americano"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "If your opponent in the game gin rummy picked up the jack of spades and discarded the queen of spades, what could you conclude?",
+    "choices": [
+      "She probably is collecting jacks.",
+      "She is about to gin.",
+      "She doesnt know how to play gin.",
+      "She most certainly is collecting jacks."
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "The state of Louisiana is bordered by the Gulf of Mexico on the south and three states. Which state does NOT border Louisiana?",
+    "choices": [
+      "Oklahoma",
+      "Texas",
+      "Arkansas",
+      "Mississippi"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Would you rather live in a world without music or a world without movies?",
+    "choices": [
+      "live in a world without music",
+      "a world without movies"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Would you rather live without music or without books?",
+    "choices": [
+      "live without music",
+      "without books"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Reunion small talk?",
+    "choices": [
+      "Work flex",
+      "Baby photos",
+      "The weather",
+      "Who dated who"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "What is Lord Voldemorts real name?",
+    "choices": [
+      "Tom Voldemort Riddle",
+      "Tom Marvolo Riddle",
+      "Tom Marvolo Gaunt",
+      "Voldemort Tom Riddle"
+    ],
+    "rating": "family"
+  },
+  {
     "text": "Worst dating prompt answer?",
     "choices": [
       "I like to have fun",
@@ -2410,142 +854,3368 @@
     "rating": "mature"
   },
   {
-    "text": "Who here is most into tacos?",
+    "text": "Which cocktail should we order?",
     "choices": [
-      "Sweet",
-      "Salty",
-      "Spicy",
-      "Savory"
+      "Halloween Punch",
+      "Ruby Tuesday",
+      "Mai Tai",
+      "Rum Screwdriver"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "In 1891, this successful Ohio City businessman made Americas first gasoline-powered automobile.",
+    "choices": [
+      "Durant",
+      "Duryea",
+      "Lambert",
+      "Ford"
     ],
     "rating": "family"
   },
   {
-    "text": "Ideal vibe for video games?",
+    "text": "Which of the following is the symbol for Plutonium on the Periodic Table of Elements?",
     "choices": [
-      "Quiet",
-      "Loud",
-      "In between",
-      "Depends"
+      "Pu",
+      "P",
+      "Pt",
+      "Pm"
     ],
     "rating": "family"
   },
   {
-    "text": "Who here is most into road trips?",
+    "text": "Who plays Chandlers dad?",
     "choices": [
-      "Morning",
-      "Afternoon",
-      "Evening",
-      "Midnight"
+      "Helen Baxendale",
+      "Bruce Willis",
+      "Brad Pitt",
+      "Kathleen Turner"
     ],
     "rating": "family"
   },
   {
-    "text": "Ideal vibe for zoos?",
+    "text": "Worst toast drink?",
     "choices": [
-      "Home",
-      "Out",
-      "Friends' place",
-      "Anywhere"
+      "Too many shots",
+      "Someone's homemade punch",
+      "An open bar sprint",
+      "Nothing, you're driving"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Which drink belongs on the menu?",
+    "choices": [
+      "Mint Julep",
+      "Old Fashioned",
+      "Kir Royale",
+      "Screwdriver"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Luxembourg has a population of approximately how many people?",
+    "choices": [
+      "30,000",
+      "one half million",
+      "two million",
+      "three and one half million"
     ],
     "rating": "family"
   },
   {
-    "text": "Who here is most into cooking?",
+    "text": "Name the King of England who was married six times and established the Church of England in 1534.",
     "choices": [
-      "Sweet",
-      "Salty",
-      "Spicy",
-      "Savory"
+      "King Sweyn Forkbeard",
+      "King William I the Conqueror",
+      "King Richard I the Lionheart",
+      "King Henry VIII"
     ],
     "rating": "family"
   },
   {
-    "text": "Who here is most into museums?",
+    "text": "What was Mark Twains birth name?",
     "choices": [
-      "Sweet",
-      "Salty",
-      "Spicy",
-      "Savory"
+      "Booth Tarkington",
+      "Samuel Rogers Clinton",
+      "George F. Scott Harrison",
+      "Samuel L. Clemens"
     ],
     "rating": "family"
   },
   {
-    "text": "Who here is most into parades?",
+    "text": "Would you rather have a personal chef or a personal trainer?",
     "choices": [
-      "Sweet",
-      "Salty",
-      "Spicy",
-      "Savory"
+      "have a personal chef",
+      "a personal trainer"
     ],
     "rating": "family"
   },
   {
-    "text": "Best cats in this room?",
+    "text": "This small Mountain Sate is located in the region of Appalachia in the Eastern parts of the USA.",
     "choices": [
-      "Plan it",
-      "Wing it",
-      "Ask the group",
-      "Flip a coin"
+      "New Jersey",
+      "Pennsylvania",
+      "East Virginia",
+      "West Virginia"
     ],
     "rating": "family"
   },
   {
-    "text": "Go-to move for swimming?",
+    "text": "Would you rather be stranded on a deserted island or lost in a dense forest?",
     "choices": [
-      "Indoors",
-      "Outdoors",
-      "Both",
-      "Couch forever"
+      "be stranded on a deserted island",
+      "lost in a dense forest"
     ],
     "rating": "family"
   },
   {
-    "text": "Best arcade nights in this room?",
+    "text": "Would you rather have a pocket-sized dragon or a pet unicorn?",
     "choices": [
-      "Always",
-      "Sometimes",
-      "Rarely",
-      "Never"
+      "have a pocket-sized dragon",
+      "a pet unicorn"
     ],
     "rating": "family"
   },
   {
-    "text": "Who here is most into baking?",
+    "text": "What was the name of Cindys beloved doll in the The Brady Bunch?",
     "choices": [
-      "Morning",
-      "Afternoon",
-      "Evening",
-      "Midnight"
+      "Baby This and That",
+      "Mrs. Beasley",
+      "Kitty Karryall",
+      "Tiffany Taylor"
     ],
     "rating": "family"
   },
   {
-    "text": "Go-to move for sports?",
+    "text": "Killing is my Business...and Business is Good",
     "choices": [
-      "Cheap",
-      "Splurge",
-      "Split the bill",
-      "Whoever offers"
+      "Cannibal Corpse",
+      "Death Angel",
+      "Grim Reaper",
+      "Megadeth"
     ],
     "rating": "family"
   },
   {
-    "text": "Go-to move for pancakes?",
+    "text": "Which of these is the name of the company that manufactures several first aid remedies?",
     "choices": [
-      "Cheap",
-      "Splurge",
-      "Split the bill",
-      "Whoever offers"
+      "Johnson and Johnson",
+      "Proctor and Gamble",
+      "Clark and Lewis",
+      "Black and Decker"
     ],
     "rating": "family"
   },
   {
-    "text": "Best brunch in this room?",
+    "text": "What do mathematicians call any rectangular table of numbers?",
     "choices": [
-      "Always",
-      "Sometimes",
-      "Rarely",
-      "Never"
+      "A Latin square",
+      "A polynomial",
+      "A matrix",
+      "A factorial"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Flirt via?",
+    "choices": [
+      "Texts",
+      "Memes",
+      "Voice notes",
+      "Showing up"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Who was first lady to win two Nobel Prizes?",
+    "choices": [
+      "Maria Mayer",
+      "Hillary Clinton",
+      "Madeleine Lengle",
+      "Marie Curie"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Would you rather Always sit next to an ex at dinner or Always get seated with strangers?",
+    "choices": [
+      "Always sit next to an ex at dinner",
+      "Always get seated with strangers"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "What type of insects are yellowjackets which live in colonies and build globular paper nests?",
+    "choices": [
+      "ants",
+      "crickets",
+      "wasps",
+      "butterflies"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Which one of these words means sooty or murky; having a dark or dusky color?",
+    "choices": [
+      "Fuliginous",
+      "Inkhorn",
+      "Somnolent",
+      "Alfresco"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Pick the winning bar order",
+    "choices": [
+      "Grand Blue",
+      "Midnight Mint",
+      "Boomerang",
+      "Paradise"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Tonight's house special?",
+    "choices": [
+      "Homemade Kahlua",
+      "Bible Belt",
+      "Fuzzy Asshole",
+      "Chicago Fizz"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Bar game of choice?",
+    "choices": [
+      "Darts",
+      "Pool",
+      "Trivia",
+      "People-watching"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Who was the doctor on Star Trek, played by DeForest Kelley?",
+    "choices": [
+      "Dr. Leonard McCoy",
+      "Dr. Barbara Crusher",
+      "Dr. Frasier Crane",
+      "Dr. Spock"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Would you rather Only eat breakfast foods or Only eat dinner foods?",
+    "choices": [
+      "Only eat breakfast foods",
+      "Only eat dinner foods"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Pick the winning bar order",
+    "choices": [
+      "Gin and Tonic",
+      "Martini",
+      "Boulevardier",
+      "Tequila Sunrise"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Group chat name crime?",
+    "choices": [
+      "An inside joke",
+      "Someone's embarrassing moment",
+      "An ex reference",
+      "All lowercase chaos"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Relationship green flag?",
+    "choices": [
+      "Texts back",
+      "Likes your friends",
+      "Splits dinner",
+      "Has a therapist"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Bar tab strategy?",
+    "choices": [
+      "Split evenly",
+      "Itemize everything",
+      "One person pays",
+      "Disappear"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "The following words belong to which famous World War II general: Crete was the grave of the German parachutists.”?",
+    "choices": [
+      "General Henri Giraud",
+      "General Friedrich Paulus",
+      "General Kurt Student",
+      "General Erwin Rommel"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Brunch with a hangover?",
+    "choices": [
+      "Mimosas anyway",
+      "Black coffee only",
+      "Cancel and sleep",
+      "Hash browns first"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Pick the winning bar order",
+    "choices": [
+      "Casino Royale",
+      "Harvey Wallbanger",
+      "Cuba Libra",
+      "Gin Smash"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Which cocktail should we order?",
+    "choices": [
+      "Avalanche",
+      "Michelada",
+      "Pisco Sour",
+      "Pineapple Paloma"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Which type of chocolate is richest in fat?",
+    "choices": [
+      "Baking Chocolate",
+      "Semisweet",
+      "Bittersweet",
+      "Unsweetened"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Would you rather have the ability to speak to the dead or to see ghosts?",
+    "choices": [
+      "have the ability to speak to the dead",
+      "to see ghosts"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Which cocktail should we order?",
+    "choices": [
+      "Gin Fizz",
+      "Herbal flame",
+      "Coffee Liqueur",
+      "Zenmeister"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "This photographer, who taught at MIT for 10 years, developed the Zone System.",
+    "choices": [
+      "Minor White",
+      "Alfred Stieglitz",
+      "Paul Curtis",
+      "Barbara Morgan"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "The real McCoy refers to the man who invented this.",
+    "choices": [
+      "The train throttle",
+      "The sewing machine",
+      "The train coupling",
+      "The locomotive self-lubricator"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "This engineer, architect and industrialist invented the rotary lathe, used in plywood manufacturing.",
+    "choices": [
+      "Thomas Edison",
+      "Alfred Nobel",
+      "Henry Ford",
+      "Immanuel Nobel"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Tonight's house special?",
+    "choices": [
+      "Honey Bee",
+      "Pink Gin",
+      "Gin Tonic",
+      "Queen Bee"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "F. D. Toussaint Louverture, a freed self-educated slave, was one of the leaders of which uprising?",
+    "choices": [
+      "Sandanista Uprising",
+      "Rebellion of Martinique",
+      "Haitian Revolt",
+      "Revolution of Devils Island"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Who played Carrie on 70s TV show, Little House on the Prairie?",
+    "choices": [
+      "Lindsay Sidney Greenbush",
+      "Lindsay Greenbush",
+      "All of these",
+      "Sidney Greenbush"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Which member of the McMahon family tried to drug Triple H backstage in one of the editions of Raw?",
+    "choices": [
+      "Shane McMahon",
+      "Linda McMahon",
+      "Vince McMahon",
+      "Stephanie McMahon"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "What character from The Wind in the Willows becomes easily obsessed with items, only to forget about them soon after acquiring them?",
+    "choices": [
+      "Mole",
+      "Mr. Toad",
+      "Weasel",
+      "Pan"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "The Absinthe Drinker and Woman Drinking Absinthe are paintings that immortalise the fame of absinthe. Who is the artist that painted them?",
+    "choices": [
+      "Van Gogh",
+      "Monet",
+      "Picasso",
+      "Dali"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "What is the state capital of California?",
+    "choices": [
+      "Sacramento",
+      "Los Angeles",
+      "San Diego",
+      "San Francisco"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Which cocktail should we order?",
+    "choices": [
+      "Queen Elizabeth",
+      "Vermouth Cassis",
+      "Mimosa",
+      "Sazerac"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Which of these mammals was brought to Australia by humans?",
+    "choices": [
+      "The echidna",
+      "The dingo",
+      "The koala",
+      "The Tasmanian tiger"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "He was one of the best military officers of Russia during the World War II and involved in the taking of Berlin.",
+    "choices": [
+      "Lavr Kornilov",
+      "Georgi Zhukov",
+      "Alexander Samsonov",
+      "Nicholas Nikolaevich"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "What is the name of the original guitarist of rock band, Red Hot Chili Peppers?",
+    "choices": [
+      "Hillel Slovak",
+      "Jimi Hendrix",
+      "Jack Irons",
+      "John Frusciante"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Which cocktail should we order?",
+    "choices": [
+      "Mimosa",
+      "Whiskey Sour",
+      "Sidecar",
+      "Sazerac"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Would you rather always have to tell the truth or always lie?",
+    "choices": [
+      "always have to tell the truth",
+      "always lie"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Worst 2am text?",
+    "choices": [
+      "u up",
+      "we need to talk",
+      "I miss my ex",
+      "Can you pick me up"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Would you rather Always overshare at brunch or Never be allowed to mention last night?",
+    "choices": [
+      "Always overshare at brunch",
+      "Never be allowed to mention last night"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "This Italian poet, considered one of the fathers of the Renaissance, is also regarded as the father of alpinism.",
+    "choices": [
+      "Castiglione",
+      "Machiavelli",
+      "Petrarch",
+      "Dante"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "This is the largest European island, and the ninth-largest island on the planet.",
+    "choices": [
+      "Sicily",
+      "Sardinia",
+      "None of these",
+      "Cyprus"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Tonight's house special?",
+    "choices": [
+      "Americano",
+      "Loch Lomond",
+      "Sangria",
+      "White Lady"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Where can you find a city named Orange?",
+    "choices": [
+      "California",
+      "All of these",
+      "Texas",
+      "Florida"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "What word means to be not reputable or decent?",
+    "choices": [
+      "Louche",
+      "Jocose",
+      "Prehensile",
+      "Demulcent"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Would you rather Your search for 'is this a date' is public or Your drafts folder is public?",
+    "choices": [
+      "Your search for 'is this a date' is public",
+      "Your drafts folder is public"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "In the Zelda series of games, what is the name of the tribe Gannondorf comes from?",
+    "choices": [
+      "Zora",
+      "Gerudo",
+      "Goron",
+      "Hylian"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Would you rather have a lifetime supply of free vacations or free meals at any restaurant?",
+    "choices": [
+      "have a lifetime supply of free vacations",
+      "free meals at any restaurant"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "As a Banana Gasser, what gas would you use to catalyze the ripening of bananas?",
+    "choices": [
+      "Ethylene",
+      "Methyl",
+      "Helium",
+      "Saline"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Pick the winning bar order",
+    "choices": [
+      "Espresso Martini",
+      "Irish Curdling Cow",
+      "Mojito",
+      "Pina Colada"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "What is Albus Dumbledores favorite flavor of jam as revealed in Harry Potter and the Half-Blood Prince?",
+    "choices": [
+      "Raspberry",
+      "Blueberry",
+      "Blackberry",
+      "Strawberry"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Which of the following tennis players was the World number one player for the most number of consecutive weeks?",
+    "choices": [
+      "Ivan Lendl (Czechoslovakia and USA)",
+      "Roger Federer (Switzerland)",
+      "Jimmy Connors (USA)",
+      "Pete Sampras (USA)"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "People use a kind of microbe to make this.",
+    "choices": [
+      "Mineral water",
+      "Bread",
+      "Orange juice",
+      "Plastics"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Worst plus-one story?",
+    "choices": [
+      "They knew everyone",
+      "They knew no one",
+      "They started a fight",
+      "They left with someone"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "In \"Fairy Tail\", what is the nickname of Natsu Dragneel?",
+    "choices": [
+      "The Dragon",
+      "The Salamander",
+      "The Demon",
+      "The Dragon Slayer"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Pick the winning bar order",
+    "choices": [
+      "Applecar",
+      "Bluebird",
+      "Tom Collins",
+      "Snowday"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "How many miles represent a light year?",
+    "choices": [
+      "Nearly six trillion",
+      "Nearly six million",
+      "Nearly two trillion",
+      "Nearly two million"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "What actor plays Dougs coworker and best friend, Deacon Palmer on the hit television sitcom The King of Queens?",
+    "choices": [
+      "Tyrese Whittingham",
+      "Bobby Henderson",
+      "Victor Williams",
+      "Anson Williams"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Would you rather be a character in a video game or in a movie?",
+    "choices": [
+      "be a character in a video game",
+      "in a movie"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "This baseball player, who started his career with the Texas Rangers in 1991 at the age of 19, is known as Pudge.",
+    "choices": [
+      "Rusty Greer",
+      "Alfonso Soriano",
+      "Doug Mirabelli",
+      "Ivan Rodriguez"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Which cocktail should we order?",
+    "choices": [
+      "Dark Caipirinha",
+      "Quentin",
+      "Jewel Of The Nile",
+      "Godmother"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Nutria meat is lean and low in what?",
+    "choices": [
+      "Iron",
+      "Sodium",
+      "Cholesterol",
+      "Fiber"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "What type of food is Pancetta?",
+    "choices": [
+      "sausage",
+      "milk",
+      "bacon",
+      "small pepper"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Would you rather live in a world without internet or a world without television?",
+    "choices": [
+      "live in a world without internet",
+      "a world without television"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Worst plus-one?",
+    "choices": [
+      "The ex",
+      "A coworker",
+      "Someone's boss",
+      "A surprise plus-two"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Which drink belongs on the menu?",
+    "choices": [
+      "Smut",
+      "Chocolate Milk",
+      "Dirty Nipple",
+      "Wine Punch"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "What is the function of the thalamus, a part of the human brain with an egg-like shape?",
+    "choices": [
+      "It deals with the various types of sensory information.",
+      "It regulates the organisms automatic functions.",
+      "It helps humans to keep their balance.",
+      "It is not known."
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Who was the first first lady, wife of George Washington?",
+    "choices": [
+      "Amelia",
+      "Elizabeth",
+      "Constance",
+      "Martha"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Pick the winning bar order",
+    "choices": [
+      "Espresso Martini",
+      "Last Word",
+      "Negroni",
+      "Paloma"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Would you rather Every party has a roast of you or Every party you have to roast someone else?",
+    "choices": [
+      "Every party has a roast of you",
+      "Every party you have to roast someone else"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Would you rather be able to talk to animals or speak all human languages?",
+    "choices": [
+      "be able to talk to animals",
+      "speak all human languages"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Would you rather Tell the truth in every toast or Only tell jokes in every toast?",
+    "choices": [
+      "Tell the truth in every toast",
+      "Only tell jokes in every toast"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "What was Snapes patronus in the Harry Potter series?",
+    "choices": [
+      "Doe",
+      "Dragon",
+      "Wolf",
+      "Snake"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Would you rather have the ability to see into the future or have the ability to travel to the past?",
+    "choices": [
+      "have the ability to see into the future",
+      "have the ability to travel to the past"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "How many living species of bears are there?",
+    "choices": [
+      "4",
+      "10",
+      "6",
+      "8"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "What is the meaning of the Italian word riavvolgere, from which the name of the popular Italian dish ravioli originated?",
+    "choices": [
+      "Poor peasant",
+      "Onion",
+      "To wrap",
+      "To indulge"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "She was the first recorded female leader. She ruled the Mesopotamian City-State of Ur around 2500 BCE.",
+    "choices": [
+      "Nefertari",
+      "Cleopatra",
+      "Ku-Baba",
+      "Nefertiti"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Would you rather Always split a dessert or Never be allowed to share food?",
+    "choices": [
+      "Always split a dessert",
+      "Never be allowed to share food"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "What is the name of the fourth champion of the fictional Triwizard Tournament?",
+    "choices": [
+      "Viktor Krum",
+      "Fleur Delacour",
+      "Harry Potter",
+      "Cedric Diggory"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Group chat crime?",
+    "choices": [
+      "Screenshots",
+      "Leaving on read",
+      "Voice notes",
+      "Adding an ex"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Would you rather have the ability to turn invisible or have the ability to read minds?",
+    "choices": [
+      "have the ability to turn invisible",
+      "have the ability to read minds"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "What is the first name of the actress who played the main character on Maude?",
+    "choices": [
+      "Amy",
+      "Bea",
+      "Liz",
+      "Pat"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "This baseball star of the 1950s was the second black player to be signed by a Major League team.",
+    "choices": [
+      "Larry Doby",
+      "Minnie Minoso",
+      "Josh Gibson",
+      "Satchel Paige"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Tonight's house special?",
+    "choices": [
+      "Thriller",
+      "Addington",
+      "Algonquin",
+      "Dubonnet Cocktail"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Name the movie that ends with the following line: Louis. I think this is the beginning of a beautiful friendship.",
+    "choices": [
+      "Casablanca",
+      "The African Queen",
+      "The Maltese Falcon",
+      "Sahara"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Which driver swept both races at Pocono in 2006, winning also both poles?",
+    "choices": [
+      "Clint Bowyer",
+      "Martin Truex, Jr.",
+      "Denny Hamlin",
+      "J.J. Yeley"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "What year did the thriller Fatal Attraction first hit the movie theatres in the United States?",
+    "choices": [
+      "1984",
+      "1987",
+      "1988",
+      "1991"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Would you rather live in a world without internet or without air conditioning and heating?",
+    "choices": [
+      "live in a world without internet",
+      "without air conditioning and heating"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "This hard-working TV mother and her husband James took care of their three children, J. J., Thelma and Michael.",
+    "choices": [
+      "Thelma Harper",
+      "Roseanne Conner",
+      "Florida Evans",
+      "Isabel Sanford"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Which drink belongs on the menu?",
+    "choices": [
+      "Tequila Fizz",
+      "Caipirissima",
+      "Grass Skirt",
+      "Royal Bitch"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Would you rather live in a world with no technology or a world with no nature?",
+    "choices": [
+      "live in a world with no technology",
+      "a world with no nature"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Would you rather Know how you die or Know when you die?",
+    "choices": [
+      "Know how you die",
+      "Know when you die"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Which of these countries is smallest (by territory)?",
+    "choices": [
+      "Seychelles",
+      "Liechtenstein",
+      "San Marino",
+      "Marshall Islands"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Would you rather Have an ex narrate your dates or Have your friends veto every date?",
+    "choices": [
+      "Have an ex narrate your dates",
+      "Have your friends veto every date"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "What led to the incredible increase in U.S. sales of popcorn in the 1990s?",
+    "choices": [
+      "Increased sales of soda pop",
+      "Availability of microwaves",
+      "Food shortages",
+      "Lower prices"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "What play was President Lincoln watching at Fords Theatre, when he was assassinated by a Southern sympathizer from Maryland?",
+    "choices": [
+      "Othello",
+      "Our American Cousin",
+      "Our Fair Lady",
+      "Macbeth"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Who was running back for the Atlanta Falcons from 2002-2007?",
+    "choices": [
+      "Warrick Dunn",
+      "Cory Dillion",
+      "Shaun Alexander",
+      "Tiki Barber"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "In the television show The Honeymooners, who were Ed and Trixie, the neighbors of Ralph and Alice?",
+    "choices": [
+      "The Kramdens",
+      "The Wisemans",
+      "The Nortons",
+      "The Calabashes"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "What member of the classic Our Gang comedies had a bit part in the movie Its a Wonderful Life?",
+    "choices": [
+      "Darla",
+      "Spanky",
+      "Buckwheat",
+      "Alfalfa"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Morning-after plan?",
+    "choices": [
+      "Brunch",
+      "Ghost the group chat",
+      "Apologize in memes",
+      "Sleep"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Would you rather Always speak in rhyme or Always speak in questions?",
+    "choices": [
+      "Always speak in rhyme",
+      "Always speak in questions"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Would you rather have the power of super speed or the power of telekinesis?",
+    "choices": [
+      "have the power of super speed",
+      "the power of telekinesis"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "What sort of creature is Glimfeather, who helps Eustace and Jill get started on their journey in The Silver Chair?",
+    "choices": [
+      "Parakeet",
+      "Gryphon",
+      "Owl",
+      "Eagle"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "What is Bandar Seri Begawan?",
+    "choices": [
+      "The capital city of an Asian nation",
+      "The largest city in the Kurdish section of Iraq",
+      "The name of the Prime Minister of a North African nation",
+      "The name of a terrorist organization in Afghanistan"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Worst after-work drinks?",
+    "choices": [
+      "One turns into five",
+      "The boss joins",
+      "Nobody splits",
+      "Last train missed"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Which cocktail should we order?",
+    "choices": [
+      "Frozen Mint Daiquiri",
+      "Moscow Mule",
+      "Hemingway Special",
+      "Planter's Punch"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Would you rather be able to speak with animals or be able to speak all human languages?",
+    "choices": [
+      "be able to speak with animals",
+      "be able to speak all human languages"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Would you rather Give a roast at every wedding or Give a sincere speech at every birthday?",
+    "choices": [
+      "Give a roast at every wedding",
+      "Give a sincere speech at every birthday"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Which goddess was Apollos sister?",
+    "choices": [
+      "Athena",
+      "Hestia",
+      "Hera",
+      "Artemis"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Pick the winning bar order",
+    "choices": [
+      "Zorro",
+      "Gin Daisy",
+      "Godfather",
+      "Winter Rita"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "What is the definition of the term hypercarnivore?",
+    "choices": [
+      "It is a synonym for apex carnivore.",
+      "A predator that feeds on carnivorous animals.",
+      "It is a term that refers to humans.",
+      "An animal whose diet consists exclusively of meat."
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Hotel minibar?",
+    "choices": [
+      "Touch nothing",
+      "One overpriced water",
+      "Raiding it",
+      "Hiding the receipt"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "In the 19th century, English writer Mary Shelley wrote which famous gothic novel?",
+    "choices": [
+      "The Picture of Dorian Gray",
+      "Frankenstein",
+      "Interview with the Vampire",
+      "Dracula"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Which cocktail should we order?",
+    "choices": [
+      "Spritz",
+      "Grim Reaper",
+      "City Slicker",
+      "Zippy's Revenge"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Tonight's house special?",
+    "choices": [
+      "Bramble",
+      "Dark and Stormy",
+      "Pink Penocha",
+      "Karsk"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "What do sailors call the left side of a boat?",
+    "choices": [
+      "Starboard",
+      "Stern",
+      "Port",
+      "Bow"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Which cocktail should we order?",
+    "choices": [
+      "Lunch Box",
+      "Old Fashioned",
+      "Oreo Mudslide",
+      "Gin Rickey"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Barbie.com is the number one girls site. There are about this many visits to the site each month.",
+    "choices": [
+      "Over 2 million",
+      "Over 1 million",
+      "Over 5 million",
+      "Over 8 million"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "What is another name for Ursa Major?",
+    "choices": [
+      "The Great Bear",
+      "The Great Tiger",
+      "The Great Lion",
+      "The Great Boar"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "This American-born one-hit wonder singer/rapper had a #1 hit in 1990 with the song Ice, Ice Baby.",
+    "choices": [
+      "Sir- Mix - Alot",
+      "Vanilla Ice",
+      "Kid Rock",
+      "Flynilla Ice"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Who was the teacher of Plato?",
+    "choices": [
+      "Thales",
+      "Socrates",
+      "Aristotle",
+      "Archimedes"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "What is the average maximal speed a lion can reach?",
+    "choices": [
+      "35 mph / 56 km/h",
+      "45 mph / 72 km/h",
+      "20 mph / 32 km/h",
+      "40 mph / 64 km/h"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Pick the winning bar order",
+    "choices": [
+      "Queen Charlotte",
+      "Victory Collins",
+      "Dragonfly",
+      "Irish Russian"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Would you rather be able to control the minds of others or have the ability to control the weather?",
+    "choices": [
+      "be able to control the minds of others",
+      "have the ability to control the weather"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Would you rather Live without music or Live without TV?",
+    "choices": [
+      "Live without music",
+      "Live without TV"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Which of these anime characters can use the technique, known as Rasengan?",
+    "choices": [
+      "Kakashi",
+      "Lee",
+      "Tenten",
+      "Naruto"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "The sitcom, All in the Family is based on what British TV series?",
+    "choices": [
+      "Honey I Love You",
+      "Archibald And Edith",
+      "Till Death Do Us Part",
+      "The British Are Coming"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Would you rather live in a world without art or a world without science?",
+    "choices": [
+      "live in a world without art",
+      "a world without science"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Would you rather have the power of super speed or the power of invulnerability?",
+    "choices": [
+      "have the power of super speed",
+      "the power of invulnerability"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Karaoke after drinks?",
+    "choices": [
+      "Power ballad",
+      "Rap verse",
+      "Duet with a stranger",
+      "Sit this one out"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "When Chunk gets locked in the freezer with the dead body in the film The Goonies, what else is in there with him?",
+    "choices": [
+      "Hanging meat",
+      "Boxes",
+      "Sloth",
+      "Ice Cream"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "This actress portrayed country singer Patsy Cline in the movie, Sweet Dreams.",
+    "choices": [
+      "Jessica Lange",
+      "Beverly DAngelo",
+      "Reba McIntire",
+      "Sissy Spacek"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Would you rather be able to visit any place in the world or have unlimited free flights for a year?",
+    "choices": [
+      "be able to visit any place in the world",
+      "have unlimited free flights for a year"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Of all the microbes on Earth, only about this many have been identified.",
+    "choices": [
+      "1 %",
+      "5 %",
+      "2 %",
+      "10 %"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Tonight's house special?",
+    "choices": [
+      "Frosé",
+      "English Highball",
+      "Coffee-Vodka",
+      "Rosemary Blue"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Would you rather be able to control animals with your mind or be able to control the weather?",
+    "choices": [
+      "be able to control animals with your mind",
+      "be able to control the weather"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Would you rather Have your search history read at a wedding or Have your group chat projected on a screen?",
+    "choices": [
+      "Have your search history read at a wedding",
+      "Have your group chat projected on a screen"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "One of the first streetcars in this American city was made to resemble a horse.",
+    "choices": [
+      "San Francisco",
+      "New York",
+      "Philadelphia",
+      "Boston"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Would you rather Fight one horse-sized duck or Fight 100 duck-sized horses?",
+    "choices": [
+      "Fight one horse-sized duck",
+      "Fight 100 duck-sized horses"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Which of the following classes was taught by Professor Snape in the Harry Potter series?",
+    "choices": [
+      "Divination",
+      "Potions",
+      "Charms",
+      "Astronomy"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Would you rather have the power of super strength or super speed?",
+    "choices": [
+      "have the power of super strength",
+      "super speed"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Who played the role of Ernie McCracken, Roys nemesis, in the movie Kingpin?",
+    "choices": [
+      "Bill Murray",
+      "Jeff Daniels",
+      "Jack Black",
+      "Ben Stiller"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Which drink belongs on the menu?",
+    "choices": [
+      "National Aquarium",
+      "Avalon",
+      "Corn n Oil",
+      "Kentucky Colonel"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "During the Russian Revolution in 1917, which of these people belonged to the Mensheviks?",
+    "choices": [
+      "Lev Kamenev",
+      "Joseph Stalin",
+      "Pavel Axelrod",
+      "Matvei Muranov"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Freya was the goddess of this.",
+    "choices": [
+      "Poetry",
+      "The flowers",
+      "Love and beauty",
+      "Old age and madness"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Would you rather have a rewind button for your life or a pause button?",
+    "choices": [
+      "have a rewind button for your life",
+      "a pause button"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "After the 80 Years War (XVI-XVII century) a new colonial power was born in Europe. Which one?",
+    "choices": [
+      "Spain",
+      "Portugal",
+      "Germany",
+      "The Netherlands"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Would you rather be a stripper or a pornstar?",
+    "choices": [
+      "be a stripper",
+      "a pornstar"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Tonight's house special?",
+    "choices": [
+      "Godchild",
+      "Vodka Lemon",
+      "Old Cuban",
+      "Dry Rob Roy"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Would you rather live without music or without movies?",
+    "choices": [
+      "live without music",
+      "without movies"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Dating dealbreaker lite?",
+    "choices": [
+      "Always late",
+      "Bad tipper",
+      "Hates pets",
+      "No sense of humor"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "http://www.123facts.com/ is referred to as this.",
+    "choices": [
+      "TCP",
+      "WAP",
+      "URL",
+      "USB"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Would you rather have the ability to breathe underwater or explore space?",
+    "choices": [
+      "have the ability to breathe underwater",
+      "explore space"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Would you rather have the power to cure any disease or have the power to bring peace to the world?",
+    "choices": [
+      "have the power to cure any disease",
+      "have the power to bring peace to the world"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Pick the winning bar order",
+    "choices": [
+      "White Russian",
+      "Balmoral",
+      "Texas Rattlesnake",
+      "Quick F**K"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Would you rather Work trip with your crush or Staycation with your ex's friends?",
+    "choices": [
+      "Work trip with your crush",
+      "Staycation with your ex's friends"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Worst ex story starter?",
+    "choices": [
+      "It was fine until",
+      "My friends warned me",
+      "The texts exist",
+      "Vegas"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Drunk food order?",
+    "choices": [
+      "Pizza",
+      "Tacos",
+      "Fries",
+      "Whatever is open"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Which Marvel Comics character became a ruthless vigilante, after witnessing his familys violent murder?",
+    "choices": [
+      "The Crow",
+      "The Punisher",
+      "Judge Dredd",
+      "The Scourge"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Which drink belongs on the menu?",
+    "choices": [
+      "Artillery",
+      "Flying Scotchman",
+      "Raspberry Cooler",
+      "Quaker's Cocktail"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "How does Dan Gallagher meet Alex Forrest in the great movie Fatal Attraction?",
+    "choices": [
+      "He meets her through work.",
+      "He meets at the supermarket.",
+      "He meets her at the Department of Motor Vehicles.",
+      "He meets her at the gym."
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Flake on a date via?",
+    "choices": [
+      "Text",
+      "Leave on read",
+      "A friend cancels for you",
+      "You just don't show"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Which of these is not an actual breed of horse?",
+    "choices": [
+      "Sioux",
+      "Russian Trotter",
+      "Belgian",
+      "Murgese"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "This creature belongs to the rodent family and is covered in sharp spines or quills.",
+    "choices": [
+      "Nutria",
+      "Armadillo",
+      "Kiwi",
+      "Porcupine"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Tonight's house special?",
+    "choices": [
+      "Adam",
+      "Tuxedo Cocktail",
+      "Imperial Fizz",
+      "Kiwi Lemon"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "In 1960, the New York Yankees set a record for having three catchers each of whom hit at least twenty home runs. Who were they?",
+    "choices": [
+      "Yogi Berra, Elston Howard, Thurmon Munson",
+      "Yogi Berra, Sammy White, Elston Howard",
+      "Yogi Berra, Elston Howard, Hank Bauer",
+      "Yogi Berra, Elston Howard, Johnny Blanchard"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Worst reunion drink?",
+    "choices": [
+      "Too strong",
+      "Too many",
+      "Someone else's",
+      "The one you don't remember"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Name the first great Greek tragic playwright who is now acknowledged as the Father of Drama?",
+    "choices": [
+      "Aeschylus",
+      "Aesop",
+      "Euripides",
+      "Sophocles"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Worst wedding speech?",
+    "choices": [
+      "Inside jokes",
+      "The ex chapter",
+      "Crying immediately",
+      "A roast"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "The extrapyramidal system in human brain, which consists of related neurons is not responsible for what?",
+    "choices": [
+      "Decrease of the erratic motions",
+      "Muscle tone",
+      "Stability of the human body",
+      "The aural memory"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Would you rather Have karaoke as your only talent or Have honesty as your only talent?",
+    "choices": [
+      "Have karaoke as your only talent",
+      "Have honesty as your only talent"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "As far as the laws of mathematics refer to reality, they are not certain; and as far as they are certain, they do not refer to reality.",
+    "choices": [
+      "Michael Faraday",
+      "Albert Einstein",
+      "Aristotle",
+      "Galileo Galilei"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Would you rather live in a world without internet or live in a world without electricity?",
+    "choices": [
+      "live in a world without internet",
+      "live in a world without electricity"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Who started at third base for the New York Mets on Opening Day in 1962?",
+    "choices": [
+      "Ed Charles",
+      "Rod Kanehl",
+      "Elio Chacon",
+      "Don Zimmer"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Which cocktail should we order?",
+    "choices": [
+      "Orgasm",
+      "Campari Beer",
+      "Moranguito",
+      "Russian Spring Punch"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Would you rather Never drink coffee again or Never drink tea again?",
+    "choices": [
+      "Never drink coffee again",
+      "Never drink tea again"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "One of these things will not help you to get in touch with your neighbours PC.",
+    "choices": [
+      "Hub",
+      "Router",
+      "Cache server",
+      "Network card"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "In the Dueling Club, a chapter in Harry Potter and the Chamber of Secrets, what is the 251st to last word?",
+    "choices": [
+      "Wand",
+      "Malfoy",
+      "Ron",
+      "Tongue"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Which cocktail should we order?",
+    "choices": [
+      "Van Vleet",
+      "Barracuda",
+      "Gin Sling",
+      "Rusty Nail"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Tonight's house special?",
+    "choices": [
+      "Hawaiian Cocktail",
+      "Lady Love Fizz",
+      "Zimadori Zinger",
+      "Salty Dog"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Vacation romance odds?",
+    "choices": [
+      "Zero",
+      "A fling",
+      "A story for later",
+      "Already happening"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Which drink belongs on the menu?",
+    "choices": [
+      "B-52",
+      "Scooter",
+      "ABC",
+      "Daiquiri"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "What toy is a must-have gift in the comedy movie Jingle All the Way, starring Arnold Schwarzenegger?",
+    "choices": [
+      "Turbo-Man",
+      "Action-Man",
+      "Sinbad",
+      "Dementor"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Pick the winning bar order",
+    "choices": [
+      "Zoksel",
+      "Sidecar",
+      "Shark Attack",
+      "Quick-sand"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Would you rather have the power to see the future or have the power to rewrite history?",
+    "choices": [
+      "have the power to see the future",
+      "have the power to rewrite history"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "What is the real name of X-Men member Wolverine?",
+    "choices": [
+      "Victor Creed",
+      "James Howlett",
+      "Mikhail Rasputin",
+      "Logan"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Gerontology is the branch of medical science that deals with diseases and problems specific to these people.",
+    "choices": [
+      "Adults",
+      "Elderly",
+      "Blind people",
+      "Children"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "It can reach an age far greater than that of any other living thing known - up to nearly 5,000 years.",
+    "choices": [
+      "The Sequoia",
+      "Redwood",
+      "Western Mushroom",
+      "Bristlecone Pine"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Tonight's house special?",
+    "choices": [
+      "French 75",
+      "Moscow Mule",
+      "Aviation",
+      "Mojito"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Which drink belongs on the menu?",
+    "choices": [
+      "Kiss me Quick",
+      "Veteran",
+      "A1",
+      "Jelly Bean"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Which of the following means a British nobleman ranking right above a viscount and below a marquis?",
+    "choices": [
+      "baron",
+      "richard",
+      "earl",
+      "damien"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Wedding afterparty move?",
+    "choices": [
+      "Dance floor",
+      "Sneak out",
+      "Open bar sprint",
+      "Catch the bouquet"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Would you rather have the ability to fly or be able to turn invisible at will?",
+    "choices": [
+      "have the ability to fly",
+      "be able to turn invisible at will"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Worst toast at a party?",
+    "choices": [
+      "Inside joke",
+      "Too honest",
+      "Too long",
+      "Naming an ex"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Would you rather Date someone with no filter or Date someone who never says what they mean?",
+    "choices": [
+      "Date someone with no filter",
+      "Date someone who never says what they mean"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "This home to 144 million spans 11 time zones and its territory takes up 1/8th of the entire Earth surface.",
+    "choices": [
+      "Australia",
+      "Canada",
+      "USA",
+      "Russia"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Tonight's house special?",
+    "choices": [
+      "Royal Gin Fizz",
+      "Horse's Neck",
+      "Zorbatini",
+      "Flaming Lamborghini"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Pick the winning bar order",
+    "choices": [
+      "Sherry Flip",
+      "Kool-Aid Slammer",
+      "Old Pal",
+      "Japanese Fizz"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "What is the middle name of American fashion designer Calvin Klein?",
+    "choices": [
+      "Theodore",
+      "Richard",
+      "Abraham",
+      "William"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Who must be killed in the 5th quest in Chapter II of Diablo II?",
+    "choices": [
+      "Hell Clan",
+      "Summoner",
+      "Ghoul Lord",
+      "Specter"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Would you rather Be honest on every first date or Be mysterious forever?",
+    "choices": [
+      "Be honest on every first date",
+      "Be mysterious forever"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "This American city used to be called El Pueblo de Nuestra Senora la Reina de (blank) de Porciuncula.",
+    "choices": [
+      "Las Vegas",
+      "New York",
+      "Los Angeles",
+      "Kansas"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Would you rather have the ability to talk to animals or have the ability to talk to objects?",
+    "choices": [
+      "have the ability to talk to animals",
+      "have the ability to talk to objects"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "The Komodo dragon, the largest living lizard on Earth, lives in which part of the world?",
+    "choices": [
+      "North America",
+      "Indonesia",
+      "South-western China",
+      "Madagascar"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "This Hungarian dish, meaning cowherd, is prepared with beef, onion, red peppers and paprika.",
+    "choices": [
+      "Utopenec",
+      "Bramborak",
+      "Pljeskavica",
+      "Goulash"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Would you rather Your plus-one is randomly assigned or You can never bring a plus-one?",
+    "choices": [
+      "Your plus-one is randomly assigned",
+      "You can never bring a plus-one"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Which of these sentences is correct?",
+    "choices": [
+      "From hence to eternity, I will search.",
+      "Whence did he come?",
+      "From whence did he come?",
+      "If you build it, thence he will come."
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Clouds that are not storm clouds are usually this color.",
+    "choices": [
+      "white",
+      "orange",
+      "red",
+      "black"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Which drink belongs on the menu?",
+    "choices": [
+      "Bumble Bee",
+      "Derby",
+      "Cuba Libre",
+      "Dry Martini"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "In baseball, what is the name of the player who squats behind the hitter and catches the ball?",
+    "choices": [
+      "Catcher",
+      "Short Stop",
+      "Manager",
+      "Pitcher"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Of the following, which is a British rock band?",
+    "choices": [
+      "Purple Night",
+      "24 Carat Purple",
+      "Purpendicular",
+      "Deep Purple"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Would you rather Lose all photos or Lose all contacts?",
+    "choices": [
+      "Lose all photos",
+      "Lose all contacts"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "What decade did the pop culture icon the plastic lawn flamingo come into existence?",
+    "choices": [
+      "40s",
+      "60s",
+      "30s",
+      "80s"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Friends-with-benefits risk?",
+    "choices": [
+      "Catching feelings",
+      "Getting caught",
+      "The group knows",
+      "It was a dare"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Tonight's house special?",
+    "choices": [
+      "Lone Tree Cocktail",
+      "Long Island Iced Tea",
+      "Frozen Daiquiri",
+      "Orange Whip"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "The National Aeronautics and Space Administration was established on July 29, 1958 under which U.S. President?",
+    "choices": [
+      "Dwight Eisenhower",
+      "Harry Truman",
+      "John Kennedy",
+      "Lyndon Johnson"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "What is the subject of study of thanatology, personified in Greek mythology by Thanatos?",
+    "choices": [
+      "death",
+      "plague",
+      "birth",
+      "grave"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "The fabric hook-and-loop fasteners with the brand name, Velcro, were invented by Swiss engineer Georges de Mestral in what year?",
+    "choices": [
+      "1969",
+      "1948",
+      "1960",
+      "1965"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Jamie Foxx, who stars in the movie Dreamgirls, sang the theme song for what 1999 movie?",
+    "choices": [
+      "Any Given Sunday",
+      "Anywhere But Here",
+      "Anything Fo You",
+      "Anythings Possible"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Which cocktail should we order?",
+    "choices": [
+      "Martini",
+      "Figgy Thyme",
+      "Gagliardo",
+      "Monkey Wrench"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Would you rather Always be the designated driver or Always be the last one standing?",
+    "choices": [
+      "Always be the designated driver",
+      "Always be the last one standing"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Which drink belongs on the menu?",
+    "choices": [
+      "Irish Spring",
+      "Kool First Aid",
+      "Kool-Aid Shot",
+      "Royal Flush"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Party foul?",
+    "choices": [
+      "Spilling",
+      "Oversharing",
+      "Starting drama",
+      "Hogging the aux"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Which one of these countries is smallest in area?",
+    "choices": [
+      "Angola",
+      "Argentina",
+      "Afghanistan",
+      "Azerbaijan"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Party legend status for?",
+    "choices": [
+      "The dance",
+      "The speech",
+      "The mess",
+      "The exit"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Tonight's house special?",
+    "choices": [
+      "Jack's Vanilla Coke",
+      "Buccaneer",
+      "Bijou",
+      "Long vodka"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Tonight's house special?",
+    "choices": [
+      "Flaming Dr. Pepper",
+      "Scotch Sour",
+      "Jamaica Kiss",
+      "Hunter's Moon"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Would you rather be the chaser or the chasee?",
+    "choices": [
+      "be the chaser",
+      "the chasee"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Which cocktail should we order?",
+    "choices": [
+      "Rose",
+      "Greyhound",
+      "Kir Royale",
+      "Irish Coffee"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "One of the following pairs (chat abbreviation - its meaning) is wrong.",
+    "choices": [
+      "BRB - Be Right Back",
+      "ATM - At The Moment",
+      "TTYL - To Tell You a Lie",
+      "TIA - Thanks In Advance"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "This president, who is often called the Great Emancipator, was the first US President to impose an income tax.",
+    "choices": [
+      "Wilson",
+      "Hayes",
+      "Lincoln",
+      "Jackson"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Pick the winning bar order",
+    "choices": [
+      "Clove Cocktail",
+      "Rum Old-fashioned",
+      "Caipirinha",
+      "Jamaican Coffee"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "What was the name of the character played by the Academy Award-winning actress Kathy Bates in the sensational movie Misery?",
+    "choices": [
+      "Dominique Wilkes",
+      "Annie Jilkes",
+      "Annie Wilkes",
+      "Penny Wilson"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Which cocktail should we order?",
+    "choices": [
+      "Damned if you do",
+      "Sherry Eggnog",
+      "Fahrenheit 5000",
+      "Alexander"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "In the 1980s, who voiced the character of Dino, the pet dinosaur in the animated series The Flintstones?",
+    "choices": [
+      "Frank Welker",
+      "Mel Blanc",
+      "Jean Vander Pyl",
+      "Alan Reed"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Pick the winning bar order",
+    "choices": [
+      "Kentucky B And B",
+      "B-53",
+      "Lemon Drop",
+      "Zombie"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Would you rather Always be the plus-one or Always host and never get invited?",
+    "choices": [
+      "Always be the plus-one",
+      "Always host and never get invited"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Which drink belongs on the menu?",
+    "choices": [
+      "Foxy Lady",
+      "The Philosopher",
+      "Downshift",
+      "New York Lemonade"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Which cocktail should we order?",
+    "choices": [
+      "Mulled Wine",
+      "London Town",
+      "Grasshopper",
+      "Munich Mule"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Tonight's house special?",
+    "choices": [
+      "Daiquiri",
+      "Long Island Iced Tea",
+      "Mai Tai",
+      "Piña Colada"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Its not necessary to posses a point to have a point. is a quote from what 2006 movie?",
+    "choices": [
+      "Animal House",
+      "Casablanca",
+      "We Are Marshall",
+      "The Point"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Which cocktail should we order?",
+    "choices": [
+      "Abilene",
+      "Orange Oasis",
+      "French Martini",
+      "Vodka And Tonic"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Would you rather live in a world without music or a world without books?",
+    "choices": [
+      "live in a world without music",
+      "a world without books"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Tonight's house special?",
+    "choices": [
+      "Hot Toddy",
+      "Cafe Savoy",
+      "Mary Pickford",
+      "Sweet Sangria"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Which drink belongs on the menu?",
+    "choices": [
+      "Acapulco",
+      "Death in the Afternoon",
+      "Zinger",
+      "Broadside"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Which drink belongs on the menu?",
+    "choices": [
+      "Sweet Tooth",
+      "Gin Cooler",
+      "Dirty Martini",
+      "Kiwi Martini"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Would you rather live in a world with no music or live in a world with no movies?",
+    "choices": [
+      "live in a world with no music",
+      "live in a world with no movies"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Which drink belongs on the menu?",
+    "choices": [
+      "Waikiki Beachcomber",
+      "AT&T",
+      "Funk and Soul",
+      "Talos Coffee"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Would you rather Date someone your friends hate or Date someone who hates your friends?",
+    "choices": [
+      "Date someone your friends hate",
+      "Date someone who hates your friends"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Name the line, which is the same distance from the North Pole and South Pole and runs horizontally around the world.",
+    "choices": [
+      "Tropic of Capricorn",
+      "Equator",
+      "Tropic of Cancer",
+      "Prime Meridian"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Worst toast topic?",
+    "choices": [
+      "College stories",
+      "The divorce",
+      "How we met (too honest)",
+      "Work"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "What was Dr. Seusss real name?",
+    "choices": [
+      "Theodor Seuss Geisel",
+      "Theodis Geyser",
+      "Teddy Seussical",
+      "Ted Seussy Hamilton"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Flake excuse quality?",
+    "choices": [
+      "Traffic",
+      "Stomach",
+      "Early morning",
+      "My plant needs me"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Which of these words means dealing with charity or aided by charity?",
+    "choices": [
+      "Eleemosynary",
+      "Nescient",
+      "Parvenu",
+      "Thaumaturgh"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Which drink belongs on the menu?",
+    "choices": [
+      "White Wine Sangria",
+      "Manhattan",
+      "Blackthorn",
+      "Kir"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "I say The Rocket, you say ______?",
+    "choices": [
+      "Steve Carlton",
+      "Roger Clemens",
+      "Nolan Ryan",
+      "Randy Johnson"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "The first Dutch railway opened in this year -- the same year Belgian independence was recognized by the Dutch.",
+    "choices": [
+      "1839",
+      "1870",
+      "1802",
+      "1895"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "What American entertainer, who once flew over the Grand Canyon, was born David Seth Kotkin?",
+    "choices": [
+      "David Copperfield",
+      "Danny DeVito",
+      "David Brenner",
+      "David Susskind"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "This is the basic food of the sea. Billions upon billions of these organisms live in the sea.",
+    "choices": [
+      "Seaweed",
+      "Plankton",
+      "Crabs",
+      "Shrimp"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Would you rather be cheated on with your best friend or worst enemy?",
+    "choices": [
+      "be cheated on with your best friend",
+      "worst enemy"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Would you rather Speak every language or Talk to animals?",
+    "choices": [
+      "Speak every language",
+      "Talk to animals"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "It is considered that Chinese astrology emerged around this time.",
+    "choices": [
+      "3000 BC",
+      "2000 AD",
+      "1000 BC",
+      "5000 BC"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Which of the following women was not a wife of King Henry VIII of England?",
+    "choices": [
+      "Anne Hathaway",
+      "Catherine of Aragon",
+      "Catherine Parr",
+      "Anne Bolyen"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "In 1989, the author of this book and all those involved in its publication were sentenced to death by the Supreme Leader of Iran.",
+    "choices": [
+      "Songs of Enchantment",
+      "Lady Chatterleys Lover",
+      "The Gate at the End of the World",
+      "The Satanic Verses"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Would you rather Be stuck in a situationship for a year or Have one very public breakup?",
+    "choices": [
+      "Be stuck in a situationship for a year",
+      "Have one very public breakup"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Tonight's house special?",
+    "choices": [
+      "Royal Fizz",
+      "Boxcar",
+      "Rum Toddy",
+      "Vesper"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Jane Fonda, Victoria Beckham and Whitney-Houston are celebrities who openly admit to have had this disorder.",
+    "choices": [
+      "Dysthymic Disorder",
+      "Sleep Disorder",
+      "Seasonal Affective Disorder (SAD)",
+      "Eating Disorder"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "After-hours energy?",
+    "choices": [
+      "One more round",
+      "Uber home",
+      "Diner run",
+      "Regret tomorrow"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "What city was movie character Forrest Gump born and raised in?",
+    "choices": [
+      "Greenbow, Alabama",
+      "Jackson, Mississippi",
+      "Greenville, Alabama",
+      "Cleveland, Alabama"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "This TV cartoon character used the catchphrase HEY HEY HEY starting in 1972.",
+    "choices": [
+      "Fat Albert",
+      "Scooby Doo",
+      "Underdog",
+      "Archie Andrews"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "What year did the Titanic sink?",
+    "choices": [
+      "1917",
+      "1930",
+      "1912",
+      "1941"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Would you rather Open-bar unlimited but you give the toast or Two-drink max and no public speaking?",
+    "choices": [
+      "Open-bar unlimited but you give the toast",
+      "Two-drink max and no public speaking"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Would you rather Always be 10 minutes late or Always be 20 minutes early?",
+    "choices": [
+      "Always be 10 minutes late",
+      "Always be 20 minutes early"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Would you rather Always send the drunk text or Never text after 10pm?",
+    "choices": [
+      "Always send the drunk text",
+      "Never text after 10pm"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Office party red flag?",
+    "choices": [
+      "Too many shots",
+      "Talking to the boss",
+      "Karaoke ballad",
+      "Leaving at 8"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Who played the drums for the popular 70s band The Eagles?",
+    "choices": [
+      "Randy Meisner",
+      "John Bonham",
+      "Don Henley",
+      "Johnny Bangadrum"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "The Oscar for Best Actress in a Supporting Role went to which cast member of Gone With the Wind?",
+    "choices": [
+      "Butterfly McQueen",
+      "Dorothy Dandridge",
+      "Hattie McDaniel",
+      "None of these"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "When was Kevin Bacon born?",
+    "choices": [
+      "July 8th 1958",
+      "May 8th 1958",
+      "April 8th 1960",
+      "April 8th 1959"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "In this 1968 film Maurice Evans portrays Dr. Zaius who thinks all humans must be exterminated.",
+    "choices": [
+      "Casino Royale",
+      "Planet of the Apes",
+      "2001: A Space Odyssey",
+      "Goldfinger"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Which cocktail should we order?",
+    "choices": [
+      "Addison",
+      "Bubble Gum",
+      "Miami Vice",
+      "Paloma"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Which drink belongs on the menu?",
+    "choices": [
+      "Kurant Tea",
+      "Affinity",
+      "Passion Fruit Martini",
+      "Rum Cooler"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "In which US state would you find these cities: Alexis, Alhambra, Amboy, Argenta, Ashley, Zeigler, Zion, Wauconda?",
+    "choices": [
+      "New Jersey",
+      "Indiana",
+      "Illinois",
+      "Iowa"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "In the film Walk the Line, the part of Cashs long-time friend, Waylon Jennings was played by Jennings son in real life. What is his name?",
+    "choices": [
+      "Harvey Jennings",
+      "Hank Jennings",
+      "Shooter Jennings",
+      "Stormer Jennings"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Which of these has been a host of the popular American TV game The Wheel of Fortune?",
+    "choices": [
+      "Gene Simmons",
+      "Gary Moore",
+      "Pat Sajak",
+      "Bob Barker"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Which drink belongs on the menu?",
+    "choices": [
+      "Mudslinger",
+      "Flying Dutchman",
+      "Zizi Coin-coin",
+      "Tequila Sour"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "What was the name of the snooty butler in the TV series The Fresh Prince of Bel-Air?",
+    "choices": [
+      "Geoffrey",
+      "Solomon",
+      "Thurston",
+      "Joseph"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "2007 marked what approximate number of people living on our planet?",
+    "choices": [
+      "60,000,000,000",
+      "660,000,000,000",
+      "6,600,000,000",
+      "6,600,000,000,000"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Pick the winning bar order",
+    "choices": [
+      "Almeria",
+      "Rum Runner",
+      "Ice Pick",
+      "Vodka Fizz"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Worst dating app habit?",
+    "choices": [
+      "Ghosting",
+      "Double texting",
+      "Love bombing",
+      "Breadcrumbing"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "On the cover of the Sims 2 University expansion pack there is a picture of two Sims, one male and one female. What is the male Sim wearing?",
+    "choices": [
+      "hippie outfit",
+      "toga",
+      "mascot costume",
+      "football equipment"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Rideshare confession?",
+    "choices": [
+      "Rating drama",
+      "Wrong pin",
+      "Too chatty",
+      "Fell asleep"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Hangover breakfast?",
+    "choices": [
+      "Greasy diner",
+      "Nothing but water",
+      "Bloody Mary",
+      "Sleep until Monday"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "House party role?",
+    "choices": [
+      "DJ",
+      "Snack cop",
+      "Coat pile",
+      "The one who leaves last"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Which drink belongs on the menu?",
+    "choices": [
+      "Bahama Mama",
+      "Shot-gun",
+      "Corpse Reviver",
+      "Mocha-Berry"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "In the Harry Potter books, what is the name of Hagrids three-headed dog?",
+    "choices": [
+      "Fluffy",
+      "Norbert",
+      "Aragog",
+      "Fang"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Would you rather live in a world with no color or a world with no sound?",
+    "choices": [
+      "live in a world with no color",
+      "a world with no sound"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Which drink belongs on the menu?",
+    "choices": [
+      "Lord And Lady",
+      "Imperial Cocktail",
+      "A. J.",
+      "French Negroni"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "What type of climate does North Korea have?",
+    "choices": [
+      "Oceanic",
+      "Humid subtropical",
+      "Continental",
+      "Tropical"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "At the end of “It’s A Wonderful Life, Harry Bailey made a toast to the richest man in town. Who was he referring to when he made this toast?",
+    "choices": [
+      "Mr. Beckwith",
+      "His brother George",
+      "Uncle Billy",
+      "Mr. Potter"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "What type of insect is often referred to as a white ant, although it is not related to the ant species?",
+    "choices": [
+      "A type of small spider",
+      "Termite",
+      "Head louse",
+      "A type of albino wasp"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Larry Brown led this team from 1997 to 2003.",
+    "choices": [
+      "Chicago Bulls",
+      "LA Lakers",
+      "Denver Nuggets",
+      "Philadephia 76ers"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Would you rather have the ability to fly or have the ability to breathe underwater?",
+    "choices": [
+      "have the ability to fly",
+      "have the ability to breathe underwater"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Which cocktail should we order?",
+    "choices": [
+      "Cuba Libre",
+      "Aperol Spritz",
+      "Irish Coffee",
+      "White Russian"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Everybodys talking all this stuff about me",
+    "choices": [
+      "Dont you know my precision oh",
+      "Make my own decisions oh",
+      "Ready for collision oh",
+      "This really is my vision oh"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "This great Spanish explorer conquered what is now central and southern Mexico.",
+    "choices": [
+      "Christopher Columbus",
+      "Vasco Da Gama",
+      "Ferdinand Magellan",
+      "Hernando Cortes"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Pick the winning bar order",
+    "choices": [
+      "Gin Squirt",
+      "Monkey Gland",
+      "ACID",
+      "Martinez 2"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Name the Star Wars character who said: Search your feelings. You know it to be true.",
+    "choices": [
+      "Obi Wan Kenobi",
+      "Yoda",
+      "Emperor Palpetine",
+      "Darth Vader"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Which cocktail should we order?",
+    "choices": [
+      "Caipirinha",
+      "Ranch Water",
+      "Bloody Mary",
+      "Dark and Stormy"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Pick the winning bar order",
+    "choices": [
+      "Texas Sling",
+      "Raspberry Julep",
+      "Iced Coffee Fillip",
+      "Tipperary"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Which group of ancient people used a system of strings and knots rather than words, to record their history?",
+    "choices": [
+      "The Mayans",
+      "The Edomites",
+      "The Incas",
+      "The Celts"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Would you rather have the power to manipulate time or control the elements?",
+    "choices": [
+      "have the power to manipulate time",
+      "control the elements"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Which cocktail should we order?",
+    "choices": [
+      "San Francisco",
+      "Kamikaze",
+      "Popped cherry",
+      "Vodka Tonic"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Which of these sentences means I love you in Dutch?",
+    "choices": [
+      "Ti amo.",
+      "Ik hou van jou.",
+      "Ne mohotatse.",
+      "Ich liebe Dich."
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "She was the only woman to become Prime Minister of Great Britain.",
+    "choices": [
+      "Diane Julie Abbott",
+      "Queen Victoria",
+      "Margaret Thatcher",
+      "Elizabeth Furse"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Mom always told you to get plenty of iron in your diet, so you order a put out the lights and cry. What item have you ordered?",
+    "choices": [
+      "Patty melt, no onions",
+      "Ham on rye with soup",
+      "T - Bone steak with onions",
+      "Liver and onions"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Which French phrase can mean tastes differ?",
+    "choices": [
+      "Pret-a-porter",
+      "Pour encourager les autres",
+      "Chacun a son gout",
+      "Idee fixe"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Which cocktail should we order?",
+    "choices": [
+      "Havana Cocktail",
+      "Sea breeze",
+      "Cream Soda",
+      "Zambeer"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Afterparty location?",
+    "choices": [
+      "Someone's kitchen",
+      "A diner",
+      "The street",
+      "Absolutely not"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Tonight's house special?",
+    "choices": [
+      "Mango Mojito",
+      "Flander's Flake-Out",
+      "Kioki Coffee",
+      "Port And Starboard"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Club night personality?",
+    "choices": [
+      "Main character",
+      "Wallflower",
+      "Designated adult",
+      "Lost in the coat check"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "What did Robert get Amy for their first Valentines Day together.",
+    "choices": [
+      "Iguana",
+      "Puppy",
+      "Flowers",
+      "A necklace"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "In Warcraft III:The Frozen Throne, Illidan Stormrage works for?",
+    "choices": [
+      "Tichondrius",
+      "Kiljaeden",
+      "Sargeras",
+      "Archimond"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "The tallest mountain peak in the US is Mount McKinley. This is the second tallest.",
+    "choices": [
+      "Mount Saint Elias",
+      "Glacier Peak",
+      "Mount Washington",
+      "Gannett Peak"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Pick the winning bar order",
+    "choices": [
+      "Rum Milk Punch",
+      "Porto flip",
+      "Mojito Extra",
+      "Pink Lady"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "What NBA team is known for their cowbells?",
+    "choices": [
+      "Atlanta Hawks",
+      "Portland Trail Blazers",
+      "Sacramento Kings",
+      "San Antonio Spurs"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Would you rather never have to sleep again or never have to eat again?",
+    "choices": [
+      "never have to sleep again",
+      "never have to eat again"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Pedro, Napoleons best friend in the movie Napoleon Dynamite is from which country?",
+    "choices": [
+      "Columbia",
+      "Mexico",
+      "Brazil",
+      "Panama"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Pick the winning bar order",
+    "choices": [
+      "Vesuvio",
+      "John Collins",
+      "The Galah",
+      "Sol Y Sombra"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Pre-game playlist?",
+    "choices": [
+      "Throwbacks",
+      "Club bangers",
+      "Ironic country",
+      "Silence and nerves"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "This song won the Academy Award for best song in a movie. What Disney movie did it appear in?",
+    "choices": [
+      "Snow White and the Seven Dwarfs",
+      "The Jungle Book",
+      "Pinocchio",
+      "Sleeping Beauty"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Name the Roman counterpart of the Greek god Zeus.",
+    "choices": [
+      "Neptune",
+      "Jupiter",
+      "Saturn",
+      "none of these"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "There are four major types of golf clubs. Which of the following pairs (club type - common shot) is wrong?",
+    "choices": [
+      "Woods - Long shots",
+      "Putters - Shots on the green",
+      "Lob Wedges - Low shots",
+      "Irons - Precise shots"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Which drink belongs on the menu?",
+    "choices": [
+      "Screwdriver",
+      "Gimlet",
+      "Vampiro",
+      "Zipperhead"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Which English king was born in Pembroke Castle, Wales in 1457?",
+    "choices": [
+      "Henry IV",
+      "Henry I",
+      "Henry VIII",
+      "Henry VII"
     ],
     "rating": "family"
   }
