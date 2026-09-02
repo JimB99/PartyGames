@@ -80,9 +80,10 @@ export function FleetDuelPlacement({
           Rotate
         </Btn>
         <Btn variant="secondary" testId="fleet-duel-random" onClick={() => onAction({ kind: "fleet_duel_random" })}>
-          Random fleet
+          Surprise me
         </Btn>
       </div>
+      <p className="text-center text-xs text-zinc-500">Don&apos;t want to place ships? We&apos;ll drop a legal fleet for you.</p>
       <div className="flex justify-center">
         <FleetDuelGrid
           size={gridSize}

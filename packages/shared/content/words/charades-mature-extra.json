@@ -425,11 +425,6 @@
     "difficulty": "easy"
   },
   {
-    "word": "mosh pit",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
     "word": "headbang",
     "rating": "mature",
     "difficulty": "hard"
@@ -438,11 +433,6 @@
     "word": "crowd chant",
     "rating": "mature",
     "difficulty": "easy"
-  },
-  {
-    "word": "mosh pit",
-    "rating": "mature",
-    "difficulty": "medium"
   },
   {
     "word": "wall of death",
@@ -580,11 +570,6 @@
     "difficulty": "medium"
   },
   {
-    "word": "walk of shame",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
     "word": "forgotten name",
     "rating": "mature",
     "difficulty": "easy"
@@ -603,16 +588,6 @@
     "word": "rebound",
     "rating": "mature",
     "difficulty": "easy"
-  },
-  {
-    "word": "situationship",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "talking stage",
-    "rating": "mature",
-    "difficulty": "hard"
   },
   {
     "word": "love triangle",
@@ -860,11 +835,6 @@
     "difficulty": "easy"
   },
   {
-    "word": "main character",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
     "word": "villain arc",
     "rating": "mature",
     "difficulty": "hard"
@@ -913,11 +883,6 @@
     "word": "girl math",
     "rating": "mature",
     "difficulty": "hard"
-  },
-  {
-    "word": "receipts",
-    "rating": "mature",
-    "difficulty": "easy"
   },
   {
     "word": "tea spilling",
@@ -1078,11 +1043,6 @@
     "word": "third wheel",
     "rating": "mature",
     "difficulty": "hard"
-  },
-  {
-    "word": "plus one",
-    "rating": "mature",
-    "difficulty": "easy"
   },
   {
     "word": "wingwoman",

@@ -8,17 +8,53 @@ Couch party games: one big screen (host/TV) + phones as controllers.
 - **React + Vite + Tailwind** (client, served from the same Worker)
 - **TypeScript monorepo** (`shared`, `server`, `client`)
 
-## Games (30)
+## Games (32)
 
-Fact Check, Wit Showdown, Quick Quiz, Would You Rather, Draw & Guess, Bracket Battle, Friend Sort, When Was It, Impostor, Trail Dash, Word Rush, Reverse Fact, Team Charades, Hot Seat, Last on the Dike, Block Stack, Fleet Duel, Four in a Row, Tic-Tac-Toe, Split the Room, Spectrum, Chain Sketch, Crowd Call, Star Rate, Agent Grid, Forbidden Clue, Hangman Race, Paddle Clash, Grid Blast.
+Display names match lobby copy. Protocol IDs are kebab-case.
+
+| ID | Display name |
+|----|----------------|
+| fact-check | Fact Check |
+| wit-showdown | Wit Showdown |
+| caption-this | Caption This |
+| quick-quiz | Quick Quiz |
+| would-you-rather | Would You Rather |
+| draw-guess | Draw & Guess |
+| bracket-battle | Bracket Battle |
+| role-sort | Friend Sort |
+| timeline | When Was It |
+| impostor | Impostor |
+| trail-dash | Trail Dash |
+| word-rush | Word Rush |
+| reverse-fact | Reverse Fact |
+| team-charades | Team Charades |
+| hot-seat | Hot Seat |
+| last-on-the-dike | Last on the Dike |
+| block-stack | Block Stack |
+| fleet-duel | Fleet Duel |
+| four-in-a-row | Four in a Row |
+| tic-tac-toe | Tic-Tac-Toe |
+| split-the-room | Split the Room |
+| spectrum | Spectrum |
+| chain-sketch | Chain Sketch |
+| crowd-call | Crowd Call |
+| star-rate | Star Rate |
+| agent-grid | Agent Grid |
+| forbidden-clue | Forbidden Clue |
+| hangman-race | Hangman Race |
+| paddle-clash | Paddle Clash |
+| grid-blast | Grid Blast |
+| draw-vote | Draw & Vote |
+| draw-impostor | Draw Impostor |
 
 ## Testing
 
 ```bash
-npx pnpm test              # unit + integration (shared + server)
-npx pnpm test:unit         # shared logic tests only
-npx pnpm test:e2e          # Playwright UI smoke tests (all 30 games)
-npx pnpm test:e2e -- e2e/games/quick-quiz.spec.ts   # single game
+npx pnpm verify           # typecheck + unit + contract + content audit
+npx pnpm test             # unit + integration (shared + server)
+npx pnpm test:unit        # shared logic tests only
+npx pnpm test:e2e         # Playwright UI tests (includes viewport matrix)
+npx pnpm test:e2e -- e2e/viewport-matrix.spec.ts
 ```
 
 Prerequisites for E2E:
@@ -29,12 +65,12 @@ Prerequisites for E2E:
 
 Test layers:
 
-- **Unit** — scoring, board logic, content filters (\`packages/shared\`)
-- **Content validation** — all JSON question/word pools
-- **Game integration** — all 31 games at min/max players via \`GameModule\` simulation
+- **Unit** — scoring, board logic, content filters (`packages/shared`)
+- **Content validation** — all JSON question/word pools (0 errors required)
+- **Game integration** — all 32 games at min/max players via `GameModule` simulation
 - **Settings matrix** — family/mature, difficulty, speed scoring, Trail Dash options
 - **Room WebSocket** — join/start/max players (requires wrangler dev)
-- **Playwright E2E** — host + player UI smoke per game
+- **Playwright E2E** — host + player UI smoke per game; viewport matrix at 1280×720, 1920×1080, 390×844, 844×390, 768×1024
 
 ## Go live (one-time setup)
 
@@ -72,7 +108,7 @@ npx pnpm install
 npx pnpm dev
 ```
 
-- Client: http://localhost:5173
+- Client: http://localhost:5178
 - Worker: http://localhost:8787
 
 Copy `packages/client/.env.example` to `packages/client/.env.local`:

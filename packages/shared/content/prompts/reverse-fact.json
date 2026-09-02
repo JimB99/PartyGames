@@ -4244,7 +4244,7 @@
   {
     "fact": "Prostitution",
     "truth": "During The Restoration period blond hair became a symbol of this?",
-    "rating": "family",
+    "rating": "mature",
     "difficulty": "medium"
   },
   {
@@ -9962,7 +9962,7 @@
   {
     "fact": "Borderline Personality Disorder",
     "truth": "People who suffer from this condition tend to be self-destructive. They may use drugs, or engage in promiscuous sexual activities?",
-    "rating": "family",
+    "rating": "mature",
     "difficulty": "hard"
   },
   {
@@ -13694,7 +13694,7 @@
   {
     "fact": "Vivian Ward",
     "truth": "In the film Pretty Woman, this character, portrayed by Julia Roberts, is a prostitute who meets Edward Lewis, after he asks her for directions?",
-    "rating": "family",
+    "rating": "mature",
     "difficulty": "medium"
   },
   {
@@ -15760,5 +15760,287 @@
     "truth": "What is the largest country in the world ?",
     "rating": "family",
     "difficulty": "hard"
+  },
+  {
+    "fact": "21",
+    "truth": "What is the legal drinking age in the United States?",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "fact": "1920",
+    "truth": "In what year did US Prohibition of alcohol begin?",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "fact": "1933",
+    "truth": "In what year did the US repeal Prohibition?",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "fact": "Nevada",
+    "truth": "Which US state is famous for Las Vegas casinos?",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "fact": "Mardi Gras",
+    "truth": "Which New Orleans festival is known for beads and parades?",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "fact": "Oktoberfest",
+    "truth": "Which German festival is famous for beer tents?",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "fact": "Bacchus",
+    "truth": "Who was the Roman god of wine?",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "fact": "Dionysus",
+    "truth": "Who was the Greek god of wine and revelry?",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "fact": "Speakeasy",
+    "truth": "What secret bar type hid drinks during Prohibition?",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "fact": "Designated driver",
+    "truth": "What party role stays sober so others can drink?",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "fact": "Hangover",
+    "truth": "What word describes feeling ill the morning after drinking?",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "fact": "Tequila",
+    "truth": "Which spirit is traditionally made from blue agave?",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "fact": "Champagne",
+    "truth": "Which sparkling wine must come from a region in France?",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "fact": "Bourbon",
+    "truth": "Which American whiskey must be made mostly from corn?",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "fact": "Hops",
+    "truth": "What flower cone gives beer its bitter flavor?",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "fact": "Malt",
+    "truth": "What germinated grain is a core beer ingredient?",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "fact": "Proof",
+    "truth": "What number is twice a drink’s alcohol percentage?",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "fact": "Last call",
+    "truth": "What phrase means a bar will stop serving soon?",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "fact": "Open bar",
+    "truth": "What wedding perk means drinks are already paid for?",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "fact": "Bouncer",
+    "truth": "What door staff checks IDs at a nightclub?",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "fact": "Cover charge",
+    "truth": "What fee do some clubs collect at the door?",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "fact": "Happy hour",
+    "truth": "What bar promotion offers cheaper drinks after work?",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "fact": "Shot",
+    "truth": "What is a small, quickly downed serving of liquor called?",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "fact": "Mocktail",
+    "truth": "What is a cocktail made without alcohol called?",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "fact": "Corkage",
+    "truth": "What restaurant fee covers bringing your own bottle?",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "fact": "Sommelier",
+    "truth": "What trained restaurant staff member recommends wine?",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "fact": "IPA",
+    "truth": "What beer style name stands for India Pale Ale?",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "fact": "Stout",
+    "truth": "What dark beer style includes Guinness?",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "fact": "Moonshine",
+    "truth": "What illicit homemade spirit was common during Prohibition?",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "fact": "Tab",
+    "truth": "What do you close when you finish a night at the bar?",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "fact": "Last orders",
+    "truth": "What British pub phrase means drinks will stop soon?",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "fact": "BYOB",
+    "truth": "What four letters mean bring your own bottle?",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "fact": "Pub crawl",
+    "truth": "What outing visits several bars in one night?",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "fact": "Karaoke",
+    "truth": "What nightlife hobby has people sing over backing tracks?",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "fact": "Last dance",
+    "truth": "What wedding-reception song traditionally ends the night?",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "fact": "Best man",
+    "truth": "Which groomsman usually gives a toast at the reception?",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "fact": "Maid of honor",
+    "truth": "Which bridesmaid usually gives a toast at the reception?",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "fact": "Honeymoon",
+    "truth": "What trip do newlyweds take after the wedding?",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "fact": "Bachelor party",
+    "truth": "What pre-wedding celebration is thrown for the groom?",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "fact": "Bachelorette",
+    "truth": "What pre-wedding celebration is thrown for the bride?",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "fact": "Plus-one",
+    "truth": "What wedding invite term lets a guest bring a date?",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "fact": "RSVP",
+    "truth": "What four letters ask guests to confirm they will attend?",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "fact": "Toasting",
+    "truth": "What ceremony moment raises glasses to the couple?",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "fact": "Garter",
+    "truth": "What wedding accessory is sometimes tossed to groomsmen?",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "fact": "Bouquet toss",
+    "truth": "What reception game has unmarried guests catch flowers?",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "fact": "Vegas",
+    "truth": "Which city is nicknamed Sin City?",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "fact": "21+",
+    "truth": "What age-gate appears on many nightlife venues?",
+    "rating": "mature",
+    "difficulty": "medium"
   }
 ]

@@ -147,7 +147,7 @@ export function GameOptionsPanel({
               onClick={() => onChange({ ...options, paddleMode: "pong" })}
             />
             <RatingButton
-              label="Air hockey"
+              label="Turbo Pong"
               testId="game-option-paddle-hockey"
               active={options.paddleMode === "hockey"}
               onClick={() => onChange({ ...options, paddleMode: "hockey" })}

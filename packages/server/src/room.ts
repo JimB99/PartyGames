@@ -12,6 +12,10 @@ import {
   uniqueId,
   resolveTrailDashOptions,
   resolveHostControls,
+  validateClientMessage,
+  validateRawMessageSize,
+  assembleHostView,
+  assemblePlayerView,
 } from "@party-games/shared";
 import {
   Server,
@@ -34,6 +38,9 @@ import {
   type LobbyState,
 } from "./lobby.js";
 import { getGame, listGames } from "./registry.js";
+import { actionLimiter, drawLimiter, hostAdminLimiter } from "./rate-limiter.js";
+import { PersistenceQueue } from "./persistence-queue.js";
+import { mintHostToken, verifyHostToken } from "./host-capability.js";
 
 interface ConnectionMeta {
   role: ConnectionRole;
@@ -50,9 +57,17 @@ interface PersistedRoomState {
   roomPhase: "lobby" | "playing";
   gameState: unknown;
   activeGameId: GameId | null;
+  hostToken: string | null;
 }
 
 export class RoomServer extends Server {
+  /** PartyServer Durable Object state (storage) — present at runtime. */
+  declare ctx: {
+    storage: {
+      put(key: string, value: unknown): Promise<void>;
+      get<T>(key: string): Promise<T | undefined>;
+    };
+  };
   lobby!: LobbyState;
   gameModule: ReturnType<typeof getGame> | null = null;
   gameState: unknown = null;
@@ -60,6 +75,8 @@ export class RoomServer extends Server {
   activeGameId: GameId | null = null;
   connectionMeta = new Map<string, ConnectionMeta>();
   tickTimer: ReturnType<typeof setInterval> | null = null;
+  persistence = new PersistenceQueue();
+  hostToken: string | null = null;
 
   private gamePhase(state: unknown): string {
     if (!state || typeof state !== "object") return "";
@@ -76,18 +93,26 @@ export class RoomServer extends Server {
     };
   }
 
-  private async persistRoom(): Promise<void> {
-    const { disconnectTimers: _dt, hostDisconnectTimer: _ht, committedRoundKeys, ...lobbyRest } = this.lobby;
-    const payload: PersistedRoomState = {
-      lobby: {
-        ...lobbyRest,
-        committedRoundKeys: [...committedRoundKeys],
-      },
-      roomPhase: this.roomPhase,
-      gameState: this.gameState,
-      activeGameId: this.activeGameId,
+  private async persistRoom(critical = false): Promise<void> {
+    const write = async () => {
+      const { disconnectTimers: _dt, hostDisconnectTimer: _ht, committedRoundKeys, ...lobbyRest } = this.lobby;
+      const payload: PersistedRoomState = {
+        lobby: {
+          ...lobbyRest,
+          committedRoundKeys: [...committedRoundKeys],
+        },
+        roomPhase: this.roomPhase,
+        gameState: this.gameState,
+        activeGameId: this.activeGameId,
+        hostToken: this.hostToken,
+      };
+      await this.ctx.storage.put(ROOM_STORAGE_KEY, payload);
     };
-    await this.ctx.storage.put(ROOM_STORAGE_KEY, payload);
+    if (critical) {
+      await this.persistence.enqueueCritical(write);
+    } else {
+      this.persistence.enqueueTransient(write);
+    }
   }
 
   private restoreGameModule(): void {
@@ -153,9 +178,11 @@ export class RoomServer extends Server {
       this.roomPhase = stored.roomPhase;
       this.gameState = stored.gameState;
       this.activeGameId = stored.activeGameId;
+      this.hostToken = stored.hostToken ?? null;
       this.restoreGameModule();
     } else {
       this.lobby = createLobby(this.name);
+      this.hostToken = mintHostToken();
     }
   }
 
@@ -250,14 +277,34 @@ export class RoomServer extends Server {
 
   onMessage(connection: Connection, rawMessage: WSMessage) {
     try {
-      const message = JSON.parse(String(rawMessage)) as ClientMessage;
-      this.handleMessage(message, connection);
+      const raw = String(rawMessage);
+      const sizeCheck = validateRawMessageSize(raw);
+      if (!sizeCheck.ok) {
+        connection.send(JSON.stringify({ type: "error", message: sizeCheck.message }));
+        return;
+      }
+      const parsed = JSON.parse(raw) as unknown;
+      const result = validateClientMessage(parsed);
+      if (!result.ok) {
+        connection.send(JSON.stringify({ type: "error", message: result.message }));
+        return;
+      }
+      this.handleMessage(result.value, connection);
     } catch {
       connection.send(JSON.stringify({ type: "error", message: "Invalid message" }));
     }
   }
 
   handleMessage(message: ClientMessage, sender: Connection) {
+    const isDrawAction =
+      message.type === "player_action" &&
+      (message.action.kind === "draw_stroke" || message.action.kind === "draw_undo" || message.action.kind === "draw_clear");
+    const limiter = isDrawAction ? drawLimiter : actionLimiter;
+    if (!limiter.tryConsume(sender.id)) {
+      sender.send(JSON.stringify({ type: "error", message: "Too many actions — slow down" }));
+      return;
+    }
+
     switch (message.type) {
       case "ping":
         sender.send(JSON.stringify({ type: "pong" }));
@@ -381,6 +428,7 @@ export class RoomServer extends Server {
     sender: Connection,
   ) {
     if (message.role === "host") {
+      if (!this.hostToken) this.hostToken = mintHostToken();
       this.clearHostDisconnectGrace();
       this.lobby.hostConnectionId = sender.id;
       this.lobby.hostSessionActive = true;
@@ -390,6 +438,7 @@ export class RoomServer extends Server {
         nickname: "Host",
       });
       this.sendState(sender);
+      sender.send(JSON.stringify({ type: "host_token", token: this.hostToken }));
       this.broadcastAll();
       return;
     }
@@ -429,6 +478,10 @@ export class RoomServer extends Server {
       return;
     }
 
+    if (this.roomPhase === "playing") {
+      player.waiting = true;
+    }
+
     if (message.colorIndex !== undefined) {
       setPlayerColor(this.lobby, playerId, message.colorIndex);
     }
@@ -439,7 +492,7 @@ export class RoomServer extends Server {
   }
 
   isHost(conn: Connection): boolean {
-    return this.lobby.hostConnectionId === conn.id;
+    return this.lobby.hostConnectionId === conn.id || this.connectionMeta.get(conn.id)?.role === "host";
   }
 
   getRoomContext(): RoomContext {
@@ -698,16 +751,18 @@ export class RoomServer extends Server {
     let hostView = null;
     if (this.roomPhase === "playing" && this.gameModule && this.gameState) {
       const view = this.gameModule.getHostView(this.gameState, this.getRoomContext());
-      hostView = {
-        gameId: this.gameModule.meta.id,
-        phase: view.phase,
-        round: view.round,
-        maxRounds: view.maxRounds,
-        timerEndsAt: view.timerEndsAt,
-        timerTotalMs: view.timerTotalMs ?? null,
-        hostControls: resolveHostControls(view),
-        data: view.data,
-      };
+      hostView = assembleHostView(
+        this.gameModule.meta.id,
+        {
+          phase: view.phase,
+          round: view.round,
+          maxRounds: view.maxRounds,
+          timerEndsAt: view.timerEndsAt,
+          timerTotalMs: view.timerTotalMs ?? null,
+          data: view.data,
+        },
+        resolveHostControls(view),
+      );
     }
 
     return {
@@ -741,8 +796,7 @@ export class RoomServer extends Server {
     const view = this.gameModule.getPlayerView(this.gameState, meta.playerId, this.getRoomContext());
     return {
       type: "player_view",
-      view: {
-        gameId: this.gameModule.meta.id,
+      view: assemblePlayerView(this.gameModule.meta.id, {
         phase: view.phase,
         round: view.round,
         maxRounds: view.maxRounds,
@@ -750,7 +804,7 @@ export class RoomServer extends Server {
         timerTotalMs: view.timerTotalMs ?? null,
         data: view.data,
         playerData: view.playerData,
-      },
+      }),
     };
   }
 
@@ -779,7 +833,7 @@ export class RoomServer extends Server {
   }
 
   broadcastAll() {
-    void this.persistRoom();
+    void this.persistRoom(this.roomPhase === "lobby");
     for (const conn of this.getConnections()) {
       try {
         this.sendState(conn);

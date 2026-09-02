@@ -22,6 +22,7 @@ export interface TicTacToeState {
   matchIndex: number;
   championId: string | null;
   roundScores: Record<string, number>;
+  drawReplayCount: number;
 }
 
 const WIN_LINES = [
@@ -83,6 +84,7 @@ export function createTicTacToeState(playerIds: string[]): TicTacToeState {
     matchIndex: 0,
     championId: null,
     roundScores: {},
+    drawReplayCount: 0,
   };
 }
 

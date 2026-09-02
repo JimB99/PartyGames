@@ -94,7 +94,7 @@ export interface CategoryEntry extends ContentMeta {
   name: string;
 }
 
-export interface ImpostorCategory {
+export interface ImpostorCategory extends ContentMeta {
   id: string;
   label: string;
   items: string[];

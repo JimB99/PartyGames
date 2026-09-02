@@ -10,6 +10,7 @@ import {
   dropDisc,
   findConnectFourWinningCells,
   markForPlayer,
+  nextPlayableMatchIndex,
   resetBoard,
   type FourInARowState,
 } from "@party-games/shared";
@@ -30,7 +31,16 @@ function startPlaying(state: FourInARowState): FourInARowState {
   return state;
 }
 
-function finishMatch(state: FourInARowState, winnerId: string | null): FourInARowState {
+function finishMatch(state: FourInARowState, winnerId: string | null, isDraw = false): FourInARowState {
+  if (isDraw && state.drawReplayCount < 1) {
+    state.drawReplayCount += 1;
+    resetBoard(state);
+    state.winnerId = null;
+    state.winningCells = null;
+    state.phase = "playing";
+    return state;
+  }
+
   state.winnerId = winnerId;
   if (state.playerIds.length === 2) {
     state.championId = winnerId;
@@ -42,14 +52,30 @@ function finishMatch(state: FourInARowState, winnerId: string | null): FourInARo
   const match = currentCfMatch(state);
   if (match) match.winner = winnerId;
 
-  if (state.matchIndex < state.bracket.length - 1) {
-    state.matchIndex += 1;
+  let nextIndex = state.matchIndex + 1;
+  const playable = nextPlayableMatchIndex(state.bracket, nextIndex);
+  if (playable !== null && playable < state.bracket.length) {
+    state.matchIndex = playable;
     state.round += 1;
     resetBoard(state);
+    state.drawReplayCount = 0;
     state.phase = "playing";
     state.timerEndsAt = null;
     state.timerTotalMs = null;
     return state;
+  }
+
+  if (state.matchIndex < state.bracket.length - 1) {
+    state.matchIndex += 1;
+    const skipTo = nextPlayableMatchIndex(state.bracket, state.matchIndex);
+    if (skipTo !== null) {
+      state.matchIndex = skipTo;
+      state.round += 1;
+      resetBoard(state);
+      state.drawReplayCount = 0;
+      state.phase = "playing";
+      return state;
+    }
   }
 
   state.round += 1;
@@ -85,8 +111,7 @@ export function onFourInARowAction(state: FourInARowState, playerId: string, act
     }
     if (outcome === "draw") {
       state.winningCells = null;
-      const pair = activePlayers(state);
-      return finishMatch(state, pair?.[0] ?? null);
+      return finishMatch(state, null, true);
     }
     state.currentPlayerIndex = state.currentPlayerIndex === 0 ? 1 : 0;
   }

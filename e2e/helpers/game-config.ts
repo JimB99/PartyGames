@@ -13,6 +13,9 @@ export const NEW_GAME_IDS = [
   "hangman-race",
   "paddle-clash",
   "grid-blast",
+  "draw-vote",
+  "draw-impostor",
+  "caption-this",
 ] as const satisfies readonly GameId[];
 
 export type NewGameId = (typeof NEW_GAME_IDS)[number];
@@ -47,6 +50,9 @@ export const GAME_MAX_PLAYERS: Partial<Record<GameId, number>> = {
   "hangman-race": 16,
   "paddle-clash": 4,
   "grid-blast": 8,
+  "draw-vote": 12,
+  "draw-impostor": 10,
+  "caption-this": 16,
 };
 
 export function midPlayerCount(config: GameE2EConfig): number {
@@ -312,4 +318,7 @@ export const GAME_E2E_CONFIGS: Record<GameId, GameE2EConfig> = {
       await page.getByTestId("grid-blast-up").click({ timeout: 5_000 }).catch(() => {});
     },
   },
+  "draw-vote": { id: "draw-vote", minPlayers: 3, playerAction: drawOnCanvas },
+  "draw-impostor": { id: "draw-impostor", minPlayers: 4, playerAction: drawOnCanvas },
+  "caption-this": { id: "caption-this", minPlayers: 3, playerAction: submitText },
 };

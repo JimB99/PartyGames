@@ -40,6 +40,7 @@ export interface PromptVoteState {
   usedPrompts: number[];
   promptsPool: string[];
   playerIds: string[];
+  byeSubmissionId?: string;
 }
 
 const SUBMIT_MS = 45000;
@@ -81,14 +82,32 @@ export function createPromptVoteState(
 function buildMatchups(state: PromptVoteState) {
   const subs = shuffle(state.submissions);
   const pairs: Array<{ a: string; b: string }> = [];
-  for (let i = 0; i < subs.length - 1; i += 2) {
-    pairs.push({ a: subs[i].id, b: subs[i + 1].id });
+  const ids = subs.map((s) => s.id);
+  for (let i = 0; i + 1 < ids.length; i += 2) {
+    pairs.push({ a: ids[i], b: ids[i + 1] });
   }
-  if (subs.length % 2 === 1 && subs.length > 1) {
-    pairs.push({ a: subs[subs.length - 1].id, b: subs[0].id });
-  }
+  state.byeSubmissionId = ids.length % 2 === 1 ? ids[ids.length - 1] : undefined;
   state.matchups = pairs;
   state.matchupIndex = 0;
+}
+
+function matchupAuthorIds(state: PromptVoteState, matchup: { a: string; b: string }): Set<string> {
+  const aSub = state.submissions.find((s) => s.id === matchup.a);
+  const bSub = state.submissions.find((s) => s.id === matchup.b);
+  return new Set([aSub?.playerId, bSub?.playerId].filter((id): id is string => Boolean(id)));
+}
+
+function eligibleMatchupVoters(state: PromptVoteState, matchup: { a: string; b: string }): string[] {
+  const authors = matchupAuthorIds(state, matchup);
+  return state.playerIds.filter((id) => !authors.has(id));
+}
+
+function awardByePoints(state: PromptVoteState): void {
+  if (!state.byeSubmissionId) return;
+  const bye = state.submissions.find((s) => s.id === state.byeSubmissionId);
+  if (!bye) return;
+  state.roundScores[bye.playerId] = (state.roundScores[bye.playerId] ?? 0) + 500;
+  state.cumulativeScores[bye.playerId] = (state.cumulativeScores[bye.playerId] ?? 0) + 500;
 }
 
 export function advancePromptVote(state: PromptVoteState, prompts: string[]): PromptVoteState {
@@ -119,6 +138,7 @@ export function advancePromptVote(state: PromptVoteState, prompts: string[]): Pr
       return state;
     }
     buildMatchups(state);
+    awardByePoints(state);
     state.phase = state.matchups.length > 0 ? "matchup" : "scoreboard";
     Object.assign(state, startPhaseTimer(VOTE_MS));
     return state;
@@ -208,13 +228,18 @@ function scoreMatchup(state: PromptVoteState) {
   accumulateVotes(state);
   let votesA = 0;
   let votesB = 0;
-  for (const [voterId, optionId] of Object.entries(state.votes)) {
-    const voterSubmission = state.submissions.find((s) => s.playerId === voterId);
-    if (voterSubmission?.id === optionId) continue;
+  for (const optionId of Object.values(state.votes)) {
     if (optionId === matchup.a) votesA++;
     if (optionId === matchup.b) votesB++;
   }
-  const winnerId = votesA >= votesB ? matchup.a : matchup.b;
+  const winnerId =
+    votesA > votesB
+      ? matchup.a
+      : votesB > votesA
+        ? matchup.b
+        : matchup.a < matchup.b
+          ? matchup.a
+          : matchup.b;
   const winner = state.submissions.find((s) => s.id === winnerId);
   if (winner) {
     state.roundScores[winner.playerId] = (state.roundScores[winner.playerId] ?? 0) + 1000;
@@ -274,10 +299,13 @@ export function onPromptVoteAction(
   if (action.kind === "vote_pair" && state.phase === "matchup") {
     const matchup = state.matchups[state.matchupIndex];
     if (!matchup) return state;
+    if (matchupAuthorIds(state, matchup).has(playerId)) return state;
+    if (action.winnerId !== matchup.a && action.winnerId !== matchup.b) return state;
     const picked = state.submissions.find((s) => s.id === action.winnerId);
     if (picked?.playerId === playerId) return state;
     state.votes[playerId] = action.winnerId;
-    if (Object.keys(state.votes).length >= ctx.playerIds.length) {
+    const eligible = eligibleMatchupVoters(state, matchup);
+    if (eligible.every((id) => state.votes[id] !== undefined)) {
       return advancePromptVote(state, state.promptsPool);
     }
   }
@@ -290,6 +318,17 @@ export function onPromptVoteAction(
   if (action.kind === "hot_seat_pick" && state.phase === "pick" && playerId === state.targetPlayerId) {
     state.pickVotes[playerId] = action.submissionId;
     return advancePromptVote(state, state.promptsPool);
+  }
+  if (
+    action.kind === "hot_seat_skip" &&
+    state.mode === "hot-seat" &&
+    playerId === state.targetPlayerId &&
+    (state.phase === "submit" || state.phase === "pick")
+  ) {
+    state.roundScores = {};
+    state.phase = "scoreboard";
+    Object.assign(state, startPhaseTimer(SCOREBOARD_MS));
+    return state;
   }
   if (action.kind === "advance" && state.phase === "instructions") {
     return advancePromptVote(state, state.promptsPool);
@@ -360,6 +399,10 @@ export function promptVotePlayerView(state: PromptVoteState, playerId: string, c
     state.mode === "hot-seat" && targetName
       ? personalizeHotSeatPrompt(state.prompt, targetName)
       : state.prompt;
+  const canVoteInMatchup =
+    state.phase === "matchup" && currentMatchup
+      ? !matchupAuthorIds(state, currentMatchup).has(playerId)
+      : undefined;
   return {
     phase: state.phase,
     round: state.round,
@@ -388,6 +431,7 @@ export function promptVotePlayerView(state: PromptVoteState, playerId: string, c
       picked: state.pickVotes[playerId] !== undefined,
       ownSubmissionId: ownSubmission?.id,
       mySubmission: ownSubmission?.text,
+      canVoteInMatchup,
     },
   };
 }

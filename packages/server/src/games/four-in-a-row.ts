@@ -12,7 +12,7 @@ export const fourInARowGame: GameModule<FourInARowState> = {
   meta: {
     id: "four-in-a-row",
     name: "Four in a Row",
-    description: "Drop discs to connect four in a row",
+    description: "Party table game for 2–4 — take turns dropping discs on the TV",
     scoringRules: "Winner 1000 pts. King-of-the-hill: first to 2 mini-match wins.",
     minPlayers: 2,
     maxPlayers: 4,

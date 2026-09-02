@@ -9238,5 +9238,305 @@
     "year": 2015,
     "rating": "family",
     "difficulty": "easy"
+  },
+  {
+    "event": "US Prohibition began",
+    "year": 1920,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "US Prohibition ended",
+    "year": 1933,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Playboy magazine first published",
+    "year": 1953,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Woodstock music festival",
+    "year": 1969,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "First Super Bowl",
+    "year": 1967,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Saturday Night Live premiered",
+    "year": 1975,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Studio 54 opened in New York",
+    "year": 1977,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "MTV launched",
+    "year": 1981,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "The first episode of Friends aired",
+    "year": 1994,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "The first episode of The Sopranos aired",
+    "year": 1999,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "The Hangover was released",
+    "year": 2009,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Las Vegas Strip welcomed the Bellagio",
+    "year": 1998,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "The first James Bond film Dr. No was released",
+    "year": 1962,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Mad Men premiered",
+    "year": 2007,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "The first season of The Bachelor aired",
+    "year": 2002,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "The Real Housewives of Orange County premiered",
+    "year": 2006,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Jersey Shore premiered",
+    "year": 2009,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Love Island UK first aired",
+    "year": 2015,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "The first episode of Cheers aired",
+    "year": 1982,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "The Cosmopolitan cocktail surged in Sex and the City",
+    "year": 1998,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Burning Man first held on a beach",
+    "year": 1986,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Coachella festival first held",
+    "year": 1999,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "The first legal same-sex marriages in Massachusetts",
+    "year": 2004,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "US Supreme Court decision Obergefell v. Hodges",
+    "year": 2015,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "The 21st Amendment was ratified",
+    "year": 1933,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "The 18th Amendment was ratified",
+    "year": 1919,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "First Casino Royale novel published",
+    "year": 1953,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Moulin Rouge opened in Paris",
+    "year": 1889,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "The Cotton Club opened in Harlem",
+    "year": 1923,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "The first Playboy Club opened",
+    "year": 1960,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "The first episode of Sex and the City aired",
+    "year": 1998,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "The Wolf of Wall Street was released",
+    "year": 2013,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "The Great Gatsby novel published",
+    "year": 1925,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "The first episode of Entourage aired",
+    "year": 2004,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "The first season of Succession aired",
+    "year": 2018,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "The first season of Euphoria aired",
+    "year": 2019,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "The first episode of Breaking Bad aired",
+    "year": 2008,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "The Godfather was released",
+    "year": 1972,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Goodfellas was released",
+    "year": 1990,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Pulp Fiction was released",
+    "year": 1994,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "The first episode of True Detective aired",
+    "year": 2014,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "The first episode of Game of Thrones aired",
+    "year": 2011,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "The first episode of The Office (US) aired",
+    "year": 2005,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "The first episode of Parks and Recreation aired",
+    "year": 2009,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "The first legal sports betting in New Jersey after PASPA",
+    "year": 2018,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "The first Powerball drawing",
+    "year": 1992,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "The first Mega Millions drawing under that name",
+    "year": 2002,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "The first episode of Drunk History aired on Comedy Central",
+    "year": 2013,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "The first season of The White Lotus aired",
+    "year": 2021,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Barbie the movie was released",
+    "year": 2023,
+    "rating": "mature",
+    "difficulty": "medium"
   }
 ]

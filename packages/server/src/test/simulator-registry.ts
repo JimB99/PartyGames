@@ -1,5 +1,5 @@
 import type { GameId, RoomContext } from "@party-games/shared";
-import type { SimAction } from "../harness.js";
+import type { SimAction } from "./harness.js";
 import {
   fleetDuelActions,
   bluffActions,
@@ -37,6 +37,7 @@ const SIMULATORS: Record<GameId, SimulatorFn> = {
   "fact-check": bluffActions,
   "reverse-fact": bluffActions,
   "wit-showdown": promptVoteActions,
+  "caption-this": promptVoteActions,
   "hot-seat": promptVoteActions,
   "draw-guess": drawingActions,
   "word-rush": wordRushActions,
@@ -60,6 +61,8 @@ const SIMULATORS: Record<GameId, SimulatorFn> = {
   "hangman-race": hangmanRaceActions,
   "paddle-clash": paddleClashActions,
   "grid-blast": gridBlastActions,
+  "draw-vote": drawingActions,
+  "draw-impostor": drawingActions,
 };
 
 export function getSimulatorActions(gameId: GameId, state: unknown, ctx: RoomContext): SimAction[] {

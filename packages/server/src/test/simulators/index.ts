@@ -96,9 +96,15 @@ export function promptVoteActions(state: unknown, ctx: RoomContext): SimAction[]
     return actions;
   }
 
-  if (phase === "matchup" && s.matchups?.[s.matchupIndex ?? 0]) {
+  if (phase === "matchup" && s.matchups?.[s.matchupIndex ?? 0] && s.submissions) {
     const matchup = s.matchups[s.matchupIndex ?? 0];
+    const authorIds = new Set(
+      s.submissions
+        .filter((sub) => sub.id === matchup.a || sub.id === matchup.b)
+        .map((sub) => sub.playerId),
+    );
     for (const playerId of ctx.playerIds) {
+      if (authorIds.has(playerId)) continue;
       actions.push({ role: "player", playerId, action: { kind: "vote_pair", winnerId: matchup.a } });
     }
     return actions;
@@ -130,8 +136,13 @@ export function promptVoteActions(state: unknown, ctx: RoomContext): SimAction[]
 
 export function drawingActions(state: unknown, ctx: RoomContext): SimAction[] {
   const phase = getPhase(state);
-  const s = state as { drawerIndex?: number; word?: string; playerIds?: string[] };
-  const drawerId = ctx.playerIds[s.drawerIndex ?? 0];
+  const s = state as {
+    drawerIndex?: number;
+    guessOrder?: string[];
+    drawings?: Record<string, { word?: string }>;
+  };
+  const artistId = s.guessOrder?.[s.drawerIndex ?? 0] ?? ctx.playerIds[s.drawerIndex ?? 0];
+  const word = s.drawings?.[artistId ?? ""]?.word ?? "guess";
   const actions: SimAction[] = [];
 
   if (phase === "instructions") {
@@ -140,18 +151,30 @@ export function drawingActions(state: unknown, ctx: RoomContext): SimAction[] {
   }
 
   if (phase === "drawing") {
-    actions.push({
-      role: "player",
-      playerId: drawerId,
-      action: { kind: "draw_stroke", points: [10, 10, 20, 20], color: "#fff" },
-    });
+    for (const playerId of ctx.playerIds) {
+      actions.push({
+        role: "player",
+        playerId,
+        action: { kind: "draw_stroke", points: [0.1, 0.1, 0.2, 0.2], color: "#fff" },
+      });
+    }
+    actions.push({ role: "host", action: { kind: "advance" } });
     return actions;
   }
 
   if (phase === "guessing") {
     for (const playerId of ctx.playerIds) {
-      if (playerId === drawerId) continue;
-      actions.push({ role: "player", playerId, action: { kind: "submit_text", text: s.word ?? "guess" } });
+      if (playerId === artistId) continue;
+      actions.push({ role: "player", playerId, action: { kind: "submit_text", text: word } });
+    }
+    return actions;
+  }
+
+  if (phase === "vote") {
+    const order = s.guessOrder ?? ctx.playerIds;
+    for (const playerId of ctx.playerIds) {
+      const target = order.find((id) => id !== playerId) ?? order[0];
+      if (target) actions.push({ role: "player", playerId, action: { kind: "vote", optionId: target } });
     }
     return actions;
   }
@@ -626,24 +649,32 @@ export function starRateActions(state: unknown, ctx: RoomContext): SimAction[] {
 
 export function chainSketchActions(state: unknown, ctx: RoomContext): SimAction[] {
   const phase = getPhase(state);
-  const s = state as { linkIndex?: number };
-  const active = ctx.playerIds[(s.linkIndex ?? 0) % ctx.playerIds.length];
   const actions: SimAction[] = [];
   if (phase === "instructions") {
     actions.push({ role: "host", action: { kind: "advance" } });
     return actions;
   }
   if (phase === "draw") {
-    actions.push({
-      role: "player",
-      playerId: active,
-      action: { kind: "draw_stroke", points: [10, 10, 30, 30], color: "#fff" },
-    });
-    actions.push({ role: "player", playerId: active, action: { kind: "advance" } });
+    for (const pid of ctx.playerIds) {
+      actions.push({
+        role: "player",
+        playerId: pid,
+        action: { kind: "draw_stroke", points: [10, 10, 30, 30], color: "#fff" },
+      });
+      actions.push({ role: "player", playerId: pid, action: { kind: "advance" } });
+    }
     return actions;
   }
   if (phase === "guess") {
-    actions.push({ role: "player", playerId: active, action: { kind: "submit_text", text: "guess" } });
+    for (const pid of ctx.playerIds) {
+      actions.push({ role: "player", playerId: pid, action: { kind: "submit_text", text: "guess" } });
+    }
+    return actions;
+  }
+  if (phase === "vote") {
+    for (const pid of ctx.playerIds) {
+      actions.push({ role: "player", playerId: pid, action: { kind: "vote", optionId: ctx.playerIds[0] } });
+    }
     return actions;
   }
   if (phase === "reveal" || phase === "scoreboard") {

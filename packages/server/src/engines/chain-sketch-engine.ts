@@ -1,8 +1,8 @@
-import { pickRandom, type GameAction, type RoomContext } from "@party-games/shared";
+import { shuffle, type GameAction, type RoomContext } from "@party-games/shared";
 import { clearPhaseTimer, startPhaseTimer } from "./phase-timer.js";
 import type { Stroke } from "./drawing-engine.js";
 
-export type ChainPhase = "instructions" | "draw" | "guess" | "reveal" | "scoreboard" | "ended";
+export type ChainPhase = "instructions" | "draw" | "guess" | "vote" | "reveal" | "scoreboard" | "ended";
 
 export interface ChainLink {
   playerId: string;
@@ -12,6 +12,21 @@ export interface ChainLink {
   guess?: string;
 }
 
+export interface PlayerChain {
+  ownerId: string;
+  startWord: string;
+  links: ChainLink[];
+}
+
+export interface ChainWorkspace {
+  chainOwnerId: string;
+  strokes: Stroke[];
+  drawerTool: "pen" | "eraser";
+  drawerWidth: number;
+  guess?: string;
+  submitted: boolean;
+}
+
 export interface ChainSketchState {
   phase: ChainPhase;
   round: number;
@@ -19,116 +34,188 @@ export interface ChainSketchState {
   timerEndsAt: number | null;
   timerTotalMs: number | null;
   playerIds: string[];
-  linkIndex: number;
-  chain: ChainLink[];
-  currentPrompt: string;
-  strokes: Stroke[];
-  drawerTool: "pen" | "eraser";
-  drawerWidth: number;
-  guesses: Record<string, string>;
+  stage: number;
+  stagesTotal: number;
+  chains: Record<string, PlayerChain>;
+  workspaces: Record<string, ChainWorkspace>;
+  votes: Record<string, string>;
   roundScores: Record<string, number>;
   wordsPool: string[];
 }
 
 const DRAW_MS = 45000;
 const GUESS_MS = 30000;
+const VOTE_MS = 30000;
 const REVEAL_MS = 10000;
 const SCOREBOARD_MS = 5000;
 
+function assignedChainOwner(playerIds: string[], playerId: string, stage: number): string {
+  const idx = playerIds.indexOf(playerId);
+  if (idx < 0) return playerIds[0];
+  return playerIds[(idx + stage) % playerIds.length];
+}
+
+function isDrawStage(stage: number): boolean {
+  return stage % 2 === 0;
+}
+
+function promptForChain(chain: PlayerChain): string {
+  for (let i = chain.links.length - 1; i >= 0; i--) {
+    const link = chain.links[i];
+    if (link.kind === "guess" && link.guess) return link.guess;
+  }
+  return chain.startWord;
+}
+
+function lastDrawStrokes(chain: PlayerChain): Stroke[] | undefined {
+  for (let i = chain.links.length - 1; i >= 0; i--) {
+    const link = chain.links[i];
+    if (link.kind === "draw" && link.strokes?.length) return link.strokes;
+  }
+  return undefined;
+}
+
+function initWorkspaces(state: ChainSketchState): void {
+  state.workspaces = {};
+  for (const pid of state.playerIds) {
+    const ownerId = assignedChainOwner(state.playerIds, pid, state.stage);
+    state.workspaces[pid] = {
+      chainOwnerId: ownerId,
+      strokes: [],
+      drawerTool: "pen",
+      drawerWidth: 4,
+      submitted: false,
+    };
+  }
+}
+
+function allSubmitted(state: ChainSketchState): boolean {
+  return state.playerIds.every((pid) => state.workspaces[pid]?.submitted);
+}
+
+function commitDrawStage(state: ChainSketchState): void {
+  for (const pid of state.playerIds) {
+    const ws = state.workspaces[pid];
+    if (!ws) continue;
+    const chain = state.chains[ws.chainOwnerId];
+    if (!chain) continue;
+    chain.links.push({
+      playerId: pid,
+      kind: "draw",
+      prompt: promptForChain(chain),
+      strokes: [...ws.strokes],
+    });
+  }
+}
+
+function commitGuessStage(state: ChainSketchState): void {
+  for (const pid of state.playerIds) {
+    const ws = state.workspaces[pid];
+    if (!ws) continue;
+    const chain = state.chains[ws.chainOwnerId];
+    if (!chain) continue;
+    const guess = ws.guess?.trim() || "?";
+    chain.links.push({
+      playerId: pid,
+      kind: "guess",
+      prompt: promptForChain(chain),
+      guess,
+    });
+  }
+}
+
+function scoreChains(state: ChainSketchState): void {
+  state.roundScores = {};
+  for (const pid of state.playerIds) {
+    state.roundScores[pid] = 100;
+  }
+  for (const chain of Object.values(state.chains)) {
+    const original = chain.startWord.toLowerCase().trim();
+    const lastGuess = [...chain.links].reverse().find((l) => l.kind === "guess")?.guess?.toLowerCase().trim();
+    if (original && lastGuess === original) {
+      state.roundScores[chain.ownerId] = (state.roundScores[chain.ownerId] ?? 0) + 400;
+    }
+  }
+  const tally: Record<string, number> = {};
+  for (const vote of Object.values(state.votes)) {
+    tally[vote] = (tally[vote] ?? 0) + 1;
+  }
+  let best = 0;
+  let winner: string | null = null;
+  for (const [id, count] of Object.entries(tally)) {
+    if (count > best) {
+      best = count;
+      winner = id;
+    }
+  }
+  if (winner) state.roundScores[winner] = (state.roundScores[winner] ?? 0) + 300;
+}
+
 export function createChainSketchState(words: string[], playerIds: string[]): ChainSketchState {
-  const word = pickRandom(words);
-  return {
+  const wordPool = shuffle([...words]);
+  const chains: Record<string, PlayerChain> = {};
+  for (let i = 0; i < playerIds.length; i++) {
+    const id = playerIds[i];
+    chains[id] = { ownerId: id, startWord: wordPool[i % wordPool.length], links: [] };
+  }
+  const state: ChainSketchState = {
     phase: "instructions",
     round: 1,
-    maxRounds: playerIds.length,
+    maxRounds: 1,
     ...startPhaseTimer(5000),
-    playerIds,
-    linkIndex: 0,
-    chain: [],
-    currentPrompt: word,
-    strokes: [],
-    drawerTool: "pen",
-    drawerWidth: 4,
-    guesses: {},
+    playerIds: [...playerIds],
+    stage: 0,
+    stagesTotal: playerIds.length * 2,
+    chains,
+    workspaces: {},
+    votes: {},
     roundScores: {},
     wordsPool: words,
   };
-}
-
-function currentPlayer(state: ChainSketchState): string {
-  return state.playerIds[state.linkIndex % state.playerIds.length];
-}
-
-function isDrawTurn(state: ChainSketchState): boolean {
-  return state.linkIndex % 2 === 0;
-}
-
-function lastDrawStrokes(state: ChainSketchState): Stroke[] | undefined {
-  for (let i = state.chain.length - 1; i >= 0; i--) {
-    const link = state.chain[i];
-    if (link.kind === "draw" && link.strokes?.length) return link.strokes;
-  }
-  return state.strokes.length > 0 ? state.strokes : undefined;
-}
-
-function scoreChainRound(state: ChainSketchState): void {
-  const original = state.chain.find((l) => l.kind === "draw")?.prompt ?? "";
-  const final = state.currentPrompt.toLowerCase().trim();
-  const origin = original.toLowerCase().trim();
-  state.roundScores = {};
-  if (origin && final === origin) {
-    const starter = state.chain[0]?.playerId ?? state.playerIds[0];
-    state.roundScores[starter] = 500;
-  }
-  for (const link of state.chain) {
-    if (link.kind === "guess" && link.guess && link.guess !== "?") {
-      state.roundScores[link.playerId] = (state.roundScores[link.playerId] ?? 0) + 150;
-    }
-  }
+  initWorkspaces(state);
+  return state;
 }
 
 export function advanceChain(state: ChainSketchState): ChainSketchState {
   if (state.phase === "instructions") {
-    state.phase = isDrawTurn(state) ? "draw" : "guess";
-    Object.assign(state, startPhaseTimer(isDrawTurn(state) ? DRAW_MS : GUESS_MS));
-    state.strokes = [];
-    state.guesses = {};
+    state.phase = "draw";
+    state.stage = 0;
+    initWorkspaces(state);
+    Object.assign(state, startPhaseTimer(DRAW_MS));
     return state;
   }
   if (state.phase === "draw") {
-    state.chain.push({
-      playerId: currentPlayer(state),
-      kind: "draw",
-      prompt: state.currentPrompt,
-      strokes: [...state.strokes],
-    });
-    state.linkIndex += 1;
+    commitDrawStage(state);
+    state.stage += 1;
+    if (state.stage >= state.stagesTotal) {
+      state.phase = "vote";
+      state.votes = {};
+      Object.assign(state, startPhaseTimer(VOTE_MS));
+      return state;
+    }
     state.phase = "guess";
+    initWorkspaces(state);
     Object.assign(state, startPhaseTimer(GUESS_MS));
-    state.guesses = {};
     return state;
   }
   if (state.phase === "guess") {
-    const guesserId = currentPlayer(state);
-    const guess = state.guesses[guesserId] ?? "?";
-    state.chain.push({
-      playerId: guesserId,
-      kind: "guess",
-      prompt: state.currentPrompt,
-      guess,
-    });
-    state.currentPrompt = guess;
-    state.linkIndex += 1;
-    if (state.linkIndex >= state.playerIds.length * 2) {
-      scoreChainRound(state);
-      state.phase = "reveal";
-      Object.assign(state, startPhaseTimer(REVEAL_MS));
+    commitGuessStage(state);
+    state.stage += 1;
+    if (state.stage >= state.stagesTotal) {
+      state.phase = "vote";
+      state.votes = {};
+      Object.assign(state, startPhaseTimer(VOTE_MS));
       return state;
     }
-    state.phase = isDrawTurn(state) ? "draw" : "guess";
-    Object.assign(state, startPhaseTimer(isDrawTurn(state) ? DRAW_MS : GUESS_MS));
-    state.strokes = [];
-    state.guesses = {};
+    state.phase = "draw";
+    initWorkspaces(state);
+    Object.assign(state, startPhaseTimer(DRAW_MS));
+    return state;
+  }
+  if (state.phase === "vote") {
+    scoreChains(state);
+    state.phase = "reveal";
+    Object.assign(state, startPhaseTimer(REVEAL_MS));
     return state;
   }
   if (state.phase === "reveal") {
@@ -145,45 +232,69 @@ export function advanceChain(state: ChainSketchState): ChainSketchState {
 }
 
 export function onChainAction(state: ChainSketchState, playerId: string, action: GameAction, ctx: RoomContext): ChainSketchState {
-  const active = currentPlayer(state);
-  if (playerId !== active) return state;
+  state.playerIds = [...ctx.playerIds];
+
+  if (action.kind === "advance" && state.phase === "instructions") {
+    return advanceChain(state);
+  }
+  if (action.kind === "vote" && state.phase === "vote") {
+    if (state.chains[action.optionId]) {
+      state.votes[playerId] = action.optionId;
+    }
+    if (Object.keys(state.votes).length >= ctx.playerIds.length) {
+      return advanceChain(state);
+    }
+    return state;
+  }
+
+  const ws = state.workspaces[playerId];
+  if (!ws) return state;
 
   if (action.kind === "draw_tool" && state.phase === "draw") {
-    state.drawerTool = action.tool;
-    if (action.width !== undefined) state.drawerWidth = Math.max(2, Math.min(16, action.width));
+    ws.drawerTool = action.tool;
+    if (action.width !== undefined) ws.drawerWidth = Math.max(2, Math.min(16, action.width));
   }
   if (action.kind === "draw_stroke" && state.phase === "draw") {
-    const erase = state.drawerTool === "eraser";
-    state.strokes.push({
+    const erase = ws.drawerTool === "eraser" || action.color === "erase";
+    ws.strokes.push({
       points: action.points,
-      color: erase ? "#000" : action.color,
-      width: action.width ?? state.drawerWidth,
+      color: erase ? "transparent" : action.color,
+      width: action.width ?? ws.drawerWidth,
       erase,
     });
   }
   if (action.kind === "draw_undo" && state.phase === "draw") {
-    state.strokes.pop();
+    ws.strokes.pop();
   }
   if (action.kind === "submit_text" && state.phase === "guess") {
-    state.guesses[playerId] = action.text.slice(0, 60);
-    return advanceChain(state);
-  }
-  if (action.kind === "advance" && state.phase === "instructions") {
-    return advanceChain(state);
+    ws.guess = action.text.slice(0, 60);
+    ws.submitted = true;
+    if (allSubmitted(state)) return advanceChain(state);
   }
   if (action.kind === "advance" && state.phase === "draw") {
-    return advanceChain(state);
+    ws.submitted = true;
+    if (allSubmitted(state)) return advanceChain(state);
   }
-  void ctx;
+  if (action.kind === "advance" && state.phase === "draw") {
+    ws.submitted = true;
+    if (allSubmitted(state)) return advanceChain(state);
+  }
   return state;
 }
 
 export function onChainTick(state: ChainSketchState): ChainSketchState {
   if (!state.timerEndsAt || Date.now() < state.timerEndsAt) return state;
+  if (state.phase === "draw" || state.phase === "guess") {
+    for (const pid of state.playerIds) {
+      const ws = state.workspaces[pid];
+      if (ws) ws.submitted = true;
+    }
+  }
   return advanceChain(state);
 }
 
 export function chainHostView(state: ChainSketchState) {
+  const showAll = state.phase === "reveal" || state.phase === "scoreboard" || state.phase === "ended";
   return {
     phase: state.phase,
     round: state.round,
@@ -191,19 +302,30 @@ export function chainHostView(state: ChainSketchState) {
     timerEndsAt: state.timerEndsAt,
     timerTotalMs: state.timerTotalMs,
     data: {
-      chain: state.phase === "reveal" || state.phase === "scoreboard" || state.phase === "ended" ? state.chain : undefined,
-      strokes: state.phase === "draw" ? state.strokes : state.chain[state.chain.length - 1]?.strokes,
-      currentPrompt: state.phase === "reveal" || state.phase === "scoreboard" || state.phase === "ended"
-        ? state.currentPrompt
-        : undefined,
-      activePlayerId: state.phase === "draw" || state.phase === "guess" ? currentPlayer(state) : undefined,
+      simultaneous: state.phase === "draw" || state.phase === "guess",
+      stage: state.stage,
+      stagesTotal: state.stagesTotal,
+      chains: showAll ? Object.values(state.chains) : undefined,
+      submittedCount:
+        state.phase === "draw" || state.phase === "guess"
+          ? state.playerIds.filter((id) => state.workspaces[id]?.submitted).length
+          : undefined,
+      playerCount: state.playerIds.length,
       roundScores: state.roundScores,
+      voteCounts: state.phase === "reveal" || state.phase === "scoreboard"
+        ? Object.values(state.votes).reduce<Record<string, number>>((acc, id) => {
+            acc[id] = (acc[id] ?? 0) + 1;
+            return acc;
+          }, {})
+        : undefined,
     },
   };
 }
 
 export function chainPlayerView(state: ChainSketchState, playerId: string) {
-  const active = currentPlayer(state);
+  const ws = state.workspaces[playerId];
+  const chain = ws ? state.chains[ws.chainOwnerId] : undefined;
+  const showAll = state.phase === "reveal" || state.phase === "scoreboard";
   return {
     phase: state.phase,
     round: state.round,
@@ -211,21 +333,22 @@ export function chainPlayerView(state: ChainSketchState, playerId: string) {
     timerEndsAt: state.timerEndsAt,
     timerTotalMs: state.timerTotalMs,
     data: {
-      strokes:
-        state.phase === "draw" && playerId === active
-          ? state.strokes
-          : state.phase === "guess"
-            ? lastDrawStrokes(state)
-            : undefined,
-      isDrawTurn: state.phase === "draw",
-      chain: state.phase === "reveal" || state.phase === "scoreboard" ? state.chain : undefined,
-      activePlayerId: state.phase === "draw" || state.phase === "guess" ? currentPlayer(state) : undefined,
+      simultaneous: state.phase === "draw" || state.phase === "guess",
+      chains: showAll ? Object.values(state.chains) : undefined,
     },
     playerData: {
-      isActive: playerId === active,
-      prompt: playerId === active ? state.currentPrompt : undefined,
-      submitted: state.phase === "guess" && state.guesses[playerId] !== undefined,
-      myGuess: state.guesses[playerId],
+      chainOwnerId: ws?.chainOwnerId,
+      prompt: state.phase === "draw" && chain ? promptForChain(chain) : undefined,
+      strokes: state.phase === "draw" ? ws?.strokes : state.phase === "guess" && chain ? lastDrawStrokes(chain) : undefined,
+      submitted: ws?.submitted ?? false,
+      myGuess: ws?.guess,
+      voteOptions:
+        state.phase === "vote"
+          ? state.playerIds.map((id) => ({ id, ownerName: id }))
+          : undefined,
+      voted: state.votes[playerId] !== undefined,
+      myVote: state.votes[playerId],
+      ownChain: state.chains[playerId],
     },
   };
 }

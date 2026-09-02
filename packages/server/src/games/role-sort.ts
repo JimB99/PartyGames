@@ -1,5 +1,5 @@
 import type { GameModule } from "@party-games/shared";
-import { content } from "../content.js";
+import { friendSortPool } from "../content-pool.js";
 import {
   createRoleSortState,
   onRoleSortAction,
@@ -20,11 +20,11 @@ export const roleSortGame: GameModule<RoleSortState> = {
     maxPlayers: 8,
     category: "party",
     supportsDifficulty: false,
-    supportsMatureContent: false,
+    supportsMatureContent: true,
     roundScoresAreCumulative: true,
   },
   init(ctx) {
-    return createRoleSortState("Archetypes", content.friendSortRoles, ctx.playerIds);
+    return createRoleSortState("Archetypes", friendSortPool(ctx.gameOptions), ctx.playerIds);
   },
   onPlayerAction(state, playerId, action, ctx) {
     return onRoleSortAction(state, playerId, action, ctx);

@@ -1,5 +1,5 @@
 import type { RoomSnapshot } from "@party-games/shared";
-import { playerColor } from "../hooks/usePartyRoom";
+import { PlayerColorSwatch, playerColorName } from "./PlayerColorSwatch";
 
 export function PlayerList({ players }: { players: RoomSnapshot["players"] }) {
   return (
@@ -9,10 +9,7 @@ export function PlayerList({ players }: { players: RoomSnapshot["players"] }) {
           key={p.id}
           className="flex items-center gap-3 rounded-xl bg-zinc-800/80 px-4 py-3"
         >
-          <span
-            className="h-3 w-3 rounded-full"
-            style={{ backgroundColor: playerColor(p.colorIndex) }}
-          />
+          <PlayerColorSwatch index={p.colorIndex} title={playerColorName(p.colorIndex)} />
           <span className="font-medium">{p.nickname}</span>
           <span className="ml-auto text-xs text-zinc-500">
             {p.connected ? "online" : "away"}

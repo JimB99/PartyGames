@@ -18,6 +18,26 @@ export const PLAYER_COLORS = [
   "#FF4477", // pink
 ] as const;
 
+/** Spoken names for color-blind players (same order as PLAYER_COLORS). */
+export const PLAYER_COLOR_NAMES = [
+  "Red",
+  "Orange-red",
+  "Orange",
+  "Gold",
+  "Yellow-green",
+  "Lime",
+  "Green",
+  "Spring green",
+  "Cyan",
+  "Sky blue",
+  "Blue",
+  "Indigo",
+  "Purple",
+  "Violet",
+  "Magenta",
+  "Pink",
+] as const;
+
 export const MAX_PLAYERS = 16;
 export const ROOM_CODE_CHARS = "ABCDEFGHJKLMNPQRSTUVWXYZ";
 export const DISCONNECT_GRACE_MS = 120_000;
@@ -94,6 +114,9 @@ export const ALL_GAME_IDS = [
   "hangman-race",
   "paddle-clash",
   "grid-blast",
+  "draw-vote",
+  "draw-impostor",
+  "caption-this",
 ] as const;
 
 export type GameId = (typeof ALL_GAME_IDS)[number];

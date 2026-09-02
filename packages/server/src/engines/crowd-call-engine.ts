@@ -64,6 +64,23 @@ function majorityChoice(answers: Record<string, number>, choiceCount: number): n
   return best;
 }
 
+function majorityChoiceExcluding(
+  answers: Record<string, number>,
+  excludePlayerId: string,
+  choiceCount: number,
+): { choice: number; tied: boolean } {
+  const counts = Array(choiceCount).fill(0);
+  for (const [pid, c] of Object.entries(answers)) {
+    if (pid === excludePlayerId) continue;
+    if (c >= 0 && c < choiceCount) counts[c]++;
+  }
+  const max = Math.max(...counts, 0);
+  if (max === 0) return { choice: 0, tied: false };
+  const leaders = counts.map((count, i) => (count === max ? i : -1)).filter((i) => i >= 0);
+  if (leaders.length > 1) return { choice: leaders[0], tied: true };
+  return { choice: leaders[0], tied: false };
+}
+
 function scoreCrowd(state: CrowdState, playerIds: string[]): void {
   const majority = majorityChoice(state.answers, state.question.choices.length);
   const hasAnswers = Object.keys(state.answers).length > 0;
@@ -71,7 +88,24 @@ function scoreCrowd(state: CrowdState, playerIds: string[]): void {
   for (const pid of playerIds) {
     let pts = 0;
     if (state.answers[pid] !== undefined) pts += 200;
-    if (hasAnswers && state.predictions[pid] === majority) pts += 1000;
+    if (hasAnswers && state.predictions[pid] !== undefined) {
+      const crowd = majorityChoiceExcluding(state.answers, pid, state.question.choices.length);
+      const otherAnswerCount = Object.keys(state.answers).filter((id) => id !== pid).length;
+      if (otherAnswerCount > 0) {
+        if (crowd.tied) {
+          const counts = Array(state.question.choices.length).fill(0);
+          for (const [id, c] of Object.entries(state.answers)) {
+            if (id === pid) continue;
+            if (c >= 0 && c < counts.length) counts[c]++;
+          }
+          const max = Math.max(...counts);
+          const tiedChoices = counts.map((count, i) => (count === max ? i : -1)).filter((i) => i >= 0);
+          if (tiedChoices.includes(state.predictions[pid])) pts += 500;
+        } else if (state.predictions[pid] === crowd.choice) {
+          pts += 1000;
+        }
+      }
+    }
     if (pts > 0) state.roundScores[pid] = pts;
   }
 }
@@ -177,6 +211,31 @@ export function crowdHostView(state: CrowdState) {
 }
 
 export function crowdPlayerView(state: CrowdState, playerId: string) {
+  const showReveal = state.phase === "reveal" || state.phase === "scoreboard";
+  const crowd =
+    showReveal && state.answers[playerId] !== undefined
+      ? majorityChoiceExcluding(state.answers, playerId, state.question.choices.length)
+      : undefined;
+  const predictedCorrect =
+    showReveal &&
+    state.predictions[playerId] !== undefined &&
+    crowd &&
+    !crowd.tied &&
+    state.predictions[playerId] === crowd.choice;
+  const predictedTieBonus =
+    showReveal &&
+    state.predictions[playerId] !== undefined &&
+    crowd?.tied &&
+    (() => {
+      const counts = Array(state.question.choices.length).fill(0);
+      for (const [id, c] of Object.entries(state.answers)) {
+        if (id === playerId) continue;
+        if (c >= 0 && c < counts.length) counts[c]++;
+      }
+      const max = Math.max(...counts);
+      const tiedChoices = counts.map((count, i) => (count === max ? i : -1)).filter((i) => i >= 0);
+      return tiedChoices.includes(state.predictions[playerId]!);
+    })();
   return {
     phase: state.phase,
     round: state.round,
@@ -189,6 +248,9 @@ export function crowdPlayerView(state: CrowdState, playerId: string) {
       answered: state.answers[playerId] !== undefined,
       myPrediction: state.predictions[playerId],
       myAnswer: state.answers[playerId],
+      predictedCorrect,
+      predictedTieBonus,
+      roundPoints: showReveal ? state.roundScores[playerId] : undefined,
     },
   };
 }

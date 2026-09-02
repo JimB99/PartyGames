@@ -1,4 +1,4 @@
-import { GRID_BLAST_COLS, GRID_BLAST_ROWS } from "@party-games/shared";
+import { GRID_BLAST_COLS, GRID_BLAST_ROWS, type GridBlastPowerUpKind } from "@party-games/shared";
 import type { RoomSnapshot } from "@party-games/shared";
 import { playerColor } from "../hooks/usePartyRoom";
 
@@ -6,6 +6,13 @@ const CELL_COLORS: Record<number, string> = {
   0: "#1e293b",
   1: "#475569",
   2: "#92400e",
+};
+
+const POWER_COLORS: Record<GridBlastPowerUpKind, string> = {
+  bomb: "#facc15",
+  range: "#fb923c",
+  speed: "#22d3ee",
+  kick: "#a3e635",
 };
 
 export function GridBlastArena({
@@ -16,15 +23,41 @@ export function GridBlastArena({
   room: RoomSnapshot;
 }) {
   const grid = data.grid as number[][];
-  const players = data.players as Array<{ id: string; x: number; y: number; alive: boolean }>;
-  const bombs = (data.bombs as Array<{ x: number; y: number }>) ?? [];
+  const players = data.players as Array<{
+    id: string;
+    x: number;
+    y: number;
+    alive: boolean;
+    canKick?: boolean;
+    maxBombs?: number;
+    blastRange?: number;
+  }>;
+  const bombs = (data.bombs as Array<{ x: number; y: number; range?: number }>) ?? [];
   const fires = (data.fires as Array<{ x: number; y: number }>) ?? [];
+  const powerUps = (data.powerUps as Array<{ x: number; y: number; kind: GridBlastPowerUpKind }>) ?? [];
   const cell = 28;
   const w = GRID_BLAST_COLS * cell;
   const h = GRID_BLAST_ROWS * cell;
+  const aliveHud = players?.filter((p) => p.alive) ?? [];
 
   return (
-    <div className="mx-auto max-w-3xl overflow-hidden rounded-2xl bg-slate-950">
+    <div className="mx-auto max-w-3xl space-y-3 overflow-hidden rounded-2xl bg-slate-950 p-3">
+      {aliveHud.length > 0 && (
+        <div className="flex flex-wrap justify-center gap-3 text-sm text-zinc-300">
+          {aliveHud.map((p) => {
+            const pl = room.players.find((x) => x.id === p.id);
+            return (
+              <span key={p.id} className="rounded-full bg-zinc-800 px-3 py-1">
+                <span className="font-bold" style={{ color: playerColor(pl?.colorIndex ?? 0) }}>
+                  {pl?.nickname ?? "Player"}
+                </span>
+                {" · "}💣{p.maxBombs ?? 1} 🔥{p.blastRange ?? 2}
+                {p.canKick ? " 👟" : ""}
+              </span>
+            );
+          })}
+        </div>
+      )}
       <svg viewBox={`0 0 ${w} ${h}`} className="w-full">
         {grid?.map((row, y) =>
           row.map((cellVal, x) => (
@@ -51,16 +84,38 @@ export function GridBlastArena({
             rx={2}
           />
         ))}
-        {bombs.map((b, i) => (
+        {powerUps.map((pu, i) => (
           <circle
-            key={`bomb-${i}`}
-            cx={b.x * cell + cell / 2}
-            cy={b.y * cell + cell / 2}
-            r={cell / 4}
-            fill="#1c1917"
-            stroke="#fbbf24"
-            strokeWidth={2}
+            key={`pu-${i}`}
+            cx={pu.x * cell + cell / 2}
+            cy={pu.y * cell + cell / 2}
+            r={cell / 5}
+            fill={POWER_COLORS[pu.kind] ?? "#fff"}
           />
+        ))}
+        {bombs.map((b, i) => (
+          <g key={`bomb-${i}`}>
+            <circle
+              cx={b.x * cell + cell / 2}
+              cy={b.y * cell + cell / 2}
+              r={cell / 4}
+              fill="#1c1917"
+              stroke="#fbbf24"
+              strokeWidth={2}
+            />
+            {b.range != null && (
+              <text
+                x={b.x * cell + cell / 2}
+                y={b.y * cell + cell / 2 + 4}
+                textAnchor="middle"
+                fill="#fbbf24"
+                fontSize="10"
+                fontWeight="bold"
+              >
+                {b.range}
+              </text>
+            )}
+          </g>
         ))}
         {players?.map((p) => {
           const pl = room.players.find((x) => x.id === p.id);

@@ -1,51 +1,2950 @@
 [
-  { "word": "Piano", "forbidden": ["keys", "music", "play", "instrument", "grand"], "rating": "family" },
-  { "word": "Beach", "forbidden": ["sand", "ocean", "waves", "sun", "swim"], "rating": "family" },
-  { "word": "Doctor", "forbidden": ["hospital", "medicine", "patient", "nurse", "sick"], "rating": "family" },
-  { "word": "Pizza", "forbidden": ["cheese", "italy", "slice", "oven", "pepperoni"], "rating": "family" },
-  { "word": "Airplane", "forbidden": ["fly", "pilot", "wings", "airport", "sky"], "rating": "family" },
-  { "word": "Birthday", "forbidden": ["cake", "candles", "party", "age", "gift"], "rating": "family" },
-  { "word": "Rainbow", "forbidden": ["colors", "rain", "sky", "arc", "prism"], "rating": "family" },
-  { "word": "Library", "forbidden": ["books", "read", "quiet", "shelf", "study"], "rating": "family" },
-  { "word": "Elephant", "forbidden": ["trunk", "big", "gray", "africa", "tusk"], "rating": "family" },
-  { "word": "Snowman", "forbidden": ["winter", "cold", "carrot", "snow", "frost"], "rating": "family" },
-  { "word": "Detective", "forbidden": ["mystery", "clue", "crime", "investigate", "police"], "rating": "family" },
-  { "word": "Volcano", "forbidden": ["lava", "erupt", "mountain", "fire", "ash"], "rating": "family" },
-  { "word": "Guitar", "forbidden": ["strings", "music", "rock", "play", "band"], "rating": "family" },
-  { "word": "Castle", "forbidden": ["king", "knight", "tower", "medieval", "princess"], "rating": "family" },
-  { "word": "Robot", "forbidden": ["machine", "metal", "future", "android", "beep"], "rating": "family" },
-  { "word": "Circus", "forbidden": ["clown", "tent", "acrobat", "ring", "lion"], "rating": "family" },
-  { "word": "Telescope", "forbidden": ["stars", "space", "look", "planet", "night"], "rating": "family" },
-  { "word": "Lighthouse", "forbidden": ["beacon", "coast", "light", "ship", "tower"], "rating": "family" },
-  { "word": "Treasure", "forbidden": ["gold", "pirate", "map", "chest", "jewel"], "rating": "family" },
-  { "word": "Dragon", "forbidden": ["fire", "fly", "scale", "knight", "cave"], "rating": "family" },
-  { "word": "Camera", "forbidden": ["photo", "picture", "lens", "flash", "smile"], "rating": "family" },
-  { "word": "Bicycle", "forbidden": ["pedal", "wheels", "ride", "chain", "helmet"], "rating": "family" },
-  { "word": "Hospital", "forbidden": ["doctor", "sick", "nurse", "bed", "emergency"], "rating": "family" },
-  { "word": "Astronaut", "forbidden": ["space", "rocket", "moon", "nasa", "suit"], "rating": "family" },
-  { "word": "Dinosaur", "forbidden": ["extinct", "fossil", "jurassic", "reptile", "giant"], "rating": "family" },
-  { "word": "Magician", "forbidden": ["trick", "wand", "rabbit", "hat", "illusion"], "rating": "family" },
-  { "word": "Umbrella", "forbidden": ["rain", "wet", "shade", "handle", "storm"], "rating": "family" },
-  { "word": "Sandwich", "forbidden": ["bread", "lunch", "meat", "cheese", "eat"], "rating": "family" },
-  { "word": "Helicopter", "forbidden": ["fly", "rotor", "blade", "pilot", "air"], "rating": "family" },
-  { "word": "Diamond", "forbidden": ["ring", "jewel", "sparkle", "gem", "expensive"], "rating": "family" },
-  { "word": "Hangover", "forbidden": ["drunk", "morning", "headache", "alcohol", "sick"], "rating": "mature" },
-  { "word": "Vegas", "forbidden": ["gamble", "casino", "slots", "nevada", "strip"], "rating": "mature" },
-  { "word": "Tinder", "forbidden": ["dating", "swipe", "app", "match", "hookup"], "rating": "mature" },
-  { "word": "Hangover cure", "forbidden": ["greasy", "food", "water", "pill", "coffee"], "rating": "mature" },
-  { "word": "Ex", "forbidden": ["breakup", "former", "relationship", "text", "drama"], "rating": "mature" },
-  { "word": "Walk of shame", "forbidden": ["morning", "clothes", "party", "home", "embarrassed"], "rating": "mature" },
-  { "word": "Bachelor party", "forbidden": ["groom", "vegas", "drunk", "strip", "friends"], "rating": "mature" },
-  { "word": "One night stand", "forbidden": ["hookup", "stranger", "morning", "leave", "regret"], "rating": "mature" },
-  { "word": "Body shot", "forbidden": ["salt", "lime", "tequila", "belly", "bar"], "rating": "mature" },
-  { "word": "Hangover brunch", "forbidden": ["mimosa", "eggs", "bloody", "mary", "sunday"], "rating": "mature" },
-  { "word": "Dating red flag", "forbidden": ["warning", "toxic", "ex", "clingy", "ghost"], "rating": "mature" },
-  { "word": "Thirst trap", "forbidden": ["photo", "instagram", "sexy", "likes", "post"], "rating": "mature" },
-  { "word": "Situationship", "forbidden": ["dating", "undefined", "text", "exclusive", "vibe"], "rating": "mature" },
-  { "word": "Shotgun wedding", "forbidden": ["pregnant", "rush", "marry", "surprise", "family"], "rating": "mature" },
-  { "word": "Revenge outfit", "forbidden": ["ex", "hot", "party", "dress", "confidence"], "rating": "mature" },
-  { "word": "Walk of fame", "forbidden": ["hollywood", "star", "celebrity", "la", "red"], "rating": "mature" },
-  { "word": "Karaoke fail", "forbidden": ["sing", "offkey", "drunk", "mic", "embarrass"], "rating": "mature" },
-  { "word": "Uber home", "forbidden": ["ride", "drunk", "late", "phone", "driver"], "rating": "mature" },
-  { "word": "Group chat drama", "forbidden": ["text", "gossip", "screenshot", "leak", "friends"], "rating": "mature" }
+  {
+    "word": "Piano",
+    "forbidden": [
+      "keys",
+      "music",
+      "play",
+      "instrument",
+      "grand"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Beach",
+    "forbidden": [
+      "sand",
+      "ocean",
+      "waves",
+      "sun",
+      "swim"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Doctor",
+    "forbidden": [
+      "hospital",
+      "medicine",
+      "patient",
+      "nurse",
+      "sick"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Pizza",
+    "forbidden": [
+      "cheese",
+      "italy",
+      "slice",
+      "oven",
+      "pepperoni"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Airplane",
+    "forbidden": [
+      "fly",
+      "pilot",
+      "wings",
+      "airport",
+      "sky"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Birthday",
+    "forbidden": [
+      "cake",
+      "candles",
+      "party",
+      "age",
+      "gift"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Rainbow",
+    "forbidden": [
+      "colors",
+      "rain",
+      "sky",
+      "arc",
+      "prism"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Library",
+    "forbidden": [
+      "books",
+      "read",
+      "quiet",
+      "shelf",
+      "study"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Elephant",
+    "forbidden": [
+      "trunk",
+      "big",
+      "gray",
+      "africa",
+      "tusk"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Snowman",
+    "forbidden": [
+      "winter",
+      "cold",
+      "carrot",
+      "snow",
+      "frost"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Detective",
+    "forbidden": [
+      "mystery",
+      "clue",
+      "crime",
+      "investigate",
+      "police"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Volcano",
+    "forbidden": [
+      "lava",
+      "erupt",
+      "mountain",
+      "fire",
+      "ash"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Guitar",
+    "forbidden": [
+      "strings",
+      "music",
+      "rock",
+      "play",
+      "band"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Castle",
+    "forbidden": [
+      "king",
+      "knight",
+      "tower",
+      "medieval",
+      "princess"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Robot",
+    "forbidden": [
+      "machine",
+      "metal",
+      "future",
+      "android",
+      "beep"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Circus",
+    "forbidden": [
+      "clown",
+      "tent",
+      "acrobat",
+      "ring",
+      "lion"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Telescope",
+    "forbidden": [
+      "stars",
+      "space",
+      "look",
+      "planet",
+      "night"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Lighthouse",
+    "forbidden": [
+      "beacon",
+      "coast",
+      "light",
+      "ship",
+      "tower"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Treasure",
+    "forbidden": [
+      "gold",
+      "pirate",
+      "map",
+      "chest",
+      "jewel"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Dragon",
+    "forbidden": [
+      "fire",
+      "fly",
+      "scale",
+      "knight",
+      "cave"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Camera",
+    "forbidden": [
+      "photo",
+      "picture",
+      "lens",
+      "flash",
+      "smile"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Bicycle",
+    "forbidden": [
+      "pedal",
+      "wheels",
+      "ride",
+      "chain",
+      "helmet"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Hospital",
+    "forbidden": [
+      "doctor",
+      "sick",
+      "nurse",
+      "bed",
+      "emergency"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Astronaut",
+    "forbidden": [
+      "space",
+      "rocket",
+      "moon",
+      "nasa",
+      "suit"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Dinosaur",
+    "forbidden": [
+      "extinct",
+      "fossil",
+      "jurassic",
+      "reptile",
+      "giant"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Magician",
+    "forbidden": [
+      "trick",
+      "wand",
+      "rabbit",
+      "hat",
+      "illusion"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Umbrella",
+    "forbidden": [
+      "rain",
+      "wet",
+      "shade",
+      "handle",
+      "storm"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Sandwich",
+    "forbidden": [
+      "bread",
+      "lunch",
+      "meat",
+      "cheese",
+      "eat"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Helicopter",
+    "forbidden": [
+      "fly",
+      "rotor",
+      "blade",
+      "pilot",
+      "air"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Diamond",
+    "forbidden": [
+      "ring",
+      "jewel",
+      "sparkle",
+      "gem",
+      "expensive"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Hangover",
+    "forbidden": [
+      "drunk",
+      "morning",
+      "headache",
+      "alcohol",
+      "sick"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Vegas",
+    "forbidden": [
+      "gamble",
+      "casino",
+      "slots",
+      "nevada",
+      "strip"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Tinder",
+    "forbidden": [
+      "dating",
+      "swipe",
+      "app",
+      "match",
+      "hookup"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Hangover cure",
+    "forbidden": [
+      "greasy",
+      "food",
+      "water",
+      "pill",
+      "coffee"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Ex",
+    "forbidden": [
+      "breakup",
+      "former",
+      "relationship",
+      "text",
+      "drama"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Walk of shame",
+    "forbidden": [
+      "morning",
+      "clothes",
+      "party",
+      "home",
+      "embarrassed"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Bachelor party",
+    "forbidden": [
+      "groom",
+      "vegas",
+      "drunk",
+      "strip",
+      "friends"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "One night stand",
+    "forbidden": [
+      "hookup",
+      "stranger",
+      "morning",
+      "leave",
+      "regret"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Body shot",
+    "forbidden": [
+      "salt",
+      "lime",
+      "tequila",
+      "belly",
+      "bar"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Hangover brunch",
+    "forbidden": [
+      "mimosa",
+      "eggs",
+      "bloody",
+      "mary",
+      "sunday"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Dating red flag",
+    "forbidden": [
+      "warning",
+      "toxic",
+      "ex",
+      "clingy",
+      "ghost"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Thirst trap",
+    "forbidden": [
+      "photo",
+      "instagram",
+      "sexy",
+      "likes",
+      "post"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Situationship",
+    "forbidden": [
+      "dating",
+      "undefined",
+      "text",
+      "exclusive",
+      "vibe"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Shotgun wedding",
+    "forbidden": [
+      "pregnant",
+      "rush",
+      "marry",
+      "surprise",
+      "family"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Revenge outfit",
+    "forbidden": [
+      "ex",
+      "hot",
+      "party",
+      "dress",
+      "confidence"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Walk of fame",
+    "forbidden": [
+      "hollywood",
+      "star",
+      "celebrity",
+      "la",
+      "red"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Karaoke fail",
+    "forbidden": [
+      "sing",
+      "offkey",
+      "drunk",
+      "mic",
+      "embarrass"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Uber home",
+    "forbidden": [
+      "ride",
+      "drunk",
+      "late",
+      "phone",
+      "driver"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Group chat drama",
+    "forbidden": [
+      "text",
+      "gossip",
+      "screenshot",
+      "leak",
+      "friends"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Compass",
+    "forbidden": [
+      "north",
+      "direction",
+      "needle",
+      "map",
+      "navigate"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Harbor",
+    "forbidden": [
+      "boats",
+      "dock",
+      "ships",
+      "port",
+      "water"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Orchestra",
+    "forbidden": [
+      "music",
+      "conductor",
+      "instruments",
+      "symphony",
+      "violin"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Greenhouse",
+    "forbidden": [
+      "plants",
+      "glass",
+      "garden",
+      "grow",
+      "warm"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Subway",
+    "forbidden": [
+      "train",
+      "underground",
+      "metro",
+      "station",
+      "commute"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Carousel",
+    "forbidden": [
+      "horses",
+      "spin",
+      "fair",
+      "ride",
+      "music"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Igloo",
+    "forbidden": [
+      "ice",
+      "snow",
+      "inuit",
+      "cold",
+      "dome"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Canyon",
+    "forbidden": [
+      "valley",
+      "river",
+      "grand",
+      "rock",
+      "hike"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Mailbox",
+    "forbidden": [
+      "letters",
+      "post",
+      "mail",
+      "flag",
+      "delivery"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Windmill",
+    "forbidden": [
+      "netherlands",
+      "blades",
+      "wind",
+      "farm",
+      "turn"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Skyscraper",
+    "forbidden": [
+      "tall",
+      "building",
+      "city",
+      "elevator",
+      "office"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Waterfall",
+    "forbidden": [
+      "cascade",
+      "river",
+      "drop",
+      "mist",
+      "niagara"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Backpack",
+    "forbidden": [
+      "school",
+      "straps",
+      "carry",
+      "bag",
+      "hike"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Flashlight",
+    "forbidden": [
+      "beam",
+      "dark",
+      "battery",
+      "light",
+      "camp"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Hammock",
+    "forbidden": [
+      "trees",
+      "swing",
+      "relax",
+      "nap",
+      "net"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Kite",
+    "forbidden": [
+      "wind",
+      "string",
+      "fly",
+      "sky",
+      "tail"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Lantern",
+    "forbidden": [
+      "light",
+      "camp",
+      "glow",
+      "oil",
+      "night"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Map",
+    "forbidden": [
+      "directions",
+      "roads",
+      "atlas",
+      "navigate",
+      "fold"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Microscope",
+    "forbidden": [
+      "tiny",
+      "science",
+      "lens",
+      "lab",
+      "cells"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Notebook",
+    "forbidden": [
+      "write",
+      "pages",
+      "school",
+      "pen",
+      "spiral"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Oven",
+    "forbidden": [
+      "bake",
+      "kitchen",
+      "hot",
+      "cook",
+      "heat"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Penguin",
+    "forbidden": [
+      "antarctica",
+      "bird",
+      "waddle",
+      "ice",
+      "tuxedo"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Quilt",
+    "forbidden": [
+      "blanket",
+      "sew",
+      "patch",
+      "bed",
+      "warm"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Rocket",
+    "forbidden": [
+      "space",
+      "launch",
+      "nasa",
+      "fly",
+      "fuel"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Saddle",
+    "forbidden": [
+      "horse",
+      "ride",
+      "leather",
+      "seat",
+      "western"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Violin",
+    "forbidden": [
+      "strings",
+      "bow",
+      "orchestra",
+      "fiddle",
+      "music"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Wagon",
+    "forbidden": [
+      "wheels",
+      "pull",
+      "pioneer",
+      "cart",
+      "kids"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Xylophone",
+    "forbidden": [
+      "bars",
+      "mallets",
+      "music",
+      "percussion",
+      "rainbow"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Yacht",
+    "forbidden": [
+      "boat",
+      "rich",
+      "sail",
+      "ocean",
+      "deck"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Zipline",
+    "forbidden": [
+      "cable",
+      "adventure",
+      "slide",
+      "harness",
+      "height"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Apron",
+    "forbidden": [
+      "cook",
+      "kitchen",
+      "chef",
+      "tie",
+      "stain"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Balloon",
+    "forbidden": [
+      "helium",
+      "party",
+      "float",
+      "pop",
+      "string"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Cactus",
+    "forbidden": [
+      "desert",
+      "spine",
+      "plant",
+      "water",
+      "arid"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Doorbell",
+    "forbidden": [
+      "ring",
+      "visitor",
+      "front",
+      "chime",
+      "house"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Easel",
+    "forbidden": [
+      "paint",
+      "canvas",
+      "art",
+      "stand",
+      "studio"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Fountain",
+    "forbidden": [
+      "water",
+      "park",
+      "spray",
+      "coins",
+      "statue"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Globe",
+    "forbidden": [
+      "earth",
+      "world",
+      "spin",
+      "map",
+      "classroom"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Honey",
+    "forbidden": [
+      "bee",
+      "sweet",
+      "hive",
+      "gold",
+      "sticky"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Jigsaw",
+    "forbidden": [
+      "puzzle",
+      "pieces",
+      "fit",
+      "picture",
+      "table"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Kayak",
+    "forbidden": [
+      "paddle",
+      "river",
+      "boat",
+      "water",
+      "sport"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Ladder",
+    "forbidden": [
+      "climb",
+      "rungs",
+      "tall",
+      "steps",
+      "roof"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Magnet",
+    "forbidden": [
+      "metal",
+      "stick",
+      "fridge",
+      "north",
+      "attract"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Nest",
+    "forbidden": [
+      "bird",
+      "eggs",
+      "tree",
+      "twigs",
+      "home"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Oasis",
+    "forbidden": [
+      "desert",
+      "water",
+      "palm",
+      "mirage",
+      "shade"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Parachute",
+    "forbidden": [
+      "sky",
+      "jump",
+      "fall",
+      "silk",
+      "air"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Quicksand",
+    "forbidden": [
+      "sink",
+      "desert",
+      "trap",
+      "slow",
+      "stuck"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Scooter",
+    "forbidden": [
+      "kick",
+      "wheels",
+      "ride",
+      "kid",
+      "helmet"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Trampoline",
+    "forbidden": [
+      "bounce",
+      "jump",
+      "spring",
+      "yard",
+      "net"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Unicycle",
+    "forbidden": [
+      "one",
+      "wheel",
+      "circus",
+      "balance",
+      "pedal"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Windchime",
+    "forbidden": [
+      "breeze",
+      "porch",
+      "sound",
+      "hang",
+      "metal"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Yo-yo",
+    "forbidden": [
+      "string",
+      "up",
+      "down",
+      "toy",
+      "trick"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Zeppelin",
+    "forbidden": [
+      "airship",
+      "blimp",
+      "float",
+      "gas",
+      "sky"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Acorn",
+    "forbidden": [
+      "oak",
+      "squirrel",
+      "nut",
+      "fall",
+      "tree"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Binoculars",
+    "forbidden": [
+      "see",
+      "far",
+      "lenses",
+      "bird",
+      "watch"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Comet",
+    "forbidden": [
+      "tail",
+      "space",
+      "sky",
+      "ice",
+      "orbit"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Dandelion",
+    "forbidden": [
+      "weed",
+      "wish",
+      "yellow",
+      "seeds",
+      "blow"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Eclipse",
+    "forbidden": [
+      "sun",
+      "moon",
+      "shadow",
+      "sky",
+      "rare"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Firefly",
+    "forbidden": [
+      "glow",
+      "night",
+      "bug",
+      "summer",
+      "light"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Geyser",
+    "forbidden": [
+      "water",
+      "erupt",
+      "yellowstone",
+      "hot",
+      "steam"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Hourglass",
+    "forbidden": [
+      "sand",
+      "time",
+      "flip",
+      "glass",
+      "minutes"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Icicle",
+    "forbidden": [
+      "winter",
+      "drip",
+      "roof",
+      "cold",
+      "point"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Jellyfish",
+    "forbidden": [
+      "sting",
+      "ocean",
+      "tentacles",
+      "float",
+      "umbrella"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Koala",
+    "forbidden": [
+      "australia",
+      "eucalyptus",
+      "tree",
+      "sleepy",
+      "bear"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Lightning",
+    "forbidden": [
+      "storm",
+      "bolt",
+      "thunder",
+      "sky",
+      "electric"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Mosaic",
+    "forbidden": [
+      "tiles",
+      "art",
+      "pieces",
+      "pattern",
+      "glass"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Noodle",
+    "forbidden": [
+      "pasta",
+      "soup",
+      "long",
+      "slurp",
+      "ramen"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Origami",
+    "forbidden": [
+      "paper",
+      "fold",
+      "crane",
+      "japan",
+      "art"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Pancake",
+    "forbidden": [
+      "breakfast",
+      "syrup",
+      "flip",
+      "batter",
+      "stack"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Quartz",
+    "forbidden": [
+      "crystal",
+      "rock",
+      "clear",
+      "mineral",
+      "sparkle"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Raccoon",
+    "forbidden": [
+      "mask",
+      "trash",
+      "night",
+      "bandit",
+      "stripes"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Seahorse",
+    "forbidden": [
+      "ocean",
+      "tiny",
+      "horse",
+      "coral",
+      "male"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Tornado",
+    "forbidden": [
+      "wind",
+      "funnel",
+      "storm",
+      "spin",
+      "kansas"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Ukulele",
+    "forbidden": [
+      "hawaii",
+      "small",
+      "guitar",
+      "strings",
+      "pluck"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Vine",
+    "forbidden": [
+      "climb",
+      "plant",
+      "tangle",
+      "green",
+      "grow"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Waterwheel",
+    "forbidden": [
+      "mill",
+      "river",
+      "turn",
+      "old",
+      "power"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "X-ray",
+    "forbidden": [
+      "bones",
+      "doctor",
+      "scan",
+      "hospital",
+      "see"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Yarn",
+    "forbidden": [
+      "knit",
+      "wool",
+      "ball",
+      "craft",
+      "string"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Zebra",
+    "forbidden": [
+      "stripes",
+      "africa",
+      "horse",
+      "black",
+      "white"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Avalanche",
+    "forbidden": [
+      "snow",
+      "mountain",
+      "slide",
+      "danger",
+      "ski"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Blizzard",
+    "forbidden": [
+      "snow",
+      "wind",
+      "storm",
+      "cold",
+      "white"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Campfire",
+    "forbidden": [
+      "logs",
+      "marshmallow",
+      "warm",
+      "night",
+      "smoke"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Dew",
+    "forbidden": [
+      "morning",
+      "grass",
+      "drops",
+      "wet",
+      "dawn"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Everest",
+    "forbidden": [
+      "mountain",
+      "tallest",
+      "climb",
+      "nepal",
+      "peak"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Fog",
+    "forbidden": [
+      "mist",
+      "low",
+      "visibility",
+      "cloud",
+      "gray"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Glacier",
+    "forbidden": [
+      "ice",
+      "slow",
+      "mountain",
+      "blue",
+      "melt"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Hail",
+    "forbidden": [
+      "ice",
+      "storm",
+      "balls",
+      "roof",
+      "damage"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Island",
+    "forbidden": [
+      "ocean",
+      "surrounded",
+      "water",
+      "beach",
+      "alone"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Jungle",
+    "forbidden": [
+      "rainforest",
+      "dense",
+      "vines",
+      "animals",
+      "hot"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Kelp",
+    "forbidden": [
+      "seaweed",
+      "ocean",
+      "forest",
+      "fish",
+      "green"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Lagoon",
+    "forbidden": [
+      "water",
+      "calm",
+      "blue",
+      "tropical",
+      "shore"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Marsh",
+    "forbidden": [
+      "wetland",
+      "reeds",
+      "mud",
+      "birds",
+      "swamp"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "North pole",
+    "forbidden": [
+      "santa",
+      "arctic",
+      "cold",
+      "ice",
+      "earth"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Orchard",
+    "forbidden": [
+      "trees",
+      "apples",
+      "fruit",
+      "pick",
+      "farm"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Prairie",
+    "forbidden": [
+      "grass",
+      "flat",
+      "midwest",
+      "wind",
+      "wide"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Quarry",
+    "forbidden": [
+      "rock",
+      "mine",
+      "stone",
+      "pit",
+      "dig"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Reef",
+    "forbidden": [
+      "coral",
+      "ocean",
+      "fish",
+      "color",
+      "australia"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Savanna",
+    "forbidden": [
+      "africa",
+      "grass",
+      "lions",
+      "acacia",
+      "hot"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Tundra",
+    "forbidden": [
+      "cold",
+      "arctic",
+      "plain",
+      "permafrost",
+      "north"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Underpass",
+    "forbidden": [
+      "road",
+      "below",
+      "bridge",
+      "car",
+      "tunnel"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Valley",
+    "forbidden": [
+      "between",
+      "mountains",
+      "low",
+      "river",
+      "green"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Wetland",
+    "forbidden": [
+      "marsh",
+      "birds",
+      "water",
+      "protect",
+      "reeds"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Expedition",
+    "forbidden": [
+      "journey",
+      "explore",
+      "team",
+      "gear",
+      "map"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Festival",
+    "forbidden": [
+      "music",
+      "crowd",
+      "tents",
+      "weekend",
+      "food"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Gondola",
+    "forbidden": [
+      "venice",
+      "boat",
+      "canal",
+      "pole",
+      "italy"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Inn",
+    "forbidden": [
+      "hotel",
+      "stay",
+      "travel",
+      "room",
+      "sign"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Jetty",
+    "forbidden": [
+      "pier",
+      "ocean",
+      "walk",
+      "rocks",
+      "waves"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Kiosk",
+    "forbidden": [
+      "small",
+      "shop",
+      "stand",
+      "info",
+      "mall"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Loft",
+    "forbidden": [
+      "apartment",
+      "high",
+      "open",
+      "city",
+      "windows"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Marina",
+    "forbidden": [
+      "boats",
+      "dock",
+      "yacht",
+      "water",
+      "slips"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Observatory",
+    "forbidden": [
+      "stars",
+      "telescope",
+      "night",
+      "dome",
+      "space"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Pavilion",
+    "forbidden": [
+      "park",
+      "roof",
+      "picnic",
+      "open",
+      "shelter"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Quay",
+    "forbidden": [
+      "dock",
+      "water",
+      "walk",
+      "harbor",
+      "ships"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Rink",
+    "forbidden": [
+      "ice",
+      "skate",
+      "hockey",
+      "cold",
+      "circle"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Stadium",
+    "forbidden": [
+      "sports",
+      "crowd",
+      "field",
+      "lights",
+      "game"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Terminal",
+    "forbidden": [
+      "airport",
+      "gate",
+      "travel",
+      "bags",
+      "flight"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Viaduct",
+    "forbidden": [
+      "bridge",
+      "train",
+      "high",
+      "arches",
+      "span"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Wharf",
+    "forbidden": [
+      "dock",
+      "fish",
+      "boats",
+      "pier",
+      "water"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Annex",
+    "forbidden": [
+      "addition",
+      "building",
+      "extra",
+      "wing",
+      "school"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Belfry",
+    "forbidden": [
+      "bells",
+      "tower",
+      "church",
+      "ring",
+      "high"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Cupola",
+    "forbidden": [
+      "dome",
+      "roof",
+      "round",
+      "lookout",
+      "small"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Dormer",
+    "forbidden": [
+      "window",
+      "roof",
+      "house",
+      "attic",
+      "slope"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Eaves",
+    "forbidden": [
+      "roof",
+      "edge",
+      "overhang",
+      "rain",
+      "house"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Facade",
+    "forbidden": [
+      "front",
+      "building",
+      "face",
+      "outside",
+      "looks"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Gable",
+    "forbidden": [
+      "roof",
+      "triangle",
+      "house",
+      "peak",
+      "end"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Hearth",
+    "forbidden": [
+      "fireplace",
+      "home",
+      "warm",
+      "fire",
+      "family"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Ivy",
+    "forbidden": [
+      "climb",
+      "wall",
+      "green",
+      "vine",
+      "college"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Jacuzzi",
+    "forbidden": [
+      "hot",
+      "tub",
+      "bubbles",
+      "relax",
+      "jets"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Keystone",
+    "forbidden": [
+      "arch",
+      "center",
+      "stone",
+      "hold",
+      "bridge"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Lattice",
+    "forbidden": [
+      "crisscross",
+      "garden",
+      "wood",
+      "pattern",
+      "fence"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Mansard",
+    "forbidden": [
+      "roof",
+      "french",
+      "slope",
+      "attic",
+      "paris"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Nook",
+    "forbidden": [
+      "cozy",
+      "corner",
+      "read",
+      "small",
+      "breakfast"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Oriel",
+    "forbidden": [
+      "window",
+      "bay",
+      "stick",
+      "out",
+      "upper"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Parapet",
+    "forbidden": [
+      "wall",
+      "roof",
+      "edge",
+      "castle",
+      "low"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Quoin",
+    "forbidden": [
+      "corner",
+      "stone",
+      "building",
+      "edge",
+      "brick"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Rafter",
+    "forbidden": [
+      "roof",
+      "beam",
+      "wood",
+      "support",
+      "attic"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Soffit",
+    "forbidden": [
+      "under",
+      "roof",
+      "eaves",
+      "vent",
+      "house"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Turret",
+    "forbidden": [
+      "tower",
+      "castle",
+      "round",
+      "small",
+      "fairy"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Veranda",
+    "forbidden": [
+      "porch",
+      "house",
+      "sit",
+      "outdoor",
+      "rail"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Wainscot",
+    "forbidden": [
+      "wall",
+      "wood",
+      "lower",
+      "panel",
+      "room"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Awning",
+    "forbidden": [
+      "shade",
+      "shop",
+      "stripe",
+      "window",
+      "rain"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Balcony",
+    "forbidden": [
+      "outside",
+      "rail",
+      "apartment",
+      "view",
+      "romeo"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Chimney",
+    "forbidden": [
+      "smoke",
+      "roof",
+      "fireplace",
+      "santa",
+      "brick"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Driveway",
+    "forbidden": [
+      "car",
+      "house",
+      "park",
+      "pave",
+      "garage"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Elevator",
+    "forbidden": [
+      "up",
+      "down",
+      "buttons",
+      "floor",
+      "lift"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Fire escape",
+    "forbidden": [
+      "stairs",
+      "outside",
+      "emergency",
+      "city",
+      "metal"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Garage",
+    "forbidden": [
+      "car",
+      "door",
+      "tools",
+      "park",
+      "house"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Hydrant",
+    "forbidden": [
+      "fire",
+      "red",
+      "water",
+      "dog",
+      "street"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Intercom",
+    "forbidden": [
+      "buzz",
+      "speak",
+      "door",
+      "apartment",
+      "button"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Jamb",
+    "forbidden": [
+      "door",
+      "frame",
+      "side",
+      "wood",
+      "close"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Knocker",
+    "forbidden": [
+      "door",
+      "bang",
+      "visit",
+      "metal",
+      "front"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Landing",
+    "forbidden": [
+      "stairs",
+      "floor",
+      "between",
+      "flat",
+      "step"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Doormat",
+    "forbidden": [
+      "wipe",
+      "welcome",
+      "feet",
+      "front",
+      "dirt"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Peephole",
+    "forbidden": [
+      "door",
+      "look",
+      "visitor",
+      "eye",
+      "apartment"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Radiator",
+    "forbidden": [
+      "heat",
+      "old",
+      "clank",
+      "apartment",
+      "winter"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Staircase",
+    "forbidden": [
+      "steps",
+      "up",
+      "banister",
+      "house",
+      "climb"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Threshold",
+    "forbidden": [
+      "door",
+      "enter",
+      "step",
+      "home",
+      "cross"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Utility",
+    "forbidden": [
+      "closet",
+      "tools",
+      "sink",
+      "basement",
+      "bills"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Vestibule",
+    "forbidden": [
+      "entry",
+      "small",
+      "door",
+      "coat",
+      "between"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Welcome",
+    "forbidden": [
+      "mat",
+      "hello",
+      "guest",
+      "home",
+      "sign"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Attic",
+    "forbidden": [
+      "top",
+      "storage",
+      "dust",
+      "house",
+      "boxes"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Basement",
+    "forbidden": [
+      "below",
+      "storage",
+      "laundry",
+      "house",
+      "down"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Crawlspace",
+    "forbidden": [
+      "under",
+      "house",
+      "low",
+      "tight",
+      "dirt"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Den",
+    "forbidden": [
+      "tv",
+      "couch",
+      "family",
+      "room",
+      "relax"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Foyer",
+    "forbidden": [
+      "entry",
+      "front",
+      "house",
+      "welcome",
+      "open"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Guestroom",
+    "forbidden": [
+      "visitor",
+      "bed",
+      "stay",
+      "extra",
+      "overnight"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Hallway",
+    "forbidden": [
+      "passage",
+      "doors",
+      "long",
+      "house",
+      "walk"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Kitchenette",
+    "forbidden": [
+      "small",
+      "kitchen",
+      "sink",
+      "apartment",
+      "mini"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Laundry",
+    "forbidden": [
+      "wash",
+      "clothes",
+      "dryer",
+      "hamper",
+      "soap"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Mudroom",
+    "forbidden": [
+      "boots",
+      "coats",
+      "entry",
+      "dirty",
+      "bench"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Pantry",
+    "forbidden": [
+      "food",
+      "shelves",
+      "kitchen",
+      "cans",
+      "store"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Sunroom",
+    "forbidden": [
+      "windows",
+      "plants",
+      "light",
+      "house",
+      "glass"
+    ],
+    "rating": "family"
+  },
+  {
+    "word": "Open bar",
+    "forbidden": [
+      "drinks",
+      "wedding",
+      "free",
+      "alcohol",
+      "toast"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Ghosting",
+    "forbidden": [
+      "text",
+      "date",
+      "disappear",
+      "reply",
+      "ignore"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Afterparty",
+    "forbidden": [
+      "wedding",
+      "late",
+      "drinks",
+      "dance",
+      "continue"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Plus one",
+    "forbidden": [
+      "wedding",
+      "date",
+      "invite",
+      "guest",
+      "bring"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Last call",
+    "forbidden": [
+      "bar",
+      "drinks",
+      "closing",
+      "night",
+      "order"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Designated driver",
+    "forbidden": [
+      "sober",
+      "car",
+      "friends",
+      "night",
+      "keys"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Drunk text",
+    "forbidden": [
+      "phone",
+      "ex",
+      "late",
+      "regret",
+      "send"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Love bombing",
+    "forbidden": [
+      "too much",
+      "dating",
+      "attention",
+      "fast",
+      "red"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Breadcrumbing",
+    "forbidden": [
+      "dating",
+      "text",
+      "mixed",
+      "signals",
+      "almost"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Friends with benefits",
+    "forbidden": [
+      "casual",
+      "feelings",
+      "hookup",
+      "no",
+      "label"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Rebound",
+    "forbidden": [
+      "ex",
+      "quickly",
+      "new",
+      "date",
+      "after"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Sliding into DMs",
+    "forbidden": [
+      "instagram",
+      "message",
+      "flirt",
+      "follow",
+      "chat"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Group chat leak",
+    "forbidden": [
+      "screenshot",
+      "gossip",
+      "friends",
+      "text",
+      "secret"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Office crush",
+    "forbidden": [
+      "work",
+      "coworker",
+      "flirt",
+      "meeting",
+      "secret"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Work spouse",
+    "forbidden": [
+      "office",
+      "close",
+      "coworker",
+      "joke",
+      "partner"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Wedding roast",
+    "forbidden": [
+      "speech",
+      "toast",
+      "joke",
+      "embarrass",
+      "friends"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Reunion glow up",
+    "forbidden": [
+      "school",
+      "looks",
+      "years",
+      "see",
+      "petty"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Minibar",
+    "forbidden": [
+      "hotel",
+      "expensive",
+      "fridge",
+      "drinks",
+      "snack"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Rideshare rating",
+    "forbidden": [
+      "stars",
+      "driver",
+      "uber",
+      "trip",
+      "app"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Hotel key",
+    "forbidden": [
+      "room",
+      "card",
+      "lost",
+      "desk",
+      "door"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "House party",
+    "forbidden": [
+      "invite",
+      "loud",
+      "friends",
+      "night",
+      "host"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Flake",
+    "forbidden": [
+      "cancel",
+      "plans",
+      "last",
+      "minute",
+      "excuse"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Venmo request",
+    "forbidden": [
+      "money",
+      "split",
+      "awkward",
+      "pay",
+      "app"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Screenshot proof",
+    "forbidden": [
+      "chat",
+      "evidence",
+      "send",
+      "friends",
+      "text"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Unfollow",
+    "forbidden": [
+      "social",
+      "ex",
+      "feed",
+      "quiet",
+      "instagram"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Mute",
+    "forbidden": [
+      "chat",
+      "notifications",
+      "group",
+      "ignore",
+      "phone"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Leave on read",
+    "forbidden": [
+      "text",
+      "seen",
+      "reply",
+      "blue",
+      "ignore"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Double text",
+    "forbidden": [
+      "send",
+      "again",
+      "wait",
+      "anxious",
+      "chat"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Soft launch",
+    "forbidden": [
+      "relationship",
+      "photo",
+      "instagram",
+      "hint",
+      "couple"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Hard launch",
+    "forbidden": [
+      "couple",
+      "post",
+      "official",
+      "photo",
+      "together"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Talking stage",
+    "forbidden": [
+      "dating",
+      "not",
+      "official",
+      "text",
+      "maybe"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Define the relationship",
+    "forbidden": [
+      "talk",
+      "label",
+      "exclusive",
+      "serious",
+      "ask"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "It's complicated",
+    "forbidden": [
+      "status",
+      "facebook",
+      "ex",
+      "unclear",
+      "mess"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Catching feelings",
+    "forbidden": [
+      "casual",
+      "more",
+      "crush",
+      "uh oh",
+      "like"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "The ick",
+    "forbidden": [
+      "turn",
+      "off",
+      "date",
+      "suddenly",
+      "no"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Red flag",
+    "forbidden": [
+      "warning",
+      "dating",
+      "leave",
+      "bad",
+      "sign"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Green flag",
+    "forbidden": [
+      "good",
+      "dating",
+      "keeper",
+      "healthy",
+      "yes"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Beige flag",
+    "forbidden": [
+      "weird",
+      "harmless",
+      "dating",
+      "odd",
+      "habit"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Orbiting",
+    "forbidden": [
+      "watch",
+      "stories",
+      "not",
+      "talk",
+      "social"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Cushioning",
+    "forbidden": [
+      "backup",
+      "date",
+      "options",
+      "not",
+      "exclusive"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Cookie jarring",
+    "forbidden": [
+      "keep",
+      "option",
+      "while",
+      "dating",
+      "other"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Zombie-ing",
+    "forbidden": [
+      "ex",
+      "back",
+      "from",
+      "dead",
+      "text"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Haunting",
+    "forbidden": [
+      "ex",
+      "watch",
+      "stories",
+      "not",
+      "contact"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Submarining",
+    "forbidden": [
+      "disappear",
+      "return",
+      "text",
+      "months",
+      "later"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Benching",
+    "forbidden": [
+      "backup",
+      "not",
+      "priority",
+      "date",
+      "wait"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Stashing",
+    "forbidden": [
+      "hide",
+      "friends",
+      "not",
+      "introduce",
+      "date"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Kittenfishing",
+    "forbidden": [
+      "photos",
+      "better",
+      "than",
+      "real",
+      "date"
+    ],
+    "rating": "mature"
+  },
+  {
+    "word": "Catfishing",
+    "forbidden": [
+      "fake",
+      "profile",
+      "online",
+      "lie",
+      "photos"
+    ],
+    "rating": "mature"
+  }
 ]

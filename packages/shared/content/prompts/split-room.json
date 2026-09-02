@@ -1,10 +1,1532 @@
 [
-  { "text": "Pineapple on pizza", "labelA": "Delicious", "labelB": "Crime against Italy" },
-  { "text": "Working from home", "labelA": "Best invention ever", "labelB": "Never leaving the house again" },
-  { "text": "Alarm clocks", "labelA": "Necessary evil", "labelB": "Should be illegal before 9am" },
-  { "text": "Movie theaters", "labelA": "Worth the popcorn prices", "labelB": "Just wait for streaming" },
-  { "text": "Group chats", "labelA": "Love the chaos", "labelB": "Mute forever" },
-  { "text": "Cats vs responsibility", "labelA": "Cats are perfect roommates", "labelB": "They judge me and I deserve it" },
-  { "text": "Breakfast for dinner", "labelA": "Always yes", "labelB": "That's just sad brunch" },
-  { "text": "Public karaoke", "labelA": "Sign me up", "labelB": "Witness protection please" }
+  {
+    "text": "The ex still in the group",
+    "labelA": "We're adults",
+    "labelB": "Pick a side",
+    "rating": "mature"
+  },
+  {
+    "text": "Rounding up",
+    "labelA": "Charity",
+    "labelB": "I can donate later",
+    "rating": "family"
+  },
+  {
+    "text": "Dogs in restaurants",
+    "labelA": "Cute",
+    "labelB": "Not at dinner",
+    "rating": "family"
+  },
+  {
+    "text": "Public karaoke",
+    "labelA": "Sign me up",
+    "labelB": "Witness protection please",
+    "rating": "family"
+  },
+  {
+    "text": "Hookup culture",
+    "labelA": "Fine if honest",
+    "labelB": "Not for me",
+    "rating": "mature"
+  },
+  {
+    "text": "Screenshots of chats",
+    "labelA": "Evidence",
+    "labelB": "Betrayal",
+    "rating": "mature"
+  },
+  {
+    "text": "Flaking on dates",
+    "labelA": "Life happens",
+    "labelB": "Don't do it",
+    "rating": "mature"
+  },
+  {
+    "text": "Holidays",
+    "labelA": "Decorate in October",
+    "labelB": "One wreath is plenty",
+    "rating": "family"
+  },
+  {
+    "text": "Paper maps",
+    "labelA": "Romance",
+    "labelB": "I'll get lost",
+    "rating": "family"
+  },
+  {
+    "text": "Podcasts",
+    "labelA": "My commute friends",
+    "labelB": "I need silence",
+    "rating": "family"
+  },
+  {
+    "text": "Street parking",
+    "labelA": "Free-ish",
+    "labelB": "I'll never find it",
+    "rating": "family"
+  },
+  {
+    "text": "Ellipses...",
+    "labelA": "Ominous",
+    "labelB": "I trail off",
+    "rating": "family"
+  },
+  {
+    "text": "Concerts",
+    "labelA": "Need to be there",
+    "labelB": "The recording is enough",
+    "rating": "family"
+  },
+  {
+    "text": "Reply all",
+    "labelA": "Never",
+    "labelB": "Sometimes needed",
+    "rating": "family"
+  },
+  {
+    "text": "Meetings that could be emails",
+    "labelA": "All of them",
+    "labelB": "Some need faces",
+    "rating": "family"
+  },
+  {
+    "text": "Walking meetings",
+    "labelA": "Genius",
+    "labelB": "I take notes",
+    "rating": "family"
+  },
+  {
+    "text": "Drive-throughs",
+    "labelA": "Efficient",
+    "labelB": "I can park",
+    "rating": "family"
+  },
+  {
+    "text": "Cameras on",
+    "labelA": "Be a person",
+    "labelB": "Audio is enough",
+    "rating": "family"
+  },
+  {
+    "text": "Standing desks",
+    "labelA": "Healthy",
+    "labelB": "I like chairs",
+    "rating": "family"
+  },
+  {
+    "text": "Smart thermostats",
+    "labelA": "Savings",
+    "labelB": "I can twist a dial",
+    "rating": "family"
+  },
+  {
+    "text": "Tea over coffee",
+    "labelA": "Civilized",
+    "labelB": "I need rocket fuel",
+    "rating": "family"
+  },
+  {
+    "text": "Read receipts",
+    "labelA": "Honesty",
+    "labelB": "Anxiety machine",
+    "rating": "family"
+  },
+  {
+    "text": "Cooking from scratch",
+    "labelA": "Therapy",
+    "labelB": "Takeout wins",
+    "rating": "family"
+  },
+  {
+    "text": "Office crush",
+    "labelA": "Harmless crush",
+    "labelB": "Don't",
+    "rating": "mature"
+  },
+  {
+    "text": "Throwback posts",
+    "labelA": "Cute",
+    "labelB": "Let the past rest",
+    "rating": "family"
+  },
+  {
+    "text": "Incense",
+    "labelA": "Vibe",
+    "labelB": "The alarm thinks it's fire",
+    "rating": "family"
+  },
+  {
+    "text": "Postcards",
+    "labelA": "Charming",
+    "labelB": "Nobody checks mail",
+    "rating": "family"
+  },
+  {
+    "text": "Hot chocolate",
+    "labelA": "Childhood in a mug",
+    "labelB": "Too sweet",
+    "rating": "family"
+  },
+  {
+    "text": "Shoes in the house",
+    "labelA": "Never",
+    "labelB": "It's my house",
+    "rating": "family"
+  },
+  {
+    "text": "Windows down",
+    "labelA": "Fresh air",
+    "labelB": "My ears",
+    "rating": "family"
+  },
+  {
+    "text": "Family newsletters",
+    "labelA": "Love them",
+    "labelB": "Too much info",
+    "rating": "family"
+  },
+  {
+    "text": "Follow counts",
+    "labelA": "Meaningless",
+    "labelB": "I notice anyway",
+    "rating": "family"
+  },
+  {
+    "text": "Public transit",
+    "labelA": "Civilized",
+    "labelB": "I need my car",
+    "rating": "family"
+  },
+  {
+    "text": "Correcting typos",
+    "labelA": "Helpful",
+    "labelB": "Let it go",
+    "rating": "family"
+  },
+  {
+    "text": "Scooters",
+    "labelA": "Fun",
+    "labelB": "Sidewalk menace",
+    "rating": "family"
+  },
+  {
+    "text": "Ugly sweater parties",
+    "labelA": "Yes",
+    "labelB": "I don't own one",
+    "rating": "family"
+  },
+  {
+    "text": "Group voice notes",
+    "labelA": "Chaos",
+    "labelB": "Absolutely not",
+    "rating": "family"
+  },
+  {
+    "text": "Laundry folding",
+    "labelA": "Meditation",
+    "labelB": "The chair is a system",
+    "rating": "family"
+  },
+  {
+    "text": "Gym in the morning",
+    "labelA": "Done for the day",
+    "labelB": "Evenings only",
+    "rating": "family"
+  },
+  {
+    "text": "Sunroofs",
+    "labelA": "Open it",
+    "labelB": "Bugs",
+    "rating": "family"
+  },
+  {
+    "text": "Sunday scaries",
+    "labelA": "Real",
+    "labelB": "I love Mondays",
+    "rating": "family"
+  },
+  {
+    "text": "Dark mode",
+    "labelA": "Always",
+    "labelB": "I like light",
+    "rating": "family"
+  },
+  {
+    "text": "Emoji in emails",
+    "labelA": "Friendly",
+    "labelB": "Not in this house",
+    "rating": "family"
+  },
+  {
+    "text": "Sleeping in on weekends",
+    "labelA": "Sacred ritual",
+    "labelB": "Wasted daylight",
+    "rating": "mature"
+  },
+  {
+    "text": "Road trip playlists",
+    "labelA": "Driver picks",
+    "labelB": "Democracy",
+    "rating": "family"
+  },
+  {
+    "text": "Parking garages",
+    "labelA": "Easy",
+    "labelB": "I forget the floor",
+    "rating": "family"
+  },
+  {
+    "text": "Cats as roommates",
+    "labelA": "Perfect",
+    "labelB": "They judge me",
+    "rating": "family"
+  },
+  {
+    "text": "Rest stops",
+    "labelA": "Necessary",
+    "labelB": "I can hold it",
+    "rating": "family"
+  },
+  {
+    "text": "Snow days",
+    "labelA": "Gift from above",
+    "labelB": "I have to shovel",
+    "rating": "family"
+  },
+  {
+    "text": "Keeping ex photos",
+    "labelA": "History",
+    "labelB": "Delete the album",
+    "rating": "mature"
+  },
+  {
+    "text": "Free trials",
+    "labelA": "I'll cancel",
+    "labelB": "I never cancel",
+    "rating": "family"
+  },
+  {
+    "text": "Color-coded closets",
+    "labelA": "Dream",
+    "labelB": "I grab what's clean",
+    "rating": "family"
+  },
+  {
+    "text": "Zoos",
+    "labelA": "Educational",
+    "labelB": "I'd rather a sanctuary",
+    "rating": "family"
+  },
+  {
+    "text": "Gym after work",
+    "labelA": "Unwind",
+    "labelB": "I have nothing left",
+    "rating": "family"
+  },
+  {
+    "text": "Sandwiches for dinner",
+    "labelA": "Efficient",
+    "labelB": "We can do better",
+    "rating": "family"
+  },
+  {
+    "text": "Shotgun",
+    "labelA": "Sacred",
+    "labelB": "Rotate like adults",
+    "rating": "family"
+  },
+  {
+    "text": "Work from cafes",
+    "labelA": "Aesthetic",
+    "labelB": "I need a door",
+    "rating": "family"
+  },
+  {
+    "text": "Memes as communication",
+    "labelA": "Fluent",
+    "labelB": "Use words",
+    "rating": "family"
+  },
+  {
+    "text": "Gardening",
+    "labelA": "Peace",
+    "labelB": "The weeds always win",
+    "rating": "family"
+  },
+  {
+    "text": "One-click buy",
+    "labelA": "Dangerous",
+    "labelB": "Efficient",
+    "rating": "family"
+  },
+  {
+    "text": "Puzzles",
+    "labelA": "Meditative",
+    "labelB": "Missing pieces rage",
+    "rating": "family"
+  },
+  {
+    "text": "Stories vs posts",
+    "labelA": "Stories",
+    "labelB": "I want a feed",
+    "rating": "family"
+  },
+  {
+    "text": "Secret Santa",
+    "labelA": "Fun",
+    "labelB": "Re-gift city",
+    "rating": "family"
+  },
+  {
+    "text": "Label makers",
+    "labelA": "Organization",
+    "labelB": "Overkill",
+    "rating": "family"
+  },
+  {
+    "text": "Group chats",
+    "labelA": "Love the chaos",
+    "labelB": "Mute forever",
+    "rating": "family"
+  },
+  {
+    "text": "Board game night",
+    "labelA": "Peak friendship",
+    "labelB": "Too competitive",
+    "rating": "family"
+  },
+  {
+    "text": "State fairs",
+    "labelA": "Fried everything",
+    "labelB": "That's not food",
+    "rating": "family"
+  },
+  {
+    "text": "Leaving with someone from a wedding",
+    "labelA": "Classic",
+    "labelB": "Don't",
+    "rating": "mature"
+  },
+  {
+    "text": "Office birthdays",
+    "labelA": "Cake is cake",
+    "labelB": "Please don't sing",
+    "rating": "family"
+  },
+  {
+    "text": "Working from home",
+    "labelA": "Best invention ever",
+    "labelB": "Never leaving the house again",
+    "rating": "family"
+  },
+  {
+    "text": "Fireworks",
+    "labelA": "Wonder",
+    "labelB": "Too loud for pets",
+    "rating": "family"
+  },
+  {
+    "text": "Open windows",
+    "labelA": "Fresh",
+    "labelB": "Bugs",
+    "rating": "family"
+  },
+  {
+    "text": "Travel journals",
+    "labelA": "I'll remember",
+    "labelB": "My camera roll",
+    "rating": "family"
+  },
+  {
+    "text": "Family group chats",
+    "labelA": "Love",
+    "labelB": "Mute",
+    "rating": "family"
+  },
+  {
+    "text": "Pets on furniture",
+    "labelA": "It's their house",
+    "labelB": "That's my sofa",
+    "rating": "family"
+  },
+  {
+    "text": "Out of office",
+    "labelA": "Truthful",
+    "labelB": "Mysterious",
+    "rating": "family"
+  },
+  {
+    "text": "Sales",
+    "labelA": "Wait for them",
+    "labelB": "Full price if I want it",
+    "rating": "family"
+  },
+  {
+    "text": "Name-brand",
+    "labelA": "Worth it",
+    "labelB": "Generic wins",
+    "rating": "family"
+  },
+  {
+    "text": "Gas station snacks",
+    "labelA": "Road trip law",
+    "labelB": "We'll eat later",
+    "rating": "family"
+  },
+  {
+    "text": "Coupons",
+    "labelA": "Sport",
+    "labelB": "My time is worth more",
+    "rating": "family"
+  },
+  {
+    "text": "Monday motivation",
+    "labelA": "Let's go",
+    "labelB": "Let me be",
+    "rating": "family"
+  },
+  {
+    "text": "Cash",
+    "labelA": "Real money",
+    "labelB": "Who has cash",
+    "rating": "family"
+  },
+  {
+    "text": "Pineapple on pizza",
+    "labelA": "Delicious",
+    "labelB": "Crime against Italy",
+    "rating": "family"
+  },
+  {
+    "text": "Returns",
+    "labelA": "Always",
+    "labelB": "I keep it",
+    "rating": "family"
+  },
+  {
+    "text": "PDA at family events",
+    "labelA": "Love",
+    "labelB": "Read the room",
+    "rating": "mature"
+  },
+  {
+    "text": "Voice notes",
+    "labelA": "Efficient",
+    "labelB": "I will not listen",
+    "rating": "family"
+  },
+  {
+    "text": "Afterparties",
+    "labelA": "The real event",
+    "labelB": "I have a bedtime",
+    "rating": "mature"
+  },
+  {
+    "text": "Forwards",
+    "labelA": "Grandparents",
+    "labelB": "Please stop",
+    "rating": "family"
+  },
+  {
+    "text": "Video games",
+    "labelA": "Art form",
+    "labelB": "Time thief",
+    "rating": "family"
+  },
+  {
+    "text": "Baking",
+    "labelA": "Science",
+    "labelB": "Too many dishes",
+    "rating": "family"
+  },
+  {
+    "text": "Thank-you notes",
+    "labelA": "Classy",
+    "labelB": "A text is fine",
+    "rating": "family"
+  },
+  {
+    "text": "Drunk karaoke ballads",
+    "labelA": "Art",
+    "labelB": "Please stop",
+    "rating": "mature"
+  },
+  {
+    "text": "Office parties",
+    "labelA": "Free drinks",
+    "labelB": "Mandatory fun",
+    "rating": "mature"
+  },
+  {
+    "text": "Work trip nightlife",
+    "labelA": "Team bonding",
+    "labelB": "Stay in",
+    "rating": "mature"
+  },
+  {
+    "text": "Likes",
+    "labelA": "Nice",
+    "labelB": "I don't need them",
+    "rating": "family"
+  },
+  {
+    "text": "Typing indicators",
+    "labelA": "Torture",
+    "labelB": "Useful",
+    "rating": "family"
+  },
+  {
+    "text": "Picnics",
+    "labelA": "Romantic",
+    "labelB": "Ants",
+    "rating": "family"
+  },
+  {
+    "text": "Regretting last night",
+    "labelA": "Part of it",
+    "labelB": "Never again",
+    "rating": "mature"
+  },
+  {
+    "text": "Ice cream in winter",
+    "labelA": "No season",
+    "labelB": "That's a crime",
+    "rating": "family"
+  },
+  {
+    "text": "Loyalty cards",
+    "labelA": "Points!",
+    "labelB": "Wallet clutter",
+    "rating": "family"
+  },
+  {
+    "text": "Layover shopping",
+    "labelA": "Treat yourself",
+    "labelB": "Stay at the gate",
+    "rating": "family"
+  },
+  {
+    "text": "Birthdays",
+    "labelA": "Make it a production",
+    "labelB": "Low-key please",
+    "rating": "family"
+  },
+  {
+    "text": "Wedding toasts that roast",
+    "labelA": "Funny",
+    "labelB": "Read the room",
+    "rating": "mature"
+  },
+  {
+    "text": "Spare chargers",
+    "labelA": "Host duty",
+    "labelB": "Bring your own",
+    "rating": "family"
+  },
+  {
+    "text": "Rainy Sundays",
+    "labelA": "Perfect",
+    "labelB": "Cabin fever",
+    "rating": "family"
+  },
+  {
+    "text": "The group chat knowing",
+    "labelA": "Accountability",
+    "labelB": "Nobody's business",
+    "rating": "mature"
+  },
+  {
+    "text": "Reunion glow-ups",
+    "labelA": "Petty joy",
+    "labelB": "Be kind",
+    "rating": "mature"
+  },
+  {
+    "text": "Dating apps",
+    "labelA": "Found love there",
+    "labelB": "Never again",
+    "rating": "mature"
+  },
+  {
+    "text": "No labels",
+    "labelA": "Free",
+    "labelB": "Avoidant",
+    "rating": "mature"
+  },
+  {
+    "text": "Fake plants",
+    "labelA": "No shame",
+    "labelB": "I know that's plastic",
+    "rating": "family"
+  },
+  {
+    "text": "Home workouts",
+    "labelA": "No commute",
+    "labelB": "I skip them",
+    "rating": "family"
+  },
+  {
+    "text": "Catching feelings on purpose",
+    "labelA": "Brave",
+    "labelB": "Dangerous",
+    "rating": "mature"
+  },
+  {
+    "text": "Resolutions",
+    "labelA": "This year",
+    "labelB": "I don't do them",
+    "rating": "family"
+  },
+  {
+    "text": "Heated seats",
+    "labelA": "Luxury",
+    "labelB": "I am not a pastry",
+    "rating": "family"
+  },
+  {
+    "text": "Venmo-ing an ex",
+    "labelA": "Closure",
+    "labelB": "Don't",
+    "rating": "mature"
+  },
+  {
+    "text": "Candles",
+    "labelA": "Ambience",
+    "labelB": "I forget they're lit",
+    "rating": "family"
+  },
+  {
+    "text": "Last seen",
+    "labelA": "Creepy",
+    "labelB": "Helpful",
+    "rating": "family"
+  },
+  {
+    "text": "White elephant",
+    "labelA": "Chaos",
+    "labelB": "Someone cries",
+    "rating": "family"
+  },
+  {
+    "text": "Group vacations with couples",
+    "labelA": "Fun",
+    "labelB": "Third-wheel city",
+    "rating": "mature"
+  },
+  {
+    "text": "Robot vacuums",
+    "labelA": "Magic",
+    "labelB": "It eats cords",
+    "rating": "family"
+  },
+  {
+    "text": "Breakfast for dinner",
+    "labelA": "Always yes",
+    "labelB": "That's just sad brunch",
+    "rating": "family"
+  },
+  {
+    "text": "Predictive text",
+    "labelA": "Mind reader",
+    "labelB": "It doesn't know me",
+    "rating": "family"
+  },
+  {
+    "text": "Rebound timing",
+    "labelA": "Whenever",
+    "labelB": "Give it a minute",
+    "rating": "mature"
+  },
+  {
+    "text": "Trivia nights",
+    "labelA": "My time to shine",
+    "labelB": "I know nothing",
+    "rating": "family"
+  },
+  {
+    "text": "Airport food",
+    "labelA": "Captive audience",
+    "labelB": "I packed snacks",
+    "rating": "family"
+  },
+  {
+    "text": "Friends who date each other",
+    "labelA": "Cute",
+    "labelB": "Group risk",
+    "rating": "mature"
+  },
+  {
+    "text": "Autograt",
+    "labelA": "Fine",
+    "labelB": "I wanted to choose",
+    "rating": "family"
+  },
+  {
+    "text": "Bcc",
+    "labelA": "Polite",
+    "labelB": "Sneaky",
+    "rating": "family"
+  },
+  {
+    "text": "Maximalism",
+    "labelA": "Joy",
+    "labelB": "Too much",
+    "rating": "family"
+  },
+  {
+    "text": "Swimming in lakes",
+    "labelA": "Nature pool",
+    "labelB": "What's in there",
+    "rating": "family"
+  },
+  {
+    "text": "Chain messages",
+    "labelA": "Delete",
+    "labelB": "I send them ironically",
+    "rating": "family"
+  },
+  {
+    "text": "Self-checkout",
+    "labelA": "Faster",
+    "labelB": "It hates me",
+    "rating": "family"
+  },
+  {
+    "text": "Arcade nights",
+    "labelA": "Tokens forever",
+    "labelB": "My wrists hurt",
+    "rating": "family"
+  },
+  {
+    "text": "Lunch at the desk",
+    "labelA": "Efficient",
+    "labelB": "That's sad",
+    "rating": "family"
+  },
+  {
+    "text": "Sleeping with a fan",
+    "labelA": "White noise",
+    "labelB": "Too cold",
+    "rating": "family"
+  },
+  {
+    "text": "LEGO as an adult",
+    "labelA": "Valid hobby",
+    "labelB": "Step hazard",
+    "rating": "family"
+  },
+  {
+    "text": "AC in the car",
+    "labelA": "Blast it",
+    "labelB": "Windows down",
+    "rating": "family"
+  },
+  {
+    "text": "Meal kit boxes",
+    "labelA": "Easy",
+    "labelB": "Too much plastic",
+    "rating": "family"
+  },
+  {
+    "text": "Childhood photos",
+    "labelA": "Wholesome",
+    "labelB": "Please ask first",
+    "rating": "family"
+  },
+  {
+    "text": "Sleepovers as kids",
+    "labelA": "Core memory",
+    "labelB": "Nobody slept",
+    "rating": "family"
+  },
+  {
+    "text": "Cart abandonment",
+    "labelA": "Self control",
+    "labelB": "I'll come back",
+    "rating": "family"
+  },
+  {
+    "text": "Movie theaters",
+    "labelA": "Worth the popcorn prices",
+    "labelB": "Just wait for streaming",
+    "rating": "family"
+  },
+  {
+    "text": "Telling the story anyway",
+    "labelA": "Comedy gold",
+    "labelB": "Take it to the grave",
+    "rating": "mature"
+  },
+  {
+    "text": "Work spouses",
+    "labelA": "Harmless",
+    "labelB": "Too close",
+    "rating": "mature"
+  },
+  {
+    "text": "Do not disturb",
+    "labelA": "Boundaries",
+    "labelB": "I'll miss something",
+    "rating": "family"
+  },
+  {
+    "text": "Wi-Fi password on the fridge",
+    "labelA": "Hospitality",
+    "labelB": "Just ask",
+    "rating": "family"
+  },
+  {
+    "text": "Splitting apps",
+    "labelA": "Peace",
+    "labelB": "Just Venmo me",
+    "rating": "family"
+  },
+  {
+    "text": "Comments",
+    "labelA": "Community",
+    "labelB": "Never read them",
+    "rating": "family"
+  },
+  {
+    "text": "Pancakes vs waffles",
+    "labelA": "Pancakes",
+    "labelB": "Waffles have pockets",
+    "rating": "family"
+  },
+  {
+    "text": "Popcorn as dinner",
+    "labelA": "Movie night fuel",
+    "labelB": "Not a food group",
+    "rating": "family"
+  },
+  {
+    "text": "Slack vs email",
+    "labelA": "Slack",
+    "labelB": "I want a paper trail",
+    "rating": "family"
+  },
+  {
+    "text": "Snooze button",
+    "labelA": "Five more",
+    "labelB": "Get up",
+    "rating": "family"
+  },
+  {
+    "text": "Backseat",
+    "labelA": "Naps",
+    "labelB": "Carsick",
+    "rating": "family"
+  },
+  {
+    "text": "Regifting",
+    "labelA": "Practical",
+    "labelB": "Never",
+    "rating": "family"
+  },
+  {
+    "text": "Password managers",
+    "labelA": "Essential",
+    "labelB": "I remember them",
+    "rating": "family"
+  },
+  {
+    "text": "Toll roads",
+    "labelA": "Worth the time",
+    "labelB": "Never",
+    "rating": "family"
+  },
+  {
+    "text": "Blackout curtains",
+    "labelA": "Essential",
+    "labelB": "I like morning",
+    "rating": "family"
+  },
+  {
+    "text": "Sunrise alarms",
+    "labelA": "Gentle",
+    "labelB": "Just beep",
+    "rating": "family"
+  },
+  {
+    "text": "Sneakers outdoors",
+    "labelA": "Always",
+    "labelB": "That's grass",
+    "rating": "family"
+  },
+  {
+    "text": "Minibars",
+    "labelA": "Treat",
+    "labelB": "Robbery",
+    "rating": "mature"
+  },
+  {
+    "text": "Gift receipts",
+    "labelA": "Mercy",
+    "labelB": "I can use it",
+    "rating": "family"
+  },
+  {
+    "text": "Friends with benefits",
+    "labelA": "Adults can handle it",
+    "labelB": "Feelings incoming",
+    "rating": "mature"
+  },
+  {
+    "text": "Making the bed",
+    "labelA": "Civilized",
+    "labelB": "I'll unmake it anyway",
+    "rating": "family"
+  },
+  {
+    "text": "Drunk texts",
+    "labelA": "Send it",
+    "labelB": "Drafts forever",
+    "rating": "mature"
+  },
+  {
+    "text": "Scenic routes",
+    "labelA": "The point",
+    "labelB": "I have a schedule",
+    "rating": "family"
+  },
+  {
+    "text": "Window seats",
+    "labelA": "Views",
+    "labelB": "I need the aisle",
+    "rating": "family"
+  },
+  {
+    "text": "Staying friends after",
+    "labelA": "Evolved",
+    "labelB": "Impossible",
+    "rating": "mature"
+  },
+  {
+    "text": "Convertibles",
+    "labelA": "Dream",
+    "labelB": "My hair disagrees",
+    "rating": "family"
+  },
+  {
+    "text": "Grocery delivery",
+    "labelA": "Gift",
+    "labelB": "I like choosing produce",
+    "rating": "family"
+  },
+  {
+    "text": "Prime Day",
+    "labelA": "Trap",
+    "labelB": "I have a list",
+    "rating": "family"
+  },
+  {
+    "text": "Situationships",
+    "labelA": "Fine for now",
+    "labelB": "Need a definition",
+    "rating": "mature"
+  },
+  {
+    "text": "Guest towels",
+    "labelA": "Yes we have them",
+    "labelB": "Use whatever",
+    "rating": "family"
+  },
+  {
+    "text": "Open offices",
+    "labelA": "Collaboration",
+    "labelB": "Headphones forever",
+    "rating": "family"
+  },
+  {
+    "text": "Smart speakers",
+    "labelA": "Convenient",
+    "labelB": "They're listening",
+    "rating": "family"
+  },
+  {
+    "text": "Group gifts",
+    "labelA": "Fair",
+    "labelB": "Awkward money",
+    "rating": "family"
+  },
+  {
+    "text": "Handmade gifts",
+    "labelA": "Best",
+    "labelB": "I need the receipt",
+    "rating": "family"
+  },
+  {
+    "text": "Casual Fridays",
+    "labelA": "Sacred",
+    "labelB": "Every day is casual",
+    "rating": "family"
+  },
+  {
+    "text": "Expiration dates",
+    "labelA": "Law",
+    "labelB": "Smell test",
+    "rating": "family"
+  },
+  {
+    "text": "Breadcrumbing",
+    "labelA": "Annoying",
+    "labelB": "I'm guilty too",
+    "rating": "mature"
+  },
+  {
+    "text": "Rideshare after last call",
+    "labelA": "Responsible",
+    "labelB": "I can walk",
+    "rating": "mature"
+  },
+  {
+    "text": "Periods in texts",
+    "labelA": "Aggression",
+    "labelB": "It's grammar",
+    "rating": "family"
+  },
+  {
+    "text": "Define the relationship texts",
+    "labelA": "Necessary",
+    "labelB": "Kills the vibe",
+    "rating": "mature"
+  },
+  {
+    "text": "In-flight movies",
+    "labelA": "Must finish",
+    "labelB": "I sleep",
+    "rating": "family"
+  },
+  {
+    "text": "Soup as a meal",
+    "labelA": "Complete",
+    "labelB": "That's an appetizer",
+    "rating": "family"
+  },
+  {
+    "text": "Black Friday",
+    "labelA": "Sport",
+    "labelB": "I stay home",
+    "rating": "family"
+  },
+  {
+    "text": "Parades",
+    "labelA": "Community",
+    "labelB": "I can't see anything",
+    "rating": "family"
+  },
+  {
+    "text": "Aisle seats",
+    "labelA": "Freedom",
+    "labelB": "I miss the window",
+    "rating": "family"
+  },
+  {
+    "text": "Handwritten letters",
+    "labelA": "Romance",
+    "labelB": "I can't read that",
+    "rating": "family"
+  },
+  {
+    "text": "Friday feeling",
+    "labelA": "Earned",
+    "labelB": "Every day should be",
+    "rating": "family"
+  },
+  {
+    "text": "Secret Santa that goes too personal",
+    "labelA": "Bold",
+    "labelB": "Keep it generic",
+    "rating": "mature"
+  },
+  {
+    "text": "Cyber Monday",
+    "labelA": "Laptop day",
+    "labelB": "It's all the same",
+    "rating": "family"
+  },
+  {
+    "text": "Oversharing at brunch",
+    "labelA": "That's brunch",
+    "labelB": "Too much",
+    "rating": "mature"
+  },
+  {
+    "text": "Naming an ex in a toast",
+    "labelA": "Honest",
+    "labelB": "Absolutely not",
+    "rating": "mature"
+  },
+  {
+    "text": "Cats vs responsibility",
+    "labelA": "Cats are perfect roommates",
+    "labelB": "They judge me and I deserve it",
+    "rating": "family"
+  },
+  {
+    "text": "Ghosting",
+    "labelA": "Sometimes kinder",
+    "labelB": "Always cowardly",
+    "rating": "mature"
+  },
+  {
+    "text": "Overhead bins",
+    "labelA": "Tetris",
+    "labelB": "Gate-check it",
+    "rating": "family"
+  },
+  {
+    "text": "Calling them after midnight",
+    "labelA": "Honest",
+    "labelB": "Don't",
+    "rating": "mature"
+  },
+  {
+    "text": "Marie Kondo",
+    "labelA": "Sparked",
+    "labelB": "My junk sparks joy",
+    "rating": "family"
+  },
+  {
+    "text": "Farmers markets",
+    "labelA": "Weekend ritual",
+    "labelB": "It's just expensive",
+    "rating": "family"
+  },
+  {
+    "text": "Sliding into DMs",
+    "labelA": "How we met",
+    "labelB": "Cringe",
+    "rating": "mature"
+  },
+  {
+    "text": "Space heaters",
+    "labelA": "Cozy",
+    "labelB": "Fire hazard energy",
+    "rating": "family"
+  },
+  {
+    "text": "Sports on TV",
+    "labelA": "Event of the week",
+    "labelB": "Background noise",
+    "rating": "family"
+  },
+  {
+    "text": "Bikeshares",
+    "labelA": "Smart city",
+    "labelB": "Helmet anxiety",
+    "rating": "family"
+  },
+  {
+    "text": "Curbside pickup",
+    "labelA": "Peak 2020",
+    "labelB": "Still the move",
+    "rating": "family"
+  },
+  {
+    "text": "Same-day delivery",
+    "labelA": "Emergency",
+    "labelB": "That's how they get you",
+    "rating": "family"
+  },
+  {
+    "text": "Exes at weddings",
+    "labelA": "Be cool",
+    "labelB": "Opposite table",
+    "rating": "mature"
+  },
+  {
+    "text": "Caps lock",
+    "labelA": "Yelling",
+    "labelB": "Emphasis",
+    "rating": "family"
+  },
+  {
+    "text": "Talking politics at dinner",
+    "labelA": "Keep it spicy",
+    "labelB": "Hard pass",
+    "rating": "mature"
+  },
+  {
+    "text": "New Year's Eve",
+    "labelA": "Stay up",
+    "labelB": "I'm in bed at 10",
+    "rating": "family"
+  },
+  {
+    "text": "Holiday cards",
+    "labelA": "Keep them",
+    "labelB": "Recycle pile",
+    "rating": "family"
+  },
+  {
+    "text": "Hotel key mix-ups",
+    "labelA": "Comedy",
+    "labelB": "Nightmare",
+    "rating": "mature"
+  },
+  {
+    "text": "Extra blankets",
+    "labelA": "Always",
+    "labelB": "One is enough",
+    "rating": "family"
+  },
+  {
+    "text": "Minimalism",
+    "labelA": "Peace",
+    "labelB": "I like my stuff",
+    "rating": "family"
+  },
+  {
+    "text": "Ceiling fans",
+    "labelA": "Year round",
+    "labelB": "Winter no",
+    "rating": "family"
+  },
+  {
+    "text": "Houseplants",
+    "labelA": "I can keep them",
+    "labelB": "They come to die",
+    "rating": "family"
+  },
+  {
+    "text": "Costume parties",
+    "labelA": "All in",
+    "labelB": "I'll wear jeans",
+    "rating": "family"
+  },
+  {
+    "text": "Alarm clocks",
+    "labelA": "Necessary evil",
+    "labelB": "Should be illegal before 9am",
+    "rating": "family"
+  },
+  {
+    "text": "Book clubs",
+    "labelA": "Accountability",
+    "labelB": "I never finish",
+    "rating": "family"
+  },
+  {
+    "text": "Showing up unannounced",
+    "labelA": "Romantic",
+    "labelB": "A crime",
+    "rating": "mature"
+  },
+  {
+    "text": "Love bombing",
+    "labelA": "Red flag",
+    "labelB": "They're just excited",
+    "rating": "mature"
+  },
+  {
+    "text": "Bicycles in the city",
+    "labelA": "Freedom",
+    "labelB": "I value my life",
+    "rating": "family"
+  },
+  {
+    "text": "Public arguments",
+    "labelA": "Passion",
+    "labelB": "Embarrassing",
+    "rating": "mature"
+  },
+  {
+    "text": "Subscriptions",
+    "labelA": "Convenient",
+    "labelB": "The silent killer",
+    "rating": "family"
+  },
+  {
+    "text": "Valet",
+    "labelA": "Treat",
+    "labelB": "I can walk",
+    "rating": "family"
+  },
+  {
+    "text": "Open bars",
+    "labelA": "Go for it",
+    "labelB": "Two-drink cap",
+    "rating": "mature"
+  },
+  {
+    "text": "Stargazing",
+    "labelA": "Perspective",
+    "labelB": "I need a chair",
+    "rating": "family"
+  },
+  {
+    "text": "Call instead of text",
+    "labelA": "Please",
+    "labelB": "Warn me first",
+    "rating": "family"
+  },
+  {
+    "text": "Keeping a spare toothbrush there",
+    "labelA": "Practical",
+    "labelB": "Too soon",
+    "rating": "mature"
+  },
+  {
+    "text": "Smart lights",
+    "labelA": "Mood",
+    "labelB": "A switch is fine",
+    "rating": "family"
+  },
+  {
+    "text": "Vacation mode",
+    "labelA": "Fully off",
+    "labelB": "I'll peek",
+    "rating": "family"
+  },
+  {
+    "text": "Weekend emails",
+    "labelA": "Leave them",
+    "labelB": "Quick reply now",
+    "rating": "family"
+  },
+  {
+    "text": "Plus-ones you've just met",
+    "labelA": "Optimistic",
+    "labelB": "Too soon",
+    "rating": "mature"
+  },
+  {
+    "text": "Leftovers",
+    "labelA": "Better next day",
+    "labelB": "I forget them",
+    "rating": "family"
+  },
+  {
+    "text": "GIFs in work chat",
+    "labelA": "Culture",
+    "labelB": "Keep it professional",
+    "rating": "family"
+  },
+  {
+    "text": "The texts still exist",
+    "labelA": "Archive",
+    "labelB": "Burner phone energy",
+    "rating": "mature"
+  },
+  {
+    "text": "Potlucks",
+    "labelA": "Community",
+    "labelB": "Who brought what",
+    "rating": "family"
+  },
+  {
+    "text": "Buy now pay later",
+    "labelA": "Dangerous",
+    "labelB": "Sometimes smart",
+    "rating": "family"
+  },
+  {
+    "text": "Tipping culture",
+    "labelA": "Be generous",
+    "labelB": "It's gotten wild",
+    "rating": "family"
+  },
+  {
+    "text": "Night lights",
+    "labelA": "Practical",
+    "labelB": "I know this house",
+    "rating": "family"
+  },
+  {
+    "text": "Theme parks",
+    "labelA": "Ride everything",
+    "labelB": "I'm tired in line",
+    "rating": "family"
+  },
+  {
+    "text": "Camping",
+    "labelA": "Nature heals",
+    "labelB": "Hotels exist",
+    "rating": "family"
+  },
+  {
+    "text": "Two-factor",
+    "labelA": "Please",
+    "labelB": "So many codes",
+    "rating": "family"
+  },
+  {
+    "text": "Meal prep Sundays",
+    "labelA": "Future me thanks",
+    "labelB": "Fresh all week",
+    "rating": "family"
+  },
+  {
+    "text": "GPS voices",
+    "labelA": "Helpful",
+    "labelB": "Recalculating trauma",
+    "rating": "family"
+  },
+  {
+    "text": "Experiences over things",
+    "labelA": "Always",
+    "labelB": "I like objects",
+    "rating": "family"
+  },
+  {
+    "text": "Sleeping with TV on",
+    "labelA": "Comfort",
+    "labelB": "I need dark",
+    "rating": "family"
+  },
+  {
+    "text": "Autocorrect",
+    "labelA": "Betrayal",
+    "labelB": "I need it",
+    "rating": "family"
+  },
+  {
+    "text": "Wishlist",
+    "labelA": "Someday",
+    "labelB": "Just buy it",
+    "rating": "family"
+  },
+  {
+    "text": "Unread badges",
+    "labelA": "Anxiety",
+    "labelB": "I ignore them",
+    "rating": "family"
+  },
+  {
+    "text": "House party crashers",
+    "labelA": "More the merrier",
+    "labelB": "Invite only",
+    "rating": "mature"
+  },
+  {
+    "text": "Museums",
+    "labelA": "Could live there",
+    "labelB": "Twenty minutes max",
+    "rating": "family"
+  },
+  {
+    "text": "Souvenirs",
+    "labelA": "I need a magnet",
+    "labelB": "Experiences only",
+    "rating": "family"
+  },
+  {
+    "text": "Car karaoke",
+    "labelA": "Mandatory",
+    "labelB": "I need podcasts",
+    "rating": "family"
+  },
+  {
+    "text": "Following an ex",
+    "labelA": "Mature",
+    "labelB": "Unfollow for peace",
+    "rating": "mature"
+  },
+  {
+    "text": "Coffee after 2pm",
+    "labelA": "Living dangerously",
+    "labelB": "I like sleep",
+    "rating": "family"
+  }
 ]

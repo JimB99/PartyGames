@@ -18,8 +18,6 @@ export const WALL_MARGIN = 5;
 export const WALL_THICKNESS = 24;
 export const JUMP_DURATION_TICKS = 15;
 export const JUMP_COOLDOWN_TICKS = 75;
-/** @deprecated Jump phasing is tied to jumpTicksRemaining, not a separate timer. */
-export const JUMP_PHASE_TICKS = 40;
 /** Ticks of trail immunity after using a warp portal. */
 export const WARP_PHASE_TICKS = 35;
 export const SPEED_MULTIPLIER = 1.6;
@@ -400,12 +398,6 @@ function tickPickupSpawns(state: CurveState): void {
   }
 }
 
-/** @deprecated Use generateWarpPairs */
-export function generateWallHoles(count: number, width: number, height: number, seed = 1): WallHole[] {
-  if (count <= 0) return [];
-  return generateWarpPairs(width, height, seed).slice(0, count * 2);
-}
-
 const ALL_POWERUP_KINDS: PowerUpKind[] = ["speed", "gap", "double_jump", "missile", "grenade", "burst"];
 
 export function createCurveState(
@@ -532,17 +524,6 @@ export function warpToPairedPortal(
   const exit = portals.find((p) => p.pairId === entry.pairId && p.id !== entry.id);
   if (!exit) return portalCenter(entry, width, height);
   return portalCenter(exit, width, height);
-}
-
-/** @deprecated Use warpToPairedPortal */
-export function wrapThroughHole(
-  x: number,
-  y: number,
-  hole: WallHole,
-  width: number,
-  height: number,
-): { x: number; y: number } {
-  return warpToPairedPortal(hole, [hole], width, height);
 }
 
 function isOutOfBounds(

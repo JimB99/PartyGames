@@ -7,6 +7,9 @@ export interface Player {
   nickname: string;
   colorIndex: number;
   connected: boolean;
+  /** Joined mid-game; becomes active next round/game. */
+  waiting?: boolean;
+  reconnectToken?: string;
 }
 
 export type RoomPhase = "lobby" | "playing" | "ended";

@@ -150,6 +150,7 @@ export const teamCharadesGame: GameModule<CharadesState> = {
       round: state.round,
       maxRounds: state.maxRounds,
       timerEndsAt: state.timerEndsAt,
+      timerTotalMs: state.phase === "acting" ? ACT_MS : null,
       data: {
         actorId,
         word: undefined,
@@ -170,6 +171,7 @@ export const teamCharadesGame: GameModule<CharadesState> = {
       round: state.round,
       maxRounds: state.maxRounds,
       timerEndsAt: state.timerEndsAt,
+      timerTotalMs: state.phase === "acting" ? ACT_MS : null,
       data: {
         isActor,
         actorId,

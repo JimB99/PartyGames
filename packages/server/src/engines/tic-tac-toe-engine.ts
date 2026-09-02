@@ -29,8 +29,24 @@ function startPlaying(state: TicTacToeState): TicTacToeState {
   return state;
 }
 
-function finishMatch(state: TicTacToeState): TicTacToeState {
+function finishMatch(state: TicTacToeState, isDraw = false): TicTacToeState {
   const match = currentMatch(state);
+  if (isDraw && state.drawReplayCount < 1) {
+    state.drawReplayCount += 1;
+    if (match) {
+      state.bracket[state.matchIndex] = {
+        ...match,
+        board: emptyBoard(),
+        turn: "x",
+        winner: null,
+      };
+    }
+    state.phase = "playing";
+    state.timerEndsAt = null;
+    state.timerTotalMs = null;
+    return state;
+  }
+
   if (state.playerIds.length === 2) {
     state.championId = match?.winner ?? null;
     state.phase = "ended";
@@ -40,6 +56,7 @@ function finishMatch(state: TicTacToeState): TicTacToeState {
   }
   if (state.matchIndex < state.bracket.length - 1) {
     state.matchIndex += 1;
+    state.drawReplayCount = 0;
     state.phase = "playing";
     state.timerEndsAt = null;
     state.timerTotalMs = null;
@@ -69,14 +86,9 @@ export function onTttAction(state: TicTacToeState, playerId: string, action: Gam
     state.bracket[state.matchIndex] = updated;
     if (matchFinished(updated)) {
       if (checkWinner(updated.board) === "draw") {
-        state.bracket[state.matchIndex] = {
-          ...updated,
-          board: emptyBoard(),
-          turn: "x",
-          winner: null,
-        };
-        return state;
+        return finishMatch(state, true);
       }
+      state.drawReplayCount = 0;
       return finishMatch(state);
     }
   }

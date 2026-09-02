@@ -12,7 +12,7 @@ export const paddleClashGame: GameModule<PaddleClashGameState> = {
   meta: {
     id: "paddle-clash",
     name: "Paddle Clash",
-    description: "Pong and air-hockey on the big screen — phones control your paddle",
+    description: "2–4 player arcade on the TV — phones are paddles, Pong or hockey",
     scoringRules: "200 pts per arena goal + 400 win bonus. First to 7 goals wins.",
     minPlayers: 2,
     maxPlayers: 4,
@@ -25,7 +25,7 @@ export const paddleClashGame: GameModule<PaddleClashGameState> = {
     return createPaddleClashState(ctx.playerIds, mode);
   },
   onPlayerAction(state, playerId, action, ctx) {
-    return onPaddleClashAction(state, playerId, action, ctx);
+    return onPaddleClashAction(state, playerId, action, ctx.playerIds);
   },
   onHostAction(state, action, ctx) {
     return onPaddleClashAction(state, "host", action, ctx.playerIds);

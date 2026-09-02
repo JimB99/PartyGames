@@ -89,6 +89,7 @@ export interface BlockStackState {
   players: BlockStackPlayer[];
   deathOrder: string[];
   roundScores: Record<string, number>;
+  cumulativeScores: Record<string, number>;
   roundWinner: string | null;
 }
 
@@ -255,6 +256,7 @@ export function createBlockStackState(playerIds: string[]): BlockStackState {
     players: playerIds.map(createBlockStackPlayer),
     deathOrder: [],
     roundScores: {},
+    cumulativeScores: {},
     roundWinner: null,
   };
 }
@@ -393,7 +395,7 @@ export function tickBlockStackState(state: BlockStackState): BlockStackState {
   if (alive <= 1 && state.players.length > 1) {
     const survivor = state.players.find((p) => p.alive);
     if (survivor && survivor.deathRank === null) {
-      survivor.deathRank = 1;
+      survivor.deathRank = state.players.length;
       state.deathOrder.unshift(survivor.id);
     }
     state.roundWinner = state.deathOrder[0] ?? null;

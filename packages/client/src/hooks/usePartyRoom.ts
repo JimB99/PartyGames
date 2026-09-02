@@ -2,6 +2,7 @@ import {
   PLAYER_COLORS,
   ROOM_CODE_CHARS,
   type ClientMessage,
+  type GameAction,
   type GameId,
   type GameOptions,
   type PlayerViewSnapshot,
@@ -153,10 +154,10 @@ export function usePartyRoom({
   const startSession = useCallback(() => send({ type: "start_session" }), [send]);
   const nextSessionGame = useCallback(() => send({ type: "next_session_game" }), [send]);
   const clearSessionPlaylist = useCallback(() => send({ type: "clear_session_playlist" }), [send]);
-  const playerAction = useCallback((action: ClientMessage extends { type: "player_action"; action: infer A } ? A : never) => {
+  const playerAction = useCallback((action: GameAction) => {
     send({ type: "player_action", action });
   }, [send]);
-  const hostAction = useCallback((action: ClientMessage extends { type: "host_action"; action: infer A } ? A : never) => {
+  const hostAction = useCallback((action: GameAction) => {
     send({ type: "host_action", action });
   }, [send]);
   const updateProfile = useCallback(

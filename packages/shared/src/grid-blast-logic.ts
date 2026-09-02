@@ -23,6 +23,8 @@ export interface GridBlastBomb {
   range: number;
   exploded: boolean;
   ownerImmunityTicks: number;
+  kickDx: number;
+  kickDy: number;
 }
 
 export interface GridBlastPlayer {
@@ -144,10 +146,23 @@ function inBounds(x: number, y: number, grid: number[][]): boolean {
   return y >= 0 && y < grid.length && x >= 0 && x < grid[0].length;
 }
 
-function cellFreeForPlayer(grid: number[][], bombs: GridBlastBomb[], x: number, y: number): boolean {
+function cellWalkable(grid: number[][], x: number, y: number): boolean {
   if (!inBounds(x, y, grid)) return false;
-  if (grid[y][x] === CELL_HARD || grid[y][x] === CELL_SOFT) return false;
-  return !bombs.some((b) => !b.exploded && b.x === x && b.y === y);
+  return grid[y][x] !== CELL_HARD && grid[y][x] !== CELL_SOFT;
+}
+
+function bombAt(bombs: GridBlastBomb[], x: number, y: number): GridBlastBomb | undefined {
+  return bombs.find((b) => !b.exploded && b.x === x && b.y === y);
+}
+
+function trySlideBomb(state: GridBlastState, bomb: GridBlastBomb, dx: number, dy: number): boolean {
+  const nx = bomb.x + dx;
+  const ny = bomb.y + dy;
+  if (!cellWalkable(state.grid, nx, ny)) return false;
+  if (bombAt(state.bombs, nx, ny)) return false;
+  bomb.x = nx;
+  bomb.y = ny;
+  return true;
 }
 
 const DIRS: Record<GridBlastInput, { dx: number; dy: number } | null> = {
@@ -173,6 +188,8 @@ export function applyGridBlastInput(state: GridBlastState, playerId: string, inp
       range: player.blastRange,
       exploded: false,
       ownerImmunityTicks: OWNER_IMMUNITY_TICKS,
+      kickDx: 0,
+      kickDy: 0,
     });
     return state;
   }
@@ -181,7 +198,14 @@ export function applyGridBlastInput(state: GridBlastState, playerId: string, inp
   if (!dir) return state;
   const nx = player.x + dir.dx;
   const ny = player.y + dir.dy;
-  if (!cellFreeForPlayer(state.grid, state.bombs, nx, ny)) return state;
+  if (!cellWalkable(state.grid, nx, ny)) return state;
+  const blocking = bombAt(state.bombs, nx, ny);
+  if (blocking) {
+    if (!player.canKick) return state;
+    blocking.kickDx = dir.dx;
+    blocking.kickDy = dir.dy;
+    if (!trySlideBomb(state, blocking, dir.dx, dir.dy)) return state;
+  }
   player.x = nx;
   player.y = ny;
   player.lastMoveTick = state.tick;
@@ -247,11 +271,16 @@ function killPlayer(state: GridBlastState, playerId: string): void {
 export function tickGridBlastState(state: GridBlastState): GridBlastState {
   state.tick += 1;
   for (const bomb of state.bombs) {
-    if (!bomb.exploded) {
-      if (bomb.ownerImmunityTicks > 0) bomb.ownerImmunityTicks -= 1;
-      bomb.fuseTicks -= 1;
-      if (bomb.fuseTicks <= 0) explodeBomb(state, bomb);
+    if (bomb.exploded) continue;
+    if (bomb.ownerImmunityTicks > 0) bomb.ownerImmunityTicks -= 1;
+    if ((bomb.kickDx !== 0 || bomb.kickDy !== 0) && state.tick % 2 === 0) {
+      if (!trySlideBomb(state, bomb, bomb.kickDx, bomb.kickDy)) {
+        bomb.kickDx = 0;
+        bomb.kickDy = 0;
+      }
     }
+    bomb.fuseTicks -= 1;
+    if (bomb.fuseTicks <= 0) explodeBomb(state, bomb);
   }
   state.fires = state.fires
     .map((f) => ({ ...f, ticks: f.ticks - 1 }))
@@ -264,15 +293,19 @@ export function gridBlastAliveCount(state: GridBlastState): number {
   return state.players.filter((p) => p.alive).length;
 }
 
+export function finalizeGridBlastRound(state: GridBlastState): Record<string, number> {
+  const remaining = state.players.filter((p) => p.alive && p.deathRank === null);
+  for (const survivor of remaining) {
+    survivor.deathRank = state.players.length;
+    state.deathOrder.unshift(survivor.id);
+  }
+  return gridBlastRoundScores(state);
+}
+
 export function gridBlastRoundScores(state: GridBlastState): Record<string, number> {
   const scores: Record<string, number> = {};
-  const alive = state.players.filter((p) => p.alive);
-  if (alive.length === 1) {
-    scores[alive[0].id] = rankPointsForPlace(1, 1);
-  }
   for (let i = 0; i < state.deathOrder.length; i++) {
-    const id = state.deathOrder[i];
-    scores[id] = rankPointsForPlace(state.deathOrder.length - i + 1, 1);
+    scores[state.deathOrder[i]] = rankPointsForPlace(i + 1, 1);
   }
   return scores;
 }

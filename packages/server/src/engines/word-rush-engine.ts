@@ -49,9 +49,13 @@ export function createWordRushState(
 }
 
 function generateLetters(): string[] {
-  const vowels = ["A", "E", "I", "O", "U"];
-  const consonants = shuffle(["R", "S", "T", "N", "L", "D", "G", "B", "C", "M", "P", "F", "H", "V", "W", "Y"]);
-  return shuffle([...vowels.slice(0, 2), ...consonants.slice(0, 5)]);
+  const vowels = shuffle(["A", "E", "I", "O", "U"]);
+  const consonants = shuffle([
+    "R", "S", "T", "N", "L", "D", "G", "B", "C", "M", "P", "F", "H", "V", "W", "Y", "K", "J", "X", "Z",
+  ]);
+  const vowelCount = 2 + Math.floor(Math.random() * 2);
+  const total = 7;
+  return shuffle([...vowels.slice(0, vowelCount), ...consonants.slice(0, total - vowelCount)]);
 }
 
 export function advanceWordRush(state: WordRushState): WordRushState {
@@ -113,8 +117,9 @@ export function scoreWordRush(state: WordRushState, gameOptions?: GameOptions) {
 
   for (const [playerId, word] of Object.entries(state.submissions)) {
     const w = word.toLowerCase().trim();
-    const inDictionary = state.dictionary.size === 0 || state.dictionary.has(w);
-    const valid = w.length >= state.minWordLength && canFormWord(w, state.letters) && inDictionary;
+    const hasDictionary = state.dictionary.size > 0;
+    const inDictionary = hasDictionary && state.dictionary.has(w);
+    const valid = hasDictionary && w.length >= state.minWordLength && canFormWord(w, state.letters) && inDictionary;
     state.validWords[playerId] = valid && !seen.has(w);
     if (state.validWords[playerId]) {
       seen.add(w);

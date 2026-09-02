@@ -92,7 +92,7 @@
   {
     "a": "Would you rather be a stripper",
     "b": "a pornstar",
-    "rating": "family",
+    "rating": "mature",
     "difficulty": "medium"
   },
   {
@@ -2450,6 +2450,306 @@
   {
     "a": "Would you rather give",
     "b": "receive head",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Tell your group chat every dating thought",
+    "b": "Never talk about dating with friends again",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Always send the drunk text",
+    "b": "Never text after 10pm",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Have your search history read at a wedding",
+    "b": "Have your group chat projected on a screen",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Be stuck in a situationship for a year",
+    "b": "Have one very public breakup",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Always be the designated driver",
+    "b": "Always be the last one standing",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Date someone your friends hate",
+    "b": "Date someone who hates your friends",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Relive your most awkward hookup story",
+    "b": "Forget it and have friends remind you forever",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Open-bar unlimited but you give the toast",
+    "b": "Two-drink max and no public speaking",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Your ex is in the wedding party",
+    "b": "Your ex is the DJ",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Every date is a double date",
+    "b": "You can never introduce partners to friends",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Always split the bill to the penny",
+    "b": "Always lose the Venmo request",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Your mom joins the group chat",
+    "b": "Your boss joins the group chat",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Never ghost anyone again",
+    "b": "Never be able to leave a conversation politely",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Live-tweet your dating life",
+    "b": "Have friends silently judge without comments",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Always overshare at brunch",
+    "b": "Never be allowed to mention last night",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Be famous for one chaotic night",
+    "b": "Be forgotten at every party",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Have read receipts on forever",
+    "b": "Never know if anyone saw your message",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Date only through apps",
+    "b": "Never use an app again",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Your search history is a party game",
+    "b": "Your camera roll is a party game",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Always be someone's rebound",
+    "b": "Always be the person they almost dated",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Give a roast at every wedding",
+    "b": "Give a sincere speech at every birthday",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Never drink again",
+    "b": "Never stay out past midnight again",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Have an ex narrate your dates",
+    "b": "Have your friends veto every date",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Always sit next to an ex at dinner",
+    "b": "Always get seated with strangers",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Your plus-one is randomly assigned",
+    "b": "You can never bring a plus-one",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Every party has a roast of you",
+    "b": "Every party you have to roast someone else",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Lose the group chat forever",
+    "b": "Be admin of every group chat forever",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Always be the screenshot",
+    "b": "Always be the one who leaks",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Have one legendary messy night a year",
+    "b": "Have mildly awkward nights every weekend",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Date someone with no filter",
+    "b": "Date someone who never says what they mean",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Your hotel key always opens the wrong room first",
+    "b": "You always forget which floor you're on",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Be the story at every reunion",
+    "b": "Have no one remember you from school",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Always catch feelings first",
+    "b": "Never catch feelings at all",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Have your situationship join family dinner",
+    "b": "Have your family join a group trip",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Never mute a chat",
+    "b": "Never unmute one",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Always be slightly overdressed",
+    "b": "Always realize you underdressed at the door",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Your dating app bio is written by friends",
+    "b": "Your friends write your wedding toast now",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Relive the walk home after a bad date",
+    "b": "Relive the morning-after small talk",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Be honest on every first date",
+    "b": "Be mysterious forever",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Have last night's photos auto-post",
+    "b": "Have last night's texts auto-forward to your best friend",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Always split a dessert",
+    "b": "Never be allowed to share food",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Work trip with your crush",
+    "b": "Staycation with your ex's friends",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Be late to every party",
+    "b": "Be the first to arrive every time",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Have to explain every meme you send",
+    "b": "Never be allowed to send memes",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "One friend has veto power on dates",
+    "b": "The whole group votes publicly",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Keep every ex as a friend",
+    "b": "Never speak to an ex again",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Your search for 'is this a date' is public",
+    "b": "Your drafts folder is public",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Always be the plus-one",
+    "b": "Always host and never get invited",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Have karaoke as your only talent",
+    "b": "Have honesty as your only talent",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Tell the truth in every toast",
+    "b": "Only tell jokes in every toast",
     "rating": "mature",
     "difficulty": "medium"
   }

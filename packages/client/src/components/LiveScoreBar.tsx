@@ -1,6 +1,6 @@
 import type { RoomSnapshot } from "@party-games/shared";
 import { scoresForAllPlayers } from "@party-games/shared";
-import { playerColor } from "../hooks/usePartyRoom";
+import { PlayerColorSwatch } from "./PlayerColorSwatch";
 
 export function LiveScoreBar({
   room,
@@ -35,9 +35,9 @@ export function LiveScoreBar({
             compact ? "px-2 py-1" : "px-3 py-2"
           }`}
         >
-          <span
+          <PlayerColorSwatch
+            index={player?.colorIndex ?? 0}
             className="h-2 w-2 shrink-0 rounded-full"
-            style={{ backgroundColor: playerColor(player?.colorIndex ?? 0) }}
           />
           <span className="max-w-[6rem] truncate font-medium">{player?.nickname ?? playerId}</span>
           <span className="font-mono font-bold text-violet-300" title="Points this game">

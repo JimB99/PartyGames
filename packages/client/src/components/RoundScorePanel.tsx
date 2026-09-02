@@ -1,6 +1,6 @@
 import type { RoomSnapshot } from "@party-games/shared";
 import { scoresForAllPlayers } from "@party-games/shared";
-import { playerColor } from "../hooks/usePartyRoom";
+import { PlayerColorSwatch } from "./PlayerColorSwatch";
 
 export function RoundScorePanel({
   room,
@@ -28,9 +28,9 @@ export function RoundScorePanel({
           const name = p?.nickname ?? extraNames?.[playerId] ?? playerId;
           return (
             <li key={playerId} className="flex items-center gap-3">
-              <span
+              <PlayerColorSwatch
+                index={p?.colorIndex ?? 0}
                 className="h-2 w-2 rounded-full shrink-0"
-                style={{ backgroundColor: playerColor(p?.colorIndex ?? 0) }}
               />
               <span className="flex-1">{name}</span>
               <span className="font-mono font-bold">{points}</span>

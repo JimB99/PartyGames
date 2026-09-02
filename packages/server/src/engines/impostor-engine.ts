@@ -129,10 +129,9 @@ export function advanceImpostor(state: ImpostorState): ImpostorState {
     return state;
   }
   if (state.phase === "questioning") {
-    state.phase = "reveal";
-    scoreRound(state);
-    state.timerEndsAt = Date.now() + REVEAL_MS;
-    state.timerTotalMs = REVEAL_MS;
+    state.phase = "accusation";
+    state.timerEndsAt = Date.now() + ACCUSE_MS;
+    state.timerTotalMs = ACCUSE_MS;
     return state;
   }
   if (state.phase === "accusation") {
@@ -180,21 +179,14 @@ export function onImpostorAction(
   action: GameAction,
   _ctx: RoomContext,
 ): ImpostorState {
-  if (action.kind === "impostor_accuse" && (state.phase === "questioning" || state.phase === "accusation")) {
-    if (!state.accusationStarter) {
-      state.accusationStarter = playerId;
-      state.phase = "accusation";
-      state.timerEndsAt = Date.now() + ACCUSE_MS;
-      state.timerTotalMs = ACCUSE_MS;
-      state.accusations = {};
-    }
+  if (action.kind === "impostor_accuse" && state.phase === "accusation") {
     state.accusations[playerId] = action.targetId;
     const votes = Object.values(state.accusations);
-    if (votes.length >= state.playerIds.length) {
+    if (votes.length >= state.playerIds.length - 1) {
       return advanceImpostor(state);
     }
   }
-  if (action.kind === "impostor_guess" && state.phase === "questioning" && playerId === state.spyId) {
+  if (action.kind === "impostor_guess" && state.phase === "accusation" && playerId === state.spyId) {
     state.spyGuessed = true;
     state.spyGuessIndex = action.itemIndex;
     return advanceImpostor(state);
@@ -232,8 +224,7 @@ export function impostorHostView(state: ImpostorState) {
 export function impostorPlayerView(state: ImpostorState, playerId: string) {
   const isSpy = playerId === state.spyId;
   const showSecret = state.phase === "reveal" || state.phase === "scoreboard" || state.phase === "ended";
-  const canAccuse =
-    !isSpy && (state.phase === "questioning" || state.phase === "accusation");
+  const canAccuse = state.phase === "accusation" && !isSpy;
   return {
     phase: state.phase,
     round: state.round,
@@ -247,7 +238,7 @@ export function impostorPlayerView(state: ImpostorState, playerId: string) {
     playerData: {
       isSpy,
       secretItem: !isSpy && !showSecret ? state.roundInfo.secretItem : showSecret ? state.roundInfo.secretItem : undefined,
-      itemList: isSpy && state.phase === "questioning" ? state.roundInfo.itemList : undefined,
+      itemList: isSpy && state.phase === "accusation" ? state.roundInfo.itemList : undefined,
       accused: state.accusations[playerId] !== undefined,
       spyGuessed: isSpy ? state.spyGuessed : undefined,
     },

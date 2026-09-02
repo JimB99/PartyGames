@@ -90,6 +90,8 @@ function computeResults(state: RoleSortState, playerIds: string[]) {
       if (count > bestCount) {
         bestCount = count;
         bestRole = role;
+      } else if (count === bestCount && role.localeCompare(bestRole) < 0) {
+        bestRole = role;
       }
     }
     state.results[targetId] = { role: bestRole, count: bestCount };
@@ -111,7 +113,13 @@ export function onRoleSortAction(
   ctx: RoomContext,
 ): RoleSortState {
   if (action.kind === "assign_role" && state.phase === "assign") {
-    state.assignments[playerId] = action.assignments;
+    const cleaned: Record<string, string> = {};
+    for (const [targetId, role] of Object.entries(action.assignments)) {
+      if (targetId === playerId || !role.trim()) continue;
+      if (!ctx.playerIds.includes(targetId)) continue;
+      cleaned[targetId] = role;
+    }
+    state.assignments[playerId] = cleaned;
     if (Object.keys(state.assignments).length >= ctx.playerIds.length) {
       return advanceRoleSort(state, ctx.playerIds);
     }

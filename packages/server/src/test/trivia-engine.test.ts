@@ -5,6 +5,7 @@ import {
   advanceTrivia,
   createTriviaState,
   onTriviaAction,
+  triviaHostView,
 } from "../engines/trivia-engine.js";
 import { makeRoomContext } from "./harness.js";
 
@@ -57,14 +58,41 @@ describe("trivia-engine", () => {
     assert.equal(state.round, 2);
   });
 
-  it("does not award points in would-you-rather mode", () => {
+  it("awards participation and majority-prediction points in would-you-rather mode", () => {
     const items = [{ a: "Tea", b: "Coffee" }];
-    const ctx = makeRoomContext(2);
+    const ctx = makeRoomContext(3);
     let state = createTriviaState("would-you-rather", items, 1, ctx.playerIds.length);
     state = advanceTrivia(state, items, DEFAULT_GAME_OPTIONS);
     state = onTriviaAction(state, "p1", { kind: "would_you_rather", choice: "a" }, ctx);
-    state = onTriviaAction(state, "p2", { kind: "would_you_rather", choice: "b" }, ctx);
-    assert.deepEqual(state.roundScores, {});
-    assert.deepEqual(state.cumulativeScores, {});
+    state = onTriviaAction(state, "p2", { kind: "would_you_rather", choice: "a" }, ctx);
+    state = onTriviaAction(state, "p3", { kind: "would_you_rather", choice: "a" }, ctx);
+    assert.equal(state.roundScores.p1, 1000);
+    assert.equal(state.roundScores.p2, 1000);
+    assert.equal(state.roundScores.p3, 1000);
+    assert.equal(state.cumulativeScores.p1, 1000);
+  });
+
+  it("treats 50/50 among other voters as a tie bonus in would-you-rather", () => {
+    const items = [{ a: "Tea", b: "Coffee" }];
+    const ctx = makeRoomContext(3);
+    let state = createTriviaState("would-you-rather", items, 1, ctx.playerIds.length);
+    state = advanceTrivia(state, items, DEFAULT_GAME_OPTIONS);
+    state = onTriviaAction(state, "p1", { kind: "would_you_rather", choice: "a" }, ctx);
+    state = onTriviaAction(state, "p2", { kind: "would_you_rather", choice: "a" }, ctx);
+    state = onTriviaAction(state, "p3", { kind: "would_you_rather", choice: "b" }, ctx);
+    assert.equal(state.roundScores.p1, 600);
+    assert.equal(state.roundScores.p2, 600);
+    assert.equal(state.roundScores.p3, 200);
+  });
+
+  it("marks would-you-rather as discussing on the host view at question start", () => {
+    const items = [{ a: "Tea", b: "Coffee" }];
+    let state = createTriviaState("would-you-rather", items, 1, 3);
+    state = advanceTrivia(state, items, DEFAULT_GAME_OPTIONS);
+    const view = triviaHostView(state, DEFAULT_GAME_OPTIONS);
+    assert.equal(state.phase, "question");
+    assert.equal(view.data.discussing, true);
+    assert.ok(view.data.optionA);
+    assert.ok(view.data.optionB);
   });
 });

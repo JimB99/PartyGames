@@ -20,7 +20,7 @@ export const timelineGame: GameModule<TriviaState> = {
     maxPlayers: 16,
     category: "trivia",
     supportsDifficulty: true,
-    supportsMatureContent: false,
+    supportsMatureContent: true,
     supportsSpeedScoring: true,
     supportsQuestionDisplay: true,
     supportsTimelinePtsPerYear: true,

@@ -16,7 +16,10 @@ import {
   quizPool,
   witShowdownPool,
   timelinePool,
+  captionPool,
   wouldYouRatherPool,
+  friendSortPool,
+  impostorPool,
 } from "../content-pool.js";
 import { getGame } from "../registry.js";
 import { makeRoomContext, runUntilEnded } from "./harness.js";
@@ -32,6 +35,9 @@ const POOL_GETTERS: Partial<Record<string, (opts: GameOptions) => unknown[]>> = 
   timeline: timelinePool,
   "team-charades": (o) => [...charadesWordPool(o)],
   "hot-seat": hotSeatPool,
+  "caption-this": (o) => captionPool(o).map((t) => t),
+  "role-sort": (o) => friendSortPool(o),
+  impostor: (o) => impostorPool(o).flatMap((p) => p.items),
 };
 
 describe("settings matrix", () => {

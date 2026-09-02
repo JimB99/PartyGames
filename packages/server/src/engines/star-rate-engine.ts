@@ -153,11 +153,6 @@ export function onStarRateAction(
     if (!sub || sub.playerId === playerId) return state;
     if (!state.ratings[playerId]) state.ratings[playerId] = {};
     state.ratings[playerId][action.submissionId] = Math.max(1, Math.min(5, action.stars));
-    const expectedRatings = state.submissions.filter((s) => s.playerId !== playerId).length;
-    if (Object.keys(state.ratings[playerId]).length >= expectedRatings && expectedRatings > 0) {
-      scoreStarRate(state, ctx.playerIds);
-      return advanceStarRate(state, state.promptsPool);
-    }
     const allRated = ctx.playerIds.every((pid) => {
       const toRate = state.submissions.filter((s) => s.playerId !== pid);
       if (toRate.length === 0) return true;
@@ -184,6 +179,31 @@ export function onStarRateTick(state: StarRateState): StarRateState {
 
 export function starRateHostView(state: StarRateState) {
   const showSubs = state.phase === "rate" || state.phase === "reveal" || state.phase === "scoreboard";
+  const totals: Record<string, { sum: number; count: number; histogram: [number, number, number, number, number] }> = {};
+  for (const sub of state.submissions) {
+    totals[sub.id] = { sum: 0, count: 0, histogram: [0, 0, 0, 0, 0] };
+  }
+  for (const rates of Object.values(state.ratings)) {
+    for (const [subId, stars] of Object.entries(rates)) {
+      const bucket = totals[subId];
+      if (!bucket) continue;
+      const s = Math.max(1, Math.min(5, stars));
+      bucket.sum += s;
+      bucket.count++;
+      bucket.histogram[s - 1]++;
+    }
+  }
+  const submissions = showSubs
+    ? shuffle(state.submissions).map((s) => {
+        const t = totals[s.id];
+        return {
+          id: s.id,
+          text: s.text,
+          average: t && t.count > 0 ? Math.round((t.sum / t.count) * 10) / 10 : undefined,
+          histogram: t?.histogram,
+        };
+      })
+    : undefined;
   return {
     phase: state.phase,
     round: state.round,
@@ -192,10 +212,10 @@ export function starRateHostView(state: StarRateState) {
     timerTotalMs: state.timerTotalMs,
     data: {
       prompt: state.prompt,
-      submissions: showSubs ? shuffle(state.submissions).map((s) => ({ id: s.id, text: s.text })) : undefined,
+      submissions,
       submitCount: state.phase === "submit" ? state.submissions.length : undefined,
       playerCount: state.playerIds.length,
-      roundScores: state.roundScores,
+      roundScores: state.phase === "scoreboard" || state.phase === "ended" ? state.roundScores : undefined,
     },
   };
 }

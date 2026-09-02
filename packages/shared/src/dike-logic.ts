@@ -48,6 +48,11 @@ export function lowestBidEliminees(
   const cutoffIndex = Math.min(slots, sortedBids.length) - 1;
   const cutoff = sortedBids[cutoffIndex];
 
+  const atCutoff = alive.filter((id) => (bids[id] ?? 0) === cutoff);
+  if (atCutoff.length === alive.length) {
+    return [];
+  }
+
   return alive.filter((id) => (bids[id] ?? 0) <= cutoff);
 }
 

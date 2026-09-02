@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "test:unit": "node --import tsx --test src/lobby.test.ts",
+    "test:unit": "node --import tsx --test src/lobby.test.ts src/test/registry-inventory.test.ts",
+    "test:contract": "node --import tsx --test src/test/game-contracts.test.ts src/test/games.smoke.test.ts",
     "test:integration": "node --import tsx --test --test-concurrency=1 src/test/**/*.test.ts",
     "test": "pnpm test:unit && pnpm test:integration"
   },

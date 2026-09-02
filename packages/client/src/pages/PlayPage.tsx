@@ -1,6 +1,7 @@
 import { PlayerGameView } from "../components/GameViews";
 import { PlayerProfileBar } from "../components/PlayerProfileBar";
 import { getStoredColorIndex } from "../components/ColorPicker";
+import { ConnectionBanner, PhoneGameShell } from "../components/game/GameShell";
 import { usePartyRoom } from "../hooks/usePartyRoom";
 import { useParams } from "react-router-dom";
 
@@ -21,7 +22,7 @@ export function PlayPage() {
     });
 
   return (
-    <div className="pg-page min-h-dvh bg-[#0f1117] overflow-x-hidden">
+    <div className="pg-page flex min-h-dvh flex-col bg-[#0f1117] overflow-x-hidden">
       <header className="flex items-center justify-between gap-2 border-b border-zinc-800 px-4 py-3 min-w-0">
         <PlayerProfileBar
           roomId={roomId}
@@ -34,30 +35,31 @@ export function PlayPage() {
         </span>
       </header>
 
-      {error && <p className="bg-red-900/40 px-4 py-2 text-red-300">{error}</p>}
+      {error && <ConnectionBanner message={error} />}
 
-      {!playerView && !error && (
-        <div className="p-8 text-center text-zinc-400">
-          {roomState?.phase === "playing" ? "Loading game…" : "Waiting for host to start a game…"}
-        </div>
-      )}
+      <PhoneGameShell>
+        {!playerView && !error && (
+          <div className="p-8 text-center text-zinc-400">
+            {roomState?.phase === "playing" ? "Loading game…" : "Waiting for host to start a game…"}
+          </div>
+        )}
 
-      {roomState?.phase === "lobby" && playerView && (
-        <div className="p-8 text-center text-zinc-400">Waiting for host to start a game…</div>
-      )}
+        {roomState?.phase === "lobby" && playerView && (
+          <div className="p-8 text-center text-zinc-400">Waiting for host to start a game…</div>
+        )}
 
-      {error && !playerView && (
-        <div className="mx-auto max-w-md space-y-4 p-8 text-center">
-          <p className="text-red-300">{error}</p>
-          <a href="/join" className="inline-block rounded-xl bg-zinc-700 px-6 py-3 font-bold">
-            Back to join
-          </a>
-        </div>
-      )}
+        {error && !playerView && (
+          <div className="mx-auto max-w-md space-y-4 p-8 text-center">
+            <a href="/join" className="inline-block rounded-xl bg-zinc-700 px-6 py-3 font-bold">
+              Back to join
+            </a>
+          </div>
+        )}
 
-      {playerView && roomState && roomState.phase === "playing" && (
-        <PlayerGameView room={roomState} playerView={playerView} onAction={playerAction} />
-      )}
+        {playerView && roomState && roomState.phase === "playing" && (
+          <PlayerGameView room={roomState} playerView={playerView} onAction={playerAction} />
+        )}
+      </PhoneGameShell>
     </div>
   );
 }

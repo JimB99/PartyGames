@@ -92,6 +92,14 @@ export function advanceAgentGrid(state: AgentGridState): AgentGridState {
     return state;
   }
   if (state.phase === "clue") {
+    if (!state.currentClue) {
+      state.activeTeam = state.activeTeam === "a" ? "b" : "a";
+      state.guessesRemaining = 0;
+      state.currentClue = null;
+      state.timerEndsAt = Date.now() + CLUE_MS;
+      state.timerTotalMs = CLUE_MS;
+      return state;
+    }
     state.phase = "guess";
     state.timerEndsAt = Date.now() + GUESS_MS;
     state.timerTotalMs = GUESS_MS;
@@ -134,6 +142,7 @@ export function onAgentGridAction(
     const ops = operativeIds(state, state.activeTeam);
     if (!ops.includes(playerId)) return state;
     if (state.guessesRemaining <= 0) return state;
+    if (state.revealed[action.index]) return state;
     const { outcome, tile } = resolveAgentGuess(state.key, state.revealed, action.index, state.activeTeam);
     state.revealed[action.index] = true;
     if (outcome === "assassin_loss") {

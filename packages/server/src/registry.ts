@@ -28,6 +28,9 @@ import { forbiddenClueGame } from "./games/forbidden-clue.js";
 import { hangmanRaceGame } from "./games/hangman-race.js";
 import { paddleClashGame } from "./games/paddle-clash.js";
 import { gridBlastGame } from "./games/grid-blast.js";
+import { drawVoteGame } from "./games/draw-vote.js";
+import { drawImpostorGame } from "./games/draw-impostor.js";
+import { captionThisGame } from "./games/caption-this.js";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const games: GameModule<any>[] = [
@@ -60,6 +63,9 @@ const games: GameModule<any>[] = [
   hangmanRaceGame,
   paddleClashGame,
   gridBlastGame,
+  drawVoteGame,
+  drawImpostorGame,
+  captionThisGame,
 ];
 
 export const gameRegistry = new Map(games.map((g) => [g.meta.id, g]));

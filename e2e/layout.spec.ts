@@ -15,7 +15,7 @@ test("lobby layout has no horizontal overflow on host and player", async () => {
     expect(playerOverflow).toBe(false);
 
     await selectGame(host, "quick-quiz");
-    await expect(host.getByTestId("start-game")).toBeEnabled();
+    await expect(host.getByTestId("start-game").first()).toBeEnabled();
   } finally {
     await hostCtx.close();
     await playerCtx.close();

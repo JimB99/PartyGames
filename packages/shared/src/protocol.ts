@@ -3,6 +3,9 @@ import type { GameMeta } from "./constants.js";
 import type { GameOptions } from "./content.js";
 import type { HostControls } from "./host-controls.js";
 import type { ConnectionRole } from "./room.js";
+import type { HostViewSnapshot, PlayerViewSnapshot } from "./game-view-types.js";
+
+export type { HostViewSnapshot, PlayerViewSnapshot } from "./game-view-types.js";
 
 export type ClientMessage =
   | { type: "join"; role: ConnectionRole; nickname?: string; playerId?: string; colorIndex?: number }
@@ -44,6 +47,7 @@ export type GameAction =
   | { kind: "charades_correct" }
   | { kind: "charades_skip" }
   | { kind: "hot_seat_pick"; submissionId: string }
+  | { kind: "hot_seat_skip" }
   | { kind: "advance" }
   | { kind: "dike_bid"; amount: number }
   | { kind: "block_stack_input"; input: "left" | "right" | "rotate_cw" | "rotate_ccw" | "soft_drop" | "hard_drop" | "hold" }
@@ -75,7 +79,8 @@ export type ServerMessage =
   | { type: "player_view_clear" }
   | { type: "error"; message: string }
   | { type: "pong" }
-  | { type: "room_available" };
+  | { type: "room_available" }
+  | { type: "host_token"; token: string };
 
 export interface RoomSnapshot {
   roomId: string;
@@ -86,6 +91,7 @@ export interface RoomSnapshot {
     nickname: string;
     colorIndex: number;
     connected: boolean;
+    waiting?: boolean;
   }>;
   selectedGameId: GameId | null;
   activeGameId: GameId | null;
@@ -100,26 +106,4 @@ export interface RoomSnapshot {
   sessionPlaylist: GameId[];
   sessionPlaylistIndex: number;
   sessionActive: boolean;
-}
-
-export interface HostViewSnapshot {
-  gameId: GameId;
-  phase: string;
-  round: number;
-  maxRounds: number;
-  timerEndsAt: number | null;
-  timerTotalMs?: number | null;
-  hostControls: HostControls;
-  data: Record<string, unknown>;
-}
-
-export interface PlayerViewSnapshot {
-  gameId: GameId;
-  phase: string;
-  round: number;
-  maxRounds: number;
-  timerEndsAt: number | null;
-  timerTotalMs?: number | null;
-  data: Record<string, unknown>;
-  playerData: Record<string, unknown>;
 }

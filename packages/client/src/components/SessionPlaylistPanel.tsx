@@ -3,6 +3,35 @@ import { useEffect, useState } from "react";
 
 const STORAGE_KEY = "party-games-playlist-open";
 
+const FAMILY_PRESET: GameId[] = [
+  "quick-quiz",
+  "timeline",
+  "draw-guess",
+  "four-in-a-row",
+  "fleet-duel",
+  "hangman-race",
+  "word-rush",
+  "trail-dash",
+];
+const MATURE_PRESET: GameId[] = [
+  "would-you-rather",
+  "hot-seat",
+  "split-the-room",
+  "star-rate",
+  "crowd-call",
+  "caption-this",
+  "wit-showdown",
+];
+const MIX_PRESET: GameId[] = [
+  "quick-quiz",
+  "would-you-rather",
+  "draw-guess",
+  "caption-this",
+  "four-in-a-row",
+  "hot-seat",
+  "hangman-race",
+];
+
 function loadOpen(): boolean | null {
   try {
     const raw = sessionStorage.getItem(STORAGE_KEY);
@@ -114,6 +143,35 @@ export function SessionPlaylistPanel({
       >
         <div className="overflow-hidden">
           <div className="space-y-4 px-4 pb-4">
+            <div className="flex flex-wrap gap-2">
+              <button
+                type="button"
+                disabled={disabled}
+                data-testid="playlist-preset-family"
+                onClick={() => onChange(FAMILY_PRESET.filter((id) => games.some((g) => g.id === id)))}
+                className="rounded-lg bg-emerald-900/60 px-3 py-1.5 text-sm font-medium text-emerald-100 hover:bg-emerald-800 disabled:opacity-40"
+              >
+                Family night
+              </button>
+              <button
+                type="button"
+                disabled={disabled}
+                data-testid="playlist-preset-mature"
+                onClick={() => onChange(MATURE_PRESET.filter((id) => games.some((g) => g.id === id)))}
+                className="rounded-lg bg-rose-900/60 px-3 py-1.5 text-sm font-medium text-rose-100 hover:bg-rose-800 disabled:opacity-40"
+              >
+                18+
+              </button>
+              <button
+                type="button"
+                disabled={disabled}
+                data-testid="playlist-preset-mix"
+                onClick={() => onChange(MIX_PRESET.filter((id) => games.some((g) => g.id === id)))}
+                className="rounded-lg bg-violet-900/60 px-3 py-1.5 text-sm font-medium text-violet-100 hover:bg-violet-800 disabled:opacity-40"
+              >
+                Mix
+              </button>
+            </div>
             <div className="flex flex-wrap gap-2 max-h-40 overflow-y-auto">
               {games.map((g) => {
                 const selected = playlist.includes(g.id);

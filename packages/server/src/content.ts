@@ -4,6 +4,7 @@ import spectrumJson from "../../shared/content/prompts/spectrum.json";
 import crowdCallJson from "../../shared/content/prompts/crowd-call.json";
 import reverseFactJson from "../../shared/content/prompts/reverse-fact.json";
 import witShowdownJson from "../../shared/content/prompts/wit-showdown.json";
+import captionJson from "../../shared/content/prompts/caption.json";
 import hotSeatJson from "../../shared/content/prompts/hot-seat.json";
 import quizJson from "../../shared/content/trivia/quiz.json";
 import timelineJson from "../../shared/content/trivia/timeline.json";
@@ -34,12 +35,13 @@ export const content = {
   reverseFact: reverseFactJson as FactCheckEntry[],
   witShowdown: witShowdownJson as PromptEntry[],
   hotSeat: hotSeatJson as PromptEntry[],
+  caption: captionJson as PromptEntry[],
   quiz: quizJson as QuizEntry[],
   timeline: timelineJson as TimelineEntry[],
   wouldYouRather: wouldYouRatherJson as WouldYouRatherEntry[],
   drawWords: drawWordsJson as WordEntry[],
   charadesWords: [...(charadesWordsJson as WordEntry[]), ...(charadesMatureExtraJson as WordEntry[])],
-  friendSortRoles: friendSortRolesJson as string[],
+  friendSortRoles: friendSortRolesJson as CategoryEntry[],
   bracketCategories: bracketCategoriesJson as CategoryEntry[],
   splitRoom: splitRoomJson as Array<{ text: string; labelA: string; labelB: string }>,
   spectrum: spectrumJson as Array<{ left: string; right: string }>,

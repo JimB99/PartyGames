@@ -1,5 +1,7 @@
 import {
+  TIMER_PRESETS,
   applyHangmanLetter,
+  beginTimedPhase,
   createHangmanPlayerState,
   hangmanLost,
   hangmanMask,
@@ -38,15 +40,14 @@ export interface HangmanRaceState {
   gameOptions?: import("@party-games/shared").GameOptions;
 }
 
-const INSTRUCTIONS_MS = 5000;
-const PLAY_MS = 45_000;
-const REVEAL_MS = 5000;
-const SCOREBOARD_MS = 4000;
+const INSTRUCTIONS_MS = TIMER_PRESETS.standard.instruction;
+const PLAY_MS = TIMER_PRESETS.standard.answer;
+const REVEAL_MS = TIMER_PRESETS.standard.reveal;
+const SCOREBOARD_MS = TIMER_PRESETS.standard.roundBreak;
 
-function setPhaseTimer(state: HangmanRaceState, durationMs: number): void {
+function setPhaseTimer(state: HangmanRaceState, phase: HangmanRacePhase, durationMs: number): void {
+  Object.assign(state, beginTimedPhase(state, phase, Date.now(), durationMs));
   state.phaseStartedAt = Date.now();
-  state.timerTotalMs = durationMs;
-  state.timerEndsAt = state.phaseStartedAt + durationMs;
 }
 
 function pickWord(state: HangmanRaceState): string {
@@ -89,7 +90,7 @@ export function createHangmanRaceState(
     playerIds,
     gameOptions,
   };
-  setPhaseTimer(state, INSTRUCTIONS_MS);
+  setPhaseTimer(state, "instructions", INSTRUCTIONS_MS);
   return state;
 }
 
@@ -132,19 +133,16 @@ function scoreRound(state: HangmanRaceState): void {
 
 function advanceHangman(state: HangmanRaceState): HangmanRaceState {
   if (state.phase === "instructions") {
-    state.phase = "playing";
-    setPhaseTimer(state, PLAY_MS);
+    setPhaseTimer(state, "playing", PLAY_MS);
     return state;
   }
   if (state.phase === "playing") {
     scoreRound(state);
-    state.phase = "reveal";
-    setPhaseTimer(state, REVEAL_MS);
+    setPhaseTimer(state, "reveal", REVEAL_MS);
     return state;
   }
   if (state.phase === "reveal") {
-    state.phase = "scoreboard";
-    setPhaseTimer(state, SCOREBOARD_MS);
+    setPhaseTimer(state, "scoreboard", SCOREBOARD_MS);
     return state;
   }
   if (state.phase === "scoreboard") {
@@ -167,8 +165,7 @@ function advanceHangman(state: HangmanRaceState): HangmanRaceState {
         solvedAt: s.solvedAt,
       };
     }
-    state.phase = "instructions";
-    setPhaseTimer(state, INSTRUCTIONS_MS);
+    setPhaseTimer(state, "instructions", INSTRUCTIONS_MS);
     return state;
   }
   return state;
@@ -214,15 +211,21 @@ export function onHangmanRaceTick(state: HangmanRaceState): HangmanRaceState {
 
 export function hangmanRaceHostView(state: HangmanRaceState) {
   const showWord = state.phase === "reveal" || state.phase === "scoreboard" || state.phase === "ended";
-  const leaderboard = state.playerIds.map((id) => {
-    const p = state.players[id];
-    return {
-      playerId: id,
-      solved: p?.solved ?? false,
-      strikes: p?.strikes ?? 0,
-      mask: p ? hangmanMask(state.word, new Set(p.guessed)) : "",
-    };
-  });
+  const leaderboard = state.playerIds
+    .map((id) => {
+      const p = state.players[id];
+      const mask = p ? hangmanMask(state.word, new Set(p.guessed)) : "";
+      const revealed = [...mask].filter((ch) => ch !== "_" && ch !== " ").length;
+      return {
+        playerId: id,
+        solved: p?.solved ?? false,
+        strikes: p?.strikes ?? 0,
+        mask,
+        progress: p?.solved ? 1000 : revealed * 10 - (p?.strikes ?? 0),
+      };
+    })
+    .sort((a, b) => b.progress - a.progress || a.strikes - b.strikes);
+  const spotlightPlayerId = state.phase === "playing" || state.phase === "reveal" ? leaderboard[0]?.playerId : undefined;
   return {
     phase: state.phase,
     round: state.round,
@@ -232,6 +235,7 @@ export function hangmanRaceHostView(state: HangmanRaceState) {
     data: {
       word: showWord ? state.word : undefined,
       leaderboard,
+      spotlightPlayerId,
       roundScores: state.roundScores,
     },
   };

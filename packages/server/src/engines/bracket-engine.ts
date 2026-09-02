@@ -104,11 +104,22 @@ export function advanceBracket(state: BracketState): BracketState {
     state.phase = "vote";
     Object.assign(state, startPhaseTimer(VOTE_MS));
     state.votes = {};
+    skipResolvedMatches(state);
+    if (state.matchIndex >= state.bracket.length) {
+      const winners = state.bracket.map((m) => m.winner!).filter(Boolean);
+      if (winners.length === 1) {
+        state.championId = winners[0];
+        state.phase = "reveal";
+        Object.assign(state, startPhaseTimer(REVEAL_MS));
+        scoreChampion(state);
+      }
+    }
     return state;
   }
   if (state.phase === "vote") {
     resolveMatch(state);
     state.matchIndex += 1;
+    skipResolvedMatches(state);
     if (state.matchIndex >= state.bracket.length) {
       const winners = state.bracket.map((m) => m.winner!).filter(Boolean);
       if (winners.length === 1) {
@@ -137,16 +148,50 @@ export function advanceBracket(state: BracketState): BracketState {
   return state;
 }
 
+function skipResolvedMatches(state: BracketState): void {
+  while (state.matchIndex < state.bracket.length) {
+    const match = state.bracket[state.matchIndex];
+    if (!match) break;
+    const entryA = state.entries.find((e) => e.id === match.a);
+    const entryB = state.entries.find((e) => e.id === match.b);
+    if (entryA && !entryB?.authorId) {
+      match.winner = match.a;
+      state.matchIndex += 1;
+      continue;
+    }
+    if (entryB && !entryA?.authorId) {
+      match.winner = match.b;
+      state.matchIndex += 1;
+      continue;
+    }
+    break;
+  }
+}
+
 function resolveMatch(state: BracketState) {
   const match = state.bracket[state.matchIndex];
   if (!match) return;
+  const entryA = state.entries.find((e) => e.id === match.a);
+  const entryB = state.entries.find((e) => e.id === match.b);
+  if (entryA && !entryB?.authorId) {
+    match.winner = match.a;
+    return;
+  }
+  if (entryB && !entryA?.authorId) {
+    match.winner = match.b;
+    return;
+  }
   let votesA = 0;
   let votesB = 0;
-  for (const optionId of Object.values(state.votes)) {
+  for (const [voterId, optionId] of Object.entries(state.votes)) {
+    if (entryA?.authorId === voterId && optionId === match.a) continue;
+    if (entryB?.authorId === voterId && optionId === match.b) continue;
     if (optionId === match.a) votesA++;
     if (optionId === match.b) votesB++;
   }
-  match.winner = votesA >= votesB ? match.a : match.b;
+  if (votesA > votesB) match.winner = match.a;
+  else if (votesB > votesA) match.winner = match.b;
+  else match.winner = match.a < match.b ? match.a : match.b;
 }
 
 function scoreChampion(state: BracketState) {
@@ -171,6 +216,13 @@ export function onBracketAction(
     if (state.entries.length >= ctx.playerIds.length) return advanceBracket(state);
   }
   if (action.kind === "vote" && state.phase === "vote") {
+    const match = state.bracket[state.matchIndex];
+    if (!match) return state;
+    const entryA = state.entries.find((e) => e.id === match.a);
+    const entryB = state.entries.find((e) => e.id === match.b);
+    if (entryA?.authorId === playerId && action.optionId === match.a) return state;
+    if (entryB?.authorId === playerId && action.optionId === match.b) return state;
+    if (action.optionId !== match.a && action.optionId !== match.b) return state;
     state.votes[playerId] = action.optionId;
     if (Object.keys(state.votes).length >= ctx.playerIds.length) return advanceBracket(state);
   }

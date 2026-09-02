@@ -92,7 +92,7 @@ export function GamePicker({
   actionSlot,
 }: {
   games: GameMeta[];
-  selectedId: GameId | null;
+  selectedId: GameId | null | undefined;
   playerCount: number;
   gameOptionsByGame?: Partial<Record<GameId, GameOptions>>;
   onSelect: (id: GameId) => void;
@@ -113,21 +113,12 @@ export function GamePicker({
   const [openState, setOpenState] = useState<Record<string, boolean>>(() => {
     const saved = loadOpenState();
     const initial: Record<string, boolean> = {};
-    let opened = 0;
     for (const cat of GAME_CATEGORIES) {
       const hasSelected = selectedId
         ? gamesByCategory.get(cat.id)?.some((g) => g.id === selectedId)
         : false;
-      if (saved[cat.id] !== undefined) {
-        initial[cat.id] = saved[cat.id];
-      } else if (hasSelected) {
-        initial[cat.id] = true;
-      } else if (opened < 2 && (gamesByCategory.get(cat.id)?.length ?? 0) > 0) {
-        initial[cat.id] = true;
-        opened++;
-      } else {
-        initial[cat.id] = false;
-      }
+      initial[cat.id] = saved[cat.id] !== undefined ? saved[cat.id] : true;
+      if (hasSelected) initial[cat.id] = true;
     }
     return initial;
   });
@@ -176,10 +167,10 @@ export function GamePicker({
                     onSelect={onSelect}
                   />
                   {selectedId === game.id && optionsSlot && (
-                    <div className="sm:col-span-2 space-y-3 xl:hidden">{optionsSlot(game.id)}</div>
+                    <div className="sm:col-span-2 space-y-3">{optionsSlot(game.id)}</div>
                   )}
                   {selectedId === game.id && actionSlot && (
-                    <div className="sm:col-span-2 xl:hidden">{actionSlot(game.id)}</div>
+                    <div className="sm:col-span-2">{actionSlot(game.id)}</div>
                   )}
                 </Fragment>
               ))}

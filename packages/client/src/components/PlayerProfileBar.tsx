@@ -1,7 +1,7 @@
 import type { RoomSnapshot } from "@party-games/shared";
 import { useEffect, useState } from "react";
 import { ColorPicker, storeColorIndex } from "./ColorPicker";
-import { playerColor } from "../hooks/usePartyRoom";
+import { PlayerColorSwatch } from "./PlayerColorSwatch";
 
 export function PlayerProfileBar({
   roomId,
@@ -51,10 +51,7 @@ export function PlayerProfileBar({
         className="flex items-center gap-2 rounded-lg px-2 py-1 hover:bg-zinc-800 transition"
         title="Edit profile"
       >
-        <span
-          className="h-3 w-3 shrink-0 rounded-full"
-          style={{ backgroundColor: playerColor(me.colorIndex) }}
-        />
+        <PlayerColorSwatch index={me.colorIndex} />
         <span className="font-bold">{me.nickname}</span>
         <span className="text-xs text-zinc-500">edit</span>
       </button>

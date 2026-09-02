@@ -57,9 +57,14 @@ function scoreSplit(state: SplitState, playerIds: string[]): void {
     const v = state.votes[pid];
     if (v) counts[v]++;
   }
-  const minority: "a" | "b" =
-    counts.a === counts.b ? (Math.random() < 0.5 ? "a" : "b") : counts.a < counts.b ? "a" : "b";
   state.roundScores = {};
+  if (counts.a === counts.b) {
+    for (const pid of playerIds) {
+      if (state.votes[pid]) state.roundScores[pid] = 500;
+    }
+    return;
+  }
+  const minority: "a" | "b" = counts.a < counts.b ? "a" : "b";
   for (const pid of playerIds) {
     if (state.votes[pid] === minority) state.roundScores[pid] = 1000;
   }

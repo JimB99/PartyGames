@@ -35,6 +35,7 @@ export interface BluffState {
   votes: Record<string, string>;
   voteTimes: Record<string, number>;
   votePhaseStartedAt: number | null;
+  discussUntil: number | null;
   roundScores: Record<string, number>;
   cumulativeScores: Record<string, number>;
   usedPrompts: number[];
@@ -48,6 +49,7 @@ const VOTE_MS = 30000;
 const REVEAL_MS = 8000;
 const SCOREBOARD_MS = 5000;
 const INSTRUCTIONS_MS = 5000;
+const DISCUSS_MS = 12000;
 
 function phaseTimer(ms: number) {
   const now = Date.now();
@@ -79,6 +81,7 @@ export function createBluffState(
     votes: {},
     voteTimes: {},
     votePhaseStartedAt: null,
+    discussUntil: null,
     roundScores: {},
     cumulativeScores: {},
     usedPrompts: [idx],
@@ -111,6 +114,7 @@ export function advanceBluff(state: BluffState, gameOptions?: GameOptions): Bluf
     buildOptions(state);
     state.phase = "vote";
     state.votePhaseStartedAt = Date.now();
+    state.discussUntil = Date.now() + DISCUSS_MS;
     Object.assign(state, phaseTimer(VOTE_MS));
     state.voteTimes = {};
     return state;
@@ -118,6 +122,7 @@ export function advanceBluff(state: BluffState, gameOptions?: GameOptions): Bluf
   if (state.phase === "vote") {
     scoreBluff(state, gameOptions);
     state.phase = "reveal";
+    state.discussUntil = null;
     Object.assign(state, phaseTimer(REVEAL_MS));
     return state;
   }
@@ -149,9 +154,13 @@ function buildOptions(state: BluffState) {
     { id: state.truthId, text: state.truthText.trim(), authorId: null, isTruth: true },
   ];
   for (const [playerId, text] of Object.entries(state.submissions)) {
-    if (text.trim()) {
-      options.push({ id: uniqueId(), text: text.trim(), authorId: playerId, isTruth: false });
-    }
+    const trimmed = text.trim();
+    if (!trimmed) continue;
+    const duplicate = options.some(
+      (o) => !o.isTruth && o.text.toLowerCase() === trimmed.toLowerCase(),
+    );
+    if (duplicate) continue;
+    options.push({ id: uniqueId(), text: trimmed, authorId: playerId, isTruth: false });
   }
 
   const minOptions = Math.min(6, Math.max(4, state.playerCount + 1));
@@ -252,6 +261,7 @@ export function onBluffAction(
     if (Object.keys(state.votes).length >= ctx.playerIds.length) {
       scoreBluff(state, ctx.gameOptions);
       state.phase = "reveal";
+      state.discussUntil = null;
       state.timerEndsAt = Date.now() + REVEAL_MS;
       state.votePhaseStartedAt = null;
       return state;
@@ -274,6 +284,7 @@ export function onBluffTick(state: BluffState, prompts?: Array<{ prompt?: string
 
 export function bluffHostView(state: BluffState) {
   const showReveal = state.phase === "reveal" || state.phase === "scoreboard";
+  const discussing = Boolean(state.discussUntil && Date.now() < state.discussUntil);
   return {
     phase: state.phase,
     round: state.round,
@@ -283,6 +294,7 @@ export function bluffHostView(state: BluffState) {
     data: {
       mode: state.mode,
       displayText: state.displayText,
+      discussing,
       options: state.phase === "vote" || showReveal
         ? state.options.map((o) => ({ id: o.id, text: o.text, isTruth: state.phase !== "vote" ? o.isTruth : undefined }))
         : undefined,
@@ -300,6 +312,7 @@ export function bluffPlayerView(state: BluffState, playerId: string) {
   const submitted = state.submissions[playerId] !== undefined;
   const voted = state.votes[playerId] !== undefined;
   const showReveal = state.phase === "reveal" || state.phase === "scoreboard";
+  const discussing = Boolean(state.discussUntil && Date.now() < state.discussUntil);
   return {
     phase: state.phase,
     round: state.round,
@@ -309,6 +322,7 @@ export function bluffPlayerView(state: BluffState, playerId: string) {
     data: {
       mode: state.mode,
       displayText: state.phase !== "instructions" ? state.displayText : undefined,
+      discussing,
       options: state.phase === "vote"
         ? state.options.map((o) => ({ id: o.id, text: o.text, authorId: o.authorId }))
         : undefined,
@@ -317,6 +331,7 @@ export function bluffPlayerView(state: BluffState, playerId: string) {
     playerData: {
       submitted,
       voted,
+      discussing,
       mySubmission: state.submissions[playerId],
       myVote: state.votes[playerId],
     },

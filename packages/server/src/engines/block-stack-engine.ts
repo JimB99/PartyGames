@@ -32,17 +32,22 @@ function advanceBlockStack(state: BlockStackState, playerIds: string[]): BlockSt
     return startBlockStackPlaying(state);
   }
   if (state.phase === "round_end") {
+    const cumulative = { ...state.cumulativeScores };
+    for (const [id, pts] of Object.entries(state.roundScores)) {
+      cumulative[id] = (cumulative[id] ?? 0) + pts;
+    }
     if (state.round >= state.maxRounds) {
       state.phase = "ended";
       state.timerEndsAt = null;
+      state.cumulativeScores = cumulative;
+      state.roundScores = cumulative;
       return state;
     }
     state.round += 1;
     const fresh = resetBlockStackRound(state, playerIds);
     fresh.round = state.round;
-    for (const p of fresh.players) {
-      /* spawn on first tick */
-    }
+    fresh.cumulativeScores = cumulative;
+    fresh.roundScores = cumulative;
     return fresh;
   }
   return state;

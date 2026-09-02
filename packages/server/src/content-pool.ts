@@ -8,7 +8,12 @@ import {
   type ImpostorCategory,
 } from "@party-games/shared";
 import { content } from "./content.js";
-import type { SplitScenario } from "../engines/split-room-engine.js";
+
+export interface SplitScenario {
+  text: string;
+  labelA: string;
+  labelB: string;
+}
 
 export function quizPool(options: GameOptions) {
   return filterContentPool(content.quiz, options);
@@ -38,6 +43,10 @@ export function hotSeatPool(options: GameOptions) {
   return filterPromptList(content.hotSeat, options);
 }
 
+export function captionPool(options: GameOptions) {
+  return filterPromptList(content.caption, options);
+}
+
 export function drawWordPool(options: GameOptions) {
   return filterWordList(content.drawWords, options);
 }
@@ -54,28 +63,35 @@ export function bracketCategoryPool(options: GameOptions) {
 }
 
 export function splitRoomPool(options: GameOptions): SplitScenario[] {
-  const family = content.splitRoom;
-  const mature: SplitScenario[] = [
-    { text: "Dating apps", labelA: "Found love there", labelB: "Never again" },
-    { text: "Office parties", labelA: "Free drinks!", labelB: "Mandatory fun" },
-    { text: "Talking politics at dinner", labelA: "Keep it spicy", labelB: "Hard pass" },
-    { text: "Sleeping in on weekends", labelA: "Sacred ritual", labelB: "Wasted daylight" },
-  ];
-  return options.contentRating === "mature" ? mature : family;
+  return filterContentPool(
+    content.splitRoom as Array<SplitScenario & { rating?: "family" | "mature" }>,
+    options,
+  );
 }
 
-export function spectrumPool(_options: GameOptions) {
-  return content.spectrum;
+export function spectrumPool(options: GameOptions) {
+  return filterContentPool(content.spectrum as Array<{ left: string; right: string; rating?: "family" | "mature" }>, options);
 }
 
-export function crowdCallPool(_options: GameOptions) {
-  return content.crowdCall;
+export function crowdCallPool(options: GameOptions) {
+  return filterContentPool(
+    content.crowdCall as Array<{ text: string; choices: string[]; rating?: "family" | "mature" }>,
+    options,
+  );
 }
 
 export function impostorPool(options: GameOptions): ImpostorCategory[] {
+  const packs =
+    options.contentRating === "mature"
+      ? content.impostor
+      : content.impostor.filter((c) => (c.rating ?? "family") !== "mature");
   const cat = options.impostorCategory ?? "all";
-  if (cat === "all" || cat === "random") return content.impostor;
-  return content.impostor.filter((c) => c.id === cat);
+  if (cat === "all" || cat === "random") return packs;
+  return packs.filter((c) => c.id === cat);
+}
+
+export function friendSortPool(options: GameOptions): string[] {
+  return filterCategoryList(content.friendSortRoles, options);
 }
 
 export function forbiddenCluePool(options: GameOptions) {

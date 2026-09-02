@@ -31,4 +31,27 @@ describe("word-rush-engine", () => {
     state = advanceWordRush(state);
     assert.equal(state.phase, "playing");
   });
+
+  it("generates varied vowel sets across rounds", () => {
+    const vowelSets = new Set<string>();
+    for (let i = 0; i < 25; i++) {
+      const state = createWordRushState();
+      vowelSets.add(
+        state.letters
+          .filter((l) => "AEIOU".includes(l))
+          .sort()
+          .join(""),
+      );
+    }
+    assert.ok(vowelSets.size > 1);
+  });
+
+  it("rejects words when dictionary is empty", () => {
+    const state = createWordRushState(1, new Set(), 3, 2);
+    state.letters = ["C", "A", "T", "S", "E", "R", "N"];
+    state.phase = "playing";
+    state.submissions = { p1: "cat" };
+    scoreWordRush(state);
+    assert.equal(state.validWords.p1, false);
+  });
 });

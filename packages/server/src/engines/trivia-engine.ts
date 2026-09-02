@@ -1,5 +1,7 @@
 import {
   DEFAULT_GAME_OPTIONS,
+  TIMER_PRESETS,
+  beginTimedPhase,
   isSpeedScoringEnabled,
   pickRandom,
   resolveQuestionDisplay,
@@ -44,11 +46,14 @@ export interface TriviaState {
   itemsPool: unknown[];
   gameOptions?: GameOptions;
   playerCount: number;
+  discussUntil?: number | null;
 }
 
-const QUESTION_MS = 25000;
-const REVEAL_MS = 6000;
-const SCOREBOARD_MS = 4000;
+const QUESTION_MS = TIMER_PRESETS.quick.answer;
+const WYR_QUESTION_MS = TIMER_PRESETS.standard.answer;
+const DISCUSS_MS = TIMER_PRESETS.standard.vote / 2;
+const REVEAL_MS = TIMER_PRESETS.quick.reveal;
+const SCOREBOARD_MS = TIMER_PRESETS.standard.roundBreak;
 
 function buildTriviaPlayerAnswers(state: TriviaState): PlayerAnswerReveal[] {
   return Object.entries(state.answers).map(([playerId, answer]) => {
@@ -91,8 +96,8 @@ export function createTriviaState(
     phase: "instructions",
     round: 1,
     maxRounds,
-    timerEndsAt: Date.now() + 5000,
-    timerTotalMs: 5000,
+    timerEndsAt: Date.now() + TIMER_PRESETS.standard.instruction,
+    timerTotalMs: TIMER_PRESETS.standard.instruction,
     phaseStartedAt: null,
     mode,
     answers: {},
@@ -132,15 +137,20 @@ function loadTriviaItem(state: TriviaState, items: unknown[], first = false) {
   }
 }
 
+function beginQuestion(state: TriviaState): void {
+  const now = Date.now();
+  const duration = state.mode === "would-you-rather" ? WYR_QUESTION_MS : QUESTION_MS;
+  Object.assign(state, beginTimedPhase(state, "question", now, duration));
+  state.phaseStartedAt = now;
+  state.discussUntil = state.mode === "would-you-rather" ? now + DISCUSS_MS : null;
+  state.answers = {};
+  state.answerTimes = {};
+  state.rankPlaces = {};
+}
+
 export function advanceTrivia(state: TriviaState, items: unknown[], gameOptions?: GameOptions): TriviaState {
   if (state.phase === "instructions") {
-    state.phase = "question";
-    state.phaseStartedAt = Date.now();
-    state.timerTotalMs = QUESTION_MS;
-    state.timerEndsAt = state.phaseStartedAt + QUESTION_MS;
-    state.answers = {};
-    state.answerTimes = {};
-    state.rankPlaces = {};
+    beginQuestion(state);
     return state;
   }
   if (state.phase === "question") {
@@ -165,13 +175,7 @@ export function advanceTrivia(state: TriviaState, items: unknown[], gameOptions?
     }
     state.round += 1;
     loadTriviaItem(state, items);
-    state.phase = "question";
-    state.phaseStartedAt = Date.now();
-    state.timerTotalMs = QUESTION_MS;
-    state.timerEndsAt = state.phaseStartedAt + QUESTION_MS;
-    state.answers = {};
-    state.answerTimes = {};
-    state.rankPlaces = {};
+    beginQuestion(state);
     return state;
   }
   return state;
@@ -270,6 +274,41 @@ function scoreTrivia(state: TriviaState, gameOptions?: GameOptions) {
     for (const [playerId, pts] of Object.entries(roundDelta)) {
       state.cumulativeScores[playerId] = (state.cumulativeScores[playerId] ?? 0) + pts;
     }
+    return;
+  }
+
+  if (state.mode === "would-you-rather") {
+    const PARTICIPATION = 200;
+    const TIE_BONUS = 400;
+    const MAJORITY_BONUS = 800;
+
+    for (const [playerId, answer] of Object.entries(state.answers)) {
+      let othersA = 0;
+      let othersB = 0;
+      for (const [otherId, otherAnswer] of Object.entries(state.answers)) {
+        if (otherId === playerId) continue;
+        if (otherAnswer === "a" || otherAnswer === 0) othersA++;
+        if (otherAnswer === "b" || otherAnswer === 1) othersB++;
+      }
+      const othersTied = othersA === othersB;
+      const othersMajorityA = othersA > othersB;
+      const pickedA = answer === "a" || answer === 0;
+      const pickedB = answer === "b" || answer === 1;
+
+      let pts = PARTICIPATION;
+      if (othersTied) {
+        pts += TIE_BONUS;
+      } else if ((othersMajorityA && pickedA) || (!othersMajorityA && pickedB)) {
+        pts += MAJORITY_BONUS;
+      }
+      roundDelta[playerId] = pts;
+      state.results![playerId] = pts;
+    }
+    state.roundScores = roundDelta;
+    state.lastRoundScores = { ...roundDelta };
+    for (const [playerId, pts] of Object.entries(roundDelta)) {
+      state.cumulativeScores[playerId] = (state.cumulativeScores[playerId] ?? 0) + pts;
+    }
   }
 }
 
@@ -325,7 +364,8 @@ export function triviaHostView(state: TriviaState, gameOptions?: GameOptions) {
   const promptOnly = resolveQuestionDisplay(gameOptions ?? { contentRating: "family", difficulty: "mixed" }) === "tv_prompt_only";
   const inQuestion = state.phase === "question";
   const hideChoicesOnTv = promptOnly && inQuestion && state.mode === "quiz";
-  const hideWyrOnTv = promptOnly && inQuestion && state.mode === "would-you-rather";
+  const discussing = Boolean(state.discussUntil && Date.now() < state.discussUntil);
+  const hideWyrOnTv = promptOnly && inQuestion && state.mode === "would-you-rather" && !discussing;
   const voteTotal = Object.keys(state.answers).length;
 
   return {
@@ -362,6 +402,7 @@ export function triviaHostView(state: TriviaState, gameOptions?: GameOptions) {
             : undefined,
       answerCount: voteTotal,
       playerCount: state.playerCount,
+      discussing,
       roundScores: state.roundScores,
       cumulativeScores: state.cumulativeScores,
       lastRoundScores: state.lastRoundScores,
@@ -405,6 +446,7 @@ export function triviaPlayerView(state: TriviaState, playerId: string) {
     playerData: {
       answered: state.answers[playerId] !== undefined,
       myAnswer: state.answers[playerId],
+      discussing: Boolean(state.discussUntil && Date.now() < state.discussUntil),
     },
   };
 }

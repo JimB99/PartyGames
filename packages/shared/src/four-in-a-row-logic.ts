@@ -1,14 +1,19 @@
+import {
+  activeBracketPlayers,
+  advanceBracketWinners,
+  buildSingleEliminationBracket,
+  bracketMatchCount,
+  nextPlayableMatchIndex,
+  type ElimBracketMatch,
+} from "./bracket-utils.js";
+
 export type CfCell = null | "x" | "o";
 export type FourInARowPhase = "instructions" | "playing" | "match_end" | "round_end" | "ended";
 
 export const CF_COLS = 7;
 export const CF_ROWS = 6;
 
-export interface CfBracketMatch {
-  a: string | null;
-  b: string | null;
-  winner: string | null;
-}
+export interface CfBracketMatch extends ElimBracketMatch {}
 
 export interface FourInARowState {
   phase: FourInARowPhase;
@@ -25,6 +30,7 @@ export interface FourInARowState {
   winnerId: string | null;
   roundScores: Record<string, number>;
   winningCells: Array<{ row: number; col: number }> | null;
+  drawReplayCount: number;
 }
 
 function emptyGrid(): CfCell[][] {
@@ -32,24 +38,11 @@ function emptyGrid(): CfCell[][] {
 }
 
 export function buildCfBracket(playerIds: string[]): CfBracketMatch[] {
-  const ids: (string | null)[] = [...playerIds];
-  while (ids.length & (ids.length - 1)) ids.push(null);
-  const matches: CfBracketMatch[] = [];
-  for (let i = 0; i < ids.length; i += 2) {
-    const a = ids[i];
-    const b = ids[i + 1];
-    if (!a && b) matches.push({ a: b, b: null, winner: b });
-    else if (a && !b) matches.push({ a, b: null, winner: a });
-    else matches.push({ a, b, winner: null });
-  }
-  return matches;
+  return buildSingleEliminationBracket(playerIds);
 }
 
 export function cfBracketMatchCount(playerIds: string[]): number {
-  if (playerIds.length <= 2) return 1;
-  let n = 1;
-  while (n < playerIds.length) n *= 2;
-  return n - 1;
+  return bracketMatchCount(playerIds);
 }
 
 export function createFourInARowState(playerIds: string[]): FourInARowState {
@@ -65,10 +58,11 @@ export function createFourInARowState(playerIds: string[]): FourInARowState {
     currentPlayerIndex: 0,
     championId: null,
     bracket: multi ? buildCfBracket(playerIds) : [],
-    matchIndex: 0,
+    matchIndex: multi ? (nextPlayableMatchIndex(buildCfBracket(playerIds), 0) ?? 0) : 0,
     winnerId: null,
     roundScores: {},
     winningCells: null,
+    drawReplayCount: 0,
   };
 }
 
@@ -83,10 +77,10 @@ export function activePlayers(state: FourInARowState): [string, string] | null {
   if (state.playerIds.length === 2) {
     return [state.playerIds[0], state.playerIds[1]];
   }
-  const match = currentCfMatch(state);
-  if (match?.a && match?.b) return [match.a, match.b];
-  return null;
+  return activeBracketPlayers(currentCfMatch(state));
 }
+
+export { nextPlayableMatchIndex };
 
 export function currentTurnPlayer(state: FourInARowState): string | null {
   const pair = activePlayers(state);
@@ -151,37 +145,27 @@ export function resetBoard(state: FourInARowState): void {
 }
 
 export function advanceCfBracket(state: FourInARowState): FourInARowState {
-  const winners: (string | null)[] = state.bracket.map((m) => m.winner);
-  if (winners.length === 1) {
-    state.championId = winners[0];
-    state.winnerId = winners[0];
+  const nextBracket = advanceBracketWinners(state.bracket);
+  if (nextBracket.length === 1 && nextBracket[0].winner) {
+    state.championId = nextBracket[0].winner;
+    state.winnerId = nextBracket[0].winner;
     state.phase = "ended";
     state.timerEndsAt = null;
     state.timerTotalMs = null;
     state.roundScores = computeCfRoundScores(state);
     return state;
   }
-  const nextMatches: CfBracketMatch[] = [];
-  for (let i = 0; i < winners.length; i += 2) {
-    const a = winners[i];
-    const b = winners[i + 1] ?? null;
-    if (!a && b) nextMatches.push({ a: b, b: null, winner: b });
-    else if (a && !b) nextMatches.push({ a, b: null, winner: a });
-    else nextMatches.push({ a, b, winner: null });
-  }
-  state.bracket = nextMatches;
-  state.matchIndex = 0;
+  state.bracket = nextBracket;
+  state.matchIndex = nextPlayableMatchIndex(nextBracket, 0) ?? 0;
   state.phase = "playing";
   state.timerEndsAt = null;
   state.timerTotalMs = null;
+  state.drawReplayCount = 0;
   return state;
 }
 
 export function computeCfRoundScores(state: FourInARowState): Record<string, number> {
-  const scores: Record<string, number> = Object.fromEntries(state.playerIds.map((id) => [id, 0]));
+  const scores: Record<string, number> = Object.fromEntries(state.playerIds.map((id) => [id, 200]));
   if (state.winnerId) scores[state.winnerId] = 1000;
-  for (const id of state.playerIds) {
-    if (!scores[id]) scores[id] = 200;
-  }
   return scores;
 }

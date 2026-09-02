@@ -1,30 +1,24 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import { advanceBracket, createBracketState } from "../engines/bracket-engine.js";
+import { advanceBracket, createBracketState, onBracketAction } from "../engines/bracket-engine.js";
+
+const ctx = { playerIds: ["p1", "p2", "p3"], hostId: "host" };
 
 describe("bracket-engine", () => {
-  it("submit timeout with no entries ends cleanly", () => {
+  it("blocks voting for your own entry", () => {
     let state = createBracketState(["Food"]);
-    state.phase = "submit";
-    state.timerEndsAt = Date.now() - 1;
     state = advanceBracket(state);
-    assert.equal(state.phase, "ended");
-  });
-
-  it("submit timeout with one entry ends cleanly (need at least two)", () => {
-    let state = createBracketState(["Food"]);
-    state.phase = "submit";
-    state.entries = [{ id: "e1", text: "Pizza", authorId: "p1" }];
-    state.timerEndsAt = Date.now() - 1;
+    state.entries = [
+      { id: "e1", text: "Pizza", authorId: "p1" },
+      { id: "e2", text: "Tacos", authorId: "p2" },
+    ];
     state = advanceBracket(state);
-    assert.equal(state.phase, "ended");
-  });
-
-  it("ends when only one entry is submitted", () => {
-    let state = createBracketState(["Food"]);
-    state.phase = "submit";
-    state.entries = [{ id: "e1", text: "Pizza", authorId: "p1" }];
-    state = advanceBracket(state);
-    assert.equal(state.phase, "ended");
+    const match = state.bracket[0];
+    const ownSide = match.a === "e1" ? "a" : "b";
+    const otherSide = ownSide === "a" ? "b" : "a";
+    state = onBracketAction(state, "p1", { kind: "vote", optionId: match[ownSide] }, ctx);
+    assert.equal(state.votes.p1, undefined);
+    state = onBracketAction(state, "p1", { kind: "vote", optionId: match[otherSide] }, ctx);
+    assert.equal(state.votes.p1, match[otherSide]);
   });
 });

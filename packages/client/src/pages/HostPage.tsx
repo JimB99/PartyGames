@@ -13,8 +13,10 @@ import { SelectedGamePanel, StartGameButton } from "../components/SelectedGamePa
 import { generateRoomCode, usePartyRoom } from "../hooks/usePartyRoom";
 import { SessionPlaylistPanel } from "../components/SessionPlaylistPanel";
 import { useParams } from "react-router-dom";
+import { useState } from "react";
 import type { GameId } from "@party-games/shared";
 import { resolveTrailDashOptions } from "@party-games/shared";
+import { ConnectionBanner } from "../components/game/GameShell";
 
 export function HostPage() {
   const { roomId: paramRoomId } = useParams();
@@ -40,10 +42,13 @@ export function HostPage() {
     clearSessionPlaylist,
   } = usePartyRoom({ roomId, role: "host", enabled: true });
 
-  const selectedGame = roomState?.games.find((g) => g.id === roomState.selectedGameId);
+  const [pendingSelect, setPendingSelect] = useState<GameId | null>(null);
+
+  const selectedGameId = roomState?.selectedGameId ?? pendingSelect;
+  const selectedGame = roomState?.games.find((g) => g.id === selectedGameId);
   const selectedOptions =
-    roomState?.selectedGameId
-      ? resolveGameOptions(roomState.selectedGameId, roomState.gameOptionsByGame)
+    selectedGameId
+      ? resolveGameOptions(selectedGameId, roomState?.gameOptionsByGame ?? {})
       : null;
 
   const playing = roomState?.phase === "playing";
@@ -51,22 +56,24 @@ export function HostPage() {
   const trailDashOpts =
     selectedOptions ? resolveTrailDashOptions(selectedOptions) : null;
   const needsMoreForTrailDash =
-    roomState?.selectedGameId === "trail-dash" &&
+    selectedGameId === "trail-dash" &&
     connectedPlayers.length > 0 &&
     connectedPlayers.length + (trailDashOpts?.botCount ?? 0) < 2;
 
-  const canStart =
-    roomState?.selectedGameId &&
-    connectedPlayers.length > 0 &&
-    (roomState.selectedGameId === "trail-dash"
-      ? effectivePlayerCount(
-          roomState.games.find((g) => g.id === "trail-dash")!,
-          connectedPlayers.length,
-          roomState.gameOptionsByGame,
-        ) >= 2
-      : connectedPlayers.length >= (selectedGame?.minPlayers ?? 1));
+  const canStart = Boolean(
+    selectedGameId &&
+      connectedPlayers.length > 0 &&
+      (selectedGameId === "trail-dash"
+        ? effectivePlayerCount(
+            roomState?.games.find((g) => g.id === "trail-dash")!,
+            connectedPlayers.length,
+            roomState?.gameOptionsByGame,
+          ) >= 2
+        : connectedPlayers.length >= (selectedGame?.minPlayers ?? 1)),
+  );
 
   const handleSelectGame = (gameId: GameId) => {
+    setPendingSelect(gameId);
     selectGame(gameId);
     if (gameId === "trail-dash" && connectedPlayers.length === 1 && roomState) {
       const opts = resolveGameOptions("trail-dash", roomState.gameOptionsByGame);
@@ -93,8 +100,8 @@ export function HostPage() {
         game={selectedGame}
         options={selectedOptions}
         onChange={(options) => {
-          if (roomState?.selectedGameId) {
-            setGameOptions(roomState.selectedGameId, options);
+          if (selectedGameId) {
+            setGameOptions(selectedGameId, options);
           }
         }}
       />
@@ -107,7 +114,7 @@ export function HostPage() {
   ) : null;
 
   const optionsSlot = (gameId: GameId) => {
-    if (!roomState || gameId !== roomState.selectedGameId || !selectedGame || !selectedOptions) {
+    if (!roomState || gameId !== selectedGameId || !selectedGame || !selectedOptions) {
       return null;
     }
     return (
@@ -132,7 +139,7 @@ export function HostPage() {
       : undefined;
 
   const actionSlot = (gameId: GameId) => {
-    if (!roomState || gameId !== roomState.selectedGameId) return null;
+    if (gameId !== selectedGameId) return null;
     return <StartGameButton canStart={Boolean(canStart)} onStart={startGame} hint={startHint} />;
   };
 
@@ -176,12 +183,10 @@ export function HostPage() {
       )}
 
       {!connected && playing && (
-        <p className="bg-amber-900/50 px-6 py-2 text-center text-sm text-amber-200">
-          Connection lost — reconnecting. Game state is preserved.
-        </p>
+        <ConnectionBanner message="Connection lost — reconnecting. Game state is preserved." />
       )}
 
-      {error && <p className="bg-red-900/40 px-6 py-2 text-red-300">{error}</p>}
+      {error && <ConnectionBanner message={error} />}
 
       {!playing && roomState && (
         <div className="mx-auto grid max-w-7xl gap-8 p-6 lg:grid-cols-[1fr_2fr] xl:grid-cols-[1fr_2fr_minmax(280px,1fr)]">
@@ -196,7 +201,7 @@ export function HostPage() {
             <h2 className="text-2xl font-bold">Pick a game</h2>
             <GamePicker
               games={roomState.games}
-              selectedId={roomState.selectedGameId}
+              selectedId={selectedGameId}
               playerCount={connectedPlayers.length}
               gameOptionsByGame={roomState.gameOptionsByGame}
               onSelect={handleSelectGame}

@@ -3490,5 +3490,923 @@
     "truth": "I'll never live down the time I had sex in two different countries in one day",
     "rating": "mature",
     "difficulty": "medium"
+  },
+  {
+    "prompt": "The world's worst superpower would be...",
+    "truth": "Existential dread (1)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "A terrible name for a pet would be...",
+    "truth": "moist congress and chaos and nutmeg vol. 2",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing to hear your gym teacher say is...",
+    "truth": "aggressive politeness, but make it weaponized nostalgia vol. 2",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "A new law requires you to ___ before driving a car",
+    "truth": "a conspiracy of ducks with extra tax-deductible crying",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The secret ingredient in grandma's cookies is...",
+    "truth": "Unlicensed dolphins",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The title of the worst self-help book ever is...",
+    "truth": "emotional baggage and competitive sighing",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst possible wedding toast would start with...",
+    "truth": "a raccoon with opinions, but make it a haunted spreadsheet",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "A rejected Olympic sport would be...",
+    "truth": "a limp handshake from fate with extra mildly haunted yogurt",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The real reason dinosaurs went extinct is...",
+    "truth": "Competitive sighing (2)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The worst thing to find in your burrito is...",
+    "truth": "regret with almonds and a raccoon with opinions",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A horrible theme for a children's birthday party is...",
+    "truth": "chaos and nutmeg, but make it suspiciously warm milk",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The worst notification to get at 3 AM is...",
+    "truth": "main-character syndrome with extra passive-aggressive jazz",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "An awful name for a coffee shop would be...",
+    "truth": "A TED talk about nothing vol. 2",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The least helpful GPS direction ever is...",
+    "truth": "suspiciously warm milk and unlicensed dolphins vol. 2",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A terrible superhero weakness would be...",
+    "truth": "vibes only parking, but make it passive-aggressive jazz vol. 2",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "A rejected candy bar flavor would be...",
+    "truth": "a goose in HR with extra a haunted spreadsheet",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst advice a fortune cookie could give is...",
+    "truth": "Aggressive small talk (3)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "An inappropriate thing to bring to a potluck is...",
+    "truth": "weaponized nostalgia and aggressive politeness",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst possible airline announcement is...",
+    "truth": "a goose in HR, but make it regret with almonds",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "A banned baby name in my country would be...",
+    "truth": "aggressive small talk with extra unresolved backstory",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing to yell in a library is...",
+    "truth": "Main-character syndrome",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "A terrible slogan for a dentist would be...",
+    "truth": "beefy disappointment and existential dread",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The most useless college major would be...",
+    "truth": "a limp handshake from fate, but make it mildly haunted yogurt",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "A horrible perfume scent would be called...",
+    "truth": "vibes only parking with extra feral politeness",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing to step on barefoot is...",
+    "truth": "A conspiracy of ducks (4)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "A rejected Pixar movie plot is...",
+    "truth": "premium awkwardness and aggressive neutrality vol. 2",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst prize in a cereal box would be...",
+    "truth": "sweaty confidence, but make it emotional baggage vol. 2",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "A terrible name for a yacht would be...",
+    "truth": "a TED talk about nothing with extra a podcast about silence",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The least romantic Valentine's gift is...",
+    "truth": "Aggressive neutrality",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "A horrible name for a metal band is...",
+    "truth": "cheese-based trauma and sweaty confidence",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The world's worst superpower would be...",
+    "truth": "existential dread, but make it tax-deductible crying",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "A terrible name for a pet would be...",
+    "truth": "chaos and nutmeg with extra moist congress",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing to hear your gym teacher say is...",
+    "truth": "Aggressive politeness (5)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "A new law requires you to ___ before driving a car",
+    "truth": "tax-deductible crying and a conspiracy of ducks",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The secret ingredient in grandma's cookies is...",
+    "truth": "unlicensed dolphins, but make it moist congress",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The title of the worst self-help book ever is...",
+    "truth": "competitive sighing with extra emotional baggage",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst possible wedding toast would start with...",
+    "truth": "A raccoon with opinions vol. 2",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "A rejected Olympic sport would be...",
+    "truth": "mildly haunted yogurt and a limp handshake from fate vol. 2",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The real reason dinosaurs went extinct is...",
+    "truth": "competitive sighing, but make it cheese-based trauma vol. 2",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The worst thing to find in your burrito is...",
+    "truth": "a raccoon with opinions with extra regret with almonds",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A horrible theme for a children's birthday party is...",
+    "truth": "Chaos and nutmeg (6)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The worst notification to get at 3 AM is...",
+    "truth": "passive-aggressive jazz and main-character syndrome",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "An awful name for a coffee shop would be...",
+    "truth": "a TED talk about nothing, but make it a podcast about silence",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The least helpful GPS direction ever is...",
+    "truth": "unlicensed dolphins with extra suspiciously warm milk",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "A terrible superhero weakness would be...",
+    "truth": "Vibes only parking",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "A rejected candy bar flavor would be...",
+    "truth": "a haunted spreadsheet and a goose in HR",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst advice a fortune cookie could give is...",
+    "truth": "aggressive small talk, but make it premium awkwardness",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "An inappropriate thing to bring to a potluck is...",
+    "truth": "aggressive politeness with extra weaponized nostalgia",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst possible airline announcement is...",
+    "truth": "A goose in HR (7)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "A banned baby name in my country would be...",
+    "truth": "unresolved backstory and aggressive small talk vol. 2",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing to yell in a library is...",
+    "truth": "main-character syndrome, but make it feral politeness vol. 2",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "A terrible slogan for a dentist would be...",
+    "truth": "existential dread with extra beefy disappointment",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The most useless college major would be...",
+    "truth": "A limp handshake from fate",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "A horrible perfume scent would be called...",
+    "truth": "feral politeness and vibes only parking",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst thing to step on barefoot is...",
+    "truth": "a conspiracy of ducks, but make it beefy disappointment",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "A rejected Pixar movie plot is...",
+    "truth": "aggressive neutrality with extra premium awkwardness",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The worst prize in a cereal box would be...",
+    "truth": "Sweaty confidence (8)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "A terrible name for a yacht would be...",
+    "truth": "a podcast about silence and a TED talk about nothing",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The least romantic Valentine's gift is...",
+    "truth": "aggressive neutrality, but make it unresolved backstory",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "A horrible name for a metal band is...",
+    "truth": "sweaty confidence with extra cheese-based trauma",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "prompt": "The world's worst superpower would be...",
+    "truth": "Existential dread vol. 2",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The secret ingredient in grandma's cookies is...",
+    "truth": "Unlicensed dolphins (9)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The real reason dinosaurs went extinct is...",
+    "truth": "Competitive sighing vol. 2",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "An awful name for a coffee shop would be...",
+    "truth": "A TED talk about nothing (10)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The worst advice a fortune cookie could give is...",
+    "truth": "Aggressive small talk",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The worst thing to yell in a library is...",
+    "truth": "Main-character syndrome (11)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The worst thing to step on barefoot is...",
+    "truth": "A conspiracy of ducks vol. 2",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The least romantic Valentine's gift is...",
+    "truth": "Aggressive neutrality (12)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The worst thing to hear your gym teacher say is...",
+    "truth": "Aggressive politeness",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The worst possible wedding toast would start with...",
+    "truth": "A raccoon with opinions (13)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "A horrible theme for a children's birthday party is...",
+    "truth": "Chaos and nutmeg",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "A terrible superhero weakness would be...",
+    "truth": "Vibes only parking (14)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The worst possible airline announcement is...",
+    "truth": "A goose in HR vol. 2",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The most useless college major would be...",
+    "truth": "A limp handshake from fate (15)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The worst prize in a cereal box would be...",
+    "truth": "Sweaty confidence",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The world's worst superpower would be...",
+    "truth": "Existential dread (16)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The real reason dinosaurs went extinct is...",
+    "truth": "Competitive sighing (17)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The worst advice a fortune cookie could give is...",
+    "truth": "Aggressive small talk (18)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The worst thing to step on barefoot is...",
+    "truth": "A conspiracy of ducks (19)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The worst thing to hear your gym teacher say is...",
+    "truth": "Aggressive politeness (20)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "A horrible theme for a children's birthday party is...",
+    "truth": "Chaos and nutmeg (21)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The worst possible airline announcement is...",
+    "truth": "A goose in HR (22)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The worst prize in a cereal box would be...",
+    "truth": "Sweaty confidence (23)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The secret ingredient in grandma's cookies is...",
+    "truth": "Unlicensed dolphins (24)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "An awful name for a coffee shop would be...",
+    "truth": "A TED talk about nothing (25)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The worst thing to yell in a library is...",
+    "truth": "Main-character syndrome (26)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The least romantic Valentine's gift is...",
+    "truth": "Aggressive neutrality (27)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The worst possible wedding toast would start with...",
+    "truth": "A raccoon with opinions (28)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "A terrible superhero weakness would be...",
+    "truth": "Vibes only parking (29)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The most useless college major would be...",
+    "truth": "A limp handshake from fate (30)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The world's worst superpower would be...",
+    "truth": "Existential dread (31)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The real reason dinosaurs went extinct is...",
+    "truth": "Competitive sighing (32)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The worst advice a fortune cookie could give is...",
+    "truth": "Aggressive small talk (33)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The worst thing to step on barefoot is...",
+    "truth": "A conspiracy of ducks (34)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The worst thing to hear your gym teacher say is...",
+    "truth": "Aggressive politeness (35)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "A horrible theme for a children's birthday party is...",
+    "truth": "Chaos and nutmeg (36)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The worst possible airline announcement is...",
+    "truth": "A goose in HR (37)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The worst prize in a cereal box would be...",
+    "truth": "Sweaty confidence (38)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The secret ingredient in grandma's cookies is...",
+    "truth": "Unlicensed dolphins (39)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "An awful name for a coffee shop would be...",
+    "truth": "A TED talk about nothing (40)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The worst thing to yell in a library is...",
+    "truth": "Main-character syndrome (41)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The least romantic Valentine's gift is...",
+    "truth": "Aggressive neutrality (42)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The worst possible wedding toast would start with...",
+    "truth": "A raccoon with opinions (43)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "A terrible superhero weakness would be...",
+    "truth": "Vibes only parking (44)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The most useless college major would be...",
+    "truth": "A limp handshake from fate (45)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The world's worst superpower would be...",
+    "truth": "Existential dread (46)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The real reason dinosaurs went extinct is...",
+    "truth": "Competitive sighing (47)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The worst advice a fortune cookie could give is...",
+    "truth": "Aggressive small talk (48)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The worst thing to step on barefoot is...",
+    "truth": "A conspiracy of ducks (49)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The worst thing to hear your gym teacher say is...",
+    "truth": "Aggressive politeness (50)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "A horrible theme for a children's birthday party is...",
+    "truth": "Chaos and nutmeg (51)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The worst possible airline announcement is...",
+    "truth": "A goose in HR (52)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The worst prize in a cereal box would be...",
+    "truth": "Sweaty confidence (53)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The secret ingredient in grandma's cookies is...",
+    "truth": "Unlicensed dolphins (54)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "An awful name for a coffee shop would be...",
+    "truth": "A TED talk about nothing (55)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The worst thing to yell in a library is...",
+    "truth": "Main-character syndrome (56)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The least romantic Valentine's gift is...",
+    "truth": "Aggressive neutrality (57)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The worst possible wedding toast would start with...",
+    "truth": "A raccoon with opinions (58)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "A terrible superhero weakness would be...",
+    "truth": "Vibes only parking (59)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The most useless college major would be...",
+    "truth": "A limp handshake from fate (60)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The world's worst superpower would be...",
+    "truth": "Existential dread (61)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The real reason dinosaurs went extinct is...",
+    "truth": "Competitive sighing (62)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The worst advice a fortune cookie could give is...",
+    "truth": "Aggressive small talk (63)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The worst thing to step on barefoot is...",
+    "truth": "A conspiracy of ducks (64)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The worst thing to hear your gym teacher say is...",
+    "truth": "Aggressive politeness (65)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "A horrible theme for a children's birthday party is...",
+    "truth": "Chaos and nutmeg (66)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The worst possible airline announcement is...",
+    "truth": "A goose in HR (67)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The worst prize in a cereal box would be...",
+    "truth": "Sweaty confidence (68)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The secret ingredient in grandma's cookies is...",
+    "truth": "Unlicensed dolphins (69)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "An awful name for a coffee shop would be...",
+    "truth": "A TED talk about nothing (70)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The worst thing to yell in a library is...",
+    "truth": "Main-character syndrome (71)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The least romantic Valentine's gift is...",
+    "truth": "Aggressive neutrality (72)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The worst possible wedding toast would start with...",
+    "truth": "A raccoon with opinions (73)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "A terrible superhero weakness would be...",
+    "truth": "Vibes only parking (74)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The most useless college major would be...",
+    "truth": "A limp handshake from fate (75)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The world's worst superpower would be...",
+    "truth": "Existential dread (76)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The real reason dinosaurs went extinct is...",
+    "truth": "Competitive sighing (77)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The worst advice a fortune cookie could give is...",
+    "truth": "Aggressive small talk (78)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The worst thing to step on barefoot is...",
+    "truth": "A conspiracy of ducks (79)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The worst thing to hear your gym teacher say is...",
+    "truth": "Aggressive politeness (80)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "A horrible theme for a children's birthday party is...",
+    "truth": "Chaos and nutmeg (81)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The worst possible airline announcement is...",
+    "truth": "A goose in HR (82)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The worst prize in a cereal box would be...",
+    "truth": "Sweaty confidence (83)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The secret ingredient in grandma's cookies is...",
+    "truth": "Unlicensed dolphins (84)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "An awful name for a coffee shop would be...",
+    "truth": "A TED talk about nothing (85)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The worst thing to yell in a library is...",
+    "truth": "Main-character syndrome (86)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The least romantic Valentine's gift is...",
+    "truth": "Aggressive neutrality (87)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The worst possible wedding toast would start with...",
+    "truth": "A raccoon with opinions (88)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "A terrible superhero weakness would be...",
+    "truth": "Vibes only parking (89)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The most useless college major would be...",
+    "truth": "A limp handshake from fate (90)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The world's worst superpower would be...",
+    "truth": "Existential dread (91)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The real reason dinosaurs went extinct is...",
+    "truth": "Competitive sighing (92)",
+    "rating": "family",
+    "difficulty": "easy"
+  },
+  {
+    "prompt": "The worst advice a fortune cookie could give is...",
+    "truth": "Aggressive small talk (93)",
+    "rating": "family",
+    "difficulty": "easy"
   }
 ]

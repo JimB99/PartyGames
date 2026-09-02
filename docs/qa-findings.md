@@ -176,4 +176,36 @@ Full `import-content` run completed (OpenTDB, party-game-sentences, nhie.io, Tru
 
 All pools meet **200+ minimum** (CI enforced via `MIN_CONTENT_POOL_SIZE`).
 
+## Remediation gate (Sep 2026)
+
+| Area | Status | Notes |
+|------|--------|-------|
+| Contract tests (31 games) | pass | min/max player smoke + malformed action guards |
+| Content audit | pass (errors) | 0 errors; **22 warnings** at the 200/50 bar — see `docs/audit-2026-09.md` |
+| `GameViewById` typed snapshots | done | `assembleHostView` / `assemblePlayerView` in `game-view-types.ts`; `pnpm typecheck` green |
+| GameViews modularization | partial | `HostGameContent.tsx` (~598) + `PlayerGameContent.tsx` (~1156) + panels; not per-game modules |
+| Viewport E2E matrix | spec exists | `e2e/viewport-matrix.spec.ts` + `pnpm test:e2e:viewport` — **not CI-green** (lobby Start / accordion) |
+| WYR scoring | done | participation + others-only majority prediction |
+| Hot Seat skip | done | `hot_seat_skip` action, no penalty |
+| Agent Grid repeated cell | done | server rejects already-revealed guesses |
+| Role Sort self-assign | done | server validation + deterministic ties |
+| Dead code cleanup | done | `BlockStackPhoneControls`, `renderGameSettings` removed |
+
+---
+
+## Full audit pass (Sep 2026)
+
+Deliverable: [`docs/audit-2026-09.md`](audit-2026-09.md). Confirmed engineering fixes from that pass only:
+
+| Item | Severity | Status | Notes |
+|------|----------|--------|-------|
+| Server/client typecheck (`HostViewSnapshot` vs `room.ts`) | high | fixed | Assemblers + client Vite env + loose `data` in monoliths |
+| WYR `scoringRules` said no points | high | fixed | Copy matches +200 / +800 others-majority / +400 tie |
+| Content audit min pool 20 | medium | fixed | Inventory at 200 family / 50 mature; orphans flagged; `caption.json` kept (P3 register) |
+| README Friend Sort / When Was It vs IDs | low | fixed | ID ↔ display-name table |
+| `usePartyRoom` `GameAction` inferred `never` | medium | fixed | Host skip / player actions typecheck |
+| Verify gate | medium | fixed | `pnpm verify` includes dead-export scan; optional viewport + `--strict-pools` |
+
+Do not treat the Aug “all pools meet 200+” snapshot as current — crowd-call (5), spectrum (8), and split-room (8) are P0 thin pools. **Caption This** is content + engine mode only; it is **not** in `registry.ts`.
+
 

@@ -35,19 +35,14 @@ export async function joinPlayer(
 }
 
 export async function selectGame(host: Page, gameId: GameId): Promise<void> {
-  await host.evaluate((id) => {
-    const btn = document.querySelector<HTMLButtonElement>(`[data-testid="game-picker-${id}"]`);
-    if (!btn) return;
-    const section = btn.closest("section");
-    const header = section?.querySelector<HTMLButtonElement>('button[aria-expanded="false"]');
-    header?.click();
-    btn.click();
-  }, gameId);
-  await expect(host.getByTestId("start-game")).toBeEnabled({ timeout: 15_000 });
+  const card = host.getByTestId(`game-picker-${gameId}`);
+  await expect(card).toBeVisible({ timeout: 15_000 });
+  await card.click({ force: true });
+  await expect(host.getByTestId("start-game").first()).toBeEnabled({ timeout: 15_000 });
 }
 
 export async function startGame(host: Page): Promise<void> {
-  await host.getByTestId("start-game").click();
+  await host.getByTestId("start-game").first().click();
   await expect(host.getByTestId("host-game-view")).toBeVisible({ timeout: 60_000 });
 }
 

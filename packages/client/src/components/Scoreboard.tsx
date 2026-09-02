@@ -1,5 +1,5 @@
 import type { RoomSnapshot } from "@party-games/shared";
-import { playerColor } from "../hooks/usePartyRoom";
+import { PlayerColorSwatch } from "./PlayerColorSwatch";
 
 export function Scoreboard({
   players,
@@ -17,7 +17,7 @@ export function Scoreboard({
         {sorted.map((p, i) => (
           <li key={p.id} className="flex items-center gap-3">
             <span className="w-6 text-zinc-500">{i + 1}</span>
-            <span className="h-2 w-2 rounded-full" style={{ backgroundColor: playerColor(p.colorIndex) }} />
+            <PlayerColorSwatch index={p.colorIndex} className="h-2 w-2 rounded-full" />
             <span className="flex-1">{p.nickname}</span>
             <span className="font-mono font-bold">{scores[p.id] ?? 0}</span>
           </li>

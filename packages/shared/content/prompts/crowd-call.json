@@ -1,22 +1,2552 @@
 [
   {
-    "text": "Best pizza topping?",
-    "choices": ["Pepperoni", "Mushroom", "Pineapple", "Plain cheese"]
+    "text": "Best beach days in this room?",
+    "choices": [
+      "Always",
+      "Sometimes",
+      "Rarely",
+      "Never"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Go-to move for fireworks?",
+    "choices": [
+      "Cheap",
+      "Splurge",
+      "Split the bill",
+      "Whoever offers"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Ideal vibe for coffee?",
+    "choices": [
+      "Quiet",
+      "Loud",
+      "In between",
+      "Depends"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Best sandwiches in this room?",
+    "choices": [
+      "Always",
+      "Sometimes",
+      "Rarely",
+      "Never"
+    ],
+    "rating": "family"
   },
   {
     "text": "Ideal vacation?",
-    "choices": ["Beach", "Mountains", "City break", "Staycation"]
+    "choices": [
+      "Beach",
+      "Mountains",
+      "City break",
+      "Staycation"
+    ],
+    "rating": "family"
   },
   {
-    "text": "Preferred superpower?",
-    "choices": ["Fly", "Invisibility", "Time travel", "Read minds"]
+    "text": "Best karaoke in this room?",
+    "choices": [
+      "Always",
+      "Sometimes",
+      "Rarely",
+      "Never"
+    ],
+    "rating": "family"
   },
   {
-    "text": "Go-to comfort food?",
-    "choices": ["Pasta", "Soup", "Ice cream", "Burgers"]
+    "text": "Best tacos in this room?",
+    "choices": [
+      "Plan it",
+      "Wing it",
+      "Ask the group",
+      "Flip a coin"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Ideal vibe for tacos?",
+    "choices": [
+      "Quiet",
+      "Loud",
+      "In between",
+      "Depends"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Best pizza in this room?",
+    "choices": [
+      "Always",
+      "Sometimes",
+      "Rarely",
+      "Never"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Best bicycles in this room?",
+    "choices": [
+      "Always",
+      "Sometimes",
+      "Rarely",
+      "Never"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Ideal vibe for swimming?",
+    "choices": [
+      "Quiet",
+      "Loud",
+      "In between",
+      "Depends"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Best rainy Sundays in this room?",
+    "choices": [
+      "Always",
+      "Sometimes",
+      "Rarely",
+      "Never"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Best picnics in this room?",
+    "choices": [
+      "Always",
+      "Sometimes",
+      "Rarely",
+      "Never"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Who here is most into soup?",
+    "choices": [
+      "Sweet",
+      "Salty",
+      "Spicy",
+      "Savory"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Morning-after plan?",
+    "choices": [
+      "Brunch",
+      "Ghost the group chat",
+      "Apologize in memes",
+      "Sleep"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Worst group trip bed?",
+    "choices": [
+      "Air mattress",
+      "Couch",
+      "Floor",
+      "The loudest room"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Who here is most into rainy Sundays?",
+    "choices": [
+      "Morning",
+      "Afternoon",
+      "Evening",
+      "Midnight"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Who here is most into bicycles?",
+    "choices": [
+      "Morning",
+      "Afternoon",
+      "Evening",
+      "Midnight"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Go-to move for dogs?",
+    "choices": [
+      "Cheap",
+      "Splurge",
+      "Split the bill",
+      "Whoever offers"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Who here is most into popcorn?",
+    "choices": [
+      "Sweet",
+      "Salty",
+      "Spicy",
+      "Savory"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Worst roommate confession?",
+    "choices": [
+      "Ate the leftovers",
+      "Never cleaned",
+      "Had people over",
+      "Used the charger"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Go-to move for coffee?",
+    "choices": [
+      "Indoors",
+      "Outdoors",
+      "Both",
+      "Couch forever"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Who here is most into trivia nights?",
+    "choices": [
+      "Sweet",
+      "Salty",
+      "Spicy",
+      "Savory"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Go-to move for cooking?",
+    "choices": [
+      "Indoors",
+      "Outdoors",
+      "Both",
+      "Couch forever"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Best puzzles in this room?",
+    "choices": [
+      "Always",
+      "Sometimes",
+      "Rarely",
+      "Never"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Go-to move for camping?",
+    "choices": [
+      "Cheap",
+      "Splurge",
+      "Split the bill",
+      "Whoever offers"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Ideal vibe for soup?",
+    "choices": [
+      "Quiet",
+      "Loud",
+      "In between",
+      "Depends"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Worst reunion drink?",
+    "choices": [
+      "Too strong",
+      "Too many",
+      "Someone else's",
+      "The one you don't remember"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Ideal vibe for snow days?",
+    "choices": [
+      "Quiet",
+      "Loud",
+      "In between",
+      "Depends"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Best pancakes in this room?",
+    "choices": [
+      "Always",
+      "Sometimes",
+      "Rarely",
+      "Never"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Best holidays in this room?",
+    "choices": [
+      "Always",
+      "Sometimes",
+      "Rarely",
+      "Never"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Ideal vibe for beach days?",
+    "choices": [
+      "Home",
+      "Out",
+      "Friends' place",
+      "Anywhere"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Best snow days in this room?",
+    "choices": [
+      "Plan it",
+      "Wing it",
+      "Ask the group",
+      "Flip a coin"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Best sports in this room?",
+    "choices": [
+      "Always",
+      "Sometimes",
+      "Rarely",
+      "Never"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Ideal vibe for camping?",
+    "choices": [
+      "Home",
+      "Out",
+      "Friends' place",
+      "Anywhere"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Party foul?",
+    "choices": [
+      "Spilling",
+      "Oversharing",
+      "Starting drama",
+      "Hogging the aux"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Best movies in this room?",
+    "choices": [
+      "Plan it",
+      "Wing it",
+      "Ask the group",
+      "Flip a coin"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Ideal vibe for picnics?",
+    "choices": [
+      "Home",
+      "Out",
+      "Friends' place",
+      "Anywhere"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Who here is most into hot chocolate?",
+    "choices": [
+      "Sweet",
+      "Salty",
+      "Spicy",
+      "Savory"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Group vacation crime?",
+    "choices": [
+      "Never splitting",
+      "Secret couple plans",
+      "Loud at 6am",
+      "Losing the keys"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Best board games in this room?",
+    "choices": [
+      "Plan it",
+      "Wing it",
+      "Ask the group",
+      "Flip a coin"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Best pizza topping?",
+    "choices": [
+      "Pepperoni",
+      "Mushroom",
+      "Pineapple",
+      "Plain cheese"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Ideal vibe for brunch?",
+    "choices": [
+      "Home",
+      "Out",
+      "Friends' place",
+      "Anywhere"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Ideal vibe for puzzles?",
+    "choices": [
+      "Home",
+      "Out",
+      "Friends' place",
+      "Anywhere"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Go-to move for video games?",
+    "choices": [
+      "Indoors",
+      "Outdoors",
+      "Both",
+      "Couch forever"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Go-to move for rainy Sundays?",
+    "choices": [
+      "Cheap",
+      "Splurge",
+      "Split the bill",
+      "Whoever offers"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Go-to move for sleepovers?",
+    "choices": [
+      "Indoors",
+      "Outdoors",
+      "Both",
+      "Couch forever"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Party vice of choice?",
+    "choices": [
+      "Too loud",
+      "Too late",
+      "Too honest",
+      "Too many drinks"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Who here is most into stargazing?",
+    "choices": [
+      "Sweet",
+      "Salty",
+      "Spicy",
+      "Savory"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Best concerts in this room?",
+    "choices": [
+      "Plan it",
+      "Wing it",
+      "Ask the group",
+      "Flip a coin"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Ideal vibe for gardening?",
+    "choices": [
+      "Quiet",
+      "Loud",
+      "In between",
+      "Depends"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Ideal vibe for theme parks?",
+    "choices": [
+      "Quiet",
+      "Loud",
+      "In between",
+      "Depends"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Relationship green flag?",
+    "choices": [
+      "Texts back",
+      "Likes your friends",
+      "Splits dinner",
+      "Has a therapist"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Best baking in this room?",
+    "choices": [
+      "Always",
+      "Sometimes",
+      "Rarely",
+      "Never"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Best birthdays in this room?",
+    "choices": [
+      "Plan it",
+      "Wing it",
+      "Ask the group",
+      "Flip a coin"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Best theme parks in this room?",
+    "choices": [
+      "Plan it",
+      "Wing it",
+      "Ask the group",
+      "Flip a coin"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Who here is most into camping?",
+    "choices": [
+      "Morning",
+      "Afternoon",
+      "Evening",
+      "Midnight"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Best parades in this room?",
+    "choices": [
+      "Plan it",
+      "Wing it",
+      "Ask the group",
+      "Flip a coin"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Ideal vibe for ice cream?",
+    "choices": [
+      "Home",
+      "Out",
+      "Friends' place",
+      "Anywhere"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Best coffee in this room?",
+    "choices": [
+      "Plan it",
+      "Wing it",
+      "Ask the group",
+      "Flip a coin"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Ideal vibe for museums?",
+    "choices": [
+      "Quiet",
+      "Loud",
+      "In between",
+      "Depends"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Go-to move for stargazing?",
+    "choices": [
+      "Indoors",
+      "Outdoors",
+      "Both",
+      "Couch forever"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Afterparty location?",
+    "choices": [
+      "Someone's kitchen",
+      "A diner",
+      "The street",
+      "Absolutely not"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "House party role?",
+    "choices": [
+      "DJ",
+      "Snack cop",
+      "Coat pile",
+      "The one who leaves last"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Best tea in this room?",
+    "choices": [
+      "Always",
+      "Sometimes",
+      "Rarely",
+      "Never"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Go-to move for concerts?",
+    "choices": [
+      "Indoors",
+      "Outdoors",
+      "Both",
+      "Couch forever"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Best popcorn in this room?",
+    "choices": [
+      "Plan it",
+      "Wing it",
+      "Ask the group",
+      "Flip a coin"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Best pets in this room?",
+    "choices": [
+      "Always",
+      "Sometimes",
+      "Rarely",
+      "Never"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Ideal vibe for parades?",
+    "choices": [
+      "Quiet",
+      "Loud",
+      "In between",
+      "Depends"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Ideal vibe for birthdays?",
+    "choices": [
+      "Quiet",
+      "Loud",
+      "In between",
+      "Depends"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Ideal vibe for hiking?",
+    "choices": [
+      "Quiet",
+      "Loud",
+      "In between",
+      "Depends"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Go-to move for arcade nights?",
+    "choices": [
+      "Cheap",
+      "Splurge",
+      "Split the bill",
+      "Whoever offers"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Ideal vibe for pets?",
+    "choices": [
+      "Home",
+      "Out",
+      "Friends' place",
+      "Anywhere"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Worst toast topic?",
+    "choices": [
+      "College stories",
+      "The divorce",
+      "How we met (too honest)",
+      "Work"
+    ],
+    "rating": "mature"
   },
   {
     "text": "Best way to spend Sunday?",
-    "choices": ["Sleep in", "Brunch", "Hike", "Gaming"]
+    "choices": [
+      "Sleep in",
+      "Brunch",
+      "Hike",
+      "Gaming"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Ideal vibe for cats?",
+    "choices": [
+      "Quiet",
+      "Loud",
+      "In between",
+      "Depends"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Worst after-work drinks?",
+    "choices": [
+      "One turns into five",
+      "The boss joins",
+      "Nobody splits",
+      "Last train missed"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Ideal vibe for trivia nights?",
+    "choices": [
+      "Quiet",
+      "Loud",
+      "In between",
+      "Depends"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Go-to move for theme parks?",
+    "choices": [
+      "Indoors",
+      "Outdoors",
+      "Both",
+      "Couch forever"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Best ice cream in this room?",
+    "choices": [
+      "Always",
+      "Sometimes",
+      "Rarely",
+      "Never"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Ideal vibe for karaoke?",
+    "choices": [
+      "Home",
+      "Out",
+      "Friends' place",
+      "Anywhere"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Ideal vibe for farmers markets?",
+    "choices": [
+      "Quiet",
+      "Loud",
+      "In between",
+      "Depends"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Ideal vibe for baking?",
+    "choices": [
+      "Home",
+      "Out",
+      "Friends' place",
+      "Anywhere"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Who here is most into pancakes?",
+    "choices": [
+      "Morning",
+      "Afternoon",
+      "Evening",
+      "Midnight"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Go-to move for tea?",
+    "choices": [
+      "Cheap",
+      "Splurge",
+      "Split the bill",
+      "Whoever offers"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Who here is most into picnics?",
+    "choices": [
+      "Morning",
+      "Afternoon",
+      "Evening",
+      "Midnight"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Who here is most into tea?",
+    "choices": [
+      "Morning",
+      "Afternoon",
+      "Evening",
+      "Midnight"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Ideal vibe for dogs?",
+    "choices": [
+      "Home",
+      "Out",
+      "Friends' place",
+      "Anywhere"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Who here is most into holidays?",
+    "choices": [
+      "Morning",
+      "Afternoon",
+      "Evening",
+      "Midnight"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Go-to move for gardening?",
+    "choices": [
+      "Indoors",
+      "Outdoors",
+      "Both",
+      "Couch forever"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Go-to move for museums?",
+    "choices": [
+      "Indoors",
+      "Outdoors",
+      "Both",
+      "Couch forever"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Ideal vibe for bicycles?",
+    "choices": [
+      "Home",
+      "Out",
+      "Friends' place",
+      "Anywhere"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Ideal vibe for pizza?",
+    "choices": [
+      "Home",
+      "Out",
+      "Friends' place",
+      "Anywhere"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Who here is most into arcade nights?",
+    "choices": [
+      "Morning",
+      "Afternoon",
+      "Evening",
+      "Midnight"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Who here is most into sports?",
+    "choices": [
+      "Morning",
+      "Afternoon",
+      "Evening",
+      "Midnight"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Ideal vibe for podcasts?",
+    "choices": [
+      "Home",
+      "Out",
+      "Friends' place",
+      "Anywhere"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Flirt via?",
+    "choices": [
+      "Texts",
+      "Memes",
+      "Voice notes",
+      "Showing up"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Ideal vibe for LEGO?",
+    "choices": [
+      "Quiet",
+      "Loud",
+      "In between",
+      "Depends"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Worst roommate party?",
+    "choices": [
+      "No invite",
+      "No cleanup",
+      "The cops",
+      "Someone slept in your bed"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Who here is most into ice cream?",
+    "choices": [
+      "Morning",
+      "Afternoon",
+      "Evening",
+      "Midnight"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Best hiking in this room?",
+    "choices": [
+      "Plan it",
+      "Wing it",
+      "Ask the group",
+      "Flip a coin"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Best fairs in this room?",
+    "choices": [
+      "Always",
+      "Sometimes",
+      "Rarely",
+      "Never"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Party legend status for?",
+    "choices": [
+      "The dance",
+      "The speech",
+      "The mess",
+      "The exit"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Who here is most into theme parks?",
+    "choices": [
+      "Sweet",
+      "Salty",
+      "Spicy",
+      "Savory"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Secret Santa crime?",
+    "choices": [
+      "Re-gift",
+      "Too cheap",
+      "Too personal",
+      "Forgot entirely"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Go-to move for karaoke?",
+    "choices": [
+      "Cheap",
+      "Splurge",
+      "Split the bill",
+      "Whoever offers"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "After-hours energy?",
+    "choices": [
+      "One more round",
+      "Uber home",
+      "Diner run",
+      "Regret tomorrow"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Go-to move for book clubs?",
+    "choices": [
+      "Indoors",
+      "Outdoors",
+      "Both",
+      "Couch forever"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Who here is most into puzzles?",
+    "choices": [
+      "Morning",
+      "Afternoon",
+      "Evening",
+      "Midnight"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Go-to move for farmers markets?",
+    "choices": [
+      "Indoors",
+      "Outdoors",
+      "Both",
+      "Couch forever"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Friends-with-benefits risk?",
+    "choices": [
+      "Catching feelings",
+      "Getting caught",
+      "The group knows",
+      "It was a dare"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Ideal vibe for sandwiches?",
+    "choices": [
+      "Home",
+      "Out",
+      "Friends' place",
+      "Anywhere"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Ideal vibe for libraries?",
+    "choices": [
+      "Home",
+      "Out",
+      "Friends' place",
+      "Anywhere"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Go-to move for pets?",
+    "choices": [
+      "Cheap",
+      "Splurge",
+      "Split the bill",
+      "Whoever offers"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Flake excuse quality?",
+    "choices": [
+      "Traffic",
+      "Stomach",
+      "Early morning",
+      "My plant needs me"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Worst plus-one story?",
+    "choices": [
+      "They knew everyone",
+      "They knew no one",
+      "They started a fight",
+      "They left with someone"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Go-to move for trivia nights?",
+    "choices": [
+      "Indoors",
+      "Outdoors",
+      "Both",
+      "Couch forever"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Go-to move for snow days?",
+    "choices": [
+      "Indoors",
+      "Outdoors",
+      "Both",
+      "Couch forever"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Who here is most into movies?",
+    "choices": [
+      "Sweet",
+      "Salty",
+      "Spicy",
+      "Savory"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Who here is most into hiking?",
+    "choices": [
+      "Sweet",
+      "Salty",
+      "Spicy",
+      "Savory"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Best swimming in this room?",
+    "choices": [
+      "Plan it",
+      "Wing it",
+      "Ask the group",
+      "Flip a coin"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Karaoke after drinks?",
+    "choices": [
+      "Power ballad",
+      "Rap verse",
+      "Duet with a stranger",
+      "Sit this one out"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Best LEGO in this room?",
+    "choices": [
+      "Plan it",
+      "Wing it",
+      "Ask the group",
+      "Flip a coin"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Best stargazing in this room?",
+    "choices": [
+      "Plan it",
+      "Wing it",
+      "Ask the group",
+      "Flip a coin"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Go-to move for picnics?",
+    "choices": [
+      "Cheap",
+      "Splurge",
+      "Split the bill",
+      "Whoever offers"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Who here is most into dogs?",
+    "choices": [
+      "Morning",
+      "Afternoon",
+      "Evening",
+      "Midnight"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Best museums in this room?",
+    "choices": [
+      "Plan it",
+      "Wing it",
+      "Ask the group",
+      "Flip a coin"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Best soup in this room?",
+    "choices": [
+      "Plan it",
+      "Wing it",
+      "Ask the group",
+      "Flip a coin"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Ideal vibe for concerts?",
+    "choices": [
+      "Quiet",
+      "Loud",
+      "In between",
+      "Depends"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Who here is most into podcasts?",
+    "choices": [
+      "Morning",
+      "Afternoon",
+      "Evening",
+      "Midnight"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Go-to comfort food?",
+    "choices": [
+      "Pasta",
+      "Soup",
+      "Ice cream",
+      "Burgers"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Ideal vibe for tea?",
+    "choices": [
+      "Home",
+      "Out",
+      "Friends' place",
+      "Anywhere"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Best dogs in this room?",
+    "choices": [
+      "Always",
+      "Sometimes",
+      "Rarely",
+      "Never"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Drunk food order?",
+    "choices": [
+      "Pizza",
+      "Tacos",
+      "Fries",
+      "Whatever is open"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Who here is most into birthdays?",
+    "choices": [
+      "Sweet",
+      "Salty",
+      "Spicy",
+      "Savory"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Flirtiest setting?",
+    "choices": [
+      "Rooftop bar",
+      "Wedding afterparty",
+      "Work trip",
+      "Group vacation"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Best camping in this room?",
+    "choices": [
+      "Always",
+      "Sometimes",
+      "Rarely",
+      "Never"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Ideal vibe for fireworks?",
+    "choices": [
+      "Home",
+      "Out",
+      "Friends' place",
+      "Anywhere"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Ideal vibe for movies?",
+    "choices": [
+      "Quiet",
+      "Loud",
+      "In between",
+      "Depends"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Best hot chocolate in this room?",
+    "choices": [
+      "Plan it",
+      "Wing it",
+      "Ask the group",
+      "Flip a coin"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Go-to move for tacos?",
+    "choices": [
+      "Indoors",
+      "Outdoors",
+      "Both",
+      "Couch forever"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Go-to move for LEGO?",
+    "choices": [
+      "Indoors",
+      "Outdoors",
+      "Both",
+      "Couch forever"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Go-to move for birthdays?",
+    "choices": [
+      "Indoors",
+      "Outdoors",
+      "Both",
+      "Couch forever"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Ideal vibe for fairs?",
+    "choices": [
+      "Home",
+      "Out",
+      "Friends' place",
+      "Anywhere"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Ideal vibe for road trips?",
+    "choices": [
+      "Home",
+      "Out",
+      "Friends' place",
+      "Anywhere"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Who here is most into zoos?",
+    "choices": [
+      "Morning",
+      "Afternoon",
+      "Evening",
+      "Midnight"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Go-to move for ice cream?",
+    "choices": [
+      "Cheap",
+      "Splurge",
+      "Split the bill",
+      "Whoever offers"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Who here is most into gardening?",
+    "choices": [
+      "Sweet",
+      "Salty",
+      "Spicy",
+      "Savory"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Go-to move for holidays?",
+    "choices": [
+      "Cheap",
+      "Splurge",
+      "Split the bill",
+      "Whoever offers"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Hangover breakfast?",
+    "choices": [
+      "Greasy diner",
+      "Nothing but water",
+      "Bloody Mary",
+      "Sleep until Monday"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Worst plus-one?",
+    "choices": [
+      "The ex",
+      "A coworker",
+      "Someone's boss",
+      "A surprise plus-two"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Who here is most into LEGO?",
+    "choices": [
+      "Sweet",
+      "Salty",
+      "Spicy",
+      "Savory"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Go-to move for baking?",
+    "choices": [
+      "Cheap",
+      "Splurge",
+      "Split the bill",
+      "Whoever offers"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Who here is most into snow days?",
+    "choices": [
+      "Sweet",
+      "Salty",
+      "Spicy",
+      "Savory"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Go-to move for zoos?",
+    "choices": [
+      "Cheap",
+      "Splurge",
+      "Split the bill",
+      "Whoever offers"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Best fireworks in this room?",
+    "choices": [
+      "Always",
+      "Sometimes",
+      "Rarely",
+      "Never"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Go-to move for beach days?",
+    "choices": [
+      "Cheap",
+      "Splurge",
+      "Split the bill",
+      "Whoever offers"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Worst dating app habit?",
+    "choices": [
+      "Ghosting",
+      "Double texting",
+      "Love bombing",
+      "Breadcrumbing"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Best libraries in this room?",
+    "choices": [
+      "Always",
+      "Sometimes",
+      "Rarely",
+      "Never"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Ideal vibe for sleepovers?",
+    "choices": [
+      "Quiet",
+      "Loud",
+      "In between",
+      "Depends"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Ideal vibe for holidays?",
+    "choices": [
+      "Home",
+      "Out",
+      "Friends' place",
+      "Anywhere"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Ideal vibe for arcade nights?",
+    "choices": [
+      "Home",
+      "Out",
+      "Friends' place",
+      "Anywhere"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Vacation romance odds?",
+    "choices": [
+      "Zero",
+      "A fling",
+      "A story for later",
+      "Already happening"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Ideal vibe for stargazing?",
+    "choices": [
+      "Quiet",
+      "Loud",
+      "In between",
+      "Depends"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Ideal vibe for pancakes?",
+    "choices": [
+      "Home",
+      "Out",
+      "Friends' place",
+      "Anywhere"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Dating dealbreaker lite?",
+    "choices": [
+      "Always late",
+      "Bad tipper",
+      "Hates pets",
+      "No sense of humor"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Ideal vibe for board games?",
+    "choices": [
+      "Quiet",
+      "Loud",
+      "In between",
+      "Depends"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Worst 2am text?",
+    "choices": [
+      "u up",
+      "we need to talk",
+      "I miss my ex",
+      "Can you pick me up"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Who here is most into swimming?",
+    "choices": [
+      "Sweet",
+      "Salty",
+      "Spicy",
+      "Savory"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Night-out budget?",
+    "choices": [
+      "Cash only",
+      "One card to rule them",
+      "Venmo later",
+      "I forgot my wallet"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Go-to move for hiking?",
+    "choices": [
+      "Indoors",
+      "Outdoors",
+      "Both",
+      "Couch forever"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Best farmers markets in this room?",
+    "choices": [
+      "Plan it",
+      "Wing it",
+      "Ask the group",
+      "Flip a coin"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Best cooking in this room?",
+    "choices": [
+      "Plan it",
+      "Wing it",
+      "Ask the group",
+      "Flip a coin"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Who here is most into fairs?",
+    "choices": [
+      "Morning",
+      "Afternoon",
+      "Evening",
+      "Midnight"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Worst toast drink?",
+    "choices": [
+      "Too many shots",
+      "Someone's homemade punch",
+      "An open bar sprint",
+      "Nothing, you're driving"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Ideal vibe for rainy Sundays?",
+    "choices": [
+      "Home",
+      "Out",
+      "Friends' place",
+      "Anywhere"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Go-to move for fairs?",
+    "choices": [
+      "Cheap",
+      "Splurge",
+      "Split the bill",
+      "Whoever offers"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Who here is most into book clubs?",
+    "choices": [
+      "Sweet",
+      "Salty",
+      "Spicy",
+      "Savory"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Ideal vibe for popcorn?",
+    "choices": [
+      "Quiet",
+      "Loud",
+      "In between",
+      "Depends"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Best sleepovers in this room?",
+    "choices": [
+      "Plan it",
+      "Wing it",
+      "Ask the group",
+      "Flip a coin"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Best book clubs in this room?",
+    "choices": [
+      "Plan it",
+      "Wing it",
+      "Ask the group",
+      "Flip a coin"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Go-to move for sandwiches?",
+    "choices": [
+      "Cheap",
+      "Splurge",
+      "Split the bill",
+      "Whoever offers"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Go-to move for movies?",
+    "choices": [
+      "Indoors",
+      "Outdoors",
+      "Both",
+      "Couch forever"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Group chat crime?",
+    "choices": [
+      "Screenshots",
+      "Leaving on read",
+      "Voice notes",
+      "Adding an ex"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Flake on a date via?",
+    "choices": [
+      "Text",
+      "Leave on read",
+      "A friend cancels for you",
+      "You just don't show"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Go-to move for road trips?",
+    "choices": [
+      "Cheap",
+      "Splurge",
+      "Split the bill",
+      "Whoever offers"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Go-to move for libraries?",
+    "choices": [
+      "Cheap",
+      "Splurge",
+      "Split the bill",
+      "Whoever offers"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Who here is most into beach days?",
+    "choices": [
+      "Morning",
+      "Afternoon",
+      "Evening",
+      "Midnight"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Go-to move for popcorn?",
+    "choices": [
+      "Indoors",
+      "Outdoors",
+      "Both",
+      "Couch forever"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Go-to move for hot chocolate?",
+    "choices": [
+      "Indoors",
+      "Outdoors",
+      "Both",
+      "Couch forever"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Preferred superpower?",
+    "choices": [
+      "Fly",
+      "Invisibility",
+      "Time travel",
+      "Read minds"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Worst wedding speech?",
+    "choices": [
+      "Inside jokes",
+      "The ex chapter",
+      "Crying immediately",
+      "A roast"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Ideal vibe for book clubs?",
+    "choices": [
+      "Quiet",
+      "Loud",
+      "In between",
+      "Depends"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Who here is most into pets?",
+    "choices": [
+      "Morning",
+      "Afternoon",
+      "Evening",
+      "Midnight"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Best road trips in this room?",
+    "choices": [
+      "Always",
+      "Sometimes",
+      "Rarely",
+      "Never"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Who here is most into pizza?",
+    "choices": [
+      "Morning",
+      "Afternoon",
+      "Evening",
+      "Midnight"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Best trivia nights in this room?",
+    "choices": [
+      "Plan it",
+      "Wing it",
+      "Ask the group",
+      "Flip a coin"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Go-to move for puzzles?",
+    "choices": [
+      "Cheap",
+      "Splurge",
+      "Split the bill",
+      "Whoever offers"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Who here is most into sandwiches?",
+    "choices": [
+      "Morning",
+      "Afternoon",
+      "Evening",
+      "Midnight"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Bar tab strategy?",
+    "choices": [
+      "Split evenly",
+      "Itemize everything",
+      "One person pays",
+      "Disappear"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Hotel minibar?",
+    "choices": [
+      "Touch nothing",
+      "One overpriced water",
+      "Raiding it",
+      "Hiding the receipt"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Who here is most into karaoke?",
+    "choices": [
+      "Morning",
+      "Afternoon",
+      "Evening",
+      "Midnight"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Who here is most into board games?",
+    "choices": [
+      "Sweet",
+      "Salty",
+      "Spicy",
+      "Savory"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Reunion small talk?",
+    "choices": [
+      "Work flex",
+      "Baby photos",
+      "The weather",
+      "Who dated who"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Go-to move for pizza?",
+    "choices": [
+      "Cheap",
+      "Splurge",
+      "Split the bill",
+      "Whoever offers"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Brunch with a hangover?",
+    "choices": [
+      "Mimosas anyway",
+      "Black coffee only",
+      "Cancel and sleep",
+      "Hash browns first"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Who here is most into video games?",
+    "choices": [
+      "Sweet",
+      "Salty",
+      "Spicy",
+      "Savory"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Who here is most into concerts?",
+    "choices": [
+      "Sweet",
+      "Salty",
+      "Spicy",
+      "Savory"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Rideshare confession?",
+    "choices": [
+      "Rating drama",
+      "Wrong pin",
+      "Too chatty",
+      "Fell asleep"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Who here is most into cats?",
+    "choices": [
+      "Sweet",
+      "Salty",
+      "Spicy",
+      "Savory"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Go-to move for parades?",
+    "choices": [
+      "Indoors",
+      "Outdoors",
+      "Both",
+      "Couch forever"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Office party red flag?",
+    "choices": [
+      "Too many shots",
+      "Talking to the boss",
+      "Karaoke ballad",
+      "Leaving at 8"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Ideal vibe for sports?",
+    "choices": [
+      "Home",
+      "Out",
+      "Friends' place",
+      "Anywhere"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Worst ex story starter?",
+    "choices": [
+      "It was fine until",
+      "My friends warned me",
+      "The texts exist",
+      "Vegas"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Best gardening in this room?",
+    "choices": [
+      "Plan it",
+      "Wing it",
+      "Ask the group",
+      "Flip a coin"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Bar game of choice?",
+    "choices": [
+      "Darts",
+      "Pool",
+      "Trivia",
+      "People-watching"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Best podcasts in this room?",
+    "choices": [
+      "Always",
+      "Sometimes",
+      "Rarely",
+      "Never"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Who here is most into libraries?",
+    "choices": [
+      "Morning",
+      "Afternoon",
+      "Evening",
+      "Midnight"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Go-to move for soup?",
+    "choices": [
+      "Indoors",
+      "Outdoors",
+      "Both",
+      "Couch forever"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Who here is most into coffee?",
+    "choices": [
+      "Sweet",
+      "Salty",
+      "Spicy",
+      "Savory"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Who here is most into sleepovers?",
+    "choices": [
+      "Sweet",
+      "Salty",
+      "Spicy",
+      "Savory"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Worst toast at a party?",
+    "choices": [
+      "Inside joke",
+      "Too honest",
+      "Too long",
+      "Naming an ex"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Go-to move for cats?",
+    "choices": [
+      "Indoors",
+      "Outdoors",
+      "Both",
+      "Couch forever"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Late-night confession style?",
+    "choices": [
+      "Too loud",
+      "Too true",
+      "Too soon",
+      "Already screenshotted"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Best zoos in this room?",
+    "choices": [
+      "Always",
+      "Sometimes",
+      "Rarely",
+      "Never"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Go-to move for podcasts?",
+    "choices": [
+      "Cheap",
+      "Splurge",
+      "Split the bill",
+      "Whoever offers"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Go-to move for bicycles?",
+    "choices": [
+      "Cheap",
+      "Splurge",
+      "Split the bill",
+      "Whoever offers"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Who here is most into farmers markets?",
+    "choices": [
+      "Sweet",
+      "Salty",
+      "Spicy",
+      "Savory"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Best video games in this room?",
+    "choices": [
+      "Plan it",
+      "Wing it",
+      "Ask the group",
+      "Flip a coin"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Who here is most into brunch?",
+    "choices": [
+      "Morning",
+      "Afternoon",
+      "Evening",
+      "Midnight"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Club night personality?",
+    "choices": [
+      "Main character",
+      "Wallflower",
+      "Designated adult",
+      "Lost in the coat check"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Wedding afterparty move?",
+    "choices": [
+      "Dance floor",
+      "Sneak out",
+      "Open bar sprint",
+      "Catch the bouquet"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Group chat name crime?",
+    "choices": [
+      "An inside joke",
+      "Someone's embarrassing moment",
+      "An ex reference",
+      "All lowercase chaos"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Go-to move for board games?",
+    "choices": [
+      "Indoors",
+      "Outdoors",
+      "Both",
+      "Couch forever"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Ideal vibe for cooking?",
+    "choices": [
+      "Quiet",
+      "Loud",
+      "In between",
+      "Depends"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Pre-game playlist?",
+    "choices": [
+      "Throwbacks",
+      "Club bangers",
+      "Ironic country",
+      "Silence and nerves"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Who here is most into fireworks?",
+    "choices": [
+      "Morning",
+      "Afternoon",
+      "Evening",
+      "Midnight"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Go-to move for brunch?",
+    "choices": [
+      "Cheap",
+      "Splurge",
+      "Split the bill",
+      "Whoever offers"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Ideal vibe for hot chocolate?",
+    "choices": [
+      "Quiet",
+      "Loud",
+      "In between",
+      "Depends"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Worst dating red flag lite?",
+    "choices": [
+      "Still follows an ex",
+      "Never introduces friends",
+      "Always 'busy'",
+      "Hates brunch"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Worst dating prompt answer?",
+    "choices": [
+      "I like to have fun",
+      "Ask me anything",
+      "Here for a good time",
+      "It's complicated"
+    ],
+    "rating": "mature"
+  },
+  {
+    "text": "Who here is most into tacos?",
+    "choices": [
+      "Sweet",
+      "Salty",
+      "Spicy",
+      "Savory"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Ideal vibe for video games?",
+    "choices": [
+      "Quiet",
+      "Loud",
+      "In between",
+      "Depends"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Who here is most into road trips?",
+    "choices": [
+      "Morning",
+      "Afternoon",
+      "Evening",
+      "Midnight"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Ideal vibe for zoos?",
+    "choices": [
+      "Home",
+      "Out",
+      "Friends' place",
+      "Anywhere"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Who here is most into cooking?",
+    "choices": [
+      "Sweet",
+      "Salty",
+      "Spicy",
+      "Savory"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Who here is most into museums?",
+    "choices": [
+      "Sweet",
+      "Salty",
+      "Spicy",
+      "Savory"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Who here is most into parades?",
+    "choices": [
+      "Sweet",
+      "Salty",
+      "Spicy",
+      "Savory"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Best cats in this room?",
+    "choices": [
+      "Plan it",
+      "Wing it",
+      "Ask the group",
+      "Flip a coin"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Go-to move for swimming?",
+    "choices": [
+      "Indoors",
+      "Outdoors",
+      "Both",
+      "Couch forever"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Best arcade nights in this room?",
+    "choices": [
+      "Always",
+      "Sometimes",
+      "Rarely",
+      "Never"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Who here is most into baking?",
+    "choices": [
+      "Morning",
+      "Afternoon",
+      "Evening",
+      "Midnight"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Go-to move for sports?",
+    "choices": [
+      "Cheap",
+      "Splurge",
+      "Split the bill",
+      "Whoever offers"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Go-to move for pancakes?",
+    "choices": [
+      "Cheap",
+      "Splurge",
+      "Split the bill",
+      "Whoever offers"
+    ],
+    "rating": "family"
+  },
+  {
+    "text": "Best brunch in this room?",
+    "choices": [
+      "Always",
+      "Sometimes",
+      "Rarely",
+      "Never"
+    ],
+    "rating": "family"
   }
 ]

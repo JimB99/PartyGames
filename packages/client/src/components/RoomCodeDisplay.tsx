@@ -31,12 +31,19 @@ export function RoomCodeDisplay({ roomId, size = "large" }: { roomId: string; si
         <button
           type="button"
           onClick={copyCode}
+          aria-label="Copy room code"
           className="rounded-lg bg-zinc-700 px-3 py-2 text-sm font-semibold hover:bg-zinc-600"
         >
           {copied ? "Copied!" : "Copy"}
         </button>
       </div>
-      {qr && <img src={qr} alt="Join QR code" className="rounded-lg bg-white p-2" />}
+      {qr && (
+        <img
+          src={qr}
+          alt="QR code to join this room"
+          className="rounded-lg bg-white p-2"
+        />
+      )}
       <p className="text-sm text-zinc-400">{joinUrl}</p>
     </div>
   );

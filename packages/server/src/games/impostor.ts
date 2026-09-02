@@ -18,6 +18,7 @@ export const impostorGame: GameModule<ImpostorState> = {
     minPlayers: 4,
     maxPlayers: 8,
     category: "social",
+    supportsMatureContent: true,
   },
   init(ctx) {
     return createImpostorState(impostorPool(ctx.gameOptions), ctx.playerIds, 4);

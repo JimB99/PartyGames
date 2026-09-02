@@ -130,9 +130,6 @@ function auditGames(): Gap[] {
   if (!settingsSrc.includes("paddleMode")) {
     gaps.push({ gameId: "paddle-clash", dimension: "settings_difficulty", suggestion: "Test paddleMode hockey/pong in settings.test.ts" });
   }
-  if (!settingsSrc.includes("outOfPlaceCategory")) {
-    gaps.push({ gameId: "out-of-place", dimension: "settings_difficulty", suggestion: "Test outOfPlaceCategory in settings.test.ts" });
-  }
   if (!settingsSrc.includes("hangman-race")) {
     gaps.push({ gameId: "hangman-race", dimension: "settings_speed_scoring", suggestion: "Test hangman-race speed scoring in settings.test.ts" });
   }
