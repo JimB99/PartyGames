@@ -296,7 +296,7 @@ export function PlayerGameView({
                 <Btn variant="secondary" className="min-h-11 min-w-11 px-3" onClick={() => setYear((y) => Math.min(Number(data.maxYear) || 3000, y + 10))}>+10</Btn>
               </div>
               <p className="text-center text-4xl font-black tabular-nums">{year}</p>
-              <Btn className="w-full" onClick={() => onAction({ kind: "year_slider", year })}>Lock in</Btn>
+              <Btn testId="timeline-lock-in" className="w-full" onClick={() => onAction({ kind: "year_slider", year })}>Lock in</Btn>
             </>
           )}
         </div>
@@ -322,12 +322,14 @@ export function PlayerGameView({
           ) : (
             <ActionGrid>
               <Btn
+                testId="wyr-choice-a"
                 variant={playerData.myAnswer === "a" ? "primary" : "secondary"}
                 onClick={() => onAction({ kind: "would_you_rather", choice: "a" })}
               >
                 {data.optionA as string}
               </Btn>
               <Btn
+                testId="wyr-choice-b"
                 variant={playerData.myAnswer === "b" ? "primary" : "secondary"}
                 onClick={() => onAction({ kind: "would_you_rather", choice: "b" })}
               >
@@ -357,7 +359,7 @@ export function PlayerGameView({
         <div className="space-y-4 text-center">
           <p className="text-3xl font-black">{String(playerData.word)}</p>
           <div className="grid grid-cols-2 gap-3">
-            <Btn onClick={() => onAction({ kind: "charades_correct" })}>Correct</Btn>
+            <Btn testId="charades-correct" onClick={() => onAction({ kind: "charades_correct" })}>Correct</Btn>
             <Btn variant="secondary" onClick={() => onAction({ kind: "charades_skip" })}>Skip</Btn>
           </div>
         </div>
@@ -969,7 +971,7 @@ export function PlayerGameView({
           {phase === "accusation" && playerData.isSpy && playerData.itemList && (
             <div className="grid gap-2">
               {(playerData.itemList as string[]).map((item, i) => (
-                <Btn key={item} className="w-full text-base" onClick={() => onAction({ kind: "impostor_guess", itemIndex: i })}>
+                <Btn key={item} testId={`impostor-guess-${i}`} className="w-full text-base" onClick={() => onAction({ kind: "impostor_guess", itemIndex: i })}>
                   Guess: {item}
                 </Btn>
               ))}
@@ -979,7 +981,7 @@ export function PlayerGameView({
             <div className="grid gap-2">
               <p className="text-center text-sm text-zinc-400">Accuse someone:</p>
               {(data.playerIds as string[]).filter((id) => id !== room.playerId).map((id) => (
-                <Btn key={id} variant="danger" className="w-full" disabled={Boolean(playerData.accused)} onClick={() => onAction({ kind: "impostor_accuse", targetId: id })}>
+                <Btn key={id} testId={`impostor-accuse-${id}`} variant="danger" className="w-full" disabled={Boolean(playerData.accused)} onClick={() => onAction({ kind: "impostor_accuse", targetId: id })}>
                   {room.players.find((p) => p.id === id)?.nickname ?? id}
                 </Btn>
               ))}

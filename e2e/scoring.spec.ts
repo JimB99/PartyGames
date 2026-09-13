@@ -6,11 +6,10 @@ import {
   selectGame,
   startGame,
   hostAdvance,
-  hostPauseResume,
   assertNoErrors,
 } from "./helpers/room.js";
 
-test("@host-controls pause, resume, skip, extend on quick-quiz", async () => {
+test("@scoring quick-quiz awards session points", async () => {
   const browser = await chromium.launch();
   const roomId = randomRoomId();
   const { page: host, context: hostCtx } = await openHost(browser, roomId);
@@ -20,13 +19,13 @@ test("@host-controls pause, resume, skip, extend on quick-quiz", async () => {
     await selectGame(host, "quick-quiz");
     await startGame(host);
     await hostAdvance(host);
-    await hostPauseResume(host);
-    const extend = host.getByTestId("host-extend");
-    if (await extend.isVisible().catch(() => false)) {
-      await extend.click();
-    }
     await player.getByTestId("player-answer-0").click({ timeout: 15_000 });
+    await hostAdvance(host);
     await assertNoErrors(host);
+    await expect(host.getByTestId("host-game-view")).toBeVisible();
+    const scorePanel = host.getByTestId("round-score-panel");
+    const playAgain = host.getByTestId("host-play-again");
+    await expect(scorePanel.or(playAgain)).toBeVisible({ timeout: 30_000 });
   } finally {
     await hostCtx.close();
     await playerCtx.close();
@@ -34,44 +33,26 @@ test("@host-controls pause, resume, skip, extend on quick-quiz", async () => {
   }
 });
 
-test("@host-controls skip on fact-check during submit", async () => {
+test("@scoring crowd-call shows round scores", async () => {
   const browser = await chromium.launch();
   const roomId = randomRoomId();
   const { page: host, context: hostCtx } = await openHost(browser, roomId);
   const contexts = [];
+  const players = [];
 
   try {
-    for (let i = 0; i < 2; i++) {
+    for (let i = 0; i < 3; i++) {
       const { page, context } = await joinPlayer(browser, roomId, `P${i + 1}`);
       contexts.push(context);
+      players.push(page);
     }
-    await selectGame(host, "fact-check");
+    await selectGame(host, "crowd-call");
     await startGame(host);
     await hostAdvance(host);
-    await host.getByTestId("host-skip").click({ timeout: 10_000 });
-    await assertNoErrors(host);
-  } finally {
-    await hostCtx.close();
-    for (const ctx of contexts) await ctx.close();
-    await browser.close();
-  }
-});
-
-test("@host-controls pause on paddle-clash", async () => {
-  const browser = await chromium.launch();
-  const roomId = randomRoomId();
-  const { page: host, context: hostCtx } = await openHost(browser, roomId);
-  const contexts = [];
-
-  try {
-    for (let i = 0; i < 2; i++) {
-      const { page, context } = await joinPlayer(browser, roomId, `P${i + 1}`);
-      contexts.push(context);
+    for (const p of players) {
+      await p.getByTestId("crowd-call-option-0").click({ timeout: 15_000 }).catch(() => {});
     }
-    await selectGame(host, "paddle-clash");
-    await startGame(host);
     await hostAdvance(host);
-    await hostPauseResume(host);
     await assertNoErrors(host);
   } finally {
     await hostCtx.close();

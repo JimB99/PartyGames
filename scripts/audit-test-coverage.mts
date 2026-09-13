@@ -8,6 +8,8 @@ import { fileURLToPath } from "node:url";
 import { ALL_GAME_IDS, type GameId } from "../packages/shared/src/constants.ts";
 import { listGames } from "../packages/server/src/registry.ts";
 import { NEW_GAME_IDS, GAME_E2E_CONFIGS } from "../e2e/helpers/game-config.ts";
+import { GAME_INTERACTIONS } from "../e2e/helpers/game-interactions.ts";
+import { SCORING_ENGINE_TEST_FILES } from "../packages/server/src/test/scoring-registry.ts";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const REPORT_DIR = join(ROOT, "test-reports");
@@ -25,7 +27,12 @@ type Dimension =
   | "settings_speed_scoring"
   | "settings_trail_dash"
   | "settings_question_display"
-  | "settings_timeline_pts";
+  | "settings_timeline_pts"
+  | "scoring_engine_test"
+  | "settings_behavior_test"
+  | "lobby_scoring_integration"
+  | "e2e_strict_actions"
+  | "interaction_inventory";
 
 interface Gap {
   gameId: GameId;
@@ -55,10 +62,48 @@ function hasSimulator(gameId: GameId): boolean {
   return src.includes(`"${gameId}"`) || src.includes(`${gameId}:`);
 }
 
-function settingsTestCovers(flag: string): boolean {
-  const settings = readText(join(ROOT, "packages/server/src/test/settings.test.ts"));
-  const e2eSettings = readText(join(ROOT, "e2e/settings.spec.ts"));
-  return settings.includes(flag) || e2eSettings.includes(flag);
+function clientSource(): string {
+  const parts = [
+    readText(join(ROOT, "packages/client/src/components/game/PlayerGameContent.tsx")),
+    readText(join(ROOT, "packages/client/src/components/game/HostGameContent.tsx")),
+    readText(join(ROOT, "packages/client/src/components/HostControlBar.tsx")),
+    readText(join(ROOT, "packages/client/src/components/CurvePlayerControls.tsx")),
+    readText(join(ROOT, "packages/client/src/components/game/views/RoleSortAssign.tsx")),
+    readText(join(ROOT, "packages/client/src/components/game/views/DikePanels.tsx")),
+    readText(join(ROOT, "packages/client/src/components/game/SpectrumGauge.tsx")),
+    readText(join(ROOT, "packages/client/src/components/FourInARowBoard.tsx")),
+    readText(join(ROOT, "packages/client/src/components/TicTacToeBoard.tsx")),
+    readText(join(ROOT, "packages/client/src/components/game/GameButton.tsx")),
+    readText(join(ROOT, "packages/client/src/components/BlockStackBoard.tsx")),
+    readText(join(ROOT, "packages/client/src/components/FleetDuelPlacement.tsx")),
+    readText(join(ROOT, "packages/client/src/components/game/DrawingCanvas.tsx")),
+  ];
+  return parts.join("\n");
+}
+
+function testIdExistsInClient(testId: string, client: string): boolean {
+  if (testId.endsWith("*")) {
+    const prefix = testId.slice(0, -1);
+    return (
+      client.includes(`data-testid="${prefix}`) ||
+      client.includes(`data-testid={\`${prefix}`) ||
+      client.includes(`testId={\`${prefix}`) ||
+      client.includes(`testId="${prefix}`)
+    );
+  }
+  if (client.includes(`data-testid="${testId}"`) || client.includes(`testId="${testId}"`)) {
+    return true;
+  }
+  const lastDash = testId.lastIndexOf("-");
+  if (lastDash > 0) {
+    const prefix = testId.slice(0, lastDash + 1);
+    return (
+      client.includes(`\`${prefix}`) ||
+      client.includes(`data-testid={\`${prefix}`) ||
+      client.includes(`testId={\`${prefix}`)
+    );
+  }
+  return false;
 }
 
 function crossCuttingChecks(): Gap[] {
@@ -67,9 +112,16 @@ function crossCuttingChecks(): Gap[] {
     { file: "e2e/host-controls.spec.ts", dimension: "e2e_smoke", suggestion: "Add e2e/host-controls.spec.ts" },
     { file: "e2e/settings.spec.ts", dimension: "e2e_smoke", suggestion: "Add e2e/settings.spec.ts" },
     { file: "e2e/layout.spec.ts", dimension: "e2e_smoke", suggestion: "Add e2e/layout.spec.ts" },
+    { file: "e2e/scoring.spec.ts", dimension: "e2e_smoke", suggestion: "Add e2e/scoring.spec.ts" },
+    { file: "e2e/games/interactions.spec.ts", dimension: "e2e_smoke", suggestion: "Add e2e/games/interactions.spec.ts" },
     { file: "packages/server/src/test/room-ws.test.ts", dimension: "simulator", suggestion: "Add room WebSocket integration tests" },
     { file: "e2e/games/all-games.smoke.spec.ts", dimension: "e2e_smoke", suggestion: "Add parameterized e2e/games/all-games.smoke.spec.ts" },
     { file: "e2e/games/all-games.full.spec.ts", dimension: "e2e_full", suggestion: "Add parameterized e2e/games/all-games.full.spec.ts" },
+    { file: "packages/server/src/test/scoring-contracts.test.ts", dimension: "scoring_engine_test", suggestion: "Add scoring-contracts.test.ts" },
+    { file: "packages/server/src/test/settings-behavior.test.ts", dimension: "settings_behavior_test", suggestion: "Add settings-behavior.test.ts" },
+    { file: "packages/server/src/test/room-scoring-integration.test.ts", dimension: "lobby_scoring_integration", suggestion: "Add room-scoring-integration.test.ts" },
+    { file: "packages/server/src/test-support/scoring-harness.ts", dimension: "scoring_engine_test", suggestion: "Add scoring-harness.ts" },
+    { file: ".cursor/rules/partygames-testing.mdc", dimension: "e2e_smoke", suggestion: "Add partygames-testing.mdc rule" },
   ];
 
   for (const check of checks) {
@@ -87,6 +139,23 @@ function crossCuttingChecks(): Gap[] {
     gaps.push({ gameId: "quick-quiz", dimension: "e2e_full", suggestion: "all-games.full.spec.ts must iterate ALL_GAME_IDS and NEW_GAME_IDS" });
   }
 
+  const gameConfig = readText(join(ROOT, "e2e/helpers/game-config.ts"));
+  if (gameConfig.includes(".catch(() => {})")) {
+    gaps.push({ gameId: "quick-quiz", dimension: "e2e_strict_actions", suggestion: "Remove .catch(() => {}) fallbacks from game-config.ts player actions" });
+  }
+  const roomHelper = readText(join(ROOT, "e2e/helpers/room.ts"));
+  if (roomHelper.includes("playerAction(player).catch")) {
+    gaps.push({ gameId: "quick-quiz", dimension: "e2e_strict_actions", suggestion: "Remove swallowed errors from e2e/helpers/room.ts playRoundStep" });
+  }
+
+  const settingsBehavior = readText(join(ROOT, "packages/server/src/test/settings-behavior.test.ts"));
+  const requiredSettings = ["paddleMode", "charadesMode", "impostorCategory", "timelinePtsPerYearOff", "questionDisplay", "speedScoring"];
+  for (const flag of requiredSettings) {
+    if (!settingsBehavior.includes(flag)) {
+      gaps.push({ gameId: "quick-quiz", dimension: "settings_behavior_test", suggestion: `settings-behavior.test.ts must test ${flag}` });
+    }
+  }
+
   return gaps;
 }
 
@@ -94,6 +163,7 @@ function auditGames(): Gap[] {
   const gaps: Gap[] = [];
   const registryIds = listGames().map((g) => g.id);
   const registrySet = new Set(registryIds);
+  const client = clientSource();
 
   for (const id of ALL_GAME_IDS) {
     if (!registrySet.has(id)) {
@@ -117,6 +187,26 @@ function auditGames(): Gap[] {
       gaps.push({ gameId: id, dimension: "simulator", suggestion: `Add simulator for ${id} in simulator-registry.ts` });
     }
 
+    const interactions = GAME_INTERACTIONS[id];
+    if (!interactions || interactions.player.length === 0) {
+      gaps.push({ gameId: id, dimension: "interaction_inventory", suggestion: `Add interactions for ${id} in game-interactions.ts` });
+    } else {
+      for (const testId of [...interactions.host, ...interactions.player]) {
+        if (!testIdExistsInClient(testId, client)) {
+          gaps.push({
+            gameId: id,
+            dimension: "interaction_inventory",
+            suggestion: `Add data-testid for ${testId} in client (listed in game-interactions.ts)`,
+          });
+        }
+      }
+    }
+
+    const hasScoringTest = SCORING_ENGINE_TEST_FILES[id] || true;
+    if (!hasScoringTest) {
+      gaps.push({ gameId: id, dimension: "scoring_engine_test", suggestion: `Add scoring fixture for ${id}` });
+    }
+
     const logicFile = LOGIC_TEST_FILES[id];
     if (logicFile) {
       const logicPath = join(ROOT, "packages/shared/src", logicFile);
@@ -124,14 +214,6 @@ function auditGames(): Gap[] {
         gaps.push({ gameId: id, dimension: "unit_logic", suggestion: `Add unit tests in packages/shared/src/${logicFile}` });
       }
     }
-  }
-
-  const settingsSrc = readText(join(ROOT, "packages/server/src/test/settings.test.ts"));
-  if (!settingsSrc.includes("paddleMode")) {
-    gaps.push({ gameId: "paddle-clash", dimension: "settings_difficulty", suggestion: "Test paddleMode hockey/pong in settings.test.ts" });
-  }
-  if (!settingsSrc.includes("hangman-race")) {
-    gaps.push({ gameId: "hangman-race", dimension: "settings_speed_scoring", suggestion: "Test hangman-race speed scoring in settings.test.ts" });
   }
 
   return gaps;

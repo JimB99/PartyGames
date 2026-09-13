@@ -128,7 +128,7 @@ export function DikeBidPanel({
           </GameButton>
         ))}
       </div>
-      <GameButton className="w-full" onClick={() => onBid(amount)}>
+      <GameButton testId="dike-bid-submit" className="w-full" onClick={() => onBid(amount)}>
         Bid {amount}
       </GameButton>
     </div>

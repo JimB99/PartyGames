@@ -1,0 +1,47 @@
+---
+description: PartyGames per-game testing requirements — scoring, settings, buttons, E2E
+globs: PartyGames/**
+alwaysApply: false
+---
+
+# PartyGames testing standards
+
+Applies to any change under `PartyGames/` — new games, game logic, UI controls, settings, scoring, host/player views, E2E helpers.
+
+## Definition of done
+
+- Logic changes ship with tests in the **same change**.
+- Changing **any** aspect of a game requires **extending or updating** existing tests for that game.
+- A game is not complete until it appears in: registry, simulator registry, `GAME_E2E_CONFIGS`, `GAME_INTERACTIONS`, scoring fixture, and `pnpm test:games:audit` with zero gaps.
+
+## Per-game minimum matrix
+
+| Layer | Requirement |
+|-------|-------------|
+| Engine / domain | Scripted scenario with exact or invariant score assertions |
+| Settings | Every `supports*` on `GameMeta` has a behavioral test (observable diff) |
+| Lobby | Game completion updates `inGameScores` and `sessionScores` (integration harness) |
+| E2E smoke | Join → start → primary player action on listed `interactions.player` controls |
+| E2E full | Playthrough to ended; host controls where applicable |
+| Buttons | Every interactive control has `data-testid`; listed in `GAME_INTERACTIONS` |
+
+## Change-any-game checklist
+
+1. Read existing tests (`*-engine.test.ts`, `e2e/helpers/game-config.ts`, `settings*.test.ts`).
+2. Update simulator actions if phases or actions changed.
+3. Update scoring fixtures if points, rounds, or `roundScoresAreCumulative` changed.
+4. Update E2E `playerAction` and `GAME_INTERACTIONS` if UI controls changed.
+5. Update `settings-behavior.test.ts` if `GameOptions` or `supports*` changed.
+6. Run `pnpm test:games:audit` and fix gaps.
+7. Run `pnpm test:contract` (or `pnpm test:games` before deploy).
+
+## New game checklist
+
+- Add to `ALL_GAME_IDS`, registry, client `GameViews`, simulator registry, `GAME_E2E_CONFIGS`, `GAME_INTERACTIONS`, scoring fixture.
+- Document scoring in `GameMeta.scoringRules` and mirror in engine test constants.
+
+## Agent workflow
+
+- Read touched game's tests first.
+- Never weaken tests to pass CI — fix the game or update expectations with a stated reason.
+- Run `pnpm verify` before commit; `pnpm test:games` before deploy.

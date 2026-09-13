@@ -7,6 +7,7 @@ export function triviaActions(state: unknown, ctx: RoomContext): SimAction[] {
   const s = state as {
     mode?: string;
     correctYear?: number;
+    correctIndex?: number;
     options?: Array<{ id: string }>;
   };
   const actions: SimAction[] = [];
@@ -19,7 +20,11 @@ export function triviaActions(state: unknown, ctx: RoomContext): SimAction[] {
   if (phase === "question") {
     for (const playerId of ctx.playerIds) {
       if (s.mode === "quiz") {
-        actions.push({ role: "player", playerId, action: { kind: "trivia_answer", choiceIndex: 0 } });
+        actions.push({
+          role: "player",
+          playerId,
+          action: { kind: "trivia_answer", choiceIndex: s.correctIndex ?? 0 },
+        });
       } else if (s.mode === "timeline") {
         actions.push({
           role: "player",

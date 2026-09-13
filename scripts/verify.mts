@@ -17,7 +17,7 @@ try {
   run("pnpm --filter @party-games/shared build", "Build shared");
   run("pnpm typecheck", "Typecheck");
   run("pnpm test:unit", "Unit tests");
-  run("pnpm test:contract", "Contract tests");
+  run("pnpm test:contract", "Contract tests (includes scoring + settings)");
   run("pnpm test:content", "Content audit");
   run("pnpm audit:dead-exports", "Dead export scan");
   console.log("\nAll verification passed.");

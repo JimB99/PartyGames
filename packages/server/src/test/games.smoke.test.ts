@@ -8,12 +8,12 @@ import {
 import { getGame, listGames } from "../registry.js";
 import {
   applyAction,
-  assertScoresValid,
   assertViews,
   getPhase,
   makeRoomContext,
   runUntilEnded,
 } from "./harness.js";
+import { assertScoresValid, assertSomeoneScored } from "../test-support/scoring-harness.js";
 
 function contextForGame(gameId: GameId, playerCount: number): ReturnType<typeof makeRoomContext> {
   let gameOptions: GameOptions = { ...DEFAULT_GAME_OPTIONS };
@@ -53,7 +53,12 @@ describe("game smoke tests", () => {
         });
 
         assertViews(game!, state, ctx);
-        assertScoresValid(game!.getRoundScores(state));
+        const scores = game!.getRoundScores(state);
+        assertScoresValid(scores);
+        const zeroOk = new Set(["hot-seat", "star-rate", "word-rush", "split-the-room"]);
+        if (label === "min" && !zeroOk.has(meta.id)) {
+          assertSomeoneScored(scores);
+        }
 
         if (!ended) {
           assert.fail(`${meta.id} @ ${playerCount} players did not end within ${steps} steps (phase: ${getPhase(state)})`);

@@ -1,5 +1,6 @@
-import type { GameId } from "../../packages/shared/src/constants.ts";
-import type { GameE2EConfig } from "./room.js";
+import { ALL_GAME_IDS, type GameId } from "../../packages/shared/src/constants.ts";
+import { GAME_INTERACTIONS } from "./game-interactions.ts";
+import { clickInteraction, type GameE2EConfig } from "./room.js";
 
 export const NEW_GAME_IDS = [
   "split-the-room",
@@ -77,19 +78,29 @@ async function fleetDuelAction(page: import("@playwright/test").Page) {
   if (await ready.isVisible().catch(() => false)) await ready.click();
 }
 
-async function submitText(page: import("@playwright/test").Page) {
+async function submitText(page: import("@playwright/test").Page, strict = true) {
   const input = page.getByTestId("player-text-input");
   if (await input.isVisible().catch(() => false)) {
     await input.fill("Test answer");
     await page.getByTestId("player-submit").click();
     return;
   }
-  await page.getByRole("button").first().click({ timeout: 5000 }).catch(() => {});
+  const clicked =
+    (await clickInteraction(page, "wyr-choice-a")) ||
+    (await clickInteraction(page, "crowd-call-option-0")) ||
+    (await clickInteraction(page, "split-vote-a"));
+  if (!clicked && strict) {
+    throw new Error("no submitText or vote control visible");
+  }
 }
 
-async function drawOnCanvas(page: import("@playwright/test").Page) {
+async function drawOnCanvas(page: import("@playwright/test").Page, strict = true) {
   const canvas = page.getByTestId("draw-canvas");
-  if (await canvas.isVisible().catch(() => false)) {
+  const visible = await canvas
+    .waitFor({ state: "visible", timeout: strict ? 15_000 : 2_000 })
+    .then(() => true)
+    .catch(() => false);
+  if (visible) {
     const box = await canvas.boundingBox();
     if (box) {
       await page.mouse.move(box.x + 40, box.y + 40);
@@ -101,7 +112,7 @@ async function drawOnCanvas(page: import("@playwright/test").Page) {
     if (await done.isVisible().catch(() => false)) await done.click();
     return;
   }
-  await submitText(page);
+  await submitText(page, strict);
 }
 
 export const GAME_E2E_CONFIGS: Record<GameId, GameE2EConfig> = {
@@ -117,11 +128,16 @@ export const GAME_E2E_CONFIGS: Record<GameId, GameE2EConfig> = {
   "would-you-rather": {
     id: "would-you-rather",
     minPlayers: 2,
-    playerAction: async (page) => {
-      await page.getByRole("button").first().click({ timeout: 15_000 });
+    playerAction: async (page, strict) => {
+      const clicked = await clickInteraction(page, "wyr-choice-a");
+      if (strict && !clicked) throw new Error("wyr-choice-a not visible");
     },
   },
-  "draw-guess": { id: "draw-guess", minPlayers: 3, playerAction: submitText },
+  "draw-guess": {
+    id: "draw-guess",
+    minPlayers: 3,
+    playerAction: (page, strict) => drawOnCanvas(page, strict),
+  },
   "bracket-battle": { id: "bracket-battle", minPlayers: 4, playerAction: submitText },
   "role-sort": {
     id: "role-sort",
@@ -131,9 +147,9 @@ export const GAME_E2E_CONFIGS: Record<GameId, GameE2EConfig> = {
   timeline: {
     id: "timeline",
     minPlayers: 2,
-    playerAction: async (page) => {
-      const lock = page.getByRole("button", { name: /lock in/i });
-      if (await lock.isVisible().catch(() => false)) await lock.click();
+    playerAction: async (page, strict) => {
+      const clicked = await clickInteraction(page, "timeline-lock-in");
+      if (strict && !clicked) throw new Error("timeline-lock-in not visible");
     },
   },
   impostor: {
@@ -151,8 +167,9 @@ export const GAME_E2E_CONFIGS: Record<GameId, GameE2EConfig> = {
       const addBot = host.getByRole("button", { name: /add bot/i });
       if (await addBot.isVisible().catch(() => false)) await addBot.click();
     },
-    playerAction: async (page) => {
-      await page.getByTestId("trail-dash-turn-left").click({ timeout: 15_000 }).catch(() => {});
+    playerAction: async (page, strict) => {
+      const clicked = await clickInteraction(page, "trail-dash-turn-left");
+      if (strict && !clicked) throw new Error("trail-dash-turn-left not visible");
     },
   },
   "word-rush": { id: "word-rush", minPlayers: 2, playerAction: submitText },
@@ -160,18 +177,18 @@ export const GAME_E2E_CONFIGS: Record<GameId, GameE2EConfig> = {
   "team-charades": {
     id: "team-charades",
     minPlayers: 3,
-    playerAction: async (page) => {
-      const correct = page.getByRole("button", { name: /correct/i });
-      if (await correct.isVisible().catch(() => false)) await correct.click();
+    playerAction: async (page, strict) => {
+      const clicked = await clickInteraction(page, "charades-correct");
+      if (strict && !clicked) throw new Error("charades-correct not visible");
     },
   },
   "hot-seat": { id: "hot-seat", minPlayers: 3, playerAction: submitText },
   "last-on-the-dike": {
     id: "last-on-the-dike",
     minPlayers: 4,
-    playerAction: async (page) => {
-      const bid = page.getByRole("button", { name: /bid|submit|lock/i });
-      if (await bid.isVisible().catch(() => false)) await bid.click();
+    playerAction: async (page, strict) => {
+      const clicked = await clickInteraction(page, "dike-bid-submit");
+      if (strict && !clicked) throw new Error("dike-bid-submit not visible");
     },
   },
   "block-stack": {
@@ -205,62 +222,70 @@ export const GAME_E2E_CONFIGS: Record<GameId, GameE2EConfig> = {
   "tic-tac-toe": {
     id: "tic-tac-toe",
     minPlayers: 2,
-    playerAction: async (page) => {
-      await page.getByTestId("tic-tac-toe-cell-0").click({ timeout: 15_000 });
+    playerAction: async (page, strict) => {
+      const cells = page.locator('[data-testid^="tic-tac-toe-cell-"]:not([disabled])');
+      const count = await cells.count();
+      if (count > 0) {
+        await cells.first().click({ timeout: 15_000 });
+        return;
+      }
+      if (strict) throw new Error("no enabled tic-tac-toe cell");
     },
   },
   "split-the-room": {
     id: "split-the-room",
     minPlayers: 3,
-    playerAction: async (page) => {
+    playerAction: async (page, strict) => {
       const voteA = page.getByTestId("split-vote-a");
       if (await voteA.isVisible().catch(() => false)) {
         await voteA.click();
         return;
       }
-      await submitText(page);
+      await submitText(page, strict);
     },
   },
   spectrum: {
     id: "spectrum",
     minPlayers: 3,
-    playerAction: async (page) => {
+    playerAction: async (page, strict) => {
+      const clue = page.getByPlaceholder(/your clue/i);
+      if (await clue.isVisible().catch(() => false)) {
+        await clue.fill("Test clue");
+        await page.getByRole("button", { name: /submit clue/i }).click();
+        return;
+      }
       const slider = page.getByTestId("spectrum-slider");
       if (await slider.isVisible().catch(() => false)) {
         await slider.fill("60");
         await page.getByTestId("spectrum-lock-in").click();
         return;
       }
-      await submitText(page);
+      if (strict) throw new Error("no spectrum control visible");
     },
   },
   "chain-sketch": {
     id: "chain-sketch",
     minPlayers: 3,
-    playerAction: drawOnCanvas,
+    playerAction: (page, strict) => drawOnCanvas(page, strict),
   },
   "crowd-call": {
     id: "crowd-call",
     minPlayers: 3,
-    playerAction: async (page) => {
-      const option = page.getByTestId("crowd-call-option-0");
-      if (await option.isVisible().catch(() => false)) {
-        await option.click();
-        return;
-      }
-      await page.getByRole("button").first().click({ timeout: 15_000 }).catch(() => {});
+    playerAction: async (page, strict) => {
+      const clicked = await clickInteraction(page, "crowd-call-option-0");
+      if (strict && !clicked) await submitText(page, strict);
     },
   },
   "star-rate": {
     id: "star-rate",
     minPlayers: 3,
-    playerAction: async (page) => {
+    playerAction: async (page, strict) => {
       const star = page.getByTestId("star-rate-3");
       if (await star.isVisible().catch(() => false)) {
         await star.click();
         return;
       }
-      await submitText(page);
+      await submitText(page, strict);
     },
   },
   "agent-grid": {
@@ -290,13 +315,9 @@ export const GAME_E2E_CONFIGS: Record<GameId, GameE2EConfig> = {
   "hangman-race": {
     id: "hangman-race",
     minPlayers: 2,
-    playerAction: async (page) => {
-      const key = page.getByTestId("hangman-key-e");
-      if (await key.isVisible().catch(() => false)) {
-        await key.click();
-        return;
-      }
-      await page.getByRole("button", { name: /^e$/i }).first().click({ timeout: 15_000 }).catch(() => {});
+    playerAction: async (page, strict) => {
+      const clicked = await clickInteraction(page, "hangman-key-e");
+      if (strict && !clicked) throw new Error("hangman-key-e not visible");
     },
   },
   "paddle-clash": {
@@ -313,12 +334,36 @@ export const GAME_E2E_CONFIGS: Record<GameId, GameE2EConfig> = {
   "grid-blast": {
     id: "grid-blast",
     minPlayers: 2,
-    playerAction: async (page) => {
-      await page.getByTestId("grid-blast-bomb").click({ timeout: 15_000 }).catch(() => {});
-      await page.getByTestId("grid-blast-up").click({ timeout: 5_000 }).catch(() => {});
+    playerAction: async (page, strict) => {
+      const bomb = await clickInteraction(page, "grid-blast-bomb");
+      const up = await clickInteraction(page, "grid-blast-up");
+      if (strict && !bomb && !up) throw new Error("grid-blast controls not visible");
     },
   },
-  "draw-vote": { id: "draw-vote", minPlayers: 3, playerAction: drawOnCanvas },
-  "draw-impostor": { id: "draw-impostor", minPlayers: 4, playerAction: drawOnCanvas },
+  "draw-vote": {
+    id: "draw-vote",
+    minPlayers: 3,
+    playerAction: (page, strict) => drawOnCanvas(page, strict),
+  },
+  "draw-impostor": {
+    id: "draw-impostor",
+    minPlayers: 4,
+    playerAction: (page, strict) => drawOnCanvas(page, strict),
+  },
   "caption-this": { id: "caption-this", minPlayers: 3, playerAction: submitText },
 };
+
+for (const id of ALL_GAME_IDS) {
+  GAME_E2E_CONFIGS[id].interactions = GAME_INTERACTIONS[id];
+}
+
+/** Try each listed player interaction control (best-effort per phase). */
+export async function runPlayerInteractions(
+  page: import("@playwright/test").Page,
+  gameId: GameId,
+): Promise<void> {
+  const ids = GAME_INTERACTIONS[gameId].player;
+  for (const testId of ids) {
+    await clickInteraction(page, testId);
+  }
+}

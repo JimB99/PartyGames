@@ -1,4 +1,72 @@
-import { mergeScores } from "./lobby.js";
+import { applyInGameScoresToSession, mergeScores, type LobbyState } from "./lobby.js";
+
+const SCORING_PHASES = new Set(["reveal", "scoreboard", "ended", "match_end", "round_end"]);
+
+export interface SyncInGameScoresParams {
+  roundScoresAreCumulative: boolean;
+  phase: string;
+  round: number;
+  activeGameId: string;
+  roundScores: Record<string, number>;
+  inGameScores: Record<string, number>;
+  committedRoundKeys: Set<string>;
+}
+
+/** Pure sync of engine round scores into lobby in-game totals (mirrors Room.syncInGameScores). */
+export function syncInGameScoresFromView(params: SyncInGameScoresParams): {
+  inGameScores: Record<string, number>;
+  committedRoundKeys: Set<string>;
+  changed: boolean;
+} {
+  const {
+    roundScoresAreCumulative,
+    phase,
+    round,
+    activeGameId,
+    roundScores,
+    inGameScores,
+    committedRoundKeys,
+  } = params;
+
+  if (roundScoresAreCumulative) {
+    return {
+      inGameScores: { ...roundScores },
+      committedRoundKeys,
+      changed: true,
+    };
+  }
+
+  if (!SCORING_PHASES.has(phase) || Object.keys(roundScores).length === 0) {
+    return { inGameScores, committedRoundKeys, changed: false };
+  }
+
+  const commitKey = phase === "ended" ? `${activeGameId}:final` : `${activeGameId}:r${round}`;
+  if (committedRoundKeys.has(commitKey)) {
+    return { inGameScores, committedRoundKeys, changed: false };
+  }
+
+  if (phase === "ended") {
+    const lastRoundKey = `${activeGameId}:r${round}`;
+    if (committedRoundKeys.has(lastRoundKey)) {
+      return { inGameScores, committedRoundKeys, changed: false };
+    }
+  }
+
+  const nextKeys = new Set(committedRoundKeys);
+  nextKeys.add(commitKey);
+  return {
+    inGameScores: mergeScores(inGameScores, roundScores),
+    committedRoundKeys: nextKeys,
+    changed: true,
+  };
+}
+
+/** Apply in-game totals to session when a game ends (mirrors Room.commitSessionScoresIfEnded). */
+export function finalizeGameScores(lobby: LobbyState, roundScoresAreCumulative: boolean): void {
+  if (lobby.gameScoresCommitted) return;
+  applyInGameScoresToSession(lobby, roundScoresAreCumulative);
+  lobby.gameScoresCommitted = true;
+}
 
 export function scoreCommitKey(
   activeGameId: string,

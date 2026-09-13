@@ -94,6 +94,7 @@ function main() {
   const steps: StepResult[] = [
     runStep("Coverage audit", "pnpm test:games:audit"),
     runStep("Unit tests", "pnpm test:unit"),
+    runStep("Scoring + settings contracts", "pnpm test:scoring"),
     runStep("Server integration", "pnpm --filter @party-games/server test:integration"),
     runStep("E2E smoke", "pnpm test:games:e2e:smoke"),
     runStep("E2E full", "pnpm test:games:e2e:full"),

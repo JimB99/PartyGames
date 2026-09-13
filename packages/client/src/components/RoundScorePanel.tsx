@@ -20,7 +20,7 @@ export function RoundScorePanel({
     .sort((a, b) => b.points - a.points);
 
   return (
-    <div className="rounded-2xl bg-zinc-800/60 p-6">
+    <div className="rounded-2xl bg-zinc-800/60 p-6" data-testid="round-score-panel">
       <h3 className="text-xl font-bold mb-4">{title}</h3>
       <ul className="space-y-2">
         {rows.map(({ playerId, points }) => {
@@ -33,7 +33,9 @@ export function RoundScorePanel({
                 className="h-2 w-2 rounded-full shrink-0"
               />
               <span className="flex-1">{name}</span>
-              <span className="font-mono font-bold">{points}</span>
+              <span className="font-mono font-bold" data-testid={`round-score-${playerId}`}>
+                {points}
+              </span>
             </li>
           );
         })}

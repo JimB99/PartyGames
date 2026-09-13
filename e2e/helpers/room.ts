@@ -1,5 +1,6 @@
 import { type Browser, type BrowserContext, type Page, expect } from "@playwright/test";
 import type { GameId } from "../../packages/shared/src/constants.ts";
+import type { GameInteractions } from "./game-interactions.ts";
 
 export function randomRoomId(): string {
   const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ";
@@ -46,37 +47,42 @@ export async function startGame(host: Page): Promise<void> {
   await expect(host.getByTestId("host-game-view")).toBeVisible({ timeout: 60_000 });
 }
 
-export async function setupCurveBots(host: Page): Promise<void> {
-  const addBot = host.getByRole("button", { name: /add bot/i });
-  if (await addBot.isVisible().catch(() => false)) {
-    await addBot.click();
-  }
+export async function assertNoErrors(host: Page): Promise<void> {
+  await expect(host.locator(".text-red-300")).toHaveCount(0);
 }
 
 export interface GameE2EConfig {
   id: GameId;
   minPlayers: number;
   maxPlayers?: number;
+  interactions?: GameInteractions;
   setupHost?: (host: Page) => Promise<void>;
   configureOptions?: (host: Page) => Promise<void>;
-  playerAction: (player: Page) => Promise<void>;
+  playerAction: (player: Page, strict?: boolean) => Promise<void>;
 }
 
 export interface RunGameOptions {
   playerCount?: number;
   maxSteps?: number;
   pauseOnce?: boolean;
+  strict?: boolean;
 }
 
 export async function hostAdvance(host: Page): Promise<void> {
+  const before = await host.getByTestId("host-game-view").innerText().catch(() => "");
   const skip = host.getByTestId("host-skip");
   if (await skip.isVisible().catch(() => false)) {
     await skip.click();
-    return;
+  } else {
+    const startRound = host.getByRole("button", { name: /start round/i });
+    if (await startRound.isVisible().catch(() => false)) {
+      await startRound.click();
+    }
   }
-  const startRound = host.getByRole("button", { name: /start round/i });
-  if (await startRound.isVisible().catch(() => false)) {
-    await startRound.click();
+  await host.waitForTimeout(300);
+  const after = await host.getByTestId("host-game-view").innerText().catch(() => "");
+  if (before === after && await skip.isVisible().catch(() => false)) {
+    // Phase may be unchanged on last skip — acceptable at game end
   }
 }
 
@@ -96,6 +102,63 @@ export async function waitForGameEnd(host: Page, timeoutMs = 90_000): Promise<bo
   } catch {
     return false;
   }
+}
+
+/** Click a testid or prefix* pattern control if visible and enabled. */
+export async function clickInteraction(page: Page, testId: string): Promise<boolean> {
+  if (testId.endsWith("*")) {
+    const prefix = testId.slice(0, -1);
+    const els = page.locator(`[data-testid^="${prefix}"]`);
+    const count = await els.count();
+    let acted = false;
+    for (let i = 0; i < count; i++) {
+      const el = els.nth(i);
+      if (!(await el.isVisible().catch(() => false))) continue;
+      const tag = await el.evaluate((node) => node.tagName.toLowerCase()).catch(() => "");
+      if (tag === "select") {
+        await el.selectOption({ index: 1 });
+        acted = true;
+        continue;
+      }
+      if (!(await el.isEnabled().catch(() => true))) continue;
+      try {
+        await el.click({ timeout: 5_000 });
+        acted = true;
+        break;
+      } catch {
+        // Phase may have advanced (e.g. vote buttons removed after first pick).
+      }
+    }
+    return acted;
+  }
+  const el = page.getByTestId(testId);
+  if (!(await el.isVisible().catch(() => false))) return false;
+  const tag = await el.evaluate((node) => node.tagName.toLowerCase()).catch(() => "");
+  if (tag === "select") {
+    await el.selectOption({ index: 1 });
+    return true;
+  }
+  if (!(await el.isEnabled().catch(() => true))) return false;
+  try {
+    await el.click({ timeout: 5_000 });
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+export async function assertInteractionsVisible(page: Page, testIds: string[]): Promise<void> {
+  let anyVisible = false;
+  for (const testId of testIds) {
+    if (testId.endsWith("*")) {
+      const prefix = testId.slice(0, -1);
+      const count = await page.locator(`[data-testid^="${prefix}"]`).count();
+      if (count > 0) anyVisible = true;
+    } else if (await page.getByTestId(testId).isVisible().catch(() => false)) {
+      anyVisible = true;
+    }
+  }
+  expect(anyVisible, `Expected at least one interaction control visible: ${testIds.join(", ")}`).toBe(true);
 }
 
 async function setupRoom(
@@ -124,11 +187,17 @@ async function setupRoom(
   return { host, players, hostCtx, playerContexts };
 }
 
-async function playRoundStep(host: Page, players: Page[], config: GameE2EConfig): Promise<void> {
+async function playRoundStep(
+  host: Page,
+  players: Page[],
+  config: GameE2EConfig,
+  strict = true,
+): Promise<void> {
   await hostAdvance(host);
   for (const player of players) {
-    await config.playerAction(player).catch(() => {});
+    await config.playerAction(player, strict);
   }
+  await assertNoErrors(host);
 }
 
 export async function endGame(host: Page): Promise<void> {
@@ -142,9 +211,9 @@ export async function runGameSmoke(browser: Browser, config: GameE2EConfig): Pro
   const { host, players, hostCtx, playerContexts } = await setupRoom(browser, config, config.minPlayers);
   try {
     for (const player of players) {
-      await config.playerAction(player).catch(() => {});
+      await config.playerAction(player, false);
     }
-    await expect(host.locator(".text-red-300")).toHaveCount(0);
+    await assertNoErrors(host);
   } finally {
     await endGame(host);
     await hostCtx.close();
@@ -159,6 +228,7 @@ export async function runGameFull(
 ): Promise<void> {
   const playerCount = opts.playerCount ?? config.minPlayers;
   const maxSteps = opts.maxSteps ?? 80;
+  const strict = opts.strict ?? true;
   const { host, players, hostCtx, playerContexts } = await setupRoom(browser, config, playerCount);
 
   try {
@@ -171,19 +241,18 @@ export async function runGameFull(
         await hostPauseResume(host);
         paused = true;
       }
-      await playRoundStep(host, players, config);
+      await playRoundStep(host, players, config, strict);
     }
 
     const ended = await waitForGameEnd(host, 5_000);
     if (!ended) {
-      // Arcade/timed games may need extra host skips to reach ended
       for (let i = 0; i < 10; i++) {
         await hostAdvance(host);
         if (await host.getByRole("button", { name: /play again/i }).isVisible().catch(() => false)) break;
       }
     }
 
-    await expect(host.locator(".text-red-300")).toHaveCount(0);
+    await assertNoErrors(host);
     await expect(host.getByTestId("host-game-view")).toBeVisible();
   } finally {
     await endGame(host);

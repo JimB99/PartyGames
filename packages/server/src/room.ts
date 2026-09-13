@@ -23,13 +23,13 @@ import {
   type ConnectionContext,
   type WSMessage,
 } from "partyserver";
+import { finalizeGameScores, syncInGameScoresFromView } from "./lobby-scoring.js";
 import {
   addPlayer,
   applyInGameScoresToSession,
   createLobby,
   deletePlayer,
   getGameOptions,
-  mergeScores,
   removePlayer,
   resetInGameScores,
   sanitizeNickname,
@@ -132,30 +132,20 @@ export class RoomServer extends Server {
     }
 
     const roundScores = this.gameModule.getRoundScores(this.gameState);
-    if (this.gameModule.meta.roundScoresAreCumulative) {
-      this.lobby.inGameScores = { ...roundScores };
-      return;
-    }
-
     const view = this.gameModule.getHostView(this.gameState, this.getRoomContext());
-    const scoringPhases = new Set(["reveal", "scoreboard", "ended", "match_end", "round_end"]);
-    if (!scoringPhases.has(view.phase) || Object.keys(roundScores).length === 0) {
-      return;
+    const result = syncInGameScoresFromView({
+      roundScoresAreCumulative: this.gameModule.meta.roundScoresAreCumulative ?? false,
+      phase: view.phase,
+      round: view.round,
+      activeGameId: this.activeGameId,
+      roundScores,
+      inGameScores: this.lobby.inGameScores,
+      committedRoundKeys: this.lobby.committedRoundKeys,
+    });
+    if (result.changed) {
+      this.lobby.inGameScores = result.inGameScores;
+      this.lobby.committedRoundKeys = result.committedRoundKeys;
     }
-
-    const commitKey =
-      view.phase === "ended"
-        ? `${this.activeGameId}:final`
-        : `${this.activeGameId}:r${view.round}`;
-    if (this.lobby.committedRoundKeys.has(commitKey)) return;
-
-    if (view.phase === "ended") {
-      const lastRoundKey = `${this.activeGameId}:r${view.round}`;
-      if (this.lobby.committedRoundKeys.has(lastRoundKey)) return;
-    }
-
-    this.lobby.inGameScores = mergeScores(this.lobby.inGameScores, roundScores);
-    this.lobby.committedRoundKeys.add(commitKey);
   }
 
   private commitSessionScoresIfEnded(): void {
@@ -164,11 +154,7 @@ export class RoomServer extends Server {
     if (this.lobby.gameScoresCommitted) return;
 
     this.syncInGameScores();
-    applyInGameScoresToSession(
-      this.lobby,
-      this.gameModule.meta.roundScoresAreCumulative ?? false,
-    );
-    this.lobby.gameScoresCommitted = true;
+    finalizeGameScores(this.lobby, this.gameModule.meta.roundScoresAreCumulative ?? false);
   }
 
   async onStart() {

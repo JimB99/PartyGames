@@ -19,7 +19,9 @@ export function Scoreboard({
             <span className="w-6 text-zinc-500">{i + 1}</span>
             <PlayerColorSwatch index={p.colorIndex} className="h-2 w-2 rounded-full" />
             <span className="flex-1">{p.nickname}</span>
-            <span className="font-mono font-bold">{scores[p.id] ?? 0}</span>
+            <span className="font-mono font-bold" data-testid={`session-score-${p.id}`}>
+              {scores[p.id] ?? 0}
+            </span>
           </li>
         ))}
       </ul>
