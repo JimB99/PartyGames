@@ -22,6 +22,12 @@ export interface DrawingState {
 
 export const DRAWING_COLORS = ["#ffffff", "#ff4d4d", "#4488ff", "#77dd22", "#ffcc22", "#9944ff"] as const;
 export const BRUSH_WIDTHS = [2, 4, 8, 12] as const;
+export const ERASER_WIDTH_MULTIPLIER = 3;
+
+export function strokeLineWidth(brushWidth: number, canvasMinDimension: number, erase: boolean): number {
+  const base = Math.max(2, (brushWidth / 400) * canvasMinDimension);
+  return erase ? base * ERASER_WIDTH_MULTIPLIER : base;
+}
 
 export function normalizePoint(x: number, y: number, width: number, height: number): DrawingPoint {
   return {

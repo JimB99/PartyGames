@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
-import { BRUSH_WIDTHS, DRAWING_COLORS, isEraseStroke, type DrawingTool } from "@party-games/shared";
+import { BRUSH_WIDTHS, DRAWING_COLORS, isEraseStroke, strokeLineWidth, type DrawingTool } from "@party-games/shared";
 
 export interface StrokeInput {
   points: number[];
@@ -31,7 +31,7 @@ function paintStrokes(ctx: CanvasRenderingContext2D, strokes: StrokeInput[], wid
     const erase = isEraseStroke(s);
     ctx.globalCompositeOperation = erase ? "destination-out" : "source-over";
     ctx.strokeStyle = erase ? "rgba(0,0,0,1)" : s.color;
-    ctx.lineWidth = Math.max(2, (s.width / 400) * Math.min(width, height));
+    ctx.lineWidth = strokeLineWidth(s.width, Math.min(width, height), erase);
     ctx.beginPath();
     ctx.moveTo(pts[0] * width, pts[1] * height);
     for (let i = 2; i + 1 < pts.length; i += 2) {
