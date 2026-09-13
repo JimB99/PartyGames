@@ -3,20 +3,28 @@ import assert from "node:assert/strict";
 import {
   ARENA_H,
   ARENA_W,
+  assignSpawnPositions,
   BURST_BULLETS_PER_VOLLEY,
   BURST_VOLLEYS,
+  activateHeldPowerUp,
   applyPowerUp,
   checkTrailCollisions,
   collectPickups,
   createCurveState,
   detonateGrenade,
   eraseTrailsInRadius,
-  fireWeapon,
+  GRENADE_RADIUS,
+  HOMING_MISSILE_SPEED,
+  JUMP_DURATION_TICKS,
+  KANGAROO_JUMP_COOLDOWN_TICKS,
+  KANGAROO_JUMP_DURATION_TICKS,
   distanceToWallAlongAngle,
   generateWarpPairs,
+  markPlayingStarted,
   movePlayer,
   PLAYABLE_MARGIN,
   portalCenter,
+  SPAWN_GRACE_TICKS,
   tickCurveState,
   tickPlayerEffects,
   trailLineSegments,
@@ -34,6 +42,7 @@ function playingState(playerIds: string[]): CurveState {
   const state = createCurveState(playerIds, [], {}, DEFAULT_TRAIL_DASH_OPTIONS);
   state.phase = "playing";
   state.timerEndsAt = Date.now() + 60000;
+  state.playingTick = SPAWN_GRACE_TICKS;
   return state;
 }
 
@@ -296,31 +305,104 @@ describe("trail-dash-logic trail breaks", () => {
     const state = playingState(["a"]);
     const p = state.players[0];
     p.heldPowerUp = "burst";
-    assert.equal(fireWeapon(state, p), true);
+    assert.equal(activateHeldPowerUp(state, p), true);
     assert.equal(state.projectiles.length, BURST_BULLETS_PER_VOLLEY);
     assert.equal(p.burstVolleysRemaining, BURST_VOLLEYS - 1);
   });
 });
 
 describe("trail-dash-logic jump", () => {
-  it("double jump bypasses cooldown and works mid-air", () => {
+  it("normal jump uses longer duration", () => {
     const state = playingState(["a"]);
     const p = state.players[0];
-    applyPowerUp(p, "double_jump");
     assert.equal(tryJump(p), true);
-    assert.equal(p.jumpTicksRemaining > 0, true);
-    assert.equal(p.extraJumps, 1);
+    assert.equal(p.jumpTicksRemaining, JUMP_DURATION_TICKS);
+  });
+
+  it("kangaroo held replaces jump with longer leap and 1s cooldown", () => {
+    const state = playingState(["a"]);
+    const p = state.players[0];
+    p.heldPowerUp = "double_jump";
     assert.equal(tryJump(p), true);
-    assert.equal(p.extraJumps, 0);
-    p.jumpCooldownTicks = 100;
-    applyPowerUp(p, "double_jump");
+    assert.equal(p.jumpTicksRemaining, KANGAROO_JUMP_DURATION_TICKS);
+    assert.equal(p.jumpCooldownTicks, KANGAROO_JUMP_COOLDOWN_TICKS);
+    assert.equal(tryJump(p), false);
+    p.jumpCooldownTicks = 0;
+    p.jumpTicksRemaining = 0;
     assert.equal(tryJump(p), true);
-    assert.equal(p.extraJumps, 0);
+    assert.equal(p.heldPowerUp, "double_jump");
+  });
+});
+
+describe("trail-dash-logic power-up equip", () => {
+  it("pickup equips held power-up without auto-activating speed", () => {
+    const state = playingState(["a"]);
+    const p = state.players[0];
+    state.powerUps = [{ id: "pu1", kind: "speed", x: p.x, y: p.y }];
+    collectPickups(state);
+    assert.equal(p.heldPowerUp, "speed");
+    assert.equal(p.speedEffectTicks, 0);
+  });
+
+  it("fire activates speed and clears held power-up", () => {
+    const state = playingState(["a"]);
+    const p = state.players[0];
+    p.heldPowerUp = "speed";
+    assert.equal(activateHeldPowerUp(state, p), true);
+    assert.equal(p.speedEffectTicks > 0, true);
+    assert.equal(p.heldPowerUp, null);
+  });
+
+  it("homing missile uses slower speed constant", () => {
+    const state = playingState(["a"]);
+    const p = state.players[0];
+    p.heldPowerUp = "missile";
+    activateHeldPowerUp(state, p);
+    const proj = state.projectiles[0];
+    const speed = Math.hypot(proj.vx, proj.vy);
+    assert.ok(Math.abs(speed - HOMING_MISSILE_SPEED) < 0.01);
+  });
+
+  it("grenade uses enlarged blast radius", () => {
+    assert.equal(GRENADE_RADIUS, 90);
+  });
+});
+
+describe("trail-dash-logic spawn", () => {
+  it("assigns unique positions with minimum spacing for 8 players", () => {
+    const spawns = assignSpawnPositions(8, ARENA_W, ARENA_H, 42);
+    assert.equal(spawns.length, 8);
+    for (let i = 0; i < spawns.length; i++) {
+      for (let j = i + 1; j < spawns.length; j++) {
+        const d = Math.hypot(spawns[i].x - spawns[j].x, spawns[i].y - spawns[j].y);
+        assert.ok(d >= 80, `spawns ${i} and ${j} too close: ${d}`);
+      }
+    }
+  });
+
+  it("spawn grace prevents immediate player-vs-player trail death", () => {
+    const state = createCurveState(
+      ["a", "b"],
+      [],
+      {},
+      DEFAULT_TRAIL_DASH_OPTIONS,
+    );
+    markPlayingStarted(state, Date.now());
+    const a = state.players[0];
+    const b = state.players[1];
+    a.x = b.x;
+    a.y = b.y;
+    a.trail = [{ x: a.x, y: a.y }, { x: a.x + 30, y: a.y }];
+    b.trail = [{ x: b.x, y: b.y }];
+    state.playingTick = 0;
+    checkTrailCollisions(state);
+    assert.equal(a.alive, true);
+    assert.equal(b.alive, true);
   });
 });
 
 describe("trail-dash-logic lobby colors", () => {
-  it("uses lobby colorIndex for display but slot index for spawn", () => {
+  it("uses lobby colorIndex for display but distinct spawn positions", () => {
     const state = createCurveState(
       ["human-a"],
       ["bot-b"],
@@ -333,5 +415,6 @@ describe("trail-dash-logic lobby colors", () => {
     const bot = state.players.find((p) => p.id === "bot-b")!;
     assert.equal(human.colorIndex, 5);
     assert.notEqual(human.x, bot.x);
+    assert.notEqual(human.y, bot.y);
   });
 });

@@ -62,26 +62,29 @@ export function PlayerGameView({
       ? fleetTargetId
       : (data.opponentId as string | undefined) ?? targetOpponents[0] ?? null;
   const activeTargetGrid = activeFleetTarget && royaleTargets ? royaleTargets[activeFleetTarget] : null;
+  const isTrailDashPlaying = phase === "playing" && playerView.gameId === "trail-dash";
 
   return (
     <div
-      className={`mx-auto w-full max-w-md space-y-4 p-4 relative min-w-0 landscape:pb-4 ${
-        phase === "playing" && playerView.gameId === "trail-dash"
-          ? "pb-[calc(11rem+env(safe-area-inset-bottom))] landscape:pb-[calc(34vh+env(safe-area-inset-bottom))]"
-          : "pb-8"
+      className={`mx-auto w-full max-w-md space-y-4 p-4 relative min-w-0 ${
+        isTrailDashPlaying ? "p-0" : "pb-8 landscape:pb-4"
       }`}
     >
       <PauseOverlay paused={room.paused} phase={phase} variant="player" />
-      <LiveScoreBar
-        room={room}
-        gameScores={room.gameScores}
-        compact
-      />
-      <TimerBar endsAt={playerView.timerEndsAt} totalMs={playerView.timerTotalMs} />
-      <div className="text-center">
-        <p className="text-sm font-semibold text-zinc-300">{gameName}</p>
-        <PhaseHeader phase={phase} round={playerView.round} maxRounds={playerView.maxRounds} />
-      </div>
+      {!isTrailDashPlaying && (
+        <>
+          <LiveScoreBar
+            room={room}
+            gameScores={room.gameScores}
+            compact
+          />
+          <TimerBar endsAt={playerView.timerEndsAt} totalMs={playerView.timerTotalMs} />
+          <div className="text-center">
+            <p className="text-sm font-semibold text-zinc-300">{gameName}</p>
+            <PhaseHeader phase={phase} round={playerView.round} maxRounds={playerView.maxRounds} />
+          </div>
+        </>
+      )}
 
       {phase === "instructions" && (
         <div className="space-y-4 py-4">

@@ -64,7 +64,7 @@ export function TrailDashInstructions({
       )}
 
       <p className="text-center text-sm text-zinc-500">
-        Cyan (A) and orange (B) wall portals link in random pairs each round — drive through one to exit the other at the same angle. Coins and power-ups appear over time in open spots.
+        Cyan (A) and orange (B) wall portals link in random pairs each round — drive through one to exit the other at the same angle. Coins and power-ups appear over time in open spots. Drive over a power-up to equip it; tap <strong>Fire</strong> to activate (weapons, speed, ghost). Kangaroo replaces <strong>Jump</strong> while equipped.
       </p>
     </div>
   );

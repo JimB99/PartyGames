@@ -1,9 +1,10 @@
 import type { GameAction } from "@party-games/shared";
 import {
+  activateHeldPowerUp,
+  canActivateHeldPowerUp,
   computeRoundScores,
   createCurveState,
-  fireWeapon,
-  isFireablePowerUp,
+  decimateTrailForDisplay,
   markPlayingStarted,
   resetCurveRound,
   shouldIgnoreHostEndRound,
@@ -12,7 +13,7 @@ import {
   type CurveState,
 } from "@party-games/shared";
 import type { TrailDashOptions } from "@party-games/shared";
-import { tickBots } from "./curve-bot.js";
+import { resetBotSteerState, tickBots } from "./curve-bot.js";
 
 export type { CurveState } from "@party-games/shared";
 
@@ -29,6 +30,7 @@ export function createCurveGameState(
 
 export function advanceCurve(state: CurveState, playerIds: string[], botIds: string[]): CurveState {
   if (state.phase === "instructions") {
+    resetBotSteerState();
     markPlayingStarted(state);
     return state;
   }
@@ -58,7 +60,7 @@ export function onCurveAction(state: CurveState, playerId: string, action: GameA
   }
   if (action.kind === "trail_dash_fire" && state.phase === "playing") {
     const p = state.players.find((pl) => pl.id === playerId);
-    if (p) fireWeapon(state, p);
+    if (p) activateHeldPowerUp(state, p);
   }
   if (action.kind === "advance" && state.phase === "instructions") {
     const botIds = state.players.filter((p) => p.isBot).map((p) => p.id);
@@ -111,12 +113,14 @@ export function curveHostView(state: CurveState) {
         y: p.y,
         angle: p.angle,
         alive: p.alive,
-        trail: p.trail,
+        trail: decimateTrailForDisplay(p.trail),
         colorIndex: p.colorIndex,
         jumpTicksRemaining: p.jumpTicksRemaining,
         heldPowerUp: p.heldPowerUp,
         coinsThisRound: p.coinsThisRound,
         deathRank: p.deathRank,
+        speedEffectTicks: p.speedEffectTicks,
+        gapTicksRemaining: p.gapTicksRemaining,
       })),
       coins: state.coins,
       powerUps: state.powerUps,
@@ -153,7 +157,7 @@ export function curvePlayerView(state: CurveState, playerId: string) {
       heldPowerUp: p?.heldPowerUp ?? null,
       coinsThisRound: p?.coinsThisRound ?? 0,
       extraJumps: p?.extraJumps ?? 0,
-      canFire: isFireablePowerUp(p?.heldPowerUp ?? null),
+      canFire: canActivateHeldPowerUp(p?.heldPowerUp ?? null),
     },
   };
 }

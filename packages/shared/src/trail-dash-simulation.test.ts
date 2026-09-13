@@ -10,8 +10,6 @@ import {
 import { DEFAULT_TRAIL_DASH_OPTIONS } from "./trail-dash-options.js";
 import { validateClientMessage } from "./protocol-schema.js";
 
-const SPAWN_MARGIN = 120;
-
 function simulateTicks(state: ReturnType<typeof createCurveState>, ticks: number) {
   for (let i = 0; i < ticks; i++) {
     tickCurveState(state);
@@ -63,9 +61,24 @@ describe("trail-dash simulation", () => {
     const human = state.players.find((p) => p.id === "human")!;
     const bot = state.players.find((p) => p.id === "bot-b")!;
     assert.equal(human.colorIndex, 5);
-    assert.equal(human.x, SPAWN_MARGIN);
-    assert.equal(bot.x, 1200 - SPAWN_MARGIN);
     assert.notEqual(human.x, bot.x);
+    assert.notEqual(human.y, bot.y);
+  });
+
+  it("8 players survive first 5 ticks without mass death at spawn", () => {
+    const botIds = ["bot-1", "bot-2", "bot-3", "bot-4", "bot-5"];
+    const state = createCurveState(
+      ["p1", "p2", "p3"],
+      botIds,
+      Object.fromEntries(botIds.map((id, i) => [id, `Bot ${i + 1}`])),
+      { ...DEFAULT_TRAIL_DASH_OPTIONS, botCount: 5 },
+      1,
+    );
+    markPlayingStarted(state, Date.now());
+    simulateTicks(state, 5);
+    assert.equal(state.phase, "playing");
+    const alive = state.players.filter((p) => p.alive);
+    assert.equal(alive.length, 8);
   });
 
   it("host grace blocks end-round inside grace window", () => {
@@ -86,18 +99,19 @@ describe("trail-dash simulation", () => {
 
   it("respects host-paced mode with power-ups off across ticks", () => {
     const state = createCurveState(
-      ["a", "b"],
+      ["a", "b", "c"],
       [],
       {},
       { ...DEFAULT_TRAIL_DASH_OPTIONS, powerUpMode: "off" },
       1,
-      {},
+      { a: 0, b: 1, c: 2 },
       true,
     );
     markPlayingStarted(state, Date.now());
     simulateTicks(state, 80);
     assert.equal(state.phase, "playing");
     assert.equal(state.powerUps.length, 0);
+    assert.ok(state.players.filter((p) => p.alive).length >= 2);
   });
 
   it("survives 200 ticks with alternating turn inputs from 3 players", () => {

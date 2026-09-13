@@ -16,7 +16,10 @@ export const GAME_INTERACTIONS: Record<GameId, GameInteractions> = {
   "role-sort": { host: ["host-skip"], player: ["role-sort-assign-*", "role-sort-submit"] },
   timeline: { host: ["host-skip"], player: ["timeline-lock-in"] },
   impostor: { host: ["host-skip"], player: ["impostor-accuse-*", "impostor-guess-*"] },
-  "trail-dash": { host: ["host-skip"], player: ["trail-dash-turn-left", "trail-dash-turn-right"] },
+  "trail-dash": {
+    host: ["host-skip"],
+    player: ["trail-dash-turn-left", "trail-dash-turn-right", "trail-dash-jump", "trail-dash-fire"],
+  },
   "word-rush": { host: ["host-skip"], player: ["player-text-input", "player-submit"] },
   "reverse-fact": { host: ["host-skip"], player: ["player-text-input", "player-submit"] },
   "team-charades": { host: ["host-skip"], player: ["charades-correct"] },

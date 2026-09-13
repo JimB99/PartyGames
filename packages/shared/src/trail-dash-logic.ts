@@ -17,8 +17,12 @@ export const TRAIL_POINT_DIST = 3;
 export const OWN_TRAIL_IMMUNE_DIST = 12;
 export const WALL_MARGIN = 5;
 export const WALL_THICKNESS = 24;
-export const JUMP_DURATION_TICKS = 15;
+export const JUMP_DURATION_TICKS = 22;
 export const JUMP_COOLDOWN_TICKS = 75;
+export const KANGAROO_JUMP_DURATION_TICKS = 30;
+export const KANGAROO_JUMP_COOLDOWN_TICKS = 25;
+/** Skip player-vs-player trail collision for the first ~1.2s of a round. */
+export const SPAWN_GRACE_TICKS = 30;
 /** Ticks of trail immunity after using a warp portal. */
 export const WARP_PHASE_TICKS = 35;
 export const SPEED_MULTIPLIER = 1.6;
@@ -28,8 +32,9 @@ export const GAP_EFFECT_TICKS = 135;
 export const COIN_PICKUP_RADIUS = 12;
 export const POWERUP_PICKUP_RADIUS = 14;
 export const GRENADE_FUSE_TICKS = 55;
-export const GRENADE_RADIUS = 60;
+export const GRENADE_RADIUS = 90;
 export const MISSILE_SPEED = 8;
+export const HOMING_MISSILE_SPEED = 3.8;
 export const GRENADE_SPEED = 9;
 export const MISSILE_HOMING_TURN_RATE = 0.045;
 export const MISSILE_EXPLOSION_RADIUS = 35;
@@ -49,6 +54,14 @@ export const POWERUP_SPAWN_INTERVAL_MIN = 90;
 export const POWERUP_SPAWN_INTERVAL_MAX = 220;
 export const PICKUP_CLEAR_RADIUS = 36;
 export const EXPLOSION_DISPLAY_TICKS = 10;
+export const SPATIAL_CELL_SIZE = 32;
+export const HOST_TRAIL_DISPLAY_MAX = 400;
+
+export interface SpawnPosition {
+  x: number;
+  y: number;
+  angle: number;
+}
 
 export interface TrailPoint {
   x: number;
@@ -155,20 +168,9 @@ export interface CurveState {
   pickupTick: number;
   nextCoinSpawnIn: number;
   nextPowerUpSpawnIn: number;
+  /** Ticks elapsed in the current playing phase (for spawn grace). */
+  playingTick: number;
 }
-
-const SPAWN_MARGIN = 120;
-
-const SPAWN_POSITIONS = [
-  { x: SPAWN_MARGIN, y: SPAWN_MARGIN, angle: 0 },
-  { x: ARENA_W - SPAWN_MARGIN, y: SPAWN_MARGIN, angle: Math.PI },
-  { x: SPAWN_MARGIN, y: ARENA_H - SPAWN_MARGIN, angle: 0 },
-  { x: ARENA_W - SPAWN_MARGIN, y: ARENA_H - SPAWN_MARGIN, angle: Math.PI },
-  { x: ARENA_W / 2, y: SPAWN_MARGIN, angle: Math.PI / 2 },
-  { x: ARENA_W / 2, y: ARENA_H - SPAWN_MARGIN, angle: -Math.PI / 2 },
-  { x: SPAWN_MARGIN, y: ARENA_H / 2, angle: 0 },
-  { x: ARENA_W - SPAWN_MARGIN, y: ARENA_H / 2, angle: Math.PI },
-];
 
 export function dist(ax: number, ay: number, bx: number, by: number): number {
   return Math.hypot(ax - bx, ay - by);
@@ -224,13 +226,161 @@ export function segmentHit(
   return dist(px, py, cx, cy) < threshold;
 }
 
+/** Evenly space spawns on the playable perimeter with clockwise tangent angles. */
+export function assignSpawnPositions(
+  count: number,
+  width: number,
+  height: number,
+  seed: number,
+): SpawnPosition[] {
+  if (count <= 0) return [];
+
+  const margin = PLAYABLE_MARGIN + 40;
+  const w = width - 2 * margin;
+  const h = height - 2 * margin;
+  const perimeter = 2 * (w + h);
+
+  const positions: SpawnPosition[] = [];
+  for (let i = 0; i < count; i++) {
+    const t = (i + 0.5) / count;
+    let d = t * perimeter;
+    let x: number;
+    let y: number;
+    let angle: number;
+
+    if (d < w) {
+      x = margin + d;
+      y = margin;
+      angle = 0;
+    } else if (d < w + h) {
+      d -= w;
+      x = margin + w;
+      y = margin + d;
+      angle = Math.PI / 2;
+    } else if (d < 2 * w + h) {
+      d -= w + h;
+      x = margin + w - d;
+      y = margin + h;
+      angle = Math.PI;
+    } else {
+      d -= 2 * w + h;
+      x = margin;
+      y = margin + h - d;
+      angle = -Math.PI / 2;
+    }
+    positions.push({ x, y, angle });
+  }
+
+  for (let i = positions.length - 1; i > 0; i--) {
+    const j = Math.floor(seededUnit(seed + i * 17) * (i + 1));
+    const tmp = positions[i];
+    positions[i] = positions[j];
+    positions[j] = tmp;
+  }
+  return positions;
+}
+
+interface IndexedTrailSegment {
+  playerId: string;
+  a: TrailPoint;
+  b: TrailPoint;
+}
+
+export class TrailSpatialGrid {
+  private readonly buckets = new Map<string, IndexedTrailSegment[]>();
+
+  private cellCoord(v: number): number {
+    return Math.floor(v / SPATIAL_CELL_SIZE);
+  }
+
+  private bucketKey(cx: number, cy: number): string {
+    return `${cx},${cy}`;
+  }
+
+  private addSegment(seg: IndexedTrailSegment): void {
+    const pad = DEFAULT_HIT_RADIUS;
+    const minCx = this.cellCoord(Math.min(seg.a.x, seg.b.x) - pad);
+    const maxCx = this.cellCoord(Math.max(seg.a.x, seg.b.x) + pad);
+    const minCy = this.cellCoord(Math.min(seg.a.y, seg.b.y) - pad);
+    const maxCy = this.cellCoord(Math.max(seg.a.y, seg.b.y) + pad);
+    for (let cx = minCx; cx <= maxCx; cx++) {
+      for (let cy = minCy; cy <= maxCy; cy++) {
+        const key = this.bucketKey(cx, cy);
+        const bucket = this.buckets.get(key);
+        if (bucket) bucket.push(seg);
+        else this.buckets.set(key, [seg]);
+      }
+    }
+  }
+
+  static fromPlayers(players: CurvePlayer[]): TrailSpatialGrid {
+    const grid = new TrailSpatialGrid();
+    for (const player of players) {
+      for (const [a, b] of trailLineSegments(player.trail)) {
+        grid.addSegment({ playerId: player.id, a, b });
+      }
+    }
+    return grid;
+  }
+
+  segmentsNear(x: number, y: number, radius: number): IndexedTrailSegment[] {
+    const pad = radius + DEFAULT_HIT_RADIUS;
+    const minCx = this.cellCoord(x - pad);
+    const maxCx = this.cellCoord(x + pad);
+    const minCy = this.cellCoord(y - pad);
+    const maxCy = this.cellCoord(y + pad);
+    const seen = new Set<IndexedTrailSegment>();
+    const out: IndexedTrailSegment[] = [];
+    for (let cx = minCx; cx <= maxCx; cx++) {
+      for (let cy = minCy; cy <= maxCy; cy++) {
+        const bucket = this.buckets.get(this.bucketKey(cx, cy));
+        if (!bucket) continue;
+        for (const seg of bucket) {
+          if (seen.has(seg)) continue;
+          seen.add(seg);
+          out.push(seg);
+        }
+      }
+    }
+    return out;
+  }
+}
+
+export function decimateTrailForDisplay(
+  trail: TrailPoint[],
+  maxPoints = HOST_TRAIL_DISPLAY_MAX,
+): TrailPoint[] {
+  if (trail.length <= maxPoints) return trail;
+
+  const result: TrailPoint[] = [];
+  const stride = Math.ceil(trail.length / maxPoints);
+  for (let i = 0; i < trail.length; i++) {
+    const pt = trail[i];
+    const isLast = i === trail.length - 1;
+    if (pt.break || i % stride === 0 || isLast) {
+      if (pt.break && result.length > 0 && !result[result.length - 1].break) {
+        result.push({ ...pt });
+      } else if (!pt.break) {
+        result.push({ x: pt.x, y: pt.y });
+      } else if (result.length === 0) {
+        result.push({ ...pt });
+      }
+    }
+  }
+  if (result.length === 0) {
+    const last = trail[trail.length - 1];
+    result.push({ x: last.x, y: last.y });
+  }
+  return result;
+}
+
 function createPlayer(
   id: string,
-  spawnSlot: number,
+  spawn: SpawnPosition,
   colorIndex: number,
   isBot: boolean,
 ): CurvePlayer {
-  const pos = SPAWN_POSITIONS[spawnSlot % SPAWN_POSITIONS.length];
+  const pos = spawn;
   return {
     id,
     x: pos.x,
@@ -422,10 +572,11 @@ export function createCurveState(
   hostPacing = false,
 ): CurveState {
   const allIds = [...playerIds, ...botIds];
-  const players = allIds.map((id, i) =>
-    createPlayer(id, i, colorIndexByPlayer[id] ?? i, botIds.includes(id)),
-  );
   const seed = round * 1000 + allIds.length;
+  const spawns = assignSpawnPositions(allIds.length, ARENA_W, ARENA_H, seed);
+  const players = allIds.map((id, i) =>
+    createPlayer(id, spawns[i], colorIndexByPlayer[id] ?? i, botIds.includes(id)),
+  );
   const instructionMs = resolvePhaseDuration(5000, { contentRating: "family", difficulty: "mixed", hostPacing });
   const now = Date.now();
   return {
@@ -452,6 +603,7 @@ export function createCurveState(
     pickupTick: 0,
     nextCoinSpawnIn: 25,
     nextPowerUpSpawnIn: 70,
+    playingTick: 0,
   };
 }
 
@@ -474,6 +626,7 @@ export function markPlayingStarted(state: CurveState, now = Date.now()): void {
     state.timerTotalMs = state.options.roundTimeSec * 1000;
     state.timerEndsAt = now + state.timerTotalMs;
   }
+  state.playingTick = 0;
   for (const p of state.players) p.direction = "none";
 }
 
@@ -599,6 +752,9 @@ function tryWarpPortal(
 }
 
 export function checkTrailCollisions(state: CurveState): void {
+  const grid = TrailSpatialGrid.fromPlayers(state.players);
+  const spawnGrace = state.playingTick < SPAWN_GRACE_TICKS;
+
   for (const p of state.players) {
     if (!p.alive) continue;
 
@@ -611,16 +767,15 @@ export function checkTrailCollisions(state: CurveState): void {
 
     if (p.gapTicksRemaining > 0 || p.jumpTicksRemaining > 0) continue;
 
-    for (const other of state.players) {
-      if (other.id === p.id) continue;
-      for (const [a, b] of trailLineSegments(other.trail)) {
-        const combined = Math.max(p.hitRadius, DEFAULT_HIT_RADIUS);
-        if (segmentHit(p.x, p.y, a.x, a.y, b.x, b.y, combined)) {
+    if (!spawnGrace) {
+      const combined = Math.max(p.hitRadius, DEFAULT_HIT_RADIUS);
+      for (const seg of grid.segmentsNear(p.x, p.y, combined)) {
+        if (seg.playerId === p.id) continue;
+        if (segmentHit(p.x, p.y, seg.a.x, seg.a.y, seg.b.x, seg.b.y, combined)) {
           killPlayer(state, p);
           break;
         }
       }
-      if (!p.alive) break;
     }
 
     if (!p.alive) continue;
@@ -685,7 +840,7 @@ export function collectPickups(state: CurveState): void {
     });
     state.powerUps = state.powerUps.filter((pu) => {
       if (dist(p.x, p.y, pu.x, pu.y) < POWERUP_PICKUP_RADIUS) {
-        applyPowerUp(p, pu.kind);
+        p.heldPowerUp = pu.kind;
         return false;
       }
       return true;
@@ -693,6 +848,7 @@ export function collectPickups(state: CurveState): void {
   }
 }
 
+/** Apply an immediate effect (used by activateHeldPowerUp and tests). */
 export function applyPowerUp(p: CurvePlayer, kind: PowerUpKind): void {
   switch (kind) {
     case "speed":
@@ -704,7 +860,6 @@ export function applyPowerUp(p: CurvePlayer, kind: PowerUpKind): void {
       p.gapTicksRemaining = GAP_EFFECT_TICKS;
       break;
     case "double_jump":
-      p.extraJumps += 1;
       break;
     case "missile":
     case "grenade":
@@ -717,21 +872,16 @@ export function applyPowerUp(p: CurvePlayer, kind: PowerUpKind): void {
 export function tryJump(p: CurvePlayer): boolean {
   if (!p.alive) return false;
 
-  if (p.jumpTicksRemaining > 0) {
-    if (p.extraJumps <= 0) return false;
-    p.extraJumps--;
+  if (p.heldPowerUp === "double_jump") {
+    if (p.jumpTicksRemaining > 0 || p.jumpCooldownTicks > 0) return false;
     appendTrailBreak(p);
-    p.jumpTicksRemaining = JUMP_DURATION_TICKS;
+    p.jumpTicksRemaining = KANGAROO_JUMP_DURATION_TICKS;
+    p.jumpCooldownTicks = KANGAROO_JUMP_COOLDOWN_TICKS;
     return true;
   }
 
-  if (p.jumpCooldownTicks > 0) {
-    if (p.extraJumps <= 0) return false;
-    p.extraJumps--;
-    appendTrailBreak(p);
-    p.jumpTicksRemaining = JUMP_DURATION_TICKS;
-    return true;
-  }
+  if (p.jumpTicksRemaining > 0) return false;
+  if (p.jumpCooldownTicks > 0) return false;
 
   appendTrailBreak(p);
   p.jumpTicksRemaining = JUMP_DURATION_TICKS;
@@ -767,11 +917,24 @@ function tickBurstVolleys(state: CurveState): void {
   }
 }
 
-export function fireWeapon(state: CurveState, p: CurvePlayer): boolean {
+export function activateHeldPowerUp(state: CurveState, p: CurvePlayer): boolean {
   if (!p.alive || !p.heldPowerUp) return false;
   const kind = p.heldPowerUp;
+
+  if (kind === "double_jump") return false;
+
   p.heldPowerUp = null;
 
+  if (kind === "speed") {
+    p.speedMultiplier = SPEED_MULTIPLIER;
+    p.speedEffectTicks = SPEED_EFFECT_TICKS;
+    return true;
+  }
+  if (kind === "gap") {
+    appendTrailBreak(p);
+    p.gapTicksRemaining = GAP_EFFECT_TICKS;
+    return true;
+  }
   if (kind === "missile") {
     state.projectiles.push({
       id: `proj-${Date.now()}-${p.id}`,
@@ -779,8 +942,8 @@ export function fireWeapon(state: CurveState, p: CurvePlayer): boolean {
       kind: "missile",
       x: p.x,
       y: p.y,
-      vx: Math.cos(p.angle) * MISSILE_SPEED,
-      vy: Math.sin(p.angle) * MISSILE_SPEED,
+      vx: Math.cos(p.angle) * HOMING_MISSILE_SPEED,
+      vy: Math.sin(p.angle) * HOMING_MISSILE_SPEED,
       fuseTicks: null,
       homing: true,
     });
@@ -801,6 +964,11 @@ export function fireWeapon(state: CurveState, p: CurvePlayer): boolean {
     });
   }
   return true;
+}
+
+/** @deprecated Use activateHeldPowerUp */
+export function fireWeapon(state: CurveState, p: CurvePlayer): boolean {
+  return activateHeldPowerUp(state, p);
 }
 
 function missileHitsWall(
@@ -997,6 +1165,8 @@ export function computeRoundScores(state: CurveState): Record<string, number> {
 export function tickCurveState(state: CurveState): CurveState {
   if (state.phase !== "playing") return state;
 
+  state.playingTick++;
+
   for (const p of state.players) {
     tickPlayerEffects(p);
     movePlayer(p, BASE_TURN_SPEED);
@@ -1101,8 +1271,10 @@ export function raycastAhead(
   width: number,
   height: number,
   wallHoles: WallHole[] = [],
+  trailGrid?: TrailSpatialGrid,
 ): number {
   const wallDist = distanceToWallAlongAngle(x, y, angle, width, height, wallHoles);
+  const grid = trailGrid ?? TrailSpatialGrid.fromPlayers(players);
   const steps = Math.floor(maxDist / 4);
   let trailDist = maxDist;
   for (let i = 1; i <= steps; i++) {
@@ -1114,20 +1286,23 @@ export function raycastAhead(
         break;
       }
     }
-    for (const other of players) {
-      const segments = trailLineSegments(other.trail);
-      const end =
-        other.id === selfId
-          ? Math.max(0, segments.length - ownTrailImmuneSegmentCount(other.trail))
-          : segments.length;
-      for (let j = 0; j < end; j++) {
-        const [a, b] = segments[j];
-        if (segmentHit(px, py, a.x, a.y, b.x, b.y, DEFAULT_HIT_RADIUS)) {
-          trailDist = Math.min(trailDist, i * 4);
-          break;
+    for (const seg of grid.segmentsNear(px, py, DEFAULT_HIT_RADIUS)) {
+      if (seg.playerId === selfId) {
+        const self = players.find((pl) => pl.id === selfId);
+        if (self) {
+          const ownSegments = trailLineSegments(self.trail);
+          const skipCount = ownTrailImmuneSegmentCount(self.trail);
+          const immuneStart = Math.max(0, ownSegments.length - skipCount);
+          const segIdx = ownSegments.findIndex(
+            ([a, b]) => a.x === seg.a.x && a.y === seg.a.y && b.x === seg.b.x && b.y === seg.b.y,
+          );
+          if (segIdx >= immuneStart) continue;
         }
       }
-      if (trailDist < maxDist) break;
+      if (segmentHit(px, py, seg.a.x, seg.a.y, seg.b.x, seg.b.y, DEFAULT_HIT_RADIUS)) {
+        trailDist = Math.min(trailDist, i * 4);
+        break;
+      }
     }
     if (trailDist < maxDist) break;
   }

@@ -1,5 +1,10 @@
 import type { PowerUpKind, RoomSnapshot, TrailPoint } from "@party-games/shared";
-import { powerUpInfo, WALL_THICKNESS } from "@party-games/shared";
+import {
+  GAP_EFFECT_TICKS,
+  powerUpInfo,
+  SPEED_EFFECT_TICKS,
+  WALL_THICKNESS,
+} from "@party-games/shared";
 import { playerColor } from "../hooks/usePartyRoom";
 
 function splitTrailPolylines(trail: TrailPoint[]): TrailPoint[][] {
@@ -145,6 +150,8 @@ export function CurveArena({
     jumpTicksRemaining?: number;
     heldPowerUp?: string | null;
     coinsThisRound?: number;
+    speedEffectTicks?: number;
+    gapTicksRemaining?: number;
   }>;
   const coins = (data.coins as Array<{ id: string; x: number; y: number }>) ?? [];
   const powerUps = (data.powerUps as Array<{ id: string; kind: string; x: number; y: number }>) ?? [];
@@ -232,6 +239,32 @@ export function CurveArena({
               {name}
               {p.coinsThisRound ? ` (+${p.coinsThisRound})` : ""}
             </text>
+            {(p.speedEffectTicks ?? 0) > 0 && (
+              <g transform={`translate(${p.x + 10}, ${p.y + 4})`}>
+                <rect x={0} y={0} width={40} height={5} fill="#27272a" rx={2} />
+                <rect
+                  x={0}
+                  y={0}
+                  width={40 * ((p.speedEffectTicks ?? 0) / SPEED_EFFECT_TICKS)}
+                  height={5}
+                  fill="#00E5FF"
+                  rx={2}
+                />
+              </g>
+            )}
+            {(p.gapTicksRemaining ?? 0) > 0 && (
+              <g transform={`translate(${p.x + 10}, ${p.y + (p.speedEffectTicks ? 12 : 4)})`}>
+                <rect x={0} y={0} width={40} height={5} fill="#27272a" rx={2} />
+                <rect
+                  x={0}
+                  y={0}
+                  width={40 * ((p.gapTicksRemaining ?? 0) / GAP_EFFECT_TICKS)}
+                  height={5}
+                  fill="#4ECDC4"
+                  rx={2}
+                />
+              </g>
+            )}
           </g>
         );
       })}

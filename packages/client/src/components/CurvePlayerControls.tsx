@@ -22,18 +22,18 @@ function ControlBtn({
 }) {
   const styles =
     variant === "primary"
-      ? "bg-violet-600 hover:bg-violet-500"
+      ? "bg-violet-600 hover:bg-violet-500 active:bg-violet-700"
       : variant === "danger"
-        ? "bg-red-600 hover:bg-red-500"
+        ? "bg-red-600 hover:bg-red-500 active:bg-red-700"
         : variant === "accent"
-          ? "bg-yellow-600 hover:bg-yellow-500"
-          : "bg-zinc-700 hover:bg-zinc-600";
+          ? "bg-yellow-600 hover:bg-yellow-500 active:bg-yellow-700"
+          : "bg-zinc-700 hover:bg-zinc-600 active:bg-zinc-800";
   return (
     <button
       type="button"
       data-testid={testId}
       disabled={disabled}
-      className={`rounded-2xl px-4 py-5 text-lg font-bold text-white transition active:scale-95 disabled:opacity-40 touch-none select-none min-h-[3.25rem] landscape:min-h-[4.5rem] ${styles} ${className}`}
+      className={`font-bold text-white transition active:scale-[0.98] disabled:opacity-40 touch-none select-none ${styles} ${className}`}
       onPointerDown={(e) => {
         e.preventDefault();
         onPointerDown?.();
@@ -52,7 +52,6 @@ export function CurvePlayerControls({
   jumpCooldown,
   canFire,
   heldPowerUp,
-  extraJumps = 0,
   powerUpMode = "normal",
 }: {
   onAction: (action: GameAction) => void;
@@ -63,60 +62,91 @@ export function CurvePlayerControls({
   powerUpMode?: import("@party-games/shared").PowerUpMode;
 }) {
   const stopTurn = () => onAction({ kind: "trail_dash_turn", direction: "none" });
-  const jumpLocked = jumpCooldown > 0 && extraJumps <= 0;
+  const kangarooHeld = heldPowerUp === "double_jump";
+  const jumpLocked = jumpCooldown > 0;
   const showPowerUps = powerUpMode !== "off";
 
+  const jumpLabel = jumpLocked
+    ? kangarooHeld
+      ? `Kangaroo (${Math.ceil(jumpCooldown / 25)}s)`
+      : `Jump (${Math.ceil(jumpCooldown / 25)}s)`
+    : kangarooHeld
+      ? "Kangaroo"
+      : "Jump";
+
+  const fireLabel = heldPowerUp && canFire
+    ? `Fire ${powerUpInfo(heldPowerUp as import("@party-games/shared").PowerUpKind).icon}`
+    : "Fire";
+
   return (
-    <div className="fixed inset-x-0 bottom-0 z-30 mx-auto max-w-lg px-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] landscape:max-w-none landscape:px-4 landscape:pb-[max(0.5rem,env(safe-area-inset-bottom))]" data-testid="curve-player-controls">
-      <div className={showPowerUps ? "grid grid-cols-2 gap-3 landscape:gap-2" : "grid grid-cols-2 gap-3 landscape:gap-2"}>
-        {showPowerUps && (
-          <>
-            <ControlBtn
-              variant="accent"
-              disabled={jumpLocked}
-              onPointerDown={() => onAction({ kind: "trail_dash_jump" })}
-            >
-              {jumpLocked
-                ? `Jump (${Math.ceil(jumpCooldown / 25)}s)`
-                : extraJumps > 0
-                  ? `Jump (+${extraJumps})`
-                  : "Jump"}
-            </ControlBtn>
-            {canFire ? (
-              <ControlBtn variant="danger" onPointerDown={() => onAction({ kind: "trail_dash_fire" })}>
-                Fire {heldPowerUp ? powerUpInfo(heldPowerUp as import("@party-games/shared").PowerUpKind).icon : "🚀"}
-              </ControlBtn>
-            ) : (
-              <ControlBtn variant="secondary" disabled>
-                Fire
-              </ControlBtn>
-            )}
-          </>
-        )}
+    <div
+      className="fixed inset-0 z-30 grid h-dvh w-dvw grid-cols-2 grid-rows-[1fr_1fr]"
+      data-testid="curve-player-controls"
+      style={{
+        paddingTop: "env(safe-area-inset-top)",
+        paddingBottom: "env(safe-area-inset-bottom)",
+        paddingLeft: "env(safe-area-inset-left)",
+        paddingRight: "env(safe-area-inset-right)",
+      }}
+    >
+      {showPowerUps ? (
         <ControlBtn
-          className="landscape:min-h-[32vh] landscape:text-3xl landscape:py-0"
-          testId="trail-dash-turn-left"
-          onPointerDown={() => onAction({ kind: "trail_dash_turn", direction: "left" })}
-          onPointerUp={stopTurn}
-          onPointerLeave={stopTurn}
+          variant="accent"
+          className="h-full min-h-0 w-full rounded-none text-3xl"
+          testId="trail-dash-jump"
+          disabled={jumpLocked}
+          onPointerDown={() => onAction({ kind: "trail_dash_jump" })}
         >
-          ◀
+          {jumpLabel}
         </ControlBtn>
-        <ControlBtn
-          className="landscape:min-h-[32vh] landscape:text-3xl landscape:py-0"
-          testId="trail-dash-turn-right"
-          onPointerDown={() => onAction({ kind: "trail_dash_turn", direction: "right" })}
-          onPointerUp={stopTurn}
-          onPointerLeave={stopTurn}
-        >
-          ▶
+      ) : (
+        <ControlBtn className="h-full min-h-0 w-full rounded-none" disabled variant="secondary">
+          —
         </ControlBtn>
-      </div>
-      {heldPowerUp && !canFire && (
-        <p className="mt-2 text-center text-sm text-yellow-400 landscape:mt-1">
-          Active: {powerUpInfo(heldPowerUp as import("@party-games/shared").PowerUpKind).name}
-        </p>
       )}
+      {showPowerUps ? (
+        canFire ? (
+          <ControlBtn
+            variant="danger"
+            className="h-full min-h-0 w-full rounded-none text-3xl"
+            testId="trail-dash-fire"
+            onPointerDown={() => onAction({ kind: "trail_dash_fire" })}
+          >
+            {fireLabel}
+          </ControlBtn>
+        ) : (
+          <ControlBtn
+            className="h-full min-h-0 w-full rounded-none text-3xl"
+            testId="trail-dash-fire"
+            variant="secondary"
+            disabled
+          >
+            Fire
+          </ControlBtn>
+        )
+      ) : (
+        <ControlBtn className="h-full min-h-0 w-full rounded-none" disabled variant="secondary">
+          —
+        </ControlBtn>
+      )}
+      <ControlBtn
+        className="h-full min-h-0 w-full rounded-none text-4xl"
+        testId="trail-dash-turn-left"
+        onPointerDown={() => onAction({ kind: "trail_dash_turn", direction: "left" })}
+        onPointerUp={stopTurn}
+        onPointerLeave={stopTurn}
+      >
+        ◀
+      </ControlBtn>
+      <ControlBtn
+        className="h-full min-h-0 w-full rounded-none text-4xl"
+        testId="trail-dash-turn-right"
+        onPointerDown={() => onAction({ kind: "trail_dash_turn", direction: "right" })}
+        onPointerUp={stopTurn}
+        onPointerLeave={stopTurn}
+      >
+        ▶
+      </ControlBtn>
     </div>
   );
 }

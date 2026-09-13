@@ -19,7 +19,7 @@ export const TRAIL_DASH_POWERUPS: TrailDashPowerUpInfo[] = [
   },
   {
     kind: "gap",
-    icon: "✨",
+    icon: "👻",
     name: "Ghost",
     description: "Leave no trail briefly — pass through lines",
     color: "#4ECDC4",
@@ -27,8 +27,8 @@ export const TRAIL_DASH_POWERUPS: TrailDashPowerUpInfo[] = [
   {
     kind: "double_jump",
     icon: "🦘",
-    name: "Double Jump",
-    description: "Gain a jump usable mid-air or without cooldown",
+    name: "Kangaroo",
+    description: "Long jump on Jump button — 1s cooldown until you pick up another power-up",
     color: "#AA96DA",
   },
   {
@@ -63,6 +63,11 @@ export function activePowerUpsForMode(mode: PowerUpMode): TrailDashPowerUpInfo[]
   return TRAIL_DASH_POWERUPS;
 }
 
+export function canActivateHeldPowerUp(kind: PowerUpKind | null): boolean {
+  return kind !== null && kind !== "double_jump";
+}
+
+/** @deprecated Use canActivateHeldPowerUp */
 export function isFireablePowerUp(kind: PowerUpKind | null): boolean {
-  return kind === "missile" || kind === "grenade" || kind === "burst";
+  return canActivateHeldPowerUp(kind);
 }
