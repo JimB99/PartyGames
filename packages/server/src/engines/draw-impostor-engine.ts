@@ -5,6 +5,7 @@ import { clearPhaseTimer, startPhaseTimer } from "./phase-timer.js";
 export type DrawImpostorPhase = "instructions" | "drawing" | "discussion" | "accuse" | "reveal" | "ended";
 
 export interface DrawImpostorState {
+  gameOptions?: import("@party-games/shared").GameOptions;
   phase: DrawImpostorPhase;
   round: number;
   maxRounds: number;
@@ -28,15 +29,14 @@ const REVEAL_MS = 10000;
 
 export function createDrawImpostorState(
   locations: Array<{ name: string; category: string }>,
-  playerIds: string[],
-): DrawImpostorState {
+  playerIds: string[], gameOptions?: import("@party-games/shared").GameOptions): DrawImpostorState {
   const loc = pickRandom(locations);
   const impostorId = pickRandom(playerIds);
   return {
     phase: "instructions",
     round: 1,
     maxRounds: 1,
-    ...startPhaseTimer(5000),
+    ...startPhaseTimer(5000, gameOptions),
     playerIds,
     prompt: loc.name,
     category: loc.category,
@@ -74,23 +74,23 @@ function scoreDrawImpostor(state: DrawImpostorState): void {
 export function advanceDrawImpostor(state: DrawImpostorState): DrawImpostorState {
   if (state.phase === "instructions") {
     state.phase = "drawing";
-    Object.assign(state, startPhaseTimer(DRAW_MS));
+    Object.assign(state, startPhaseTimer(DRAW_MS, state.gameOptions));
     return state;
   }
   if (state.phase === "drawing") {
     state.phase = "discussion";
-    Object.assign(state, startPhaseTimer(DISCUSS_MS));
+    Object.assign(state, startPhaseTimer(DISCUSS_MS, state.gameOptions));
     return state;
   }
   if (state.phase === "discussion") {
     state.phase = "accuse";
-    Object.assign(state, startPhaseTimer(ACCUSE_MS));
+    Object.assign(state, startPhaseTimer(ACCUSE_MS, state.gameOptions));
     return state;
   }
   if (state.phase === "accuse") {
     scoreDrawImpostor(state);
     state.phase = "reveal";
-    Object.assign(state, startPhaseTimer(REVEAL_MS));
+    Object.assign(state, startPhaseTimer(REVEAL_MS, state.gameOptions));
     return state;
   }
   if (state.phase === "reveal") {

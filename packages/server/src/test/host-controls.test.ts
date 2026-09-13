@@ -17,6 +17,15 @@ describe("resolveHostControls", () => {
     assert.equal(resolveHostControls({ phase: "playing", timerEndsAt: null }).canSkip, false);
   });
 
+  it("host-paced mode enables skip on playing phase and disables extend", () => {
+    const controls = resolveHostControls(
+      { phase: "playing", timerEndsAt: Date.now() + 5000 },
+      { hostPacing: true },
+    );
+    assert.equal(controls.canSkip, true);
+    assert.equal(controls.canExtendTime, false);
+  });
+
   it("always allows pause and return to lobby", () => {
     const controls = resolveHostControls({ phase: "playing", timerEndsAt: null });
     assert.equal(controls.canPause, true);

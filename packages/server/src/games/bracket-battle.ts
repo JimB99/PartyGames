@@ -23,7 +23,7 @@ export const bracketBattleGame: GameModule<BracketState> = {
     supportsMatureContent: true,
   },
   init(ctx) {
-    return createBracketState(bracketCategoryPool(ctx.gameOptions));
+    return createBracketState(bracketCategoryPool(ctx.gameOptions), ctx.gameOptions);
   },
   onPlayerAction(state, playerId, action, ctx) {
     return onBracketAction(state, playerId, action, ctx);

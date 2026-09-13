@@ -25,8 +25,13 @@ export const wouldYouRatherGame: GameModule<TriviaState> = {
     supportsQuestionDisplay: true,
   },
   init(ctx) {
-    const state = createTriviaState("would-you-rather", wouldYouRatherPool(ctx.gameOptions), 10, ctx.playerIds.length);
-    state.gameOptions = ctx.gameOptions;
+    const state = createTriviaState(
+      "would-you-rather",
+      wouldYouRatherPool(ctx.gameOptions),
+      10,
+      ctx.playerIds.length,
+      ctx.gameOptions,
+    );
     return state;
   },
   onPlayerAction(state, playerId, action, ctx) {

@@ -1,6 +1,6 @@
-import { GamePicker, effectivePlayerCount } from "../components/GamePicker";
+import { GamePicker, effectivePlayerCount, isOverMaxPlayers } from "../components/GamePicker";
 import { resolveGameOptions } from "../components/GameOptionsPanel";
-import { GameSettingsPanels } from "../components/GameSettingsPanels";
+import { GameDetailIsland } from "../components/GameDetailIsland";
 import { HostControlBar } from "../components/HostControlBar";
 import { HostGameView } from "../components/GameViews";
 import { GameViewErrorBoundary } from "../components/GameViewErrorBoundary";
@@ -9,7 +9,6 @@ import { PauseOverlay } from "../components/PauseOverlay";
 import { PlayerList } from "../components/PlayerList";
 import { RoomCodeDisplay } from "../components/RoomCodeDisplay";
 import { Scoreboard } from "../components/Scoreboard";
-import { SelectedGamePanel, StartGameButton } from "../components/SelectedGamePanel";
 import { generateRoomCode, usePartyRoom } from "../hooks/usePartyRoom";
 import { SessionPlaylistPanel } from "../components/SessionPlaylistPanel";
 import { useParams } from "react-router-dom";
@@ -17,6 +16,8 @@ import { useState } from "react";
 import type { GameId } from "@party-games/shared";
 import { resolveTrailDashOptions } from "@party-games/shared";
 import { ConnectionBanner } from "../components/game/GameShell";
+import { useWakeLock } from "../hooks/useWakeLock";
+import { useHostPlayingFocus } from "../hooks/useHostPlayingFocus";
 
 export function HostPage() {
   const { roomId: paramRoomId } = useParams();
@@ -60,9 +61,15 @@ export function HostPage() {
     connectedPlayers.length > 0 &&
     connectedPlayers.length + (trailDashOpts?.botCount ?? 0) < 2;
 
+  const playerOverMax = Boolean(
+    selectedGame &&
+      isOverMaxPlayers(selectedGame, connectedPlayers.length, roomState?.gameOptionsByGame),
+  );
+
   const canStart = Boolean(
     selectedGameId &&
       connectedPlayers.length > 0 &&
+      !playerOverMax &&
       (selectedGameId === "trail-dash"
         ? effectivePlayerCount(
             roomState?.games.find((g) => g.id === "trail-dash")!,
@@ -94,54 +101,38 @@ export function HostPage() {
     }
   };
 
-  const settingsPanels =
-    selectedGame && selectedOptions ? (
-      <GameSettingsPanels
-        game={selectedGame}
-        options={selectedOptions}
-        onChange={(options) => {
-          if (selectedGameId) {
-            setGameOptions(selectedGameId, options);
-          }
-        }}
-      />
-    ) : null;
-
   const trailDashWarning = needsMoreForTrailDash ? (
     <p className="rounded-xl border border-amber-600/40 bg-amber-900/20 px-4 py-3 text-sm text-amber-200">
       Add at least 1 bot below or invite another player to start Trail Dash.
     </p>
   ) : null;
 
-  const optionsSlot = (gameId: GameId) => {
-    if (!roomState || gameId !== selectedGameId || !selectedGame || !selectedOptions) {
-      return null;
-    }
-    return (
-      <>
-        {settingsPanels}
-        {trailDashWarning}
-      </>
-    );
-  };
+  const overMaxWarning = playerOverMax && selectedGame ? (
+    <p className="rounded-xl border border-amber-600/40 bg-amber-900/20 px-4 py-3 text-sm text-amber-200">
+      {selectedGame.id === "trail-dash"
+        ? `Trail Dash allows up to ${selectedGame.maxPlayers} total players (humans + bots). Reduce bots or wait for players to leave.`
+        : `This game allows at most ${selectedGame.maxPlayers} players. Wait for someone to leave before starting.`}
+    </p>
+  ) : null;
 
   const startHint =
     !canStart && selectedGame
       ? connectedPlayers.length === 0
         ? "Waiting for at least 1 player to join."
-        : selectedGame.id === "trail-dash"
-          ? "Add bots or invite another player to start Trail Dash."
-          : connectedPlayers.length < selectedGame.minPlayers
-            ? `Need ${selectedGame.minPlayers - connectedPlayers.length} more player${
-                selectedGame.minPlayers - connectedPlayers.length === 1 ? "" : "s"
-              } to start.`
-            : undefined
+        : playerOverMax
+          ? selectedGame.id === "trail-dash"
+            ? "Reduce bots or wait for players to leave."
+            : "Too many players connected for this game."
+          : selectedGame.id === "trail-dash"
+            ? "Add bots or invite another player to start Trail Dash."
+            : connectedPlayers.length < selectedGame.minPlayers
+              ? `Need ${selectedGame.minPlayers - connectedPlayers.length} more player${
+                  selectedGame.minPlayers - connectedPlayers.length === 1 ? "" : "s"
+                } to start.`
+              : undefined
       : undefined;
 
-  const actionSlot = (gameId: GameId) => {
-    if (gameId !== selectedGameId) return null;
-    return <StartGameButton canStart={Boolean(canStart)} onStart={startGame} hint={startHint} />;
-  };
+  const trailDashMaxBots = Math.max(0, 8 - connectedPlayers.length);
 
   const gameScores = roomState?.gameScores ?? {};
   const hostControls = roomState?.hostView?.hostControls ?? {
@@ -150,6 +141,9 @@ export function HostPage() {
     canSkip: false,
     canReturnToLobby: true,
   };
+
+  useWakeLock(playing);
+  useHostPlayingFocus(roomState?.hostView);
 
   return (
     <div className="pg-page min-h-dvh bg-[#0f1117]">
@@ -189,7 +183,7 @@ export function HostPage() {
       {error && <ConnectionBanner message={error} />}
 
       {!playing && roomState && (
-        <div className="mx-auto grid max-w-7xl gap-8 p-6 lg:grid-cols-[1fr_2fr] xl:grid-cols-[1fr_2fr_minmax(280px,1fr)]">
+        <div className="mx-auto grid max-w-7xl gap-8 p-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)]">
           <div className="space-y-6 min-w-0">
             <RoomCodeDisplay roomId={roomId} />
             <Scoreboard players={roomState.players} scores={roomState.sessionScores} />
@@ -205,8 +199,23 @@ export function HostPage() {
               playerCount={connectedPlayers.length}
               gameOptionsByGame={roomState.gameOptionsByGame}
               onSelect={handleSelectGame}
-              optionsSlot={optionsSlot}
-              actionSlot={actionSlot}
+              detailPanel={
+                selectedGame && selectedOptions ? (
+                  <GameDetailIsland
+                    game={selectedGame}
+                    options={selectedOptions}
+                    playerCount={connectedPlayers.length}
+                    onChange={(options) => {
+                      if (selectedGameId) setGameOptions(selectedGameId, options);
+                    }}
+                    canStart={Boolean(canStart)}
+                    onStart={startGame}
+                    warning={overMaxWarning ?? trailDashWarning}
+                    startHint={startHint}
+                    trailDashMaxBots={trailDashMaxBots}
+                  />
+                ) : undefined
+              }
             />
             <SessionPlaylistPanel
               games={roomState.games}
@@ -214,17 +223,6 @@ export function HostPage() {
               onChange={setSessionPlaylist}
               onStartSession={startSession}
               onClear={clearSessionPlaylist}
-            />
-          </div>
-
-          <div className="hidden xl:block">
-            <SelectedGamePanel
-              game={selectedGame}
-              canStart={Boolean(canStart)}
-              onStart={startGame}
-              settings={settingsPanels}
-              warning={trailDashWarning}
-              startHint={startHint}
             />
           </div>
         </div>
@@ -243,6 +241,8 @@ export function HostPage() {
             paused={roomState.paused}
             phase={roomState.hostView.phase}
             controls={hostControls}
+            gameId={roomState.activeGameId}
+            hostPacing={roomState.activeGameOptions?.hostPacing === true}
             sessionActive={roomState.sessionActive}
             hasNextSessionGame={
               roomState.sessionActive &&

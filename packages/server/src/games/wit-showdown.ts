@@ -24,7 +24,14 @@ export const witShowdownGame: GameModule<PromptVoteState> = {
     roundScoresAreCumulative: true,
   },
   init(ctx) {
-    return createPromptVoteState("wit-showdown", witShowdownPool(ctx.gameOptions), 4, undefined, ctx.playerIds);
+    return createPromptVoteState(
+      "wit-showdown",
+      witShowdownPool(ctx.gameOptions),
+      4,
+      undefined,
+      ctx.playerIds,
+      ctx.gameOptions,
+    );
   },
   onPlayerAction(state, playerId, action, ctx) {
     return onPromptVoteAction(state, playerId, action, ctx);

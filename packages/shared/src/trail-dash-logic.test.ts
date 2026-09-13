@@ -320,7 +320,7 @@ describe("trail-dash-logic jump", () => {
 });
 
 describe("trail-dash-logic lobby colors", () => {
-  it("uses lobby colorIndex when provided", () => {
+  it("uses lobby colorIndex for display but slot index for spawn", () => {
     const state = createCurveState(
       ["human-a"],
       ["bot-b"],
@@ -329,6 +329,9 @@ describe("trail-dash-logic lobby colors", () => {
       1,
       { "human-a": 5 },
     );
-    assert.equal(state.players.find((p) => p.id === "human-a")?.colorIndex, 5);
+    const human = state.players.find((p) => p.id === "human-a")!;
+    const bot = state.players.find((p) => p.id === "bot-b")!;
+    assert.equal(human.colorIndex, 5);
+    assert.notEqual(human.x, bot.x);
   });
 });

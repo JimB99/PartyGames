@@ -1,6 +1,7 @@
 import {
   PLAYER_COLORS,
   ROOM_CODE_CHARS,
+  normalizeGameOptions,
   type ClientMessage,
   type GameAction,
   type GameId,
@@ -137,8 +138,21 @@ export function usePartyRoom({
 
   const selectGame = useCallback((gameId: GameId) => send({ type: "select_game", gameId }), [send]);
   const setGameOptions = useCallback(
-    (gameId: GameId, options: GameOptions) =>
-      send({ type: "set_game_options", gameId, options }),
+    (gameId: GameId, options: GameOptions) => {
+      const normalized = normalizeGameOptions(gameId, options);
+      setRoomState((prev) =>
+        prev
+          ? {
+              ...prev,
+              gameOptionsByGame: {
+                ...prev.gameOptionsByGame,
+                [gameId]: normalized,
+              },
+            }
+          : prev,
+      );
+      send({ type: "set_game_options", gameId, options: normalized });
+    },
     [send],
   );
   const startGame = useCallback(() => send({ type: "start_game" }), [send]);

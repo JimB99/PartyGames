@@ -32,7 +32,15 @@ export function GameOptionsPanel({
     !game.supportsPaddleMode &&
     !game.supportsCharadesMode
   ) {
-    return null;
+    return (
+      <div
+        className="rounded-2xl border border-zinc-700 bg-zinc-800/40 p-4 space-y-4 overflow-x-hidden min-w-0"
+        data-testid="game-options-panel"
+      >
+        <h3 className="text-sm font-semibold uppercase tracking-wide text-zinc-400">Game options</h3>
+        <HostPacingToggle options={options} onChange={onChange} />
+      </div>
+    );
   }
 
   return (
@@ -175,6 +183,44 @@ export function GameOptionsPanel({
           </div>
         </div>
       )}
+
+      <HostPacingToggle options={options} onChange={onChange} />
+    </div>
+  );
+}
+
+function HostPacingToggle({
+  options,
+  onChange,
+}: {
+  options: GameOptions;
+  onChange: (options: GameOptions) => void;
+}) {
+  const hostPacing = options.hostPacing === true;
+  return (
+    <div className={OPTION_ROW}>
+      <div className="min-w-0">
+        <span className={OPTION_LABEL}>Host controls pace</span>
+        <p className="text-xs text-zinc-500 mt-0.5">
+          {hostPacing
+            ? "Timers off — use Skip to move to the next phase."
+            : "Phases advance on timers; Skip is available when the host bar allows it."}
+        </p>
+      </div>
+      <div className="flex rounded-xl bg-zinc-900 p-1 shrink-0">
+        <RatingButton
+          label="Auto"
+          testId="game-option-pacing-auto"
+          active={!hostPacing}
+          onClick={() => onChange({ ...options, hostPacing: false })}
+        />
+        <RatingButton
+          label="Host"
+          testId="game-option-pacing-host"
+          active={hostPacing}
+          onClick={() => onChange({ ...options, hostPacing: true })}
+        />
+      </div>
     </div>
   );
 }

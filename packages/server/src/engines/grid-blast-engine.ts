@@ -5,6 +5,7 @@ import {
   gridBlastAliveCount,
   tickGridBlastState,
   type GameAction,
+  type GameOptions,
   type GridBlastInput,
 } from "@party-games/shared";
 import { clearPhaseTimer, startPhaseTimer } from "./phase-timer.js";
@@ -21,21 +22,27 @@ export interface GridBlastGameState {
   roundScores: Record<string, number>;
   lastRoundScores: Record<string, number>;
   playerIds: string[];
+  gameOptions?: GameOptions;
 }
 
 const ROUND_END_MS = 5000;
 const PLAYING_MS = 120_000;
 
-export function createGridBlastGameState(playerIds: string[], maxRounds = 3): GridBlastGameState {
+export function createGridBlastGameState(
+  playerIds: string[],
+  maxRounds = 3,
+  gameOptions?: GameOptions,
+): GridBlastGameState {
   return {
     phase: "instructions",
     round: 1,
     maxRounds,
-    ...startPhaseTimer(5000),
+    ...startPhaseTimer(5000, gameOptions),
     battle: createGridBlastState(playerIds),
     roundScores: {},
     lastRoundScores: {},
     playerIds,
+    gameOptions,
   };
 }
 
@@ -46,7 +53,7 @@ function finishPlayingRound(state: GridBlastGameState): GridBlastGameState {
     state.roundScores[id] = (state.roundScores[id] ?? 0) + pts;
   }
   state.phase = "round_end";
-  Object.assign(state, startPhaseTimer(ROUND_END_MS));
+  Object.assign(state, startPhaseTimer(ROUND_END_MS, state.gameOptions));
   return state;
 }
 
@@ -54,7 +61,7 @@ function advanceGridBlast(state: GridBlastGameState): GridBlastGameState {
   if (state.phase === "instructions") {
     state.phase = "playing";
     state.battle = createGridBlastState(state.playerIds);
-    Object.assign(state, startPhaseTimer(PLAYING_MS));
+    Object.assign(state, startPhaseTimer(PLAYING_MS, state.gameOptions));
     return state;
   }
   if (state.phase === "round_end") {
@@ -66,7 +73,7 @@ function advanceGridBlast(state: GridBlastGameState): GridBlastGameState {
     state.round += 1;
     state.battle = createGridBlastState(state.playerIds);
     state.phase = "playing";
-    Object.assign(state, startPhaseTimer(PLAYING_MS));
+    Object.assign(state, startPhaseTimer(PLAYING_MS, state.gameOptions));
     return state;
   }
   return state;

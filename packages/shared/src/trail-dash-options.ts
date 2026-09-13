@@ -8,7 +8,6 @@ export interface TrailDashOptions {
   botCount: number;
   botDifficulty: Difficulty;
   coinValue: number;
-  rankPointScale: number;
   powerUpMode: PowerUpMode;
   wallHoles: number;
 }
@@ -19,7 +18,6 @@ export const DEFAULT_TRAIL_DASH_OPTIONS: TrailDashOptions = {
   botCount: 0,
   botDifficulty: "medium",
   coinValue: 50,
-  rankPointScale: 1,
   powerUpMode: "normal",
   wallHoles: 2,
 };
@@ -41,7 +39,6 @@ export function resolveTrailDashOptions(gameOptions: GameOptions): TrailDashOpti
       td.botDifficulty ??
       (gameOptions.difficulty === "mixed" ? "medium" : gameOptions.difficulty),
     coinValue: clamp(td.coinValue ?? DEFAULT_TRAIL_DASH_OPTIONS.coinValue, 10, 200),
-    rankPointScale: clamp(td.rankPointScale ?? DEFAULT_TRAIL_DASH_OPTIONS.rankPointScale, 0.5, 3),
     powerUpMode: td.powerUpMode ?? DEFAULT_TRAIL_DASH_OPTIONS.powerUpMode,
     wallHoles: clamp(td.wallHoles ?? DEFAULT_TRAIL_DASH_OPTIONS.wallHoles, 0, 4),
   };

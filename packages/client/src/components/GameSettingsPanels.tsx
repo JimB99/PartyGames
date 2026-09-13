@@ -6,29 +6,22 @@ export function GameSettingsPanels({
   game,
   options,
   onChange,
+  trailDashMaxBots,
 }: {
   game: GameMeta;
   options: GameOptions;
   onChange: (options: GameOptions) => void;
+  trailDashMaxBots?: number;
 }) {
-  const hasStandardOptions =
-    game.supportsDifficulty ||
-    game.supportsMatureContent ||
-    game.supportsQuestionDisplay ||
-    game.supportsTimelinePtsPerYear ||
-    game.supportsSpeedScoring ||
-    game.supportsPaddleMode ||
-    game.supportsCharadesMode;
-
-  if (!hasStandardOptions && !game.supportsTrailDashOptions) {
-    return null;
-  }
-
   return (
     <div className="space-y-4">
       <GameOptionsPanel game={game} options={options} onChange={onChange} />
       {game.supportsTrailDashOptions && (
-        <TrailDashOptionsPanel options={options} onChange={onChange} />
+        <TrailDashOptionsPanel
+          options={options}
+          onChange={onChange}
+          maxBots={trailDashMaxBots}
+        />
       )}
     </div>
   );

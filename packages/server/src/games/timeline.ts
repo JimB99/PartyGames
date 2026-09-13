@@ -27,8 +27,13 @@ export const timelineGame: GameModule<TriviaState> = {
     roundScoresAreCumulative: true,
   },
   init(ctx) {
-    const state = createTriviaState("timeline", timelinePool(ctx.gameOptions), 8, ctx.playerIds.length);
-    state.gameOptions = ctx.gameOptions;
+    const state = createTriviaState(
+      "timeline",
+      timelinePool(ctx.gameOptions),
+      8,
+      ctx.playerIds.length,
+      ctx.gameOptions,
+    );
     return state;
   },
   onPlayerAction(state, playerId, action, ctx) {

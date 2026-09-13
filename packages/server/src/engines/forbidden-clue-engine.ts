@@ -4,6 +4,7 @@ import { clearPhaseTimer, startPhaseTimer } from "./phase-timer.js";
 export type ForbiddenPhase = "instructions" | "clue" | "reveal" | "scoreboard" | "ended";
 
 export interface ForbiddenState {
+  gameOptions?: import("@party-games/shared").GameOptions;
   phase: ForbiddenPhase;
   round: number;
   maxRounds: number;
@@ -41,7 +42,7 @@ function pickCard(state: ForbiddenState): ForbiddenClueCard {
   return state.pool[idx];
 }
 
-export function createForbiddenState(pool: ForbiddenClueCard[], playerIds: string[]): ForbiddenState {
+export function createForbiddenState(pool: ForbiddenClueCard[], playerIds: string[], gameOptions?: import("@party-games/shared").GameOptions): ForbiddenState {
   const { teamA, teamB } = splitTeams(playerIds);
   const idx = Math.floor(Math.random() * pool.length);
   const card = pool[idx];
@@ -49,7 +50,7 @@ export function createForbiddenState(pool: ForbiddenClueCard[], playerIds: strin
     phase: "instructions",
     round: 1,
     maxRounds: Math.max(4, Math.ceil(playerIds.length / 2)),
-    ...startPhaseTimer(5000),
+    ...startPhaseTimer(5000, gameOptions),
     playerIds,
     teamA,
     teamB,
@@ -72,7 +73,7 @@ function activeTeamIds(state: ForbiddenState): string[] {
 function advanceForbidden(state: ForbiddenState): ForbiddenState {
   if (state.phase === "instructions") {
     state.phase = "clue";
-    Object.assign(state, startPhaseTimer(CLUE_MS));
+    Object.assign(state, startPhaseTimer(CLUE_MS, state.gameOptions));
     state.correct = 0;
     state.skips = 0;
     state.fouls = 0;
@@ -85,12 +86,12 @@ function advanceForbidden(state: ForbiddenState): ForbiddenState {
       state.roundScores[id] = (state.roundScores[id] ?? 0) + teamScore;
     }
     state.phase = "reveal";
-    Object.assign(state, startPhaseTimer(REVEAL_MS));
+    Object.assign(state, startPhaseTimer(REVEAL_MS, state.gameOptions));
     return state;
   }
   if (state.phase === "reveal") {
     state.phase = "scoreboard";
-    Object.assign(state, startPhaseTimer(SCOREBOARD_MS));
+    Object.assign(state, startPhaseTimer(SCOREBOARD_MS, state.gameOptions));
     return state;
   }
   if (state.phase === "scoreboard") {
@@ -105,7 +106,7 @@ function advanceForbidden(state: ForbiddenState): ForbiddenState {
     state.clueGiverId = team[(state.round - 1) % team.length];
     state.card = pickCard(state);
     state.phase = "instructions";
-    Object.assign(state, startPhaseTimer(5000));
+    Object.assign(state, startPhaseTimer(5000, state.gameOptions));
     return state;
   }
   return state;

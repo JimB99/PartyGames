@@ -4,6 +4,7 @@ import { clearPhaseTimer, startPhaseTimer } from "./phase-timer.js";
 export type RoleSortPhase = "instructions" | "assign" | "reveal" | "scoreboard" | "ended";
 
 export interface RoleSortState {
+  gameOptions?: import("@party-games/shared").GameOptions;
   phase: RoleSortPhase;
   round: number;
   maxRounds: number;
@@ -23,13 +24,13 @@ const SCOREBOARD_MS = 5000;
 const ASSIGN_MS = 60000;
 const REVEAL_MS = 10000;
 
-export function createRoleSortState(category: string, roles: string[], playerIds: string[]): RoleSortState {
+export function createRoleSortState(category: string, roles: string[], playerIds: string[], gameOptions?: import("@party-games/shared").GameOptions): RoleSortState {
   const shuffledRoles = shuffle(roles).slice(0, playerIds.length);
   return {
     phase: "instructions",
     round: 1,
     maxRounds: 3,
-    ...startPhaseTimer(INSTRUCTIONS_MS),
+    ...startPhaseTimer(INSTRUCTIONS_MS, gameOptions),
     playerIds,
     category,
     roles: shuffledRoles.length >= playerIds.length ? shuffledRoles : [...shuffledRoles, ...roles].slice(0, playerIds.length),
@@ -43,19 +44,19 @@ export function createRoleSortState(category: string, roles: string[], playerIds
 export function advanceRoleSort(state: RoleSortState, playerIds: string[]): RoleSortState {
   if (state.phase === "instructions") {
     state.phase = "assign";
-    Object.assign(state, startPhaseTimer(ASSIGN_MS));
+    Object.assign(state, startPhaseTimer(ASSIGN_MS, state.gameOptions));
     state.assignments = {};
     return state;
   }
   if (state.phase === "assign") {
     computeResults(state, playerIds);
     state.phase = "reveal";
-    Object.assign(state, startPhaseTimer(REVEAL_MS));
+    Object.assign(state, startPhaseTimer(REVEAL_MS, state.gameOptions));
     return state;
   }
   if (state.phase === "reveal") {
     state.phase = "scoreboard";
-    Object.assign(state, startPhaseTimer(SCOREBOARD_MS));
+    Object.assign(state, startPhaseTimer(SCOREBOARD_MS, state.gameOptions));
     return state;
   }
   if (state.phase === "scoreboard") {
@@ -67,7 +68,7 @@ export function advanceRoleSort(state: RoleSortState, playerIds: string[]): Role
     state.round += 1;
     state.roles = shuffle(state.roles);
     state.phase = "assign";
-    Object.assign(state, startPhaseTimer(ASSIGN_MS));
+    Object.assign(state, startPhaseTimer(ASSIGN_MS, state.gameOptions));
     state.assignments = {};
     return state;
   }

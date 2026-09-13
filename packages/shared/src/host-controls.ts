@@ -27,12 +27,17 @@ const SKIPPABLE_PHASES = new Set([
   "accusation",
 ]);
 
-export function resolveHostControls(view: {
-  phase: string;
-  timerEndsAt: number | null;
-}): HostControls {
-  const hasTimer = view.timerEndsAt != null;
-  const canSkip = hasTimer || SKIPPABLE_PHASES.has(view.phase);
+export function resolveHostControls(
+  view: {
+    phase: string;
+    timerEndsAt: number | null;
+  },
+  options?: { hostPacing?: boolean } | null,
+): HostControls {
+  const hostPacing = options?.hostPacing === true;
+  const hasTimer = !hostPacing && view.timerEndsAt != null;
+  const canSkip =
+    hostPacing ? view.phase !== "ended" : hasTimer || SKIPPABLE_PHASES.has(view.phase);
 
   return {
     canPause: true,

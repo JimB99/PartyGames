@@ -23,7 +23,14 @@ export const captionThisGame: GameModule<PromptVoteState> = {
     roundScoresAreCumulative: true,
   },
   init(ctx) {
-    return createPromptVoteState("caption", captionPool(ctx.gameOptions), 4, undefined, ctx.playerIds);
+    return createPromptVoteState(
+      "caption",
+      captionPool(ctx.gameOptions),
+      4,
+      undefined,
+      ctx.playerIds,
+      ctx.gameOptions,
+    );
   },
   onPlayerAction(state, playerId, action, ctx) {
     return onPromptVoteAction(state, playerId, action, ctx);

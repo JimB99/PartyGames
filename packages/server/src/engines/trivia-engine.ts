@@ -3,6 +3,8 @@ import {
   TIMER_PRESETS,
   beginTimedPhase,
   isSpeedScoringEnabled,
+  resolvePhaseDuration,
+  phaseTimerEndsAt,
   pickRandom,
   resolveQuestionDisplay,
   resolveTimelinePtsPerYearOff,
@@ -91,13 +93,16 @@ export function createTriviaState(
   items: unknown[],
   maxRounds = 8,
   playerCount = 2,
+  gameOptions?: GameOptions,
 ): TriviaState {
+  const now = Date.now();
+  const instructionMs = resolvePhaseDuration(TIMER_PRESETS.standard.instruction, gameOptions);
   const state: TriviaState = {
     phase: "instructions",
     round: 1,
     maxRounds,
-    timerEndsAt: Date.now() + TIMER_PRESETS.standard.instruction,
-    timerTotalMs: TIMER_PRESETS.standard.instruction,
+    timerEndsAt: phaseTimerEndsAt(now, TIMER_PRESETS.standard.instruction, gameOptions),
+    timerTotalMs: instructionMs > 0 ? instructionMs : null,
     phaseStartedAt: null,
     mode,
     answers: {},
@@ -109,6 +114,7 @@ export function createTriviaState(
     usedIndices: [],
     itemsPool: items,
     playerCount,
+    gameOptions,
   };
   loadTriviaItem(state, items, true);
   return state;
@@ -140,7 +146,7 @@ function loadTriviaItem(state: TriviaState, items: unknown[], first = false) {
 function beginQuestion(state: TriviaState): void {
   const now = Date.now();
   const duration = state.mode === "would-you-rather" ? WYR_QUESTION_MS : QUESTION_MS;
-  Object.assign(state, beginTimedPhase(state, "question", now, duration));
+  Object.assign(state, beginTimedPhase(state, "question", now, duration, state.gameOptions));
   state.phaseStartedAt = now;
   state.discussUntil = state.mode === "would-you-rather" ? now + DISCUSS_MS : null;
   state.answers = {};
@@ -156,15 +162,17 @@ export function advanceTrivia(state: TriviaState, items: unknown[], gameOptions?
   if (state.phase === "question") {
     scoreTrivia(state, gameOptions);
     state.phase = "reveal";
-    state.timerTotalMs = REVEAL_MS;
-    state.timerEndsAt = Date.now() + REVEAL_MS;
+    const revealMs = resolvePhaseDuration(REVEAL_MS, gameOptions ?? state.gameOptions);
+    state.timerTotalMs = revealMs > 0 ? revealMs : null;
+    state.timerEndsAt = phaseTimerEndsAt(Date.now(), REVEAL_MS, gameOptions ?? state.gameOptions);
     state.phaseStartedAt = null;
     return state;
   }
   if (state.phase === "reveal") {
     state.phase = "scoreboard";
-    state.timerTotalMs = SCOREBOARD_MS;
-    state.timerEndsAt = Date.now() + SCOREBOARD_MS;
+    const boardMs = resolvePhaseDuration(SCOREBOARD_MS, gameOptions ?? state.gameOptions);
+    state.timerTotalMs = boardMs > 0 ? boardMs : null;
+    state.timerEndsAt = phaseTimerEndsAt(Date.now(), SCOREBOARD_MS, gameOptions ?? state.gameOptions);
     return state;
   }
   if (state.phase === "scoreboard") {

@@ -23,7 +23,7 @@ export const chainSketchGame: GameModule<ChainSketchState> = {
   },
   init(ctx) {
     const words = drawWordPool(ctx.gameOptions);
-    return createChainSketchState(words, ctx.playerIds);
+    return createChainSketchState(words, ctx.playerIds, ctx.gameOptions);
   },
   onPlayerAction(state, playerId, action, ctx) {
     return onChainAction(state, playerId, action, ctx);

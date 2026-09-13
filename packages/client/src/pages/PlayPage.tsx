@@ -3,6 +3,7 @@ import { PlayerProfileBar } from "../components/PlayerProfileBar";
 import { getStoredColorIndex } from "../components/ColorPicker";
 import { ConnectionBanner, PhoneGameShell } from "../components/game/GameShell";
 import { usePartyRoom } from "../hooks/usePartyRoom";
+import { useWakeLock } from "../hooks/useWakeLock";
 import { useParams } from "react-router-dom";
 
 export function PlayPage() {
@@ -20,6 +21,9 @@ export function PlayPage() {
       colorIndex: storedColorIndex,
       enabled: Boolean(roomId),
     });
+
+  const playing = roomState?.phase === "playing";
+  useWakeLock(playing);
 
   return (
     <div className="pg-page flex min-h-dvh flex-col bg-[#0f1117] overflow-x-hidden">

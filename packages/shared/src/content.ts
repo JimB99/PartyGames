@@ -23,6 +23,8 @@ export interface GameOptions {
   impostorCategory?: "all" | "places" | "things" | "jobs" | "random";
   paddleMode?: "pong" | "hockey";
   charadesMode?: "solo" | "teams";
+  /** When true, no auto-advance timers — host uses Skip/Continue for every phase. */
+  hostPacing?: boolean;
 }
 export const DEFAULT_TIMELINE_PTS_PER_YEAR_OFF = 20;
 export const TIMELINE_PTS_PER_YEAR_MAX = 1000;

@@ -24,7 +24,12 @@ export const roleSortGame: GameModule<RoleSortState> = {
     roundScoresAreCumulative: true,
   },
   init(ctx) {
-    return createRoleSortState("Archetypes", friendSortPool(ctx.gameOptions), ctx.playerIds);
+    return createRoleSortState(
+      "Archetypes",
+      friendSortPool(ctx.gameOptions),
+      ctx.playerIds,
+      ctx.gameOptions,
+    );
   },
   onPlayerAction(state, playerId, action, ctx) {
     return onRoleSortAction(state, playerId, action, ctx);

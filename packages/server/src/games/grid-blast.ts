@@ -20,7 +20,7 @@ export const gridBlastGame: GameModule<GridBlastGameState> = {
     roundScoresAreCumulative: true,
   },
   init(ctx) {
-    return createGridBlastGameState(ctx.playerIds, 3);
+    return createGridBlastGameState(ctx.playerIds, 3, ctx.gameOptions);
   },
   onPlayerAction(state, playerId, action, ctx) {
     return onGridBlastAction(state, playerId, action, ctx.playerIds);

@@ -1,3 +1,6 @@
+import type { GameOptions } from "./content.js";
+import { isHostPacing } from "./game-options.js";
+
 export type TimerPreset = "relaxed" | "standard" | "quick";
 
 export type SemanticTimer =
@@ -69,9 +72,23 @@ export function resolveTimerDurations(
   return result;
 }
 
+/** Phase duration after applying host-paced mode (0 = no timer). */
+export function resolvePhaseDuration(durationMs: number, options?: GameOptions | null): number {
+  if (isHostPacing(options)) return 0;
+  return durationMs;
+}
+
 export function timerEndsAt(now: number, durationMs: number): number | null {
   if (durationMs <= 0) return null;
   return now + durationMs;
+}
+
+export function phaseTimerEndsAt(
+  now: number,
+  durationMs: number,
+  options?: GameOptions | null,
+): number | null {
+  return timerEndsAt(now, resolvePhaseDuration(durationMs, options));
 }
 
 export function remainingMs(now: number, endsAt: number | null): number | null {

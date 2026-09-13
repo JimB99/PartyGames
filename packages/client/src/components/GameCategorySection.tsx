@@ -45,7 +45,7 @@ export function GameCategorySection({
         className="grid transition-[grid-template-rows] duration-300 ease-in-out"
         style={{ gridTemplateRows: open ? "1fr" : "0fr" }}
       >
-        <div className="overflow-hidden">
+        <div className={open ? "overflow-y-auto max-h-[70dvh]" : "overflow-hidden"}>
           <div className="px-4 pb-4 pt-1">{children}</div>
         </div>
       </div>

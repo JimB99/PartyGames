@@ -5,6 +5,8 @@ export * from "./game.js";
 export * from "./scores.js";
 export * from "./reveal.js";
 export * from "./content.js";
+export * from "./game-options.js";
+export * from "./scoring-preview.js";
 export * from "./dike-logic.js";
 export * from "./trail-dash-options.js";
 export * from "./trail-dash-powerups.js";

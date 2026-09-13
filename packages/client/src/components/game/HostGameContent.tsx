@@ -7,6 +7,8 @@ import { FleetDuelArena } from "../FleetDuelArena";
 import { FourInARowBoard } from "../FourInARowBoard";
 import { TicTacToeBoard } from "../TicTacToeBoard";
 import { RevealBreakdown, ScoringRulesPanel } from "../RevealBreakdown";
+import { ScoringPreviewPanel } from "../ScoringPreviewPanel";
+import { resolveGameOptions } from "../GameOptionsPanel";
 import { ScoringPhase } from "../ScoringPhase";
 import { TimerBar } from "../TimerBar";
 import { PaddleClashArena } from "../PaddleClashArena";
@@ -31,6 +33,11 @@ export function HostGameView({
   const gameMeta = room.games.find((g) => g.id === hostView.gameId);
   const gameName = gameMeta?.name ?? hostView.gameId.replace(/-/g, " ");
   const scoringRules = gameMeta?.scoringRules;
+  const instructionOptions = resolveGameOptions(
+    hostView.gameId,
+    room.gameOptionsByGame ?? {},
+  );
+  const connectedCount = room.players.filter((p) => p.connected).length;
 
   const isTrailDash = hostView.gameId === "trail-dash";
   const isTrailDashPlaying = isTrailDash && phase === "playing";
@@ -101,7 +108,14 @@ export function HostGameView({
               powerUpMode={(data.powerUpMode as import("@party-games/shared").PowerUpMode) ?? "normal"}
             />
           )}
-          {scoringRules && hostView.gameId !== "trail-dash" && <ScoringRulesPanel rules={scoringRules} />}
+          {gameMeta && (
+            <ScoringPreviewPanel
+              game={gameMeta}
+              options={instructionOptions}
+              playerCount={connectedCount}
+            />
+          )}
+          {scoringRules && !gameMeta && <ScoringRulesPanel rules={scoringRules} />}
         </div>
       )}
 
@@ -366,11 +380,15 @@ export function HostGameView({
 
 
       {phase === "playing" && hostView.gameId === "trail-dash" && data.players && (
-        <CurveArena data={data} room={room} />
+        <div data-testid="host-playing-stage">
+          <CurveArena data={data} room={room} />
+        </div>
       )}
 
       {phase === "playing" && hostView.gameId === "block-stack" && data.players && (
-        <BlockStackArena data={data} room={room} />
+        <div data-testid="host-playing-stage">
+          <BlockStackArena data={data} room={room} />
+        </div>
       )}
 
       {(phase === "placement" || phase === "battle" || phase === "betting" || phase === "fire" || phase === "reveal") &&

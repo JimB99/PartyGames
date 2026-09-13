@@ -63,14 +63,14 @@ function assignWords(words: string[], playerIds: string[], usedWords: string[]):
   return drawings;
 }
 
-export function createDrawState(words: string[], playerIds: string[], maxRounds?: number): DrawState {
+export function createDrawState(words: string[], playerIds: string[], maxRounds?: number, gameOptions?: import("@party-games/shared").GameOptions): DrawState {
   const drawings = assignWords(words, playerIds, []);
   const usedWords = Object.values(drawings).map((d) => d.word);
   return {
     phase: "instructions",
     round: 1,
     maxRounds: maxRounds ?? playerIds.length,
-    ...startPhaseTimer(5000),
+    ...startPhaseTimer(5000, gameOptions),
     playerIds,
     drawerIndex: 0,
     drawings,
@@ -102,7 +102,7 @@ export function advanceDraw(state: DrawState, words: string[], playerIds: string
     for (const w of Object.values(state.drawings).map((d) => d.word)) {
       if (!state.usedWords.includes(w)) state.usedWords.push(w);
     }
-    Object.assign(state, startPhaseTimer(DRAW_MS));
+    Object.assign(state, startPhaseTimer(DRAW_MS, state.gameOptions));
     state.guesses = {};
     state.correctGuessers = [];
     return state;
@@ -130,12 +130,12 @@ export function advanceDraw(state: DrawState, words: string[], playerIds: string
       return state;
     }
     state.phase = "reveal";
-    Object.assign(state, startPhaseTimer(REVEAL_MS));
+    Object.assign(state, startPhaseTimer(REVEAL_MS, state.gameOptions));
     return state;
   }
   if (state.phase === "reveal") {
     state.phase = "scoreboard";
-    Object.assign(state, startPhaseTimer(SCOREBOARD_MS));
+    Object.assign(state, startPhaseTimer(SCOREBOARD_MS, state.gameOptions));
     return state;
   }
   if (state.phase === "scoreboard") {
@@ -154,7 +154,7 @@ export function advanceDraw(state: DrawState, words: string[], playerIds: string
     state.guesses = {};
     state.guessTimes = {};
     state.phase = "instructions";
-    Object.assign(state, startPhaseTimer(5000));
+    Object.assign(state, startPhaseTimer(5000, state.gameOptions));
     return state;
   }
   return state;

@@ -25,8 +25,13 @@ export const reverseFactGame: GameModule<BluffState> = {
     roundScoresAreCumulative: true,
   },
   init(ctx) {
-    const state = createBluffState("reverse-fact", reverseFactPool(ctx.gameOptions), 5, ctx.playerIds.length);
-    state.gameOptions = ctx.gameOptions;
+    const state = createBluffState(
+      "reverse-fact",
+      reverseFactPool(ctx.gameOptions),
+      5,
+      ctx.playerIds.length,
+      ctx.gameOptions,
+    );
     return state;
   },
   onPlayerAction(state, playerId, action, ctx) {

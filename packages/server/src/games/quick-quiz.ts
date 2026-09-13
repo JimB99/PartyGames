@@ -26,8 +26,13 @@ export const quickQuizGame: GameModule<TriviaState> = {
     roundScoresAreCumulative: true,
   },
   init(ctx) {
-    const state = createTriviaState("quiz", quizPool(ctx.gameOptions), 8, ctx.playerIds.length);
-    state.gameOptions = ctx.gameOptions;
+    const state = createTriviaState(
+      "quiz",
+      quizPool(ctx.gameOptions),
+      8,
+      ctx.playerIds.length,
+      ctx.gameOptions,
+    );
     return state;
   },
   onPlayerAction(state, playerId, action, ctx) {

@@ -36,7 +36,14 @@ export const trailDashGame: GameModule<CurveState> = {
     const colorIndexByPlayer = Object.fromEntries(
       ctx.players.filter((p) => ctx.playerIds.includes(p.id)).map((p) => [p.id, p.colorIndex]),
     );
-    return createCurveGameState(ctx.playerIds, botIds, botNames, options, colorIndexByPlayer);
+    return createCurveGameState(
+      ctx.playerIds,
+      botIds,
+      botNames,
+      options,
+      colorIndexByPlayer,
+      ctx.gameOptions.hostPacing === true,
+    );
   },
   onPlayerAction(state, playerId, action) {
     return onCurveAction(state, playerId, action);

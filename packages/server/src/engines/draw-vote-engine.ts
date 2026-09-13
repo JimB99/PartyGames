@@ -6,6 +6,7 @@ export type DrawVoteMode = "artistGuess" | "bestDrawing";
 export type DrawVotePhase = "instructions" | "drawing" | "vote" | "reveal" | "scoreboard" | "ended";
 
 export interface DrawVoteState {
+  gameOptions?: import("@party-games/shared").GameOptions;
   phase: DrawVotePhase;
   round: number;
   maxRounds: number;
@@ -33,14 +34,13 @@ export function createDrawVoteState(
   words: string[],
   playerIds: string[],
   mode: DrawVoteMode = "bestDrawing",
-  maxRounds = 3,
-): DrawVoteState {
+  maxRounds = 3, gameOptions?: import("@party-games/shared").GameOptions): DrawVoteState {
   const prompt = pickRandom(words);
   return {
     phase: "instructions",
     round: 1,
     maxRounds,
-    ...startPhaseTimer(5000),
+    ...startPhaseTimer(5000, gameOptions),
     playerIds,
     prompt,
     mode,
@@ -98,7 +98,7 @@ function scoreRound(state: DrawVoteState): void {
 export function advanceDrawVote(state: DrawVoteState, words: string[], playerIds: string[]): DrawVoteState {
   if (state.phase === "instructions") {
     state.phase = "drawing";
-    Object.assign(state, startPhaseTimer(DRAW_MS));
+    Object.assign(state, startPhaseTimer(DRAW_MS, state.gameOptions));
     return state;
   }
   if (state.phase === "drawing") {
@@ -106,18 +106,18 @@ export function advanceDrawVote(state: DrawVoteState, words: string[], playerIds
     state.displayOrder = shuffle([...playerIds]);
     state.displayIndex = 0;
     state.votes = {};
-    Object.assign(state, startPhaseTimer(VOTE_MS));
+    Object.assign(state, startPhaseTimer(VOTE_MS, state.gameOptions));
     return state;
   }
   if (state.phase === "vote") {
     scoreRound(state);
     state.phase = "reveal";
-    Object.assign(state, startPhaseTimer(REVEAL_MS));
+    Object.assign(state, startPhaseTimer(REVEAL_MS, state.gameOptions));
     return state;
   }
   if (state.phase === "reveal") {
     state.phase = "scoreboard";
-    Object.assign(state, startPhaseTimer(SCOREBOARD_MS));
+    Object.assign(state, startPhaseTimer(SCOREBOARD_MS, state.gameOptions));
     return state;
   }
   if (state.phase === "scoreboard") {
@@ -141,7 +141,7 @@ export function advanceDrawVote(state: DrawVoteState, words: string[], playerIds
     state.roundScores = {};
     state.votes = {};
     state.phase = "instructions";
-    Object.assign(state, startPhaseTimer(5000));
+    Object.assign(state, startPhaseTimer(5000, state.gameOptions));
     return state;
   }
   return state;

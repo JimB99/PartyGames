@@ -22,7 +22,7 @@ export const lastOnTheDikeGame: GameModule<DikeState> = {
     supportsMatureContent: false,
   },
   init(ctx) {
-    return createDikeState(ctx.playerIds);
+    return createDikeState(ctx.playerIds, ctx.gameOptions);
   },
   onPlayerAction(state, playerId, action, ctx) {
     return onDikeAction(state, playerId, action, ctx);

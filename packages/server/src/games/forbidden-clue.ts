@@ -22,7 +22,7 @@ export const forbiddenClueGame: GameModule<ForbiddenState> = {
     roundScoresAreCumulative: true,
   },
   init(ctx) {
-    return createForbiddenState(forbiddenCluePool(ctx.gameOptions), ctx.playerIds);
+    return createForbiddenState(forbiddenCluePool(ctx.gameOptions), ctx.playerIds, ctx.gameOptions);
   },
   onPlayerAction(state, playerId, action, ctx) {
     return onForbiddenAction(state, playerId, action, ctx);

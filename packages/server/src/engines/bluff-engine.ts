@@ -3,6 +3,7 @@ import {
   isObviousBluffTruth,
   isSpeedScoringEnabled,
   pickRandom,
+  resolvePhaseDuration,
   scoreByAnswerRank,
   shuffle,
   uniqueId,
@@ -51,9 +52,11 @@ const SCOREBOARD_MS = 5000;
 const INSTRUCTIONS_MS = 5000;
 const DISCUSS_MS = 12000;
 
-function phaseTimer(ms: number) {
+function phaseTimer(ms: number, gameOptions?: GameOptions | null) {
+  const duration = resolvePhaseDuration(ms, gameOptions);
+  if (duration <= 0) return { timerEndsAt: null, timerTotalMs: null };
   const now = Date.now();
-  return { timerEndsAt: now + ms, timerTotalMs: ms };
+  return { timerEndsAt: now + duration, timerTotalMs: duration };
 }
 
 export function createBluffState(
@@ -61,6 +64,7 @@ export function createBluffState(
   prompts: Array<{ prompt?: string; truth: string; fact?: string }>,
   maxRounds = 5,
   playerCount = 2,
+  gameOptions?: GameOptions,
 ): BluffState {
   const idx = Math.floor(Math.random() * prompts.length);
   const item = prompts[idx];
@@ -70,8 +74,7 @@ export function createBluffState(
     phase: "instructions",
     round: 1,
     maxRounds,
-    timerEndsAt: Date.now() + INSTRUCTIONS_MS,
-    timerTotalMs: INSTRUCTIONS_MS,
+    ...phaseTimer(INSTRUCTIONS_MS, gameOptions),
     mode,
     displayText,
     truthText,
@@ -87,6 +90,7 @@ export function createBluffState(
     usedPrompts: [idx],
     promptsPool: prompts,
     playerCount,
+    gameOptions,
   };
 }
 
@@ -104,7 +108,7 @@ function nextPrompt(state: BluffState, prompts: Array<{ prompt?: string; truth: 
 export function advanceBluff(state: BluffState, gameOptions?: GameOptions): BluffState {
   if (state.phase === "instructions") {
     state.phase = "submit";
-    Object.assign(state, phaseTimer(SUBMIT_MS));
+    Object.assign(state, phaseTimer(SUBMIT_MS, gameOptions ?? state.gameOptions));
     state.submissions = {};
     state.votes = {};
     state.options = [];
@@ -115,7 +119,7 @@ export function advanceBluff(state: BluffState, gameOptions?: GameOptions): Bluf
     state.phase = "vote";
     state.votePhaseStartedAt = Date.now();
     state.discussUntil = Date.now() + DISCUSS_MS;
-    Object.assign(state, phaseTimer(VOTE_MS));
+    Object.assign(state, phaseTimer(VOTE_MS, gameOptions ?? state.gameOptions));
     state.voteTimes = {};
     return state;
   }
@@ -123,12 +127,12 @@ export function advanceBluff(state: BluffState, gameOptions?: GameOptions): Bluf
     scoreBluff(state, gameOptions);
     state.phase = "reveal";
     state.discussUntil = null;
-    Object.assign(state, phaseTimer(REVEAL_MS));
+    Object.assign(state, phaseTimer(REVEAL_MS, gameOptions ?? state.gameOptions));
     return state;
   }
   if (state.phase === "reveal") {
     state.phase = "scoreboard";
-    Object.assign(state, phaseTimer(SCOREBOARD_MS));
+    Object.assign(state, phaseTimer(SCOREBOARD_MS, gameOptions ?? state.gameOptions));
     return state;
   }
   if (state.phase === "scoreboard") {
@@ -140,7 +144,7 @@ export function advanceBluff(state: BluffState, gameOptions?: GameOptions): Bluf
     }
     state.round += 1;
     state.phase = "submit";
-    Object.assign(state, phaseTimer(SUBMIT_MS));
+    Object.assign(state, phaseTimer(SUBMIT_MS, gameOptions ?? state.gameOptions));
     state.submissions = {};
     state.votes = {};
     state.options = [];
@@ -262,7 +266,7 @@ export function onBluffAction(
       scoreBluff(state, ctx.gameOptions);
       state.phase = "reveal";
       state.discussUntil = null;
-      state.timerEndsAt = Date.now() + REVEAL_MS;
+      Object.assign(state, phaseTimer(REVEAL_MS, ctx.gameOptions));
       state.votePhaseStartedAt = null;
       return state;
     }

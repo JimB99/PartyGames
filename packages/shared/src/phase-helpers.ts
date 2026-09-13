@@ -1,3 +1,7 @@
+import type { GameOptions } from "./content.js";
+import { isHostPacing } from "./game-options.js";
+import { resolvePhaseDuration } from "./timing.js";
+
 export interface TimedPhaseState {
   phase: string;
   timerEndsAt: number | null;
@@ -10,13 +14,15 @@ export function beginTimedPhase<T extends TimedPhaseState>(
   phase: string,
   now: number,
   durationMs: number,
+  options?: GameOptions | null,
 ): T {
+  const ms = resolvePhaseDuration(durationMs, options);
   return {
     ...state,
     phase,
     phaseRevision: (state.phaseRevision ?? 0) + 1,
-    timerEndsAt: durationMs > 0 ? now + durationMs : null,
-    timerTotalMs: durationMs > 0 ? durationMs : null,
+    timerEndsAt: ms > 0 ? now + ms : null,
+    timerTotalMs: ms > 0 ? ms : null,
   };
 }
 
@@ -28,7 +34,12 @@ export function clearTimedPhase<T extends TimedPhaseState>(state: T): T {
   };
 }
 
-export function isPhaseExpired(state: TimedPhaseState, now: number): boolean {
+export function isPhaseExpired(
+  state: TimedPhaseState,
+  now: number,
+  options?: GameOptions | null,
+): boolean {
+  if (isHostPacing(options)) return false;
   return state.timerEndsAt !== null && now >= state.timerEndsAt;
 }
 

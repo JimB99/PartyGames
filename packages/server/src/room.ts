@@ -12,6 +12,7 @@ import {
   uniqueId,
   resolveTrailDashOptions,
   resolveHostControls,
+  normalizeGameOptions,
   validateClientMessage,
   validateRawMessageSize,
   assembleHostView,
@@ -324,7 +325,10 @@ export class RoomServer extends Server {
         return;
       case "set_game_options":
         if (this.isHost(sender)) {
-          this.lobby.gameOptionsByGame[message.gameId] = message.options;
+          this.lobby.gameOptionsByGame[message.gameId] = normalizeGameOptions(
+            message.gameId,
+            message.options,
+          );
         }
         this.broadcastAll();
         return;
@@ -747,7 +751,7 @@ export class RoomServer extends Server {
           timerTotalMs: view.timerTotalMs ?? null,
           data: view.data,
         },
-        resolveHostControls(view),
+        resolveHostControls(view, getGameOptions(this.lobby, this.gameModule.meta.id)),
       );
     }
 

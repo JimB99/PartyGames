@@ -22,7 +22,13 @@ export const drawVoteGame: GameModule<DrawVoteState> = {
     supportsMatureContent: true,
   },
   init(ctx) {
-    return createDrawVoteState(drawWordPool(ctx.gameOptions), ctx.playerIds);
+    return createDrawVoteState(
+      drawWordPool(ctx.gameOptions),
+      ctx.playerIds,
+      "bestDrawing",
+      3,
+      ctx.gameOptions,
+    );
   },
   onPlayerAction(state, playerId, action, ctx) {
     return onDrawVoteAction(state, playerId, action, ctx);

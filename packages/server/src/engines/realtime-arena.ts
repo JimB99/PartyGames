@@ -1,9 +1,12 @@
 import type { GameAction } from "@party-games/shared";
 import {
+  computeRoundScores,
   createCurveState,
   fireWeapon,
   isFireablePowerUp,
+  markPlayingStarted,
   resetCurveRound,
+  shouldIgnoreHostEndRound,
   tickCurveState,
   tryJump,
   type CurveState,
@@ -19,16 +22,14 @@ export function createCurveGameState(
   botNames: Record<string, string>,
   options: TrailDashOptions,
   colorIndexByPlayer: Record<string, number> = {},
+  hostPacing = false,
 ): CurveState {
-  return createCurveState(humanIds, botIds, botNames, options, 1, colorIndexByPlayer);
+  return createCurveState(humanIds, botIds, botNames, options, 1, colorIndexByPlayer, hostPacing);
 }
 
 export function advanceCurve(state: CurveState, playerIds: string[], botIds: string[]): CurveState {
   if (state.phase === "instructions") {
-    state.phase = "playing";
-    state.timerTotalMs = state.options.roundTimeSec * 1000;
-    state.timerEndsAt = Date.now() + state.timerTotalMs;
-    for (const p of state.players) p.direction = "none";
+    markPlayingStarted(state);
     return state;
   }
   if (state.phase === "round_end") {
@@ -69,6 +70,14 @@ export function onCurveAction(state: CurveState, playerId: string, action: GameA
     const humanIds = state.players.filter((p) => !p.isBot).map((p) => p.id);
     return advanceCurve(state, humanIds, botIds);
   }
+  if (action.kind === "advance" && state.phase === "playing" && state.hostPacing) {
+    if (shouldIgnoreHostEndRound(state)) return state;
+    state.roundWinner = state.players.find((p) => p.alive)?.id;
+    computeRoundScores(state);
+    state.phase = "round_end";
+    state.timerEndsAt = null;
+    state.timerTotalMs = null;
+  }
   return state;
 }
 
@@ -78,7 +87,7 @@ export function onCurveTick(state: CurveState, playerIds: string[], botIds: stri
     tickCurveState(state);
     return state;
   }
-  if (state.timerEndsAt && Date.now() >= state.timerEndsAt) {
+  if (!state.hostPacing && state.timerEndsAt && Date.now() >= state.timerEndsAt) {
     if (state.phase === "instructions" || state.phase === "round_end") {
       return advanceCurve(state, playerIds, botIds);
     }

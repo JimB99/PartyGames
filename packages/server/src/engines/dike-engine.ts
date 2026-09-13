@@ -13,6 +13,7 @@ import { clearPhaseTimer, startPhaseTimer } from "./phase-timer.js";
 export type DikePhase = "instructions" | "bid" | "reveal" | "ended";
 
 export interface DikeState {
+  gameOptions?: import("@party-games/shared").GameOptions;
   phase: DikePhase;
   round: number;
   maxRounds: number;
@@ -32,14 +33,14 @@ const INSTRUCTIONS_MS = 5000;
 const BID_MS = 30000;
 const REVEAL_MS = 8000;
 
-export function createDikeState(playerIds: string[]): DikeState {
+export function createDikeState(playerIds: string[], gameOptions?: import("@party-games/shared").GameOptions): DikeState {
   const balances = Object.fromEntries(playerIds.map((id) => [id, DIKE_STARTING_BALANCE]));
 
   return {
     phase: "instructions",
     round: 1,
     maxRounds: Math.max(1, playerIds.length - 1),
-    ...startPhaseTimer(INSTRUCTIONS_MS),
+    ...startPhaseTimer(INSTRUCTIONS_MS, gameOptions),
     alive: [...playerIds],
     balances,
     bids: {},
@@ -101,14 +102,14 @@ function resolveRound(state: DikeState): DikeState {
   }
 
   state.phase = "reveal";
-  Object.assign(state, startPhaseTimer(REVEAL_MS));
+  Object.assign(state, startPhaseTimer(REVEAL_MS, state.gameOptions));
   return state;
 }
 
 export function advanceDike(state: DikeState): DikeState {
   if (state.phase === "instructions") {
     state.phase = "bid";
-    Object.assign(state, startPhaseTimer(BID_MS));
+    Object.assign(state, startPhaseTimer(BID_MS, state.gameOptions));
     state.bids = {};
     return state;
   }
@@ -130,7 +131,7 @@ export function advanceDike(state: DikeState): DikeState {
 
     state.round += 1;
     state.phase = "bid";
-    Object.assign(state, startPhaseTimer(BID_MS));
+    Object.assign(state, startPhaseTimer(BID_MS, state.gameOptions));
     state.bids = {};
     state.lastReveal = [];
     return state;

@@ -24,8 +24,12 @@ export const drawGuessGame: GameModule<DrawState> = {
     supportsSpeedScoring: true,
   },
   init(ctx) {
-    const state = createDrawState(drawWordPool(ctx.gameOptions), ctx.playerIds);
-    state.gameOptions = ctx.gameOptions;
+    const state = createDrawState(
+      drawWordPool(ctx.gameOptions),
+      ctx.playerIds,
+      undefined,
+      ctx.gameOptions,
+    );
     return state;
   },
   onPlayerAction(state, playerId, action, ctx) {

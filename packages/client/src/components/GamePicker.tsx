@@ -1,6 +1,7 @@
 import type { GameCategory, GameId, GameMeta, GameOptions } from "@party-games/shared";
 import { GAME_CATEGORIES, resolveTrailDashOptions } from "@party-games/shared";
-import { Fragment, useEffect, useMemo, useState, type ReactNode } from "react";
+import type { ReactNode } from "react";
+import { Fragment, useEffect, useMemo, useState } from "react";
 import { GameCategorySection } from "./GameCategorySection";
 
 const STORAGE_KEY = "party-games-category-open";
@@ -37,6 +38,14 @@ function effectivePlayerCount(
   return humanCount;
 }
 
+function isOverMaxPlayers(
+  game: GameMeta,
+  humanCount: number,
+  gameOptionsByGame?: Partial<Record<GameId, GameOptions>>,
+): boolean {
+  return effectivePlayerCount(game, humanCount, gameOptionsByGame) > game.maxPlayers;
+}
+
 function GameCard({
   game,
   selected,
@@ -60,14 +69,13 @@ function GameCard({
   return (
     <button
       type="button"
-      disabled={overMax}
       data-testid={`game-picker-${game.id}`}
       onClick={() => onSelect(game.id)}
       className={`rounded-2xl border p-4 text-left transition ${
         selected
           ? "border-violet-400 bg-violet-500/20"
           : overMax
-            ? "border-zinc-800 bg-zinc-900/40 opacity-50"
+            ? "border-amber-600/50 bg-zinc-800/40 hover:border-amber-500/70"
             : readyToStart
               ? "border-zinc-700 bg-zinc-800/60 hover:border-zinc-500"
               : "border-amber-700/50 bg-zinc-800/40 hover:border-amber-600/60"
@@ -78,6 +86,11 @@ function GameCard({
       <p className="mt-2 text-xs text-zinc-500">
         {game.id === "trail-dash" ? "1–8 players (+ bots)" : `${game.minPlayers}–${game.maxPlayers} players`}
       </p>
+      {overMax && (
+        <p className="mt-2 text-xs text-amber-400">
+          Too many players for this game — adjust bots or wait for players to leave.
+        </p>
+      )}
     </button>
   );
 }
@@ -88,16 +101,14 @@ export function GamePicker({
   playerCount,
   gameOptionsByGame,
   onSelect,
-  optionsSlot,
-  actionSlot,
+  detailPanel,
 }: {
   games: GameMeta[];
   selectedId: GameId | null | undefined;
   playerCount: number;
   gameOptionsByGame?: Partial<Record<GameId, GameOptions>>;
   onSelect: (id: GameId) => void;
-  optionsSlot?: (gameId: GameId) => ReactNode;
-  actionSlot?: (gameId: GameId) => ReactNode;
+  detailPanel?: ReactNode;
 }) {
   const gamesByCategory = useMemo(() => {
     const map = new Map<GameCategory, GameMeta[]>();
@@ -166,11 +177,8 @@ export function GamePicker({
                     gameOptionsByGame={gameOptionsByGame}
                     onSelect={onSelect}
                   />
-                  {selectedId === game.id && optionsSlot && (
-                    <div className="sm:col-span-2 space-y-3">{optionsSlot(game.id)}</div>
-                  )}
-                  {selectedId === game.id && actionSlot && (
-                    <div className="sm:col-span-2">{actionSlot(game.id)}</div>
+                  {selectedId === game.id && detailPanel && (
+                    <div className="col-span-full">{detailPanel}</div>
                   )}
                 </Fragment>
               ))}
@@ -182,4 +190,4 @@ export function GamePicker({
   );
 }
 
-export { effectivePlayerCount };
+export { effectivePlayerCount, isOverMaxPlayers };

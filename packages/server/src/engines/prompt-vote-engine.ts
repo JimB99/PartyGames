@@ -20,6 +20,7 @@ export interface Submission {
 }
 
 export interface PromptVoteState {
+  gameOptions?: import("@party-games/shared").GameOptions;
   phase: PromptVotePhase;
   round: number;
   maxRounds: number;
@@ -53,14 +54,13 @@ export function createPromptVoteState(
   prompts: string[],
   maxRounds = 4,
   targetPlayerId?: string,
-  playerIds: string[] = [],
-): PromptVoteState {
+  playerIds: string[] = [], gameOptions?: import("@party-games/shared").GameOptions): PromptVoteState {
   const idx = Math.floor(Math.random() * prompts.length);
   return {
     phase: "instructions",
     round: 1,
     maxRounds,
-    ...startPhaseTimer(5000),
+    ...startPhaseTimer(5000, gameOptions),
     mode,
     prompt: prompts[idx],
     imageCaption: mode === "caption" ? prompts[idx] : undefined,
@@ -76,6 +76,7 @@ export function createPromptVoteState(
     usedPrompts: [idx],
     promptsPool: prompts,
     playerIds,
+    gameOptions,
   };
 }
 
@@ -113,7 +114,7 @@ function awardByePoints(state: PromptVoteState): void {
 export function advancePromptVote(state: PromptVoteState, prompts: string[]): PromptVoteState {
   if (state.phase === "instructions") {
     state.phase = "submit";
-    Object.assign(state, startPhaseTimer(SUBMIT_MS));
+    Object.assign(state, startPhaseTimer(SUBMIT_MS, state.gameOptions));
     state.submissions = [];
     state.votes = {};
     state.pickVotes = {};
@@ -123,24 +124,24 @@ export function advancePromptVote(state: PromptVoteState, prompts: string[]): Pr
   if (state.phase === "submit") {
     if (state.mode === "hot-seat") {
       state.phase = "pick";
-      Object.assign(state, startPhaseTimer(VOTE_MS));
+      Object.assign(state, startPhaseTimer(VOTE_MS, state.gameOptions));
       return state;
     }
     if (state.mode === "vote-all") {
       if (state.submissions.length < 2) {
         state.roundScores = {};
         state.phase = "scoreboard";
-        Object.assign(state, startPhaseTimer(SCOREBOARD_MS));
+        Object.assign(state, startPhaseTimer(SCOREBOARD_MS, state.gameOptions));
         return state;
       }
       state.phase = "vote";
-      Object.assign(state, startPhaseTimer(VOTE_MS));
+      Object.assign(state, startPhaseTimer(VOTE_MS, state.gameOptions));
       return state;
     }
     buildMatchups(state);
     awardByePoints(state);
     state.phase = state.matchups.length > 0 ? "matchup" : "scoreboard";
-    Object.assign(state, startPhaseTimer(VOTE_MS));
+    Object.assign(state, startPhaseTimer(VOTE_MS, state.gameOptions));
     return state;
   }
   if (state.phase === "matchup") {
@@ -148,28 +149,28 @@ export function advancePromptVote(state: PromptVoteState, prompts: string[]): Pr
     state.matchupIndex += 1;
     if (state.matchupIndex >= state.matchups.length) {
       state.phase = "reveal";
-      Object.assign(state, startPhaseTimer(REVEAL_MS));
+      Object.assign(state, startPhaseTimer(REVEAL_MS, state.gameOptions));
     } else {
       state.votes = {};
-      Object.assign(state, startPhaseTimer(VOTE_MS));
+      Object.assign(state, startPhaseTimer(VOTE_MS, state.gameOptions));
     }
     return state;
   }
   if (state.phase === "vote") {
     scoreVoteAll(state);
     state.phase = "reveal";
-    Object.assign(state, startPhaseTimer(REVEAL_MS));
+    Object.assign(state, startPhaseTimer(REVEAL_MS, state.gameOptions));
     return state;
   }
   if (state.phase === "pick") {
     scoreHotSeat(state);
     state.phase = "reveal";
-    Object.assign(state, startPhaseTimer(REVEAL_MS));
+    Object.assign(state, startPhaseTimer(REVEAL_MS, state.gameOptions));
     return state;
   }
   if (state.phase === "reveal") {
     state.phase = "scoreboard";
-    Object.assign(state, startPhaseTimer(SCOREBOARD_MS));
+    Object.assign(state, startPhaseTimer(SCOREBOARD_MS, state.gameOptions));
     return state;
   }
   if (state.phase === "scoreboard") {
@@ -191,7 +192,7 @@ export function advancePromptVote(state: PromptVoteState, prompts: string[]): Pr
       state.targetPlayerId = state.playerIds[(idx + 1) % state.playerIds.length];
     }
     state.phase = "instructions";
-    Object.assign(state, startPhaseTimer(5000));
+    Object.assign(state, startPhaseTimer(5000, state.gameOptions));
     return state;
   }
   return state;
@@ -327,7 +328,7 @@ export function onPromptVoteAction(
   ) {
     state.roundScores = {};
     state.phase = "scoreboard";
-    Object.assign(state, startPhaseTimer(SCOREBOARD_MS));
+    Object.assign(state, startPhaseTimer(SCOREBOARD_MS, state.gameOptions));
     return state;
   }
   if (action.kind === "advance" && state.phase === "instructions") {

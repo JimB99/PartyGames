@@ -26,4 +26,16 @@ describe("protocol-schema", () => {
       assert.equal(result.value.options.contentRating, "mature");
     }
   });
+
+  it("preserves hostPacing in set_game_options", () => {
+    const result = validateClientMessage({
+      type: "set_game_options",
+      gameId: "quick-quiz",
+      options: { contentRating: "family", difficulty: "mixed", hostPacing: true },
+    });
+    assert.equal(result.ok, true);
+    if (result.ok && result.value.type === "set_game_options") {
+      assert.equal(result.value.options.hostPacing, true);
+    }
+  });
 });

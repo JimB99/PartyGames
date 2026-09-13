@@ -16,6 +16,7 @@ export interface BracketMatch {
 }
 
 export interface BracketState {
+  gameOptions?: import("@party-games/shared").GameOptions;
   phase: BracketPhase;
   round: number;
   maxRounds: number;
@@ -37,13 +38,13 @@ const SUBMIT_MS = 45000;
 const VOTE_MS = 20000;
 const REVEAL_MS = 5000;
 
-export function createBracketState(categories: string[]): BracketState {
+export function createBracketState(categories: string[], gameOptions?: import("@party-games/shared").GameOptions): BracketState {
   const category = pickRandom(categories);
   return {
     phase: "instructions",
     round: 1,
     maxRounds: 1,
-    ...startPhaseTimer(INSTRUCTIONS_MS),
+    ...startPhaseTimer(INSTRUCTIONS_MS, gameOptions),
     category,
     entries: [],
     bracket: [],
@@ -51,6 +52,7 @@ export function createBracketState(categories: string[]): BracketState {
     votes: {},
     roundScores: {},
     usedCategories: [category],
+    gameOptions,
   };
 }
 
@@ -83,7 +85,7 @@ function buildBracket(entries: BracketEntry[]): BracketMatch[] {
 export function advanceBracket(state: BracketState): BracketState {
   if (state.phase === "instructions") {
     state.phase = "submit";
-    Object.assign(state, startPhaseTimer(SUBMIT_MS));
+    Object.assign(state, startPhaseTimer(SUBMIT_MS, state.gameOptions));
     state.entries = [];
     return state;
   }
@@ -102,7 +104,7 @@ export function advanceBracket(state: BracketState): BracketState {
     }
     state.matchIndex = 0;
     state.phase = "vote";
-    Object.assign(state, startPhaseTimer(VOTE_MS));
+    Object.assign(state, startPhaseTimer(VOTE_MS, state.gameOptions));
     state.votes = {};
     skipResolvedMatches(state);
     if (state.matchIndex >= state.bracket.length) {
@@ -110,7 +112,7 @@ export function advanceBracket(state: BracketState): BracketState {
       if (winners.length === 1) {
         state.championId = winners[0];
         state.phase = "reveal";
-        Object.assign(state, startPhaseTimer(REVEAL_MS));
+        Object.assign(state, startPhaseTimer(REVEAL_MS, state.gameOptions));
         scoreChampion(state);
       }
     }
@@ -125,18 +127,18 @@ export function advanceBracket(state: BracketState): BracketState {
       if (winners.length === 1) {
         state.championId = winners[0];
         state.phase = "reveal";
-        Object.assign(state, startPhaseTimer(REVEAL_MS));
+        Object.assign(state, startPhaseTimer(REVEAL_MS, state.gameOptions));
         scoreChampion(state);
       } else {
         const winnerEntries = state.entries.filter((e) => winners.includes(e.id));
         state.bracket = buildBracket(winnerEntries);
         state.matchIndex = 0;
         state.votes = {};
-        Object.assign(state, startPhaseTimer(VOTE_MS));
+        Object.assign(state, startPhaseTimer(VOTE_MS, state.gameOptions));
       }
     } else {
       state.votes = {};
-      Object.assign(state, startPhaseTimer(VOTE_MS));
+      Object.assign(state, startPhaseTimer(VOTE_MS, state.gameOptions));
     }
     return state;
   }

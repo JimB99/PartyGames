@@ -30,9 +30,10 @@ for (const viewport of VIEWPORTS) {
       expect(playerOverflow).toBe(false);
 
       await selectGame(host, "quick-quiz");
-      await expect(host.getByTestId("start-game").first()).toBeVisible();
+      await expect(host.getByTestId("game-detail-island")).toBeVisible();
+      await expect(host.getByTestId("start-game")).toBeVisible();
 
-      const hostButton = host.getByTestId("start-game").first();
+      const hostButton = host.getByTestId("start-game");
       const box = await hostButton.boundingBox();
       expect(box).not.toBeNull();
       if (box) {

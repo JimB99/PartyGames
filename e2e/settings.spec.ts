@@ -51,7 +51,7 @@ test("@settings difficulty on hangman-race", async () => {
   }
 });
 
-test("@settings trail-dash bot setup", async () => {
+test("@settings trail-dash bot count field", async () => {
   const browser = await chromium.launch();
   const roomId = randomRoomId();
   const { page: host, context: hostCtx } = await openHost(browser, roomId);
@@ -59,11 +59,12 @@ test("@settings trail-dash bot setup", async () => {
 
   try {
     await selectGame(host, "trail-dash");
-    const addBot = host.getByRole("button", { name: /add bot/i });
-    if (await addBot.isVisible().catch(() => false)) {
-      await addBot.click();
-    }
-    await expect(host.getByTestId("start-game").last()).toBeEnabled();
+    const botField = host.getByTestId("trail-dash-bot-count");
+    await expect(botField).toBeVisible();
+    await botField.fill("2");
+    await botField.blur();
+    await expect(botField).toHaveValue("2");
+    await expect(host.getByTestId("start-game")).toBeEnabled();
   } finally {
     await hostCtx.close();
     await playerCtx.close();

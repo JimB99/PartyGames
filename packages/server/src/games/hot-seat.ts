@@ -26,7 +26,14 @@ export const hotSeatGame: GameModule<PromptVoteState> = {
   },
   init(ctx) {
     const targetPlayerId = pickRandom(ctx.playerIds);
-    const state = createPromptVoteState("hot-seat", hotSeatPool(ctx.gameOptions), 4, targetPlayerId, ctx.playerIds);
+    const state = createPromptVoteState(
+      "hot-seat",
+      hotSeatPool(ctx.gameOptions),
+      4,
+      targetPlayerId,
+      ctx.playerIds,
+      ctx.gameOptions,
+    );
     return state;
   },
   onPlayerAction(state, playerId, action, ctx) {

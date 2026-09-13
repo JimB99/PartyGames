@@ -28,6 +28,7 @@ export interface ChainWorkspace {
 }
 
 export interface ChainSketchState {
+  gameOptions?: import("@party-games/shared").GameOptions;
   phase: ChainPhase;
   round: number;
   maxRounds: number;
@@ -151,7 +152,7 @@ function scoreChains(state: ChainSketchState): void {
   if (winner) state.roundScores[winner] = (state.roundScores[winner] ?? 0) + 300;
 }
 
-export function createChainSketchState(words: string[], playerIds: string[]): ChainSketchState {
+export function createChainSketchState(words: string[], playerIds: string[], gameOptions?: import("@party-games/shared").GameOptions): ChainSketchState {
   const wordPool = shuffle([...words]);
   const chains: Record<string, PlayerChain> = {};
   for (let i = 0; i < playerIds.length; i++) {
@@ -162,7 +163,7 @@ export function createChainSketchState(words: string[], playerIds: string[]): Ch
     phase: "instructions",
     round: 1,
     maxRounds: 1,
-    ...startPhaseTimer(5000),
+    ...startPhaseTimer(5000, gameOptions),
     playerIds: [...playerIds],
     stage: 0,
     stagesTotal: playerIds.length * 2,
@@ -181,7 +182,7 @@ export function advanceChain(state: ChainSketchState): ChainSketchState {
     state.phase = "draw";
     state.stage = 0;
     initWorkspaces(state);
-    Object.assign(state, startPhaseTimer(DRAW_MS));
+    Object.assign(state, startPhaseTimer(DRAW_MS, state.gameOptions));
     return state;
   }
   if (state.phase === "draw") {
@@ -190,12 +191,12 @@ export function advanceChain(state: ChainSketchState): ChainSketchState {
     if (state.stage >= state.stagesTotal) {
       state.phase = "vote";
       state.votes = {};
-      Object.assign(state, startPhaseTimer(VOTE_MS));
+      Object.assign(state, startPhaseTimer(VOTE_MS, state.gameOptions));
       return state;
     }
     state.phase = "guess";
     initWorkspaces(state);
-    Object.assign(state, startPhaseTimer(GUESS_MS));
+    Object.assign(state, startPhaseTimer(GUESS_MS, state.gameOptions));
     return state;
   }
   if (state.phase === "guess") {
@@ -204,23 +205,23 @@ export function advanceChain(state: ChainSketchState): ChainSketchState {
     if (state.stage >= state.stagesTotal) {
       state.phase = "vote";
       state.votes = {};
-      Object.assign(state, startPhaseTimer(VOTE_MS));
+      Object.assign(state, startPhaseTimer(VOTE_MS, state.gameOptions));
       return state;
     }
     state.phase = "draw";
     initWorkspaces(state);
-    Object.assign(state, startPhaseTimer(DRAW_MS));
+    Object.assign(state, startPhaseTimer(DRAW_MS, state.gameOptions));
     return state;
   }
   if (state.phase === "vote") {
     scoreChains(state);
     state.phase = "reveal";
-    Object.assign(state, startPhaseTimer(REVEAL_MS));
+    Object.assign(state, startPhaseTimer(REVEAL_MS, state.gameOptions));
     return state;
   }
   if (state.phase === "reveal") {
     state.phase = "scoreboard";
-    Object.assign(state, startPhaseTimer(SCOREBOARD_MS));
+    Object.assign(state, startPhaseTimer(SCOREBOARD_MS, state.gameOptions));
     return state;
   }
   if (state.phase === "scoreboard") {

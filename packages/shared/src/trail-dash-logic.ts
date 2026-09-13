@@ -1,5 +1,6 @@
 import type { PowerUpMode, TrailDashOptions } from "./trail-dash-options.js";
 import { rankPointsByPercentile } from "./speed-scoring.js";
+import { phaseTimerEndsAt, resolvePhaseDuration } from "./timing.js";
 
 export type CurvePhase = "instructions" | "playing" | "round_end" | "ended";
 export type TurnDirection = "left" | "right" | "none";
@@ -125,10 +126,16 @@ export interface Explosion {
   ticksRemaining: number;
 }
 
+/** Minimum time in playing phase before host-paced Skip can end the round. */
+export const TRAIL_DASH_PLAYING_GRACE_MS = 1500;
+
 export interface CurveState {
   phase: CurvePhase;
   round: number;
   maxRounds: number;
+  hostPacing?: boolean;
+  /** Set when entering playing; used to block accidental double-skip. */
+  playingStartedAt?: number | null;
   timerEndsAt: number | null;
   timerTotalMs: number | null;
   width: number;
@@ -217,8 +224,13 @@ export function segmentHit(
   return dist(px, py, cx, cy) < threshold;
 }
 
-function createPlayer(id: string, index: number, isBot: boolean): CurvePlayer {
-  const pos = SPAWN_POSITIONS[index % SPAWN_POSITIONS.length];
+function createPlayer(
+  id: string,
+  spawnSlot: number,
+  colorIndex: number,
+  isBot: boolean,
+): CurvePlayer {
+  const pos = SPAWN_POSITIONS[spawnSlot % SPAWN_POSITIONS.length];
   return {
     id,
     x: pos.x,
@@ -227,7 +239,7 @@ function createPlayer(id: string, index: number, isBot: boolean): CurvePlayer {
     alive: true,
     direction: "none",
     trail: [{ x: pos.x, y: pos.y }],
-    colorIndex: index,
+    colorIndex,
     jumpTicksRemaining: 0,
     jumpCooldownTicks: 0,
     phasingTicks: 0,
@@ -407,18 +419,23 @@ export function createCurveState(
   options: TrailDashOptions,
   round = 1,
   colorIndexByPlayer: Record<string, number> = {},
+  hostPacing = false,
 ): CurveState {
   const allIds = [...playerIds, ...botIds];
   const players = allIds.map((id, i) =>
-    createPlayer(id, colorIndexByPlayer[id] ?? i, botIds.includes(id)),
+    createPlayer(id, i, colorIndexByPlayer[id] ?? i, botIds.includes(id)),
   );
   const seed = round * 1000 + allIds.length;
+  const instructionMs = resolvePhaseDuration(5000, { contentRating: "family", difficulty: "mixed", hostPacing });
+  const now = Date.now();
   return {
     phase: "instructions",
     round,
     maxRounds: options.maxRounds,
-    timerEndsAt: Date.now() + 5000,
-    timerTotalMs: 5000,
+    hostPacing,
+    playingStartedAt: null,
+    timerEndsAt: phaseTimerEndsAt(now, 5000, { contentRating: "family", difficulty: "mixed", hostPacing }),
+    timerTotalMs: instructionMs > 0 ? instructionMs : null,
     width: ARENA_W,
     height: ARENA_H,
     players,
@@ -436,6 +453,28 @@ export function createCurveState(
     nextCoinSpawnIn: 25,
     nextPowerUpSpawnIn: 70,
   };
+}
+
+export function shouldIgnoreHostEndRound(state: CurveState, now = Date.now()): boolean {
+  return (
+    state.phase === "playing" &&
+    state.hostPacing === true &&
+    state.playingStartedAt != null &&
+    now - state.playingStartedAt < TRAIL_DASH_PLAYING_GRACE_MS
+  );
+}
+
+export function markPlayingStarted(state: CurveState, now = Date.now()): void {
+  state.phase = "playing";
+  state.playingStartedAt = now;
+  if (state.hostPacing) {
+    state.timerTotalMs = null;
+    state.timerEndsAt = null;
+  } else {
+    state.timerTotalMs = state.options.roundTimeSec * 1000;
+    state.timerEndsAt = now + state.timerTotalMs;
+  }
+  for (const p of state.players) p.direction = "none";
 }
 
 function isInHole(
@@ -931,7 +970,7 @@ export function computeRoundScores(state: CurveState): Record<string, number> {
   // Survivors get best ranks first
   let rank = 1;
   for (const p of alive) {
-    const pts = rankPointsByPercentile(rank, totalPlayers, state.options.rankPointScale);
+    const pts = rankPointsByPercentile(rank, totalPlayers, 1);
     scores[p.id] = (scores[p.id] ?? 0) + pts + p.coinsThisRound;
     rank++;
   }
@@ -941,7 +980,7 @@ export function computeRoundScores(state: CurveState): Record<string, number> {
   for (const id of deadReversed) {
     const p = state.players.find((pl) => pl.id === id);
     if (!p) continue;
-    const pts = rankPointsByPercentile(rank, totalPlayers, state.options.rankPointScale);
+    const pts = rankPointsByPercentile(rank, totalPlayers, 1);
     scores[id] = (scores[id] ?? 0) + pts + p.coinsThisRound;
     rank++;
   }
@@ -971,12 +1010,24 @@ export function tickCurveState(state: CurveState): CurveState {
   tickExplosions(state);
 
   const alive = state.players.filter((p) => p.alive);
-  if (alive.length <= 1 || (state.timerEndsAt && Date.now() >= state.timerEndsAt)) {
+  const roundTimedOut =
+    !state.hostPacing && state.timerEndsAt !== null && Date.now() >= state.timerEndsAt;
+  if (alive.length <= 1 || roundTimedOut) {
     state.roundWinner = alive[0]?.id;
     computeRoundScores(state);
     state.phase = "round_end";
-    state.timerEndsAt = Date.now() + 5000;
-    state.timerTotalMs = 5000;
+    const breakMs = resolvePhaseDuration(5000, {
+      contentRating: "family",
+      difficulty: "mixed",
+      hostPacing: state.hostPacing,
+    });
+    const now = Date.now();
+    state.timerEndsAt = phaseTimerEndsAt(now, 5000, {
+      contentRating: "family",
+      difficulty: "mixed",
+      hostPacing: state.hostPacing,
+    });
+    state.timerTotalMs = breakMs > 0 ? breakMs : null;
   }
   return state;
 }
@@ -992,6 +1043,7 @@ export function resetCurveRound(state: CurveState, playerIds: string[], botIds: 
     state.options,
     state.round,
     colorIndexByPlayer,
+    state.hostPacing,
   );
   fresh.roundScores = { ...state.roundScores };
   return fresh;

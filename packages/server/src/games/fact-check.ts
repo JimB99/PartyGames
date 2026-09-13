@@ -25,8 +25,13 @@ export const factCheckGame: GameModule<BluffState> = {
     roundScoresAreCumulative: true,
   },
   init(ctx) {
-    const state = createBluffState("fact-check", factCheckPool(ctx.gameOptions), 5, ctx.playerIds.length);
-    state.gameOptions = ctx.gameOptions;
+    const state = createBluffState(
+      "fact-check",
+      factCheckPool(ctx.gameOptions),
+      5,
+      ctx.playerIds.length,
+      ctx.gameOptions,
+    );
     return state;
   },
   onPlayerAction(state, playerId, action, ctx) {

@@ -1,6 +1,7 @@
 import type { ClientMessage, GameAction } from "./protocol.js";
 import { ALL_GAME_IDS, type GameId } from "./constants.js";
 import { DEFAULT_GAME_OPTIONS, type GameOptions } from "./content.js";
+import { resolveTrailDashOptions } from "./trail-dash-options.js";
 
 const MAX_MESSAGE_BYTES = 16 * 1024;
 const MAX_NICKNAME_LEN = 24;
@@ -63,14 +64,14 @@ function validateGameOptions(raw: unknown): GameOptions {
     options.charadesMode = src.charadesMode;
   }
   if (isRecord(src.trailDash)) {
-    const td = src.trailDash;
-    options.trailDash = {
-      botCount: finiteNumber(td.botCount) ? Math.max(0, Math.min(7, Math.floor(td.botCount))) : undefined,
-      powerUpMode:
-        td.powerUpMode === "off" || td.powerUpMode === "normal" || td.powerUpMode === "chaos"
-          ? td.powerUpMode
-          : undefined,
-    };
+    options.trailDash = resolveTrailDashOptions({
+      contentRating: options.contentRating,
+      difficulty: options.difficulty,
+      trailDash: src.trailDash,
+    });
+  }
+  if (src.hostPacing === true) {
+    options.hostPacing = true;
   }
   return options;
 }

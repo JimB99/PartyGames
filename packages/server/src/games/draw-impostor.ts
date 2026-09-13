@@ -24,7 +24,7 @@ export const drawImpostorGame: GameModule<DrawImpostorState> = {
     const pool = impostorPool(ctx.gameOptions).flatMap((cat) =>
       cat.items.map((name) => ({ name, category: cat.label })),
     );
-    return createDrawImpostorState(pool, ctx.playerIds);
+    return createDrawImpostorState(pool, ctx.playerIds, ctx.gameOptions);
   },
   onPlayerAction(state, playerId, action, ctx) {
     return onDrawImpostorAction(state, playerId, action, ctx);

@@ -1,10 +1,20 @@
-import { useEffect } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import type { HostControls } from "@party-games/shared";
+
+const SKIP_COOLDOWN_MS = 450;
+
+function resolveSkipLabel(phase: string, hostPacing: boolean, gameId?: string | null): string {
+  if (phase === "instructions") return "Start round";
+  if (hostPacing && gameId === "trail-dash" && phase === "playing") return "End round";
+  return "Skip";
+}
 
 export function HostControlBar({
   paused,
   phase,
   controls,
+  gameId,
+  hostPacing = false,
   sessionActive = false,
   hasNextSessionGame = false,
   onPause,
@@ -18,6 +28,8 @@ export function HostControlBar({
   paused: boolean;
   phase: string;
   controls: HostControls;
+  gameId?: string | null;
+  hostPacing?: boolean;
   sessionActive?: boolean;
   hasNextSessionGame?: boolean;
   onPause: () => void;
@@ -30,6 +42,16 @@ export function HostControlBar({
 }) {
   const canPlayAgain = phase === "ended" && onPlayAgain && !sessionActive;
   const canNextSession = phase === "ended" && sessionActive && hasNextSessionGame && onNextSessionGame;
+  const skipCooldownRef = useRef(false);
+
+  const handleSkip = useCallback(() => {
+    if (skipCooldownRef.current) return;
+    skipCooldownRef.current = true;
+    onSkip();
+    window.setTimeout(() => {
+      skipCooldownRef.current = false;
+    }, SKIP_COOLDOWN_MS);
+  }, [onSkip]);
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
@@ -76,8 +98,13 @@ export function HostControlBar({
         )
       )}
       {!paused && controls.canSkip && (
-        <button type="button" data-testid="host-skip" onClick={onSkip} className="rounded-xl bg-violet-600 px-5 py-3 font-bold">
-          {phase === "instructions" ? "Start round" : "Skip"}
+        <button
+          type="button"
+          data-testid="host-skip"
+          onClick={handleSkip}
+          className="rounded-xl bg-violet-600 px-5 py-3 font-bold"
+        >
+          {resolveSkipLabel(phase, hostPacing, gameId)}
         </button>
       )}
       {!paused && controls.canExtendTime && (
