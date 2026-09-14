@@ -193,10 +193,10 @@ async function playRoundStep(
   config: GameE2EConfig,
   strict = true,
 ): Promise<void> {
-  await hostAdvance(host);
   for (const player of players) {
     await config.playerAction(player, strict);
   }
+  await hostAdvance(host);
   await assertNoErrors(host);
 }
 

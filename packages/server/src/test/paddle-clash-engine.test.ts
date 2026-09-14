@@ -1,24 +1,19 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import {
-  createPaddleClashState,
-  onPaddleClashTick,
-  PADDLE_POINTS_PER_GOAL,
-  PADDLE_WIN_BONUS,
-} from "../engines/paddle-clash-engine.js";
-import { createPaddleState } from "@party-games/shared";
+import { createPaddleClashState, paddleClashHostView } from "../engines/paddle-clash-engine.js";
 
-describe("paddle-clash scoring", () => {
-  it("awards points per goal plus win bonus", () => {
-    const state = createPaddleClashState(["p1", "p2"], "pong");
-    state.phase = "playing";
-    state.paddle = createPaddleState(["p1", "p2"], "pong");
-    state.paddle.players[0].score = 7;
+describe("paddle-clash-engine host view", () => {
+  it("reports team goals as max teammate score in 2v2, not sum", () => {
+    const state = createPaddleClashState(["p1", "p2", "p3", "p4"], "pong");
+    state.paddle.players[0].score = 3;
     state.paddle.players[1].score = 4;
+    state.paddle.players[2].score = 2;
+    state.paddle.players[3].score = 7;
 
-    const ended = onPaddleClashTick(state);
-    assert.equal(ended.phase, "ended");
-    assert.equal(ended.roundScores.p1, 7 * PADDLE_POINTS_PER_GOAL + PADDLE_WIN_BONUS);
-    assert.equal(ended.roundScores.p2, 4 * PADDLE_POINTS_PER_GOAL);
+    const view = paddleClashHostView(state);
+    assert.equal(view.data.teamGoalsLeft, 4);
+    assert.equal(view.data.teamGoalsRight, 7);
+    assert.equal(view.data.leftScore, 4);
+    assert.equal(view.data.rightScore, 7);
   });
 });

@@ -118,11 +118,14 @@ export function onForbiddenAction(
   action: GameAction,
   _ctx: RoomContext,
 ): ForbiddenState {
-  if (playerId !== state.clueGiverId) return state;
   if (state.phase !== "clue") {
-    if (action.kind === "advance" && state.phase === "instructions") return advanceForbidden(state);
+    if (action.kind === "advance" && (state.phase === "instructions" || playerId === "host")) {
+      return advanceForbidden(state);
+    }
+    if (playerId !== state.clueGiverId) return state;
     return state;
   }
+  if (playerId !== state.clueGiverId && playerId !== "host") return state;
   if (action.kind === "forbidden_correct") {
     state.correct += 1;
     state.card = pickCard(state);

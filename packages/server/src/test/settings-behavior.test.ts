@@ -45,8 +45,10 @@ describe("settings behavior", () => {
     const easy = dictionaryForWordRush({ ...DEFAULT_GAME_OPTIONS, difficulty: "easy" });
     const hard = dictionaryForWordRush({ ...DEFAULT_GAME_OPTIONS, difficulty: "hard" });
     assert.ok(easy.size > 0 && hard.size > 0);
-    const easyMax = Math.max(...[...easy].map((w) => w.length));
-    const hardMin = Math.min(...[...hard].map((w) => w.length));
+    let easyMax = 0;
+    for (const w of easy) easyMax = Math.max(easyMax, w.length);
+    let hardMin = Infinity;
+    for (const w of hard) hardMin = Math.min(hardMin, w.length);
     assert.ok(easyMax <= hardMin + 2, `easy max ${easyMax} vs hard min ${hardMin}`);
   });
 

@@ -398,15 +398,32 @@ export function blockStackActions(state: unknown, ctx: RoomContext): SimAction[]
   return actions;
 }
 
+function nextFleetDuelShot(
+  fleet: { shots: Array<{ x: number; y: number }> } | undefined,
+  gridSize: number,
+  startIndex = 0,
+): { x: number; y: number } {
+  const cells = gridSize * gridSize;
+  for (let offset = 0; offset < cells; offset++) {
+    const idx = (startIndex + offset) % cells;
+    const x = idx % gridSize;
+    const y = Math.floor(idx / gridSize);
+    if (!fleet?.shots.some((shot) => shot.x === x && shot.y === y)) return { x, y };
+  }
+  return { x: 0, y: 0 };
+}
+
 export function fleetDuelActions(state: unknown, ctx: RoomContext): SimAction[] {
   const phase = getPhase(state);
   const s = state as {
     mode?: string;
+    gridSize?: number;
     playerIds?: string[];
     currentTurn?: number;
-    fleets?: Record<string, { shots: Array<{ x: number; y: number }> }>;
+    fleets?: Record<string, { alive?: boolean; shots: Array<{ x: number; y: number }> }>;
   };
   const actions: SimAction[] = [];
+  const gridSize = s.gridSize ?? 10;
 
   if (phase === "instructions" || phase === "betting" || phase === "reveal") {
     actions.push({ role: "host", action: { kind: "advance" } });
@@ -422,16 +439,20 @@ export function fleetDuelActions(state: unknown, ctx: RoomContext): SimAction[] 
   }
 
   if (phase === "fire") {
+    const aliveIds = (s.playerIds ?? ctx.playerIds).filter((id) => s.fleets?.[id]?.alive !== false);
     for (const playerId of ctx.playerIds) {
-      const targetId = ctx.playerIds.find((id) => id !== playerId);
-      const shotCount = s.fleets?.[playerId]?.shots?.length ?? 0;
+      const fleet = s.fleets?.[playerId];
+      if (fleet?.alive === false) continue;
+      const targetId = aliveIds.find((id) => id !== playerId);
+      if (!targetId) continue;
+      const { x, y } = nextFleetDuelShot(s.fleets?.[targetId], gridSize, ctx.playerIds.indexOf(playerId));
       actions.push({
         role: "player",
         playerId,
         action: {
           kind: "fleet_duel_fire",
-          x: shotCount % 10,
-          y: Math.floor(shotCount / 10) % 10,
+          x,
+          y,
           targetId,
         },
       });
@@ -441,11 +462,12 @@ export function fleetDuelActions(state: unknown, ctx: RoomContext): SimAction[] 
 
   if (phase === "battle" && s.mode === "duel") {
     const turnId = s.playerIds?.[s.currentTurn ?? 0] ?? ctx.playerIds[0];
-    const shotCount = s.fleets?.[turnId]?.shots?.length ?? 0;
+    const defenderId = s.playerIds?.[1 - (s.currentTurn ?? 0)] ?? ctx.playerIds[1];
+    const { x, y } = nextFleetDuelShot(s.fleets?.[defenderId], gridSize);
     actions.push({
       role: "player",
       playerId: turnId,
-      action: { kind: "fleet_duel_fire", x: shotCount % 10, y: Math.floor(shotCount / 10) % 10 },
+      action: { kind: "fleet_duel_fire", x, y },
     });
     return actions;
   }

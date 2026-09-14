@@ -681,9 +681,27 @@ export class RoomServer extends Server {
         typeof this.gameState === "object" &&
         this.gameState !== null
       ) {
-        const timed = this.gameState as { timerEndsAt?: number | null };
-        if (timed.timerEndsAt != null) {
-          timed.timerEndsAt = Date.now();
+        const hostPacing =
+          this.activeGameId != null
+            ? getGameOptions(this.lobby, this.activeGameId).hostPacing === true
+            : false;
+        const playerInputPhases = new Set([
+          "submit",
+          "vote",
+          "question",
+          "guessing",
+          "clue",
+          "drawing",
+          "bid",
+          "fire",
+          "placement",
+          "assign",
+          "rate",
+        ]);
+        const shouldForceTick = hostPacing || !playerInputPhases.has(phaseBefore);
+        if (shouldForceTick) {
+          const timed = this.gameState as { timerEndsAt?: number | null };
+          timed.timerEndsAt = Date.now() - 1;
           if (this.gameModule.onTick && this.gameModule.needsTick?.(this.gameState)) {
             this.gameState = this.gameModule.onTick(this.gameState);
           }

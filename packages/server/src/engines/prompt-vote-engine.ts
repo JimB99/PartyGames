@@ -372,6 +372,12 @@ export function promptVoteHostView(state: PromptVoteState, ctx?: RoomContext) {
           : undefined,
       submitCount: state.phase === "submit" ? state.submissions.length : undefined,
       playerCount: state.playerIds.length,
+      expectedSubmitCount:
+        state.phase === "submit" && state.mode === "hot-seat"
+          ? Math.max(0, state.playerIds.length - 1)
+          : state.phase === "submit"
+            ? state.playerIds.length
+            : undefined,
       reveal: showReveal ? buildPromptVoteReveal(state) : undefined,
       matchup: currentMatchup
         ? {

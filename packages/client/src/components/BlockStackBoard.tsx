@@ -123,14 +123,6 @@ export function BlockStackBoard({
                 if (gesture) onInput(gesture);
               }}
             />
-            <button
-              type="button"
-              data-testid="block-stack-hold"
-              className="absolute bottom-2 right-2 rounded-lg bg-zinc-800/90 px-3 py-2 text-xs font-bold text-white"
-              onClick={() => onInput("hold")}
-            >
-              Hold
-            </button>
           </>
         )}
       </div>

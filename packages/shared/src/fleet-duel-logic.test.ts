@@ -25,6 +25,32 @@ describe("fleet-duel-logic", () => {
     assert.ok(state.fleets.a.ships.every((s) => s.cells.length === s.length));
   });
 
+  it("autoPlaceFleet yields different layouts on repeated calls", () => {
+    const state = createFleetDuelState(["a", "b"]);
+    const layout = () =>
+      state.fleets.a.ships
+        .flatMap((s) => s.cells.map((c) => `${c.x},${c.y}`))
+        .join("|");
+
+    const seen = new Set<string>();
+    for (let i = 0; i < 12; i++) {
+      autoPlaceFleet(state.fleets.a, state.gridSize);
+      seen.add(layout());
+    }
+    assert.ok(seen.size >= 2, `expected varied layouts, got ${seen.size} unique of 12`);
+  });
+
+  it("autoPlaceFleet differs between players", () => {
+    const state = createFleetDuelState(["a", "b"]);
+    autoPlaceFleet(state.fleets.a, state.gridSize);
+    autoPlaceFleet(state.fleets.b, state.gridSize);
+    const layout = (id: string) =>
+      state.fleets[id].ships
+        .flatMap((s) => s.cells.map((c) => `${c.x},${c.y}`))
+        .join("|");
+    assert.notEqual(layout("a"), layout("b"));
+  });
+
   it("resolves royale round", () => {
     const state = createFleetDuelState(["a", "b", "c"]);
     autoPlaceFleet(state.fleets.a, state.gridSize);

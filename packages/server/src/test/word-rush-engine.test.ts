@@ -1,10 +1,19 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
 import { describe, it } from "node:test";
 import {
   advanceWordRush,
   createWordRushState,
   scoreWordRush,
 } from "../engines/word-rush-engine.js";
+
+const dictionaryPath = join(
+  dirname(fileURLToPath(import.meta.url)),
+  "../../../shared/content/words/dictionary.json",
+);
+const partyDictionary = new Set(JSON.parse(readFileSync(dictionaryPath, "utf8")) as string[]);
 
 describe("word-rush-engine", () => {
   it("accepts dictionary words formable from the letter tiles", () => {
@@ -44,6 +53,15 @@ describe("word-rush-engine", () => {
       );
     }
     assert.ok(vowelSets.size > 1);
+  });
+
+  it("accepts common ENABLE dictionary words formable from tiles", () => {
+    const state = createWordRushState(1, partyDictionary, 3, 2);
+    state.letters = ["V", "I", "S", "A", "E", "R", "N"];
+    state.phase = "playing";
+    state.submissions = { p1: "visa" };
+    scoreWordRush(state);
+    assert.equal(state.validWords.p1, true);
   });
 
   it("rejects words when dictionary is empty", () => {

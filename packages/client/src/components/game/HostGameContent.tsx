@@ -207,7 +207,7 @@ export function HostGameView({
           <p className="mt-4 text-zinc-400">
             {phase === "pick"
               ? "Waiting for the hot seat player to pick…"
-              : `Waiting for players… (${String(data.submitCount ?? data.answerCount ?? 0)}/${String(data.playerCount ?? room.players.length)})`}
+              : `Waiting for players… (${String(data.submitCount ?? data.answerCount ?? 0)}/${String(data.expectedSubmitCount ?? data.playerCount ?? room.players.length)})`}
           </p>
         </div>
       )}
@@ -396,6 +396,12 @@ export function HostGameView({
         <FleetDuelArena data={data} room={room} />
       )}
 
+      {hostView.gameId === "fleet-duel" && phase === "ended" && data.winnerId && (
+        <p className="text-center text-3xl font-bold text-yellow-400 mb-4">
+          {room.players.find((p) => p.id === data.winnerId)?.nickname ?? "Someone"} wins!
+        </p>
+      )}
+
       {(phase === "playing" || phase === "match_end" || phase === "ended") && hostView.gameId === "four-in-a-row" && data.board && (
         <div className="flex flex-col items-center gap-4">
           {phase === "ended" && data.winnerId && (
@@ -418,6 +424,11 @@ export function HostGameView({
 
       {(phase === "playing" || phase === "match_end" || phase === "ended") && hostView.gameId === "tic-tac-toe" && data.match && (
         <div className="flex flex-col items-center gap-4">
+          {phase === "match_end" && (data.match as { winner?: string | null }).winner && (
+            <p className="text-center text-3xl font-bold text-yellow-400">
+              {room.players.find((p) => p.id === (data.match as { winner: string }).winner)?.nickname ?? "Someone"} wins this match!
+            </p>
+          )}
           {phase === "ended" && data.championId && (
             <p className="text-center text-3xl font-bold text-yellow-400">
               {room.players.find((p) => p.id === data.championId)?.nickname ?? "Someone"} wins!
@@ -503,6 +514,15 @@ export function HostGameView({
                   )}
                 </li>
               ))}
+              {data.clueGiverId &&
+                (data.lastRoundScores as Record<string, number> | undefined)?.[data.clueGiverId as string] !== undefined && (
+                  <li>
+                    {room.players.find((p) => p.id === data.clueGiverId)?.nickname ?? String(data.clueGiverId)} (clue giver)
+                    <span className="text-emerald-400">
+                      {" "}(+{(data.lastRoundScores as Record<string, number>)[data.clueGiverId as string]} pts)
+                    </span>
+                  </li>
+                )}
             </ul>
           )}
         </div>

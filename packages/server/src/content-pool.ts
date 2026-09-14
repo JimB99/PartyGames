@@ -157,7 +157,9 @@ export function dictionaryForWordRush(options: GameOptions): Set<string> {
   };
   if (options.difficulty === "mixed") return content.dictionary;
   const { min, max } = bounds[options.difficulty];
-  return new Set(
-    [...content.dictionary].filter((word) => word.length >= min && word.length <= max),
-  );
+  const filtered = new Set<string>();
+  for (const word of content.dictionary) {
+    if (word.length >= min && word.length <= max) filtered.add(word);
+  }
+  return filtered;
 }

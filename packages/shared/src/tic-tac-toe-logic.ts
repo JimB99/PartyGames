@@ -21,6 +21,7 @@ export interface TicTacToeState {
   bracket: BracketMatch[];
   matchIndex: number;
   championId: string | null;
+  finalistIds: string[];
   roundScores: Record<string, number>;
   drawReplayCount: number;
 }
@@ -83,6 +84,7 @@ export function createTicTacToeState(playerIds: string[]): TicTacToeState {
     bracket: buildBracket(playerIds),
     matchIndex: 0,
     championId: null,
+    finalistIds: [],
     roundScores: {},
     drawReplayCount: 0,
   };
@@ -111,8 +113,11 @@ export function advanceBracket(state: TicTacToeState): TicTacToeState {
     state.championId = winners[0];
     state.phase = "ended";
     state.timerEndsAt = null;
-    state.roundScores = tttPlacementScores(state.playerIds, state.championId, state.bracket);
+    state.roundScores = tttPlacementScores(state.playerIds, state.championId, state.finalistIds);
     return state;
+  }
+  if (winners.length === 2) {
+    state.finalistIds = winners.filter((w): w is string => Boolean(w));
   }
   const nextMatches: BracketMatch[] = [];
   for (let i = 0; i < winners.length; i += 2) {
@@ -132,12 +137,13 @@ export function advanceBracket(state: TicTacToeState): TicTacToeState {
 export function tttPlacementScores(
   playerIds: string[],
   championId: string | null,
-  bracket: BracketMatch[],
+  finalistIds: string[],
 ): Record<string, number> {
   const scores: Record<string, number> = Object.fromEntries(playerIds.map((id) => [id, 0]));
   if (championId) scores[championId] = 1000;
-  const runnerUps = bracket.filter((m) => m.winner && m.winner !== championId).map((m) => m.winner!);
-  for (const id of runnerUps) scores[id] = (scores[id] ?? 0) + 500;
+  for (const id of finalistIds) {
+    if (id !== championId) scores[id] = 500;
+  }
   for (const id of playerIds) {
     if (!scores[id]) scores[id] = 100;
   }

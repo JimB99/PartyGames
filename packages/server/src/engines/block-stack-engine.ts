@@ -93,6 +93,10 @@ function serializePlayer(p: import("@party-games/shared").BlockStackPlayer) {
 }
 
 export function blockStackHostView(state: BlockStackState) {
+  const highScorePlayer = state.players.reduce<(typeof state.players)[number] | null>(
+    (best, p) => (!best || p.score > best.score ? p : best),
+    null,
+  );
   return {
     phase: state.phase,
     round: state.round,
@@ -103,6 +107,8 @@ export function blockStackHostView(state: BlockStackState) {
       players: state.players.map(serializePlayer),
       deathOrder: state.deathOrder,
       roundWinner: state.roundWinner,
+      lastStandingId: state.roundWinner,
+      highScorePlayerId: highScorePlayer?.id ?? null,
       roundScores: state.roundScores,
       level: blockStackLevelFromElapsed(state.elapsedTicks),
     },

@@ -102,7 +102,10 @@ export function PlayerGameView({
         </div>
       )}
 
-      {(phase === "submit" || (phase === "guessing" && !playerData.isDrawer)) && (
+      {(phase === "submit" || (phase === "guessing" && !playerData.isDrawer)) && (() => {
+        const responseLocked =
+          phase === "guessing" ? Boolean(playerData.guessed) : Boolean(playerData.submitted);
+        return (
         <div className="space-y-3">
           {data.targetName && data.isTarget && (
             <div className="rounded-xl bg-amber-900/30 border border-amber-500/40 p-4 text-center">
@@ -135,10 +138,15 @@ export function PlayerGameView({
               Shout a question this fact answers, then type the best one.
             </p>
           )}
-          {playerData.submitted ? (
+          {responseLocked ? (
             <div className="rounded-xl bg-green-900/40 border border-green-500/40 p-6 text-center">
-              <p className="text-xl font-bold text-green-300">Submitted!</p>
-              {playerData.mySubmission && (
+              <p className="text-xl font-bold text-green-300">
+                {phase === "guessing" ? "Guess locked in!" : "Submitted!"}
+              </p>
+              {phase === "guessing" && playerData.myGuess && (
+                <p className="mt-2 text-2xl font-bold">&ldquo;{String(playerData.myGuess)}&rdquo;</p>
+              )}
+              {phase !== "guessing" && playerData.mySubmission && (
                 <p className="mt-2 text-zinc-300">&ldquo;{String(playerData.mySubmission)}&rdquo;</p>
               )}
               <p className="mt-2 text-sm text-zinc-400">Waiting for other players…</p>
@@ -176,7 +184,8 @@ export function PlayerGameView({
             </>
           )}
         </div>
-      )}
+        );
+      })()}
 
       {phase === "vote" && data.options && (
         <div className="grid gap-2">
@@ -381,14 +390,24 @@ export function PlayerGameView({
 
       {phase === "playing" && playerView.gameId === "block-stack" && (
         <div className="flex h-[calc(100dvh-9rem)] min-h-0 flex-col gap-2">
-          <div className="relative min-h-0 flex-1">
-            <BlockStackBoard
-              board={(playerData.board as number[][]) ?? []}
-              alive={(playerData.alive as boolean) ?? true}
-              interactive
-              className="h-full"
-              onInput={(input) => onAction({ kind: "block_stack_input", input })}
-            />
+          <div className="flex min-h-0 flex-1 items-stretch justify-center gap-2">
+            <div className="relative min-h-0 min-w-0 flex-1">
+              <BlockStackBoard
+                board={(playerData.board as number[][]) ?? []}
+                alive={(playerData.alive as boolean) ?? true}
+                interactive
+                className="h-full"
+                onInput={(input) => onAction({ kind: "block_stack_input", input })}
+              />
+            </div>
+            <button
+              type="button"
+              data-testid="block-stack-hold"
+              className="shrink-0 self-center rounded-lg bg-zinc-800/90 px-3 py-4 text-xs font-bold text-white"
+              onClick={() => onAction({ kind: "block_stack_input", input: "hold" })}
+            >
+              Hold
+            </button>
           </div>
           <p className="shrink-0 text-center text-sm text-zinc-400">
             Score: {String(playerData.score ?? 0)} · Swipe to move/drop · Tap to rotate
@@ -406,7 +425,7 @@ export function PlayerGameView({
       )}
 
       {playerView.gameId === "fleet-duel" && (phase === "battle" || phase === "fire") && (
-        <div className="space-y-4">
+        <div className="max-h-[calc(100dvh-8rem)] space-y-4 overflow-y-auto pb-4">
           <div className="grid gap-3 sm:grid-cols-2">
             <FleetDuelFleetStatus
               label="Your fleet"
@@ -1044,7 +1063,13 @@ export function PlayerGameView({
         />
       )}
 
-      {playerView.gameId === "agent-grid" && playerData.isSpymaster && phase === "clue" && (
+      {playerView.gameId === "agent-grid" && phase === "clue" && playerData.team && playerData.team !== data.activeTeam && (
+        <div className="rounded-xl bg-zinc-800/60 p-6 text-center text-zinc-300">
+          <p className="text-lg">Team {String(data.activeTeam ?? "").toUpperCase()} is giving a clue…</p>
+        </div>
+      )}
+
+      {playerView.gameId === "agent-grid" && playerData.isSpymaster && phase === "clue" && playerData.team === data.activeTeam && (
         <div className="space-y-3">
           <input className="w-full rounded-xl bg-zinc-800 p-3" placeholder="Clue word" value={text} onChange={(e) => setText(e.target.value)} />
           <Btn className="w-full" onClick={() => { onAction({ kind: "agent_clue", word: text, count: 2 }); setText(""); }}>Give clue (2)</Btn>
@@ -1166,7 +1191,8 @@ export function PlayerGameView({
 
       {(phase === "reveal" || phase === "scoreboard") && playerView.gameId !== "last-on-the-dike" && (
         <>
-          {(data.playerAnswers as PlayerAnswerReveal[] | undefined)?.length ? (
+          {(data.playerAnswers as PlayerAnswerReveal[] | undefined)?.length ||
+          (data.reveal as RevealEntry[] | undefined)?.length ? (
             <RevealBreakdown
               room={room}
               reveal={data.reveal as RevealEntry[] | undefined}

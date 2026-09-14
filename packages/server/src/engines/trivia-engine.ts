@@ -2,6 +2,7 @@ import {
   DEFAULT_GAME_OPTIONS,
   TIMER_PRESETS,
   beginTimedPhase,
+  isHostPacing,
   isSpeedScoringEnabled,
   resolvePhaseDuration,
   phaseTimerEndsAt,
@@ -326,6 +327,11 @@ export function onTriviaAction(
   action: GameAction,
   ctx: RoomContext,
 ): TriviaState {
+  if (action.kind === "advance" && playerId === "host" && isHostPacing(ctx.gameOptions)) {
+    if (state.phase === "instructions" || state.phase === "question" || state.phase === "reveal" || state.phase === "scoreboard") {
+      return advanceTrivia(state, state.itemsPool, ctx.gameOptions);
+    }
+  }
   if (state.phase !== "question") {
     if (action.kind === "advance" && state.phase === "instructions") {
       return advanceTrivia(state, state.itemsPool);
@@ -359,9 +365,6 @@ export function onTriviaAction(
 
 export function onTriviaTick(state: TriviaState, items?: unknown[], gameOptions?: GameOptions): TriviaState {
   if (!state.timerEndsAt || Date.now() < state.timerEndsAt) return state;
-  if (state.phase === "question") {
-    scoreTrivia(state, gameOptions);
-  }
   return advanceTrivia(state, items ?? state.itemsPool, gameOptions);
 }
 

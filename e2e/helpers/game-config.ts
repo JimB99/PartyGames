@@ -78,6 +78,26 @@ async function fleetDuelAction(page: import("@playwright/test").Page) {
   if (await ready.isVisible().catch(() => false)) await ready.click();
 }
 
+async function clickFirstBluffVote(page: import("@playwright/test").Page): Promise<boolean> {
+  const locked = await page.getByText(/Submitted!|Locked in!|Vote locked/i).isVisible().catch(() => false);
+  if (locked) return true;
+  const options = page.locator("button").filter({ hasNotText: /^(join|skip|pause)$/i });
+  const count = await options.count();
+  for (let i = 0; i < count; i++) {
+    const btn = options.nth(i);
+    if (!(await btn.isVisible().catch(() => false))) continue;
+    const text = (await btn.innerText().catch(() => "")).trim();
+    if (text.length < 2) continue;
+    try {
+      await btn.click({ timeout: 3_000 });
+      return true;
+    } catch {
+      // Phase may have advanced while clicking.
+    }
+  }
+  return false;
+}
+
 async function submitText(page: import("@playwright/test").Page, strict = true) {
   const input = page.getByTestId("player-text-input");
   if (await input.isVisible().catch(() => false)) {
@@ -88,7 +108,8 @@ async function submitText(page: import("@playwright/test").Page, strict = true) 
   const clicked =
     (await clickInteraction(page, "wyr-choice-a")) ||
     (await clickInteraction(page, "crowd-call-option-0")) ||
-    (await clickInteraction(page, "split-vote-a"));
+    (await clickInteraction(page, "split-vote-a")) ||
+    (await clickFirstBluffVote(page));
   if (!clicked && strict) {
     throw new Error("no submitText or vote control visible");
   }

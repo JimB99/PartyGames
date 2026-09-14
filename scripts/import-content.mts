@@ -31,6 +31,19 @@ type Difficulty = "easy" | "medium" | "hard";
 const MATURE_KEYWORDS =
   /\b(sex|naked|nude|drunk|alcohol|weed|cocaine|porn|orgasm|masturbat|cheat|affair|strip|twerk|kiss a stranger|hookup|one night stand)\b/i;
 
+const DICTIONARY_MATURE_PATTERNS = [
+  /\bporn\s*star\b/i,
+  /\bpornstar\b/i,
+  /\bnsfw\b/i,
+  /\bnude\b/i,
+  /\berotic\b/i,
+  /\bstripper\b/i,
+  /\bprostitut/i,
+  /\bhentai\b/i,
+  /\bhad sex\b/i,
+  /\bsex tape\b/i,
+];
+
 function sleep(ms: number) {
   return new Promise((r) => setTimeout(r, ms));
 }
@@ -48,6 +61,10 @@ function readJson<T>(rel: string): T {
 
 function isMatureText(text: string): boolean {
   return MATURE_KEYWORDS.test(text);
+}
+
+function isMatureDictionaryWord(word: string): boolean {
+  return isMatureText(word) || DICTIONARY_MATURE_PATTERNS.some((re) => re.test(word));
 }
 
 function promptEntry(text: string, rating: Rating = "family", difficulty?: Difficulty) {
@@ -408,18 +425,18 @@ async function fetchBulkSources(): Promise<{
     console.warn("    pq-words failed:", e);
   }
 
-  // dwyl english-words subset for Word Rush dictionary (capped for bundle size)
-  const DICTIONARY_CAP = 12000;
+  // ENABLE word list for Word Rush dictionary (party-friendly Scrabble lexicon)
   try {
-    const text = await fetchText(DWYL_WORDS_URL);
-    dictionaryWords = text
-      .split("\n")
-      .map((w) => w.trim().toLowerCase())
-      .filter((w) => w.length >= 4 && w.length <= 10 && /^[a-z]+$/.test(w))
-      .slice(0, DICTIONARY_CAP);
-    console.log(`    dwyl/english-words: +${dictionaryWords.length} (filtered, cap ${DICTIONARY_CAP})`);
+    const text = await fetchText("https://raw.githubusercontent.com/dolph/dictionary/master/enable1.txt");
+    dictionaryWords = [...new Set(
+      text
+        .split("\n")
+        .map((w) => w.trim().toLowerCase())
+        .filter((w) => w.length >= 2 && w.length <= 15 && /^[a-z]+$/.test(w)),
+    )].sort();
+    console.log(`    ENABLE: +${dictionaryWords.length} words`);
   } catch (e) {
-    console.warn("    dwyl/english-words failed:", e);
+    console.warn("    ENABLE dictionary failed:", e);
   }
 
   return {
@@ -805,7 +822,9 @@ async function main() {
         "party", "game", "quiz", "trivia", "draw", "guess", "vote", "host", "join",
         "phone", "screen", "pizza", "taco", "music", "dance", "sing", "laugh", "joke",
       ];
-      const merged = [...new Set([...bulk.dictionaryWords, ...extra])].sort();
+      const merged = [...new Set([...bulk.dictionaryWords, ...extra])]
+        .filter((word) => !isMatureDictionaryWord(word))
+        .sort();
       writeFileSync(dictPath, merged.join(","), "utf8");
       writeFileSync(join(CONTENT, "words/dictionary.json"), JSON.stringify(merged) + "\n", "utf8");
       console.log(`  wrote words/dictionary.txt (${merged.length} words)`);
@@ -978,7 +997,9 @@ async function main() {
       "party", "game", "quiz", "trivia", "draw", "guess", "vote", "host", "join",
       "phone", "screen", "pizza", "taco", "music", "dance", "sing", "laugh", "joke",
     ];
-    dictWords = [...new Set([...dictWords, ...extra])].sort();
+    dictWords = [...new Set([...dictWords, ...extra])]
+      .filter((word) => !isMatureDictionaryWord(word))
+      .sort();
     writeFileSync(dictPath, dictWords.join(","), "utf8");
     writeFileSync(join(CONTENT, "words/dictionary.json"), JSON.stringify(dictWords) + "\n", "utf8");
     console.log(`  wrote words/dictionary.txt (${dictWords.length} words)`);

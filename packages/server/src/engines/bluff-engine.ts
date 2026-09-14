@@ -3,6 +3,7 @@ import {
   isObviousBluffTruth,
   isSpeedScoringEnabled,
   pickRandom,
+  isHostPacing,
   resolvePhaseDuration,
   scoreByAnswerRank,
   shuffle,
@@ -271,8 +272,17 @@ export function onBluffAction(
       return state;
     }
   }
-  if (action.kind === "advance" && state.phase === "instructions") {
-    return advanceBluff(state, ctx.gameOptions);
+  if (action.kind === "advance") {
+    if (state.phase === "instructions") {
+      return advanceBluff(state, ctx.gameOptions);
+    }
+    if (
+      playerId === "host" &&
+      isHostPacing(ctx.gameOptions) &&
+      (state.phase === "submit" || state.phase === "vote" || state.phase === "reveal" || state.phase === "scoreboard")
+    ) {
+      return advanceBluff(state, ctx.gameOptions);
+    }
   }
   return state;
 }

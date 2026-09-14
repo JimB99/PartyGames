@@ -1,6 +1,12 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import { createTicTacToeState, currentMatch, emptyBoard } from "@party-games/shared";
+import {
+  advanceBracket,
+  createTicTacToeState,
+  currentMatch,
+  emptyBoard,
+  tttPlacementScores,
+} from "@party-games/shared";
 import { onTttAction } from "../engines/tic-tac-toe-engine.js";
 
 describe("tic-tac-toe-engine", () => {
@@ -27,5 +33,21 @@ describe("tic-tac-toe-engine", () => {
     state = onTttAction(state, "p2", { kind: "tic_tac_toe_move", cell: 8 });
     assert.equal(state.phase, "ended");
     assert.equal(state.championId, null);
+  });
+
+  it("awards 500 to the losing finalist in a 4-player bracket", () => {
+    let state = createTicTacToeState(["p1", "p2", "p3", "p4"]);
+    state.bracket[0].winner = "p1";
+    state.bracket[1].winner = "p3";
+    state = advanceBracket(state);
+    assert.deepEqual(state.finalistIds, ["p1", "p3"]);
+    state.bracket[0].winner = "p1";
+    state.championId = "p1";
+    state.phase = "ended";
+    state.roundScores = tttPlacementScores(state.playerIds, "p1", state.finalistIds);
+    assert.equal(state.roundScores.p1, 1000);
+    assert.equal(state.roundScores.p3, 500);
+    assert.equal(state.roundScores.p2, 100);
+    assert.equal(state.roundScores.p4, 100);
   });
 });

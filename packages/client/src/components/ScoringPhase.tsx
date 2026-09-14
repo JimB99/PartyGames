@@ -55,13 +55,34 @@ export function ScoringPhase({
         roundScores={scores}
         extraNames={(data.botNames as Record<string, string>) ?? undefined}
       />
-      {data.roundWinner && (
-        <p className="text-center text-2xl text-yellow-400">
-          Winner:{" "}
-          {room.players.find((p) => p.id === data.roundWinner)?.nickname ??
-            (data.botNames as Record<string, string> | undefined)?.[data.roundWinner as string] ??
-            "—"}
-        </p>
+      {hostView.gameId === "block-stack" && isEnded && (data.lastStandingId || data.highScorePlayerId) ? (
+        <div className="space-y-2 text-center text-xl text-yellow-400">
+          {typeof data.lastStandingId === "string" && (
+            <p>
+              Last standing:{" "}
+              {room.players.find((p) => p.id === data.lastStandingId)?.nickname ??
+                (data.botNames as Record<string, string> | undefined)?.[data.lastStandingId] ??
+                "—"}
+            </p>
+          )}
+          {typeof data.highScorePlayerId === "string" && (
+            <p>
+              High score:{" "}
+              {room.players.find((p) => p.id === data.highScorePlayerId)?.nickname ??
+                (data.botNames as Record<string, string> | undefined)?.[data.highScorePlayerId] ??
+                "—"}
+            </p>
+          )}
+        </div>
+      ) : (
+        data.roundWinner && (
+          <p className="text-center text-2xl text-yellow-400">
+            Winner:{" "}
+            {room.players.find((p) => p.id === data.roundWinner)?.nickname ??
+              (data.botNames as Record<string, string> | undefined)?.[data.roundWinner as string] ??
+              "—"}
+          </p>
+        )
       )}
     </>
   );

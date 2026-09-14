@@ -51,7 +51,7 @@ function finishMatch(state: TicTacToeState, isDraw = false): TicTacToeState {
     state.championId = match?.winner ?? null;
     state.phase = "ended";
     state.timerEndsAt = null;
-    state.roundScores = tttPlacementScores(state.playerIds, state.championId, state.bracket);
+    state.roundScores = tttPlacementScores(state.playerIds, state.championId, state.finalistIds);
     return state;
   }
   if (state.matchIndex < state.bracket.length - 1) {

@@ -1,3 +1,5 @@
+import { pickRandom, shuffle } from "./game.js";
+
 export type FleetDuelPhase =
   | "instructions"
   | "placement"
@@ -159,21 +161,60 @@ export function fleetLengths(fleet: PlayerFleet): number[] {
   return fleet.ships.map((s) => s.length);
 }
 
+function fleetLayoutKey(fleet: PlayerFleet): string {
+  return fleet.ships
+    .map((s) => s.cells.map((c) => `${c.x},${c.y}`).join(";"))
+    .join("|");
+}
+
 export function autoPlaceFleet(fleet: PlayerFleet, gridSize: number): void {
-  for (let i = 0; i < fleet.ships.length; i++) {
-    let placed = false;
-    for (let y = 0; y < gridSize && !placed; y++) {
-      for (let x = 0; x < gridSize && !placed; x++) {
-        for (const horizontal of [true, false]) {
-          if (placeShip(fleet, gridSize, i, x, y, horizontal)) {
-            placed = true;
-            break;
+  const shipOrder = fleet.ships.map((_, i) => i);
+  const maxAttempts = 80;
+
+  for (let attempt = 0; attempt < maxAttempts; attempt++) {
+    clearFleetPlacement(fleet);
+    const order = shuffle(shipOrder);
+    let allPlaced = true;
+
+    for (const shipIndex of order) {
+      const options: Array<{ x: number; y: number; horizontal: boolean }> = [];
+      for (let y = 0; y < gridSize; y++) {
+        for (let x = 0; x < gridSize; x++) {
+          for (const horizontal of [true, false]) {
+            if (shipFits(gridSize, fleet.ships, shipIndex, x, y, horizontal)) {
+              options.push({ x, y, horizontal });
+            }
           }
         }
       }
+      if (options.length === 0) {
+        allPlaced = false;
+        break;
+      }
+      const pick = pickRandom(options);
+      if (!placeShip(fleet, gridSize, shipIndex, pick.x, pick.y, pick.horizontal)) {
+        allPlaced = false;
+        break;
+      }
+    }
+
+    if (allPlaced && allShipsPlaced(fleet)) return;
+  }
+
+  clearFleetPlacement(fleet);
+  for (let i = 0; i < fleet.ships.length; i++) {
+    for (let y = 0; y < gridSize; y++) {
+      for (let x = 0; x < gridSize; x++) {
+        for (const horizontal of [true, false]) {
+          if (placeShip(fleet, gridSize, i, x, y, horizontal)) break;
+        }
+        if (fleet.ships[i].cells.length === fleet.ships[i].length) break;
+      }
+      if (fleet.ships[i].cells.length === fleet.ships[i].length) break;
     }
   }
 }
+
 
 function findShipAt(fleet: PlayerFleet, x: number, y: number): Ship | null {
   for (const ship of fleet.ships) {
