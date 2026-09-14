@@ -1,10 +1,14 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import {
+  blockStackGravityIntervalTicks,
+  blockStackGridLayout,
+  blockStackLevelFromElapsed,
   canPlace,
   createBlockStackPlayer,
   createBlockStackState,
   LINE_SCORES,
+  resetBlockStackRound,
   startBlockStackPlaying,
   tickBlockStackState,
   type ActivePiece,
@@ -33,5 +37,37 @@ describe("block-stack-logic", () => {
     state.deathOrder = ["b"];
     tickBlockStackState(state);
     assert.equal(state.phase, "round_end");
+  });
+
+  it("blockStackGridLayout returns 2x2 for four players", () => {
+    assert.deepEqual(blockStackGridLayout(4), { cols: 2, rows: 2 });
+  });
+
+  it("gravity interval decreases as elapsed ticks increase", () => {
+    const start = blockStackGravityIntervalTicks(0);
+    const later = blockStackGravityIntervalTicks(500);
+    assert.ok(start > later);
+    assert.ok(blockStackGravityIntervalTicks(10_000) >= 2);
+  });
+
+  it("level increases from elapsed ticks", () => {
+    assert.equal(blockStackLevelFromElapsed(0), 1);
+    assert.equal(blockStackLevelFromElapsed(167), 2);
+  });
+
+  it("tickBlockStackState increments elapsedTicks while playing", () => {
+    const state = createBlockStackState(["a"]);
+    startBlockStackPlaying(state);
+    assert.equal(state.elapsedTicks, 0);
+    tickBlockStackState(state);
+    assert.equal(state.elapsedTicks, 1);
+  });
+
+  it("resetBlockStackRound zeroes elapsedTicks", () => {
+    const state = createBlockStackState(["a", "b"]);
+    startBlockStackPlaying(state);
+    state.elapsedTicks = 250;
+    const fresh = resetBlockStackRound(state, ["a", "b"]);
+    assert.equal(fresh.elapsedTicks, 0);
   });
 });

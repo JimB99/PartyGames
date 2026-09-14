@@ -36,83 +36,104 @@ export function BlockStackBoard({
   onInput?: (input: "left" | "right" | "rotate_cw" | "rotate_ccw" | "soft_drop" | "hard_drop" | "hold") => void;
   className?: string;
 }) {
-  const cellSize = compact ? 8 : 14;
+  const isHostBoard = compact && !interactive;
+  const cellSize = compact ? 12 : 14;
   const w = BLOCK_STACK_COLS * cellSize;
   const h = BLOCK_STACK_ROWS * cellSize;
   const touchStart = useRef({ x: 0, y: 0 });
+  const highlightInset = compact ? 1 : 2;
+  const highlightSize = cellSize - highlightInset * 2;
 
   return (
-    <div className={`relative ${alive ? "" : "opacity-40"} ${className}`}>
+    <div className={`relative flex min-h-0 flex-col ${alive ? "" : "opacity-40"} ${className}`}>
       {label && <p className="mb-1 text-center text-xs font-bold truncate">{label}</p>}
-      <svg
-        viewBox={`0 0 ${w} ${h}`}
-        className={`w-full rounded-lg bg-slate-900/90 ${interactive ? "h-full min-h-[280px]" : ""}`}
-        style={{ maxHeight: compact ? 120 : interactive ? undefined : 400 }}
+      <div
+        className={
+          interactive
+            ? "relative mx-auto h-full w-full aspect-[1/2]"
+            : isHostBoard
+              ? "relative min-h-0 flex-1"
+              : "relative mx-auto w-full aspect-[1/2]"
+        }
       >
-        {board.map((row, y) =>
-          row.map((cell, x) => {
-            if (!cell) return null;
-            const { fill, opacity } = cellColor(cell);
-            return (
-              <g key={`${x}-${y}`} opacity={opacity}>
-                <rect
-                  x={x * cellSize + 1}
-                  y={y * cellSize + 1}
-                  width={cellSize - 2}
-                  height={cellSize - 2}
-                  fill={fill}
-                  rx={compact ? 2 : 4}
-                  stroke="rgba(255,255,255,0.25)"
-                  strokeWidth={0.5}
-                />
-                {opacity >= 1 && (
+        <svg
+          viewBox={`0 0 ${w} ${h}`}
+          preserveAspectRatio="xMidYMid meet"
+          className={`rounded-lg bg-slate-900/90 ${
+            interactive
+              ? "h-full w-full"
+              : isHostBoard
+                ? "h-full w-full max-h-full"
+                : "h-full w-full"
+          }`}
+          style={!interactive && !isHostBoard ? { maxHeight: 400 } : undefined}
+        >
+          <rect x={0} y={0} width={w} height={h} fill="none" stroke="#52525b" strokeWidth={2} />
+          {board.map((row, y) =>
+            row.map((cell, x) => {
+              if (!cell) return null;
+              const { fill, opacity } = cellColor(cell);
+              return (
+                <g key={`${x}-${y}`} opacity={opacity}>
                   <rect
-                    x={x * cellSize + 2}
-                    y={y * cellSize + 2}
-                    width={cellSize - 5}
-                    height={cellSize - 5}
-                    fill="rgba(255,255,255,0.12)"
-                    rx={compact ? 1 : 2}
-                    pointerEvents="none"
+                    x={x * cellSize}
+                    y={y * cellSize}
+                    width={cellSize}
+                    height={cellSize}
+                    fill={fill}
+                    rx={compact ? 2 : 4}
+                    stroke="rgba(255,255,255,0.25)"
+                    strokeWidth={0.5}
                   />
-                )}
-              </g>
-            );
-          }),
+                  {opacity >= 1 && (
+                    <rect
+                      x={x * cellSize + highlightInset}
+                      y={y * cellSize + highlightInset}
+                      width={highlightSize}
+                      height={highlightSize}
+                      fill="rgba(255,255,255,0.12)"
+                      rx={compact ? 1 : 2}
+                      pointerEvents="none"
+                    />
+                  )}
+                </g>
+              );
+            }),
+          )}
+          {!alive && (
+            <text x={w / 2} y={h / 2} textAnchor="middle" fill="#f87171" fontSize={compact ? 12 : 24} fontWeight="bold">
+              OUT
+            </text>
+          )}
+        </svg>
+        {interactive && onInput && (
+          <>
+            <div
+              className="absolute inset-0 touch-none select-none rounded-lg"
+              data-testid="block-stack-board-touch"
+              onPointerDown={(e) => {
+                if (!alive) return;
+                touchStart.current = { x: e.clientX, y: e.clientY };
+                e.currentTarget.setPointerCapture(e.pointerId);
+              }}
+              onPointerUp={(e) => {
+                if (!alive) return;
+                const { x, y } = touchStart.current;
+                const gesture = parseBlockStackGesture(e.clientX - x, e.clientY - y);
+                if (gesture) onInput(gesture);
+              }}
+            />
+            <button
+              type="button"
+              data-testid="block-stack-hold"
+              className="absolute bottom-2 right-2 rounded-lg bg-zinc-800/90 px-3 py-2 text-xs font-bold text-white"
+              onClick={() => onInput("hold")}
+            >
+              Hold
+            </button>
+          </>
         )}
-        {!alive && (
-          <text x={w / 2} y={h / 2} textAnchor="middle" fill="#f87171" fontSize={compact ? 12 : 24} fontWeight="bold">
-            OUT
-          </text>
-        )}
-      </svg>
-      {interactive && onInput && (
-        <>
-          <div
-            className="absolute inset-0 touch-none select-none rounded-lg"
-            data-testid="block-stack-board-touch"
-            onPointerDown={(e) => {
-              if (!alive) return;
-              touchStart.current = { x: e.clientX, y: e.clientY };
-              e.currentTarget.setPointerCapture(e.pointerId);
-            }}
-            onPointerUp={(e) => {
-              if (!alive) return;
-              const { x, y } = touchStart.current;
-              const gesture = parseBlockStackGesture(e.clientX - x, e.clientY - y);
-              if (gesture) onInput(gesture);
-            }}
-          />
-          <button
-            type="button"
-            data-testid="block-stack-hold"
-            className="absolute bottom-2 right-2 rounded-lg bg-zinc-800/90 px-3 py-2 text-xs font-bold text-white"
-            onClick={() => onInput("hold")}
-          >
-            Hold
-          </button>
-        </>
-      )}
+      </div>
     </div>
   );
 }

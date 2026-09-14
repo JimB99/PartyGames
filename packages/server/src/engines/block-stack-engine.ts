@@ -1,6 +1,7 @@
 import type { GameAction } from "@party-games/shared";
 import {
   applyBlockStackInput,
+  blockStackLevelFromElapsed,
   computeBlockStackRoundScores,
   createBlockStackState,
   getMergedBoard,
@@ -103,6 +104,7 @@ export function blockStackHostView(state: BlockStackState) {
       deathOrder: state.deathOrder,
       roundWinner: state.roundWinner,
       roundScores: state.roundScores,
+      level: blockStackLevelFromElapsed(state.elapsedTicks),
     },
   };
 }

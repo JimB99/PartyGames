@@ -14,9 +14,25 @@ export type BlockStackInput =
 export const BLOCK_STACK_COLS = 8;
 export const BLOCK_STACK_ROWS = 16;
 export const BLOCK_STACK_MAX_ROUNDS = 3;
-export const GRAVITY_INTERVAL_TICKS = 20;
+/** Server tick interval for block-stack (see block-stack.ts tickIntervalMs). */
+export const BLOCK_STACK_TICK_MS = 60;
+/** ~10s per gravity level at 60ms ticks. */
+export const BLOCK_STACK_TICKS_PER_LEVEL = 167;
+export const BLOCK_STACK_MIN_GRAVITY_TICKS = 2;
 export const LOCK_DELAY_TICKS = 20;
 export const LINE_SCORES = [0, 100, 300, 500, 800] as const;
+
+/** Guideline-inspired level from round elapsed ticks (time-based, shared by all players). */
+export function blockStackLevelFromElapsed(elapsedTicks: number): number {
+  return 1 + Math.floor(elapsedTicks / BLOCK_STACK_TICKS_PER_LEVEL);
+}
+
+/** Drop interval in server ticks; decreases as the round clock advances. */
+export function blockStackGravityIntervalTicks(elapsedTicks: number): number {
+  const level = blockStackLevelFromElapsed(elapsedTicks);
+  const dropMs = 1000 * Math.pow(0.8 - (level - 1) * 0.007, level - 1);
+  return Math.max(BLOCK_STACK_MIN_GRAVITY_TICKS, Math.round(dropMs / BLOCK_STACK_TICK_MS));
+}
 
 const PIECES: PieceKind[] = ["I", "O", "T", "S", "Z", "J", "L"];
 
@@ -86,6 +102,7 @@ export interface BlockStackState {
   maxRounds: number;
   timerEndsAt: number | null;
   timerTotalMs: number | null;
+  elapsedTicks: number;
   players: BlockStackPlayer[];
   deathOrder: string[];
   roundScores: Record<string, number>;
@@ -253,6 +270,7 @@ export function createBlockStackState(playerIds: string[]): BlockStackState {
     maxRounds: BLOCK_STACK_MAX_ROUNDS,
     timerEndsAt: Date.now() + 5000,
     timerTotalMs: 5000,
+    elapsedTicks: 0,
     players: playerIds.map(createBlockStackPlayer),
     deathOrder: [],
     roundScores: {},
@@ -267,6 +285,7 @@ export function resetBlockStackRound(state: BlockStackState, playerIds: string[]
     phase: "playing",
     timerEndsAt: null,
     timerTotalMs: null,
+    elapsedTicks: 0,
     players: playerIds.map(createBlockStackPlayer),
     deathOrder: [],
     roundWinner: null,
@@ -281,6 +300,7 @@ export function startBlockStackPlaying(state: BlockStackState): BlockStackState 
   state.phase = "playing";
   state.timerEndsAt = null;
   state.timerTotalMs = null;
+  state.elapsedTicks = 0;
   for (const p of state.players) {
     spawnPiece(p);
   }
@@ -364,8 +384,9 @@ function tickPlayer(state: BlockStackState, player: BlockStackPlayer): void {
     return;
   }
 
+  const gravityInterval = blockStackGravityIntervalTicks(state.elapsedTicks);
   player.gravityTicks++;
-  if (player.gravityTicks >= GRAVITY_INTERVAL_TICKS) {
+  if (player.gravityTicks >= gravityInterval) {
     player.gravityTicks = 0;
     if (!tryMove(player, 0, 1)) {
       player.lockTicks++;
@@ -389,6 +410,7 @@ function tickPlayer(state: BlockStackState, player: BlockStackPlayer): void {
 
 export function tickBlockStackState(state: BlockStackState): BlockStackState {
   if (state.phase !== "playing") return state;
+  state.elapsedTicks++;
   for (const p of state.players) tickPlayer(state, p);
 
   const alive = aliveCount(state);
