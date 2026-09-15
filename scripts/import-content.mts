@@ -31,19 +31,6 @@ type Difficulty = "easy" | "medium" | "hard";
 const MATURE_KEYWORDS =
   /\b(sex|naked|nude|drunk|alcohol|weed|cocaine|porn|orgasm|masturbat|cheat|affair|strip|twerk|kiss a stranger|hookup|one night stand)\b/i;
 
-const DICTIONARY_MATURE_PATTERNS = [
-  /\bporn\s*star\b/i,
-  /\bpornstar\b/i,
-  /\bnsfw\b/i,
-  /\bnude\b/i,
-  /\berotic\b/i,
-  /\bstripper\b/i,
-  /\bprostitut/i,
-  /\bhentai\b/i,
-  /\bhad sex\b/i,
-  /\bsex tape\b/i,
-];
-
 function sleep(ms: number) {
   return new Promise((r) => setTimeout(r, ms));
 }
@@ -61,10 +48,6 @@ function readJson<T>(rel: string): T {
 
 function isMatureText(text: string): boolean {
   return MATURE_KEYWORDS.test(text);
-}
-
-function isMatureDictionaryWord(word: string): boolean {
-  return isMatureText(word) || DICTIONARY_MATURE_PATTERNS.some((re) => re.test(word));
 }
 
 function promptEntry(text: string, rating: Rating = "family", difficulty?: Difficulty) {
@@ -822,9 +805,7 @@ async function main() {
         "party", "game", "quiz", "trivia", "draw", "guess", "vote", "host", "join",
         "phone", "screen", "pizza", "taco", "music", "dance", "sing", "laugh", "joke",
       ];
-      const merged = [...new Set([...bulk.dictionaryWords, ...extra])]
-        .filter((word) => !isMatureDictionaryWord(word))
-        .sort();
+      const merged = [...new Set([...bulk.dictionaryWords, ...extra])].sort();
       writeFileSync(dictPath, merged.join(","), "utf8");
       writeFileSync(join(CONTENT, "words/dictionary.json"), JSON.stringify(merged) + "\n", "utf8");
       console.log(`  wrote words/dictionary.txt (${merged.length} words)`);
@@ -997,9 +978,7 @@ async function main() {
       "party", "game", "quiz", "trivia", "draw", "guess", "vote", "host", "join",
       "phone", "screen", "pizza", "taco", "music", "dance", "sing", "laugh", "joke",
     ];
-    dictWords = [...new Set([...dictWords, ...extra])]
-      .filter((word) => !isMatureDictionaryWord(word))
-      .sort();
+    dictWords = [...new Set([...dictWords, ...extra])].sort();
     writeFileSync(dictPath, dictWords.join(","), "utf8");
     writeFileSync(join(CONTENT, "words/dictionary.json"), JSON.stringify(dictWords) + "\n", "utf8");
     console.log(`  wrote words/dictionary.txt (${dictWords.length} words)`);

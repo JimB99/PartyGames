@@ -1,5 +1,6 @@
 import { ALL_GAME_IDS, type GameId } from "../../packages/shared/src/constants.ts";
 import { GAME_INTERACTIONS } from "./game-interactions.ts";
+import { dismissProfileModal, playerScope } from "./player-ui.ts";
 import { clickInteraction, type GameE2EConfig } from "./room.js";
 
 export const NEW_GAME_IDS = [
@@ -81,7 +82,9 @@ async function fleetDuelAction(page: import("@playwright/test").Page) {
 async function clickFirstBluffVote(page: import("@playwright/test").Page): Promise<boolean> {
   const locked = await page.getByText(/Submitted!|Locked in!|Vote locked/i).isVisible().catch(() => false);
   if (locked) return true;
-  const options = page.locator("button").filter({ hasNotText: /^(join|skip|pause)$/i });
+  const options = playerScope(page).locator("button").filter({
+    hasNotText: /^(join|skip|pause|save|cancel|edit|submit)$/i,
+  });
   const count = await options.count();
   for (let i = 0; i < count; i++) {
     const btn = options.nth(i);
@@ -99,6 +102,7 @@ async function clickFirstBluffVote(page: import("@playwright/test").Page): Promi
 }
 
 async function submitText(page: import("@playwright/test").Page, strict = true) {
+  await dismissProfileModal(page);
   const input = page.getByTestId("player-text-input");
   if (await input.isVisible().catch(() => false)) {
     await input.fill("Test answer");
@@ -116,9 +120,13 @@ async function submitText(page: import("@playwright/test").Page, strict = true) 
 }
 
 async function drawOnCanvas(page: import("@playwright/test").Page, strict = true) {
+  await dismissProfileModal(page);
+  if (await page.getByText(/you're the drawer|others are guessing your drawing/i).isVisible().catch(() => false)) {
+    return;
+  }
   const canvas = page.getByTestId("draw-canvas");
   const visible = await canvas
-    .waitFor({ state: "visible", timeout: strict ? 15_000 : 2_000 })
+    .waitFor({ state: "visible", timeout: strict ? 15_000 : 10_000 })
     .then(() => true)
     .catch(() => false);
   if (visible) {
@@ -131,6 +139,12 @@ async function drawOnCanvas(page: import("@playwright/test").Page, strict = true
     }
     const done = page.getByRole("button", { name: /done drawing/i });
     if (await done.isVisible().catch(() => false)) await done.click();
+    return;
+  }
+  const guessInput = page.getByTestId("player-text-input");
+  if (await guessInput.isVisible().catch(() => false)) {
+    await guessInput.fill("house");
+    await page.getByTestId("player-submit").click({ timeout: 5_000 });
     return;
   }
   await submitText(page, strict);

@@ -66,6 +66,8 @@ export function PlayerGameView({
 
   return (
     <div
+      data-testid="player-phase"
+      data-phase={phase}
       className={`mx-auto w-full max-w-md space-y-4 p-4 relative min-w-0 ${
         isTrailDashPlaying ? "p-0" : "pb-8 landscape:pb-4"
       }`}

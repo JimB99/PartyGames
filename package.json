@@ -27,6 +27,8 @@
     "test:games:sim": "pnpm --filter @party-games/server test:integration",
     "test:games:e2e:smoke": "playwright test --grep @smoke",
     "test:games:e2e:full": "playwright test --grep @full",
+    "test:games:e2e:full:shard": "playwright test --grep @full --shard=${PLAYWRIGHT_SHARD_INDEX:-1}/4",
+    "test:games:e2e:one": "node --import tsx scripts/e2e-one-game.mts",
     "test:games": "node --import tsx scripts/test-games.mts"
   },
   "devDependencies": {

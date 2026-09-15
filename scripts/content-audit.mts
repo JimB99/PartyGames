@@ -142,7 +142,7 @@ function auditFile(path: string, statsOut: PoolStats[]): AuditIssue[] {
     else if (rating === "mature") mature++;
     else family++;
 
-    if (rating === "family" && isMatureText(blob)) {
+    if (rating === "family" && !isDictionary && isMatureText(blob)) {
       issues.push({
         severity: "error",
         file: path,

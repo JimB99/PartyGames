@@ -46,6 +46,7 @@ export function HostGameView({
     <TvGameShell>
     <div
       data-testid="host-game-view"
+      data-phase={phase}
       className={`mx-auto w-full max-w-full space-y-6 ${
         isTrailDashPlaying ? "max-w-6xl p-4" : "max-w-5xl p-6"
       }`}
