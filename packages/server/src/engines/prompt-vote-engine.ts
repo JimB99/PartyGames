@@ -103,6 +103,10 @@ function eligibleMatchupVoters(state: PromptVoteState, matchup: { a: string; b: 
   return state.playerIds.filter((id) => !authors.has(id));
 }
 
+function usesGalleryVote(state: PromptVoteState): boolean {
+  return state.mode === "vote-all" || state.mode === "caption";
+}
+
 function awardByePoints(state: PromptVoteState): void {
   if (!state.byeSubmissionId) return;
   const bye = state.submissions.find((s) => s.id === state.byeSubmissionId);
@@ -127,7 +131,7 @@ export function advancePromptVote(state: PromptVoteState, prompts: string[]): Pr
       Object.assign(state, startPhaseTimer(VOTE_MS, state.gameOptions));
       return state;
     }
-    if (state.mode === "vote-all") {
+    if (usesGalleryVote(state)) {
       if (state.submissions.length < 2) {
         state.roundScores = {};
         state.phase = "scoreboard";
@@ -209,7 +213,7 @@ function buildPromptVoteReveal(state: PromptVoteState): RevealEntry[] {
   let voterMap: Record<string, string[]> = {};
   if (state.mode === "wit-showdown") {
     voterMap = state.cumulativeVoters;
-  } else if (state.mode === "vote-all") {
+  } else if (usesGalleryVote(state)) {
     voterMap = votersByOption(state.votes);
   } else if (state.mode === "hot-seat" && state.targetPlayerId) {
     const pick = state.pickVotes[state.targetPlayerId];
@@ -311,6 +315,9 @@ export function onPromptVoteAction(
     }
   }
   if (action.kind === "vote" && state.phase === "vote") {
+    const picked = state.submissions.find((s) => s.id === action.optionId);
+    if (picked?.playerId === playerId) return state;
+    if (state.votes[playerId] !== undefined) return state;
     state.votes[playerId] = action.optionId;
     if (Object.keys(state.votes).length >= ctx.playerIds.length) {
       return advancePromptVote(state, state.promptsPool);
@@ -426,7 +433,7 @@ export function promptVotePlayerView(state: PromptVoteState, playerId: string, c
         ? { a: subById[currentMatchup.a], b: subById[currentMatchup.b] }
         : undefined,
       options: state.phase === "vote"
-        ? state.submissions.map((s) => ({ id: s.id, text: s.text }))
+        ? state.submissions.map((s) => ({ id: s.id, text: s.text, authorId: s.playerId }))
         : state.phase === "pick" && isTarget
           ? state.submissions.map((s) => ({ id: s.id, text: s.text }))
           : undefined,

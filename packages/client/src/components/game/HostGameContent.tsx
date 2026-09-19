@@ -21,6 +21,7 @@ import { connectFourMarkColors, markColorsForPlayers } from "./markColors";
 import { DrawingCanvas as DrawCanvas, type StrokeInput as DrawStroke } from "./DrawingCanvas";
 import { AgentGridBoard } from "./AgentGridBoard";
 import { DikePodium, DikeRevealTable } from "./views/DikePanels";
+import { HostTvStage } from "./HostTvStage";
 export function HostGameView({
   room,
   hostView,
@@ -47,11 +48,11 @@ export function HostGameView({
     <div
       data-testid="host-game-view"
       data-phase={phase}
-      className={`mx-auto w-full max-w-full space-y-6 ${
+      className={`mx-auto flex w-full max-w-full flex-1 flex-col ${
         isTrailDashPlaying ? "max-w-6xl p-4" : "max-w-5xl p-6"
       }`}
     >
-      <header className={`space-y-4 min-w-0 ${isTrailDashPlaying ? "px-2" : ""}`}>
+      <header className={`shrink-0 space-y-4 min-w-0 ${isTrailDashPlaying ? "px-2" : ""}`}>
         <div className="min-w-0">
           <div className="flex flex-wrap items-center gap-3">
             <h2 className="text-3xl font-black">{gameName}</h2>
@@ -80,6 +81,7 @@ export function HostGameView({
         )}
       </header>
 
+      <HostTvStage className="w-full space-y-6">
       {phase === "instructions" && (
         <div className="space-y-4">
           <div className="rounded-2xl bg-zinc-800/60 p-8 text-center">
@@ -381,15 +383,11 @@ export function HostGameView({
 
 
       {phase === "playing" && hostView.gameId === "trail-dash" && data.players && (
-        <div data-testid="host-playing-stage">
-          <CurveArena data={data} room={room} />
-        </div>
+        <CurveArena data={data} room={room} />
       )}
 
       {phase === "playing" && hostView.gameId === "block-stack" && data.players && (
-        <div data-testid="host-playing-stage">
-          <BlockStackArena data={data} room={room} />
-        </div>
+        <BlockStackArena data={data} room={room} />
       )}
 
       {(phase === "placement" || phase === "battle" || phase === "betting" || phase === "fire" || phase === "reveal") &&
@@ -682,6 +680,8 @@ export function HostGameView({
       {hostView.gameId === "grid-blast" && (phase === "playing" || phase === "round_end") && (
         <GridBlastArena data={data} room={room} />
       )}
+
+      </HostTvStage>
 
       <ScoringPhase room={room} hostView={hostView} data={data} />
     </div>

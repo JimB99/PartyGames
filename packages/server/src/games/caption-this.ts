@@ -13,8 +13,8 @@ export const captionThisGame: GameModule<PromptVoteState> = {
   meta: {
     id: "caption-this",
     name: "Caption This",
-    description: "Write the funniest caption for a scene, then vote head-to-head",
-    scoringRules: "+1000 for winning each head-to-head matchup vote.",
+    description: "Write the funniest caption for a scene, then vote for your favorite",
+    scoringRules: "+1000 for the answer with the most votes.",
     minPlayers: 3,
     maxPlayers: 16,
     category: "social",

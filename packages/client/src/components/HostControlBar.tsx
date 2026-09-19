@@ -119,7 +119,7 @@ export function HostControlBar({
           onClick={onEnd}
           className="rounded-xl bg-zinc-700 px-5 py-3 font-bold"
         >
-          Back to lobby
+          {phase === "ended" ? "Back to lobby" : "Leave game"}
         </button>
       )}
     </div>

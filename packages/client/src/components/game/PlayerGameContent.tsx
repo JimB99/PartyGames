@@ -203,7 +203,8 @@ export function PlayerGameView({
             </div>
           ) : (
             (data.options as Array<{ id: string; text: string; authorId?: string | null }>).map((o) => {
-              const isOwn = o.authorId === room.playerId;
+              const ownId = playerData.ownSubmissionId as string | undefined;
+              const isOwn = o.authorId === room.playerId || (ownId !== undefined && o.id === ownId);
               return (
                 <Btn
                   key={o.id}

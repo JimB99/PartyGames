@@ -72,6 +72,7 @@ export default defineConfig({
       testMatch: [
         /settings\.spec\.ts/,
         /host-controls\.spec\.ts/,
+        /host-return-lobby\.spec\.ts/,
         /layout\.spec\.ts/,
         /scoring\.spec\.ts/,
         /interactions\.spec\.ts/,

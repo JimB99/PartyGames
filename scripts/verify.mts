@@ -20,6 +20,7 @@ try {
   run("pnpm test:contract", "Contract tests (includes scoring + settings)");
   run("pnpm test:content", "Content audit");
   run("pnpm audit:dead-exports", "Dead export scan");
+  run("node --import tsx scripts/audit-host-stage.mts", "Host stage audit");
   console.log("\nAll verification passed.");
   console.log("Optional next: pnpm test:content:strict (200+ family pools) and pnpm test:e2e -- e2e/viewport-matrix.spec.ts");
 } catch {

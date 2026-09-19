@@ -116,8 +116,13 @@ export function promptVoteActions(state: unknown, ctx: RoomContext): SimAction[]
   }
 
   if (phase === "vote" && s.submissions?.[0]) {
-    const optionId = s.submissions[0].id;
+    const favorite = s.submissions[0];
     for (const playerId of ctx.playerIds) {
+      const own = s.submissions.find((sub) => sub.playerId === playerId);
+      const optionId =
+        own?.id === favorite.id
+          ? (s.submissions.find((sub) => sub.playerId !== playerId) ?? favorite).id
+          : favorite.id;
       actions.push({ role: "player", playerId, action: { kind: "vote", optionId } });
     }
     return actions;

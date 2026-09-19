@@ -17,7 +17,7 @@ import type { GameId } from "@party-games/shared";
 import { resolveTrailDashOptions } from "@party-games/shared";
 import { ConnectionBanner } from "../components/game/GameShell";
 import { useWakeLock } from "../hooks/useWakeLock";
-import { useHostPlayingFocus } from "../hooks/useHostPlayingFocus";
+import { useHostStageFocus } from "../hooks/useHostStageFocus";
 
 export function HostPage() {
   const { roomId: paramRoomId } = useParams();
@@ -96,7 +96,8 @@ export function HostPage() {
 
   const handleEndGame = () => {
     if (!roomState?.hostView) return;
-    if (confirm("Return to lobby?")) {
+    const gameOver = roomState.hostView.phase === "ended";
+    if (gameOver || confirm("Leave this game and return to the lobby?")) {
       returnToLobby();
     }
   };
@@ -143,7 +144,7 @@ export function HostPage() {
   };
 
   useWakeLock(playing);
-  useHostPlayingFocus(roomState?.hostView);
+  useHostStageFocus(roomState?.hostView);
 
   return (
     <div className="pg-page min-h-dvh bg-[#0f1117]">
@@ -229,14 +230,16 @@ export function HostPage() {
       )}
 
       {playing && roomState?.hostView && (
-        <>
+        <div className="flex min-h-[calc(100dvh-4.5rem)] flex-col">
           <PauseOverlay paused={roomState.paused} phase={roomState.hostView.phase} variant="host" />
-          <div className="mx-auto max-w-6xl space-y-3 px-4 pt-4 min-w-0">
+          <div className="mx-auto w-full max-w-6xl shrink-0 space-y-3 px-4 pt-4 min-w-0">
             <LiveScoreBar room={roomState} gameScores={gameScores} />
           </div>
-          <GameViewErrorBoundary key={`${roomState.activeGameId}-${connectionEpoch}`}>
-            <HostGameView room={roomState} hostView={roomState.hostView} />
-          </GameViewErrorBoundary>
+          <div className="flex min-h-0 flex-1 flex-col">
+            <GameViewErrorBoundary key={`${roomState.activeGameId}-${connectionEpoch}`}>
+              <HostGameView room={roomState} hostView={roomState.hostView} />
+            </GameViewErrorBoundary>
+          </div>
           <HostControlBar
             paused={roomState.paused}
             phase={roomState.hostView.phase}
@@ -256,7 +259,7 @@ export function HostPage() {
             onNextSessionGame={nextSessionGame}
             onEnd={handleEndGame}
           />
-        </>
+        </div>
       )}
     </div>
   );

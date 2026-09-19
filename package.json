@@ -22,7 +22,7 @@
     "verify": "node --import tsx scripts/verify.mts",
     "test:e2e": "playwright test",
     "test:e2e:viewport": "playwright test e2e/viewport-matrix.spec.ts",
-    "test:games:audit": "node --import tsx scripts/audit-test-coverage.mts",
+    "test:games:audit": "node --import tsx scripts/audit-test-coverage.mts && node --import tsx scripts/audit-host-stage.mts",
     "test:games:unit": "pnpm test:unit",
     "test:games:sim": "pnpm --filter @party-games/server test:integration",
     "test:games:e2e:smoke": "playwright test --grep @smoke",

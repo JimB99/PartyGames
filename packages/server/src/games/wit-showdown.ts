@@ -15,7 +15,7 @@ export const witShowdownGame: GameModule<PromptVoteState> = {
     id: "wit-showdown",
     name: "Wit Showdown",
     description: "Answer bizarre prompts, vote for the funniest",
-    scoringRules: "+1000 for winning each head-to-head matchup vote.",
+    scoringRules: "+1000 for the answer with the most votes.",
     minPlayers: 3,
     maxPlayers: 16,
     category: "social",
@@ -25,7 +25,7 @@ export const witShowdownGame: GameModule<PromptVoteState> = {
   },
   init(ctx) {
     return createPromptVoteState(
-      "wit-showdown",
+      "vote-all",
       witShowdownPool(ctx.gameOptions),
       4,
       undefined,
