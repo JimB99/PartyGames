@@ -1,3 +1,5 @@
+import { nextPlayableMatchIndex, seedBracketSlots } from "./bracket-utils.js";
+
 export type Cell = null | "x" | "o";
 export type TttPhase = "instructions" | "playing" | "match_end" | "round_end" | "ended";
 
@@ -56,24 +58,52 @@ export function findTttWinningCells(board: Cell[]): number[] | null {
 }
 
 export function buildBracket(playerIds: string[]): BracketMatch[] {
-  const ids: (string | null)[] = [...playerIds];
-  while (ids.length & (ids.length - 1)) ids.push(null);
+  const ids = seedBracketSlots(playerIds);
   const matches: BracketMatch[] = [];
   for (let i = 0; i < ids.length; i += 2) {
+    const a = ids[i];
+    const b = ids[i + 1];
+    if (!a && b) {
+      matches.push({
+        a: b,
+        b: null,
+        winner: b,
+        board: emptyBoard(),
+        turn: "x",
+        xPlayer: b,
+        oPlayer: null,
+      });
+      continue;
+    }
+    if (a && !b) {
+      matches.push({
+        a,
+        b: null,
+        winner: a,
+        board: emptyBoard(),
+        turn: "x",
+        xPlayer: a,
+        oPlayer: null,
+      });
+      continue;
+    }
     matches.push({
-      a: ids[i],
-      b: ids[i + 1],
+      a,
+      b,
       winner: null,
       board: emptyBoard(),
       turn: "x",
-      xPlayer: ids[i],
-      oPlayer: ids[i + 1],
+      xPlayer: a,
+      oPlayer: b,
     });
   }
   return matches;
 }
 
 export function createTicTacToeState(playerIds: string[]): TicTacToeState {
+  const bracket = buildBracket(playerIds);
+  const matchIndex =
+    playerIds.length > 2 ? (nextPlayableMatchIndex(bracket, 0) ?? 0) : 0;
   return {
     phase: "instructions",
     round: 1,
@@ -81,8 +111,8 @@ export function createTicTacToeState(playerIds: string[]): TicTacToeState {
     timerEndsAt: Date.now() + 4000,
     timerTotalMs: 4000,
     playerIds: [...playerIds],
-    bracket: buildBracket(playerIds),
-    matchIndex: 0,
+    bracket,
+    matchIndex,
     championId: null,
     finalistIds: [],
     roundScores: {},

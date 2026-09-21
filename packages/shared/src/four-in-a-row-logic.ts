@@ -47,6 +47,7 @@ export function cfBracketMatchCount(playerIds: string[]): number {
 
 export function createFourInARowState(playerIds: string[]): FourInARowState {
   const multi = playerIds.length > 2;
+  const bracket = multi ? buildCfBracket(playerIds) : [];
   return {
     phase: "instructions",
     round: 1,
@@ -57,8 +58,8 @@ export function createFourInARowState(playerIds: string[]): FourInARowState {
     board: emptyGrid(),
     currentPlayerIndex: 0,
     championId: null,
-    bracket: multi ? buildCfBracket(playerIds) : [],
-    matchIndex: multi ? (nextPlayableMatchIndex(buildCfBracket(playerIds), 0) ?? 0) : 0,
+    bracket,
+    matchIndex: multi ? (nextPlayableMatchIndex(bracket, 0) ?? 0) : 0,
     winnerId: null,
     roundScores: {},
     winningCells: null,

@@ -9,6 +9,7 @@ import {
   findTttWinningCells,
   isPlayerTurn,
   matchFinished,
+  nextPlayableMatchIndex,
   tttPlacementScores,
   type TicTacToeState,
 } from "@party-games/shared";
@@ -55,12 +56,17 @@ function finishMatch(state: TicTacToeState, isDraw = false): TicTacToeState {
     return state;
   }
   if (state.matchIndex < state.bracket.length - 1) {
-    state.matchIndex += 1;
-    state.drawReplayCount = 0;
-    state.phase = "playing";
-    state.timerEndsAt = null;
-    state.timerTotalMs = null;
-    return state;
+    const nextIndex = nextPlayableMatchIndex(state.bracket, state.matchIndex + 1);
+    if (nextIndex !== null && nextIndex < state.bracket.length) {
+      state.matchIndex = nextIndex;
+      state.drawReplayCount = 0;
+      state.phase = "playing";
+      state.timerEndsAt = null;
+      state.timerTotalMs = null;
+      const nextMatch = currentMatch(state);
+      if (nextMatch?.winner) return finishMatch(state);
+      return state;
+    }
   }
   state.phase = "match_end";
   state.timerEndsAt = Date.now() + MATCH_END_MS;

@@ -9,8 +9,8 @@ describe("four-in-a-row bracket", () => {
     assert.equal(cfBracketMatchCount(ids), 3);
     const bracket = buildCfBracket(ids);
     assert.equal(bracket.length, 2);
-    assert.deepEqual([bracket[0].a, bracket[0].b], ["p1", "p2"]);
-    assert.deepEqual([bracket[1].a, bracket[1].b], ["p3", "p4"]);
+    const players = bracket.flatMap((m) => [m.a, m.b]).filter(Boolean);
+    assert.deepEqual([...players].sort(), ids);
   });
 
   it("increments round counter between bracket matches", () => {

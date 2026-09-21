@@ -1,13 +1,35 @@
+import { shuffle } from "./game.js";
+
 export interface ElimBracketMatch {
   a: string | null;
   b: string | null;
   winner: string | null;
 }
 
+/** Shuffle players, then pad to the next power of two with null bye slots. */
+export function seedBracketSlots(playerIds: string[]): (string | null)[] {
+  const ids: (string | null)[] = shuffle([...playerIds]);
+  while (ids.length & (ids.length - 1)) ids.push(null);
+  return ids;
+}
+
+/** Players who receive a round-one bye (paired against an empty slot). */
+export function roundOneByePlayerIds(playerIds: string[]): string[] {
+  if (playerIds.length <= 1) return [];
+  const slots = seedBracketSlots(playerIds);
+  const byes: string[] = [];
+  for (let i = 0; i < slots.length; i += 2) {
+    const a = slots[i];
+    const b = slots[i + 1];
+    if (a && !b) byes.push(a);
+    else if (!a && b) byes.push(b);
+  }
+  return byes;
+}
+
 /** Pad player list to next power of two and seed first-round matches with byes. */
 export function buildSingleEliminationBracket(playerIds: string[]): ElimBracketMatch[] {
-  const ids: (string | null)[] = [...playerIds];
-  while (ids.length & (ids.length - 1)) ids.push(null);
+  const ids = seedBracketSlots(playerIds);
   const matches: ElimBracketMatch[] = [];
   for (let i = 0; i < ids.length; i += 2) {
     const a = ids[i];
