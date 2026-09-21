@@ -333,8 +333,12 @@ export function onTriviaAction(
     }
   }
   if (state.phase !== "question") {
-    if (action.kind === "advance" && state.phase === "instructions") {
-      return advanceTrivia(state, state.itemsPool);
+    if (
+      action.kind === "advance" &&
+      playerId === "host" &&
+      (state.phase === "instructions" || state.phase === "reveal" || state.phase === "scoreboard")
+    ) {
+      return advanceTrivia(state, state.itemsPool, ctx.gameOptions);
     }
     return state;
   }

@@ -14,13 +14,15 @@ describe("tic-tac-toe-engine", () => {
     let state = createTicTacToeState(["p1", "p2"]);
     state.phase = "playing";
     const almostDraw = ["x", "o", "x", "x", "o", "o", "o", "x", null] as const;
+    const base = state.bracket[0];
+    const oPlayer = base.oPlayer!;
     state.bracket[0] = {
-      ...state.bracket[0],
+      ...base,
       board: [...almostDraw],
       turn: "o",
       winner: null,
     };
-    state = onTttAction(state, "p2", { kind: "tic_tac_toe_move", cell: 8 });
+    state = onTttAction(state, oPlayer, { kind: "tic_tac_toe_move", cell: 8 });
     assert.equal(state.drawReplayCount, 1);
     assert.deepEqual(currentMatch(state)!.board, emptyBoard());
 
@@ -30,7 +32,7 @@ describe("tic-tac-toe-engine", () => {
       turn: "o",
       winner: null,
     };
-    state = onTttAction(state, "p2", { kind: "tic_tac_toe_move", cell: 8 });
+    state = onTttAction(state, oPlayer, { kind: "tic_tac_toe_move", cell: 8 });
     assert.equal(state.phase, "ended");
     assert.equal(state.championId, null);
   });

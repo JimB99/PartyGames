@@ -17,7 +17,6 @@ import {
   punchlineBattlePool,
   timelinePool,
   wouldYouRatherPool,
-  friendSortPool,
   impostorPool,
   crowdCallPool,
   spectrumPool,
@@ -30,24 +29,18 @@ import { getGame } from "../registry.js";
 import { makeRoomContext, runUntilEnded } from "./harness.js";
 
 const POOL_GETTERS: Partial<Record<string, (opts: GameOptions) => unknown[]>> = {
-  "fact-check": factCheckPool,
-  "reverse-fact": reverseFactPool,
-  "punchline-battle": punchlineBattlePool,
-  "quick-quiz": quizPool,
-  "would-you-rather": wouldYouRatherPool,
-  "draw-guess": (o) => [...drawWordPool(o)],
+  bluff: (o) => [...factCheckPool(o), ...reverseFactPool(o)],
+  "prompt-vote": (o) => [...punchlineBattlePool(o), ...hotSeatPool(o)],
+  trivia: (o) => [...quizPool(o), ...timelinePool(o)],
+  opinions: (o) => [...wouldYouRatherPool(o), ...splitRoomPool(o), ...crowdCallPool(o)],
+  drawing: (o) => [...drawWordPool(o)],
   "bracket-battle": (o) => [...bracketCategoryPool(o)],
-  timeline: timelinePool,
   "team-charades": (o) => [...charadesWordPool(o)],
-  "hot-seat": hotSeatPool,
-  "role-sort": (o) => friendSortPool(o),
   impostor: (o) => impostorPool(o).flatMap((p) => p.items),
-  "crowd-call": crowdCallPool,
   spectrum: spectrumPool,
   "hangman-race": (o) => [...hangmanWordPool(o)],
   "agent-grid": (o) => [...agentGridWordPool(o)],
   "forbidden-clue": forbiddenCluePool,
-  "split-the-room": splitRoomPool,
 };
 
 describe("settings matrix", () => {
@@ -84,8 +77,8 @@ describe("settings matrix", () => {
     }
   }
 
-  it("quick-quiz respects questionDisplay option", () => {
-    const game = getGame("quick-quiz")!;
+  it("trivia respects questionDisplay option", () => {
+    const game = getGame("trivia")!;
     const ctx = makeRoomContext(2, {
       ...DEFAULT_GAME_OPTIONS,
       questionDisplay: "tv_full",
@@ -97,23 +90,59 @@ describe("settings matrix", () => {
     assert.ok(view.data);
   });
 
-  it("timeline uses custom timelinePtsPerYearOff", () => {
-    const game = getGame("timeline")!;
+  it("trivia timeline format uses custom timelinePtsPerYearOff", () => {
+    const game = getGame("trivia")!;
     const ctx = makeRoomContext(2, {
       ...DEFAULT_GAME_OPTIONS,
+      triviaFormat: "timeline",
       timelinePtsPerYearOff: 50,
     });
     assert.doesNotThrow(() => game.init(ctx));
   });
 
-  it("fact-check completes with speed scoring on and off", () => {
-    const game = getGame("fact-check")!;
+  it("bluff completes with speed scoring on and off", () => {
+    const game = getGame("bluff")!;
     for (const speedScoring of ["off", "bonus"] as const) {
       const ctx = makeRoomContext(2, { ...DEFAULT_GAME_OPTIONS, speedScoring });
-      const { ended, state } = runUntilEnded(game, ctx, { gameId: "fact-check", maxSteps: 2000 });
-      assert.ok(ended, `fact-check did not end with speedScoring=${speedScoring}`);
-      assert.ok((state as { round?: number }).round && (state as { round: number }).round >= 2, "fact-check should reach round 2+");
+      const { ended, state } = runUntilEnded(game, ctx, { gameId: "bluff", maxSteps: 2000 });
+      assert.ok(ended, `bluff did not end with speedScoring=${speedScoring}`);
+      assert.ok((state as { round?: number }).round && (state as { round: number }).round >= 2, "bluff should reach round 2+");
     }
+  });
+
+  it("bluff reverse-question mode inits", () => {
+    const game = getGame("bluff")!;
+    const ctx = makeRoomContext(2, { ...DEFAULT_GAME_OPTIONS, bluffMode: "reverse-question" });
+    const state = game.init(ctx) as { mode: string };
+    assert.equal(state.mode, "reverse-question");
+  });
+
+  it("prompt-vote hot-seat mode inits", () => {
+    const game = getGame("prompt-vote")!;
+    const ctx = makeRoomContext(3, { ...DEFAULT_GAME_OPTIONS, promptVoteStyle: "hot-seat" });
+    const state = game.init(ctx) as { mode: string };
+    assert.equal(state.mode, "hot-seat");
+  });
+
+  it("opinions minority scoring inits", () => {
+    const game = getGame("opinions")!;
+    const ctx = makeRoomContext(3, { ...DEFAULT_GAME_OPTIONS, opinionScoring: "minority" });
+    const state = game.init(ctx) as { scoring: string };
+    assert.equal(state.scoring, "minority");
+  });
+
+  it("drawing telephone mode inits", () => {
+    const game = getGame("drawing")!;
+    const ctx = makeRoomContext(3, { ...DEFAULT_GAME_OPTIONS, drawingStyle: "telephone" });
+    const state = game.init(ctx) as { style: string };
+    assert.equal(state.style, "telephone");
+  });
+
+  it("impostor draw style inits", () => {
+    const game = getGame("impostor")!;
+    const ctx = makeRoomContext(4, { ...DEFAULT_GAME_OPTIONS, impostorStyle: "draw" });
+    const state = game.init(ctx) as { style: string };
+    assert.equal(state.style, "draw");
   });
 
   it("family and mature fact-check pools differ in size", () => {

@@ -29,10 +29,10 @@ describe("buildScoringPreview", () => {
     assert.equal(preview.rows?.[0]?.points, 1000);
   });
 
-  it("quick-quiz uses rules when speed scoring off", () => {
+  it("trivia uses rules when speed scoring off", () => {
     const preview = buildScoringPreview(
       {
-        id: "quick-quiz",
+        id: "trivia",
         name: "Quiz",
         description: "",
         scoringRules: "Flat points",

@@ -8,57 +8,41 @@ Couch party games: one big screen (host/TV) + phones as controllers.
 - **React + Vite + Tailwind** (client, served from the same Worker)
 - **TypeScript monorepo** (`shared`, `server`, `client`)
 
-## Games (30)
+## Games (21)
 
-Display names match lobby copy. Protocol IDs are kebab-case.
+Display names match lobby copy. Protocol IDs are kebab-case. Several games support **mode settings** in the lobby (e.g. Bluff: fill-in-blank vs reverse-question).
 
 | ID | Display name |
 |----|----------------|
-| fact-check | Fact Check |
-| punchline-battle | Punchline Battle |
-| quick-quiz | Quick Quiz |
-| would-you-rather | Would You Rather |
-| draw-guess | Draw & Guess |
-| bracket-battle | Bracket Battle |
-| role-sort | Friend Sort |
-| timeline | When Was It |
+| bluff | Bluff |
+| prompt-vote | Write & Vote |
+| opinions | Opinions |
+| spectrum | Spectrum |
 | impostor | Impostor |
+| agent-grid | Agent Grid |
+| bracket-battle | Bracket Battle |
+| forbidden-clue | Forbidden Clue |
+| team-charades | Team Charades |
+| last-on-the-dike | Last on the Dike |
+| trivia | Trivia |
+| drawing | Drawing |
 | trail-dash | Trail Dash |
 | word-rush | Word Rush |
-| reverse-fact | Reverse Fact |
-| team-charades | Team Charades |
-| hot-seat | Hot Seat |
-| last-on-the-dike | Last on the Dike |
 | block-stack | Block Stack |
+| grid-blast | Grid Blast |
+| paddle-clash | Paddle Clash |
+| hangman-race | Hangman Race |
 | fleet-duel | Fleet Duel |
 | four-in-a-row | Four in a Row |
 | tic-tac-toe | Tic-Tac-Toe |
-| split-the-room | Split the Room |
-| spectrum | Spectrum |
-| chain-sketch | Chain Sketch |
-| crowd-call | Crowd Call |
-| agent-grid | Agent Grid |
-| forbidden-clue | Forbidden Clue |
-| hangman-race | Hangman Race |
-| paddle-clash | Paddle Clash |
-| grid-blast | Grid Blast |
-| draw-vote | Draw & Vote |
-| draw-impostor | Draw Impostor |
 
 ## Testing
 
 ```bash
-pnpm verify          # typecheck + unit + content audit
-pnpm test:games      # full game test suite
-pnpm content-inventory  # regenerate docs/content-inventory.md
+pnpm verify          # typecheck + unit tests
+pnpm test:games      # game engine smoke + scoring
+pnpm test:games:audit # E2E interaction coverage audit
+pnpm test:contract   # shared protocol tests
 ```
 
-## Content
-
-```bash
-pnpm harvest-jeopardy   # rebuild reverse-fact from Jeopardy-style sources
-pnpm harvest-content    # jeopardy + human + mature (local) harvest
-pnpm import-content     # optional API supplements
-```
-
-See [CREDITS.md](CREDITS.md) for data sources and [docs/content-inventory.md](docs/content-inventory.md) for per-game pool counts.
+See `PartyGames/.cursor/rules/partygames-testing.mdc` for coverage requirements.

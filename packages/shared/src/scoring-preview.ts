@@ -1,5 +1,5 @@
 import type { GameId, GameMeta } from "./constants.js";
-import { isSpeedScoringEnabled, resolveTimelinePtsPerYearOff, type GameOptions } from "./content.js";
+import { isSpeedScoringEnabled, resolveTimelinePtsPerYearOff, resolveTriviaFormat, type GameOptions } from "./content.js";
 import { rankPointsByPercentile } from "./speed-scoring.js";
 import { resolveTrailDashOptions } from "./trail-dash-options.js";
 
@@ -21,13 +21,11 @@ const RANK_GAME_IDS = new Set<GameId>([
   "trail-dash",
   "block-stack",
   "grid-blast",
-  "quick-quiz",
-  "timeline",
-  "fact-check",
-  "reverse-fact",
+  "trivia",
+  "bluff",
   "hangman-race",
   "word-rush",
-  "draw-guess",
+  "drawing",
 ]);
 
 function usesSpeedRankScoring(gameId: GameId, options: GameOptions): boolean {
@@ -83,7 +81,7 @@ export function buildScoringPreview(
           : "Speed ranking off — flat points per correct answer.",
       );
     }
-    if (game.id === "timeline") {
+    if (game.id === "trivia" && resolveTriviaFormat(options) === "timeline") {
       const ptsPerYear = resolveTimelinePtsPerYearOff(options);
       notes.push(
         ptsPerYear >= 1000

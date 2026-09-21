@@ -26,7 +26,6 @@ import {
   isReverseFactTrivial,
   looksLikeConvertedNhieFactCheck,
   looksLikeGeneratedFactCheckTruth,
-  looksLikeGeneratedFriendSortRole,
   looksLikeTemplateCrowdCall,
   isMatureCultureContent,
   isSpicyContent,
@@ -314,12 +313,6 @@ describe("content validation", () => {
     const bracketMature = filterCategoryList(loadJson<CategoryEntry[]>("categories/bracket.json"), matureOpts);
     assert.ok(bracketMature.length >= MIN_MATURE_CREATIVE, `bracket mature ${bracketMature.length}`);
 
-    const friendMature = filterCategoryList(
-      loadJson<CategoryEntry[]>("categories/friend-sort-roles.json"),
-      matureOpts,
-    );
-    assert.ok(friendMature.length >= MIN_MATURE_CREATIVE, `friend-sort mature ${friendMature.length}`);
-
     const crowdMature = filterContentPool(
       loadJson<Array<{ text: string; choices: string[]; rating?: string }>>("prompts/crowd-call.json"),
       matureOpts,
@@ -393,10 +386,6 @@ describe("content validation", () => {
         !looksLikeTemplateCrowdCall(item.text, item.choices),
         `template crowd-call: ${item.text}`,
       );
-    }
-    const roles = loadJson<CategoryEntry[]>("categories/friend-sort-roles.json");
-    for (const item of roles) {
-      assert.ok(!looksLikeGeneratedFriendSortRole(item.name), `generated role: ${item.name}`);
     }
   });
 });

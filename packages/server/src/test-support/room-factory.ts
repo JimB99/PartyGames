@@ -41,11 +41,21 @@ export function expireTimers(state: unknown, now = Date.now()): void {
   if (typeof s.timerEndsAt === "number") {
     s.timerEndsAt = now - 1;
   }
+  if (typeof s.discussUntil === "number") {
+    s.discussUntil = now - 1;
+  }
+  const inner = s.inner;
+  if (inner && typeof inner === "object") {
+    expireTimers(inner, now);
+  }
 }
 
 export function getPhase(state: unknown): string {
   if (!state || typeof state !== "object") return "";
-  return String((state as { phase?: string }).phase ?? "");
+  const s = state as { phase?: string; inner?: { phase?: string } };
+  if (typeof s.phase === "string") return s.phase;
+  if (s.inner && typeof s.inner.phase === "string") return s.inner.phase;
+  return "";
 }
 
 export function applyAction<TState>(

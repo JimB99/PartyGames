@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import { createBluffState, advanceBluff, bluffHostView, bluffPlayerView } from "../engines/bluff-engine.js";
 
-describe("reverse-fact decoys", () => {
+describe("reverse-question decoys", () => {
   it("house decoys are questions not bare facts", () => {
     const prompts = [
       { fact: "Mars", truth: "Which planet is known as the Red Planet?" },
@@ -11,7 +11,7 @@ describe("reverse-fact decoys", () => {
       { fact: "Venus", truth: "Which planet is hottest?" },
       { fact: "Carbon dioxide", truth: "What gas do plants absorb?" },
     ];
-    let state = createBluffState("reverse-fact", prompts, 1, 2);
+    let state = createBluffState("reverse-question", prompts, 1, 2);
     state = advanceBluff(state);
     state = advanceBluff(state);
     assert.equal(state.phase, "vote");
@@ -24,7 +24,7 @@ describe("reverse-fact decoys", () => {
   });
 });
 
-describe("fact-check couch discuss beat", () => {
+describe("fill-blank couch discuss beat", () => {
   const prompts = [
     { prompt: "The inventor of the telephone", truth: "Alexander Graham Bell" },
     { prompt: "The largest planet", truth: "Jupiter" },
@@ -33,7 +33,7 @@ describe("fact-check couch discuss beat", () => {
   ];
 
   it("shows option texts on the host view during vote so the room can read them aloud", () => {
-    let state = createBluffState("fact-check", prompts, 1, 2);
+    let state = createBluffState("fill-blank", prompts, 1, 2);
     state = advanceBluff(state);
     state.submissions = { p1: "Thomas Edison", p2: "Nikola Tesla" };
     state = advanceBluff(state);

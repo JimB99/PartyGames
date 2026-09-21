@@ -3,6 +3,7 @@ import type { HostControls } from "./host-controls.js";
 import type { DikeRevealEntry } from "./dike-logic.js";
 import type { PlayerAnswerReveal, RevealEntry } from "./reveal.js";
 import type { PowerUpMode } from "./trail-dash-options.js";
+import type { OpinionScoring, DrawingStyle, ImpostorStyle } from "./game-mode-options.js";
 
 export interface ViewTimingFields {
   phase: string;
@@ -21,6 +22,7 @@ export interface ScoredViewFields {
 
 export interface TriviaViewData extends ScoredViewFields {
   mode?: "quiz" | "timeline" | "would-you-rather";
+  triviaFormat?: "quiz" | "timeline";
   question?: string;
   choices?: string[];
   hideChoicesOnTv?: boolean;
@@ -41,6 +43,7 @@ export interface TriviaViewData extends ScoredViewFields {
 }
 
 export interface BluffViewData extends ScoredViewFields {
+  bluffMode?: "fill-blank" | "reverse-question";
   prompt?: string;
   displayText?: string;
   options?: Array<{ id: string; text: string; authorId?: string | null }>;
@@ -53,7 +56,7 @@ export interface BluffViewData extends ScoredViewFields {
 }
 
 export interface PromptVoteViewData extends BluffViewData {
-  mode?: string;
+  promptVoteStyle?: "bracket" | "hot-seat";
   targetName?: string;
   submissions?: Array<{ id: string; text: string; playerId?: string }>;
   matchup?: {
@@ -78,17 +81,9 @@ export interface BracketViewData extends ScoredViewFields {
   reveal?: RevealEntry[];
 }
 
-export interface RoleSortViewData extends Omit<ScoredViewFields, "results"> {
-  category?: string;
-  roles?: string[];
-  assignmentCount?: number;
-  submittedPlayerIds?: string[];
-  playerCount?: number;
-  results?: Record<string, { role: string; count: number }>;
-  myResult?: { role: string };
-}
-
 export interface DrawingViewData extends ScoredViewFields {
+  drawingStyle?: DrawingStyle;
+  drawVoteStyle?: "best-drawing" | "guess-artist";
   prompt?: string;
   strokes?: Array<{ points: number[]; color: string; width?: number; erase?: boolean }>;
   drawings?: Array<{ playerId?: string; id?: string; strokes: DrawingViewData["strokes"] }>;
@@ -97,6 +92,7 @@ export interface DrawingViewData extends ScoredViewFields {
 }
 
 export interface ImpostorViewData extends ScoredViewFields {
+  impostorStyle?: ImpostorStyle;
   category?: string;
   location?: string;
   phaseLabel?: string;
@@ -149,6 +145,24 @@ export interface CrowdCallViewData extends ScoredViewFields {
   predictionResult?: { correct: boolean; majorityIndex: number };
 }
 
+export interface OpinionsViewData extends ScoredViewFields {
+  opinionScoring?: OpinionScoring;
+  mode?: "quiz" | "timeline" | "would-you-rather";
+  question?: string;
+  choices?: string[];
+  optionA?: string;
+  optionB?: string;
+  wyrDilemma?: string;
+  wyrPromptOnly?: boolean;
+  voteSplit?: { a: number; b: number };
+  discussing?: boolean;
+  scenario?: { text: string; labelA: string; labelB: string };
+  predictionResult?: { correct: boolean; majorityIndex: number };
+  answerCount?: number;
+  playerCount?: number;
+  playerAnswers?: PlayerAnswerReveal[];
+}
+
 export interface AgentGridViewData extends ScoredViewFields {
   words?: string[];
   revealed?: boolean[];
@@ -172,36 +186,27 @@ export interface ArcadeViewData extends ScoredViewFields {
 }
 
 export type GameHostDataMap = {
-  "quick-quiz": TriviaViewData;
-  timeline: TriviaViewData;
-  "would-you-rather": TriviaViewData;
-  "fact-check": BluffViewData;
-  "reverse-fact": BluffViewData;
-  "punchline-battle": PromptVoteViewData;
-  "hot-seat": PromptVoteViewData;
-  "draw-guess": DrawingViewData;
-  "draw-vote": DrawingViewData;
-  "draw-impostor": DrawingViewData;
-  "bracket-battle": BracketViewData;
-  "role-sort": RoleSortViewData;
+  bluff: BluffViewData;
+  "prompt-vote": PromptVoteViewData;
+  opinions: OpinionsViewData;
+  spectrum: SpectrumViewData;
   impostor: ImpostorViewData;
-  "trail-dash": TrailDashViewData;
-  "word-rush": WordRushViewData;
+  "agent-grid": AgentGridViewData;
+  "bracket-battle": BracketViewData;
+  "forbidden-clue": CharadesViewData;
   "team-charades": CharadesViewData;
   "last-on-the-dike": DikeViewData;
+  trivia: TriviaViewData;
+  drawing: DrawingViewData;
+  "trail-dash": TrailDashViewData;
+  "word-rush": WordRushViewData;
   "block-stack": ArcadeViewData;
+  "grid-blast": ArcadeViewData;
+  "paddle-clash": ArcadeViewData;
+  "hangman-race": ArcadeViewData;
   "fleet-duel": ArcadeViewData;
   "four-in-a-row": BoardMatchViewData;
   "tic-tac-toe": BoardMatchViewData;
-  "split-the-room": SplitViewData;
-  spectrum: SpectrumViewData;
-  "chain-sketch": DrawingViewData;
-  "crowd-call": CrowdCallViewData;
-  "agent-grid": AgentGridViewData;
-  "forbidden-clue": CharadesViewData;
-  "hangman-race": ArcadeViewData;
-  "paddle-clash": ArcadeViewData;
-  "grid-blast": ArcadeViewData;
 };
 
 export type GamePlayerDataMap = {

@@ -56,7 +56,7 @@ export interface GameCategoryMeta {
 }
 
 export const GAME_CATEGORIES: GameCategoryMeta[] = [
-  { id: "social", label: "Social & Voting", description: "Bluff, vote, and laugh together", icon: "💬" },
+  { id: "social", label: "Social & Voting", description: "Bluff, vote, and deduce", icon: "💬" },
   { id: "party", label: "Party & Teams", description: "Teams, roles, and group challenges", icon: "🎉" },
   { id: "trivia", label: "Trivia", description: "Test your knowledge", icon: "🧠" },
   { id: "creative", label: "Creative", description: "Draw and imagine", icon: "🎨" },
@@ -80,41 +80,39 @@ export interface GameMeta {
   supportsTimelinePtsPerYear?: boolean;
   supportsPaddleMode?: boolean;
   supportsCharadesMode?: boolean;
+  supportsBluffMode?: boolean;
+  supportsTriviaFormat?: boolean;
+  supportsPromptVoteStyle?: boolean;
+  supportsOpinionScoring?: boolean;
+  supportsDrawingStyle?: boolean;
+  supportsDrawVoteStyle?: boolean;
+  supportsImpostorStyle?: boolean;
   /** When true, `getRoundScores` is already cumulative for the whole game (arcade/board). */
   roundScoresAreCumulative?: boolean;
 }
 
 export const ALL_GAME_IDS = [
-  "fact-check",
-  "punchline-battle",
-  "quick-quiz",
-  "would-you-rather",
-  "draw-guess",
-  "bracket-battle",
-  "role-sort",
-  "timeline",
+  "bluff",
+  "prompt-vote",
+  "opinions",
+  "spectrum",
   "impostor",
+  "agent-grid",
+  "bracket-battle",
+  "forbidden-clue",
+  "team-charades",
+  "last-on-the-dike",
+  "trivia",
+  "drawing",
   "trail-dash",
   "word-rush",
-  "reverse-fact",
-  "team-charades",
-  "hot-seat",
-  "last-on-the-dike",
   "block-stack",
+  "grid-blast",
+  "paddle-clash",
+  "hangman-race",
   "fleet-duel",
   "four-in-a-row",
   "tic-tac-toe",
-  "split-the-room",
-  "spectrum",
-  "chain-sketch",
-  "crowd-call",
-  "agent-grid",
-  "forbidden-clue",
-  "hangman-race",
-  "paddle-clash",
-  "grid-blast",
-  "draw-vote",
-  "draw-impostor",
 ] as const;
 
 export type GameId = (typeof ALL_GAME_IDS)[number];

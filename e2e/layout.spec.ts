@@ -14,7 +14,7 @@ test("lobby layout has no horizontal overflow on host and player", async () => {
     const playerOverflow = await player.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth);
     expect(playerOverflow).toBe(false);
 
-    await selectGame(host, "quick-quiz");
+    await selectGame(host, "trivia");
     await expect(host.getByTestId("start-game").first()).toBeEnabled();
   } finally {
     await hostCtx.close();

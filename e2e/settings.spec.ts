@@ -72,7 +72,7 @@ test("@settings trail-dash bot count field", async () => {
   }
 });
 
-test("@settings 18+ quick-quiz stays on mature questions", async () => {
+test("@settings 18+ trivia stays on mature questions", async () => {
   const quiz = JSON.parse(readFileSync(quizPath, "utf8")) as Array<{ question: string; rating?: string }>;
   const matureQuestions = new Set(quiz.filter((q) => q.rating === "mature").map((q) => q.question));
   const familyQuestions = new Set(quiz.filter((q) => (q.rating ?? "family") === "family").map((q) => q.question));
@@ -83,7 +83,7 @@ test("@settings 18+ quick-quiz stays on mature questions", async () => {
   const { context: playerCtx } = await joinPlayer(browser, roomId, "P1");
 
   try {
-    await selectGame(host, "quick-quiz");
+    await selectGame(host, "trivia");
     await host.getByTestId("game-option-content-mature").last().click();
     await startGame(host);
     await expect(host.getByTestId("content-rating-badge")).toBeVisible();

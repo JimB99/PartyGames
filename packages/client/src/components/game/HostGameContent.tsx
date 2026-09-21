@@ -131,32 +131,6 @@ export function HostGameView({
         </div>
       )}
 
-      {phase === "assign" && hostView.gameId === "role-sort" && (
-        <div className="rounded-2xl bg-zinc-800/60 p-8 text-center space-y-4">
-          <p className="text-2xl font-bold">{String(data.category)}</p>
-          <p className="text-zinc-400">Sort everyone into these roles on your phone:</p>
-          <div className="flex flex-wrap justify-center gap-2">
-            {(data.roles as string[]).map((role) => (
-              <span key={role} className="rounded-lg bg-violet-600/40 px-4 py-2 text-lg font-semibold">{role}</span>
-            ))}
-          </div>
-          <p className="text-zinc-400">
-            Submitted: {String(data.assignmentCount ?? 0)}/{String(data.playerCount ?? room.players.length)}
-          </p>
-          <ul className="mx-auto max-w-md space-y-2 text-left">
-            {room.players.map((player) => {
-              const submitted = ((data.submittedPlayerIds as string[] | undefined) ?? []).includes(player.id);
-              return (
-                <li key={player.id} className="flex items-center justify-between rounded-xl bg-zinc-700/80 px-4 py-2">
-                  <span>{player.nickname}</span>
-                  <span className={submitted ? "text-green-400" : "text-zinc-500"}>{submitted ? "✓" : "…"}</span>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-      )}
-
       {(phase === "submit" || phase === "question" || phase === "pick") && (
         <div className="rounded-2xl bg-zinc-800/60 p-8 text-center">
           {data.targetName && (
@@ -360,16 +334,6 @@ export function HostGameView({
               Task failures: {(data.taskFailures as string[]).map((id) => room.players.find((p) => p.id === id)?.nickname).join(", ")}
             </p>
           )}
-          {data.results && !data.playerAnswers && (
-            <ul className="space-y-2">
-              {Object.entries(data.results as Record<string, { role: string; count: number }>).map(([pid, r]) => (
-                <li key={pid} className="rounded-lg bg-zinc-800 px-4 py-2 flex justify-between">
-                  <span>{room.players.find((p) => p.id === pid)?.nickname}</span>
-                  <span>{r.role} ({r.count} votes)</span>
-                </li>
-              ))}
-            </ul>
-          )}
         </div>
       )}
 
@@ -481,7 +445,7 @@ export function HostGameView({
         </div>
       )}
 
-      {hostView.gameId === "split-the-room" && data.scenario && (
+      {hostView.gameId === "opinions" && data.opinionScoring === "minority" && data.scenario && (
         <div className="rounded-2xl bg-zinc-800/60 p-8 text-center space-y-4">
           <p className="text-3xl font-bold">{(data.scenario as { text: string }).text}</p>
           {(phase === "vote" || phase === "reveal" || phase === "scoreboard") && (
@@ -532,7 +496,7 @@ export function HostGameView({
         </div>
       )}
 
-      {hostView.gameId === "crowd-call" && data.question && (
+      {hostView.gameId === "opinions" && data.opinionScoring === "predict-majority" && data.question && (
         <div className="rounded-2xl bg-zinc-800/60 p-8 text-center space-y-4">
           <p className="text-3xl font-bold">{(data.question as { text: string }).text}</p>
           <div className="grid gap-2">
@@ -548,19 +512,19 @@ export function HostGameView({
         </div>
       )}
 
-      {hostView.gameId === "chain-sketch" && (
+      {hostView.gameId === "drawing" && data.drawingStyle === "telephone" && (
         <ChainSketchHostPanel room={room} phase={phase} data={data} DrawCanvas={DrawCanvas} />
       )}
 
-      {hostView.gameId === "draw-vote" && (
+      {hostView.gameId === "drawing" && data.drawingStyle === "all-draw" && (
         <DrawVoteHostPanel phase={phase} data={data} DrawCanvas={DrawCanvas} />
       )}
 
-      {hostView.gameId === "draw-impostor" && (
+      {hostView.gameId === "impostor" && data.impostorStyle === "draw" && (
         <DrawImpostorHostPanel phase={phase} data={data} DrawCanvas={DrawCanvas} />
       )}
 
-      {hostView.gameId === "impostor" && (
+      {hostView.gameId === "impostor" && data.impostorStyle !== "draw" && (
         <div className="rounded-2xl bg-zinc-800/60 p-8 text-center space-y-4">
           <p className="text-3xl font-bold">{String(data.categoryLabel ?? "")}</p>
           {(phase === "questioning" || phase === "accusation") && (

@@ -20,7 +20,7 @@ describe("syncInGameScoresFromView", () => {
       roundScoresAreCumulative: false,
       phase: "scoreboard",
       round: 1,
-      activeGameId: "quick-quiz",
+      activeGameId: "trivia",
       roundScores: { p1: 1000, p2: 500 },
       inGameScores: {},
       committedRoundKeys: keys,
@@ -28,13 +28,13 @@ describe("syncInGameScoresFromView", () => {
     assert.equal(r1.changed, true);
     assert.equal(r1.inGameScores.p1, 1000);
     assert.equal(r1.inGameScores.p2, 500);
-    assert.ok(r1.committedRoundKeys.has("quick-quiz:r1"));
+    assert.ok(r1.committedRoundKeys.has("trivia:r1"));
 
     const r2 = syncInGameScoresFromView({
       roundScoresAreCumulative: false,
       phase: "scoreboard",
       round: 2,
-      activeGameId: "quick-quiz",
+      activeGameId: "trivia",
       roundScores: { p1: 800, p2: 200 },
       inGameScores: r1.inGameScores,
       committedRoundKeys: r1.committedRoundKeys,
@@ -57,12 +57,12 @@ describe("syncInGameScoresFromView", () => {
   });
 
   it("does not double-commit when ended follows last round key", () => {
-    const keys = new Set<string>(["draw-guess:r2"]);
+    const keys = new Set<string>(["drawing:r2"]);
     const result = syncInGameScoresFromView({
       roundScoresAreCumulative: false,
       phase: "ended",
       round: 2,
-      activeGameId: "draw-guess",
+      activeGameId: "drawing",
       roundScores: { p1: 500 },
       inGameScores: { p1: 1000 },
       committedRoundKeys: keys,

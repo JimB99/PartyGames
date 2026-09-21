@@ -4,9 +4,8 @@ import { useEffect, useState } from "react";
 const STORAGE_KEY = "party-games-playlist-open";
 
 const FAMILY_PRESET: GameId[] = [
-  "quick-quiz",
-  "timeline",
-  "draw-guess",
+  "trivia",
+  "drawing",
   "four-in-a-row",
   "fleet-duel",
   "hangman-race",
@@ -14,19 +13,18 @@ const FAMILY_PRESET: GameId[] = [
   "trail-dash",
 ];
 const MATURE_PRESET: GameId[] = [
-  "would-you-rather",
-  "hot-seat",
-  "split-the-room",
-  "crowd-call",
-  "punchline-battle",
+  "opinions",
+  "prompt-vote",
+  "bluff",
+  "impostor",
 ];
 const MIX_PRESET: GameId[] = [
-  "quick-quiz",
-  "would-you-rather",
-  "draw-guess",
-  "punchline-battle",
+  "trivia",
+  "opinions",
+  "drawing",
+  "prompt-vote",
   "four-in-a-row",
-  "hot-seat",
+  "bluff",
   "hangman-race",
 ];
 

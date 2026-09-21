@@ -1,38 +1,34 @@
 import type { GameModule } from "@party-games/shared";
-import { reverseFactPool } from "../content-pool.js";
+import { resolveBluffMode } from "@party-games/shared";
+import { factCheckPool, reverseFactPool } from "../content-pool.js";
 import {
   bluffHostView,
   bluffPlayerView,
   createBluffState,
   onBluffAction,
   onBluffTick,
+  type BluffState,
 } from "../engines/bluff-engine.js";
 
-import type { BluffState } from "../engines/bluff-engine.js";
-
-export const reverseFactGame: GameModule<BluffState> = {
+export const bluffGame: GameModule<BluffState> = {
   meta: {
-    id: "reverse-fact",
-    name: "Reverse Fact",
-    description: "Write the question that fits the fact",
-    scoringRules: "+1000 for voting the real question; +500 to the author of a fake you voted for.",
+    id: "bluff",
+    name: "Bluff",
+    description: "Submit lies and vote for the truth — fill-in-the-blank or reverse-question mode",
+    scoringRules: "+1000 for voting the real answer (ranked by speed when enabled); +500 to fool a voter.",
     minPlayers: 2,
     maxPlayers: 16,
     category: "social",
     supportsDifficulty: true,
     supportsMatureContent: true,
     supportsSpeedScoring: true,
+    supportsBluffMode: true,
     roundScoresAreCumulative: true,
   },
   init(ctx) {
-    const state = createBluffState(
-      "reverse-fact",
-      reverseFactPool(ctx.gameOptions),
-      5,
-      ctx.playerIds.length,
-      ctx.gameOptions,
-    );
-    return state;
+    const mode = resolveBluffMode(ctx.gameOptions);
+    const pool = mode === "reverse-question" ? reverseFactPool(ctx.gameOptions) : factCheckPool(ctx.gameOptions);
+    return createBluffState(mode, pool, 5, ctx.playerIds.length, ctx.gameOptions);
   },
   onPlayerAction(state, playerId, action, ctx) {
     return onBluffAction(state, playerId, action, ctx);

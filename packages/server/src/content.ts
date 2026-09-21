@@ -13,7 +13,6 @@ import charadesWordsJson from "../../shared/content/words/charades.json";
 import charadesMatureExtraJson from "../../shared/content/words/charades-mature-extra.json";
 import impostorJson from "../../shared/content/categories/impostor.json";
 import forbiddenClueJson from "../../shared/content/words/forbidden-clue.json";
-import friendSortRolesJson from "../../shared/content/categories/friend-sort-roles.json";
 import bracketCategoriesJson from "../../shared/content/categories/bracket.json";
 import { dictionary } from "./dictionary.js";
 
@@ -39,7 +38,6 @@ export const content = {
   wouldYouRather: wouldYouRatherJson as WouldYouRatherEntry[],
   drawWords: drawWordsJson as WordEntry[],
   charadesWords: [...(charadesWordsJson as WordEntry[]), ...(charadesMatureExtraJson as WordEntry[])],
-  friendSortRoles: friendSortRolesJson as CategoryEntry[],
   bracketCategories: bracketCategoriesJson as CategoryEntry[],
   splitRoom: splitRoomJson as Array<{ text: string; labelA: string; labelB: string }>,
   spectrum: spectrumJson as Array<{ left: string; right: string }>,

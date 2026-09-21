@@ -13,7 +13,7 @@ describe("normalizeGameOptions", () => {
   });
 
   it("preserves hostPacing flag", () => {
-    const normalized = normalizeGameOptions("quick-quiz", {
+    const normalized = normalizeGameOptions("trivia", {
       ...DEFAULT_GAME_OPTIONS,
       hostPacing: true,
     });

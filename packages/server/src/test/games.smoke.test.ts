@@ -55,7 +55,7 @@ describe("game smoke tests", () => {
         assertViews(game!, state, ctx);
         const scores = game!.getRoundScores(state);
         assertScoresValid(scores);
-        const zeroOk = new Set(["hot-seat", "word-rush", "split-the-room"]);
+        const zeroOk = new Set(["prompt-vote", "word-rush", "opinions"]);
         if (label === "min" && !zeroOk.has(meta.id)) {
           assertSomeoneScored(scores);
         }
@@ -66,7 +66,7 @@ describe("game smoke tests", () => {
 
         assert.equal(getPhase(state), "ended");
 
-        if (meta.id === "fact-check" || meta.id === "punchline-battle") {
+        if (meta.id === "bluff" || meta.id === "prompt-vote") {
           const round = (state as { round?: number }).round ?? 0;
           assert.ok(round >= 2, `${meta.id} should play multiple rounds (got round ${round})`);
         }
@@ -74,8 +74,8 @@ describe("game smoke tests", () => {
     }
   }
 
-  it("quick-quiz advances past instructions after host advance", () => {
-    const game = getGame("quick-quiz")!;
+  it("trivia advances past instructions after host advance", () => {
+    const game = getGame("trivia")!;
     const ctx = makeRoomContext(2);
     let state = game.init(ctx);
     state = applyAction(game, state, ctx, { role: "host", action: { kind: "advance" } });

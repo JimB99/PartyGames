@@ -51,7 +51,6 @@ const REGISTERED_CONTENT_FILES = new Set([
   "words/forbidden-clue.json",
   "words/dictionary.json",
   "categories/impostor.json",
-  "categories/friend-sort-roles.json",
   "categories/bracket.json",
 ]);
 

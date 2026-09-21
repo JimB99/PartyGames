@@ -68,7 +68,6 @@ function clientSource(): string {
     readText(join(ROOT, "packages/client/src/components/game/HostGameContent.tsx")),
     readText(join(ROOT, "packages/client/src/components/HostControlBar.tsx")),
     readText(join(ROOT, "packages/client/src/components/CurvePlayerControls.tsx")),
-    readText(join(ROOT, "packages/client/src/components/game/views/RoleSortAssign.tsx")),
     readText(join(ROOT, "packages/client/src/components/game/views/DikePanels.tsx")),
     readText(join(ROOT, "packages/client/src/components/game/SpectrumGauge.tsx")),
     readText(join(ROOT, "packages/client/src/components/FourInARowBoard.tsx")),
@@ -126,33 +125,46 @@ function crossCuttingChecks(): Gap[] {
 
   for (const check of checks) {
     if (!existsSync(join(ROOT, check.file))) {
-      gaps.push({ gameId: "quick-quiz", dimension: check.dimension, suggestion: check.suggestion });
+      gaps.push({ gameId: "trivia", dimension: check.dimension, suggestion: check.suggestion });
     }
   }
 
   const smokeSpec = readText(join(ROOT, "e2e/games/all-games.smoke.spec.ts"));
   const fullSpec = readText(join(ROOT, "e2e/games/all-games.full.spec.ts"));
   if (!smokeSpec.includes("ALL_GAME_IDS")) {
-    gaps.push({ gameId: "quick-quiz", dimension: "e2e_smoke", suggestion: "all-games.smoke.spec.ts must iterate ALL_GAME_IDS" });
+    gaps.push({ gameId: "trivia", dimension: "e2e_smoke", suggestion: "all-games.smoke.spec.ts must iterate ALL_GAME_IDS" });
   }
   if (!fullSpec.includes("ALL_GAME_IDS") || !fullSpec.includes("NEW_GAME_IDS")) {
-    gaps.push({ gameId: "quick-quiz", dimension: "e2e_full", suggestion: "all-games.full.spec.ts must iterate ALL_GAME_IDS and NEW_GAME_IDS" });
+    gaps.push({ gameId: "trivia", dimension: "e2e_full", suggestion: "all-games.full.spec.ts must iterate ALL_GAME_IDS and NEW_GAME_IDS" });
   }
 
   const gameConfig = readText(join(ROOT, "e2e/helpers/game-config.ts"));
   if (gameConfig.includes(".catch(() => {})")) {
-    gaps.push({ gameId: "quick-quiz", dimension: "e2e_strict_actions", suggestion: "Remove .catch(() => {}) fallbacks from game-config.ts player actions" });
+    gaps.push({ gameId: "trivia", dimension: "e2e_strict_actions", suggestion: "Remove .catch(() => {}) fallbacks from game-config.ts player actions" });
   }
   const roomHelper = readText(join(ROOT, "e2e/helpers/room.ts"));
   if (roomHelper.includes("playerAction(player).catch")) {
-    gaps.push({ gameId: "quick-quiz", dimension: "e2e_strict_actions", suggestion: "Remove swallowed errors from e2e/helpers/room.ts playRoundStep" });
+    gaps.push({ gameId: "trivia", dimension: "e2e_strict_actions", suggestion: "Remove swallowed errors from e2e/helpers/room.ts playRoundStep" });
   }
 
   const settingsBehavior = readText(join(ROOT, "packages/server/src/test/settings-behavior.test.ts"));
-  const requiredSettings = ["paddleMode", "charadesMode", "impostorCategory", "timelinePtsPerYearOff", "questionDisplay", "speedScoring"];
+  const requiredSettings = [
+    "paddleMode",
+    "charadesMode",
+    "impostorCategory",
+    "timelinePtsPerYearOff",
+    "questionDisplay",
+    "speedScoring",
+    "bluffMode",
+    "triviaFormat",
+    "promptVoteStyle",
+    "opinionScoring",
+    "drawingStyle",
+    "impostorStyle",
+  ];
   for (const flag of requiredSettings) {
     if (!settingsBehavior.includes(flag)) {
-      gaps.push({ gameId: "quick-quiz", dimension: "settings_behavior_test", suggestion: `settings-behavior.test.ts must test ${flag}` });
+      gaps.push({ gameId: "trivia", dimension: "settings_behavior_test", suggestion: `settings-behavior.test.ts must test ${flag}` });
     }
   }
 

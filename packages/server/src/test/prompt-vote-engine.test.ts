@@ -64,11 +64,11 @@ describe("prompt-vote-engine gallery vote-all", () => {
     assert.equal(s.cumulativeScores.p2, 1000);
   });
 
-  it("punchline-battle with 4 players uses pair bracket rounds", () => {
-    const state = createPromptVoteState("punchline-battle", ["Punchline prompt"], 4, undefined, playerIds);
+  it("bracket with 4 players uses pair bracket rounds", () => {
+    const state = createPromptVoteState("bracket", ["Punchline prompt"], 4, undefined, playerIds);
     const after = submitAll(state);
     assert.equal(after.phase, "matchup");
-    assert.equal(after.mode, "punchline-battle");
+    assert.equal(after.mode, "bracket");
     assert.equal(after.bracketRounds.length, 2);
     assert.equal(after.bracketRounds.every((r) => r.kind === "pair"), true);
   });
@@ -94,10 +94,10 @@ describe("prompt-vote-engine punchline bracket", () => {
     assert.equal(new Set([...tripleIds, ...pairIds]).size, 5);
   });
 
-  it("punchline-battle with 5 players starts with a triple threat round", () => {
+  it("bracket with 5 players starts with a triple threat round", () => {
     const playerIds = ["p1", "p2", "p3", "p4", "p5"];
     const ctx = makeRoomContext(5);
-    let state = createPromptVoteState("punchline-battle", ["prompt"], 4, undefined, playerIds);
+    let state = createPromptVoteState("bracket", ["prompt"], 4, undefined, playerIds);
     state = advancePromptVote(state, state.promptsPool);
     for (const pid of playerIds) {
       state = onPromptVoteAction(state, pid, { kind: "submit_text", text: `Answer ${pid}` }, ctx);
@@ -109,10 +109,10 @@ describe("prompt-vote-engine punchline bracket", () => {
     assert.equal((view.data.matchup as { kind?: string }).kind, "triple");
   });
 
-  it("punchline-battle with 3 players uses gallery vote", () => {
+  it("bracket with 3 players uses gallery vote", () => {
     const playerIds = ["p1", "p2", "p3"];
     const ctx = makeRoomContext(3);
-    let state = createPromptVoteState("punchline-battle", ["prompt"], 4, undefined, playerIds);
+    let state = createPromptVoteState("bracket", ["prompt"], 4, undefined, playerIds);
     state = advancePromptVote(state, state.promptsPool);
     for (const pid of playerIds) {
       state = onPromptVoteAction(state, pid, { kind: "submit_text", text: `Answer ${pid}` }, ctx);
@@ -124,7 +124,7 @@ describe("prompt-vote-engine punchline bracket", () => {
   it("scores triple round winner +1000", () => {
     const playerIds = ["p1", "p2", "p3", "p4", "p5"];
     const ctx = makeRoomContext(5);
-    let state = createPromptVoteState("punchline-battle", ["prompt"], 4, undefined, playerIds);
+    let state = createPromptVoteState("bracket", ["prompt"], 4, undefined, playerIds);
     state = advancePromptVote(state, state.promptsPool);
     for (const pid of playerIds) {
       state = onPromptVoteAction(state, pid, { kind: "submit_text", text: `Answer ${pid}` }, ctx);

@@ -3,69 +3,33 @@ import { GAME_INTERACTIONS } from "./game-interactions.ts";
 import { dismissProfileModal, playerScope } from "./player-ui.ts";
 import { clickInteraction, type GameE2EConfig } from "./room.js";
 
-export const NEW_GAME_IDS = [
-  "split-the-room",
-  "spectrum",
-  "chain-sketch",
-  "crowd-call",
-  "impostor",
-  "agent-grid",
-  "forbidden-clue",
-  "hangman-race",
-  "paddle-clash",
-  "grid-blast",
-  "draw-vote",
-  "draw-impostor",
-] as const satisfies readonly GameId[];
-
-export type NewGameId = (typeof NEW_GAME_IDS)[number];
-
 export const GAME_MAX_PLAYERS: Partial<Record<GameId, number>> = {
-  "fact-check": 16,
-  "punchline-battle": 16,
-  "quick-quiz": 16,
-  "would-you-rather": 16,
-  "draw-guess": 12,
+  bluff: 16,
+  "prompt-vote": 16,
+  opinions: 16,
+  spectrum: 12,
+  impostor: 10,
+  "agent-grid": 12,
   "bracket-battle": 16,
-  "role-sort": 8,
-  timeline: 16,
-  impostor: 8,
+  "forbidden-clue": 12,
+  "team-charades": 12,
+  "last-on-the-dike": 16,
+  trivia: 16,
+  drawing: 12,
   "trail-dash": 8,
   "word-rush": 16,
-  "reverse-fact": 16,
-  "team-charades": 12,
-  "hot-seat": 10,
-  "last-on-the-dike": 16,
   "block-stack": 8,
   "fleet-duel": 8,
   "four-in-a-row": 4,
   "tic-tac-toe": 8,
-  "split-the-room": 16,
-  spectrum: 12,
-  "chain-sketch": 8,
-  "crowd-call": 16,
-  "agent-grid": 12,
-  "forbidden-clue": 12,
   "hangman-race": 16,
   "paddle-clash": 4,
   "grid-blast": 8,
-  "draw-vote": 12,
-  "draw-impostor": 10,
 };
 
 export function midPlayerCount(config: GameE2EConfig): number {
   const max = config.maxPlayers ?? GAME_MAX_PLAYERS[config.id] ?? config.minPlayers;
   return Math.max(config.minPlayers, Math.ceil((config.minPlayers + max) / 2));
-}
-
-async function roleSortAction(page: import("@playwright/test").Page) {
-  const selects = page.locator('[data-testid^="role-sort-assign-"]');
-  const count = await selects.count();
-  for (let i = 0; i < count; i++) {
-    await selects.nth(i).selectOption({ index: 1 });
-  }
-  const submit = page.getByTestId("role-sort-submit");
-  if (await submit.isEnabled().catch(() => false)) await submit.click();
 }
 
 async function fleetDuelAction(page: import("@playwright/test").Page) {
@@ -147,49 +111,105 @@ async function drawOnCanvas(page: import("@playwright/test").Page, strict = true
 }
 
 export const GAME_E2E_CONFIGS: Record<GameId, GameE2EConfig> = {
-  "fact-check": { id: "fact-check", minPlayers: 2, playerAction: submitText },
-  "punchline-battle": { id: "punchline-battle", minPlayers: 3, playerAction: submitText },
-  "quick-quiz": {
-    id: "quick-quiz",
-    minPlayers: 1,
-    playerAction: async (page) => {
-      await page.getByTestId("player-answer-0").click({ timeout: 15_000 });
+  bluff: { id: "bluff", minPlayers: 2, playerAction: submitText },
+  "prompt-vote": { id: "prompt-vote", minPlayers: 3, playerAction: submitText },
+  opinions: {
+    id: "opinions",
+    minPlayers: 3,
+    playerAction: async (page, strict) => {
+      const clicked =
+        (await clickInteraction(page, "wyr-choice-a")) ||
+        (await clickInteraction(page, "crowd-call-option-0")) ||
+        (await clickInteraction(page, "split-vote-a"));
+      if (strict && !clicked) await submitText(page, strict);
     },
   },
-  "would-you-rather": {
-    id: "would-you-rather",
-    minPlayers: 2,
-    playerAction: async (page, strict) => {
-      const clicked = await clickInteraction(page, "wyr-choice-a");
-      if (strict && !clicked) throw new Error("wyr-choice-a not visible");
-    },
-  },
-  "draw-guess": {
-    id: "draw-guess",
+  spectrum: {
+    id: "spectrum",
     minPlayers: 3,
-    playerAction: (page, strict) => drawOnCanvas(page, strict),
-  },
-  "bracket-battle": { id: "bracket-battle", minPlayers: 4, playerAction: submitText },
-  "role-sort": {
-    id: "role-sort",
-    minPlayers: 3,
-    playerAction: roleSortAction,
-  },
-  timeline: {
-    id: "timeline",
-    minPlayers: 2,
     playerAction: async (page, strict) => {
-      const clicked = await clickInteraction(page, "timeline-lock-in");
-      if (strict && !clicked) throw new Error("timeline-lock-in not visible");
+      const clue = page.getByPlaceholder(/your clue/i);
+      if (await clue.isVisible().catch(() => false)) {
+        await clue.fill("Test clue");
+        await page.getByRole("button", { name: /submit clue/i }).click();
+        return;
+      }
+      const slider = page.getByTestId("spectrum-slider");
+      if (await slider.isVisible().catch(() => false)) {
+        await slider.fill("60");
+        await page.getByTestId("spectrum-lock-in").click();
+        return;
+      }
+      if (strict) throw new Error("no spectrum control visible");
     },
   },
   impostor: {
     id: "impostor",
     minPlayers: 4,
-    playerAction: async (page) => {
+    playerAction: async (page, strict) => {
+      if (await page.getByTestId("draw-canvas").isVisible().catch(() => false)) {
+        await drawOnCanvas(page, strict);
+        return;
+      }
       const accuse = page.getByRole("button", { name: /accuse|guess/i }).first();
       if (await accuse.isVisible().catch(() => false)) await accuse.click();
     },
+  },
+  "agent-grid": {
+    id: "agent-grid",
+    minPlayers: 4,
+    playerAction: async (page) => {
+      const tile = page.getByTestId("agent-grid-tile-0");
+      if (await tile.isVisible().catch(() => false)) {
+        await tile.click();
+        return;
+      }
+      const clueInput = page.getByPlaceholder(/clue/i);
+      if (await clueInput.isVisible().catch(() => false)) {
+        await clueInput.fill("test");
+        await page.getByRole("button", { name: /give clue/i }).click();
+      }
+    },
+  },
+  "bracket-battle": { id: "bracket-battle", minPlayers: 4, playerAction: submitText },
+  "forbidden-clue": {
+    id: "forbidden-clue",
+    minPlayers: 4,
+    playerAction: async (page) => {
+      const got = page.getByTestId("forbidden-got-it");
+      if (await got.isVisible().catch(() => false)) await got.click();
+    },
+  },
+  "team-charades": {
+    id: "team-charades",
+    minPlayers: 3,
+    playerAction: async (page, strict) => {
+      const clicked = await clickInteraction(page, "charades-correct");
+      if (strict && !clicked) throw new Error("charades-correct not visible");
+    },
+  },
+  "last-on-the-dike": {
+    id: "last-on-the-dike",
+    minPlayers: 4,
+    playerAction: async (page, strict) => {
+      const clicked = await clickInteraction(page, "dike-bid-submit");
+      if (strict && !clicked) throw new Error("dike-bid-submit not visible");
+    },
+  },
+  trivia: {
+    id: "trivia",
+    minPlayers: 1,
+    playerAction: async (page, strict) => {
+      const quiz = await clickInteraction(page, "player-answer-0");
+      if (quiz) return;
+      const timeline = await clickInteraction(page, "timeline-lock-in");
+      if (strict && !timeline) throw new Error("no trivia control visible");
+    },
+  },
+  drawing: {
+    id: "drawing",
+    minPlayers: 3,
+    playerAction: (page, strict) => drawOnCanvas(page, strict),
   },
   "trail-dash": {
     id: "trail-dash",
@@ -204,24 +224,6 @@ export const GAME_E2E_CONFIGS: Record<GameId, GameE2EConfig> = {
     },
   },
   "word-rush": { id: "word-rush", minPlayers: 2, playerAction: submitText },
-  "reverse-fact": { id: "reverse-fact", minPlayers: 2, playerAction: submitText },
-  "team-charades": {
-    id: "team-charades",
-    minPlayers: 3,
-    playerAction: async (page, strict) => {
-      const clicked = await clickInteraction(page, "charades-correct");
-      if (strict && !clicked) throw new Error("charades-correct not visible");
-    },
-  },
-  "hot-seat": { id: "hot-seat", minPlayers: 3, playerAction: submitText },
-  "last-on-the-dike": {
-    id: "last-on-the-dike",
-    minPlayers: 4,
-    playerAction: async (page, strict) => {
-      const clicked = await clickInteraction(page, "dike-bid-submit");
-      if (strict && !clicked) throw new Error("dike-bid-submit not visible");
-    },
-  },
   "block-stack": {
     id: "block-stack",
     minPlayers: 2,
@@ -263,74 +265,6 @@ export const GAME_E2E_CONFIGS: Record<GameId, GameE2EConfig> = {
       if (strict) throw new Error("no enabled tic-tac-toe cell");
     },
   },
-  "split-the-room": {
-    id: "split-the-room",
-    minPlayers: 3,
-    playerAction: async (page, strict) => {
-      const voteA = page.getByTestId("split-vote-a");
-      if (await voteA.isVisible().catch(() => false)) {
-        await voteA.click();
-        return;
-      }
-      await submitText(page, strict);
-    },
-  },
-  spectrum: {
-    id: "spectrum",
-    minPlayers: 3,
-    playerAction: async (page, strict) => {
-      const clue = page.getByPlaceholder(/your clue/i);
-      if (await clue.isVisible().catch(() => false)) {
-        await clue.fill("Test clue");
-        await page.getByRole("button", { name: /submit clue/i }).click();
-        return;
-      }
-      const slider = page.getByTestId("spectrum-slider");
-      if (await slider.isVisible().catch(() => false)) {
-        await slider.fill("60");
-        await page.getByTestId("spectrum-lock-in").click();
-        return;
-      }
-      if (strict) throw new Error("no spectrum control visible");
-    },
-  },
-  "chain-sketch": {
-    id: "chain-sketch",
-    minPlayers: 3,
-    playerAction: (page, strict) => drawOnCanvas(page, strict),
-  },
-  "crowd-call": {
-    id: "crowd-call",
-    minPlayers: 3,
-    playerAction: async (page, strict) => {
-      const clicked = await clickInteraction(page, "crowd-call-option-0");
-      if (strict && !clicked) await submitText(page, strict);
-    },
-  },
-  "agent-grid": {
-    id: "agent-grid",
-    minPlayers: 4,
-    playerAction: async (page) => {
-      const tile = page.getByTestId("agent-grid-tile-0");
-      if (await tile.isVisible().catch(() => false)) {
-        await tile.click();
-        return;
-      }
-      const clueInput = page.getByPlaceholder(/clue/i);
-      if (await clueInput.isVisible().catch(() => false)) {
-        await clueInput.fill("test");
-        await page.getByRole("button", { name: /give clue/i }).click();
-      }
-    },
-  },
-  "forbidden-clue": {
-    id: "forbidden-clue",
-    minPlayers: 4,
-    playerAction: async (page) => {
-      const got = page.getByTestId("forbidden-got-it");
-      if (await got.isVisible().catch(() => false)) await got.click();
-    },
-  },
   "hangman-race": {
     id: "hangman-race",
     minPlayers: 2,
@@ -359,21 +293,21 @@ export const GAME_E2E_CONFIGS: Record<GameId, GameE2EConfig> = {
       if (strict && !bomb && !up) throw new Error("grid-blast controls not visible");
     },
   },
-  "draw-vote": {
-    id: "draw-vote",
-    minPlayers: 3,
-    playerAction: (page, strict) => drawOnCanvas(page, strict),
-  },
-  "draw-impostor": {
-    id: "draw-impostor",
-    minPlayers: 4,
-    playerAction: (page, strict) => drawOnCanvas(page, strict),
-  },
 };
 
 for (const id of ALL_GAME_IDS) {
   GAME_E2E_CONFIGS[id].interactions = GAME_INTERACTIONS[id];
 }
+
+/** Consolidated games — extra mid-player E2E coverage in all-games.full.spec.ts */
+export const NEW_GAME_IDS: GameId[] = [
+  "bluff",
+  "trivia",
+  "prompt-vote",
+  "opinions",
+  "drawing",
+  "impostor",
+];
 
 /** Try each listed player interaction control (best-effort per phase). */
 export async function runPlayerInteractions(

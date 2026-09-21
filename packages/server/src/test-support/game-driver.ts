@@ -50,6 +50,12 @@ export function runUntilEnded<TState>(
       const phase = getPhase(state);
       const shouldExpire =
         actions.length === 0 ||
+        phase === "reveal" ||
+        phase === "scoreboard" ||
+        phase === "questioning" ||
+        phase === "guessing" ||
+        phase === "discussion" ||
+        phase === "accuse" ||
         (options.gameId === "trail-dash" && phase === "playing") ||
         (options.gameId === "block-stack" && phase === "playing");
       if (shouldExpire) expireTimers(state);

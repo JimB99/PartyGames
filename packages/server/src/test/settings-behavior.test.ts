@@ -52,7 +52,7 @@ describe("settings behavior", () => {
     assert.ok(easyMax <= hardMin + 2, `easy max ${easyMax} vs hard min ${hardMin}`);
   });
 
-  it("quick-quiz questionDisplay changes host view", () => {
+  it("trivia questionDisplay changes host view", () => {
     const items = [{ question: "Q?", choices: ["A", "B"], correct: 0 }];
     const tvFull: GameOptions = { ...DEFAULT_GAME_OPTIONS, questionDisplay: "tv_full" };
     const tvPrompt: GameOptions = { ...DEFAULT_GAME_OPTIONS, questionDisplay: "tv_prompt_only" };
@@ -115,10 +115,10 @@ describe("settings behavior", () => {
     assert.ok(places.every((p) => p.id === "places"));
   });
 
-  it("speedScoring off completes fact-check", () => {
-    const game = getGame("fact-check")!;
+  it("speedScoring off completes bluff", () => {
+    const game = getGame("bluff")!;
     const ctx = makeRoomContext(2, { ...DEFAULT_GAME_OPTIONS, speedScoring: "off" });
-    const { ended } = runUntilEnded(game, ctx, { gameId: "fact-check", maxSteps: 2000 });
+    const { ended } = runUntilEnded(game, ctx, { gameId: "bluff", maxSteps: 2000 });
     assert.ok(ended);
   });
 
@@ -129,7 +129,7 @@ describe("settings behavior", () => {
     assert.ok(ended);
   });
 
-  it("mature quick-quiz pool contains only mature-rated items", () => {
+  it("mature trivia pool contains only mature-rated items", () => {
     const mature = quizPool({ ...DEFAULT_GAME_OPTIONS, contentRating: "mature" });
     assert.ok(mature.length >= 10);
     assert.ok(mature.every((q) => q.rating === "mature"));
@@ -141,5 +141,78 @@ describe("settings behavior", () => {
     assert.ok(mature.length >= 2);
     assert.ok(mature.every((pack) => pack.rating === "mature"));
     assert.ok(family.every((pack) => (pack.rating ?? "family") === "family"));
+  });
+
+  it("bluffMode changes init mode", () => {
+    const game = getGame("bluff")!;
+    const fill = game.init(makeRoomContext(2, { ...DEFAULT_GAME_OPTIONS, bluffMode: "fill-blank" })) as {
+      mode: string;
+    };
+    const reverse = game.init(
+      makeRoomContext(2, { ...DEFAULT_GAME_OPTIONS, bluffMode: "reverse-question" }),
+    ) as { mode: string };
+    assert.equal(fill.mode, "fill-blank");
+    assert.equal(reverse.mode, "reverse-question");
+  });
+
+  it("triviaFormat changes init mode", () => {
+    const game = getGame("trivia")!;
+    const quiz = game.init(makeRoomContext(2, { ...DEFAULT_GAME_OPTIONS, triviaFormat: "quiz" })) as {
+      mode: string;
+    };
+    const timeline = game.init(
+      makeRoomContext(2, { ...DEFAULT_GAME_OPTIONS, triviaFormat: "timeline" }),
+    ) as { mode: string };
+    assert.equal(quiz.mode, "quiz");
+    assert.equal(timeline.mode, "timeline");
+  });
+
+  it("promptVoteStyle changes init mode", () => {
+    const game = getGame("prompt-vote")!;
+    const bracket = game.init(makeRoomContext(3, { ...DEFAULT_GAME_OPTIONS, promptVoteStyle: "bracket" })) as {
+      mode: string;
+    };
+    const hotSeat = game.init(
+      makeRoomContext(3, { ...DEFAULT_GAME_OPTIONS, promptVoteStyle: "hot-seat" }),
+    ) as { mode: string };
+    assert.equal(bracket.mode, "bracket");
+    assert.equal(hotSeat.mode, "hot-seat");
+  });
+
+  it("opinionScoring changes init scoring", () => {
+    const game = getGame("opinions")!;
+    const minority = game.init(
+      makeRoomContext(3, { ...DEFAULT_GAME_OPTIONS, opinionScoring: "minority" }),
+    ) as { scoring: string };
+    const predict = game.init(
+      makeRoomContext(3, { ...DEFAULT_GAME_OPTIONS, opinionScoring: "predict-majority" }),
+    ) as { scoring: string };
+    assert.equal(minority.scoring, "minority");
+    assert.equal(predict.scoring, "predict-majority");
+  });
+
+  it("drawingStyle changes init style", () => {
+    const game = getGame("drawing")!;
+    const telephone = game.init(
+      makeRoomContext(3, { ...DEFAULT_GAME_OPTIONS, drawingStyle: "telephone" }),
+    ) as { style: string };
+    const allDraw = game.init(
+      makeRoomContext(3, { ...DEFAULT_GAME_OPTIONS, drawingStyle: "all-draw", drawVoteStyle: "guess-artist" }),
+    ) as { style: string; inner: { mode: string } };
+    assert.equal(telephone.style, "telephone");
+    assert.equal(allDraw.style, "all-draw");
+    assert.equal(allDraw.inner.mode, "artistGuess");
+  });
+
+  it("impostorStyle changes init style", () => {
+    const game = getGame("impostor")!;
+    const verbal = game.init(makeRoomContext(4, { ...DEFAULT_GAME_OPTIONS, impostorStyle: "verbal" })) as {
+      style: string;
+    };
+    const draw = game.init(makeRoomContext(4, { ...DEFAULT_GAME_OPTIONS, impostorStyle: "draw" })) as {
+      style: string;
+    };
+    assert.equal(verbal.style, "verbal");
+    assert.equal(draw.style, "draw");
   });
 });

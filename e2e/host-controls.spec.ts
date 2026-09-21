@@ -10,14 +10,14 @@ import {
   assertNoErrors,
 } from "./helpers/room.js";
 
-test("@host-controls pause, resume, skip, extend on quick-quiz", async () => {
+test("@host-controls pause, resume, skip, extend on trivia", async () => {
   const browser = await chromium.launch();
   const roomId = randomRoomId();
   const { page: host, context: hostCtx } = await openHost(browser, roomId);
   const { page: player, context: playerCtx } = await joinPlayer(browser, roomId, "P1");
 
   try {
-    await selectGame(host, "quick-quiz");
+    await selectGame(host, "trivia");
     await startGame(host);
     await hostAdvance(host);
     await hostPauseResume(host);
@@ -34,7 +34,7 @@ test("@host-controls pause, resume, skip, extend on quick-quiz", async () => {
   }
 });
 
-test("@host-controls skip on fact-check during submit", async () => {
+test("@host-controls skip on bluff during submit", async () => {
   const browser = await chromium.launch();
   const roomId = randomRoomId();
   const { page: host, context: hostCtx } = await openHost(browser, roomId);
@@ -45,7 +45,7 @@ test("@host-controls skip on fact-check during submit", async () => {
       const { page, context } = await joinPlayer(browser, roomId, `P${i + 1}`);
       contexts.push(context);
     }
-    await selectGame(host, "fact-check");
+    await selectGame(host, "bluff");
     await startGame(host);
     await hostAdvance(host);
     await host.getByTestId("host-skip").click({ timeout: 10_000 });

@@ -88,10 +88,6 @@ export function impostorPool(options: GameOptions): ImpostorCategory[] {
   return narrowed.length > 0 ? narrowed : packs;
 }
 
-export function friendSortPool(options: GameOptions): string[] {
-  return filterCategoryList(content.friendSortRoles, options);
-}
-
 export function forbiddenCluePool(options: GameOptions) {
   return filterContentPool(content.forbiddenClue, options);
 }

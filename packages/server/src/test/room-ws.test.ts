@@ -41,16 +41,16 @@ describe("room WebSocket integration", () => {
     await closeSocket(host);
   });
 
-  it("host can start quick-quiz with 2 players", { skip: () => !workerUp }, async () => {
+  it("host can start trivia with 2 players", { skip: () => !workerUp }, async () => {
     const roomId = "WS02";
     const host = await connectAndJoin(roomId, "host");
     const p1 = await connectAndJoin(roomId, "player", "Alice");
     const p2 = await connectAndJoin(roomId, "player", "Bob");
 
-    send(host, { type: "select_game", gameId: "quick-quiz" });
+    send(host, { type: "select_game", gameId: "trivia" });
     send(host, {
       type: "set_game_options",
-      gameId: "quick-quiz",
+      gameId: "trivia",
       options: DEFAULT_GAME_OPTIONS,
     });
     send(host, { type: "start_game" });
@@ -59,7 +59,7 @@ describe("room WebSocket integration", () => {
       host,
       (m) => m.type === "room_state" && m.state.phase === "playing",
     );
-    assert.equal(stateMsg.state.activeGameId, "quick-quiz");
+    assert.equal(stateMsg.state.activeGameId, "trivia");
 
     send(host, { type: "host_action", action: { kind: "advance" } });
 

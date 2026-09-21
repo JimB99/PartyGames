@@ -8,9 +8,9 @@ import { SCORING_ENGINE_TEST_FILES } from "./scoring-registry.js";
 
 /** Games where simulator may end with zero getRoundScores (random play / participation-only). */
 const ZERO_SCORE_OK: Set<GameId> = new Set([
-  "hot-seat",
+  "prompt-vote",
   "word-rush",
-  "split-the-room",
+  "opinions",
 ]);
 
 function contextForGame(gameId: GameId, playerCount: number) {

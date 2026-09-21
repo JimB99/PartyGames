@@ -1,7 +1,7 @@
 import { pickRandom, shuffle, uniqueId, votersByOption, personalizeHotSeatPrompt, type GameAction, type RoomContext, type RevealEntry } from "@party-games/shared";
 import { clearPhaseTimer, startPhaseTimer } from "./phase-timer.js";
 
-export type PromptVoteMode = "punchline-battle" | "hot-seat" | "vote-all";
+export type PromptVoteMode = "bracket" | "hot-seat" | "vote-all";
 
 export type PromptVotePhase =
   | "instructions"
@@ -128,7 +128,7 @@ function usesGalleryVote(state: PromptVoteState): boolean {
 }
 
 function punchlineUsesGalleryVote(state: PromptVoteState): boolean {
-  return state.mode === "punchline-battle" && state.submissions.length === 3;
+  return state.mode === "bracket" && state.submissions.length === 3;
 }
 
 export function advancePromptVote(state: PromptVoteState, prompts: string[]): PromptVoteState {
@@ -226,7 +226,7 @@ function accumulateVotes(state: PromptVoteState) {
 
 function buildPromptVoteReveal(state: PromptVoteState): RevealEntry[] {
   let voterMap: Record<string, string[]> = {};
-  if (state.mode === "punchline-battle") {
+  if (state.mode === "bracket") {
     voterMap =
       state.bracketRounds.length > 0 ? state.cumulativeVoters : votersByOption(state.votes);
   } else if (usesGalleryVote(state)) {
@@ -411,7 +411,7 @@ export function promptVoteHostView(state: PromptVoteState, ctx?: RoomContext) {
     timerEndsAt: state.timerEndsAt,
     timerTotalMs: state.timerTotalMs,
     data: {
-      mode: state.mode,
+      promptVoteStyle: state.mode === "hot-seat" ? "hot-seat" : "bracket",
       prompt: displayPrompt,
       targetPlayerId: state.targetPlayerId,
       targetName,
@@ -460,7 +460,7 @@ export function promptVotePlayerView(state: PromptVoteState, playerId: string, c
     timerEndsAt: state.timerEndsAt,
     timerTotalMs: state.timerTotalMs,
     data: {
-      mode: state.mode,
+      promptVoteStyle: state.mode === "hot-seat" ? "hot-seat" : "bracket",
       prompt: state.phase !== "instructions" ? displayPrompt : undefined,
       isTarget,
       targetName,

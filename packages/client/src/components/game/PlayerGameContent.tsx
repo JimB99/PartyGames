@@ -22,7 +22,6 @@ import { GameButton as Btn } from "./GameButton";
 import { DrawingCanvas as DrawCanvas, type StrokeInput as DrawStroke } from "./DrawingCanvas";
 import { AgentGridBoard } from "./AgentGridBoard";
 import { DikeBidPanel, DikeRevealTable } from "./views/DikePanels";
-import { RoleSortAssign } from "./views/RoleSortAssign";
 export function PlayerGameView({
   room,
   playerView,
@@ -127,12 +126,12 @@ export function PlayerGameView({
           {phase === "guessing" && !playerData.word && (
             <p className="text-center text-zinc-400">Watch the TV and guess the drawing!</p>
           )}
-          {playerView.gameId === "fact-check" && !playerData.submitted && (
+          {playerView.gameId === "bluff" && data.bluffMode === "fill-blank" && !playerData.submitted && (
             <p className="text-center text-sm text-zinc-400">
               Write a convincing lie. Next you’ll read every answer aloud from the TV.
             </p>
           )}
-          {playerView.gameId === "reverse-fact" && !playerData.submitted && (
+          {playerView.gameId === "bluff" && data.bluffMode === "reverse-question" && !playerData.submitted && (
             <p className="text-center text-sm text-zinc-400">
               Shout a question this fact answers, then type the best one.
             </p>
@@ -169,9 +168,9 @@ export function PlayerGameView({
                 value={text}
                 onChange={(e) => setText(e.target.value)}
                 placeholder={
-                  playerView.gameId === "reverse-fact"
+                  playerView.gameId === "bluff" && data.bluffMode === "reverse-question"
                     ? "Type a question this fact answers…"
-                    : playerView.gameId === "fact-check"
+                    : playerView.gameId === "bluff"
                       ? "Type a convincing lie…"
                       : "Type your answer…"
                 }
@@ -635,22 +634,6 @@ export function PlayerGameView({
         </div>
       )}
 
-      {phase === "assign" && data.roles && data.players && (
-        playerData.assigned ? (
-          <div className="rounded-xl bg-green-900/40 border border-green-500/40 p-6 text-center">
-            <p className="text-xl font-bold text-green-300">Assignments submitted!</p>
-            <p className="mt-2 text-sm text-zinc-400">Waiting for other players…</p>
-          </div>
-        ) : (
-          <RoleSortAssign
-            roles={data.roles as string[]}
-            targetIds={(data.players as string[])}
-            room={room}
-            onSubmit={(assignments) => onAction({ kind: "assign_role", assignments })}
-          />
-        )
-      )}
-
       {phase === "drawing" && !playerData.word && (
         <div className="rounded-xl bg-zinc-800/60 p-6 text-center text-zinc-300">
           <p className="text-lg">
@@ -682,7 +665,7 @@ export function PlayerGameView({
         </div>
       )}
 
-      {phase === "draw" && playerView.gameId === "chain-sketch" && (
+      {phase === "draw" && playerView.gameId === "drawing" && data.drawingStyle === "telephone" && (
         <ChainSketchPlayerPanel
           room={room}
           phase={phase}
@@ -699,7 +682,7 @@ export function PlayerGameView({
         />
       )}
 
-      {phase === "guess" && playerView.gameId === "chain-sketch" && (
+      {phase === "guess" && playerView.gameId === "drawing" && data.drawingStyle === "telephone" && (
         <ChainSketchPlayerPanel
           room={room}
           phase={phase}
@@ -716,7 +699,7 @@ export function PlayerGameView({
         />
       )}
 
-      {phase === "vote" && playerView.gameId === "chain-sketch" && (
+      {phase === "vote" && playerView.gameId === "drawing" && data.drawingStyle === "telephone" && (
         <ChainSketchPlayerPanel
           room={room}
           phase={phase}
@@ -733,7 +716,7 @@ export function PlayerGameView({
         />
       )}
 
-      {(phase === "drawing" || phase === "vote") && playerView.gameId === "draw-vote" && (
+      {(phase === "drawing" || phase === "vote") && playerView.gameId === "drawing" && data.drawingStyle === "all-draw" && (
         <DrawVotePlayerPanel
           phase={phase}
           data={data}
@@ -748,7 +731,7 @@ export function PlayerGameView({
         />
       )}
 
-      {phase === "drawing" && playerView.gameId === "draw-impostor" && (
+      {phase === "drawing" && playerView.gameId === "impostor" && data.impostorStyle === "draw" && (
         <DrawImpostorPlayerPanel
           phase={phase}
           playerData={playerData}
@@ -762,7 +745,7 @@ export function PlayerGameView({
         />
       )}
 
-      {phase === "draw" && playerView.gameId !== "chain-sketch" && playerData.isActive && playerData.prompt && (
+      {phase === "draw" && playerView.gameId === "drawing" && data.drawingStyle === "pictionary" && playerData.isActive && playerData.prompt && (
         <div className="space-y-3">
           <p className="text-center text-xl font-bold">Draw: {String(playerData.prompt)}</p>
           <DrawCanvas
@@ -784,7 +767,7 @@ export function PlayerGameView({
         </div>
       )}
 
-      {phase === "guess" && playerView.gameId !== "chain-sketch" && playerData.isActive && playerData.prompt && (
+      {phase === "guess" && playerView.gameId === "drawing" && data.drawingStyle === "pictionary" && playerData.isActive && playerData.prompt && (
         <div className="space-y-3">
           <p className="text-center text-lg text-zinc-400">What is this?</p>
           <textarea className="w-full rounded-xl bg-zinc-800 p-4 text-lg" rows={2} value={text} onChange={(e) => setText(e.target.value)} />
@@ -792,7 +775,7 @@ export function PlayerGameView({
         </div>
       )}
 
-      {phase === "vote" && data.scenario && playerView.gameId === "split-the-room" && (
+      {phase === "vote" && data.scenario && playerView.gameId === "opinions" && data.opinionScoring === "minority" && (
         <div className="space-y-3">
           <p className="text-center text-xl font-bold">{(data.scenario as { text: string }).text}</p>
           {playerData.voted ? (
@@ -813,7 +796,7 @@ export function PlayerGameView({
         </div>
       )}
 
-      {(phase === "reveal" || phase === "scoreboard") && playerView.gameId === "split-the-room" && data.scenario && (
+      {(phase === "reveal" || phase === "scoreboard") && playerView.gameId === "opinions" && data.opinionScoring === "minority" && data.scenario && (
         <div className="rounded-xl bg-zinc-800/60 p-6 text-center space-y-2">
           {data.voteCounts && (
             <p className="text-lg">
@@ -887,7 +870,7 @@ export function PlayerGameView({
         </div>
       )}
 
-      {(phase === "reveal" || phase === "scoreboard") && playerView.gameId === "crowd-call" && (
+      {(phase === "reveal" || phase === "scoreboard") && playerView.gameId === "opinions" && data.opinionScoring === "predict-majority" && (
         <div className="rounded-xl bg-zinc-800/60 p-6 text-center space-y-2">
           {playerData.predictedCorrect && (
             <p className="text-xl font-bold text-emerald-400">You read the room! +1000</p>
@@ -901,7 +884,7 @@ export function PlayerGameView({
         </div>
       )}
 
-      {phase === "predict" && data.question && (
+      {phase === "predict" && playerView.gameId === "opinions" && data.question && (
         <div className="grid gap-2">
           <p className="text-center text-sm font-semibold text-violet-300">Predict what the crowd will pick</p>
           {playerData.predicted ? (
@@ -921,7 +904,7 @@ export function PlayerGameView({
         </div>
       )}
 
-      {phase === "answer" && data.question && (
+      {phase === "answer" && playerView.gameId === "opinions" && data.question && (
         <div className="grid gap-2">
           <p className="text-center text-sm font-semibold text-emerald-300">Now pick your own answer</p>
           {playerData.answered ? (
@@ -948,7 +931,7 @@ export function PlayerGameView({
         </div>
       )}
 
-      {playerView.gameId === "impostor" && (
+      {playerView.gameId === "impostor" && data.impostorStyle !== "draw" && (
         <div className="space-y-4">
           {playerData.isSpy ? (
             <p className="text-center text-xl font-bold text-amber-400">You are the stranger!</p>
@@ -1183,11 +1166,6 @@ export function PlayerGameView({
         </>
       )}
 
-      {phase === "reveal" && (data.myResult as { role: string } | undefined) && (
-        <p className="text-center text-lg">
-          Your role: {(data.myResult as { role: string }).role}
-        </p>
-      )}
     </div>
   );
 }

@@ -175,10 +175,15 @@ export function drawingActions(state: unknown, ctx: RoomContext): SimAction[] {
   }
 
   if (phase === "guessing") {
+    const sGuesses = state as { guesses?: Record<string, string> };
+    let pending = false;
     for (const playerId of ctx.playerIds) {
       if (playerId === artistId) continue;
+      if (sGuesses.guesses?.[playerId] !== undefined) continue;
+      pending = true;
       actions.push({ role: "player", playerId, action: { kind: "submit_text", text: word } });
     }
+    if (!pending) return actions;
     return actions;
   }
 
@@ -287,6 +292,52 @@ export function roleSortActions(state: unknown, ctx: RoomContext): SimAction[] {
   return actions;
 }
 
+export function drawImpostorActions(state: unknown, ctx: RoomContext): SimAction[] {
+  const phase = getPhase(state);
+  const s = state as { impostorId?: string };
+  const actions: SimAction[] = [];
+
+  if (phase === "instructions") {
+    actions.push({ role: "host", action: { kind: "advance" } });
+    return actions;
+  }
+
+  if (phase === "drawing") {
+    for (const playerId of ctx.playerIds) {
+      actions.push({
+        role: "player",
+        playerId,
+        action: { kind: "draw_stroke", points: [0.1, 0.1, 0.2, 0.2], color: "#fff" },
+      });
+    }
+    actions.push({ role: "host", action: { kind: "advance" } });
+    return actions;
+  }
+
+  if (phase === "discussion") {
+    actions.push({ role: "host", action: { kind: "advance" } });
+    return actions;
+  }
+
+  if (phase === "accuse") {
+    const impostorId = s.impostorId ?? ctx.playerIds[0];
+    for (const pid of ctx.playerIds) {
+      if (pid === impostorId) {
+        actions.push({ role: "player", playerId: pid, action: { kind: "impostor_guess", itemIndex: 0 } });
+      } else {
+        actions.push({ role: "player", playerId: pid, action: { kind: "impostor_accuse", targetId: impostorId } });
+      }
+    }
+    return actions;
+  }
+
+  if (phase === "reveal") {
+    actions.push({ role: "host", action: { kind: "advance" } });
+  }
+
+  return actions;
+}
+
 export function impostorActions(state: unknown, ctx: RoomContext): SimAction[] {
   const phase = getPhase(state);
   const s = state as { spyId?: string };
@@ -297,14 +348,18 @@ export function impostorActions(state: unknown, ctx: RoomContext): SimAction[] {
     return actions;
   }
 
-  if (phase === "questioning" && s.spyId) {
-    actions.push({ role: "player", playerId: s.spyId, action: { kind: "impostor_guess", itemIndex: 0 } });
+  if (phase === "questioning") {
     return actions;
   }
 
   if (phase === "accusation") {
+    const spyId = s.spyId ?? ctx.playerIds[0];
     for (const pid of ctx.playerIds) {
-      actions.push({ role: "player", playerId: pid, action: { kind: "impostor_accuse", targetId: s.spyId ?? ctx.playerIds[0] } });
+      if (pid === spyId) {
+        actions.push({ role: "player", playerId: pid, action: { kind: "impostor_guess", itemIndex: 0 } });
+      } else {
+        actions.push({ role: "player", playerId: pid, action: { kind: "impostor_accuse", targetId: spyId } });
+      }
     }
     return actions;
   }

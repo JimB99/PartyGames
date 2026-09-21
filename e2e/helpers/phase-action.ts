@@ -20,9 +20,8 @@ async function isResponseLocked(page: Page): Promise<boolean> {
 }
 
 const BLUFF_VOTE_GAMES = new Set<GameId>([
-  "fact-check",
-  "punchline-battle",
-  "reverse-fact",
+  "bluff",
+  "prompt-vote",
   "bracket-battle",
 ]);
 

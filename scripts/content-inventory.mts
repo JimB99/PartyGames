@@ -17,7 +17,6 @@ import {
   drawWordPool,
   factCheckPool,
   forbiddenCluePool,
-  friendSortPool,
   hangmanWordPool,
   hotSeatPool,
   impostorPool,
@@ -43,9 +42,6 @@ const PROCEDURAL_GAMES = new Set<GameId>([
   "tic-tac-toe",
   "paddle-clash",
   "grid-blast",
-  "chain-sketch",
-  "draw-vote",
-  "draw-impostor",
 ]);
 
 type PoolSample = { family: string[]; mature: string[] };
@@ -71,93 +67,63 @@ function poolForGame(id: GameId): { familyCount: number; matureCount: number; sa
   const matureOpts = opts("mature");
 
   switch (id) {
-    case "fact-check": {
-      const family = factCheckPool(familyOpts);
-      const mature = factCheckPool(matureOpts);
+    case "bluff": {
+      const family = [...factCheckPool(familyOpts), ...reverseFactPool(familyOpts)];
+      const mature = [...factCheckPool(matureOpts), ...reverseFactPool(matureOpts)];
       return {
         familyCount: family.length,
         matureCount: mature.length,
         samples: {
-          family: sample(family, (r) => `"${r.prompt ?? r.fact ?? ""}" → ${r.truth}`),
-          mature: sample(mature, (r) => `"${r.prompt ?? r.fact ?? ""}" → ${r.truth}`),
+          family: sample(family, (r) => `"${(r as { prompt?: string; fact?: string }).prompt ?? (r as { fact?: string }).fact ?? ""}" → ${(r as { truth: string }).truth}`),
+          mature: sample(mature, (r) => `"${(r as { prompt?: string; fact?: string }).prompt ?? (r as { fact?: string }).fact ?? ""}" → ${(r as { truth: string }).truth}`),
         },
       };
     }
-    case "reverse-fact": {
-      const family = reverseFactPool(familyOpts);
-      const mature = reverseFactPool(matureOpts);
+    case "prompt-vote": {
+      const family = [...punchlineBattlePool(familyOpts), ...hotSeatPool(familyOpts)];
+      const mature = [...punchlineBattlePool(matureOpts), ...hotSeatPool(matureOpts)];
       return {
         familyCount: family.length,
         matureCount: mature.length,
         samples: {
-          family: sample(family, (r) => `${r.fact ?? "?"} / ${r.truth}`),
-          mature: mature.length
-            ? sample(mature, (r) => `${r.fact ?? "?"} / ${r.truth}`)
-            : ["N/A — family-only Jeopardy pool"],
+          family: sample(family, (t) => String(t)),
+          mature: sample(mature, (t) => String(t)),
         },
       };
     }
-    case "punchline-battle": {
-      const family = punchlineBattlePool(familyOpts);
-      const mature = punchlineBattlePool(matureOpts);
+    case "trivia": {
+      const family = [...quizPool(familyOpts), ...timelinePool(familyOpts)];
+      const mature = [...quizPool(matureOpts), ...timelinePool(matureOpts)];
       return {
         familyCount: family.length,
         matureCount: mature.length,
         samples: {
-          family: sample(family, (t) => t),
-          mature: sample(mature, (t) => t),
+          family: sample(family, (q) => (q as { question?: string; event?: string; year?: number }).question ?? `${(q as { event: string }).event} (${(q as { year: number }).year})`),
+          mature: sample(mature, (q) => (q as { question?: string; event?: string; year?: number }).question ?? `${(q as { event: string }).event} (${(q as { year: number }).year})`),
         },
       };
     }
-    case "hot-seat": {
-      const family = hotSeatPool(familyOpts);
-      const mature = hotSeatPool(matureOpts);
+    case "opinions": {
+      const family = [
+        ...wouldYouRatherPool(familyOpts),
+        ...splitRoomPool(familyOpts),
+        ...crowdCallPool(familyOpts),
+      ];
+      const mature = [
+        ...wouldYouRatherPool(matureOpts),
+        ...splitRoomPool(matureOpts),
+        ...crowdCallPool(matureOpts),
+      ];
       return {
         familyCount: family.length,
         matureCount: mature.length,
         samples: {
-          family: sample(family, (t) => t),
-          mature: sample(mature, (t) => t),
+          family: sample(family, (r) => JSON.stringify(r).slice(0, 80)),
+          mature: sample(mature, (r) => JSON.stringify(r).slice(0, 80)),
         },
       };
     }
-    case "quick-quiz": {
-      const family = quizPool(familyOpts);
-      const mature = quizPool(matureOpts);
-      return {
-        familyCount: family.length,
-        matureCount: mature.length,
-        samples: {
-          family: sample(family, (q) => q.question),
-          mature: sample(mature, (q) => q.question),
-        },
-      };
-    }
-    case "would-you-rather": {
-      const family = wouldYouRatherPool(familyOpts);
-      const mature = wouldYouRatherPool(matureOpts);
-      return {
-        familyCount: family.length,
-        matureCount: mature.length,
-        samples: {
-          family: sample(family, (r) => `${r.a} vs ${r.b}`),
-          mature: sample(mature, (r) => `${r.a} vs ${r.b}`),
-        },
-      };
-    }
-    case "timeline": {
-      const family = timelinePool(familyOpts);
-      const mature = timelinePool(matureOpts);
-      return {
-        familyCount: family.length,
-        matureCount: mature.length,
-        samples: {
-          family: sample(family, (e) => `${e.event} (${e.year})`),
-          mature: mature.length ? sample(mature, (e) => `${e.event} (${e.year})`) : ["N/A — no mature pool"],
-        },
-      };
-    }
-    case "draw-guess": {
+    case "drawing": {
       const family = drawWordPool(familyOpts);
       const mature = drawWordPool(matureOpts);
       return {
@@ -193,27 +159,6 @@ function poolForGame(id: GameId): { familyCount: number; matureCount: number; sa
         samples: { family: sample(family, (c) => c), mature: sample(mature, (c) => c) },
       };
     }
-    case "role-sort": {
-      const family = friendSortPool(familyOpts);
-      const mature = friendSortPool(matureOpts);
-      return {
-        familyCount: family.length,
-        matureCount: mature.length,
-        samples: { family: sample(family, (r) => r), mature: sample(mature, (r) => r) },
-      };
-    }
-    case "split-the-room": {
-      const family = splitRoomPool(familyOpts);
-      const mature = splitRoomPool(matureOpts);
-      return {
-        familyCount: family.length,
-        matureCount: mature.length,
-        samples: {
-          family: sample(family, (s) => `${s.text}: ${s.labelA} / ${s.labelB}`),
-          mature: sample(mature, (s) => `${s.text}: ${s.labelA} / ${s.labelB}`),
-        },
-      };
-    }
     case "spectrum": {
       const family = spectrumPool(familyOpts);
       const mature = spectrumPool(matureOpts);
@@ -223,18 +168,6 @@ function poolForGame(id: GameId): { familyCount: number; matureCount: number; sa
         samples: {
           family: sample(family, (s) => `${s.left} ↔ ${s.right}`),
           mature: sample(mature, (s) => `${s.left} ↔ ${s.right}`),
-        },
-      };
-    }
-    case "crowd-call": {
-      const family = crowdCallPool(familyOpts);
-      const mature = crowdCallPool(matureOpts);
-      return {
-        familyCount: family.length,
-        matureCount: mature.length,
-        samples: {
-          family: sample(family, (r) => `${r.text} [${r.choices.join(", ")}]`),
-          mature: sample(mature, (r) => `${r.text} [${r.choices.join(", ")}]`),
         },
       };
     }

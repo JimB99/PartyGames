@@ -228,6 +228,10 @@ export function onDrawAction(
       state.guesses[playerId] = action.text.slice(0, 60);
       state.guessTimes[playerId] = Date.now();
     }
+    const guessers = ctx.playerIds.filter((id) => id !== artistId);
+    if (guessers.every((id) => state.guesses[id] !== undefined)) {
+      return advanceDraw(state, state.wordsPool, ctx.playerIds);
+    }
   }
   if (action.kind === "advance" && state.phase === "instructions") {
     return advanceDraw(state, state.wordsPool, ctx.playerIds);

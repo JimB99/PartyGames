@@ -28,7 +28,7 @@ export interface BluffState {
   maxRounds: number;
   timerEndsAt: number | null;
   timerTotalMs: number | null;
-  mode: "fact-check" | "reverse-fact";
+  mode: "fill-blank" | "reverse-question";
   displayText: string;
   truthText: string;
   truthId: string;
@@ -61,7 +61,7 @@ function phaseTimer(ms: number, gameOptions?: GameOptions | null) {
 }
 
 export function createBluffState(
-  mode: "fact-check" | "reverse-fact",
+  mode: "fill-blank" | "reverse-question",
   prompts: Array<{ prompt?: string; truth: string; fact?: string }>,
   maxRounds = 5,
   playerCount = 2,
@@ -69,7 +69,7 @@ export function createBluffState(
 ): BluffState {
   const idx = Math.floor(Math.random() * prompts.length);
   const item = prompts[idx];
-  const displayText = mode === "reverse-fact" ? item.fact ?? item.truth : item.prompt ?? "";
+  const displayText = mode === "reverse-question" ? item.fact ?? item.truth : item.prompt ?? "";
   const truthText = item.truth;
   return {
     phase: "instructions",
@@ -101,7 +101,7 @@ function nextPrompt(state: BluffState, prompts: Array<{ prompt?: string; truth: 
   const idx = pickRandom(pool);
   state.usedPrompts.push(idx);
   const item = prompts[idx];
-  state.displayText = state.mode === "reverse-fact" ? item.fact ?? item.truth : item.prompt ?? "";
+  state.displayText = state.mode === "reverse-question" ? item.fact ?? item.truth : item.prompt ?? "";
   state.truthText = item.truth;
   state.truthId = uniqueId();
 }
@@ -173,7 +173,7 @@ function buildOptions(state: BluffState) {
     const display = state.displayText.trim();
     const excludedPrompts = new Set(
       state.promptsPool
-        .map((p) => (state.mode === "fact-check" ? p.prompt?.trim() : ""))
+        .map((p) => (state.mode === "fill-blank" ? p.prompt?.trim() : ""))
         .filter((p): p is string => Boolean(p)),
     );
     const decoyCandidates = state.promptsPool
@@ -186,7 +186,7 @@ function buildOptions(state: BluffState) {
           !excludedPrompts.has(t) &&
           t.length >= 4 &&
           t.length <= 120 &&
-          (state.mode !== "reverse-fact" || isPlausibleReverseFactDecoy(t)),
+          (state.mode !== "reverse-question" || isPlausibleReverseFactDecoy(t)),
       );
     const decoys: string[] = [];
     for (const text of shuffle([...new Set(decoyCandidates)])) {
@@ -306,7 +306,7 @@ export function bluffHostView(state: BluffState) {
     timerEndsAt: state.timerEndsAt,
     timerTotalMs: state.timerTotalMs ?? null,
     data: {
-      mode: state.mode,
+      bluffMode: state.mode,
       displayText: state.displayText,
       discussing,
       options: state.phase === "vote" || showReveal
@@ -334,7 +334,7 @@ export function bluffPlayerView(state: BluffState, playerId: string) {
     timerEndsAt: state.timerEndsAt,
     timerTotalMs: state.timerTotalMs ?? null,
     data: {
-      mode: state.mode,
+      bluffMode: state.mode,
       displayText: state.phase !== "instructions" ? state.displayText : undefined,
       discussing,
       options: state.phase === "vote"

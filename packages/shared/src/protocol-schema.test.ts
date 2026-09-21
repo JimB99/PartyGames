@@ -4,13 +4,13 @@ import { validateClientMessage } from "./protocol-schema.js";
 
 describe("protocol-schema", () => {
   it("accepts select_game, start_game, and set_session_playlist", () => {
-    const select = validateClientMessage({ type: "select_game", gameId: "quick-quiz" });
+    const select = validateClientMessage({ type: "select_game", gameId: "trivia" });
     assert.equal(select.ok, true);
     const start = validateClientMessage({ type: "start_game" });
     assert.equal(start.ok, true);
     const playlist = validateClientMessage({
       type: "set_session_playlist",
-      gameIds: ["quick-quiz", "punchline-battle"],
+      gameIds: ["trivia", "prompt-vote"],
     });
     assert.equal(playlist.ok, true);
   });
@@ -18,7 +18,7 @@ describe("protocol-schema", () => {
   it("accepts set_game_options with family defaults", () => {
     const result = validateClientMessage({
       type: "set_game_options",
-      gameId: "would-you-rather",
+      gameId: "opinions",
       options: { contentRating: "mature", difficulty: "mixed" },
     });
     assert.equal(result.ok, true);
@@ -30,7 +30,7 @@ describe("protocol-schema", () => {
   it("preserves hostPacing in set_game_options", () => {
     const result = validateClientMessage({
       type: "set_game_options",
-      gameId: "quick-quiz",
+      gameId: "trivia",
       options: { contentRating: "family", difficulty: "mixed", hostPacing: true },
     });
     assert.equal(result.ok, true);

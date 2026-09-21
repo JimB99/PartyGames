@@ -68,7 +68,7 @@ test("@host-return-lobby mid-game cancel keeps player in game", async () => {
   const { page: player, context: playerCtx } = await joinPlayer(browser, roomId, "P1");
 
   try {
-    await selectGame(host, "quick-quiz");
+    await selectGame(host, "trivia");
     await startGame(host);
     await hostAdvance(host);
     await expect(host.getByTestId("host-game-view")).toBeVisible();
@@ -94,7 +94,7 @@ test("@host-return-lobby mid-game confirm returns to lobby", async () => {
   const { page: player, context: playerCtx } = await joinPlayer(browser, roomId, "P1");
 
   try {
-    await selectGame(host, "quick-quiz");
+    await selectGame(host, "trivia");
     await startGame(host);
     await hostAdvance(host);
     await expect(host.getByTestId("host-game-view")).toBeVisible();

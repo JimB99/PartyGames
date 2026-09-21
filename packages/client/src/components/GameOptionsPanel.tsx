@@ -23,6 +23,15 @@ export function GameOptionsPanel({
   options: GameOptions;
   onChange: (options: GameOptions) => void;
 }) {
+  const hasModeOptions =
+    game.supportsBluffMode ||
+    game.supportsTriviaFormat ||
+    game.supportsPromptVoteStyle ||
+    game.supportsOpinionScoring ||
+    game.supportsDrawingStyle ||
+    game.supportsDrawVoteStyle ||
+    game.supportsImpostorStyle;
+
   if (
     !game.supportsDifficulty &&
     !game.supportsMatureContent &&
@@ -30,7 +39,8 @@ export function GameOptionsPanel({
     !game.supportsTimelinePtsPerYear &&
     !game.supportsSpeedScoring &&
     !game.supportsPaddleMode &&
-    !game.supportsCharadesMode
+    !game.supportsCharadesMode &&
+    !hasModeOptions
   ) {
     return (
       <div
@@ -104,7 +114,7 @@ export function GameOptionsPanel({
         </div>
       )}
 
-      {game.supportsTimelinePtsPerYear && (
+      {game.supportsTimelinePtsPerYear && (options.triviaFormat ?? "quiz") === "timeline" && (
         <div className="space-y-2 min-w-0">
           <div className={OPTION_ROW}>
             <span className={OPTION_LABEL}>Pts per year off</span>
@@ -179,6 +189,148 @@ export function GameOptionsPanel({
               testId="game-option-charades-teams"
               active={options.charadesMode === "teams"}
               onClick={() => onChange({ ...options, charadesMode: "teams" })}
+            />
+          </div>
+        </div>
+      )}
+
+      {game.supportsBluffMode && (
+        <div className={OPTION_ROW}>
+          <span className={OPTION_LABEL}>Bluff style</span>
+          <div className="flex rounded-xl bg-zinc-900 p-1 shrink-0 flex-wrap">
+            <RatingButton
+              label="Fill blank"
+              testId="game-option-bluff-fill-blank"
+              active={(options.bluffMode ?? "fill-blank") === "fill-blank"}
+              onClick={() => onChange({ ...options, bluffMode: "fill-blank" })}
+            />
+            <RatingButton
+              label="Reverse question"
+              testId="game-option-bluff-reverse-question"
+              active={options.bluffMode === "reverse-question"}
+              onClick={() => onChange({ ...options, bluffMode: "reverse-question" })}
+            />
+          </div>
+        </div>
+      )}
+
+      {game.supportsTriviaFormat && (
+        <div className={OPTION_ROW}>
+          <span className={OPTION_LABEL}>Format</span>
+          <div className="flex rounded-xl bg-zinc-900 p-1 shrink-0">
+            <RatingButton
+              label="Quiz"
+              testId="game-option-trivia-quiz"
+              active={(options.triviaFormat ?? "quiz") === "quiz"}
+              onClick={() => onChange({ ...options, triviaFormat: "quiz" })}
+            />
+            <RatingButton
+              label="Timeline"
+              testId="game-option-trivia-timeline"
+              active={options.triviaFormat === "timeline"}
+              onClick={() => onChange({ ...options, triviaFormat: "timeline" })}
+            />
+          </div>
+        </div>
+      )}
+
+      {game.supportsPromptVoteStyle && (
+        <div className={OPTION_ROW}>
+          <span className={OPTION_LABEL}>Style</span>
+          <div className="flex rounded-xl bg-zinc-900 p-1 shrink-0">
+            <RatingButton
+              label="Bracket"
+              testId="game-option-prompt-vote-bracket"
+              active={(options.promptVoteStyle ?? "bracket") === "bracket"}
+              onClick={() => onChange({ ...options, promptVoteStyle: "bracket" })}
+            />
+            <RatingButton
+              label="Hot seat"
+              testId="game-option-prompt-vote-hot-seat"
+              active={options.promptVoteStyle === "hot-seat"}
+              onClick={() => onChange({ ...options, promptVoteStyle: "hot-seat" })}
+            />
+          </div>
+        </div>
+      )}
+
+      {game.supportsOpinionScoring && (
+        <div className={OPTION_ROW}>
+          <span className={OPTION_LABEL}>Scoring</span>
+          <select
+            className={OPTION_SELECT}
+            data-testid="game-option-opinion-scoring"
+            value={options.opinionScoring ?? "majority"}
+            onChange={(e) =>
+              onChange({
+                ...options,
+                opinionScoring: e.target.value as GameOptions["opinionScoring"],
+              })
+            }
+          >
+            <option value="majority">Match majority</option>
+            <option value="minority">Minority wins</option>
+            <option value="predict-majority">Predict the crowd</option>
+          </select>
+        </div>
+      )}
+
+      {game.supportsDrawingStyle && (
+        <div className={OPTION_ROW}>
+          <span className={OPTION_LABEL}>Drawing mode</span>
+          <select
+            className={OPTION_SELECT}
+            data-testid="game-option-drawing-style"
+            value={options.drawingStyle ?? "pictionary"}
+            onChange={(e) =>
+              onChange({
+                ...options,
+                drawingStyle: e.target.value as GameOptions["drawingStyle"],
+              })
+            }
+          >
+            <option value="pictionary">Pictionary</option>
+            <option value="telephone">Telephone chain</option>
+            <option value="all-draw">Everyone draws</option>
+          </select>
+        </div>
+      )}
+
+      {game.supportsDrawVoteStyle && options.drawingStyle === "all-draw" && (
+        <div className={OPTION_ROW}>
+          <span className={OPTION_LABEL}>Vote style</span>
+          <div className="flex rounded-xl bg-zinc-900 p-1 shrink-0">
+            <RatingButton
+              label="Best drawing"
+              testId="game-option-draw-vote-best"
+              active={(options.drawVoteStyle ?? "best-drawing") === "best-drawing"}
+              onClick={() => onChange({ ...options, drawVoteStyle: "best-drawing" })}
+            />
+            <RatingButton
+              label="Guess artist"
+              testId="game-option-draw-vote-artist"
+              active={options.drawVoteStyle === "guess-artist"}
+              onClick={() => onChange({ ...options, drawVoteStyle: "guess-artist" })}
+            />
+          </div>
+        </div>
+      )}
+
+      {game.supportsImpostorStyle && (
+        <div className={OPTION_ROW}>
+          <span className={OPTION_LABEL}>Impostor mode</span>
+          <div className="flex rounded-xl bg-zinc-900 p-1 shrink-0">
+            <RatingButton
+              label="Verbal"
+              testId="game-option-impostor-verbal"
+              active={(options.impostorStyle ?? "verbal") === "verbal"}
+              onClick={() => onChange({ ...options, impostorStyle: "verbal" })}
+            />
+            <RatingButton
+              label="Draw"
+              testId="game-option-impostor-draw"
+              active={options.impostorStyle === "draw"}
+              onClick={() => onChange({ ...options, impostorStyle: "draw" })}
             />
           </div>
         </div>

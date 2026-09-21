@@ -5,6 +5,24 @@ export type QuestionDisplayMode = "tv_prompt_only" | "tv_full";
 export type SpeedScoringMode = "off" | "bonus";
 
 export type { PowerUpMode, TrailDashOptions } from "./trail-dash-options.js";
+export type {
+  BluffMode,
+  TriviaFormat,
+  PromptVoteStyle,
+  OpinionScoring,
+  DrawingStyle,
+  DrawVoteStyle,
+  ImpostorStyle,
+} from "./game-mode-options.js";
+export {
+  resolveBluffMode,
+  resolveTriviaFormat,
+  resolvePromptVoteStyle,
+  resolveOpinionScoring,
+  resolveDrawingStyle,
+  resolveDrawVoteStyle,
+  resolveImpostorStyle,
+} from "./game-mode-options.js";
 
 export interface ContentMeta {
   rating?: ContentRating;
@@ -23,6 +41,13 @@ export interface GameOptions {
   impostorCategory?: "all" | "places" | "things" | "jobs" | "random";
   paddleMode?: "pong" | "hockey";
   charadesMode?: "solo" | "teams";
+  bluffMode?: "fill-blank" | "reverse-question";
+  triviaFormat?: "quiz" | "timeline";
+  promptVoteStyle?: "bracket" | "hot-seat";
+  opinionScoring?: "majority" | "minority" | "predict-majority";
+  drawingStyle?: "pictionary" | "telephone" | "all-draw";
+  drawVoteStyle?: "best-drawing" | "guess-artist";
+  impostorStyle?: "verbal" | "draw";
   /** When true, no auto-advance timers — host uses Skip/Continue for every phase. */
   hostPacing?: boolean;
 }

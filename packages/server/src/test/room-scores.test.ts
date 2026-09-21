@@ -15,7 +15,7 @@ describe("lobby score helpers", () => {
   it("resetInGameScores clears in-round tracking", () => {
     const lobby = createLobby("ABCD");
     lobby.inGameScores = { p1: 1000 };
-    lobby.committedRoundKeys.add("fact-check:r1");
+    lobby.committedRoundKeys.add("bluff:r1");
     lobby.gameScoresCommitted = true;
     resetInGameScores(lobby);
     assert.deepEqual(lobby.inGameScores, {});
@@ -66,9 +66,9 @@ describe("bracket-engine start round", () => {
 
 describe("score commit keys", () => {
   it("does not double-commit final when last round already committed", () => {
-    const keys = new Set<string>(["draw-guess:r5"]);
+    const keys = new Set<string>(["drawing:r5"]);
     let scores: Record<string, number> = {};
-    const r1 = commitRoundScores(scores, keys, "draw-guess", "ended", 5, { p1: 500 });
+    const r1 = commitRoundScores(scores, keys, "drawing", "ended", 5, { p1: 500 });
     assert.equal(r1.committed, false);
     assert.deepEqual(r1.inGameScores, {});
   });

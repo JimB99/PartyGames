@@ -1,51 +1,55 @@
 import type { GameModule } from "@party-games/shared";
+import { resolveImpostorStyle } from "@party-games/shared";
 import { impostorPool } from "../content-pool.js";
 import {
-  createImpostorState,
-  onImpostorAction,
-  onImpostorTick,
-  impostorHostView,
-  impostorPlayerView,
-  type ImpostorState,
-} from "../engines/impostor-engine.js";
+  createImpostorGameState,
+  impostorGameHostView,
+  impostorGameIsGameOver,
+  impostorGameNeedsTick,
+  impostorGamePlayerView,
+  impostorGameRoundScores,
+  onImpostorGameAction,
+  onImpostorGameTick,
+  type ImpostorGameState,
+} from "../engines/impostor-game-engine.js";
 
-export const impostorGame: GameModule<ImpostorState> = {
+export const impostorGame: GameModule<ImpostorGameState> = {
   meta: {
     id: "impostor",
     name: "Impostor",
-    description: "One stranger doesn't know the secret — question them before they guess it",
+    description: "Find the spy who doesn't know the secret — verbal or draw mode",
     scoringRules: "Spy +400 for correct guess, +200 if uncaught. Others +200 if spy is caught.",
     minPlayers: 4,
-    maxPlayers: 8,
+    maxPlayers: 10,
     category: "social",
     supportsMatureContent: true,
+    supportsImpostorStyle: true,
   },
   init(ctx) {
-    return createImpostorState(impostorPool(ctx.gameOptions), ctx.playerIds, 4);
+    const style = resolveImpostorStyle(ctx.gameOptions);
+    const verbalPool = impostorPool(ctx.gameOptions);
+    const drawLocations = verbalPool.flatMap((cat) =>
+      cat.items.map((name) => ({ name, category: cat.label })),
+    );
+    return createImpostorGameState(style, verbalPool, drawLocations, ctx.playerIds, ctx.gameOptions);
   },
   onPlayerAction(state, playerId, action, ctx) {
-    return onImpostorAction(state, playerId, action, ctx);
+    return onImpostorGameAction(state, playerId, action, ctx);
   },
   onHostAction(state, action, ctx) {
-    return onImpostorAction(state, "host", action, ctx);
+    return onImpostorGameAction(state, "host", action, ctx);
   },
   onTick(state) {
-    return onImpostorTick(state);
+    return onImpostorGameTick(state);
   },
-  needsTick(state) {
-    return state.phase !== "ended";
-  },
+  needsTick: impostorGameNeedsTick,
   tickIntervalMs: 500,
-  getHostView(state, _ctx) {
-    return impostorHostView(state);
+  getHostView(state) {
+    return impostorGameHostView(state);
   },
-  getPlayerView(state, playerId, _ctx) {
-    return impostorPlayerView(state, playerId);
+  getPlayerView(state, playerId) {
+    return impostorGamePlayerView(state, playerId);
   },
-  getRoundScores(state) {
-    return state.roundScores;
-  },
-  isGameOver(state) {
-    return state.phase === "ended";
-  },
+  getRoundScores: impostorGameRoundScores,
+  isGameOver: impostorGameIsGameOver,
 };

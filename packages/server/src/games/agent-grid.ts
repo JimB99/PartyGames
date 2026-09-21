@@ -17,7 +17,7 @@ export const agentGridGame: GameModule<AgentGridState> = {
     scoringRules: "Winning team +1500 each. Hit the assassin and your team loses instantly.",
     minPlayers: 4,
     maxPlayers: 12,
-    category: "social",
+    category: "party",
     supportsMatureContent: true,
   },
   init(ctx) {

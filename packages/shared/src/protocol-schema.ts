@@ -63,6 +63,31 @@ function validateGameOptions(raw: unknown): GameOptions {
   if (src.charadesMode === "solo" || src.charadesMode === "teams") {
     options.charadesMode = src.charadesMode;
   }
+  if (src.bluffMode === "fill-blank" || src.bluffMode === "reverse-question") {
+    options.bluffMode = src.bluffMode;
+  }
+  if (src.triviaFormat === "quiz" || src.triviaFormat === "timeline") {
+    options.triviaFormat = src.triviaFormat;
+  }
+  if (src.promptVoteStyle === "bracket" || src.promptVoteStyle === "hot-seat") {
+    options.promptVoteStyle = src.promptVoteStyle;
+  }
+  if (
+    src.opinionScoring === "majority" ||
+    src.opinionScoring === "minority" ||
+    src.opinionScoring === "predict-majority"
+  ) {
+    options.opinionScoring = src.opinionScoring;
+  }
+  if (src.drawingStyle === "pictionary" || src.drawingStyle === "telephone" || src.drawingStyle === "all-draw") {
+    options.drawingStyle = src.drawingStyle;
+  }
+  if (src.drawVoteStyle === "best-drawing" || src.drawVoteStyle === "guess-artist") {
+    options.drawVoteStyle = src.drawVoteStyle;
+  }
+  if (src.impostorStyle === "verbal" || src.impostorStyle === "draw") {
+    options.impostorStyle = src.impostorStyle;
+  }
   if (isRecord(src.trailDash)) {
     options.trailDash = resolveTrailDashOptions({
       contentRating: options.contentRating,

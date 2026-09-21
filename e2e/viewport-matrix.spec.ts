@@ -29,7 +29,7 @@ for (const viewport of VIEWPORTS) {
       expect(hostOverflow).toBe(false);
       expect(playerOverflow).toBe(false);
 
-      await selectGame(host, "quick-quiz");
+      await selectGame(host, "trivia");
       await expect(host.getByTestId("game-detail-island")).toBeVisible();
       await expect(host.getByTestId("start-game")).toBeVisible();
 
