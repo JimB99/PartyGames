@@ -1,7 +1,7 @@
 import { pickRandom, shuffle, uniqueId, votersByOption, personalizeHotSeatPrompt, type GameAction, type RoomContext, type RevealEntry } from "@party-games/shared";
 import { clearPhaseTimer, startPhaseTimer } from "./phase-timer.js";
 
-export type PromptVoteMode = "wit-showdown" | "caption" | "hot-seat" | "vote-all";
+export type PromptVoteMode = "punchline-battle" | "hot-seat" | "vote-all";
 
 export type PromptVotePhase =
   | "instructions"
@@ -28,7 +28,6 @@ export interface PromptVoteState {
   timerTotalMs: number | null;
   mode: PromptVoteMode;
   prompt: string;
-  imageCaption?: string;
   targetPlayerId?: string;
   submissions: Submission[];
   matchups: Array<{ a: string; b: string }>;
@@ -63,7 +62,6 @@ export function createPromptVoteState(
     ...startPhaseTimer(5000, gameOptions),
     mode,
     prompt: prompts[idx],
-    imageCaption: mode === "caption" ? prompts[idx] : undefined,
     targetPlayerId,
     submissions: [],
     matchups: [],
@@ -104,7 +102,7 @@ function eligibleMatchupVoters(state: PromptVoteState, matchup: { a: string; b: 
 }
 
 function usesGalleryVote(state: PromptVoteState): boolean {
-  return state.mode === "vote-all" || state.mode === "caption";
+  return state.mode === "vote-all";
 }
 
 function awardByePoints(state: PromptVoteState): void {
@@ -190,7 +188,6 @@ export function advancePromptVote(state: PromptVoteState, prompts: string[]): Pr
     const idx = pickRandom(pool);
     state.usedPrompts.push(idx);
     state.prompt = prompts[idx];
-    if (state.mode === "caption") state.imageCaption = prompts[idx];
     if (state.mode === "hot-seat" && state.targetPlayerId && state.playerIds.length > 0) {
       const idx = state.playerIds.indexOf(state.targetPlayerId);
       state.targetPlayerId = state.playerIds[(idx + 1) % state.playerIds.length];
@@ -211,7 +208,7 @@ function accumulateVotes(state: PromptVoteState) {
 
 function buildPromptVoteReveal(state: PromptVoteState): RevealEntry[] {
   let voterMap: Record<string, string[]> = {};
-  if (state.mode === "wit-showdown") {
+  if (state.mode === "punchline-battle") {
     voterMap = state.cumulativeVoters;
   } else if (usesGalleryVote(state)) {
     voterMap = votersByOption(state.votes);
@@ -369,7 +366,6 @@ export function promptVoteHostView(state: PromptVoteState, ctx?: RoomContext) {
     data: {
       mode: state.mode,
       prompt: displayPrompt,
-      imageCaption: state.imageCaption,
       targetPlayerId: state.targetPlayerId,
       targetName,
       submissions: showReveal
@@ -426,7 +422,6 @@ export function promptVotePlayerView(state: PromptVoteState, playerId: string, c
     data: {
       mode: state.mode,
       prompt: state.phase !== "instructions" ? displayPrompt : undefined,
-      imageCaption: state.imageCaption,
       isTarget,
       targetName,
       matchup: state.phase === "matchup" && currentMatchup

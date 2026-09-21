@@ -8,7 +8,7 @@ export interface GameInteractions {
 /** Primary interactive controls per game for E2E and audit. Prefix entries end with * for pattern match. */
 export const GAME_INTERACTIONS: Record<GameId, GameInteractions> = {
   "fact-check": { host: ["host-skip"], player: ["player-text-input", "player-submit"] },
-  "wit-showdown": { host: ["host-skip"], player: ["player-text-input", "player-submit"] },
+  "punchline-battle": { host: ["host-skip"], player: ["player-text-input", "player-submit"] },
   "quick-quiz": { host: ["host-skip", "host-extend"], player: ["player-answer-0"] },
   "would-you-rather": { host: ["host-skip"], player: ["wyr-choice-a", "wyr-choice-b"] },
   "draw-guess": { host: ["host-skip"], player: ["draw-canvas", "player-text-input"] },
@@ -33,7 +33,6 @@ export const GAME_INTERACTIONS: Record<GameId, GameInteractions> = {
   spectrum: { host: ["host-skip"], player: ["spectrum-slider", "spectrum-lock-in"] },
   "chain-sketch": { host: ["host-skip"], player: ["draw-canvas"] },
   "crowd-call": { host: ["host-skip"], player: ["crowd-call-option-0"] },
-  "star-rate": { host: ["host-skip"], player: ["star-rate-3", "player-text-input"] },
   "agent-grid": { host: ["host-skip"], player: ["agent-grid-tile-0"] },
   "forbidden-clue": { host: ["host-skip"], player: ["forbidden-got-it"] },
   "hangman-race": { host: ["host-skip"], player: ["hangman-key-e"] },
@@ -41,7 +40,6 @@ export const GAME_INTERACTIONS: Record<GameId, GameInteractions> = {
   "grid-blast": { host: ["host-skip"], player: ["grid-blast-bomb", "grid-blast-up"] },
   "draw-vote": { host: ["host-skip"], player: ["draw-canvas"] },
   "draw-impostor": { host: ["host-skip"], player: ["draw-canvas"] },
-  "caption-this": { host: ["host-skip"], player: ["player-text-input", "player-submit"] },
 };
 
 export function allInteractionTestIds(gameId: GameId): string[] {

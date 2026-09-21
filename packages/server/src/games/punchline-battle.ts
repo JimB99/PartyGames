@@ -1,5 +1,5 @@
 import type { GameModule } from "@party-games/shared";
-import { captionPool } from "../content-pool.js";
+import { punchlineBattlePool } from "../content-pool.js";
 import {
   createPromptVoteState,
   onPromptVoteAction,
@@ -7,14 +7,15 @@ import {
   promptVoteHostView,
   promptVotePlayerView,
 } from "../engines/prompt-vote-engine.js";
+
 import type { PromptVoteState } from "../engines/prompt-vote-engine.js";
 
-export const captionThisGame: GameModule<PromptVoteState> = {
+export const punchlineBattleGame: GameModule<PromptVoteState> = {
   meta: {
-    id: "caption-this",
-    name: "Caption This",
-    description: "Write the funniest caption for a scene, then vote for your favorite",
-    scoringRules: "+1000 for the answer with the most votes.",
+    id: "punchline-battle",
+    name: "Punchline Battle",
+    description: "Write the best punchline for the prompt — bracket vote picks winners",
+    scoringRules: "+1000 for winning each head-to-head matchup vote.",
     minPlayers: 3,
     maxPlayers: 16,
     category: "social",
@@ -24,8 +25,8 @@ export const captionThisGame: GameModule<PromptVoteState> = {
   },
   init(ctx) {
     return createPromptVoteState(
-      "caption",
-      captionPool(ctx.gameOptions),
+      "punchline-battle",
+      punchlineBattlePool(ctx.gameOptions),
       4,
       undefined,
       ctx.playerIds,

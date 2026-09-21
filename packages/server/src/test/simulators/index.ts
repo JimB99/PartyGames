@@ -650,35 +650,6 @@ export function crowdCallActions(state: unknown, ctx: RoomContext): SimAction[] 
   return actions;
 }
 
-export function starRateActions(state: unknown, ctx: RoomContext): SimAction[] {
-  const phase = getPhase(state);
-  const s = state as { submissions?: Array<{ id: string; playerId: string }> };
-  const actions: SimAction[] = [];
-  if (phase === "instructions") {
-    actions.push({ role: "host", action: { kind: "advance" } });
-    return actions;
-  }
-  if (phase === "submit") {
-    for (const playerId of ctx.playerIds) {
-      actions.push({ role: "player", playerId, action: { kind: "submit_text", text: `Stars ${playerId}` } });
-    }
-    return actions;
-  }
-  if (phase === "rate" && s.submissions?.[0]) {
-    for (const playerId of ctx.playerIds) {
-      const sub = s.submissions.find((x) => x.playerId !== playerId);
-      if (sub) {
-        actions.push({ role: "player", playerId, action: { kind: "star_rate", submissionId: sub.id, stars: 4 } });
-      }
-    }
-    return actions;
-  }
-  if (phase === "reveal" || phase === "scoreboard") {
-    actions.push({ role: "host", action: { kind: "advance" } });
-  }
-  return actions;
-}
-
 export function chainSketchActions(state: unknown, ctx: RoomContext): SimAction[] {
   const phase = getPhase(state);
   const actions: SimAction[] = [];

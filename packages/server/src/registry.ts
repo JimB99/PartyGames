@@ -1,6 +1,6 @@
 import type { GameModule } from "@party-games/shared";
 import { factCheckGame } from "./games/fact-check.js";
-import { witShowdownGame } from "./games/wit-showdown.js";
+import { punchlineBattleGame } from "./games/punchline-battle.js";
 import { quickQuizGame } from "./games/quick-quiz.js";
 import { wouldYouRatherGame } from "./games/would-you-rather.js";
 import { drawGuessGame } from "./games/draw-guess.js";
@@ -22,7 +22,6 @@ import { splitTheRoomGame } from "./games/split-the-room.js";
 import { spectrumGame } from "./games/spectrum.js";
 import { chainSketchGame } from "./games/chain-sketch.js";
 import { crowdCallGame } from "./games/crowd-call.js";
-import { starRateGame } from "./games/star-rate.js";
 import { agentGridGame } from "./games/agent-grid.js";
 import { forbiddenClueGame } from "./games/forbidden-clue.js";
 import { hangmanRaceGame } from "./games/hangman-race.js";
@@ -30,12 +29,11 @@ import { paddleClashGame } from "./games/paddle-clash.js";
 import { gridBlastGame } from "./games/grid-blast.js";
 import { drawVoteGame } from "./games/draw-vote.js";
 import { drawImpostorGame } from "./games/draw-impostor.js";
-import { captionThisGame } from "./games/caption-this.js";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const games: GameModule<any>[] = [
   factCheckGame,
-  witShowdownGame,
+  punchlineBattleGame,
   quickQuizGame,
   wouldYouRatherGame,
   drawGuessGame,
@@ -57,7 +55,6 @@ const games: GameModule<any>[] = [
   spectrumGame,
   chainSketchGame,
   crowdCallGame,
-  starRateGame,
   agentGridGame,
   forbiddenClueGame,
   hangmanRaceGame,
@@ -65,7 +62,6 @@ const games: GameModule<any>[] = [
   gridBlastGame,
   drawVoteGame,
   drawImpostorGame,
-  captionThisGame,
 ];
 
 export const gameRegistry = new Map(games.map((g) => [g.meta.id, g]));

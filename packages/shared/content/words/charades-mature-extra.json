@@ -1,20 +1,5 @@
 [
   {
-    "word": "hangover",
-    "rating": "mature",
-    "difficulty": "easy"
-  },
-  {
-    "word": "keg stand",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "body shot",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
     "word": "walk of shame",
     "rating": "mature",
     "difficulty": "easy"
@@ -40,609 +25,9 @@
     "difficulty": "medium"
   },
   {
-    "word": "truth or dare",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "seven minutes heaven",
-    "rating": "mature",
-    "difficulty": "easy"
-  },
-  {
-    "word": "spin the bottle",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "beer pong",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "flip cup",
-    "rating": "mature",
-    "difficulty": "easy"
-  },
-  {
-    "word": "power hour",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "last call",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "bar crawl",
-    "rating": "mature",
-    "difficulty": "easy"
-  },
-  {
-    "word": "happy hour",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "open bar",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "tequila shot",
-    "rating": "mature",
-    "difficulty": "easy"
-  },
-  {
-    "word": "whiskey neat",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "vodka soda",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "gin and tonic",
-    "rating": "mature",
-    "difficulty": "easy"
-  },
-  {
-    "word": "margarita",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "bloody mary",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "mimosa brunch",
-    "rating": "mature",
-    "difficulty": "easy"
-  },
-  {
-    "word": "champagne toast",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "wine drunk",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "pregame",
-    "rating": "mature",
-    "difficulty": "easy"
-  },
-  {
-    "word": "afterparty",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "house party",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "frat party",
-    "rating": "mature",
-    "difficulty": "easy"
-  },
-  {
-    "word": "sorority row",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "dorm room",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "spring break",
-    "rating": "mature",
-    "difficulty": "easy"
-  },
-  {
-    "word": "vegas trip",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "bachelor party",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "bachelorette",
-    "rating": "mature",
-    "difficulty": "easy"
-  },
-  {
-    "word": "wedding crasher",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "plus one",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "speed dating",
-    "rating": "mature",
-    "difficulty": "easy"
-  },
-  {
-    "word": "dating app",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "swipe right",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "ghosting",
-    "rating": "mature",
-    "difficulty": "easy"
-  },
-  {
-    "word": "situationship",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "talking stage",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "red flag",
-    "rating": "mature",
-    "difficulty": "easy"
-  },
-  {
-    "word": "green flag",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "ick factor",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "main character",
-    "rating": "mature",
-    "difficulty": "easy"
-  },
-  {
-    "word": "hot girl summer",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "rizz",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "no cap",
-    "rating": "mature",
-    "difficulty": "easy"
-  },
-  {
-    "word": "sus",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "bet",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "slay",
-    "rating": "mature",
-    "difficulty": "easy"
-  },
-  {
-    "word": "ate and left",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "delulu",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "girl dinner",
-    "rating": "mature",
-    "difficulty": "easy"
-  },
-  {
-    "word": "boy dinner",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "soft launch",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "hard launch",
-    "rating": "mature",
-    "difficulty": "easy"
-  },
-  {
-    "word": "thirst trap",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "simp",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "stan",
-    "rating": "mature",
-    "difficulty": "easy"
-  },
-  {
-    "word": "OTP",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "YOLO",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "NSFW",
-    "rating": "mature",
-    "difficulty": "easy"
-  },
-  {
-    "word": "adults only",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "18 plus",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "mature audience",
-    "rating": "mature",
-    "difficulty": "easy"
-  },
-  {
-    "word": "after dark",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "late night",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "midnight snack",
-    "rating": "mature",
-    "difficulty": "easy"
-  },
-  {
-    "word": "walk of fame",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
     "word": "red light",
     "rating": "mature",
     "difficulty": "hard"
-  },
-  {
-    "word": "speakeasy",
-    "rating": "mature",
-    "difficulty": "easy"
-  },
-  {
-    "word": "jazz club",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "rooftop bar",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "dive bar",
-    "rating": "mature",
-    "difficulty": "easy"
-  },
-  {
-    "word": "karaoke night",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "dance floor",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "mosh pit",
-    "rating": "mature",
-    "difficulty": "easy"
-  },
-  {
-    "word": "crowd surf",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "stage dive",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "encore",
-    "rating": "mature",
-    "difficulty": "easy"
-  },
-  {
-    "word": "headbang",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "crowd chant",
-    "rating": "mature",
-    "difficulty": "easy"
-  },
-  {
-    "word": "wall of death",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "mature comedy",
-    "rating": "mature",
-    "difficulty": "easy"
-  },
-  {
-    "word": "dark humor",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "edgy joke",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "roast battle",
-    "rating": "mature",
-    "difficulty": "easy"
-  },
-  {
-    "word": "burn book",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "clap back",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "savage reply",
-    "rating": "mature",
-    "difficulty": "easy"
-  },
-  {
-    "word": "no filter",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "zero chill",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "petty revenge",
-    "rating": "mature",
-    "difficulty": "easy"
-  },
-  {
-    "word": "karma bus",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "plot twist",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "spicy take",
-    "rating": "mature",
-    "difficulty": "easy"
-  },
-  {
-    "word": "hot take",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "unpopular opinion",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "confession booth",
-    "rating": "mature",
-    "difficulty": "easy"
-  },
-  {
-    "word": "guilty pleasure",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "secret crush",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "work spouse",
-    "rating": "mature",
-    "difficulty": "easy"
-  },
-  {
-    "word": "office flirt",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "water cooler gossip",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "HR nightmare",
-    "rating": "mature",
-    "difficulty": "easy"
-  },
-  {
-    "word": "awkward hug",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "accidental like",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "drunk text",
-    "rating": "mature",
-    "difficulty": "easy"
-  },
-  {
-    "word": "morning after",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "forgotten name",
-    "rating": "mature",
-    "difficulty": "easy"
-  },
-  {
-    "word": "mystery number",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "blocked ex",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "rebound",
-    "rating": "mature",
-    "difficulty": "easy"
-  },
-  {
-    "word": "love triangle",
-    "rating": "mature",
-    "difficulty": "easy"
-  },
-  {
-    "word": "jealous ex",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "trust issues",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "commitment issues",
-    "rating": "mature",
-    "difficulty": "easy"
-  },
-  {
-    "word": "cold feet",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "runaway bride",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "shotgun wedding",
-    "rating": "mature",
-    "difficulty": "easy"
-  },
-  {
-    "word": "quickie divorce",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "prenup",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "side piece",
-    "rating": "mature",
-    "difficulty": "easy"
-  },
-  {
-    "word": "main squeeze",
-    "rating": "mature",
-    "difficulty": "medium"
   },
   {
     "word": "sugar daddy",
@@ -655,442 +40,1912 @@
     "difficulty": "easy"
   },
   {
-    "word": "gold digger",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "trophy wife",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "boy toy",
-    "rating": "mature",
-    "difficulty": "easy"
-  },
-  {
-    "word": "cougar",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "silver fox",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "daddy issues",
-    "rating": "mature",
-    "difficulty": "easy"
-  },
-  {
-    "word": "mommy issues",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "therapy session",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "group chat drama",
-    "rating": "mature",
-    "difficulty": "easy"
-  },
-  {
-    "word": "receipts",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "exposed",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "canceled",
-    "rating": "mature",
-    "difficulty": "easy"
-  },
-  {
-    "word": "clout chase",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "influencer",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "content creator",
-    "rating": "mature",
-    "difficulty": "easy"
-  },
-  {
     "word": "only fans",
     "rating": "mature",
     "difficulty": "medium"
   },
   {
-    "word": "paywall",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "DM slide",
-    "rating": "mature",
-    "difficulty": "easy"
-  },
-  {
-    "word": "thirsty comment",
+    "word": "stripper pole",
     "rating": "mature",
     "difficulty": "medium"
   },
   {
-    "word": "fire emoji",
+    "word": "three-breasted woman",
     "rating": "mature",
     "difficulty": "hard"
   },
   {
-    "word": "peach emoji",
-    "rating": "mature",
-    "difficulty": "easy"
-  },
-  {
-    "word": "eggplant emoji",
+    "word": "banana hammock",
     "rating": "mature",
     "difficulty": "medium"
   },
   {
-    "word": "sweat emoji",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "devil emoji",
+    "word": "ball gag",
     "rating": "mature",
     "difficulty": "easy"
   },
   {
-    "word": "angel emoji",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "mask emoji",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "clown emoji",
+    "word": "cock ring",
     "rating": "mature",
     "difficulty": "easy"
   },
   {
-    "word": "dumpster fire",
+    "word": "nipple clamps",
     "rating": "mature",
     "difficulty": "medium"
   },
   {
-    "word": "train wreck",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "hot mess",
+    "word": "butt plug",
     "rating": "mature",
     "difficulty": "easy"
   },
   {
-    "word": "chaos energy",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "unhinged",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "feral",
+    "word": "dildo",
     "rating": "mature",
     "difficulty": "easy"
   },
   {
-    "word": "goblin mode",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "bed rot",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "touch grass",
+    "word": "vibrator",
     "rating": "mature",
     "difficulty": "easy"
   },
   {
-    "word": "villain arc",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "redemption arc",
+    "word": "condom",
     "rating": "mature",
     "difficulty": "easy"
   },
   {
-    "word": "glow up",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "down bad",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "up bad",
+    "word": "lingerie",
     "rating": "mature",
     "difficulty": "easy"
   },
   {
-    "word": "rizz god",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "pick me",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "not like other girls",
+    "word": "thong",
     "rating": "mature",
     "difficulty": "easy"
   },
   {
-    "word": "boy math",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "girl math",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "tea spilling",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "shade throwing",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "read for filth",
+    "word": "lap dance",
     "rating": "mature",
     "difficulty": "easy"
   },
   {
-    "word": "drag queen",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "lip sync",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "death drop",
+    "word": "pole dance",
     "rating": "mature",
     "difficulty": "easy"
   },
   {
-    "word": "werk",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "yas queen",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "hunty",
+    "word": "striptease",
     "rating": "mature",
     "difficulty": "easy"
   },
   {
-    "word": "slay mama",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "campy",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "extra",
+    "word": "merkin",
     "rating": "mature",
     "difficulty": "easy"
   },
   {
-    "word": "dramatic",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "over the top",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "no chill",
+    "word": "pasties",
     "rating": "mature",
     "difficulty": "easy"
   },
   {
-    "word": "zero filter",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "spicy meme",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "cursed image",
+    "word": "glory hole",
     "rating": "mature",
     "difficulty": "easy"
   },
   {
-    "word": "blursed",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "sus activity",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "shenanigans",
+    "word": "fleshlight",
     "rating": "mature",
     "difficulty": "easy"
   },
   {
-    "word": "tomfoolery",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "hijinks",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "mature themes",
+    "word": "handcuffs",
     "rating": "mature",
     "difficulty": "easy"
   },
   {
-    "word": "adult humor",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "after hours",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "late show",
+    "word": "blindfold",
     "rating": "mature",
     "difficulty": "easy"
   },
   {
-    "word": "midnight oil",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "night owl",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "party animal",
+    "word": "whip",
     "rating": "mature",
     "difficulty": "easy"
   },
   {
-    "word": "social butterfly",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "third wheel",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "wingwoman",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "beer goggles",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "liquid courage",
+    "word": "flogger",
     "rating": "mature",
     "difficulty": "easy"
   },
   {
-    "word": "dutch courage",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "pregame jitters",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "hangxiety",
+    "word": "safeword",
     "rating": "mature",
     "difficulty": "easy"
   },
   {
-    "word": "beer fear",
-    "rating": "mature",
-    "difficulty": "medium"
-  },
-  {
-    "word": "morning regret",
-    "rating": "mature",
-    "difficulty": "hard"
-  },
-  {
-    "word": "apology tour",
+    "word": "dominatrix",
     "rating": "mature",
     "difficulty": "easy"
   },
   {
-    "word": "damage control",
+    "word": "submissive",
+    "rating": "mature",
+    "difficulty": "easy"
+  },
+  {
+    "word": "bondage rope",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "spanking",
+    "rating": "mature",
+    "difficulty": "easy"
+  },
+  {
+    "word": "morning wood",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "wet dream",
+    "rating": "mature",
+    "difficulty": "easy"
+  },
+  {
+    "word": "blue balls",
+    "rating": "mature",
+    "difficulty": "easy"
+  },
+  {
+    "word": "orgasm face",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "dirty talk",
+    "rating": "mature",
+    "difficulty": "easy"
+  },
+  {
+    "word": "sexting",
+    "rating": "mature",
+    "difficulty": "easy"
+  },
+  {
+    "word": "onlyfans logo",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "playboy bunny",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "red light district",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "brothel sign",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "porn director",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "adult film set",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "webcam model",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "cam girl",
+    "rating": "mature",
+    "difficulty": "easy"
+  },
+  {
+    "word": "hookup app",
+    "rating": "mature",
+    "difficulty": "easy"
+  },
+  {
+    "word": "affair text",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "strip club",
+    "rating": "mature",
+    "difficulty": "easy"
+  },
+  {
+    "word": "burlesque dancer",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "g-string",
+    "rating": "mature",
+    "difficulty": "easy"
+  },
+  {
+    "word": "aftercare cuddle",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "walk of shame heels",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "condom wrapper",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "lube bottle",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "anal beads",
+    "rating": "mature",
+    "difficulty": "easy"
+  },
+  {
+    "word": "rabbit vibrator",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "penis pump",
+    "rating": "mature",
+    "difficulty": "easy"
+  },
+  {
+    "word": "prostate massager",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "nipple pasties",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "paddle spanking",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "orgy pile",
+    "rating": "mature",
+    "difficulty": "easy"
+  },
+  {
+    "word": "threesome",
+    "rating": "mature",
+    "difficulty": "easy"
+  },
+  {
+    "word": "swingers party",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "open relationship",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "polyamory chart",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "cuckold",
+    "rating": "mature",
+    "difficulty": "easy"
+  },
+  {
+    "word": "hotwife",
+    "rating": "mature",
+    "difficulty": "easy"
+  },
+  {
+    "word": "pegging",
+    "rating": "mature",
+    "difficulty": "easy"
+  },
+  {
+    "word": "rimjob",
+    "rating": "mature",
+    "difficulty": "easy"
+  },
+  {
+    "word": "missionary",
+    "rating": "mature",
+    "difficulty": "easy"
+  },
+  {
+    "word": "doggy style",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "cowgirl",
+    "rating": "mature",
+    "difficulty": "easy"
+  },
+  {
+    "word": "reverse cowgirl",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "spooning sex",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "standing sex",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "shower sex",
+    "rating": "mature",
+    "difficulty": "easy"
+  },
+  {
+    "word": "car sex",
+    "rating": "mature",
+    "difficulty": "easy"
+  },
+  {
+    "word": "office affair",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "nurse patient roleplay",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "police handcuffs",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "tentacle hentai",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "hentai pillow",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "blowjob gesture",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "cunnilingus",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "handjob",
+    "rating": "mature",
+    "difficulty": "easy"
+  },
+  {
+    "word": "phone sex",
+    "rating": "mature",
+    "difficulty": "easy"
+  },
+  {
+    "word": "video call nude",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "nude selfie",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "bathroom mirror nude",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "onlyfans selfie",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "porn audition",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "sex shop",
+    "rating": "mature",
+    "difficulty": "easy"
+  },
+  {
+    "word": "dildo wall",
+    "rating": "mature",
+    "difficulty": "easy"
+  },
+  {
+    "word": "vibrator aisle",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "lube samples",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "condom bowl",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "penis shaped pasta",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "penis cake",
+    "rating": "mature",
+    "difficulty": "easy"
+  },
+  {
+    "word": "stripper cake",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "body painting nude",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "pixelated nude",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "extra nipple",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "camel toe",
+    "rating": "mature",
+    "difficulty": "easy"
+  },
+  {
+    "word": "sex tape leak",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "revenge porn headline",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "affair scandal",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "voyeur window",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "exhibitionist flash",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "nude beach",
+    "rating": "mature",
+    "difficulty": "easy"
+  },
+  {
+    "word": "hot tub nude",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "prostate exam joke",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "aphrodisiac oyster",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "fake orgasm",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "hide affair text",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "safeword yell",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "post nude",
+    "rating": "mature",
+    "difficulty": "easy"
+  },
+  {
+    "word": "delete hookup chat",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "dirty talk whisper",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "cuckold joke",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "pegging demo",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "rimjob joke",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "cowgirl ride",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "missionary boring",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "safeword card",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "giant vibrator",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "giant dildo",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "giant butt plug",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "giant cock ring",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "giant ball gag",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "giant nipple clamps",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "giant stripper pole",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "giant lingerie",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "giant condom",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "giant lube bottle",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "giant safeword card",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "giant thong",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "giant merkin",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "giant pasties",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "giant handcuffs",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "giant blindfold",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "giant whip",
+    "rating": "mature",
+    "difficulty": "easy"
+  },
+  {
+    "word": "giant flogger",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "giant fleshlight",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "giant anal beads",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "giant rabbit vibrator",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "giant prostate massager",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "giant lap dance",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "giant pole dance",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "giant striptease",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "giant banana hammock",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "giant onlyfans logo",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "giant hookup app",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "giant sugar daddy",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "giant cam girl",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "giant dominatrix",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "giant submissive",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "giant orgy pile",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "giant walk of shame",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "giant one night stand",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "giant skinny dipping",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "giant three-breasted woman",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "giant penis cake",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "giant glory hole",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "giant red light district",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "giant strip club",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "giant brothel sign",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "tiny vibrator",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "tiny dildo",
+    "rating": "mature",
+    "difficulty": "easy"
+  },
+  {
+    "word": "tiny butt plug",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "tiny cock ring",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "tiny ball gag",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "tiny nipple clamps",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "tiny stripper pole",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "tiny lingerie",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "tiny condom",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "tiny lube bottle",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "tiny safeword card",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "tiny thong",
+    "rating": "mature",
+    "difficulty": "easy"
+  },
+  {
+    "word": "tiny merkin",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "tiny pasties",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "tiny handcuffs",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "tiny blindfold",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "tiny whip",
+    "rating": "mature",
+    "difficulty": "easy"
+  },
+  {
+    "word": "tiny flogger",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "tiny fleshlight",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "tiny anal beads",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "tiny rabbit vibrator",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "tiny prostate massager",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "tiny lap dance",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "tiny pole dance",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "tiny striptease",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "tiny banana hammock",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "tiny onlyfans logo",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "tiny hookup app",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "tiny sugar daddy",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "tiny cam girl",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "tiny dominatrix",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "tiny submissive",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "tiny orgy pile",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "tiny walk of shame",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "tiny one night stand",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "tiny skinny dipping",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "tiny three-breasted woman",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "tiny penis cake",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "tiny glory hole",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "tiny red light district",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "tiny strip club",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "tiny brothel sign",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "broken vibrator",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "broken dildo",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "broken butt plug",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "broken cock ring",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "broken ball gag",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "broken nipple clamps",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "broken stripper pole",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "broken lingerie",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "broken condom",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "broken lube bottle",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "broken safeword card",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "broken thong",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "broken merkin",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "broken pasties",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "broken handcuffs",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "broken blindfold",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "broken whip",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "broken flogger",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "broken fleshlight",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "broken anal beads",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "broken rabbit vibrator",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "broken prostate massager",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "broken lap dance",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "broken pole dance",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "broken striptease",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "broken banana hammock",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "broken onlyfans logo",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "broken hookup app",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "broken sugar daddy",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "broken cam girl",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "broken dominatrix",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "broken submissive",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "broken orgy pile",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "broken walk of shame",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "broken one night stand",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "broken skinny dipping",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "broken three-breasted woman",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "broken penis cake",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "broken glory hole",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "broken red light district",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "broken strip club",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "broken brothel sign",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "glowing vibrator",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "glowing dildo",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "glowing butt plug",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "glowing cock ring",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "glowing ball gag",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "glowing nipple clamps",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "glowing stripper pole",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "glowing lingerie",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "glowing condom",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "glowing lube bottle",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "glowing safeword card",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "glowing thong",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "strap-on",
+    "rating": "mature",
+    "difficulty": "easy"
+  },
+  {
+    "word": "love bite",
+    "rating": "mature",
+    "difficulty": "easy"
+  },
+  {
+    "word": "hickey",
+    "rating": "mature",
+    "difficulty": "easy"
+  },
+  {
+    "word": "thirst trap",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "escort card",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "fluffer",
+    "rating": "mature",
+    "difficulty": "easy"
+  },
+  {
+    "word": "money shot",
+    "rating": "mature",
+    "difficulty": "easy"
+  },
+  {
+    "word": "secret lover",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "cheating spouse",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "bachelor party",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "bachelorette party",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "pole fitness",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "lap dancer",
+    "rating": "mature",
+    "difficulty": "easy"
+  },
+  {
+    "word": "crotchless panties",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "fishnet stockings",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "high heels bedroom",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "massage oil",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "whipped cream bikini",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "chocolate body paint",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "feather tickler",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "ice cube tease",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "blindfolded partner",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "tied to bed",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "safe word",
+    "rating": "mature",
+    "difficulty": "easy"
+  },
+  {
+    "word": "post-coital pizza",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "yesterday's makeup",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "lost underwear",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "stranger's hoodie",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "hotel key card",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "do not disturb sign",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "room service champagne",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "jacuzzi bubbles",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "shower together",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "steamy mirror",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "birth control pills",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "pregnancy test",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "morning after pill",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "sti clinic",
+    "rating": "mature",
+    "difficulty": "easy"
+  },
+  {
+    "word": "dental dam",
+    "rating": "mature",
+    "difficulty": "easy"
+  },
+  {
+    "word": "wand massager",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "cock sleeve",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "kegel balls",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "chest harness",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "leather collar",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "leash and collar",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "spreader bar",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "riding crop",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "wax play",
+    "rating": "mature",
+    "difficulty": "easy"
+  },
+  {
+    "word": "sensory deprivation",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "69 position",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "airplane bathroom",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "mile high club",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "boss employee fling",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "teacher student fantasy",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "firefighter calendar",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "maid outfit",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "schoolgirl skirt",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "naughty nurse",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "vampire bite",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "werewolf lust",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "anime blush",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "rule 34",
+    "rating": "mature",
+    "difficulty": "easy"
+  },
+  {
+    "word": "deep throat",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "fingering",
+    "rating": "mature",
+    "difficulty": "easy"
+  },
+  {
+    "word": "mutual masturbation",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "dick pic",
+    "rating": "mature",
+    "difficulty": "easy"
+  },
+  {
+    "word": "bedroom mirror",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "premium snapchat",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "paywall nudes",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "tip menu",
+    "rating": "mature",
+    "difficulty": "easy"
+  },
+  {
+    "word": "custom video request",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "casting couch",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "adult bookstore",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "peep show booth",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "boob cake",
+    "rating": "mature",
+    "difficulty": "easy"
+  },
+  {
+    "word": "edible underwear",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "whipped cream body",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "chocolate fountain body",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "body shot",
+    "rating": "mature",
+    "difficulty": "easy"
+  },
+  {
+    "word": "fig leaf",
+    "rating": "mature",
+    "difficulty": "easy"
+  },
+  {
+    "word": "censored bar",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "blurred genitals",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "three breasts",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "bulge outline",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "wardrobe malfunction",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "nip slip",
+    "rating": "mature",
+    "difficulty": "easy"
+  },
+  {
+    "word": "upskirt paparazzi",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "wardrobe oops",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "tabloid kiss",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "cheating caught",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "hidden camera",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "streaker field",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "nudist colony",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "sauna towel drop",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "locker room",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "gym shower",
+    "rating": "mature",
+    "difficulty": "easy"
+  },
+  {
+    "word": "steam room",
+    "rating": "mature",
+    "difficulty": "easy"
+  },
+  {
+    "word": "massage happy ending",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "happy ending joke",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "full body massage",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "tantric massage",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "pap smear",
+    "rating": "mature",
+    "difficulty": "easy"
+  },
+  {
+    "word": "viagra pill",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "cialis commercial",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "erectile dysfunction",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "premature ejaculation",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "blue pill",
+    "rating": "mature",
+    "difficulty": "easy"
+  },
+  {
+    "word": "rhino pill",
+    "rating": "mature",
+    "difficulty": "easy"
+  },
+  {
+    "word": "gas station boner pill",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "chocolate strawberries",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "whipped cream lover",
+    "rating": "mature",
+    "difficulty": "hard"
+  },
+  {
+    "word": "champagne shower",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "wedding garter",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "garter toss",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "wedding night",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "honeymoon suite",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "heart shaped bed",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "mirror ceiling",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "love hotel",
+    "rating": "mature",
+    "difficulty": "easy"
+  },
+  {
+    "word": "hourly motel",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "no tell motel",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "word": "neon motel sign",
     "rating": "mature",
     "difficulty": "medium"
   }

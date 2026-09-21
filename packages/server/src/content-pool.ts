@@ -35,16 +35,12 @@ export function reverseFactPool(options: GameOptions) {
   return filterContentPool(content.reverseFact, options);
 }
 
-export function witShowdownPool(options: GameOptions) {
-  return filterPromptList(content.witShowdown, options);
+export function punchlineBattlePool(options: GameOptions) {
+  return filterPromptList(content.punchlineBattle, options);
 }
 
 export function hotSeatPool(options: GameOptions) {
   return filterPromptList(content.hotSeat, options);
-}
-
-export function captionPool(options: GameOptions) {
-  return filterPromptList(content.caption, options);
 }
 
 export function drawWordPool(options: GameOptions) {
@@ -98,18 +94,6 @@ export function friendSortPool(options: GameOptions): string[] {
 
 export function forbiddenCluePool(options: GameOptions) {
   return filterContentPool(content.forbiddenClue, options);
-}
-
-export function starRatePool(options: GameOptions) {
-  const all = filterPromptList(content.witShowdown, options);
-  const confession = all.filter(
-    (p) =>
-      p.startsWith("Nobody knows") ||
-      p.startsWith("Unfiltered truth") ||
-      p.startsWith("Worst thing") ||
-      p.startsWith("Have you ever"),
-  );
-  return confession.length > 0 ? confession : all;
 }
 
 export function agentGridWordPool(options: GameOptions): string[] {

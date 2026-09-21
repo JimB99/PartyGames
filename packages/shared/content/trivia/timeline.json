@@ -4016,7 +4016,7 @@
   {
     "event": "Dreyfuss Affair in France",
     "year": 1894,
-    "rating": "family",
+    "rating": "mature",
     "difficulty": "medium"
   },
   {
@@ -4364,7 +4364,7 @@
   {
     "event": "Dreyfus Affair ends",
     "year": 1906,
-    "rating": "family",
+    "rating": "mature",
     "difficulty": "medium"
   },
   {
@@ -5090,7 +5090,7 @@
   {
     "event": "Prohibition in the United States enforced",
     "year": 1920,
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
@@ -5624,7 +5624,7 @@
   {
     "event": "Prohibition in the United States is abolished",
     "year": 1933,
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
@@ -9242,13 +9242,13 @@
   {
     "event": "US Prohibition began",
     "year": 1920,
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
     "event": "US Prohibition ended",
     "year": 1933,
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
@@ -9260,97 +9260,97 @@
   {
     "event": "Woodstock music festival",
     "year": 1969,
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
     "event": "First Super Bowl",
     "year": 1967,
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
     "event": "Saturday Night Live premiered",
     "year": 1975,
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
     "event": "Studio 54 opened in New York",
     "year": 1977,
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
     "event": "MTV launched",
     "year": 1981,
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
     "event": "The first episode of Friends aired",
     "year": 1994,
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
     "event": "The first episode of The Sopranos aired",
     "year": 1999,
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
     "event": "The Hangover was released",
     "year": 2009,
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
     "event": "Las Vegas Strip welcomed the Bellagio",
     "year": 1998,
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
     "event": "The first James Bond film Dr. No was released",
     "year": 1962,
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
     "event": "Mad Men premiered",
     "year": 2007,
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
     "event": "The first season of The Bachelor aired",
     "year": 2002,
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
     "event": "The Real Housewives of Orange County premiered",
     "year": 2006,
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
     "event": "Jersey Shore premiered",
     "year": 2009,
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
     "event": "Love Island UK first aired",
     "year": 2015,
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
     "event": "The first episode of Cheers aired",
     "year": 1982,
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
@@ -9362,13 +9362,13 @@
   {
     "event": "Burning Man first held on a beach",
     "year": 1986,
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
     "event": "Coachella festival first held",
     "year": 1999,
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
@@ -9380,37 +9380,37 @@
   {
     "event": "US Supreme Court decision Obergefell v. Hodges",
     "year": 2015,
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
     "event": "The 21st Amendment was ratified",
     "year": 1933,
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
     "event": "The 18th Amendment was ratified",
     "year": 1919,
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
     "event": "First Casino Royale novel published",
     "year": 1953,
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
     "event": "Moulin Rouge opened in Paris",
     "year": 1889,
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
     "event": "The Cotton Club opened in Harlem",
     "year": 1923,
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
@@ -9428,114 +9428,1602 @@
   {
     "event": "The Wolf of Wall Street was released",
     "year": 2013,
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
     "event": "The Great Gatsby novel published",
     "year": 1925,
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
     "event": "The first episode of Entourage aired",
     "year": 2004,
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
     "event": "The first season of Succession aired",
     "year": 2018,
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
     "event": "The first season of Euphoria aired",
     "year": 2019,
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
     "event": "The first episode of Breaking Bad aired",
     "year": 2008,
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
     "event": "The Godfather was released",
     "year": 1972,
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
     "event": "Goodfellas was released",
     "year": 1990,
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
     "event": "Pulp Fiction was released",
     "year": 1994,
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
     "event": "The first episode of True Detective aired",
     "year": 2014,
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
     "event": "The first episode of Game of Thrones aired",
     "year": 2011,
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
     "event": "The first episode of The Office (US) aired",
     "year": 2005,
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
     "event": "The first episode of Parks and Recreation aired",
     "year": 2009,
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
     "event": "The first legal sports betting in New Jersey after PASPA",
     "year": 2018,
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
     "event": "The first Powerball drawing",
     "year": 1992,
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
     "event": "The first Mega Millions drawing under that name",
     "year": 2002,
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
     "event": "The first episode of Drunk History aired on Comedy Central",
     "year": 2013,
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
     "event": "The first season of The White Lotus aired",
     "year": 2021,
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
     "event": "Barbie the movie was released",
     "year": 2023,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Kinsey publishes Sexual Behavior in the Human Male",
+    "year": 1948,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Playboy magazine launches",
+    "year": 1953,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "The pill is approved for birth control in the US",
+    "year": 1960,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Hugh Hefner opens the first Playboy Club",
+    "year": 1960,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Lady Chatterley's Lover obscenity trial in the UK",
+    "year": 1960,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "The Joy of Sex manual is published",
+    "year": 1972,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Deep Throat adult film becomes a phenomenon",
+    "year": 1972,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Hustler magazine founded by Larry Flynt",
+    "year": 1974,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "First test-tube baby Louise Brown is born",
+    "year": 1978,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "HIV/AIDS identified among gay men in the US",
+    "year": 1981,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Madonna's Like a Virgin album release",
+    "year": 1984,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Surgeon General C. Everett Koop mails AIDS pamphlets",
+    "year": 1988,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Total Recall features a three-breasted woman",
+    "year": 1990,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Magic Johnson announces HIV-positive status",
+    "year": 1991,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "The World Wide Web accelerates online porn access",
+    "year": 1993,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Friends episode jokes about porn on Monica's TV",
+    "year": 1994,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Playboy website launches",
+    "year": 1994,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Bill Clinton Lewinsky scandal becomes public",
+    "year": 1998,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Sex and the City premieres on HBO",
+    "year": 1998,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Viagra approved by the FDA",
+    "year": 1998,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Napster era boosts media sharing including adult content",
+    "year": 1999,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Big Brother reality show normalizes 24/7 voyeur TV",
+    "year": 2000,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Fifty Shades of Grey novel is published",
+    "year": 2011,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Fifty Shades of Grey film adaptation releases",
+    "year": 2015,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "OnlyFans launches",
+    "year": 2016,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "OnlyFans briefly announces then reverses porn ban",
+    "year": 2021,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Pornhub removes unverified uploads after backlash",
+    "year": 2020,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Supreme Court legalizes same-sex marriage in the US",
+    "year": 2015,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Grindr dating app launches",
+    "year": 2009,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Tinder launches and popularizes swipe hookup culture",
+    "year": 2012,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Ashley Madison hack exposes affair seekers",
+    "year": 2015,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Stormy Daniels hush-money scandal breaks publicly",
+    "year": 2018,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "MeToo movement goes viral",
+    "year": 2017,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Bill Cosby conviction overturned later but trial shook industry",
+    "year": 2021,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Harvey Weinstein convicted of sex crimes",
+    "year": 2020,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Epstein arrest and death dominate headlines",
+    "year": 2019,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Cardi B WAP release sparks cultural debate",
+    "year": 2020,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Amsterdam tightens red light district tourism rules",
+    "year": 2020,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Germany legalizes prostitution regulation reforms debated",
+    "year": 2002,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Nevada brothels operate legally in rural counties",
+    "year": 1971,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Roe v. Wade decided in the United States",
+    "year": 1973,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Roe v. Wade overturned by Dobbs decision",
+    "year": 2022,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Plan B emergency contraception approved OTC in US",
+    "year": 2006,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "HPV vaccine Gardasil approved",
+    "year": 2006,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "PrEP approved for HIV prevention",
+    "year": 2012,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Monkeypox outbreak linked to sexual networks in 2022 news",
+    "year": 2022,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Pornhub parent MindGeek CEO resigns amid scrutiny",
+    "year": 2022,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Belle Delphine sells bathwater as stunt",
+    "year": 2019,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Cardi B stripper past discussed in interviews",
+    "year": 2017,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Miley Cyrus VMA twerking performance",
+    "year": 2013,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Janet Jackson Super Bowl wardrobe malfunction",
+    "year": 2004,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Prince sings about sex on Purple Rain tour",
+    "year": 1984,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Madonna publishes Sex coffee table book",
+    "year": 1992,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Caligula controversial adult film release",
+    "year": 1979,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Last Tango in Paris butter scene controversy",
+    "year": 1972,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Basic Instinct interrogation scene shocks audiences",
+    "year": 1992,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Showgirls film becomes cult erotic drama",
+    "year": 1995,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Borat thong scene becomes meme",
+    "year": 2006,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Magic Mike popularizes male stripper films",
+    "year": 2012,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Deadpool jokes about sex and cancer",
+    "year": 2016,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Euphoria HBO depicts teen sexuality controversially",
+    "year": 2019,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Bridgerton steamy scenes boost Netflix",
+    "year": 2020,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Porn literacy courses enter college curricula debates",
+    "year": 2021,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Revenge porn laws expand in many US states",
+    "year": 2013,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Deepfake porn concerns rise with AI",
+    "year": 2017,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "AI girlfriend apps trend on app stores",
+    "year": 2023,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "OnlyFans creators report tax audit confusion",
+    "year": 2022,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Stripper labor union efforts make news",
+    "year": 2022,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Porn actor unionization debates continue",
+    "year": 2020,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Cam site traffic surges during pandemic lockdowns",
+    "year": 2020,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Zoom sex scandal memes spread during WFH era",
+    "year": 2020,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Tiger King exotic drama includes poly marriage",
+    "year": 2020,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Love Is Blind reality show premieres",
+    "year": 2020,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Too Hot to Handle no-sex reality show launches",
+    "year": 2020,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Sex Education Netflix series premieres",
+    "year": 2019,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Big Mouth animated puberty comedy launches",
+    "year": 2017,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "BoJack Horseman jokes about adult films",
+    "year": 2014,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "South Park parodies porn addiction",
+    "year": 2009,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Family Guy cutaway gags about sex shops",
+    "year": 1999,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "American Pie pie scene defines teen sex comedy",
+    "year": 1999,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "American Pie sequel franchise expands",
+    "year": 2001,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Superbad fake ID plot for party hookups",
+    "year": 2007,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "The 40-Year-Old Virgin comedy release",
+    "year": 2005,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Knocked Up unplanned pregnancy comedy",
+    "year": 2007,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Bridesmaids food poisoning wedding scene",
+    "year": 2011,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Girls HBO explores awkward sex scenes",
+    "year": 2012,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Normal People intimate scenes praised",
+    "year": 2020,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "365 Days erotic Netflix film trends",
+    "year": 2020,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Fifty Shades Darker sequel releases",
+    "year": 2017,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Fifty Shades Freed finale releases",
+    "year": 2018,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Pornhub releases its first transparency report under scrutiny",
+    "year": 2020,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "California passes condom mandate for adult film sets",
+    "year": 2016,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Grindr fined for sharing users HIV status with vendors",
+    "year": 2021,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Comstock Act restricts contraceptive information in the US",
+    "year": 1873,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "First birth control clinic opens in the US (Margaret Sanger)",
+    "year": 1916,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Kinsey Institute founded at Indiana University",
+    "year": 1947,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "First issue of Playboy magazine published",
+    "year": 1953,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "FDA approves birth control pill Enovid",
+    "year": 1960,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Betty Friedan publishes The Feminine Mystique",
+    "year": 1963,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Griswold v. Connecticut establishes marital privacy on contraception",
+    "year": 1965,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Summer of Love in San Francisco",
+    "year": 1967,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Stonewall riots in New York City",
+    "year": 1969,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "First Gay Pride marches in US cities",
+    "year": 1970,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Larry Flynt founds Hustler magazine",
+    "year": 1974,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Rocky Horror Picture Show premieres",
+    "year": 1975,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Anita Bryant anti-gay Save Our Children campaign",
+    "year": 1977,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "First national March on Washington for Lesbian and Gay Rights",
+    "year": 1979,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "First reported AIDS cases in the US",
+    "year": 1981,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Surgeon General report on AIDS released",
+    "year": 1986,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Ryan White dies of AIDS complications",
+    "year": 1990,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Magic Johnson announces he is HIV-positive",
+    "year": 1991,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Bill Clinton elected after Gennifer Flowers scandal",
+    "year": 1992,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Don't Ask Don't Tell policy enacted in US military",
+    "year": 1993,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Jeffrey Dahmer trial raises serial killer media frenzy",
+    "year": 1992,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "The Jerry Springer Show peaks in tabloid TV ratings",
+    "year": 1998,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Monica Lewinsky scandal breaks publicly",
+    "year": 1998,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "FDA approves Viagra for erectile dysfunction",
+    "year": 1998,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Matthew Shepard murdered in Wyoming",
+    "year": 1998,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Boston Legalizes same-sex marriage in Massachusetts",
+    "year": 2004,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Brokeback Mountain released in theaters",
+    "year": 2005,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Twitter launches and later becomes thirst-trap platform",
+    "year": 2006,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "iPhone launch enables mobile sexting culture",
+    "year": 2007,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Craigslist removes adult services section after pressure",
+    "year": 2010,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Grindr app launches globally",
+    "year": 2009,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Tinder launches swipe-based dating",
+    "year": 2012,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Anthony Weiner sexting scandal resurfaces",
+    "year": 2011,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Fifty Shades of Grey book tops bestseller lists",
+    "year": 2012,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Supreme Court strikes down DOMA section 3",
+    "year": 2013,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Celebgate iCloud photo leak scandal",
+    "year": 2014,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Ashley Madison user data breach",
+    "year": 2015,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Supreme Court legalizes same-sex marriage nationwide in Obergefell",
+    "year": 2015,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Bathroom bills debate peaks in North Carolina",
+    "year": 2016,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Harvey Weinstein allegations published in New York Times",
+    "year": 2017,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "MeToo hashtag goes viral after Weinstein reports",
+    "year": 2017,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Kevin Spacey allegations lead to House of Cards cancellation",
+    "year": 2017,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Aziz Ansari date story sparks consent debate",
+    "year": 2018,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Stormy Daniels hush money case enters mainstream news",
+    "year": 2018,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Jeffrey Epstein arrested on sex trafficking charges",
+    "year": 2019,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "OnlyFans surges during COVID lockdowns",
+    "year": 2020,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Cardi B releases WAP with Megan Thee Stallion",
+    "year": 2020,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Pornhub removes unverified uploads",
+    "year": 2020,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "OnlyFans announces then reverses adult content ban",
+    "year": 2021,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Roe v. Wade overturned by Dobbs v. Jackson",
+    "year": 2022,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Johnny Depp v. Amber Heard defamation trial aired",
+    "year": 2022,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Britney Spears conservatorship ends after Free Britney movement",
+    "year": 2021,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Bill Cosby conviction overturned on procedural grounds",
+    "year": 2021,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Larry Nassar USA Gymnastics abuse sentencing hearings",
+    "year": 2018,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Larry Flynt dies",
+    "year": 2021,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Hugh Hefner dies",
+    "year": 2017,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Christine Jorgensen gender affirmation story makes headlines",
+    "year": 1952,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "First transgender person on cover of Time magazine (Laverne Cox era)",
+    "year": 2014,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Paris Hilton sex tape scandal era in tabloid culture",
+    "year": 2004,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Pamela Anderson and Tommy Lee tape theft scandal",
+    "year": 1995,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Bill Clinton impeachment over Lewinsky affair",
+    "year": 1998,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Eliot Spitzer prostitution scandal forces resignation",
+    "year": 2008,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Anthony Weiner resigns from Congress over sexting",
+    "year": 2011,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "David Petraeus resigns CIA over affair",
+    "year": 2012,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Dominique Strauss-Kahn hotel maid accusation case",
+    "year": 2011,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "R. Kelly convicted on sex trafficking charges",
+    "year": 2021,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Ghislaine Maxwell convicted for Epstein trafficking conspiracy",
+    "year": 2021,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Britney Spears conservatorship hearing goes viral",
+    "year": 2021,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "OnlyFans creator Bella Thorne payment controversy",
+    "year": 2020,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Pornhub deletes millions of unverified videos",
+    "year": 2020,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Netflix releases 365 Days erotic film",
+    "year": 2020,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Bridgerton steamy scenes trend on Netflix",
+    "year": 2020,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Euphoria teen sexuality debates begin on HBO",
+    "year": 2019,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Nymphomaniac film by Lars von Trier premieres",
+    "year": 2013,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Blue Is the Warmest Color wins Palme d'Or at Cannes",
+    "year": 2013,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Fifty Shades Freed film finale releases",
+    "year": 2018,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Magic Mike XXL sequel releases",
+    "year": 2015,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Deadpool R-rated superhero film embraces sex humor",
+    "year": 2016,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Borat Subsequent Moviefilm release with crude humor",
+    "year": 2020,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Salt-N-Pepa push condom awareness in pop culture",
+    "year": 1991,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Madonna Like a Prayer video controversy",
+    "year": 1989,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Prince Sign o the Times tour famous for sexuality",
+    "year": 1987,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "George Michael arrested in public restroom scandal",
+    "year": 1998,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Rob Lowe sex tape scandal",
+    "year": 1988,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Rebecca Schaeffer murder sparks anti-stalking laws debate",
+    "year": 1989,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Revenge porn laws spread across US states",
+    "year": 2013,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Deepfake porn concerns rise with AI tools",
+    "year": 2017,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "California requires condoms on adult film sets (Measure B era debate)",
+    "year": 2012,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Nevada legal brothels operate in rural counties",
+    "year": 1971,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Germany passes Prostitution Act regulating sex work",
+    "year": 2002,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Sweden introduces Nordic model on purchasing sex",
+    "year": 1999,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Amsterdam tightens red light district tourism",
+    "year": 2020,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "UK age verification for porn sites proposed then dropped",
+    "year": 2019,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "FOSTA-SESTA US law affects online sex work ads",
+    "year": 2018,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Backpage.com seized by federal authorities",
+    "year": 2018,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Craigslist personals section removed in US",
+    "year": 2018,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Tumblr bans adult content",
+    "year": 2018,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Patreon adult content policy debates",
+    "year": 2018,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Discord adult content moderation debates intensify",
+    "year": 2021,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Reddit bans several sexualized subreddits in policy updates",
+    "year": 2015,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Snapchat introduced disappearing messages changing sexting",
+    "year": 2011,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Instagram introduces Stories competing with Snapchat",
+    "year": 2016,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "TikTok thirst trap culture dominates Gen Z social media",
+    "year": 2020,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Bumble IPO as women-message-first dating app",
+    "year": 2021,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Hinge rebrands as designed to be deleted",
+    "year": 2019,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "COVID lockdowns increase cam site traffic reports",
+    "year": 2020,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Zoom sex scandal memes during remote work era",
+    "year": 2020,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Lady Gaga Born This Way anthem boosts LGBTQ visibility",
+    "year": 2011,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "RuPaul Drag Race premieres and mainstreams drag culture",
+    "year": 2009,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Queer Eye reboot premieres on Netflix",
+    "year": 2018,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Pose FX series highlights ballroom and trans stories",
+    "year": 2018,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Ellen DeGeneres comes out on magazine cover",
+    "year": 1997,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Will and Grace premieres with gay lead characters",
+    "year": 1998,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Brokeback Mountain Oscar buzz for gay cowboy romance",
+    "year": 2005,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Moonlight wins Best Picture after envelope mix-up",
+    "year": 2017,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Call Me by Your Name queer romance film release",
+    "year": 2017,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Portrait of a Lady on Fire arthouse lesbian romance",
+    "year": 2019,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Cuties Netflix film sparks sexualization debate",
+    "year": 2020,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Cuties controversy fuels culture war over minors on screen",
+    "year": 2020,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Andrew Tate banned on platforms amid misogyny debates",
+    "year": 2022,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Incel forum culture enters mainstream news coverage",
+    "year": 2014,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Gamergate harassment campaign targets women in gaming",
+    "year": 2014,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "OnlyFans creator Bella Thorne payment backlash",
+    "year": 2020,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Pornhub deletes unverified videos after NY Times report",
+    "year": 2020,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "MindGeek CEO resigns amid Pornhub scrutiny",
+    "year": 2022,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Louis C.K. admits sexual misconduct allegations",
+    "year": 2017,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Brett Kavanaugh hearing includes sexual assault testimony",
+    "year": 2018,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Christine Blasey Ford testifies in Kavanaugh hearing",
+    "year": 2018,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Bill Cosby sentenced then conviction later overturned",
+    "year": 2018,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Larry Nassar sentencing hearing with survivor statements",
+    "year": 2018,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "USA Gymnastics sexual abuse scandal dominates news",
+    "year": 2016,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Catholic Church sexual abuse investigations global headlines",
+    "year": 2002,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Jeffrey Epstein found dead in jail awaiting trial",
+    "year": 2019,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Prince Andrew settles Virginia Giuffre lawsuit",
+    "year": 2022,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Harvey Weinstein sentenced for sexual assault crimes",
+    "year": 2020,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Kevin Spacey criminal sexual assault trial in UK",
+    "year": 2023,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Johnny Depp v Amber Heard televised defamation trial",
+    "year": 2022,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Britney Spears conservatorship terminated after fan campaign",
+    "year": 2021,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Free Britney movement protests outside courthouses",
+    "year": 2021,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "SlutWalk marches protest victim blaming after Toronto case",
+    "year": 2011,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Yes Means Yes affirmative consent laws debated in colleges",
+    "year": 2014,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "California affirmative consent law for campuses signed",
+    "year": 2014,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Plan B emergency contraception approved over the counter",
+    "year": 2006,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Emergency contraception morning-after pill OTC debate peaks",
+    "year": 2006,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "HPV vaccine Gardasil recommended for adolescents",
+    "year": 2006,
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "event": "FDA approves female Viagra Addyi for low libido",
+    "year": 2015,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Sex therapy shows like Couples Therapy trend on streaming",
+    "year": 2021,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Supreme Court hears Obergefell same-sex marriage arguments",
+    "year": 2015,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Grindr launches globally for gay dating",
+    "year": 2009,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Tinder launches swipe hookup culture era",
+    "year": 2012,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "OnlyFans launches creator subscription platform",
+    "year": 2016,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Pornhub removes unverified videos after backlash",
+    "year": 2020,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Deep Throat adult film cultural phenomenon peaks",
+    "year": 1972,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Playboy magazine first issue published",
+    "year": 1953,
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "event": "Kinsey Reports on human sexuality published",
+    "year": 1948,
     "rating": "mature",
     "difficulty": "medium"
   }

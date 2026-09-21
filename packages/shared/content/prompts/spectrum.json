@@ -1723,5 +1723,940 @@
     "left": "cuddle post-sex",
     "right": "jump in the shower",
     "rating": "mature"
+  },
+  {
+    "left": "Never sext",
+    "right": "Sext before first date",
+    "rating": "mature"
+  },
+  {
+    "left": "One night stand",
+    "right": "Wait for feelings",
+    "rating": "mature"
+  },
+  {
+    "left": "Keep affair secret",
+    "right": "Confess everything",
+    "rating": "mature"
+  },
+  {
+    "left": "Delete hookup chats",
+    "right": "Archive for stories",
+    "rating": "mature"
+  },
+  {
+    "left": "Ghost after sex",
+    "right": "Breakfast text",
+    "rating": "mature"
+  },
+  {
+    "left": "Horny DM",
+    "right": "Slow burn flirt",
+    "rating": "mature"
+  },
+  {
+    "left": "Stripper night out",
+    "right": "Board game night",
+    "rating": "mature"
+  },
+  {
+    "left": "Share thirst trap",
+    "right": "Stay mysterious",
+    "rating": "mature"
+  },
+  {
+    "left": "Dirty talk expert",
+    "right": "Awkward silence",
+    "rating": "mature"
+  },
+  {
+    "left": "Open relationship",
+    "right": "Strict monogamy",
+    "rating": "mature"
+  },
+  {
+    "left": "Hookup app bio",
+    "right": "Meet in person",
+    "rating": "mature"
+  },
+  {
+    "left": "Affair fantasy",
+    "right": "Never cheat",
+    "rating": "mature"
+  },
+  {
+    "left": "OnlyFans curious",
+    "right": "Keep it private",
+    "rating": "mature"
+  },
+  {
+    "left": "Kiss a friend",
+    "right": "Keep boundaries",
+    "rating": "mature"
+  },
+  {
+    "left": "Spicy party game",
+    "right": "Mild icebreakers",
+    "rating": "mature"
+  },
+  {
+    "left": "Confess a stripper story",
+    "right": "Act out your worst hookup",
+    "rating": "mature"
+  },
+  {
+    "left": "Confess an affair fantasy",
+    "right": "Do a horny karaoke song",
+    "rating": "mature"
+  },
+  {
+    "left": "Dirty talk rookie",
+    "right": "Dirty talk expert",
+    "rating": "mature"
+  },
+  {
+    "left": "Strict monogamy",
+    "right": "Open relationship",
+    "rating": "mature"
+  },
+  {
+    "left": "Never cheat",
+    "right": "Affair fantasy",
+    "rating": "mature"
+  },
+  {
+    "left": "Keep it private",
+    "right": "OnlyFans curious",
+    "rating": "mature"
+  },
+  {
+    "left": "Missionary only",
+    "right": "Try every position",
+    "rating": "mature"
+  },
+  {
+    "left": "Lights on",
+    "right": "Lights off kink",
+    "rating": "mature"
+  },
+  {
+    "left": "Vanilla only",
+    "right": "BDSM curious",
+    "rating": "mature"
+  },
+  {
+    "left": "Wait for marriage",
+    "right": "First date hookup",
+    "rating": "mature"
+  },
+  {
+    "left": "Clothes stay on",
+    "right": "Skinny dipping",
+    "rating": "mature"
+  },
+  {
+    "left": "Never sext",
+    "right": "Dirty talk expert",
+    "rating": "mature"
+  },
+  {
+    "left": "Never sext",
+    "right": "Open relationship",
+    "rating": "mature"
+  },
+  {
+    "left": "Never sext",
+    "right": "Affair fantasy",
+    "rating": "mature"
+  },
+  {
+    "left": "Never sext",
+    "right": "OnlyFans curious",
+    "rating": "mature"
+  },
+  {
+    "left": "Never sext",
+    "right": "Lights off kink",
+    "rating": "mature"
+  },
+  {
+    "left": "Never sext",
+    "right": "BDSM curious",
+    "rating": "mature"
+  },
+  {
+    "left": "Never sext",
+    "right": "First date hookup",
+    "rating": "mature"
+  },
+  {
+    "left": "Never sext",
+    "right": "Skinny dipping",
+    "rating": "mature"
+  },
+  {
+    "left": "One night stand",
+    "right": "Sext before first date",
+    "rating": "mature"
+  },
+  {
+    "left": "One night stand",
+    "right": "Archive for stories",
+    "rating": "mature"
+  },
+  {
+    "left": "One night stand",
+    "right": "Breakfast text",
+    "rating": "mature"
+  },
+  {
+    "left": "One night stand",
+    "right": "Slow burn flirt",
+    "rating": "mature"
+  },
+  {
+    "left": "One night stand",
+    "right": "Board game night",
+    "rating": "mature"
+  },
+  {
+    "left": "One night stand",
+    "right": "Stay mysterious",
+    "rating": "mature"
+  },
+  {
+    "left": "One night stand",
+    "right": "Dirty talk expert",
+    "rating": "mature"
+  },
+  {
+    "left": "One night stand",
+    "right": "Open relationship",
+    "rating": "mature"
+  },
+  {
+    "left": "One night stand",
+    "right": "Meet in person",
+    "rating": "mature"
+  },
+  {
+    "left": "One night stand",
+    "right": "Affair fantasy",
+    "rating": "mature"
+  },
+  {
+    "left": "One night stand",
+    "right": "OnlyFans curious",
+    "rating": "mature"
+  },
+  {
+    "left": "One night stand",
+    "right": "Keep boundaries",
+    "rating": "mature"
+  },
+  {
+    "left": "One night stand",
+    "right": "Spicy party game",
+    "rating": "mature"
+  },
+  {
+    "left": "One night stand",
+    "right": "Try every position",
+    "rating": "mature"
+  },
+  {
+    "left": "One night stand",
+    "right": "Lights off kink",
+    "rating": "mature"
+  },
+  {
+    "left": "One night stand",
+    "right": "BDSM curious",
+    "rating": "mature"
+  },
+  {
+    "left": "One night stand",
+    "right": "Toy collector",
+    "rating": "mature"
+  },
+  {
+    "left": "One night stand",
+    "right": "First date hookup",
+    "rating": "mature"
+  },
+  {
+    "left": "One night stand",
+    "right": "Skinny dipping",
+    "rating": "mature"
+  },
+  {
+    "left": "Delete hookup chats",
+    "right": "Sext before first date",
+    "rating": "mature"
+  },
+  {
+    "left": "Delete hookup chats",
+    "right": "Wait for feelings",
+    "rating": "mature"
+  },
+  {
+    "left": "Delete hookup chats",
+    "right": "Breakfast text",
+    "rating": "mature"
+  },
+  {
+    "left": "Delete hookup chats",
+    "right": "Slow burn flirt",
+    "rating": "mature"
+  },
+  {
+    "left": "Delete hookup chats",
+    "right": "Board game night",
+    "rating": "mature"
+  },
+  {
+    "left": "Delete hookup chats",
+    "right": "Stay mysterious",
+    "rating": "mature"
+  },
+  {
+    "left": "Delete hookup chats",
+    "right": "Dirty talk expert",
+    "rating": "mature"
+  },
+  {
+    "left": "Delete hookup chats",
+    "right": "Open relationship",
+    "rating": "mature"
+  },
+  {
+    "left": "Delete hookup chats",
+    "right": "Meet in person",
+    "rating": "mature"
+  },
+  {
+    "left": "Delete hookup chats",
+    "right": "Affair fantasy",
+    "rating": "mature"
+  },
+  {
+    "left": "Delete hookup chats",
+    "right": "OnlyFans curious",
+    "rating": "mature"
+  },
+  {
+    "left": "Delete hookup chats",
+    "right": "Keep boundaries",
+    "rating": "mature"
+  },
+  {
+    "left": "Delete hookup chats",
+    "right": "Spicy party game",
+    "rating": "mature"
+  },
+  {
+    "left": "Delete hookup chats",
+    "right": "Try every position",
+    "rating": "mature"
+  },
+  {
+    "left": "Delete hookup chats",
+    "right": "Lights off kink",
+    "rating": "mature"
+  },
+  {
+    "left": "Delete hookup chats",
+    "right": "BDSM curious",
+    "rating": "mature"
+  },
+  {
+    "left": "Delete hookup chats",
+    "right": "Toy collector",
+    "rating": "mature"
+  },
+  {
+    "left": "Delete hookup chats",
+    "right": "First date hookup",
+    "rating": "mature"
+  },
+  {
+    "left": "Delete hookup chats",
+    "right": "Skinny dipping",
+    "rating": "mature"
+  },
+  {
+    "left": "Ghost after sex",
+    "right": "Sext before first date",
+    "rating": "mature"
+  },
+  {
+    "left": "Ghost after sex",
+    "right": "Wait for feelings",
+    "rating": "mature"
+  },
+  {
+    "left": "Ghost after sex",
+    "right": "Archive for stories",
+    "rating": "mature"
+  },
+  {
+    "left": "Ghost after sex",
+    "right": "Slow burn flirt",
+    "rating": "mature"
+  },
+  {
+    "left": "Ghost after sex",
+    "right": "Board game night",
+    "rating": "mature"
+  },
+  {
+    "left": "Ghost after sex",
+    "right": "Stay mysterious",
+    "rating": "mature"
+  },
+  {
+    "left": "Ghost after sex",
+    "right": "Dirty talk expert",
+    "rating": "mature"
+  },
+  {
+    "left": "Ghost after sex",
+    "right": "Open relationship",
+    "rating": "mature"
+  },
+  {
+    "left": "Ghost after sex",
+    "right": "Meet in person",
+    "rating": "mature"
+  },
+  {
+    "left": "Ghost after sex",
+    "right": "Affair fantasy",
+    "rating": "mature"
+  },
+  {
+    "left": "Ghost after sex",
+    "right": "OnlyFans curious",
+    "rating": "mature"
+  },
+  {
+    "left": "Ghost after sex",
+    "right": "Keep boundaries",
+    "rating": "mature"
+  },
+  {
+    "left": "Ghost after sex",
+    "right": "Spicy party game",
+    "rating": "mature"
+  },
+  {
+    "left": "Ghost after sex",
+    "right": "Try every position",
+    "rating": "mature"
+  },
+  {
+    "left": "Ghost after sex",
+    "right": "Lights off kink",
+    "rating": "mature"
+  },
+  {
+    "left": "Ghost after sex",
+    "right": "BDSM curious",
+    "rating": "mature"
+  },
+  {
+    "left": "Ghost after sex",
+    "right": "Toy collector",
+    "rating": "mature"
+  },
+  {
+    "left": "Ghost after sex",
+    "right": "First date hookup",
+    "rating": "mature"
+  },
+  {
+    "left": "Ghost after sex",
+    "right": "Skinny dipping",
+    "rating": "mature"
+  },
+  {
+    "left": "Horny DM",
+    "right": "Sext before first date",
+    "rating": "mature"
+  },
+  {
+    "left": "Horny DM",
+    "right": "Wait for feelings",
+    "rating": "mature"
+  },
+  {
+    "left": "Horny DM",
+    "right": "Archive for stories",
+    "rating": "mature"
+  },
+  {
+    "left": "Horny DM",
+    "right": "Breakfast text",
+    "rating": "mature"
+  },
+  {
+    "left": "Horny DM",
+    "right": "Board game night",
+    "rating": "mature"
+  },
+  {
+    "left": "Horny DM",
+    "right": "Stay mysterious",
+    "rating": "mature"
+  },
+  {
+    "left": "Horny DM",
+    "right": "Dirty talk expert",
+    "rating": "mature"
+  },
+  {
+    "left": "Horny DM",
+    "right": "Open relationship",
+    "rating": "mature"
+  },
+  {
+    "left": "Horny DM",
+    "right": "Meet in person",
+    "rating": "mature"
+  },
+  {
+    "left": "Horny DM",
+    "right": "Affair fantasy",
+    "rating": "mature"
+  },
+  {
+    "left": "Horny DM",
+    "right": "OnlyFans curious",
+    "rating": "mature"
+  },
+  {
+    "left": "Horny DM",
+    "right": "Keep boundaries",
+    "rating": "mature"
+  },
+  {
+    "left": "Horny DM",
+    "right": "Spicy party game",
+    "rating": "mature"
+  },
+  {
+    "left": "Horny DM",
+    "right": "Try every position",
+    "rating": "mature"
+  },
+  {
+    "left": "Horny DM",
+    "right": "Lights off kink",
+    "rating": "mature"
+  },
+  {
+    "left": "Horny DM",
+    "right": "BDSM curious",
+    "rating": "mature"
+  },
+  {
+    "left": "Horny DM",
+    "right": "Toy collector",
+    "rating": "mature"
+  },
+  {
+    "left": "Horny DM",
+    "right": "First date hookup",
+    "rating": "mature"
+  },
+  {
+    "left": "Horny DM",
+    "right": "Skinny dipping",
+    "rating": "mature"
+  },
+  {
+    "left": "Stripper night out",
+    "right": "Sext before first date",
+    "rating": "mature"
+  },
+  {
+    "left": "Stripper night out",
+    "right": "Wait for feelings",
+    "rating": "mature"
+  },
+  {
+    "left": "Stripper night out",
+    "right": "Archive for stories",
+    "rating": "mature"
+  },
+  {
+    "left": "Stripper night out",
+    "right": "Breakfast text",
+    "rating": "mature"
+  },
+  {
+    "left": "Stripper night out",
+    "right": "Slow burn flirt",
+    "rating": "mature"
+  },
+  {
+    "left": "Stripper night out",
+    "right": "Stay mysterious",
+    "rating": "mature"
+  },
+  {
+    "left": "Stripper night out",
+    "right": "Dirty talk expert",
+    "rating": "mature"
+  },
+  {
+    "left": "Stripper night out",
+    "right": "Open relationship",
+    "rating": "mature"
+  },
+  {
+    "left": "Stripper night out",
+    "right": "Meet in person",
+    "rating": "mature"
+  },
+  {
+    "left": "Stripper night out",
+    "right": "Affair fantasy",
+    "rating": "mature"
+  },
+  {
+    "left": "Stripper night out",
+    "right": "OnlyFans curious",
+    "rating": "mature"
+  },
+  {
+    "left": "Stripper night out",
+    "right": "Keep boundaries",
+    "rating": "mature"
+  },
+  {
+    "left": "Stripper night out",
+    "right": "Spicy party game",
+    "rating": "mature"
+  },
+  {
+    "left": "Stripper night out",
+    "right": "Try every position",
+    "rating": "mature"
+  },
+  {
+    "left": "Stripper night out",
+    "right": "Lights off kink",
+    "rating": "mature"
+  },
+  {
+    "left": "Stripper night out",
+    "right": "BDSM curious",
+    "rating": "mature"
+  },
+  {
+    "left": "Stripper night out",
+    "right": "Toy collector",
+    "rating": "mature"
+  },
+  {
+    "left": "Stripper night out",
+    "right": "First date hookup",
+    "rating": "mature"
+  },
+  {
+    "left": "Stripper night out",
+    "right": "Skinny dipping",
+    "rating": "mature"
+  },
+  {
+    "left": "Share thirst trap",
+    "right": "Dirty talk expert",
+    "rating": "mature"
+  },
+  {
+    "left": "Share thirst trap",
+    "right": "Open relationship",
+    "rating": "mature"
+  },
+  {
+    "left": "Share thirst trap",
+    "right": "Affair fantasy",
+    "rating": "mature"
+  },
+  {
+    "left": "Share thirst trap",
+    "right": "OnlyFans curious",
+    "rating": "mature"
+  },
+  {
+    "left": "Share thirst trap",
+    "right": "Lights off kink",
+    "rating": "mature"
+  },
+  {
+    "left": "Share thirst trap",
+    "right": "BDSM curious",
+    "rating": "mature"
+  },
+  {
+    "left": "Share thirst trap",
+    "right": "First date hookup",
+    "rating": "mature"
+  },
+  {
+    "left": "Share thirst trap",
+    "right": "Skinny dipping",
+    "rating": "mature"
+  },
+  {
+    "left": "Dirty talk rookie",
+    "right": "Sext before first date",
+    "rating": "mature"
+  },
+  {
+    "left": "Dirty talk rookie",
+    "right": "Wait for feelings",
+    "rating": "mature"
+  },
+  {
+    "left": "Dirty talk rookie",
+    "right": "Archive for stories",
+    "rating": "mature"
+  },
+  {
+    "left": "Dirty talk rookie",
+    "right": "Breakfast text",
+    "rating": "mature"
+  },
+  {
+    "left": "Dirty talk rookie",
+    "right": "Slow burn flirt",
+    "rating": "mature"
+  },
+  {
+    "left": "Dirty talk rookie",
+    "right": "Board game night",
+    "rating": "mature"
+  },
+  {
+    "left": "Dirty talk rookie",
+    "right": "Stay mysterious",
+    "rating": "mature"
+  },
+  {
+    "left": "Dirty talk rookie",
+    "right": "Open relationship",
+    "rating": "mature"
+  },
+  {
+    "left": "Dirty talk rookie",
+    "right": "Meet in person",
+    "rating": "mature"
+  },
+  {
+    "left": "Dirty talk rookie",
+    "right": "Affair fantasy",
+    "rating": "mature"
+  },
+  {
+    "left": "Dirty talk rookie",
+    "right": "OnlyFans curious",
+    "rating": "mature"
+  },
+  {
+    "left": "Dirty talk rookie",
+    "right": "Keep boundaries",
+    "rating": "mature"
+  },
+  {
+    "left": "Dirty talk rookie",
+    "right": "Spicy party game",
+    "rating": "mature"
+  },
+  {
+    "left": "Dirty talk rookie",
+    "right": "Try every position",
+    "rating": "mature"
+  },
+  {
+    "left": "Dirty talk rookie",
+    "right": "Lights off kink",
+    "rating": "mature"
+  },
+  {
+    "left": "Dirty talk rookie",
+    "right": "BDSM curious",
+    "rating": "mature"
+  },
+  {
+    "left": "Dirty talk rookie",
+    "right": "Toy collector",
+    "rating": "mature"
+  },
+  {
+    "left": "Dirty talk rookie",
+    "right": "First date hookup",
+    "rating": "mature"
+  },
+  {
+    "left": "Dirty talk rookie",
+    "right": "Skinny dipping",
+    "rating": "mature"
+  },
+  {
+    "left": "Strict monogamy",
+    "right": "Dirty talk expert",
+    "rating": "mature"
+  },
+  {
+    "left": "Strict monogamy",
+    "right": "Affair fantasy",
+    "rating": "mature"
+  },
+  {
+    "left": "Strict monogamy",
+    "right": "OnlyFans curious",
+    "rating": "mature"
+  },
+  {
+    "left": "Strict monogamy",
+    "right": "Lights off kink",
+    "rating": "mature"
+  },
+  {
+    "left": "Strict monogamy",
+    "right": "BDSM curious",
+    "rating": "mature"
+  },
+  {
+    "left": "Strict monogamy",
+    "right": "First date hookup",
+    "rating": "mature"
+  },
+  {
+    "left": "Strict monogamy",
+    "right": "Skinny dipping",
+    "rating": "mature"
+  },
+  {
+    "left": "Hookup app bio",
+    "right": "Sext before first date",
+    "rating": "mature"
+  },
+  {
+    "left": "Hookup app bio",
+    "right": "Wait for feelings",
+    "rating": "mature"
+  },
+  {
+    "left": "Hookup app bio",
+    "right": "Archive for stories",
+    "rating": "mature"
+  },
+  {
+    "left": "Hookup app bio",
+    "right": "Breakfast text",
+    "rating": "mature"
+  },
+  {
+    "left": "Hookup app bio",
+    "right": "Slow burn flirt",
+    "rating": "mature"
+  },
+  {
+    "left": "Hookup app bio",
+    "right": "Board game night",
+    "rating": "mature"
+  },
+  {
+    "left": "Hookup app bio",
+    "right": "Stay mysterious",
+    "rating": "mature"
+  },
+  {
+    "left": "Hookup app bio",
+    "right": "Dirty talk expert",
+    "rating": "mature"
+  },
+  {
+    "left": "Hookup app bio",
+    "right": "Open relationship",
+    "rating": "mature"
+  },
+  {
+    "left": "Hookup app bio",
+    "right": "Affair fantasy",
+    "rating": "mature"
+  },
+  {
+    "left": "Hookup app bio",
+    "right": "OnlyFans curious",
+    "rating": "mature"
+  },
+  {
+    "left": "Hookup app bio",
+    "right": "Keep boundaries",
+    "rating": "mature"
+  },
+  {
+    "left": "Hookup app bio",
+    "right": "Spicy party game",
+    "rating": "mature"
+  },
+  {
+    "left": "Hookup app bio",
+    "right": "Try every position",
+    "rating": "mature"
+  },
+  {
+    "left": "Hookup app bio",
+    "right": "Lights off kink",
+    "rating": "mature"
+  },
+  {
+    "left": "Hookup app bio",
+    "right": "BDSM curious",
+    "rating": "mature"
+  },
+  {
+    "left": "Hookup app bio",
+    "right": "Toy collector",
+    "rating": "mature"
+  },
+  {
+    "left": "Hookup app bio",
+    "right": "First date hookup",
+    "rating": "mature"
+  },
+  {
+    "left": "Keep affair texts archived",
+    "right": "Delete every hookup chat",
+    "rating": "mature"
+  },
+  {
+    "left": "Share your OnlyFans link",
+    "right": "Share your LinkedIn profile",
+    "rating": "mature"
+  },
+  {
+    "left": "Do a horny truth round",
+    "right": "Do a mild icebreaker round",
+    "rating": "mature"
+  },
+  {
+    "left": "Try an open relationship",
+    "right": "Stay strictly monogamous",
+    "rating": "mature"
+  },
+  {
+    "left": "Watch porn with a partner",
+    "right": "Watch porn alone only",
+    "rating": "mature"
+  },
+  {
+    "left": "Try pegging once",
+    "right": "Never try pegging",
+    "rating": "mature"
   }
 ]

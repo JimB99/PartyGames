@@ -8,7 +8,6 @@ export const NEW_GAME_IDS = [
   "spectrum",
   "chain-sketch",
   "crowd-call",
-  "star-rate",
   "impostor",
   "agent-grid",
   "forbidden-clue",
@@ -17,14 +16,13 @@ export const NEW_GAME_IDS = [
   "grid-blast",
   "draw-vote",
   "draw-impostor",
-  "caption-this",
 ] as const satisfies readonly GameId[];
 
 export type NewGameId = (typeof NEW_GAME_IDS)[number];
 
 export const GAME_MAX_PLAYERS: Partial<Record<GameId, number>> = {
   "fact-check": 16,
-  "wit-showdown": 16,
+  "punchline-battle": 16,
   "quick-quiz": 16,
   "would-you-rather": 16,
   "draw-guess": 12,
@@ -46,7 +44,6 @@ export const GAME_MAX_PLAYERS: Partial<Record<GameId, number>> = {
   spectrum: 12,
   "chain-sketch": 8,
   "crowd-call": 16,
-  "star-rate": 16,
   "agent-grid": 12,
   "forbidden-clue": 12,
   "hangman-race": 16,
@@ -54,7 +51,6 @@ export const GAME_MAX_PLAYERS: Partial<Record<GameId, number>> = {
   "grid-blast": 8,
   "draw-vote": 12,
   "draw-impostor": 10,
-  "caption-this": 16,
 };
 
 export function midPlayerCount(config: GameE2EConfig): number {
@@ -152,7 +148,7 @@ async function drawOnCanvas(page: import("@playwright/test").Page, strict = true
 
 export const GAME_E2E_CONFIGS: Record<GameId, GameE2EConfig> = {
   "fact-check": { id: "fact-check", minPlayers: 2, playerAction: submitText },
-  "wit-showdown": { id: "wit-showdown", minPlayers: 3, playerAction: submitText },
+  "punchline-battle": { id: "punchline-battle", minPlayers: 3, playerAction: submitText },
   "quick-quiz": {
     id: "quick-quiz",
     minPlayers: 1,
@@ -311,18 +307,6 @@ export const GAME_E2E_CONFIGS: Record<GameId, GameE2EConfig> = {
       if (strict && !clicked) await submitText(page, strict);
     },
   },
-  "star-rate": {
-    id: "star-rate",
-    minPlayers: 3,
-    playerAction: async (page, strict) => {
-      const star = page.getByTestId("star-rate-3");
-      if (await star.isVisible().catch(() => false)) {
-        await star.click();
-        return;
-      }
-      await submitText(page, strict);
-    },
-  },
   "agent-grid": {
     id: "agent-grid",
     minPlayers: 4,
@@ -385,7 +369,6 @@ export const GAME_E2E_CONFIGS: Record<GameId, GameE2EConfig> = {
     minPlayers: 4,
     playerAction: (page, strict) => drawOnCanvas(page, strict),
   },
-  "caption-this": { id: "caption-this", minPlayers: 3, playerAction: submitText },
 };
 
 for (const id of ALL_GAME_IDS) {

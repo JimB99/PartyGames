@@ -119,11 +119,8 @@ export function PlayerGameView({
             <p className="text-center text-lg font-bold text-amber-300">{String(data.targetName)} is in the hot seat</p>
           )}
           {data.displayText && <p className="text-center text-xl font-bold">{String(data.displayText)}</p>}
-          {data.prompt && data.prompt !== data.displayText && data.prompt !== data.imageCaption && (
+          {data.prompt && data.prompt !== data.displayText && (
             <p className="text-center text-xl font-bold">{String(data.prompt)}</p>
-          )}
-          {data.imageCaption && data.imageCaption !== data.displayText && (
-            <p className="text-center text-lg text-zinc-300">{String(data.imageCaption)}</p>
           )}
           {data.category && <p className="text-center text-xl font-bold">{String(data.category)}</p>}
           {playerData.word && <p className="text-center text-2xl font-bold">{String(playerData.word)}</p>}
@@ -954,35 +951,6 @@ export function PlayerGameView({
         </div>
       )}
 
-      {phase === "rate" && playerData.noAnswers && (
-        <p className="text-center text-zinc-400">No answers this round.</p>
-      )}
-
-      {phase === "rate" && playerData.toRate && (
-        <div className="space-y-4">
-          {(playerData.toRate as Array<{ id: string; text: string }>).map((sub) => (
-            <div key={sub.id} className="rounded-xl bg-zinc-800 p-4 space-y-2">
-              <p>{sub.text}</p>
-              <div className="flex gap-2">
-                {[1, 2, 3, 4, 5].map((stars) => {
-                  const selected = Number((playerData.myRatings as Record<string, number> | undefined)?.[sub.id] ?? 0) >= stars;
-                  return (
-                    <button
-                      key={stars}
-                      type="button"
-                      data-testid={`star-rate-${stars}`}
-                      className={`text-2xl ${selected ? "text-amber-400" : "text-zinc-600"}`}
-                      onClick={() => onAction({ kind: "star_rate", submissionId: sub.id, stars })}
-                    >
-                      ★
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
       {playerView.gameId === "impostor" && (
         <div className="space-y-4">
           {playerData.isSpy ? (

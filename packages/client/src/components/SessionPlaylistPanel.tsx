@@ -17,16 +17,14 @@ const MATURE_PRESET: GameId[] = [
   "would-you-rather",
   "hot-seat",
   "split-the-room",
-  "star-rate",
   "crowd-call",
-  "caption-this",
-  "wit-showdown",
+  "punchline-battle",
 ];
 const MIX_PRESET: GameId[] = [
   "quick-quiz",
   "would-you-rather",
   "draw-guess",
-  "caption-this",
+  "punchline-battle",
   "four-in-a-row",
   "hot-seat",
   "hangman-race",

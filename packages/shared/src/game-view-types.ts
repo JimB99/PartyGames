@@ -54,7 +54,6 @@ export interface BluffViewData extends ScoredViewFields {
 
 export interface PromptVoteViewData extends BluffViewData {
   mode?: string;
-  imageCaption?: string;
   targetName?: string;
   submissions?: Array<{ id: string; text: string; playerId?: string }>;
   matchup?: {
@@ -148,19 +147,6 @@ export interface CrowdCallViewData extends ScoredViewFields {
   predictionResult?: { correct: boolean; majorityIndex: number };
 }
 
-export interface StarRateViewData extends ScoredViewFields {
-  prompt?: string;
-  submissions?: Array<{
-    id: string;
-    text: string;
-    average?: number;
-    histogram?: number[];
-  }>;
-  progress?: Record<string, number>;
-  submitCount?: number;
-  playerCount?: number;
-}
-
 export interface AgentGridViewData extends ScoredViewFields {
   words?: string[];
   revealed?: boolean[];
@@ -189,8 +175,7 @@ export type GameHostDataMap = {
   "would-you-rather": TriviaViewData;
   "fact-check": BluffViewData;
   "reverse-fact": BluffViewData;
-  "wit-showdown": PromptVoteViewData;
-  "caption-this": PromptVoteViewData;
+  "punchline-battle": PromptVoteViewData;
   "hot-seat": PromptVoteViewData;
   "draw-guess": DrawingViewData;
   "draw-vote": DrawingViewData;
@@ -210,7 +195,6 @@ export type GameHostDataMap = {
   spectrum: SpectrumViewData;
   "chain-sketch": DrawingViewData;
   "crowd-call": CrowdCallViewData;
-  "star-rate": StarRateViewData;
   "agent-grid": AgentGridViewData;
   "forbidden-clue": CharadesViewData;
   "hangman-race": ArcadeViewData;

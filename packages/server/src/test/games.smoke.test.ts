@@ -55,7 +55,7 @@ describe("game smoke tests", () => {
         assertViews(game!, state, ctx);
         const scores = game!.getRoundScores(state);
         assertScoresValid(scores);
-        const zeroOk = new Set(["hot-seat", "star-rate", "word-rush", "split-the-room"]);
+        const zeroOk = new Set(["hot-seat", "word-rush", "split-the-room"]);
         if (label === "min" && !zeroOk.has(meta.id)) {
           assertSomeoneScored(scores);
         }
@@ -66,7 +66,7 @@ describe("game smoke tests", () => {
 
         assert.equal(getPhase(state), "ended");
 
-        if (meta.id === "fact-check" || meta.id === "wit-showdown") {
+        if (meta.id === "fact-check" || meta.id === "punchline-battle") {
           const round = (state as { round?: number }).round ?? 0;
           assert.ok(round >= 2, `${meta.id} should play multiple rounds (got round ${round})`);
         }

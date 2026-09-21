@@ -28,11 +28,16 @@ const MIN_POOL_SIZE = 200;
 const MIN_FAMILY = 200;
 const MIN_MATURE = 50;
 
+/** Harvest source files — not loaded directly into game pools. */
+const SOURCE_ONLY_FILES = new Set([
+  "prompts/mature-curated.json",
+  "prompts/mature-curated-games.json",
+]);
+
 const REGISTERED_CONTENT_FILES = new Set([
   "prompts/fact-check.json",
   "prompts/reverse-fact.json",
-  "prompts/wit-showdown.json",
-  "prompts/caption.json",
+  "prompts/punchline-battle.json",
   "prompts/hot-seat.json",
   "prompts/split-room.json",
   "prompts/spectrum.json",
@@ -115,6 +120,9 @@ function entryText(rec: Record<string, unknown>): string {
 }
 
 function auditFile(path: string, statsOut: PoolStats[]): AuditIssue[] {
+  const fileRel = rel(path);
+  if (SOURCE_ONLY_FILES.has(fileRel)) return [];
+
   const issues: AuditIssue[] = [];
   let data: unknown;
   try {
@@ -170,7 +178,6 @@ function auditFile(path: string, statsOut: PoolStats[]): AuditIssue[] {
     unrated = 0;
   }
 
-  const fileRel = rel(path);
   statsOut.push({ file: fileRel, total: entries.length, family, mature, unrated });
 
   const thinSeverity = STRICT_POOLS ? "error" : "warning";

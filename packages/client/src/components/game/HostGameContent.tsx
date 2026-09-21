@@ -252,9 +252,6 @@ export function HostGameView({
       {phase === "vote" && data.submissions && !data.options && (
         <div className="rounded-2xl bg-zinc-800/60 p-8 text-center space-y-4">
           {data.prompt && <p className="text-2xl font-bold">{String(data.prompt)}</p>}
-          {data.imageCaption && data.imageCaption !== data.prompt && (
-            <p className="text-lg text-zinc-300">{String(data.imageCaption)}</p>
-          )}
           <ul className="space-y-2 text-left">
             {(data.submissions as Array<{ id: string; text: string }>).map((s) => (
               <li key={s.id} className="rounded-xl bg-zinc-700/80 px-4 py-3 text-lg">{s.text}</li>
@@ -539,35 +536,6 @@ export function HostGameView({
             <p className="text-xl text-emerald-400">
               Majority: {((data.question as { choices: string[] }).choices ?? [])[data.majority as number]}
             </p>
-          )}
-        </div>
-      )}
-
-      {hostView.gameId === "star-rate" && data.prompt && phase !== "submit" && (
-        <div className="rounded-2xl bg-zinc-800/60 p-8 text-center space-y-4">
-          <p className="text-3xl font-bold">{String(data.prompt)}</p>
-          {data.submissions && (
-            <ul className="space-y-3 text-left">
-              {(data.submissions as Array<{ id: string; text: string; average?: number; histogram?: number[] }>).map((s) => (
-                <li key={s.id} className="rounded-xl bg-zinc-700/80 px-4 py-3 space-y-2">
-                  <p>{s.text}</p>
-                  {s.average !== undefined && phase !== "rate" && (
-                    <div className="flex flex-wrap items-center gap-3 text-sm text-zinc-300">
-                      <span className="font-bold text-amber-300">{s.average.toFixed(1)} ★</span>
-                      {s.histogram && (
-                        <span className="flex gap-1" aria-label="Star histogram">
-                          {s.histogram.map((count, i) => (
-                            <span key={i} className="rounded bg-zinc-900/80 px-1.5 py-0.5 text-xs tabular-nums">
-                              {i + 1}★ {count}
-                            </span>
-                          ))}
-                        </span>
-                      )}
-                    </div>
-                  )}
-                </li>
-              ))}
-            </ul>
           )}
         </div>
       )}

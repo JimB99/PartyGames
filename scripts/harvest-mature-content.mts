@@ -1,6 +1,6 @@
 /**
- * Fill 18+ pools with human-sourced adult content (CocktailDB, TruthOrDareBot, nhie.io)
- * and retag existing 18+ themed trivia. 18+ rooms use these rows only.
+ * Fill 18+ pools with spicy curated adult content and sanitize family/mature splits.
+ * Sources: mature-curated.json, mature-curated-games.json, TruthOrDareBot, nhie.io.
  *
  * Run: pnpm harvest-mature
  */
@@ -8,13 +8,19 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import {
-  buildReverseFactsFromQuiz,
+  containsMatureKeywords,
   diversifyNhieStatement,
   filterRepetitiveTruths,
   isFactCheckTruthValid,
-  isReverseFactTrivial,
-  looksLikeGeneratedFactCheckTruth,
-  rebalanceWitShowdownPrefixes,
+  isSpicyBracketName,
+  isSpicyDrawWord,
+  isSpicyFactCheckPair,
+  isSpicyPrompt,
+  isSpicyQuizRow,
+  isMatureCultureContent,
+  isSpicyTimelineEvent,
+  isSpicyWyrPair,
+  rebalancePunchlinePrefixes,
 } from "../packages/shared/src/content-quality.ts";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -253,6 +259,57 @@ function mergeBy<T>(existing: T[], extra: T[], keyFn: (row: T) => string): T[] {
   return out;
 }
 
+const LEGACY_IMPOSTOR_PACKS = new Set([
+  "nightlife",
+  "after-hours",
+  "dating-life",
+  "morning-after",
+  "bar-jobs",
+  "wedding-chaos",
+]);
+
+type CuratedGames = {
+  factCheck?: Array<{ prompt: string; truth: string }>;
+  quiz?: Array<{ question: string; choices: string[]; correct: number }>;
+  draw?: string[];
+  bracket?: string[];
+  timeline?: Array<{ event: string; year: number }>;
+  impostor?: Array<{ id: string; label: string; rating: Rating; items: string[] }>;
+  reverseFact?: Array<{ fact: string; truth: string }>;
+  wyr?: Array<{ a: string; b: string }>;
+  spectrum?: Array<{ left: string; right: string }>;
+  splitRoom?: Array<{ text: string; labelA: string; labelB: string }>;
+  friendSortRoles?: string[];
+  crowdCall?: Array<{ text: string; choices: string[] }>;
+};
+
+function loadCuratedGames(): CuratedGames {
+  const path = join(CONTENT, "prompts/mature-curated-games.json");
+  if (!existsSync(path)) return {};
+  return loadJson<CuratedGames>("prompts/mature-curated-games.json");
+}
+
+function fixFamilyLeaks<T extends { rating?: Rating }>(rows: T[], textFn: (row: T) => string): T[] {
+  return rows.map((row) => {
+    if ((row.rating ?? "family") !== "family") return row;
+    const blob = textFn(row);
+    if (containsMatureKeywords(blob) || isSpicyPrompt(blob)) {
+      return { ...row, rating: "mature" as Rating };
+    }
+    return row;
+  });
+}
+
+function pruneNonSpicyMature<T extends { rating?: Rating }>(
+  rows: T[],
+  isSpicy: (row: T) => boolean,
+): T[] {
+  return rows.map((row) => {
+    if ((row.rating ?? "family") !== "mature") return row;
+    return isSpicy(row) ? row : { ...row, rating: "family" as Rating };
+  });
+}
+
 function parseWyr(question: string): [string, string] | null {
   const t = question.replace(/^would you rather\s+/i, "").replace(/\?+$/, "").trim();
   const parts = t.split(/\s+or\s+/i);
@@ -445,223 +502,178 @@ function cocktailQuizzes(drinks: Cocktail[]): QuizRow[] {
 
 async function main() {
   const localOnly = process.argv.includes("--local-only");
-  console.log(`Filling 18+ (mature-only) pools${localOnly ? " [local-only]" : ""}…`);
+  console.log(`Filling 18+ (spicy mature) pools${localOnly ? " [local-only]" : ""}…`);
 
+  console.log("  generating mature-curated-games.json…");
+  await import("./generate-mature-curated-games.mts");
+  const curatedGames = loadCuratedGames();
+
+  // --- Quick Quiz: demote alcohol-trivia mature rows, add spicy curated MCQ ---
   const quiz = loadJson<QuizRow[]>("trivia/quiz.json");
-  let retagged = 0;
+  let demotedQuiz = 0;
   for (const row of quiz) {
-    if (row.rating === "mature") continue;
-    const blob = `${row.question} ${row.choices[row.correct] ?? ""}`;
-    if (SKIP_RETAG.test(blob)) continue;
-    if (ADULT_THEME.test(blob)) {
-      row.rating = "mature";
-      retagged++;
+    if (row.rating !== "mature") continue;
+    if (!isSpicyQuizRow(row)) {
+      row.rating = "family";
+      demotedQuiz++;
     }
   }
-
-  const cocktails = localOnly ? [] : await harvestCocktails();
-  const cocktailQuiz = [...STATIC_COCKTAIL_QUIZ, ...cocktailQuizzes(cocktails)];
-  const quizNext = mergeBy(quiz, cocktailQuiz, (r) => r.question.toLowerCase());
+  const curatedQuiz: QuizRow[] = (curatedGames.quiz ?? []).map((row) => ({
+    ...row,
+    rating: "mature" as const,
+    difficulty: "medium" as const,
+  }));
+  const quizNext = fixFamilyLeaks(
+    mergeBy(quiz, curatedQuiz, (r) => r.question.toLowerCase()),
+    (row) => `${row.question} ${row.choices.join(" ")}`,
+  );
   saveJson("trivia/quiz.json", shuffle(quizNext, 11));
-  console.log(`  retagged quiz ${retagged}, cocktail quiz +${cocktailQuiz.length}`);
+  console.log(`  quiz demoted ${demotedQuiz} non-spicy mature, curated +${curatedQuiz.length}`);
 
-  const matureQuiz = quizNext.filter((q) => q.rating === "mature");
+  // --- Fact Check: spicy fibbage only (not quiz copies) ---
   const factCheck = loadJson<Array<{ prompt: string; truth: string; rating?: Rating; difficulty?: Difficulty }>>(
     "prompts/fact-check.json",
   );
-  const extraFacts = matureQuiz
-    .map((row) => {
-      const truth = row.choices[row.correct]?.trim();
-      if (!truth || !isFactCheckTruthValid(row.question, truth)) return null;
-      if (looksLikeGeneratedFactCheckTruth(truth)) return null;
-      if (WEAK_COCKTAIL_ANSWER.test(truth)) return null;
-      if (/typically served in which glass/i.test(row.question)) return null;
-      if (/classified as which drink category/i.test(row.question)) return null;
-      return { prompt: row.question, truth, rating: "mature" as const, difficulty: row.difficulty };
-    })
-    .filter((x): x is NonNullable<typeof x> => Boolean(x));
+  const curatedFacts = (curatedGames.factCheck ?? [])
+    .filter((row) => isFactCheckTruthValid(row.prompt, row.truth) && isSpicyFactCheckPair(row.prompt, row.truth))
+    .map((row) => ({
+      prompt: row.prompt,
+      truth: row.truth,
+      rating: "mature" as const,
+      difficulty: "medium" as const,
+    }));
+  const factPruned = pruneNonSpicyMature(factCheck, (row) =>
+    isSpicyFactCheckPair(row.prompt, row.truth),
+  );
+  const factLeaksFixed = fixFamilyLeaks(factPruned, (row) => `${row.prompt} ${row.truth}`);
   const factNext = filterRepetitiveTruths(
-    mergeBy(factCheck, extraFacts, (r) => r.truth.toLowerCase()),
+    mergeBy(factLeaksFixed, curatedFacts, (r) => `${r.prompt}|${r.truth}`.toLowerCase()),
   );
   saveJson("prompts/fact-check.json", shuffle(factNext, 13));
 
-  const reverse = loadJson<Array<{ fact?: string; truth: string; rating?: Rating; difficulty?: Difficulty }>>(
-    "prompts/reverse-fact.json",
-  );
-  const extraReverse = buildReverseFactsFromQuiz(matureQuiz, "mature").filter(
-    (row) =>
-      !isReverseFactTrivial(row.fact, row.truth) &&
-      !row.truth.endsWith(".?") &&
-      !WEAK_COCKTAIL_ANSWER.test(row.fact),
-  );
-  const reverseNext = filterRepetitiveTruths(
-    mergeBy(reverse, extraReverse, (r) => `${r.fact ?? ""}|${r.truth}`.toLowerCase()),
-  );
-  saveJson("prompts/reverse-fact.json", shuffle(reverseNext, 17));
-
+  // --- Crowd call: drop non-spicy mature drink prompts ---
   const crowd = loadJson<Array<{ text: string; choices: string[]; rating?: Rating }>>("prompts/crowd-call.json");
-  const alcoholicNames = (cocktails.length > 0
-    ? cocktails.map((d) => d.strDrink!.trim())
-    : CROWD_DRINK_FALLBACK
-  ).filter((n) => n.length <= 22);
-  const extraCrowd: Array<{ text: string; choices: string[]; rating: Rating }> = [];
-  const shuffledNames = shuffle(alcoholicNames, 21);
-  const crowdStems = [
-    "Which cocktail should we order?",
-    "Tonight's house special?",
-    "Pick the winning bar order",
-    "Which drink belongs on the menu?",
-  ];
-  for (let i = 0; i + 3 < shuffledNames.length && extraCrowd.length < 80; i += 4) {
-    extraCrowd.push({
-      text: crowdStems[extraCrowd.length % crowdStems.length],
-      choices: shuffledNames.slice(i, i + 4),
-      rating: "mature",
-    });
-  }
-  const crowdNext = mergeBy(crowd, extraCrowd, (r) => `${r.text}|${r.choices.join("|")}`.toLowerCase());
+  const curatedCrowd = (curatedGames.crowdCall ?? []).map((row) => ({
+    ...row,
+    rating: "mature" as const,
+  }));
+  const crowdNext = fixFamilyLeaks(
+    mergeBy(
+      pruneNonSpicyMature(crowd, (row) => isSpicyPrompt(`${row.text} ${row.choices.join(" ")}`)),
+      curatedCrowd,
+      (r) => `${r.text}|${r.choices.join("|")}`.toLowerCase(),
+    ),
+    (row) => `${row.text} ${row.choices.join(" ")}`,
+  );
   saveJson("prompts/crowd-call.json", shuffle(crowdNext, 23));
 
-  const captions = loadJson<Array<{ text: string; rating?: Rating }>>("prompts/caption.json");
-  const extraCaps = CAPTION_SCENES.map((s) => ({ text: `Caption for ${s}`, rating: "mature" as const }));
-  saveJson(
-    "prompts/caption.json",
-    shuffle(mergeBy(captions, extraCaps, (r) => r.text.toLowerCase()), 47),
-  );
-
+  // --- Draw & Guess: spicy drawable words only ---
   const draw = loadJson<Array<{ word: string; rating?: Rating; difficulty?: Difficulty }>>("words/draw.json");
+  const curatedDraw = (curatedGames.draw ?? []).map((word) => ({
+    word,
+    rating: "mature" as const,
+    difficulty: (word.length <= 8 ? "easy" : word.length <= 14 ? "medium" : "hard") as Difficulty,
+  }));
+  const drawPruned = fixFamilyLeaks(
+    pruneNonSpicyMature(draw, (row) => isSpicyDrawWord(row.word)),
+    (row) => row.word,
+  );
+  saveJson("words/draw.json", mergeBy(drawPruned, curatedDraw, (r) => r.word.toLowerCase()));
+
   const charadesExtra = loadJson<Array<{ word: string; rating?: Rating; difficulty?: Difficulty }>>(
     "words/charades-mature-extra.json",
   );
-  const extraDraw = [
-    ...charadesExtra.map((w) => ({
-      word: w.word,
+  const charadesFiltered = charadesExtra.filter((row) => isSpicyDrawWord(row.word));
+  const curatedCharades = (curatedGames.draw ?? [])
+    .filter((word) => word.length <= 32 && !/^(perform|do a |call a )/i.test(word))
+    .map((word) => ({
+      word,
       rating: "mature" as const,
-      difficulty: w.difficulty ?? "medium",
-    })),
-    ...[...cocktails.map((d) => d.strDrink?.trim() ?? ""), ...CROWD_DRINK_FALLBACK]
-      .filter((word) => /^[A-Za-z]{5,14}$/.test(word))
-      .map((word) => ({ word, rating: "mature" as const, difficulty: "medium" as const })),
-  ];
-  saveJson("words/draw.json", mergeBy(draw, extraDraw, (r) => r.word.toLowerCase()));
+      difficulty: (word.length <= 10 ? "easy" : word.length <= 18 ? "medium" : "hard") as Difficulty,
+    }));
+  saveJson(
+    "words/charades-mature-extra.json",
+    mergeBy(charadesFiltered, curatedCharades, (r) => r.word.toLowerCase()),
+  );
 
+  // --- When Was It: curated spicy timeline events ---
   const timeline = loadJson<Array<{ event: string; year: number; rating?: Rating; difficulty?: Difficulty }>>(
     "trivia/timeline.json",
   );
-  for (const row of timeline) {
-    if (row.rating === "mature") continue;
-    if (/\b(prohibition|playboy|speakeasy)\b/i.test(row.event)) row.rating = "mature";
-  }
-  saveJson("trivia/timeline.json", timeline);
+  const timelinePruned = pruneNonSpicyMature(timeline, (row) => isSpicyTimelineEvent(row.event));
+  const curatedTimeline = (curatedGames.timeline ?? []).map((row) => ({
+    ...row,
+    rating: "mature" as const,
+    difficulty: "medium" as const,
+  }));
+  const timelineNext = fixFamilyLeaks(
+    mergeBy(timelinePruned, curatedTimeline, (r) => `${r.event}|${r.year}`.toLowerCase()),
+    (row) => row.event,
+  );
+  saveJson("trivia/timeline.json", timelineNext);
 
+  // --- Bracket Battle: spicy category names ---
   const brackets = loadJson<Array<{ name: string; rating?: Rating; difficulty?: Difficulty }>>("categories/bracket.json");
-  const extraBrackets = [
-    "hangover breakfasts",
-    "dating red flags",
-    "bar orders",
-    "drunk foods",
-    "wedding afterparty crimes",
-    "group-chat sins",
-    "ex nicknames",
-    "open-bar strategies",
-    "rideshare confessions",
-    "situationship labels",
-    "club-night roles",
-    "toast disasters",
-    "minibar crimes",
-    "plus-one types",
-    "last-call excuses",
-  ].map((name) => ({ name, rating: "mature" as const, difficulty: "medium" as const }));
+  const bracketPruned = pruneNonSpicyMature(brackets, (row) => isSpicyBracketName(row.name));
+  const curatedBrackets = (curatedGames.bracket ?? []).map((name) => ({
+    name,
+    rating: "mature" as const,
+    difficulty: "medium" as const,
+  }));
   saveJson(
     "categories/bracket.json",
-    mergeBy(brackets, extraBrackets, (r) => r.name.toLowerCase()),
+    mergeBy(bracketPruned, curatedBrackets, (r) => r.name.toLowerCase()),
   );
 
+  // --- Friend sort: spicy role labels ---
   const roles = loadJson<Array<{ name: string; rating?: Rating }>>("categories/friend-sort-roles.json");
-  const extraRoles = [
-    "The last-call closer",
-    "The fake-ID legend",
-    "The tab closer",
-    "The over-sharer",
-    "The designated adult",
-    "The rooftop regular",
-    "The group-chat instigator",
-    "The plus-one magnet",
-    "The hangover philosopher",
-    "The Venmo ghost",
-    "The karaoke menace",
-    "The coat-check romantic",
-    "The brunch-with-regrets friend",
-    "The screenshot archivist",
-    "The situationship captain",
-    "The open-bar sprinter",
-    "The afterparty navigator",
-    "The ex-table diplomat",
-    "The minibar raider",
-    "The 2am-text historian",
-  ].map((name) => ({ name, rating: "mature" as const }));
+  const curatedRoles = (curatedGames.friendSortRoles ?? []).map((name) => ({
+    name,
+    rating: "mature" as const,
+  }));
   saveJson(
     "categories/friend-sort-roles.json",
-    mergeBy(roles, extraRoles, (r) => r.name.toLowerCase()),
+    fixFamilyLeaks(
+      mergeBy(
+        pruneNonSpicyMature(roles, (row) => isSpicyPrompt(row.name)),
+        curatedRoles,
+        (r) => r.name.toLowerCase(),
+      ),
+      (row) => row.name,
+    ),
   );
 
+  // --- Impostor: replace legacy nightlife packs with coherent spicy themes ---
   const impostor = loadJson<Array<{ id: string; label: string; rating?: Rating; items: string[] }>>(
     "categories/impostor.json",
   );
-  const extraPacks = [
-    {
-      id: "dating-life",
-      label: "Dating life",
-      rating: "mature" as const,
-      items: [
-        "Situationship", "Read receipts", "Double text", "Love bombing", "Breadcrumbing",
-        "The slow fade", "A define talk", "Plus-one math", "The group veto", "Ex in the venue",
-        "Dating-app bio", "First-date tab", "The slow reveal", "A second date", "Green flag",
-        "Red flag", "The almost-kiss", "Voice-note essay", "The hard launch", "Soft launch",
-        "A rebound", "The talking stage", "Benching", "The orbit",
-      ],
-    },
-    {
-      id: "morning-after",
-      label: "Morning after",
-      rating: "mature" as const,
-      items: [
-        "Hangover brunch", "Lost sunglasses", "Someone's hoodie", "The group-chat recap",
-        "A leftover pizza box", "The shared bathroom", "An apology meme", "The missing shoe",
-        "A Venmo from 4am", "The screenshot leak", "Dry shampoo", "Black coffee only",
-        "The walk home", "A spare toothbrush", "The hotel checkout", "Last night's playlist",
-        "A mysterious bruise", "The leftover tab", "Someone's charger", "The nameless Uber",
-        "A voicemail", "The reunion later", "Regret toast", "The alibi",
-      ],
-    },
-    {
-      id: "bar-jobs",
-      label: "Bar jobs",
-      rating: "mature" as const,
-      items: [
-        "Bartender", "Door bouncer", "Barback", "Cocktail server", "DJ",
-        "Coat-check clerk", "Door person", "Bottle-service host", "Sommelier", "Mixologist",
-        "Karaoke host", "Security", "Manager on duty", "Busser", "Host stand",
-        "VIP greeter", "Shot girl", "Floor supervisor", "Cashier", "Glass runner",
-        "Inventory closer", "Open-bar captain", "Taproom lead", "Patio server",
-      ],
-    },
-    {
-      id: "wedding-chaos",
-      label: "Wedding chaos",
-      rating: "mature" as const,
-      items: [
-        "Open bar", "The plus-one", "Seating chart", "The roast toast", "Ex at table six",
-        "Bouquet toss", "Afterparty bus", "Hotel block", "The DJ request", "Drunk uncle",
-        "Prenup joke", "The late speech", "Dance-floor crash", "Missing ring", "Cake smash",
-        "Photo-booth line", "Garter toss", "Rehearsal dinner", "The group chat", "Morning-after brunch",
-        "Venue deposit", "The first dance", "Aisle confetti", "Shuttle van",
-      ],
-    },
-  ];
+  const curatedImpostor = curatedGames.impostor ?? [];
+  const curatedImpostorIds = new Set(curatedImpostor.map((p) => p.id.toLowerCase()));
+  const impostorFamily = impostor.filter(
+    (pack) =>
+      (pack.rating ?? "family") === "family" &&
+      !LEGACY_IMPOSTOR_PACKS.has(pack.id) &&
+      !curatedImpostorIds.has(pack.id.toLowerCase()),
+  );
+  saveJson("categories/impostor.json", [...impostorFamily, ...curatedImpostor]);
+
+  // --- Reverse Fact mature rows merged here (Jeopardy harvest adds family rows) ---
+  const reverseFact = loadJson<Array<{ fact: string; truth: string; rating?: Rating; difficulty?: Difficulty }>>(
+    "prompts/reverse-fact.json",
+  );
+  const reversePruned = reverseFact.filter(
+    (row) =>
+      (row.rating ?? "family") !== "mature" ||
+      isMatureCultureContent(`${row.fact ?? ""} ${row.truth}`),
+  );
+  const curatedReverse = (curatedGames.reverseFact ?? []).map((row) => ({
+    ...row,
+    rating: "mature" as const,
+    difficulty: "medium" as const,
+  }));
   saveJson(
-    "categories/impostor.json",
-    mergeBy(impostor, extraPacks, (r) => r.id.toLowerCase()),
+    "prompts/reverse-fact.json",
+    mergeBy(reversePruned, curatedReverse, (r) => `${r.fact}|${r.truth}`.toLowerCase()),
   );
 
   const truths = localOnly ? [] : await harvestTod("truth", 100);
@@ -670,6 +682,17 @@ async function main() {
   const nhieIo = localOnly
     ? []
     : [...(await harvestNhie("offensive", 80)), ...(await harvestNhie("delicate", 80))];
+
+  const curatedPath = join(CONTENT, "prompts/mature-curated.json");
+  const curated = existsSync(curatedPath)
+    ? loadJson<{
+        punchline?: string[];
+        hotSeat?: string[];
+        wyr?: Array<{ a: string; b: string }>;
+        splitRoom?: Array<{ text: string; labelA: string; labelB: string }>;
+        spectrum?: Array<{ left: string; right: string }>;
+      }>("prompts/mature-curated.json")
+    : {};
 
   const hot = loadJson<Array<{ text: string; rating?: Rating }>>("prompts/hot-seat.json");
   const extraHot: Array<{ text: string; rating: Rating }> = [
@@ -684,61 +707,93 @@ async function main() {
     { text: "Have they ever hidden a tab from the group?", rating: "mature" },
     { text: "Have they ever stayed until the lights came on?", rating: "mature" },
   ];
-  for (const t of [...truths, ...nhies.map((s) => (s.startsWith("Never have I ever") ? s : `Never have I ever ${s}`)), ...nhieIo]) {
+  for (const t of [...(curated.hotSeat ?? []), ...truths, ...nhies.map((s) => (s.startsWith("Never have I ever") ? s : `Never have I ever ${s}`)), ...nhieIo]) {
     let text = t.replace(/^Never have I ever /i, "").trim();
-    if (/^have you /i.test(text)) extraHot.push({ text: text.replace(/^have you /i, "Have they "), rating: "mature" });
-    else if (text.endsWith("?")) extraHot.push({ text, rating: "mature" });
-    else extraHot.push({ text: `Have they ever ${text}?`, rating: "mature" });
+    if (/^have you /i.test(text)) text = text.replace(/^have you /i, "Have they ");
+    else if (!text.endsWith("?")) text = `Have they ever ${text}?`;
+    if (text.length >= 12 && text.length <= 110 && isSpicyPrompt(text)) {
+      extraHot.push({ text, rating: "mature" });
+    }
   }
-  saveJson(
-    "prompts/hot-seat.json",
-    shuffle(
-      mergeBy(hot, extraHot.filter((r) => r.text.length >= 12 && r.text.length <= 110), (r) => r.text.toLowerCase()),
-      41,
-    ),
+  const hotMerged = shuffle(mergeBy(hot, extraHot, (r) => r.text.toLowerCase()), 41);
+  const hotLeaksFixed = fixFamilyLeaks(hotMerged, (row) => row.text);
+  const hotFiltered = hotLeaksFixed.filter(
+    (row) => (row.rating ?? "family") !== "mature" || isSpicyPrompt(row.text),
   );
+  saveJson("prompts/hot-seat.json", hotFiltered);
 
-  const wit = loadJson<Array<{ text: string; rating?: Rating }>>("prompts/wit-showdown.json");
-  const extraWit = [
+  const punchline = loadJson<Array<{ text: string; rating?: Rating }>>("prompts/punchline-battle.json");
+  const extraPunchline = [
+    ...(curated.punchline ?? []).map((text) => ({ text, rating: "mature" as const })),
     ...truths.filter((t) => !t.endsWith("?") && t.length >= 12 && t.length <= 90),
     ...[...nhies, ...nhieIo].map((t, i) => diversifyNhieStatement(t, i)),
   ]
-    .filter((t) => t.length >= 12 && t.length <= 110)
-    .map((text) => ({ text, rating: "mature" as const }));
-  saveJson(
-    "prompts/wit-showdown.json",
-    rebalanceWitShowdownPrefixes(
-      shuffle(mergeBy(wit, extraWit, (r) => r.text.toLowerCase()), 37),
-    ),
+    .filter((r) => {
+      const text = typeof r === "string" ? r : r.text;
+      return text.length >= 12 && text.length <= 110 && isSpicyPrompt(text);
+    })
+    .map((r) => (typeof r === "string" ? { text: r, rating: "mature" as const } : r));
+  const punchlineMerged = rebalancePunchlinePrefixes(
+    shuffle(mergeBy(punchline, extraPunchline, (r) => r.text.toLowerCase()), 37),
   );
+  const punchlineLeaksFixed = fixFamilyLeaks(punchlineMerged, (row) => row.text);
+  const punchlineFiltered = punchlineLeaksFixed.filter(
+    (row) => (row.rating ?? "family") !== "mature" || isSpicyPrompt(row.text),
+  );
+  saveJson("prompts/punchline-battle.json", punchlineFiltered);
 
   const wyrFile = loadJson<Array<{ a: string; b: string; rating?: Rating; difficulty?: Difficulty }>>(
     "would-you-rather.json",
   );
-  const extraWyr = wyrs
-    .map(parseWyr)
-    .filter((x): x is [string, string] => Boolean(x))
-    .map(([a, b]) => ({ a, b, rating: "mature" as const, difficulty: "medium" as const }));
-  saveJson(
-    "would-you-rather.json",
-    mergeBy(wyrFile, extraWyr, (r) => `${r.a}|${r.b}`.toLowerCase()),
+  const extraWyr = [
+    ...(curatedGames.wyr ?? []).map(({ a, b }) => ({
+      a,
+      b,
+      rating: "mature" as const,
+      difficulty: "medium" as const,
+    })),
+    ...(curated.wyr ?? []).map(({ a, b }) => ({
+      a,
+      b,
+      rating: "mature" as const,
+      difficulty: "medium" as const,
+    })),
+    ...wyrs
+      .map(parseWyr)
+      .filter((x): x is [string, string] => Boolean(x))
+      .filter(([a, b]) => isSpicyWyrPair(a, b))
+      .map(([a, b]) => ({ a, b, rating: "mature" as const, difficulty: "medium" as const })),
+  ];
+  const wyrMerged = mergeBy(wyrFile, extraWyr, (r) => `${r.a}|${r.b}`.toLowerCase());
+  const wyrNext = fixFamilyLeaks(
+    pruneNonSpicyMature(wyrMerged, (row) => isSpicyWyrPair(row.a, row.b)),
+    (row) => `${row.a} ${row.b}`,
   );
+  saveJson("would-you-rather.json", wyrNext);
 
   const split = loadJson<Array<{ text: string; labelA: string; labelB: string; rating?: Rating }>>(
     "prompts/split-room.json",
   );
-  const extraSplit = extraWyr
-    .filter((r) => r.a.length <= 40 && r.b.length <= 40)
-    .map((r) => ({ text: "Would you rather", labelA: r.a, labelB: r.b, rating: "mature" as const }));
+  const extraSplit = [
+    ...(curatedGames.splitRoom ?? []).map((r) => ({ ...r, rating: "mature" as const })),
+    ...(curated.splitRoom ?? []).map((r) => ({ ...r, rating: "mature" as const })),
+    ...extraWyr
+      .filter((r) => r.a.length <= 40 && r.b.length <= 40)
+      .map((r) => ({ text: "Would you rather", labelA: r.a, labelB: r.b, rating: "mature" as const })),
+  ];
   saveJson(
     "prompts/split-room.json",
     mergeBy(split, extraSplit, (r) => `${r.labelA}|${r.labelB}`.toLowerCase()),
   );
 
   const spectrum = loadJson<Array<{ left: string; right: string; rating?: Rating }>>("prompts/spectrum.json");
-  const extraSpec = extraWyr
-    .filter((r) => r.a.length <= 28 && r.b.length <= 28)
-    .map((r) => ({ left: r.a, right: r.b, rating: "mature" as const }));
+  const extraSpec = [
+    ...(curatedGames.spectrum ?? []).map((r) => ({ ...r, rating: "mature" as const })),
+    ...(curated.spectrum ?? []).map((r) => ({ ...r, rating: "mature" as const })),
+    ...extraWyr
+      .filter((r) => r.a.length <= 28 && r.b.length <= 28)
+      .map((r) => ({ left: r.a, right: r.b, rating: "mature" as const })),
+  ];
   saveJson(
     "prompts/spectrum.json",
     mergeBy(spectrum, extraSpec, (r) => `${r.left}|${r.right}`.toLowerCase()),

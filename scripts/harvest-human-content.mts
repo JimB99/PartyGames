@@ -18,7 +18,7 @@ import {
   looksLikeGeneratedFriendSortRole,
   looksLikePlaygroundSpectrumPole,
   looksLikeTemplateCrowdCall,
-  rebalanceWitShowdownPrefixes,
+  rebalancePunchlinePrefixes,
 } from "../packages/shared/src/content-quality.ts";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -570,7 +570,7 @@ async function main() {
     `${PGS_BASE}/truth-or-dare.json`,
   );
 
-  const existingWit = loadJson<Array<{ text: string; rating?: Rating }>>("prompts/wit-showdown.json");
+  const existingWit = loadJson<Array<{ text: string; rating?: Rating }>>("prompts/punchline-battle.json");
   const witMap = new Map<string, { text: string; rating: Rating }>();
   for (const row of existingWit) {
     if (/^Worst thing: (had |played |gone |been )/i.test(row.text)) continue;
@@ -619,41 +619,9 @@ async function main() {
     }
     console.log(`  party-game-sentences truths hot-seat +${added}`);
   }
-  saveJson("prompts/wit-showdown.json", rebalanceWitShowdownPrefixes(shuffle([...witMap.values()], 37)));
+  saveJson("prompts/punchline-battle.json", rebalancePunchlinePrefixes(shuffle([...witMap.values()], 37)));
   saveJson("prompts/hot-seat.json", shuffle([...hotMap.values()], 41));
-  report.push(`wit-showdown ${witMap.size}, hot-seat ${hotMap.size}`);
-
-  const existingCaption = loadJson<Array<{ text: string; rating?: Rating }>>("prompts/caption.json");
-  const capMap = new Map<string, { text: string; rating: Rating }>();
-  for (const row of existingCaption) {
-    if (/^Caption for someone who /i.test(row.text)) continue;
-    capMap.set(row.text.toLowerCase(), { text: row.text, rating: row.rating ?? ratingOf(row.text) });
-  }
-  const drawWords = loadJson<Array<{ word?: string; rating?: string } | string>>("words/draw.json");
-  let capFromDraw = 0;
-  for (const w of drawWords) {
-    const word = typeof w === "string" ? w : w.word;
-    if (!word || word.split(/\s+/).length > 3) continue;
-    if (word.length < 3 || word.length > 22) continue;
-    if (/^(perform|do a |call a )/i.test(word)) continue;
-    const entryRating = typeof w === "object" && w.rating === "mature" ? "mature" : "family";
-    if (entryRating === "mature") continue;
-    const text = `Caption for ${/^[aeiou]/i.test(word) ? "an" : "a"} ${word}`;
-    if (capMap.has(text.toLowerCase())) continue;
-    capMap.set(text.toLowerCase(), { text, rating: "family" });
-    capFromDraw++;
-    if (capMap.size >= 320) break;
-    if (capFromDraw >= 80) break;
-  }
-  const capRows = [...capMap.values()];
-  const capScenes = capRows.filter((r) => !/^Caption for an? \S+$/i.test(r.text));
-  const capGeneric = capRows.filter((r) => /^Caption for an? \S+$/i.test(r.text));
-  const caption = shuffle(
-    [...capScenes, ...capGeneric.slice(0, Math.max(0, 300 - capScenes.length))],
-    47,
-  );
-  saveJson("prompts/caption.json", caption);
-  report.push(`caption ${caption.length} (dropped dare-captions, +${capFromDraw} from draw words)`);
+  report.push(`punchline-battle ${witMap.size}, hot-seat ${hotMap.size}`);
 
   const rolesRaw = loadJson<Array<string | { name: string; rating?: string }>>(
     "categories/friend-sort-roles.json",

@@ -8,7 +8,7 @@
   {
     "a": "Have karaoke as your only talent",
     "b": "Have honesty as your only talent",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
@@ -98,7 +98,7 @@
   {
     "a": "Work trip with your crush",
     "b": "Staycation with your ex's friends",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
@@ -116,13 +116,13 @@
   {
     "a": "Lose the group chat forever",
     "b": "Be admin of every group chat forever",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
     "a": "Have an ex narrate your dates",
     "b": "Have your friends veto every date",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
@@ -146,13 +146,13 @@
   {
     "a": "Keep every ex as a friend",
     "b": "Never speak to an ex again",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
     "a": "Never ghost anyone again",
     "b": "Never be able to leave a conversation politely",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
@@ -182,7 +182,7 @@
   {
     "a": "Your mom joins the group chat",
     "b": "Your boss joins the group chat",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
@@ -200,7 +200,7 @@
   {
     "a": "Your dating app bio is written by friends",
     "b": "Your friends write your wedding toast now",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
@@ -224,7 +224,7 @@
   {
     "a": "Have read receipts on forever",
     "b": "Never know if anyone saw your message",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
@@ -242,7 +242,7 @@
   {
     "a": "Date someone your friends hate",
     "b": "Date someone who hates your friends",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
@@ -320,7 +320,7 @@
   {
     "a": "Your search for 'is this a date' is public",
     "b": "Your drafts folder is public",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
@@ -332,13 +332,13 @@
   {
     "a": "Be famous for one chaotic night",
     "b": "Be forgotten at every party",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
     "a": "Be honest on every first date",
     "b": "Be mysterious forever",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
@@ -374,13 +374,13 @@
   {
     "a": "Live-tweet your dating life",
     "b": "Have friends silently judge without comments",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
     "a": "Tell the truth in every toast",
     "b": "Only tell jokes in every toast",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
@@ -416,7 +416,7 @@
   {
     "a": "Always overshare at brunch",
     "b": "Never be allowed to mention last night",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
@@ -434,7 +434,7 @@
   {
     "a": "Always be slightly overdressed",
     "b": "Always realize you underdressed at the door",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
@@ -446,7 +446,7 @@
   {
     "a": "Always be the screenshot",
     "b": "Always be the one who leaks",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
@@ -500,7 +500,7 @@
   {
     "a": "Date someone with no filter",
     "b": "Date someone who never says what they mean",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
@@ -536,13 +536,13 @@
   {
     "a": "Have one legendary messy night a year",
     "b": "Have mildly awkward nights every weekend",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
     "a": "Always split a dessert",
     "b": "Never be allowed to share food",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
@@ -554,7 +554,7 @@
   {
     "a": "Your ex is in the wedding party",
     "b": "Your ex is the DJ",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
@@ -620,7 +620,7 @@
   {
     "a": "Relive the walk home after a bad date",
     "b": "Relive the morning-after small talk",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
@@ -632,7 +632,7 @@
   {
     "a": "Have last night's photos auto-post",
     "b": "Have last night's texts auto-forward to your best friend",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
@@ -674,7 +674,7 @@
   {
     "a": "One friend has veto power on dates",
     "b": "The whole group votes publicly",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
@@ -686,7 +686,7 @@
   {
     "a": "Never drink again",
     "b": "Never stay out past midnight again",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
@@ -710,7 +710,7 @@
   {
     "a": "Always sit next to an ex at dinner",
     "b": "Always get seated with strangers",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
@@ -752,13 +752,13 @@
   {
     "a": "Always be someone's rebound",
     "b": "Always be the person they almost dated",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
     "a": "Date only through apps",
     "b": "Never use an app again",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
@@ -776,7 +776,7 @@
   {
     "a": "Always split the bill to the penny",
     "b": "Always lose the Venmo request",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
@@ -788,7 +788,7 @@
   {
     "a": "Always catch feelings first",
     "b": "Never catch feelings at all",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
@@ -830,7 +830,7 @@
   {
     "a": "Be stuck in a situationship for a year",
     "b": "Have one very public breakup",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
@@ -878,7 +878,7 @@
   {
     "a": "Have your search history read at a wedding",
     "b": "Have your group chat projected on a screen",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
@@ -998,7 +998,7 @@
   {
     "a": "Every date is a double date",
     "b": "You can never introduce partners to friends",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
@@ -1022,7 +1022,7 @@
   {
     "a": "Every party has a roast of you",
     "b": "Every party you have to roast someone else",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
@@ -1076,7 +1076,7 @@
   {
     "a": "Have your situationship join family dinner",
     "b": "Have your family join a group trip",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
@@ -1118,7 +1118,7 @@
   {
     "a": "Always send the drunk text",
     "b": "Never text after 10pm",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
@@ -1136,7 +1136,7 @@
   {
     "a": "Your search history is a party game",
     "b": "Your camera roll is a party game",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
@@ -1166,7 +1166,7 @@
   {
     "a": "Never mute a chat",
     "b": "Never unmute one",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
@@ -1184,7 +1184,7 @@
   {
     "a": "Your hotel key always opens the wrong room first",
     "b": "You always forget which floor you're on",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
@@ -1202,13 +1202,13 @@
   {
     "a": "Always be the plus-one",
     "b": "Always host and never get invited",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
     "a": "Open-bar unlimited but you give the toast",
     "b": "Two-drink max and no public speaking",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
@@ -1250,7 +1250,7 @@
   {
     "a": "Give a roast at every wedding",
     "b": "Give a sincere speech at every birthday",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
@@ -1274,7 +1274,7 @@
   {
     "a": "Always be the designated driver",
     "b": "Always be the last one standing",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
@@ -1370,7 +1370,7 @@
   {
     "a": "Tell your group chat every dating thought",
     "b": "Never talk about dating with friends again",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
@@ -1388,13 +1388,13 @@
   {
     "a": "Be late to every party",
     "b": "Be the first to arrive every time",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
     "a": "Be the story at every reunion",
     "b": "Have no one remember you from school",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
@@ -1454,7 +1454,7 @@
   {
     "a": "Your plus-one is randomly assigned",
     "b": "You can never bring a plus-one",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
@@ -1496,7 +1496,7 @@
   {
     "a": "Have to explain every meme you send",
     "b": "Never be allowed to send memes",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
@@ -1562,7 +1562,7 @@
   {
     "a": "be a nudist",
     "b": "be a nevernude",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
@@ -1580,7 +1580,7 @@
   {
     "a": "be stoned to death",
     "b": "be grounded",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
@@ -1604,13 +1604,13 @@
   {
     "a": "catch your best male friend sleeping with your mom",
     "b": "catch your best male friend sleeping with your sister",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
     "a": "receive a dirty text message, e-mail",
     "b": "voice mail",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
@@ -1634,7 +1634,7 @@
   {
     "a": "be a good kisser",
     "b": "be good in bed",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
@@ -1664,7 +1664,7 @@
   {
     "a": "cuddle",
     "b": "make out",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
@@ -1676,7 +1676,7 @@
   {
     "a": "get high",
     "b": "get drunk",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
@@ -1688,13 +1688,13 @@
   {
     "a": "be lightly spanked in bed",
     "b": "have a feather run softly over your whole body",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
     "a": "accidentally send nudes to your boss",
     "b": "your mother",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
@@ -1724,13 +1724,13 @@
   {
     "a": "swim in a pool of poop",
     "b": "get your head stuck in an elephant's rear end",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
     "a": "have your partner trim",
     "b": "shave their pubes",
-    "rating": "mature",
+    "rating": "family",
     "difficulty": "medium"
   },
   {
@@ -1772,6 +1772,2262 @@
   {
     "a": "drink 5 oz. of vodka by nose",
     "b": "drink 5 oz. of hot sauce by nose",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess a messy hookup story to the group",
+    "b": "Let them read your sexting drafts",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Admit an affair rumor is true",
+    "b": "Do a horny dare chosen by the room",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Show your deleted hookup chats",
+    "b": "Call your ex and apologize for the one night stand",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Read your dirtiest DM aloud",
+    "b": "Let someone post your thirst trap",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess a workplace affair crush",
+    "b": "Share your OnlyFans search history",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Admit you ghosted after sex",
+    "b": "Send a flirty text to a random contact",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Reveal your secret affair partner",
+    "b": "Do dirty talk impressions for a minute",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Show your horny group chat",
+    "b": "Let the room pick your dating bio",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess a stripper story",
+    "b": "Act out your worst hookup",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Admit you sexted the wrong person",
+    "b": "Let someone read your notes app confessions",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Reveal who you'd have a one night stand with here",
+    "b": "Share your most scandalous photo",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess an affair fantasy",
+    "b": "Do a horny karaoke song",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Show your hookup playlist",
+    "b": "Let the group roast your thirst traps",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Admit you lied about a hookup",
+    "b": "Send a risky text while everyone watches",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Reveal your secret OnlyFans crush",
+    "b": "Do a dirty talk phone call fake-out",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess who you'd kiss in this room",
+    "b": "Share your affair close-call story",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Show your sexting folder names",
+    "b": "Let someone rewrite your hookup bio",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Admit a horny dream about someone here",
+    "b": "Read your affair calendar aloud",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Reveal your worst hookup outfit",
+    "b": "Do a sexy dare from the room",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess a friends-with-benefits secret",
+    "b": "Let the group pick your next dating app pic",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Show your deleted affair texts",
+    "b": "Call a friend and confess a hookup",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Admit you'd try an open relationship",
+    "b": "Share your horny browser history headline",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Reveal your secret hookup spot",
+    "b": "Do dirty talk with a household object",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess a crush on a friend's partner",
+    "b": "Let someone DM your ex a meme",
+    "rating": "family",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Show your spiciest saved photo",
+    "b": "Admit your affair body count",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Read a sexting fail aloud",
+    "b": "Let the room choose your horny dare",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess a hookup at work",
+    "b": "Share your OnlyFans subscription list",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Admit you'd join a spicy truth game",
+    "b": "Do a stripper name for everyone",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Reveal your affair alarm contact",
+    "b": "Let someone post your thirst tweet",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Show your horny notes app",
+    "b": "Confess a one night stand with someone famous locally",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Admit you'd sext this group",
+    "b": "Share your hookup reward chart",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Reveal your secret affair playlist",
+    "b": "Do a sexy accent for a minute",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess a hookup in a risky place",
+    "b": "Let the room read your DMs",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Show your affair photo stash",
+    "b": "Admit your horny group chat alias",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Read your dirtiest voice note transcript",
+    "b": "Let someone pick your hookup outfit",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess a workplace sexting incident",
+    "b": "Share your affair spreadsheet",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Admit you'd try a spicy party game",
+    "b": "Do dirty talk as a movie trailer",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Reveal your hookup hall of shame",
+    "b": "Let the group vote on your thirst trap",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Show your affair contact names",
+    "b": "Confess a horny dare you regret",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Ghost after sex",
+    "b": "Send a breakfast text after a hookup",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Keep affair texts archived",
+    "b": "Delete every hookup chat",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Try a strip club with friends",
+    "b": "Try a board game night instead",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Share your OnlyFans link",
+    "b": "Share your LinkedIn profile",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess a crush on someone here",
+    "b": "Confess your worst porn search",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Do a horny truth round",
+    "b": "Do a mild icebreaker round",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Use a safeword during kink play",
+    "b": "Use a safe word during Mario Kart",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Try an open relationship",
+    "b": "Stay strictly monogamous",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Have sex on the first date",
+    "b": "Wait for a committed relationship",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Use handcuffs in the bedroom",
+    "b": "Use handcuffs only on luggage",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Watch porn with a partner",
+    "b": "Watch porn alone only",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Try pegging once",
+    "b": "Never try pegging",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Subscribe to an OnlyFans creator",
+    "b": "Subscribe to a cooking newsletter",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Have a one night stand on vacation",
+    "b": "Only hook up with feelings involved",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Do a horny dare from the room",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Do dirty talk impressions for one minute",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Do a sexy accent for the group",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Do a stripper name for everyone here",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Do a risky text while everyone watches",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Do dirty talk as a movie trailer",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Do a lap dance charade",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Do a pole dance mime",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Do a spanking demonstration on a pillow",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Do a safeword negotiation roleplay",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Do a thirst trap pose review",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Do a hookup outfit runway walk",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Do a sexting voice note fake-out",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Do a sexy karaoke song",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Do a confession toast about your worst hookup",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Do an affair alibi improv scene",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Do a OnlyFans bio roast",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Do a kink tier list explanation",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Do a body shot reenactment with water",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Do a walk of shame runway",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Perform a horny dare from the room",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Perform dirty talk impressions for one minute",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Perform a sexy accent for the group",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Perform a stripper name for everyone here",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Perform a risky text while everyone watches",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Perform dirty talk as a movie trailer",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Perform a lap dance charade",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Perform a pole dance mime",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Perform a spanking demonstration on a pillow",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Perform a safeword negotiation roleplay",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Perform a thirst trap pose review",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Perform a hookup outfit runway walk",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Perform a sexting voice note fake-out",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Perform a sexy karaoke song",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Perform a confession toast about your worst hookup",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Perform an affair alibi improv scene",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Perform a OnlyFans bio roast",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Perform a kink tier list explanation",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Perform a body shot reenactment with water",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Perform a walk of shame runway",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Try a horny dare from the room",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Try dirty talk impressions for one minute",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Try a sexy accent for the group",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Try a stripper name for everyone here",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Try a risky text while everyone watches",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Try dirty talk as a movie trailer",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Try a lap dance charade",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Try a pole dance mime",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Try a spanking demonstration on a pillow",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Try a safeword negotiation roleplay",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Try a thirst trap pose review",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Try a hookup outfit runway walk",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Try a sexting voice note fake-out",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Try a sexy karaoke song",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Try a confession toast about your worst hookup",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Try an affair alibi improv scene",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Try a OnlyFans bio roast",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Try a kink tier list explanation",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Try a body shot reenactment with water",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Try a walk of shame runway",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Attempt a horny dare from the room",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Attempt dirty talk impressions for one minute",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Attempt a sexy accent for the group",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Attempt a stripper name for everyone here",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Attempt a risky text while everyone watches",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Attempt dirty talk as a movie trailer",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Attempt a lap dance charade",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Attempt a pole dance mime",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Attempt a spanking demonstration on a pillow",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Attempt a safeword negotiation roleplay",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Attempt a thirst trap pose review",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Attempt a hookup outfit runway walk",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Attempt a sexting voice note fake-out",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Attempt a sexy karaoke song",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Attempt a confession toast about your worst hookup",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Attempt an affair alibi improv scene",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Attempt a OnlyFans bio roast",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Attempt a kink tier list explanation",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Attempt a body shot reenactment with water",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Attempt a walk of shame runway",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Survive a horny dare from the room",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Survive dirty talk impressions for one minute",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Survive a sexy accent for the group",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Survive a stripper name for everyone here",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Survive a risky text while everyone watches",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Survive dirty talk as a movie trailer",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Survive a lap dance charade",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Survive a pole dance mime",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Survive a spanking demonstration on a pillow",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Survive a safeword negotiation roleplay",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Survive a thirst trap pose review",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Survive a hookup outfit runway walk",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Survive a sexting voice note fake-out",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Survive a sexy karaoke song",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Survive a confession toast about your worst hookup",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Survive an affair alibi improv scene",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Survive a OnlyFans bio roast",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Survive a kink tier list explanation",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Survive a body shot reenactment with water",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Survive a walk of shame runway",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Endure a horny dare from the room",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Endure dirty talk impressions for one minute",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Endure a sexy accent for the group",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Endure a stripper name for everyone here",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Endure a risky text while everyone watches",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Endure dirty talk as a movie trailer",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Endure a lap dance charade",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Endure a pole dance mime",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Endure a spanking demonstration on a pillow",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Endure a safeword negotiation roleplay",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Endure a thirst trap pose review",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Endure a hookup outfit runway walk",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Endure a sexting voice note fake-out",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Endure a sexy karaoke song",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Endure a confession toast about your worst hookup",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Endure an affair alibi improv scene",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Endure a OnlyFans bio roast",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Endure a kink tier list explanation",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Endure a body shot reenactment with water",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Endure a walk of shame runway",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Accept a horny dare from the room",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Accept dirty talk impressions for one minute",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Accept a sexy accent for the group",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Accept a stripper name for everyone here",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Accept a risky text while everyone watches",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Accept dirty talk as a movie trailer",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Accept a lap dance charade",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Accept a pole dance mime",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Accept a spanking demonstration on a pillow",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Accept a safeword negotiation roleplay",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Accept a thirst trap pose review",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Accept a hookup outfit runway walk",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Accept a sexting voice note fake-out",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Accept a sexy karaoke song",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Accept a confession toast about your worst hookup",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Accept an affair alibi improv scene",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Accept a OnlyFans bio roast",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Accept a kink tier list explanation",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Accept a body shot reenactment with water",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Accept a walk of shame runway",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Take a horny dare from the room",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Take dirty talk impressions for one minute",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Take a sexy accent for the group",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Take a stripper name for everyone here",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Take a risky text while everyone watches",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Take dirty talk as a movie trailer",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Take a lap dance charade",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Take a pole dance mime",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Take a spanking demonstration on a pillow",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Take a safeword negotiation roleplay",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Take a thirst trap pose review",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Take a hookup outfit runway walk",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Take a sexting voice note fake-out",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Take a sexy karaoke song",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Take a confession toast about your worst hookup",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Take an affair alibi improv scene",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Take a OnlyFans bio roast",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Take a kink tier list explanation",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Take a body shot reenactment with water",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your messiest hookup story",
+    "b": "Take a walk of shame runway",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your worst sexting fail",
+    "b": "Do a horny dare from the room",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your worst sexting fail",
+    "b": "Do dirty talk impressions for one minute",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your worst sexting fail",
+    "b": "Do a sexy accent for the group",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your worst sexting fail",
+    "b": "Do a stripper name for everyone here",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your worst sexting fail",
+    "b": "Do a risky text while everyone watches",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your worst sexting fail",
+    "b": "Do dirty talk as a movie trailer",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your worst sexting fail",
+    "b": "Do a lap dance charade",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your worst sexting fail",
+    "b": "Do a pole dance mime",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your worst sexting fail",
+    "b": "Do a spanking demonstration on a pillow",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your worst sexting fail",
+    "b": "Do a safeword negotiation roleplay",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your worst sexting fail",
+    "b": "Do a thirst trap pose review",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your worst sexting fail",
+    "b": "Do a hookup outfit runway walk",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your worst sexting fail",
+    "b": "Do a sexting voice note fake-out",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your worst sexting fail",
+    "b": "Do a sexy karaoke song",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your worst sexting fail",
+    "b": "Do a confession toast about your worst hookup",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your worst sexting fail",
+    "b": "Do an affair alibi improv scene",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your worst sexting fail",
+    "b": "Do a OnlyFans bio roast",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your worst sexting fail",
+    "b": "Do a kink tier list explanation",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your worst sexting fail",
+    "b": "Do a body shot reenactment with water",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your worst sexting fail",
+    "b": "Do a walk of shame runway",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your worst sexting fail",
+    "b": "Perform a horny dare from the room",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your worst sexting fail",
+    "b": "Perform dirty talk impressions for one minute",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your worst sexting fail",
+    "b": "Perform a sexy accent for the group",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your worst sexting fail",
+    "b": "Perform a stripper name for everyone here",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your worst sexting fail",
+    "b": "Perform a risky text while everyone watches",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your worst sexting fail",
+    "b": "Perform dirty talk as a movie trailer",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your worst sexting fail",
+    "b": "Perform a lap dance charade",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your worst sexting fail",
+    "b": "Perform a pole dance mime",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your worst sexting fail",
+    "b": "Perform a spanking demonstration on a pillow",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your worst sexting fail",
+    "b": "Perform a safeword negotiation roleplay",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your worst sexting fail",
+    "b": "Perform a thirst trap pose review",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your worst sexting fail",
+    "b": "Perform a hookup outfit runway walk",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your worst sexting fail",
+    "b": "Perform a sexting voice note fake-out",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your worst sexting fail",
+    "b": "Perform a sexy karaoke song",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your worst sexting fail",
+    "b": "Perform a confession toast about your worst hookup",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your worst sexting fail",
+    "b": "Perform an affair alibi improv scene",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your worst sexting fail",
+    "b": "Perform a OnlyFans bio roast",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your worst sexting fail",
+    "b": "Perform a kink tier list explanation",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your worst sexting fail",
+    "b": "Perform a body shot reenactment with water",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your worst sexting fail",
+    "b": "Perform a walk of shame runway",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your worst sexting fail",
+    "b": "Try a horny dare from the room",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your worst sexting fail",
+    "b": "Try dirty talk impressions for one minute",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your worst sexting fail",
+    "b": "Try a sexy accent for the group",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your worst sexting fail",
+    "b": "Try a stripper name for everyone here",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your worst sexting fail",
+    "b": "Try a risky text while everyone watches",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your worst sexting fail",
+    "b": "Try dirty talk as a movie trailer",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your worst sexting fail",
+    "b": "Try a lap dance charade",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your worst sexting fail",
+    "b": "Try a pole dance mime",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your worst sexting fail",
+    "b": "Try a spanking demonstration on a pillow",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your worst sexting fail",
+    "b": "Try a safeword negotiation roleplay",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your worst sexting fail",
+    "b": "Try a thirst trap pose review",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your worst sexting fail",
+    "b": "Try a hookup outfit runway walk",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your worst sexting fail",
+    "b": "Try a sexting voice note fake-out",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your worst sexting fail",
+    "b": "Try a sexy karaoke song",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your worst sexting fail",
+    "b": "Try a confession toast about your worst hookup",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Confess your worst sexting fail",
+    "b": "Try an affair alibi improv scene",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Share your messiest hookup story",
+    "b": "Do a horny dare from the room",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Share your messiest hookup story",
+    "b": "Do dirty talk impressions for one minute",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Share your messiest hookup story",
+    "b": "Do a sexy accent for the group",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Share your messiest hookup story",
+    "b": "Do a stripper name for everyone here",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Share your messiest hookup story",
+    "b": "Do a risky text while everyone watches",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Share your messiest hookup story",
+    "b": "Do dirty talk as a movie trailer",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Share your messiest hookup story",
+    "b": "Do a lap dance charade",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Share your messiest hookup story",
+    "b": "Do a pole dance mime",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Share your messiest hookup story",
+    "b": "Do a spanking demonstration on a pillow",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Share your messiest hookup story",
+    "b": "Do a safeword negotiation roleplay",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Share your messiest hookup story",
+    "b": "Do a thirst trap pose review",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Reveal your messiest hookup story",
+    "b": "Do a horny dare from the room",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Reveal your messiest hookup story",
+    "b": "Do dirty talk impressions for one minute",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Reveal your messiest hookup story",
+    "b": "Do a sexy accent for the group",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Reveal your messiest hookup story",
+    "b": "Do a stripper name for everyone here",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Reveal your messiest hookup story",
+    "b": "Do a risky text while everyone watches",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Reveal your messiest hookup story",
+    "b": "Do dirty talk as a movie trailer",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Reveal your messiest hookup story",
+    "b": "Do a lap dance charade",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Reveal your messiest hookup story",
+    "b": "Do a pole dance mime",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Reveal your messiest hookup story",
+    "b": "Do a spanking demonstration on a pillow",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Reveal your messiest hookup story",
+    "b": "Do a safeword negotiation roleplay",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Reveal your messiest hookup story",
+    "b": "Do a thirst trap pose review",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Reveal your messiest hookup story",
+    "b": "Do a hookup outfit runway walk",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Show your messiest hookup story",
+    "b": "Do a horny dare from the room",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Show your messiest hookup story",
+    "b": "Do dirty talk impressions for one minute",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Show your messiest hookup story",
+    "b": "Do a sexy accent for the group",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Show your messiest hookup story",
+    "b": "Do a stripper name for everyone here",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Show your messiest hookup story",
+    "b": "Do a risky text while everyone watches",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Show your messiest hookup story",
+    "b": "Do dirty talk as a movie trailer",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Show your messiest hookup story",
+    "b": "Do a lap dance charade",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Show your messiest hookup story",
+    "b": "Do a pole dance mime",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Show your messiest hookup story",
+    "b": "Do a spanking demonstration on a pillow",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Show your messiest hookup story",
+    "b": "Do a safeword negotiation roleplay",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Show your messiest hookup story",
+    "b": "Do a thirst trap pose review",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Show your messiest hookup story",
+    "b": "Do a hookup outfit runway walk",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Admit your messiest hookup story",
+    "b": "Do a horny dare from the room",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Admit your messiest hookup story",
+    "b": "Do dirty talk impressions for one minute",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Admit your messiest hookup story",
+    "b": "Do a sexy accent for the group",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Admit your messiest hookup story",
+    "b": "Do a stripper name for everyone here",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Admit your messiest hookup story",
+    "b": "Do a risky text while everyone watches",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Admit your messiest hookup story",
+    "b": "Do dirty talk as a movie trailer",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Admit your messiest hookup story",
+    "b": "Do a lap dance charade",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Admit your messiest hookup story",
+    "b": "Do a pole dance mime",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Admit your messiest hookup story",
+    "b": "Do a spanking demonstration on a pillow",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Admit your messiest hookup story",
+    "b": "Do a safeword negotiation roleplay",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Admit your messiest hookup story",
+    "b": "Do a thirst trap pose review",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Admit your messiest hookup story",
+    "b": "Do a hookup outfit runway walk",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Read aloud your messiest hookup story",
+    "b": "Do a horny dare from the room",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Read aloud your messiest hookup story",
+    "b": "Do dirty talk impressions for one minute",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Read aloud your messiest hookup story",
+    "b": "Do a sexy accent for the group",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Read aloud your messiest hookup story",
+    "b": "Do a stripper name for everyone here",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Read aloud your messiest hookup story",
+    "b": "Do a risky text while everyone watches",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Read aloud your messiest hookup story",
+    "b": "Do dirty talk as a movie trailer",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Read aloud your messiest hookup story",
+    "b": "Do a lap dance charade",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Read aloud your messiest hookup story",
+    "b": "Do a pole dance mime",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Read aloud your messiest hookup story",
+    "b": "Do a spanking demonstration on a pillow",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Read aloud your messiest hookup story",
+    "b": "Do a safeword negotiation roleplay",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Read aloud your messiest hookup story",
+    "b": "Do a thirst trap pose review",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Read aloud your messiest hookup story",
+    "b": "Do a hookup outfit runway walk",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Let the room see your messiest hookup story",
+    "b": "Do a horny dare from the room",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Let the room see your messiest hookup story",
+    "b": "Do dirty talk impressions for one minute",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Let the room see your messiest hookup story",
+    "b": "Do a sexy accent for the group",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Let the room see your messiest hookup story",
+    "b": "Do a stripper name for everyone here",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Let the room see your messiest hookup story",
+    "b": "Do a risky text while everyone watches",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Let the room see your messiest hookup story",
+    "b": "Do dirty talk as a movie trailer",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Let the room see your messiest hookup story",
+    "b": "Do a lap dance charade",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Let the room see your messiest hookup story",
+    "b": "Do a pole dance mime",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Let the room see your messiest hookup story",
+    "b": "Do a spanking demonstration on a pillow",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Let the room see your messiest hookup story",
+    "b": "Do a safeword negotiation roleplay",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Let the room see your messiest hookup story",
+    "b": "Do a thirst trap pose review",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Let the room see your messiest hookup story",
+    "b": "Do a hookup outfit runway walk",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Expose your messiest hookup story",
+    "b": "Do a horny dare from the room",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Expose your messiest hookup story",
+    "b": "Do dirty talk impressions for one minute",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Expose your messiest hookup story",
+    "b": "Do a sexy accent for the group",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Expose your messiest hookup story",
+    "b": "Do a stripper name for everyone here",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Expose your messiest hookup story",
+    "b": "Do a risky text while everyone watches",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Expose your messiest hookup story",
+    "b": "Do dirty talk as a movie trailer",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Expose your messiest hookup story",
+    "b": "Do a lap dance charade",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Expose your messiest hookup story",
+    "b": "Do a pole dance mime",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Expose your messiest hookup story",
+    "b": "Do a spanking demonstration on a pillow",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Expose your messiest hookup story",
+    "b": "Do a safeword negotiation roleplay",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Expose your messiest hookup story",
+    "b": "Do a thirst trap pose review",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Expose your messiest hookup story",
+    "b": "Do a hookup outfit runway walk",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Own up to your messiest hookup story",
+    "b": "Do a horny dare from the room",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Own up to your messiest hookup story",
+    "b": "Do dirty talk impressions for one minute",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Own up to your messiest hookup story",
+    "b": "Do a sexy accent for the group",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Own up to your messiest hookup story",
+    "b": "Do a stripper name for everyone here",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Own up to your messiest hookup story",
+    "b": "Do a risky text while everyone watches",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Own up to your messiest hookup story",
+    "b": "Do dirty talk as a movie trailer",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Own up to your messiest hookup story",
+    "b": "Do a lap dance charade",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Own up to your messiest hookup story",
+    "b": "Do a pole dance mime",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Own up to your messiest hookup story",
+    "b": "Do a spanking demonstration on a pillow",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Own up to your messiest hookup story",
+    "b": "Do a safeword negotiation roleplay",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Own up to your messiest hookup story",
+    "b": "Do a thirst trap pose review",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Own up to your messiest hookup story",
+    "b": "Do a hookup outfit runway walk",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Describe your messiest hookup story",
+    "b": "Do a horny dare from the room",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Describe your messiest hookup story",
+    "b": "Do dirty talk impressions for one minute",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Describe your messiest hookup story",
+    "b": "Do a sexy accent for the group",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Describe your messiest hookup story",
+    "b": "Do a stripper name for everyone here",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Describe your messiest hookup story",
+    "b": "Do a risky text while everyone watches",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Describe your messiest hookup story",
+    "b": "Do dirty talk as a movie trailer",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Describe your messiest hookup story",
+    "b": "Do a lap dance charade",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Describe your messiest hookup story",
+    "b": "Do a pole dance mime",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Describe your messiest hookup story",
+    "b": "Do a spanking demonstration on a pillow",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Describe your messiest hookup story",
+    "b": "Do a safeword negotiation roleplay",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Describe your messiest hookup story",
+    "b": "Do a thirst trap pose review",
+    "rating": "mature",
+    "difficulty": "medium"
+  },
+  {
+    "a": "Describe your messiest hookup story",
+    "b": "Do a hookup outfit runway walk",
     "rating": "mature",
     "difficulty": "medium"
   }

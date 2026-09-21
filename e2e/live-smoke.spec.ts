@@ -10,7 +10,7 @@ test("live site: host, join, start Quick Quiz", async () => {
   try {
     await expect(host.getByText("Connected", { exact: true })).toBeVisible();
     await expect(player.getByText(`Room ${roomId}`)).toBeVisible();
-    await expect(host.getByTestId("game-picker-caption-this")).toBeVisible();
+    await expect(host.getByTestId("game-picker-punchline-battle")).toBeVisible();
     await selectGame(host, "quick-quiz");
     await startGame(host);
     await expect(host.getByTestId("host-game-view")).toBeVisible();

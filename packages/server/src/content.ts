@@ -3,8 +3,7 @@ import splitRoomJson from "../../shared/content/prompts/split-room.json";
 import spectrumJson from "../../shared/content/prompts/spectrum.json";
 import crowdCallJson from "../../shared/content/prompts/crowd-call.json";
 import reverseFactJson from "../../shared/content/prompts/reverse-fact.json";
-import witShowdownJson from "../../shared/content/prompts/wit-showdown.json";
-import captionJson from "../../shared/content/prompts/caption.json";
+import punchlineBattleJson from "../../shared/content/prompts/punchline-battle.json";
 import hotSeatJson from "../../shared/content/prompts/hot-seat.json";
 import quizJson from "../../shared/content/trivia/quiz.json";
 import timelineJson from "../../shared/content/trivia/timeline.json";
@@ -33,9 +32,8 @@ import type {
 export const content = {
   factCheck: factCheckJson as FactCheckEntry[],
   reverseFact: reverseFactJson as FactCheckEntry[],
-  witShowdown: witShowdownJson as PromptEntry[],
+  punchlineBattle: punchlineBattleJson as PromptEntry[],
   hotSeat: hotSeatJson as PromptEntry[],
-  caption: captionJson as PromptEntry[],
   quiz: quizJson as QuizEntry[],
   timeline: timelineJson as TimelineEntry[],
   wouldYouRather: wouldYouRatherJson as WouldYouRatherEntry[],

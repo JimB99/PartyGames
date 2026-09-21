@@ -25,7 +25,6 @@ const EXPLICIT_HOST_BLOCKS = new Set<GameId>([
   "split-the-room",
   "spectrum",
   "crowd-call",
-  "star-rate",
   "chain-sketch",
   "draw-vote",
   "draw-impostor",

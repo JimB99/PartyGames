@@ -63,16 +63,12 @@ describe("prompt-vote-engine gallery vote-all", () => {
     assert.equal(s.cumulativeScores.p2, 1000);
   });
 
-  it("caption mode uses gallery vote and preserves imageCaption", () => {
-    const state = createPromptVoteState("caption", ["Caption for a ghost"], 4, undefined, playerIds);
-    assert.equal(state.imageCaption, "Caption for a ghost");
+  it("punchline-battle mode uses bracket matchups", () => {
+    const state = createPromptVoteState("punchline-battle", ["Punchline prompt"], 4, undefined, playerIds);
     const after = submitAll(state);
-    assert.equal(after.phase, "vote");
-    assert.equal(after.imageCaption, "Caption for a ghost");
-    assert.equal(after.mode, "caption");
-    const view = promptVoteHostView(after);
-    assert.equal(view.data.matchup, undefined);
-    assert.equal((view.data.submissions as unknown[]).length, 4);
+    assert.equal(after.phase, "matchup");
+    assert.equal(after.mode, "punchline-battle");
+    assert.ok((after.matchups?.length ?? 0) > 0);
   });
 
   it("skips to scoreboard when fewer than two submissions", () => {

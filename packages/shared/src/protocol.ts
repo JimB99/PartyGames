@@ -55,7 +55,6 @@ export type GameAction =
   | { kind: "split_vote"; side: "a" | "b" }
   | { kind: "crowd_predict"; choiceIndex: number }
   | { kind: "crowd_answer"; choiceIndex: number }
-  | { kind: "star_rate"; submissionId: string; stars: number }
   | { kind: "fleet_duel_place"; shipIndex: number; x: number; y: number; horizontal: boolean }
   | { kind: "fleet_duel_random" }
   | { kind: "fleet_duel_ready" }

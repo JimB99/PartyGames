@@ -5,18 +5,21 @@ import {
   diversifyNhieStatement,
   duplicateTruthRate,
   generateFactCheckFamilyPairs,
+  isAlcoholThemedOnly,
   isFactCheckTruthValid,
   isObviousBluffTruth,
   isPlaceholderTruth,
   isQuestionForm,
   isReverseFactTrivial,
+  isSpicyContent,
+  isSpicyDrawWord,
   looksLikeConvertedNhieFactCheck,
   looksLikeGeneratedFactCheckTruth,
   looksLikeGeneratedFriendSortRole,
   looksLikeTemplateCrowdCall,
   matureTruthToFactCheckPair,
   orderedSequenceRatio,
-  rebalanceWitShowdownPrefixes,
+  rebalancePunchlinePrefixes,
 } from "./content-quality.js";
 
 describe("content-quality heuristics", () => {
@@ -88,5 +91,13 @@ describe("content-quality heuristics", () => {
     const pair = matureTruthToFactCheckPair("Have you ever skinny-dipped?");
     assert.ok(pair);
     assert.ok(!isQuestionForm(pair!.truth));
+  });
+
+  it("distinguishes spicy content from alcohol-only nightlife trivia", () => {
+    assert.ok(isSpicyContent("Worst excuse after a one night stand"));
+    assert.ok(isSpicyDrawWord("three-breasted woman"));
+    assert.ok(!isSpicyContent("What is the main spirit in a Mojito?"));
+    assert.ok(isAlcoholThemedOnly("Pick the winning bar order for a Negroni"));
+    assert.ok(!isAlcoholThemedOnly("Confess your worst hookup story"));
   });
 });

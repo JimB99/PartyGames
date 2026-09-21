@@ -28,6 +28,13 @@ import {
   looksLikeGeneratedFactCheckTruth,
   looksLikeGeneratedFriendSortRole,
   looksLikeTemplateCrowdCall,
+  isMatureCultureContent,
+  isSpicyContent,
+  isSpicyDrawWord,
+  isSpicyFactCheckPair,
+  isSpicyPrompt,
+  isSpicyQuizRow,
+  isSpicyWyrPair,
   MIN_CONTENT_POOL_SIZE,
   orderedSequenceRatio,
   reverseFactTrivialityScore,
@@ -101,7 +108,7 @@ describe("content validation", () => {
     });
   }
 
-  for (const file of ["wit-showdown.json", "caption.json", "hot-seat.json"] as const) {
+  for (const file of ["punchline-battle.json", "hot-seat.json"] as const) {
     it(`prompts/${file} entries are valid`, () => {
       const items = loadJson<PromptEntry[]>(`prompts/${file}`);
       assert.ok(items.length >= MIN_CONTENT_POOL_SIZE, `${file} pool below ${MIN_CONTENT_POOL_SIZE}`);
@@ -188,7 +195,7 @@ describe("content validation", () => {
   });
 
   it("prompt pools are not alphabetically ordered", () => {
-    for (const file of ["wit-showdown.json", "caption.json", "hot-seat.json"] as const) {
+    for (const file of ["punchline-battle.json", "hot-seat.json"] as const) {
       const items = loadJson<PromptEntry[]>(`prompts/${file}`);
       const texts = items.map((i) => i.text);
       const ratio = orderedSequenceRatio(texts, 20);
@@ -196,11 +203,11 @@ describe("content validation", () => {
         ratio <= MAX_ORDERED_SEQUENCE_RATIO,
         `${file} ordered sequence ratio ${ratio} exceeds ${MAX_ORDERED_SEQUENCE_RATIO}`,
       );
-      if (file === "wit-showdown.json") {
+      if (file === "punchline-battle.json") {
         const worst = texts.filter((t) => /^worst thing:/i.test(t)).length;
         assert.ok(
           worst / texts.length <= 0.25,
-          `wit-showdown 'Worst thing:' prefix exceeds 25% (${worst}/${texts.length})`,
+          `punchline-battle 'Worst thing:' prefix exceeds 25% (${worst}/${texts.length})`,
         );
       }
     }
@@ -246,9 +253,87 @@ describe("content validation", () => {
     assert.ok(quizFamily.every((q) => (q.rating ?? "family") === "family"));
     assert.ok(quizMature.length >= 50, `quiz mature pool too small: ${quizMature.length}`);
 
+    const reverseFamily = filterContentPool(loadJson<FactCheckEntry[]>("prompts/reverse-fact.json"), familyOpts);
     const reverseMature = filterContentPool(loadJson<FactCheckEntry[]>("prompts/reverse-fact.json"), matureOpts);
-    assert.ok(reverseMature.every((i) => i.rating === "mature"), "18+ reverse-fact must be mature-only");
+    assert.ok(reverseFamily.length >= MIN_CONTENT_POOL_SIZE, `reverse-fact family pool too small`);
     assert.ok(reverseMature.length >= 50, `reverse-fact mature pool too small: ${reverseMature.length}`);
+    assert.ok(reverseMature.every((i) => i.rating === "mature"), "18+ reverse-fact must be mature-only");
+    const reverseSpicy =
+      reverseMature.filter((i) => isMatureCultureContent(`${i.fact ?? ""} ${i.truth}`)).length /
+      reverseMature.length;
+    assert.ok(reverseSpicy >= 0.7, `reverse-fact mature culture rate ${reverseSpicy}`);
+  });
+
+  it("mature trivia and social pools are spicy not alcohol trivia", () => {
+    const matureOpts = { ...DEFAULT_GAME_OPTIONS, contentRating: "mature" as const };
+    const MIN_MATURE_CREATIVE = 150;
+
+    const factCheckMature = filterContentPool(loadJson<FactCheckEntry[]>("prompts/fact-check.json"), matureOpts);
+    assert.ok(factCheckMature.length >= MIN_MATURE_CREATIVE);
+    const factSpicy =
+      factCheckMature.filter((i) => isSpicyFactCheckPair(i.prompt, i.truth)).length / factCheckMature.length;
+    assert.ok(factSpicy >= 0.7, `fact-check mature spicy rate ${factSpicy}`);
+
+    const quizMature = filterContentPool(loadJson<QuizEntry[]>("trivia/quiz.json"), matureOpts);
+    assert.ok(quizMature.length >= MIN_MATURE_CREATIVE, `quiz mature ${quizMature.length}`);
+    const quizSpicy = quizMature.filter((i) => isSpicyQuizRow(i)).length / quizMature.length;
+    assert.ok(quizSpicy >= 0.7, `quiz mature spicy rate ${quizSpicy}`);
+
+    const wyrMature = filterContentPool(loadJson<WouldYouRatherEntry[]>("would-you-rather.json"), matureOpts);
+    assert.ok(wyrMature.length >= MIN_MATURE_CREATIVE, `wyr mature ${wyrMature.length}`);
+    const wyrSpicy = wyrMature.filter((i) => isSpicyWyrPair(i.a, i.b)).length / wyrMature.length;
+    assert.ok(wyrSpicy >= 0.7, `wyr mature spicy rate ${wyrSpicy}`);
+
+    const drawMature = filterWordList(loadJson<WordEntry[]>("words/draw.json"), matureOpts);
+    assert.ok(drawMature.length >= MIN_MATURE_CREATIVE, `draw mature ${drawMature.length}`);
+    const drawSpicy = drawMature.filter((w) => isSpicyDrawWord(w)).length / drawMature.length;
+    assert.ok(drawSpicy >= 0.7, `draw mature spicy rate ${drawSpicy}`);
+
+    const timelineMature = filterContentPool(loadJson<TimelineEntry[]>("trivia/timeline.json"), matureOpts);
+    assert.ok(timelineMature.length >= MIN_MATURE_CREATIVE, `timeline mature ${timelineMature.length}`);
+    const timelineSpicy =
+      timelineMature.filter((i) => isMatureCultureContent(i.event)).length / timelineMature.length;
+    assert.ok(timelineSpicy >= 0.7, `timeline mature culture rate ${timelineSpicy}`);
+
+    const impostorMature = filterContentPool(
+      loadJson<Array<{ id: string; label: string; rating?: string; items: string[] }>>(
+        "categories/impostor.json",
+      ),
+      matureOpts,
+    );
+    assert.ok(impostorMature.length >= 4, `impostor mature packs too few: ${impostorMature.length}`);
+    const impostorItemCount = impostorMature.reduce((n, pack) => n + pack.items.length, 0);
+    assert.ok(impostorItemCount >= MIN_MATURE_CREATIVE, `impostor mature items ${impostorItemCount}`);
+    for (const pack of impostorMature) {
+      assert.ok(
+        !/^(nightlife|after-hours|bar-jobs|dating-life|morning-after|wedding-chaos)$/i.test(pack.id),
+        `legacy impostor pack: ${pack.id}`,
+      );
+    }
+
+    const bracketMature = filterCategoryList(loadJson<CategoryEntry[]>("categories/bracket.json"), matureOpts);
+    assert.ok(bracketMature.length >= MIN_MATURE_CREATIVE, `bracket mature ${bracketMature.length}`);
+
+    const friendMature = filterCategoryList(
+      loadJson<CategoryEntry[]>("categories/friend-sort-roles.json"),
+      matureOpts,
+    );
+    assert.ok(friendMature.length >= MIN_MATURE_CREATIVE, `friend-sort mature ${friendMature.length}`);
+
+    const crowdMature = filterContentPool(
+      loadJson<Array<{ text: string; choices: string[]; rating?: string }>>("prompts/crowd-call.json"),
+      matureOpts,
+    );
+    assert.ok(crowdMature.length >= MIN_MATURE_CREATIVE, `crowd-call mature ${crowdMature.length}`);
+
+    const spectrumMature = filterContentPool(
+      loadJson<Array<{ left: string; right: string; rating?: string }>>("prompts/spectrum.json"),
+      matureOpts,
+    );
+    assert.ok(spectrumMature.length >= MIN_MATURE_CREATIVE, `spectrum mature ${spectrumMature.length}`);
+
+    const reverseMature = filterContentPool(loadJson<FactCheckEntry[]>("prompts/reverse-fact.json"), matureOpts);
+    assert.ok(reverseMature.length >= MIN_MATURE_CREATIVE, `reverse-fact mature ${reverseMature.length}`);
   });
 
   it("mature charades pool has enough entries after filters", () => {
@@ -260,6 +345,17 @@ describe("content validation", () => {
       (w) => w.length <= 32 && !/^(perform|do a |call a )/i.test(w),
     );
     assert.ok(pool.length >= 100, `mature charades pool too small: ${pool.length}`);
+  });
+
+  it("mature punchline and hot-seat pools are spicy not alcohol trivia", () => {
+    const punchline = loadJson<PromptEntry[]>("prompts/punchline-battle.json").filter((i) => i.rating === "mature");
+    const hotSeat = loadJson<PromptEntry[]>("prompts/hot-seat.json").filter((i) => i.rating === "mature");
+    assert.ok(punchline.length >= 50, `mature punchline pool too small: ${punchline.length}`);
+    assert.ok(hotSeat.length >= 50, `mature hot-seat pool too small: ${hotSeat.length}`);
+    const punchlineSpicy = punchline.filter((i) => isSpicyPrompt(i.text)).length / punchline.length;
+    const hotSpicy = hotSeat.filter((i) => isSpicyPrompt(i.text)).length / hotSeat.length;
+    assert.ok(punchlineSpicy >= 0.7, `mature punchline spicy rate ${punchlineSpicy}`);
+    assert.ok(hotSpicy >= 0.7, `mature hot-seat spicy rate ${hotSpicy}`);
   });
 
   it("family hot-seat prompts exclude mature blocklist", () => {

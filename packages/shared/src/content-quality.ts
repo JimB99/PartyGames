@@ -203,7 +203,7 @@ export function diversifyNhieStatement(text: string, index: number): string {
   return templates[index % templates.length](statement);
 }
 
-export function rebalanceWitShowdownPrefixes(
+export function rebalancePunchlinePrefixes(
   items: Array<{ text: string; rating?: "family" | "mature"; difficulty?: string }>,
 ): Array<{ text: string; rating?: "family" | "mature"; difficulty?: string }> {
   const worstIdx: number[] = [];
@@ -322,6 +322,178 @@ export function buildReverseFactsFromTimeline(_rows: TimelineLike[]): ReverseFac
   // Timeline events produced identical truth strings ("In what year...") which made
   // reverse-fact voting trivial. Timeline content belongs in When Was It, not here.
   return [];
+}
+
+/** Family pools must not contain explicit/mature keywords (content-audit parity). */
+export const FAMILY_BLOCKLIST =
+  /\b(porn\s*star|pornstar|nsfw|nude|erotic|stripper|prostitut|hentai|had sex|sex tape|blowjob|handjob|bdsm|bondage|dominatrix|brothel|dildo|butt plug|lap dance|glory hole|onlyfans|sexting|threesome|masturbat|orgasm|horny|fetish|vibrator|hookup|affair|one night stand|dirty talk)\b|\bprostitut/i;
+
+/** Genuinely spicy/adult themes — not nightlife trivia alone. */
+export const SPICY_KEYWORDS =
+  /\b(sex|sexy|naked|nude|porn|orgasm|horny|fetish|threesome|masturbat|hookup|affair|stripper|vibrator|erotic|hentai|prostitut|one night stand|dirty talk|sexting|onlyfans|blowjob|handjob|bdsm|bondage|dominatrix|brothel|condom|clitoris|penis|vagina|nipple|anal|oral sex|doggy style|missionary|cowgirl|dildo|butt plug|orgy|voyeur|exhibitionist|foreplay|lap dance|glory hole|safeword|strip club|red light|camel toe|ball gag|cock ring|nipple clamp|merkin|fleshlight|kink|kinky|dominatrix|submissive|fetish|genitalia|ejaculat|cum shot|pornograph|xxx|redtube|pornhub|playboy|hustler|penthouse|escort service|brothel|red light district|skinny dipping|walk of shame|friends with benefits|stripper pole|banana hammock|three-breasted|threesome|orgy|pegging|rimjob|cunnilingus|fellatio|analingus|blue balls|morning wood|wet dream|pubic|labia|scrotum|testicle|foreskin|circumcision|aphrodisiac|aphrodisiacs|libido|arousal|climax|g-spot|prostate|lube|lubricant|sex toy|sex toys|adult film|adult films|adult video|adult industry|adult entertainment|burlesque|striptease|pole dance|sugar daddy|sugar baby|only fans|cam girl|cam boy|webcam model|swinger|swingers|polyamory|open relationship|cuckold|hotwife|milf|dildos|vibrators|buttplug|butt plugs|fetishes|kinks|bdsm|domme|submissive|dominant|safeword|aftercare|spanking|whip|flogger|handcuffs|blindfold|roleplay|role-play|fetish gear|lingerie|thong|g-string|g string|merkin|pasties|pastie|pasties|pasties)\b/i;
+
+const ALCOHOL_ONLY =
+  /\b(beer|wine|vodka|whiskey|whisky|tequila|rum|gin|cocktail|mojito|margarita|brewery|speakeasy|hangover|bar tab|open bar|sommelier|brewery|distillery|moonshine|negroni|martini|ipa|alcopop|beer pong|wine tasting|taproom|minibar|speakeasy|prohibition)\b/i;
+
+const DRAWABLE_SPICY =
+  /\b(three-breasted|banana hammock|stripper pole|merkin|glory hole|ball gag|cock ring|nipple clamp|fleshlight|butt plug|dildo|vibrator|condom|lingerie|thong|lap dance|pole dance|striptease|walk of shame|one night stand|skinny dipping|dirty dancing|friends with benefits)\b/i;
+
+export function containsMatureKeywords(text: string): boolean {
+  if (/\bsuper bowl xxx\b/i.test(text)) return false;
+  if (FAMILY_BLOCKLIST.test(text)) return true;
+  if (/\bhave sex\b/i.test(text)) return true;
+  if (/\b(sexy|threesome|hookup|affair|horny|sext)\b/i.test(text)) return true;
+  return false;
+}
+
+const NON_SPICY_AFFAIR =
+  /\b(dreyfus|watergate|iran[- ]contra|teapot dome|whiskey ring|profumo|lewinsky)\s+affair\b/i;
+
+/** True when content is genuinely spicy/adult, not just alcohol or nightlife trivia. */
+export function isSpicyContent(text: string): boolean {
+  if (NON_SPICY_AFFAIR.test(text)) return false;
+  if (/\bresigned because of the .+ affair\b/i.test(text)) return false;
+  return SPICY_KEYWORDS.test(text);
+}
+
+/** True when a mature prompt is genuinely spicy, not just alcohol-themed. */
+export function isSpicyPrompt(text: string): boolean {
+  return isSpicyContent(text);
+}
+
+export function isAlcoholThemedOnly(text: string): boolean {
+  return ALCOHOL_ONLY.test(text) && !isSpicyContent(text);
+}
+
+export function isSpicyQuizRow(row: { question: string; choices: string[] }): boolean {
+  return isSpicyContent(`${row.question} ${row.choices.join(" ")}`);
+}
+
+export function isSpicyFactCheckPair(prompt: string, truth: string): boolean {
+  return isSpicyContent(`${prompt} ${truth}`);
+}
+
+export function isSpicyDrawWord(word: string): boolean {
+  return isSpicyContent(word) || DRAWABLE_SPICY.test(word);
+}
+
+export function isSpicyWyrPair(a: string, b: string): boolean {
+  return isSpicyContent(`${a} ${b}`);
+}
+
+export function isSpicyBracketName(name: string): boolean {
+  return isSpicyContent(name);
+}
+
+/** Sexuality / adult-culture themes including news history without explicit slang. */
+const MATURE_CULTURE =
+  /\b(playboy|porn|pornhub|sexual|sexuality|lgbt|gay|lesbian|queer|transgender|stonewall|contracept|abortion|roe|obrigefell|hiv|aids|viagra|cialis|onlyfans|stripper|prostitut|metoo|weinstein|epstein|deep throat|fifty shades|brokeback|grindr|tinder|bumble|hinge|ashley madison|revenge porn|birth control|kinsey|hefner|flynt|lewinsky|clinton scandal|condom|brothel|red light|erotic|nude|naked|adult film|hookup|dating app|cam girl|sugar daddy|thirst trap|sext|orgy|bdsm|pride march|same-sex marriage|marriage equality|planned parenthood|sex work|sex tape|wardrobe malfunction|magic mike|showgirls|sex education|euphoria|bridgerton|monica lewinsky|stormy daniels|anthony weiner|petraeus|spitzer|cosby|nassar|r\. kelly|maxwell|britney|madonna sex|hugh hefner|larry flynt|affair scandal|impeachment|sex trafficking|intimacy coordinator|sex-positive|sex shop|nymphomaniac|blue is the warmest)\b/i;
+
+export function isMatureCultureContent(text: string): boolean {
+  if (NON_SPICY_AFFAIR.test(text)) return false;
+  if (/\bresigned because of the .+ affair\b/i.test(text)) return false;
+  return isSpicyContent(text) || MATURE_CULTURE.test(text);
+}
+
+export function isSpicyTimelineEvent(event: string): boolean {
+  return isMatureCultureContent(event);
+}
+
+export function normalizeJeopardyResponse(response: string): string {
+  let t = response
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&(?:quot|#39|amp|lt|gt);/g, " ")
+    .replace(/^[\s"'(]+|[\s"')]+$/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+  t = t.replace(/^(what|who|where|when|which|how|name)\s+(is|are|was|were)\s+(the\s+)?/i, "");
+  t = t.replace(/^(what|who|where|when|which|how)\s+/i, "");
+  t = t.replace(/[?.!]+$/g, "").trim();
+  const words = t.split(/\s+/).filter(Boolean);
+  if (words.length > 6) t = words.slice(0, 6).join(" ");
+  return t;
+}
+
+export function clueToQuestion(clue: string): string | null {
+  let c = clue
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&(?:quot|#39|amp|lt|gt);/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  if (!c || c.length > 120) return null;
+  if (/\$|_{2,}|click here|shown here|pictured here|audio clue/i.test(c)) return null;
+
+  let q = c;
+  if (/^this\b/i.test(c)) q = c.replace(/^this\b/i, "What");
+  else if (/^these\b/i.test(c)) q = c.replace(/^these\b/i, "What");
+  else if (/^he\b/i.test(c)) q = c.replace(/^he\b/i, "Who");
+  else if (/^she\b/i.test(c)) q = c.replace(/^she\b/i, "Who");
+  else if (/^they\b/i.test(c)) q = c.replace(/^they\b/i, "Who");
+  else if (/^it\b/i.test(c)) q = c.replace(/^it\b/i, "What");
+  else if (/^in \d{3,4}\b/i.test(c)) q = c.replace(/^in (\d{3,4})\b/i, "In what year, in $1,");
+  else if (/^name\b/i.test(c)) q = c;
+  else if (/^(what|which|who|where|when|how)\b/i.test(c)) q = c;
+  else return null;
+
+  if (!q.endsWith("?")) q = `${q}?`;
+  q = q.replace(/\.+\?$/g, "?").replace(/\s+/g, " ").trim();
+  if (q.length > 90) return null;
+  if (!/^(who|what|which|where|when|how|name|in what year)\b/i.test(q)) return null;
+  return q;
+}
+
+export function isValidReverseFactPair(fact: string, truth: string): boolean {
+  const f = fact.trim();
+  const t = truth.trim();
+  if (!f || !t) return false;
+  if (f.includes("?") || t.length > 90) return false;
+  if (f.split(/\s+/).length > 6 || f.length < 2) return false;
+  if (!/^(who|what|which|where|when|how|name|in what year)\b/i.test(t)) return false;
+  if (!t.endsWith("?")) return false;
+  if (/\.\.+\?/.test(t)) return false;
+  if (isReverseFactTrivial(f, t, 0.25)) return false;
+  if (t.toLowerCase().includes(f.toLowerCase()) && f.length > 3) return false;
+  return true;
+}
+
+export type JeopardyClueRow = {
+  question?: string;
+  clue?: string;
+  answer?: string;
+  response?: string;
+};
+
+export function buildReverseFactsFromJeopardy(
+  rows: JeopardyClueRow[],
+  rating: "family" | "mature" = "family",
+): ReverseFactEntry[] {
+  const out: ReverseFactEntry[] = [];
+  const seen = new Set<string>();
+
+  for (const row of rows) {
+    const clue = (row.question ?? row.clue ?? "").trim();
+    const response = (row.answer ?? row.response ?? "").trim();
+    if (!clue || !response) continue;
+
+    const fact = normalizeJeopardyResponse(response);
+    const truth = clueToQuestion(clue);
+    if (!fact || !truth || !isValidReverseFactPair(fact, truth)) continue;
+    const blob = `${fact} ${truth}`;
+    if (rating === "family" && containsMatureKeywords(blob)) continue;
+    if (rating === "mature" && !isSpicyContent(blob)) continue;
+
+    const key = fact.toLowerCase();
+    if (seen.has(key)) continue;
+    seen.add(key);
+
+    out.push({
+      fact,
+      truth,
+      rating,
+      difficulty: fact.length <= 6 ? "easy" : fact.length <= 12 ? "medium" : "hard",
+    });
+  }
+  return out;
 }
 
 export function scoreDataset<T>(

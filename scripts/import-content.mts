@@ -18,8 +18,8 @@ import {
   isReverseFactTrivial,
   MIN_CONTENT_POOL_SIZE,
   orderedSequenceRatio,
-  rebalanceWitShowdownPrefixes,
-  buildReverseFactsFromQuiz,
+  rebalancePunchlinePrefixes,
+  isSpicyPrompt,
 } from "../packages/shared/src/content-quality.ts";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -274,9 +274,8 @@ function flattenPqWords(
 
 async function fetchBulkSources(): Promise<{
   quiz: QuizRow[];
-  witShowdown: Array<{ text: string; rating: Rating; difficulty?: Difficulty }>;
+  punchlineBattle: Array<{ text: string; rating: Rating; difficulty?: Difficulty }>;
   hotSeat: Array<{ text: string; rating: Rating; difficulty?: Difficulty }>;
-  caption: Array<{ text: string; rating: Rating; difficulty?: Difficulty }>;
   wyr: Array<{ a: string; b: string; rating: Rating; difficulty: Difficulty }>;
   drawWords: Array<{ word: string; rating: Rating; difficulty: Difficulty }>;
   charadesWords: Array<{ word: string; rating: Rating; difficulty: Difficulty }>;
@@ -287,9 +286,8 @@ async function fetchBulkSources(): Promise<{
   console.log("  fetching bulk static datasets…");
 
   const quiz: QuizRow[] = [];
-  const wit-showdown: Array<{ text: string; rating: Rating; difficulty?: Difficulty }> = [];
+  const punchlineBattle: Array<{ text: string; rating: Rating; difficulty?: Difficulty }> = [];
   const hotSeat: Array<{ text: string; rating: Rating; difficulty?: Difficulty }> = [];
-  const caption: Array<{ text: string; rating: Rating; difficulty?: Difficulty }> = [];
   const wyr: Array<{ a: string; b: string; rating: Rating; difficulty: Difficulty }> = [];
   const drawWords: Array<{ word: string; rating: Rating; difficulty: Difficulty }> = [];
   const charadesWords: Array<{ word: string; rating: Rating; difficulty: Difficulty }> = [];
@@ -343,7 +341,7 @@ async function fetchBulkSources(): Promise<{
     for (const sentence of pgsNhie) {
       const text = sentence.replace(/^Never have I ever /i, "").trim();
       const rating: Rating = isMatureText(text) ? "mature" : "family";
-      wit-showdown.push(promptEntry(diversifyNhieStatement(sentence, wit-showdown.length), rating));
+      punchlineBattle.push(promptEntry(diversifyNhieStatement(sentence, punchlineBattle.length), rating));
       hotSeat.push(promptEntry(adaptTruthToHotSeat(text), rating));
     }
     console.log(`    party-game-sentences NHIE: +${pgsNhie.length}`);
@@ -351,12 +349,12 @@ async function fetchBulkSources(): Promise<{
     const pgsTod = await fetchJson<{ truth?: string[]; dare?: string[] }>(`${PGS_BASE}/truth-or-dare.json`);
     for (const truth of pgsTod.truth ?? []) {
       const rating: Rating = isMatureText(truth) ? "mature" : "family";
-      wit-showdown.push(promptEntry(adaptTruthToWitShowdown(truth), rating));
+      punchlineBattle.push(promptEntry(adaptTruthToPunchline(truth), rating));
       hotSeat.push(promptEntry(adaptTruthToHotSeat(truth), rating));
     }
     for (const dare of pgsTod.dare ?? []) {
       const rating: Rating = isMatureText(dare) ? "mature" : "family";
-      caption.push(promptEntry(adaptDareToCaption(dare), rating));
+      punchlineBattle.push(promptEntry(adaptDareToPunchline(dare), rating));
       const word = adaptDareToDraw(dare);
       if (word) drawWords.push(wordEntry(word, rating, "medium"));
       if (word) charadesWords.push(wordEntry(word, rating, "medium"));
@@ -424,9 +422,8 @@ async function fetchBulkSources(): Promise<{
 
   return {
     quiz,
-    wit-showdown,
+    punchlineBattle,
     hotSeat,
-    caption,
     wyr,
     drawWords,
     charadesWords,
@@ -587,14 +584,14 @@ function adaptTruthToHotSeat(text: string): string {
   return `What they'd say about: ${t}`;
 }
 
-function adaptTruthToWitShowdown(text: string): string {
+function adaptTruthToPunchline(text: string): string {
   const t = text.replace(/\?+$/, "").trim();
   if (t.length < 80) return t;
   return t.slice(0, 77) + "...";
 }
 
-function adaptDareToCaption(text: string): string {
-  return `Caption for someone who ${text.replace(/\.$/, "").toLowerCase()}`;
+function adaptDareToPunchline(text: string): string {
+  return `Punchline for someone who ${text.replace(/\.$/, "").toLowerCase()}`;
 }
 
 function adaptDareToDraw(text: string): string {
@@ -656,7 +653,7 @@ async function main() {
     return out;
   }
 
-  const fact-checkRaw = readJson<Array<{ prompt?: string; truth: string; rating?: Rating; difficulty?: Difficulty }>>(
+  const factCheckRaw = readJson<Array<{ prompt?: string; truth: string; rating?: Rating; difficulty?: Difficulty }>>(
     "prompts/fact-check.json",
   );
 
@@ -671,8 +668,7 @@ async function main() {
     return entries;
   }
 
-  migratePrompts("prompts/wit-showdown.json");
-  migratePrompts("prompts/caption.json");
+  migratePrompts("prompts/punchline-battle.json");
   migratePrompts("prompts/hot-seat.json");
 
   function finalizeFactCheckPool(
@@ -691,7 +687,7 @@ async function main() {
     return pool;
   }
 
-  writeJson("prompts/fact-check.json", finalizeFactCheckPool(fact-checkRaw));
+  writeJson("prompts/fact-check.json", finalizeFactCheckPool(factCheckRaw));
 
   // --- Quiz: bulk datasets + OpenTDB + existing ---
   const existingQuiz = readJson<Array<{ question: string; choices: string[]; correct: number }>>("trivia/quiz.json");
@@ -768,16 +764,12 @@ async function main() {
   // --- Merge bulk static datasets ---
   if (bulk) {
     writeJson(
-      "prompts/wit-showdown.json",
-      dedupePrompts([...readJson("prompts/wit-showdown.json"), ...bulk.wit-showdown]),
+      "prompts/punchline-battle.json",
+      dedupePrompts([...readJson("prompts/punchline-battle.json"), ...bulk.punchlineBattle]),
     );
     writeJson(
       "prompts/hot-seat.json",
       dedupePrompts([...readJson("prompts/hot-seat.json"), ...bulk.hotSeat]),
-    );
-    writeJson(
-      "prompts/caption.json",
-      dedupePrompts([...readJson("prompts/caption.json"), ...bulk.caption]),
     );
     writeJson(
       "would-you-rather.json",
@@ -812,28 +804,7 @@ async function main() {
     }
   }
 
-  function rebuildReverseFacts() {
-    const quizRows = readJson<QuizRow[]>("trivia/quiz.json");
-    const reverseFromQuiz = buildReverseFactsFromQuiz(quizRows, "family");
-    const reversePool = filterRepetitiveTruths(
-      reverseFromQuiz.filter((row) => !isReverseFactTrivial(row.fact, row.truth)),
-    );
-    const reverseSeen = new Set<string>();
-    const reverseDeduped = reversePool.filter((row) => {
-      const k = row.fact.toLowerCase();
-      if (reverseSeen.has(k)) return false;
-      reverseSeen.add(k);
-      return true;
-    });
-    if (reverseDeduped.length < MIN_CONTENT_POOL_SIZE) {
-      console.warn(`  reverse facts pool only ${reverseDeduped.length} entries (target ${MIN_CONTENT_POOL_SIZE}+)`);
-    } else {
-      console.log(`  reverse facts: ${reverseDeduped.length} entries (quiz ${reverseFromQuiz.length})`);
-    }
-    writeJson("prompts/reverse-fact.json", reverseDeduped);
-  }
-
-  rebuildReverseFacts();
+  console.log("  reverse-fact: run pnpm harvest-jeopardy to rebuild Jeopardy-style pool");
 
   // --- Harvest mature content ---
   if (localOnly) {
@@ -865,16 +836,16 @@ async function main() {
   }).filter(Boolean);
 
   // Extend pools (read current files — bulk merge may have run above)
-  const wit-showdownExtended = rebalanceWitShowdownPrefixes(
+  const punchlineBattleExtended = rebalancePunchlinePrefixes(
     dedupePrompts([
-      ...readJson<Array<{ text: string }>>("prompts/wit-showdown.json"),
-      ...matureTruths.map((t) => promptEntry(adaptTruthToWitShowdown(t.text), "mature")),
+      ...readJson<Array<{ text: string }>>("prompts/punchline-battle.json"),
+      ...matureTruths.map((t) => promptEntry(adaptTruthToPunchline(t.text), "mature")),
       ...nhieOffensive.map((t, i) =>
         promptEntry(diversifyNhieStatement(t.text, i + 100), "mature"),
       ),
     ]),
   );
-  writeJson("prompts/wit-showdown.json", wit-showdownExtended);
+  writeJson("prompts/punchline-battle.json", punchlineBattleExtended);
 
   const hotSeatExtended = [
     ...readJson<Array<{ text: string }>>("prompts/hot-seat.json"),
@@ -882,16 +853,40 @@ async function main() {
   ];
   writeJson("prompts/hot-seat.json", dedupePrompts(hotSeatExtended));
 
-  const captionExtended = [
-    ...readJson<Array<{ text: string }>>("prompts/caption.json"),
-    ...daresR.map((d) => promptEntry(adaptDareToCaption(d.text), "mature")),
-  ];
-  writeJson("prompts/caption.json", dedupePrompts(captionExtended));
+  const matureCuratedPath = join(CONTENT, "prompts/mature-curated.json");
+  if (existsSync(matureCuratedPath)) {
+    const curated = readJson<{
+      punchline?: string[];
+      hotSeat?: string[];
+    }>(matureCuratedPath);
+    if (curated.punchline?.length) {
+      writeJson(
+        "prompts/punchline-battle.json",
+        rebalancePunchlinePrefixes(
+          dedupePrompts([
+            ...readJson<Array<{ text: string }>>("prompts/punchline-battle.json"),
+            ...curated.punchline
+              .filter((t) => isSpicyPrompt(t))
+              .map((t) => promptEntry(t, "mature")),
+          ]),
+        ),
+      );
+    }
+    if (curated.hotSeat?.length) {
+      writeJson(
+        "prompts/hot-seat.json",
+        dedupePrompts([
+          ...readJson<Array<{ text: string }>>("prompts/hot-seat.json"),
+          ...curated.hotSeat.filter((t) => isSpicyPrompt(t)).map((t) => promptEntry(t, "mature")),
+        ]),
+      );
+    }
+  }
 
   const currentFibbage = readJson<Array<{ prompt?: string; truth: string; rating?: Rating; difficulty?: Difficulty }>>(
     "prompts/fact-check.json",
   );
-  const fact-checkExtended = [
+  const factCheckExtended = [
     ...currentFibbage
       .filter((row) => row.prompt && isFactCheckTruthValid(row.prompt, row.truth) && !looksLikeGeneratedFactCheckTruth(row.truth))
       .map((row, i) => ({
@@ -902,7 +897,7 @@ async function main() {
       })),
 
   ];
-  writeJson("prompts/fact-check.json", finalizeFactCheckPool(fact-checkExtended));
+  writeJson("prompts/fact-check.json", finalizeFactCheckPool(factCheckExtended));
 
   const drawExtended = [
     ...readJson<Array<{ word: unknown }>>("words/draw.json").map((w) => {
@@ -984,10 +979,10 @@ async function main() {
     console.log(`  wrote words/dictionary.txt (${dictWords.length} words)`);
   }
 
-  const fact-checkFinal = readJson<Array<{ truth: string }>>("prompts/fact-check.json");
-  const fact-checkTexts = fact-checkFinal.map((r) => r.truth);
+  const factCheckFinal = readJson<Array<{ truth: string }>>("prompts/fact-check.json");
+  const factCheckTexts = factCheckFinal.map((r) => r.truth);
   console.log(
-    `  quality report: fact-check dupes ${(duplicateTruthRate(fact-checkTexts) * 100).toFixed(1)}%, ordered ${(orderedSequenceRatio(fact-checkTexts) * 100).toFixed(1)}%`,
+    `  quality report: fact-check dupes ${(duplicateTruthRate(factCheckTexts) * 100).toFixed(1)}%, ordered ${(orderedSequenceRatio(factCheckTexts) * 100).toFixed(1)}%`,
   );
 
   console.log("Done.");

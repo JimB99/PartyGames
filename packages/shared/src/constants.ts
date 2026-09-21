@@ -86,7 +86,7 @@ export interface GameMeta {
 
 export const ALL_GAME_IDS = [
   "fact-check",
-  "wit-showdown",
+  "punchline-battle",
   "quick-quiz",
   "would-you-rather",
   "draw-guess",
@@ -108,7 +108,6 @@ export const ALL_GAME_IDS = [
   "spectrum",
   "chain-sketch",
   "crowd-call",
-  "star-rate",
   "agent-grid",
   "forbidden-clue",
   "hangman-race",
@@ -116,7 +115,6 @@ export const ALL_GAME_IDS = [
   "grid-blast",
   "draw-vote",
   "draw-impostor",
-  "caption-this",
 ] as const;
 
 export type GameId = (typeof ALL_GAME_IDS)[number];

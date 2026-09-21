@@ -10,7 +10,7 @@ describe("protocol-schema", () => {
     assert.equal(start.ok, true);
     const playlist = validateClientMessage({
       type: "set_session_playlist",
-      gameIds: ["quick-quiz", "caption-this"],
+      gameIds: ["quick-quiz", "punchline-battle"],
     });
     assert.equal(playlist.ok, true);
   });

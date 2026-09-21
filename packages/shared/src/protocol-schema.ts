@@ -218,11 +218,6 @@ export function validateGameAction(raw: unknown): ValidationResult<GameAction> {
       if (!finiteNumber(raw.choiceIndex) || raw.choiceIndex < 0 || raw.choiceIndex > 9) return fail("Invalid crowd choice");
       return ok({ kind: raw.kind, choiceIndex: raw.choiceIndex });
     }
-    case "star_rate": {
-      const submissionId = trimText(raw.submissionId, 64);
-      if (!submissionId || !finiteNumber(raw.stars) || raw.stars < 1 || raw.stars > 5) return fail("Invalid star_rate");
-      return ok({ kind: "star_rate", submissionId, stars: Math.floor(raw.stars) });
-    }
     case "fleet_duel_place": {
       if (!finiteNumber(raw.shipIndex) || !finiteNumber(raw.x) || !finiteNumber(raw.y)) return fail("Invalid fleet_duel_place");
       if (typeof raw.horizontal !== "boolean") return fail("Invalid fleet_duel_place");

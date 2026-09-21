@@ -12,7 +12,7 @@ import {
 } from "./helpers/room.js";
 import { assertHeroCentered, assertHostStageVisible } from "./helpers/host-stage.ts";
 
-const SMOKE_GAMES: GameId[] = ["wit-showdown", "draw-guess", "trail-dash"];
+const SMOKE_GAMES: GameId[] = ["punchline-battle", "draw-guess", "trail-dash"];
 
 async function setupGameHost(gameId: GameId) {
   const browser = await chromium.launch();
@@ -64,7 +64,7 @@ for (const gameId of ALL_GAME_IDS) {
   });
 }
 
-test("@smoke @host-return-lobby wit-showdown vote phase never shows matchup", async () => {
+test("@smoke @host-return-lobby punchline-battle vote phase shows bracket matchup", async () => {
   const browser = await chromium.launch();
   const roomId = randomRoomId();
   const { page: host, context: hostCtx } = await openHost(browser, roomId);
@@ -77,7 +77,7 @@ test("@smoke @host-return-lobby wit-showdown vote phase never shows matchup", as
       contexts.push(context);
       players.push(page);
     }
-    await selectGame(host, "wit-showdown");
+    await selectGame(host, "punchline-battle");
     await enableHostPacing(host);
     await startGame(host);
     await hostAdvance(host);
@@ -92,7 +92,7 @@ test("@smoke @host-return-lobby wit-showdown vote phase never shows matchup", as
     await expect
       .poll(async () => await host.getByTestId("host-game-view").getAttribute("data-phase"), { timeout: 30_000 })
       .toBe("vote");
-    await expect(host.getByText(/matchup\s+\d/i)).toHaveCount(0);
+    await expect(host.getByText(/matchup\s+\d/i)).toBeVisible();
     await expect(host.getByTestId("host-stage")).toBeVisible();
   } finally {
     await hostCtx.close();

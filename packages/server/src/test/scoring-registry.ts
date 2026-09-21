@@ -9,8 +9,6 @@ export const SCORING_ENGINE_TEST_FILES: Partial<Record<GameId, string>> = {
   "paddle-clash": "paddle-clash-engine.test.ts",
   "word-rush": "word-rush-engine.test.ts",
   "team-charades": "team-charades.test.ts",
-  "wit-showdown": "prompt-vote-engine.test.ts",
+  "punchline-battle": "prompt-vote-engine.test.ts",
   "hot-seat": "hot-seat-engine.test.ts",
-  "caption-this": "prompt-vote-engine.test.ts",
-  "star-rate": "star-rate-engine.test.ts",
 };
