@@ -57,8 +57,10 @@ export interface PromptVoteViewData extends BluffViewData {
   targetName?: string;
   submissions?: Array<{ id: string; text: string; playerId?: string }>;
   matchup?: {
+    kind?: "pair" | "triple";
     a?: { id: string; text: string };
     b?: { id: string; text: string };
+    c?: { id: string; text: string };
     index?: number;
     total?: number;
   };

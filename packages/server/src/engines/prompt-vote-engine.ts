@@ -19,6 +19,10 @@ export interface Submission {
   text: string;
 }
 
+export type BracketRound =
+  | { kind: "pair"; a: string; b: string }
+  | { kind: "triple"; a: string; b: string; c: string };
+
 export interface PromptVoteState {
   gameOptions?: import("@party-games/shared").GameOptions;
   phase: PromptVotePhase;
@@ -30,8 +34,8 @@ export interface PromptVoteState {
   prompt: string;
   targetPlayerId?: string;
   submissions: Submission[];
-  matchups: Array<{ a: string; b: string }>;
-  matchupIndex: number;
+  bracketRounds: BracketRound[];
+  bracketIndex: number;
   votes: Record<string, string>;
   pickVotes: Record<string, string>;
   cumulativeVoters: Record<string, string[]>;
@@ -40,7 +44,6 @@ export interface PromptVoteState {
   usedPrompts: number[];
   promptsPool: string[];
   playerIds: string[];
-  byeSubmissionId?: string;
 }
 
 const SUBMIT_MS = 45000;
@@ -64,8 +67,8 @@ export function createPromptVoteState(
     prompt: prompts[idx],
     targetPlayerId,
     submissions: [],
-    matchups: [],
-    matchupIndex: 0,
+    bracketRounds: [],
+    bracketIndex: 0,
     votes: {},
     pickVotes: {},
     cumulativeVoters: {},
@@ -78,26 +81,45 @@ export function createPromptVoteState(
   };
 }
 
-function buildMatchups(state: PromptVoteState) {
-  const subs = shuffle(state.submissions);
-  const pairs: Array<{ a: string; b: string }> = [];
-  const ids = subs.map((s) => s.id);
-  for (let i = 0; i + 1 < ids.length; i += 2) {
-    pairs.push({ a: ids[i], b: ids[i + 1] });
+/** Build bracket rounds: odd n≥5 → one random triple + pairs; n=3 punchline uses gallery vote instead. */
+export function buildBracketRounds(submissions: Submission[]): BracketRound[] {
+  const ids = shuffle(submissions).map((s) => s.id);
+  const n = ids.length;
+  const rounds: BracketRound[] = [];
+
+  if (n % 2 === 1 && n >= 5) {
+    const triple = ids.slice(0, 3);
+    const rest = ids.slice(3);
+    rounds.push({ kind: "triple", a: triple[0], b: triple[1], c: triple[2] });
+    for (let i = 0; i + 1 < rest.length; i += 2) {
+      rounds.push({ kind: "pair", a: rest[i], b: rest[i + 1] });
+    }
+    return rounds;
   }
-  state.byeSubmissionId = ids.length % 2 === 1 ? ids[ids.length - 1] : undefined;
-  state.matchups = pairs;
-  state.matchupIndex = 0;
+
+  for (let i = 0; i + 1 < n; i += 2) {
+    rounds.push({ kind: "pair", a: ids[i], b: ids[i + 1] });
+  }
+  return rounds;
 }
 
-function matchupAuthorIds(state: PromptVoteState, matchup: { a: string; b: string }): Set<string> {
-  const aSub = state.submissions.find((s) => s.id === matchup.a);
-  const bSub = state.submissions.find((s) => s.id === matchup.b);
-  return new Set([aSub?.playerId, bSub?.playerId].filter((id): id is string => Boolean(id)));
+function currentBracketRound(state: PromptVoteState): BracketRound | undefined {
+  return state.bracketRounds[state.bracketIndex];
 }
 
-function eligibleMatchupVoters(state: PromptVoteState, matchup: { a: string; b: string }): string[] {
-  const authors = matchupAuthorIds(state, matchup);
+function bracketSubmissionIds(round: BracketRound): string[] {
+  return round.kind === "pair" ? [round.a, round.b] : [round.a, round.b, round.c];
+}
+
+function bracketAuthorIds(state: PromptVoteState, round: BracketRound): Set<string> {
+  const authorIds = bracketSubmissionIds(round)
+    .map((id) => state.submissions.find((s) => s.id === id)?.playerId)
+    .filter((id): id is string => Boolean(id));
+  return new Set(authorIds);
+}
+
+function eligibleBracketVoters(state: PromptVoteState, round: BracketRound): string[] {
+  const authors = bracketAuthorIds(state, round);
   return state.playerIds.filter((id) => !authors.has(id));
 }
 
@@ -105,12 +127,8 @@ function usesGalleryVote(state: PromptVoteState): boolean {
   return state.mode === "vote-all";
 }
 
-function awardByePoints(state: PromptVoteState): void {
-  if (!state.byeSubmissionId) return;
-  const bye = state.submissions.find((s) => s.id === state.byeSubmissionId);
-  if (!bye) return;
-  state.roundScores[bye.playerId] = (state.roundScores[bye.playerId] ?? 0) + 500;
-  state.cumulativeScores[bye.playerId] = (state.cumulativeScores[bye.playerId] ?? 0) + 500;
+function punchlineUsesGalleryVote(state: PromptVoteState): boolean {
+  return state.mode === "punchline-battle" && state.submissions.length === 3;
 }
 
 export function advancePromptVote(state: PromptVoteState, prompts: string[]): PromptVoteState {
@@ -129,7 +147,7 @@ export function advancePromptVote(state: PromptVoteState, prompts: string[]): Pr
       Object.assign(state, startPhaseTimer(VOTE_MS, state.gameOptions));
       return state;
     }
-    if (usesGalleryVote(state)) {
+    if (usesGalleryVote(state) || punchlineUsesGalleryVote(state)) {
       if (state.submissions.length < 2) {
         state.roundScores = {};
         state.phase = "scoreboard";
@@ -140,16 +158,16 @@ export function advancePromptVote(state: PromptVoteState, prompts: string[]): Pr
       Object.assign(state, startPhaseTimer(VOTE_MS, state.gameOptions));
       return state;
     }
-    buildMatchups(state);
-    awardByePoints(state);
-    state.phase = state.matchups.length > 0 ? "matchup" : "scoreboard";
+    state.bracketRounds = buildBracketRounds(state.submissions);
+    state.bracketIndex = 0;
+    state.phase = state.bracketRounds.length > 0 ? "matchup" : "scoreboard";
     Object.assign(state, startPhaseTimer(VOTE_MS, state.gameOptions));
     return state;
   }
   if (state.phase === "matchup") {
-    scoreMatchup(state);
-    state.matchupIndex += 1;
-    if (state.matchupIndex >= state.matchups.length) {
+    scoreBracketRound(state);
+    state.bracketIndex += 1;
+    if (state.bracketIndex >= state.bracketRounds.length) {
       state.phase = "reveal";
       Object.assign(state, startPhaseTimer(REVEAL_MS, state.gameOptions));
     } else {
@@ -209,7 +227,8 @@ function accumulateVotes(state: PromptVoteState) {
 function buildPromptVoteReveal(state: PromptVoteState): RevealEntry[] {
   let voterMap: Record<string, string[]> = {};
   if (state.mode === "punchline-battle") {
-    voterMap = state.cumulativeVoters;
+    voterMap =
+      state.bracketRounds.length > 0 ? state.cumulativeVoters : votersByOption(state.votes);
   } else if (usesGalleryVote(state)) {
     voterMap = votersByOption(state.votes);
   } else if (state.mode === "hot-seat" && state.targetPlayerId) {
@@ -224,24 +243,29 @@ function buildPromptVoteReveal(state: PromptVoteState): RevealEntry[] {
   }));
 }
 
-function scoreMatchup(state: PromptVoteState) {
-  const matchup = state.matchups[state.matchupIndex];
-  if (!matchup) return;
-  accumulateVotes(state);
-  let votesA = 0;
-  let votesB = 0;
-  for (const optionId of Object.values(state.votes)) {
-    if (optionId === matchup.a) votesA++;
-    if (optionId === matchup.b) votesB++;
+function pickBracketWinner(round: BracketRound, counts: Record<string, number>): string {
+  const candidates = bracketSubmissionIds(round);
+  let winnerId = candidates[0];
+  let best = counts[winnerId] ?? 0;
+  for (const id of candidates) {
+    const count = counts[id] ?? 0;
+    if (count > best || (count === best && id < winnerId)) {
+      best = count;
+      winnerId = id;
+    }
   }
-  const winnerId =
-    votesA > votesB
-      ? matchup.a
-      : votesB > votesA
-        ? matchup.b
-        : matchup.a < matchup.b
-          ? matchup.a
-          : matchup.b;
+  return winnerId;
+}
+
+function scoreBracketRound(state: PromptVoteState) {
+  const round = currentBracketRound(state);
+  if (!round) return;
+  accumulateVotes(state);
+  const counts: Record<string, number> = {};
+  for (const optionId of Object.values(state.votes)) {
+    counts[optionId] = (counts[optionId] ?? 0) + 1;
+  }
+  const winnerId = pickBracketWinner(round, counts);
   const winner = state.submissions.find((s) => s.id === winnerId);
   if (winner) {
     state.roundScores[winner.playerId] = (state.roundScores[winner.playerId] ?? 0) + 1000;
@@ -299,14 +323,15 @@ export function onPromptVoteAction(
     if (state.submissions.length >= expected) return advancePromptVote(state, state.promptsPool);
   }
   if (action.kind === "vote_pair" && state.phase === "matchup") {
-    const matchup = state.matchups[state.matchupIndex];
-    if (!matchup) return state;
-    if (matchupAuthorIds(state, matchup).has(playerId)) return state;
-    if (action.winnerId !== matchup.a && action.winnerId !== matchup.b) return state;
+    const round = currentBracketRound(state);
+    if (!round) return state;
+    if (bracketAuthorIds(state, round).has(playerId)) return state;
+    const validIds = bracketSubmissionIds(round);
+    if (!validIds.includes(action.winnerId)) return state;
     const picked = state.submissions.find((s) => s.id === action.winnerId);
     if (picked?.playerId === playerId) return state;
     state.votes[playerId] = action.winnerId;
-    const eligible = eligibleMatchupVoters(state, matchup);
+    const eligible = eligibleBracketVoters(state, round);
     if (eligible.every((id) => state.votes[id] !== undefined)) {
       return advancePromptVote(state, state.promptsPool);
     }
@@ -346,8 +371,30 @@ export function onPromptVoteTick(state: PromptVoteState, prompts?: string[]): Pr
   return advancePromptVote(state, prompts ?? state.promptsPool);
 }
 
+function buildMatchupView(state: PromptVoteState, round: BracketRound, subById: Record<string, Submission>) {
+  const base = {
+    index: state.bracketIndex,
+    total: state.bracketRounds.length,
+  };
+  if (round.kind === "triple") {
+    return {
+      kind: "triple" as const,
+      a: subById[round.a],
+      b: subById[round.b],
+      c: subById[round.c],
+      ...base,
+    };
+  }
+  return {
+    kind: "pair" as const,
+    a: subById[round.a],
+    b: subById[round.b],
+    ...base,
+  };
+}
+
 export function promptVoteHostView(state: PromptVoteState, ctx?: RoomContext) {
-  const currentMatchup = state.matchups[state.matchupIndex];
+  const currentRound = currentBracketRound(state);
   const subById = Object.fromEntries(state.submissions.map((s) => [s.id, s]));
   const showReveal = state.phase === "reveal" || state.phase === "scoreboard";
   const targetName = state.targetPlayerId
@@ -382,14 +429,7 @@ export function promptVoteHostView(state: PromptVoteState, ctx?: RoomContext) {
             ? state.playerIds.length
             : undefined,
       reveal: showReveal ? buildPromptVoteReveal(state) : undefined,
-      matchup: currentMatchup
-        ? {
-            a: subById[currentMatchup.a],
-            b: subById[currentMatchup.b],
-            index: state.matchupIndex,
-            total: state.matchups.length,
-          }
-        : undefined,
+      matchup: currentRound ? buildMatchupView(state, currentRound, subById) : undefined,
       roundScores: state.roundScores,
       cumulativeScores: state.cumulativeScores,
     },
@@ -397,7 +437,7 @@ export function promptVoteHostView(state: PromptVoteState, ctx?: RoomContext) {
 }
 
 export function promptVotePlayerView(state: PromptVoteState, playerId: string, ctx?: RoomContext) {
-  const currentMatchup = state.matchups[state.matchupIndex];
+  const currentRound = currentBracketRound(state);
   const subById = Object.fromEntries(state.submissions.map((s) => [s.id, s]));
   const ownSubmission = state.submissions.find((s) => s.playerId === playerId);
   const isTarget = state.targetPlayerId === playerId;
@@ -410,8 +450,8 @@ export function promptVotePlayerView(state: PromptVoteState, playerId: string, c
       ? personalizeHotSeatPrompt(state.prompt, targetName)
       : state.prompt;
   const canVoteInMatchup =
-    state.phase === "matchup" && currentMatchup
-      ? !matchupAuthorIds(state, currentMatchup).has(playerId)
+    state.phase === "matchup" && currentRound
+      ? !bracketAuthorIds(state, currentRound).has(playerId)
       : undefined;
   return {
     phase: state.phase,
@@ -424,8 +464,8 @@ export function promptVotePlayerView(state: PromptVoteState, playerId: string, c
       prompt: state.phase !== "instructions" ? displayPrompt : undefined,
       isTarget,
       targetName,
-      matchup: state.phase === "matchup" && currentMatchup
-        ? { a: subById[currentMatchup.a], b: subById[currentMatchup.b] }
+      matchup: state.phase === "matchup" && currentRound
+        ? buildMatchupView(state, currentRound, subById)
         : undefined,
       options: state.phase === "vote"
         ? state.submissions.map((s) => ({ id: s.id, text: s.text, authorId: s.playerId }))

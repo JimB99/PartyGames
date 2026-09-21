@@ -286,16 +286,24 @@ export function HostGameView({
       {phase === "matchup" && data.matchup && (
         <div className="space-y-3">
           <p className="text-center text-sm text-zinc-400">
-            Matchup {(data.matchup as { index?: number }).index !== undefined ? (data.matchup as { index: number }).index + 1 : ""}
+            {(data.matchup as { kind?: string }).kind === "triple" ? "Triple threat" : "Matchup"}
+            {(data.matchup as { index?: number }).index !== undefined ? ` ${(data.matchup as { index: number }).index + 1}` : ""}
             {(data.matchup as { total?: number }).total ? ` / ${(data.matchup as { total: number }).total}` : ""}
           </p>
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div
+            className={`grid gap-4 ${(data.matchup as { kind?: string }).kind === "triple" ? "sm:grid-cols-3" : "sm:grid-cols-2"}`}
+          >
             <div className="rounded-2xl bg-pink-600/30 p-8 text-center text-2xl font-bold">
-              {(data.matchup as { a: { text: string }; b: { text: string } }).a?.text}
+              {(data.matchup as { a: { text: string } }).a?.text}
             </div>
             <div className="rounded-2xl bg-cyan-600/30 p-8 text-center text-2xl font-bold">
-              {(data.matchup as { a: { text: string }; b: { text: string } }).b?.text}
+              {(data.matchup as { b: { text: string } }).b?.text}
             </div>
+            {(data.matchup as { kind?: string; c?: { text: string } }).kind === "triple" && (
+              <div className="rounded-2xl bg-violet-600/30 p-8 text-center text-2xl font-bold">
+                {(data.matchup as { c: { text: string } }).c?.text}
+              </div>
+            )}
           </div>
         </div>
       )}

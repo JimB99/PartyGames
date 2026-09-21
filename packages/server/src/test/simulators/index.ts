@@ -83,8 +83,8 @@ export function promptVoteActions(state: unknown, ctx: RoomContext): SimAction[]
     mode?: string;
     targetPlayerId?: string;
     submissions?: Array<{ id: string; playerId: string }>;
-    matchups?: Array<{ a: string; b: string }>;
-    matchupIndex?: number;
+    bracketRounds?: Array<{ kind: "pair" | "triple"; a: string; b: string; c?: string }>;
+    bracketIndex?: number;
   };
   const actions: SimAction[] = [];
 
@@ -101,16 +101,18 @@ export function promptVoteActions(state: unknown, ctx: RoomContext): SimAction[]
     return actions;
   }
 
-  if (phase === "matchup" && s.matchups?.[s.matchupIndex ?? 0] && s.submissions) {
-    const matchup = s.matchups[s.matchupIndex ?? 0];
+  if (phase === "matchup" && s.bracketRounds?.[s.bracketIndex ?? 0] && s.submissions) {
+    const round = s.bracketRounds[s.bracketIndex ?? 0];
+    const roundIds =
+      round.kind === "triple" ? [round.a, round.b, round.c!] : [round.a, round.b];
     const authorIds = new Set(
       s.submissions
-        .filter((sub) => sub.id === matchup.a || sub.id === matchup.b)
+        .filter((sub) => roundIds.includes(sub.id))
         .map((sub) => sub.playerId),
     );
     for (const playerId of ctx.playerIds) {
       if (authorIds.has(playerId)) continue;
-      actions.push({ role: "player", playerId, action: { kind: "vote_pair", winnerId: matchup.a } });
+      actions.push({ role: "player", playerId, action: { kind: "vote_pair", winnerId: round.a } });
     }
     return actions;
   }

@@ -15,7 +15,7 @@ export const wouldYouRatherGame: GameModule<TriviaState> = {
     id: "would-you-rather",
     name: "Would You Rather",
     description: "Pick between two awkward options",
-    scoringRules: "+200 for voting. +800 if you match the majority of other voters; +400 if others tie 50/50.",
+    scoringRules: "+200 for voting. +800 if you match the room majority; +400 if the room splits 50/50.",
     minPlayers: 2,
     maxPlayers: 16,
     category: "social",

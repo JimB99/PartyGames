@@ -15,7 +15,7 @@ export const punchlineBattleGame: GameModule<PromptVoteState> = {
     id: "punchline-battle",
     name: "Punchline Battle",
     description: "Write the best punchline for the prompt — bracket vote picks winners",
-    scoringRules: "+1000 for winning each head-to-head matchup vote.",
+    scoringRules: "+1000 for winning each bracket vote (head-to-head or triple threat).",
     minPlayers: 3,
     maxPlayers: 16,
     category: "social",

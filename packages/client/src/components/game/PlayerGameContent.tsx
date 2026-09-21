@@ -244,28 +244,25 @@ export function PlayerGameView({
           ) : (
             <>
               {(() => {
-                const a = (data.matchup as { a: { id: string; text: string; playerId?: string } }).a;
-                const b = (data.matchup as { b: { id: string; text: string; playerId?: string } }).b;
+                const matchup = data.matchup as {
+                  kind?: "pair" | "triple";
+                  a: { id: string; text: string; playerId?: string };
+                  b: { id: string; text: string; playerId?: string };
+                  c?: { id: string; text: string; playerId?: string };
+                };
                 const ownId = playerData.ownSubmissionId as string | undefined;
-                return (
-                  <>
-                    <Btn
-                      className="w-full text-left break-words"
-                      disabled={a?.id === ownId}
-                      onClick={() => onAction({ kind: "vote_pair", winnerId: a.id })}
-                    >
-                      {a?.text}{a?.id === ownId ? " (your answer)" : ""}
-                    </Btn>
-                    <Btn
-                      className="w-full text-left break-words"
-                      variant="secondary"
-                      disabled={b?.id === ownId}
-                      onClick={() => onAction({ kind: "vote_pair", winnerId: b.id })}
-                    >
-                      {b?.text}{b?.id === ownId ? " (your answer)" : ""}
-                    </Btn>
-                  </>
-                );
+                const choices = [matchup.a, matchup.b, ...(matchup.kind === "triple" && matchup.c ? [matchup.c] : [])];
+                return choices.map((choice, idx) => (
+                  <Btn
+                    key={choice.id}
+                    className="w-full text-left break-words"
+                    variant={idx === 0 ? "primary" : "secondary"}
+                    disabled={choice?.id === ownId}
+                    onClick={() => onAction({ kind: "vote_pair", winnerId: choice.id })}
+                  >
+                    {choice?.text}{choice?.id === ownId ? " (your answer)" : ""}
+                  </Btn>
+                ));
               })()}
             </>
           )}

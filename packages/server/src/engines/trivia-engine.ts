@@ -291,23 +291,23 @@ function scoreTrivia(state: TriviaState, gameOptions?: GameOptions) {
     const TIE_BONUS = 400;
     const MAJORITY_BONUS = 800;
 
+    let roomA = 0;
+    let roomB = 0;
+    for (const answer of Object.values(state.answers)) {
+      if (answer === "a" || answer === 0) roomA++;
+      if (answer === "b" || answer === 1) roomB++;
+    }
+    const roomTied = roomA === roomB && roomA + roomB > 0;
+    const roomMajorityA = roomA > roomB;
+
     for (const [playerId, answer] of Object.entries(state.answers)) {
-      let othersA = 0;
-      let othersB = 0;
-      for (const [otherId, otherAnswer] of Object.entries(state.answers)) {
-        if (otherId === playerId) continue;
-        if (otherAnswer === "a" || otherAnswer === 0) othersA++;
-        if (otherAnswer === "b" || otherAnswer === 1) othersB++;
-      }
-      const othersTied = othersA === othersB;
-      const othersMajorityA = othersA > othersB;
       const pickedA = answer === "a" || answer === 0;
       const pickedB = answer === "b" || answer === 1;
 
       let pts = PARTICIPATION;
-      if (othersTied) {
+      if (roomTied) {
         pts += TIE_BONUS;
-      } else if ((othersMajorityA && pickedA) || (!othersMajorityA && pickedB)) {
+      } else if ((roomMajorityA && pickedA) || (!roomMajorityA && pickedB)) {
         pts += MAJORITY_BONUS;
       }
       roundDelta[playerId] = pts;

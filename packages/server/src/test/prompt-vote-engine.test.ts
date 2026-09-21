@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import {
   advancePromptVote,
+  buildBracketRounds,
   createPromptVoteState,
   onPromptVoteAction,
   promptVoteHostView,
@@ -63,12 +64,13 @@ describe("prompt-vote-engine gallery vote-all", () => {
     assert.equal(s.cumulativeScores.p2, 1000);
   });
 
-  it("punchline-battle mode uses bracket matchups", () => {
+  it("punchline-battle with 4 players uses pair bracket rounds", () => {
     const state = createPromptVoteState("punchline-battle", ["Punchline prompt"], 4, undefined, playerIds);
     const after = submitAll(state);
     assert.equal(after.phase, "matchup");
     assert.equal(after.mode, "punchline-battle");
-    assert.ok((after.matchups?.length ?? 0) > 0);
+    assert.equal(after.bracketRounds.length, 2);
+    assert.equal(after.bracketRounds.every((r) => r.kind === "pair"), true);
   });
 
   it("skips to scoreboard when fewer than two submissions", () => {
@@ -77,5 +79,70 @@ describe("prompt-vote-engine gallery vote-all", () => {
     state.submissions.push({ id: "solo", playerId: "p1", text: "only one" });
     state = advancePromptVote(state, state.promptsPool);
     assert.equal(state.phase, "scoreboard");
+  });
+});
+
+describe("prompt-vote-engine punchline bracket", () => {
+  it("buildBracketRounds uses one triple and one pair for 5 submissions", () => {
+    const subs = ["a", "b", "c", "d", "e"].map((id) => ({ id, playerId: id, text: id }));
+    const rounds = buildBracketRounds(subs);
+    assert.equal(rounds.length, 2);
+    assert.equal(rounds[0].kind, "triple");
+    assert.equal(rounds[1].kind, "pair");
+    const tripleIds = rounds[0].kind === "triple" ? [rounds[0].a, rounds[0].b, rounds[0].c] : [];
+    const pairIds = rounds[1].kind === "pair" ? [rounds[1].a, rounds[1].b] : [];
+    assert.equal(new Set([...tripleIds, ...pairIds]).size, 5);
+  });
+
+  it("punchline-battle with 5 players starts with a triple threat round", () => {
+    const playerIds = ["p1", "p2", "p3", "p4", "p5"];
+    const ctx = makeRoomContext(5);
+    let state = createPromptVoteState("punchline-battle", ["prompt"], 4, undefined, playerIds);
+    state = advancePromptVote(state, state.promptsPool);
+    for (const pid of playerIds) {
+      state = onPromptVoteAction(state, pid, { kind: "submit_text", text: `Answer ${pid}` }, ctx);
+    }
+    assert.equal(state.phase, "matchup");
+    assert.equal(state.bracketRounds[0]?.kind, "triple");
+    assert.equal(state.bracketRounds.length, 2);
+    const view = promptVoteHostView(state);
+    assert.equal((view.data.matchup as { kind?: string }).kind, "triple");
+  });
+
+  it("punchline-battle with 3 players uses gallery vote", () => {
+    const playerIds = ["p1", "p2", "p3"];
+    const ctx = makeRoomContext(3);
+    let state = createPromptVoteState("punchline-battle", ["prompt"], 4, undefined, playerIds);
+    state = advancePromptVote(state, state.promptsPool);
+    for (const pid of playerIds) {
+      state = onPromptVoteAction(state, pid, { kind: "submit_text", text: `Answer ${pid}` }, ctx);
+    }
+    assert.equal(state.phase, "vote");
+    assert.equal(state.bracketRounds.length, 0);
+  });
+
+  it("scores triple round winner +1000", () => {
+    const playerIds = ["p1", "p2", "p3", "p4", "p5"];
+    const ctx = makeRoomContext(5);
+    let state = createPromptVoteState("punchline-battle", ["prompt"], 4, undefined, playerIds);
+    state = advancePromptVote(state, state.promptsPool);
+    for (const pid of playerIds) {
+      state = onPromptVoteAction(state, pid, { kind: "submit_text", text: `Answer ${pid}` }, ctx);
+    }
+    const triple = state.bracketRounds[0];
+    assert.equal(triple?.kind, "triple");
+    if (triple?.kind !== "triple") return;
+    const tripleIds = [triple.a, triple.b, triple.c];
+    const authorIds = new Set(
+      state.submissions.filter((s) => tripleIds.includes(s.id)).map((s) => s.playerId),
+    );
+    const voters = playerIds.filter((id) => !authorIds.has(id));
+    const winnerId = triple.b;
+    for (const pid of voters) {
+      state = onPromptVoteAction(state, pid, { kind: "vote_pair", winnerId }, ctx);
+    }
+    assert.equal(state.bracketIndex, 1);
+    const winner = state.submissions.find((s) => s.id === winnerId);
+    assert.equal(state.roundScores[winner!.playerId], 1000);
   });
 });
