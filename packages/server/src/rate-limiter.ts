@@ -34,5 +34,5 @@ export class RateLimiter {
 }
 
 export const actionLimiter = new RateLimiter("action", 8, 16);
-export const drawLimiter = new RateLimiter("draw", 30, 60);
+export const drawLimiter = new RateLimiter("draw", 30, 120);
 export const hostAdminLimiter = new RateLimiter("host", 4, 8);

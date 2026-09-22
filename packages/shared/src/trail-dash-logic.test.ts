@@ -10,6 +10,8 @@ import {
   applyPowerUp,
   checkTrailCollisions,
   collectPickups,
+  applyPendingTurns,
+  queuePlayerTurn,
   createCurveState,
   detonateGrenade,
   eraseTrailsInRadius,
@@ -416,5 +418,25 @@ describe("trail-dash-logic lobby colors", () => {
     assert.equal(human.colorIndex, 5);
     assert.notEqual(human.x, bot.x);
     assert.notEqual(human.y, bot.y);
+  });
+});
+
+describe("queuePlayerTurn", () => {
+  it("applies queued turn at tick start", () => {
+    const state = createCurveState(
+      ["p1"],
+      [],
+      {},
+      DEFAULT_TRAIL_DASH_OPTIONS,
+      1,
+    );
+    markPlayingStarted(state);
+    const player = state.players[0]!;
+    player.direction = "none";
+    queuePlayerTurn(state, "p1", "left");
+    assert.equal(player.direction, "none");
+    applyPendingTurns(state);
+    assert.equal(player.direction, "left");
+    assert.deepEqual(state.pendingTurns, {});
   });
 });

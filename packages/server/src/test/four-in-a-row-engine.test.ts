@@ -1,6 +1,10 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import { buildCfBracket, cfBracketMatchCount, createFourInARowState } from "@party-games/shared";
+import {
+  buildCfBracket,
+  cfBracketMatchCount,
+  createFourInARowState,
+} from "@party-games/shared";
 import { onFourInARowAction } from "../engines/four-in-a-row-engine.js";
 
 describe("four-in-a-row bracket", () => {
@@ -21,5 +25,22 @@ describe("four-in-a-row bracket", () => {
     state.matchIndex = 1;
     state.round += 1;
     assert.equal(state.round, 2);
+  });
+});
+
+describe("four-in-a-row ended", () => {
+  it("clears timer when 2-player game ends", () => {
+    let state = createFourInARowState(["p1", "p2"]);
+    state = onFourInARowAction(state, "host", { kind: "advance" });
+    state.timerEndsAt = Date.now() + 5000;
+    state.timerTotalMs = 5000;
+    for (let col = 0; col < 3; col++) {
+      state = onFourInARowAction(state, "p1", { kind: "four_in_a_row_drop", column: col });
+      state = onFourInARowAction(state, "p2", { kind: "four_in_a_row_drop", column: col });
+    }
+    state = onFourInARowAction(state, "p1", { kind: "four_in_a_row_drop", column: 3 });
+    assert.equal(state.phase, "ended");
+    assert.equal(state.timerEndsAt, null);
+    assert.equal(state.timerTotalMs, null);
   });
 });

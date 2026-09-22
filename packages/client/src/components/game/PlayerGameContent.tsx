@@ -3,7 +3,7 @@ import { ActionGrid, PhaseHeader } from "./GameShell";
 import { useEffect, useState } from "react";
 import { TrailDashInstructions } from "../TrailDashInstructions";
 import { CurvePlayerControls } from "../CurvePlayerControls";
-import { BlockStackBoard } from "../BlockStackBoard";
+import { BlockStackPlayerPanel } from "./BlockStackPlayerPanel";
 import { FleetDuelFleetStatus } from "../FleetDuelFleetStatus";
 import { FleetDuelGrid } from "../FleetDuelGrid";
 import { FleetDuelPlacement } from "../FleetDuelPlacement";
@@ -22,6 +22,7 @@ import { GameButton as Btn } from "./GameButton";
 import { DrawingCanvas as DrawCanvas, type StrokeInput as DrawStroke } from "./DrawingCanvas";
 import { AgentGridBoard } from "./AgentGridBoard";
 import { DikeBidPanel, DikeRevealTable } from "./views/DikePanels";
+import { EndGamePanel } from "../EndGamePanel";
 export function PlayerGameView({
   room,
   playerView,
@@ -79,7 +80,10 @@ export function PlayerGameView({
             gameScores={room.gameScores}
             compact
           />
-          <TimerBar endsAt={playerView.timerEndsAt} totalMs={playerView.timerTotalMs} />
+          <TimerBar
+            endsAt={phase !== "ended" ? playerView.timerEndsAt : null}
+            totalMs={phase !== "ended" ? playerView.timerTotalMs : null}
+          />
           <div className="text-center">
             <p className="text-sm font-semibold text-zinc-300">{gameName}</p>
             <PhaseHeader phase={phase} round={playerView.round} maxRounds={playerView.maxRounds} />
@@ -385,30 +389,7 @@ export function PlayerGameView({
       )}
 
       {phase === "playing" && playerView.gameId === "block-stack" && (
-        <div className="flex h-[calc(100dvh-9rem)] min-h-0 flex-col gap-2">
-          <div className="flex min-h-0 flex-1 items-stretch justify-center gap-2">
-            <div className="relative min-h-0 min-w-0 flex-1">
-              <BlockStackBoard
-                board={(playerData.board as number[][]) ?? []}
-                alive={(playerData.alive as boolean) ?? true}
-                interactive
-                className="h-full"
-                onInput={(input) => onAction({ kind: "block_stack_input", input })}
-              />
-            </div>
-            <button
-              type="button"
-              data-testid="block-stack-hold"
-              className="shrink-0 self-center rounded-lg bg-zinc-800/90 px-3 py-4 text-xs font-bold text-white"
-              onClick={() => onAction({ kind: "block_stack_input", input: "hold" })}
-            >
-              Hold
-            </button>
-          </div>
-          <p className="shrink-0 text-center text-sm text-zinc-400">
-            Score: {String(playerData.score ?? 0)} · Swipe to move/drop · Tap to rotate
-          </p>
-        </div>
+        <BlockStackPlayerPanel playerData={playerData} onAction={onAction} />
       )}
 
       {playerView.gameId === "fleet-duel" && phase === "placement" && (
@@ -716,10 +697,13 @@ export function PlayerGameView({
         />
       )}
 
-      {(phase === "drawing" || phase === "vote") && playerView.gameId === "drawing" && data.drawingStyle === "all-draw" && (
+      {(phase === "drawing" || phase === "vote" || phase === "reveal" || phase === "scoreboard" || phase === "ended") &&
+        playerView.gameId === "drawing" &&
+        data.drawingStyle === "all-draw" && (
         <DrawVotePlayerPanel
           phase={phase}
           data={data}
+          room={room}
           playerData={playerData}
           drawTool={drawTool}
           setDrawTool={setDrawTool}
@@ -1165,6 +1149,8 @@ export function PlayerGameView({
           ) : null}
         </>
       )}
+
+      <EndGamePanel room={room} playerView={playerView} data={data} />
 
     </div>
   );

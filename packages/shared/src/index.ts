@@ -24,6 +24,7 @@ export * from "./paddle-clash-logic.js";
 export * from "./grid-blast-logic.js";
 export * from "./content-quality.js";
 export * from "./host-controls.js";
+export * from "./pause-policy.js";
 export * from "./hot-seat-prompt.js";
 export * from "./runtime.js";
 export * from "./timing.js";

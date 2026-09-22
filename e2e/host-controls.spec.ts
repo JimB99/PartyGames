@@ -21,6 +21,10 @@ test("@host-controls pause, resume, skip, extend on trivia", async () => {
     await startGame(host);
     await hostAdvance(host);
     await hostPauseResume(host);
+    const answer = player.getByTestId("player-answer-0");
+    if (await answer.isVisible().catch(() => false)) {
+      await answer.click();
+    }
     const extend = host.getByTestId("host-extend");
     if (await extend.isVisible().catch(() => false)) {
       await extend.click();

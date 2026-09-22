@@ -88,12 +88,12 @@ export function HostControlBar({
       )}
       {controls.canPause && (
         paused ? (
-          <button type="button" data-testid="host-resume" onClick={onResume} className="rounded-xl bg-green-600 px-5 py-3 font-bold">
-            Resume
+          <button type="button" data-testid="host-resume" onClick={onResume} className="rounded-xl bg-green-600 px-5 py-3 font-bold" aria-label="Resume timer">
+            Resume timer
           </button>
         ) : (
-          <button type="button" data-testid="host-pause" onClick={onPause} className="rounded-xl bg-amber-600 px-5 py-3 font-bold">
-            Pause
+          <button type="button" data-testid="host-pause" onClick={onPause} className="rounded-xl bg-amber-600 px-5 py-3 font-bold" aria-label="Pause timer">
+            Pause timer
           </button>
         )
       )}

@@ -1,6 +1,16 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import { ERASER_WIDTH_MULTIPLIER, isEraseStroke, strokeLineWidth } from "./drawing.js";
+import { ERASER_WIDTH_MULTIPLIER, isEraseStroke, simplifyStrokePoints, strokeLineWidth } from "./drawing.js";
+
+describe("simplifyStrokePoints", () => {
+  it("reduces collinear points in flat arrays", () => {
+    const flat = [0, 0, 0.01, 0.01, 0.02, 0.02, 1, 1];
+    const out = simplifyStrokePoints(flat, 0.05);
+    assert.ok(out.length <= flat.length);
+    assert.equal(out[0], 0);
+    assert.equal(out[out.length - 2], 1);
+  });
+});
 
 describe("isEraseStroke", () => {
   it("treats erase flag, erase color, and transparent as eraser", () => {

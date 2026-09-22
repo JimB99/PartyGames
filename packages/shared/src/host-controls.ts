@@ -40,7 +40,7 @@ export function resolveHostControls(
     hostPacing ? view.phase !== "ended" : hasTimer || SKIPPABLE_PHASES.has(view.phase);
 
   return {
-    canPause: true,
+    canPause: hasTimer || SKIPPABLE_PHASES.has(view.phase),
     canExtendTime: hasTimer,
     canSkip,
     canReturnToLobby: true,

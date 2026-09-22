@@ -1,5 +1,12 @@
-import { useCallback, useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
-import { BRUSH_WIDTHS, DRAWING_COLORS, isEraseStroke, strokeLineWidth, type DrawingTool } from "@party-games/shared";
+import { useCallback, useEffect, useMemo, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
+import {
+  BRUSH_WIDTHS,
+  DRAWING_COLORS,
+  isEraseStroke,
+  simplifyStrokePoints,
+  strokeLineWidth,
+  type DrawingTool,
+} from "@party-games/shared";
 
 export interface StrokeInput {
   points: number[];
@@ -59,7 +66,10 @@ export function DrawingCanvas({
 }: DrawingCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const drawing = useRef(false);
-  const lastPoint = useRef<[number, number] | null>(null);
+  const draftRef = useRef<number[]>([]);
+  const [draftPoints, setDraftPoints] = useState<number[]>([]);
+  const [pendingStrokes, setPendingStrokes] = useState<StrokeInput[]>([]);
+  const syncedStrokeCount = useRef(strokes.length);
   const [localTool, setLocalTool] = useState(tool);
   const [localWidth, setLocalWidth] = useState(brushWidth);
   const [localColor, setLocalColor] = useState(color);
@@ -67,6 +77,20 @@ export function DrawingCanvas({
   const activeTool = onToolChange ? tool : localTool;
   const activeWidth = onToolChange ? brushWidth : localWidth;
   const activeColor = onColorChange ? color : localColor;
+
+  useEffect(() => {
+    if (strokes.length >= syncedStrokeCount.current) {
+      setPendingStrokes((prev) => {
+        const acked = strokes.length - syncedStrokeCount.current;
+        if (acked <= 0) return prev;
+        return prev.slice(Math.min(acked, prev.length));
+      });
+      syncedStrokeCount.current = strokes.length;
+    } else {
+      syncedStrokeCount.current = strokes.length;
+      setPendingStrokes([]);
+    }
+  }, [strokes]);
 
   const toNorm = useCallback((clientX: number, clientY: number): [number, number] | null => {
     const canvas = canvasRef.current;
@@ -79,14 +103,27 @@ export function DrawingCanvas({
     ];
   }, []);
 
-  const emitStroke = useCallback(
-    (from: [number, number], to: [number, number]) => {
-      if (!onStroke) return;
-      const erase = activeTool === "eraser";
-      onStroke([from[0], from[1], to[0], to[1]], erase ? "erase" : activeColor, activeWidth);
-    },
-    [onStroke, activeTool, activeColor, activeWidth],
-  );
+  const finishStroke = useCallback(() => {
+    if (!onStroke || draftRef.current.length < 2) {
+      draftRef.current = [];
+      setDraftPoints([]);
+      return;
+    }
+    const erase = activeTool === "eraser";
+    const strokeColor = erase ? "erase" : activeColor;
+    const flat = simplifyStrokePoints(draftRef.current);
+    draftRef.current = [];
+    setDraftPoints([]);
+    if (flat.length < 2) return;
+    const pending: StrokeInput = {
+      points: flat,
+      color: strokeColor,
+      width: activeWidth,
+      erase,
+    };
+    setPendingStrokes((prev) => [...prev, pending]);
+    onStroke(flat, strokeColor, activeWidth);
+  }, [onStroke, activeTool, activeColor, activeWidth]);
 
   const pointerDown = (e: ReactPointerEvent<HTMLCanvasElement>) => {
     if (readOnly || !onStroke) return;
@@ -94,22 +131,41 @@ export function DrawingCanvas({
     drawing.current = true;
     const pt = toNorm(e.clientX, e.clientY);
     if (!pt) return;
-    lastPoint.current = pt;
-    emitStroke(pt, pt);
+    setDraftPoints([pt[0], pt[1]]);
+    draftRef.current = [pt[0], pt[1]];
   };
 
   const pointerMove = (e: ReactPointerEvent<HTMLCanvasElement>) => {
     if (!drawing.current || readOnly) return;
     const pt = toNorm(e.clientX, e.clientY);
-    if (!pt || !lastPoint.current) return;
-    emitStroke(lastPoint.current, pt);
-    lastPoint.current = pt;
+    if (!pt) return;
+    draftRef.current = [...draftRef.current, pt[0], pt[1]];
+    setDraftPoints(draftRef.current);
   };
 
   const pointerUp = () => {
+    if (!drawing.current) return;
     drawing.current = false;
-    lastPoint.current = null;
+    finishStroke();
   };
+
+  const draftStroke: StrokeInput | null = useMemo(
+    () =>
+      draftPoints.length >= 2
+        ? {
+            points: draftPoints,
+            color: activeTool === "eraser" ? "erase" : activeColor,
+            width: activeWidth,
+            erase: activeTool === "eraser",
+          }
+        : null,
+    [draftPoints, activeTool, activeColor, activeWidth],
+  );
+
+  const displayStrokes = useMemo(
+    () => [...strokes, ...pendingStrokes, ...(draftStroke ? [draftStroke] : [])],
+    [strokes, pendingStrokes, draftStroke],
+  );
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -125,8 +181,8 @@ export function DrawingCanvas({
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    paintStrokes(ctx, strokes, cssW, cssH);
-  }, [strokes]);
+    paintStrokes(ctx, displayStrokes, cssW, cssH);
+  }, [displayStrokes]);
 
   return (
     <div className="flex min-h-0 flex-1 flex-col gap-2">

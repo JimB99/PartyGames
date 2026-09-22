@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import { resolveHostControls } from "@party-games/shared";
+import { resolveHostControls, shouldTickWhilePaused } from "@party-games/shared";
 
 describe("resolveHostControls", () => {
   it("enables extend time only when timer is active", () => {
@@ -26,9 +26,29 @@ describe("resolveHostControls", () => {
     assert.equal(controls.canExtendTime, false);
   });
 
-  it("always allows pause and return to lobby", () => {
+  it("allows pause when timer active or skippable phase", () => {
+    assert.equal(resolveHostControls({ phase: "playing", timerEndsAt: null }).canPause, false);
+    assert.equal(resolveHostControls({ phase: "drawing", timerEndsAt: null }).canPause, true);
+    assert.equal(resolveHostControls({ phase: "question", timerEndsAt: Date.now() + 5000 }).canPause, true);
+  });
+
+  it("always allows return to lobby", () => {
     const controls = resolveHostControls({ phase: "playing", timerEndsAt: null });
-    assert.equal(controls.canPause, true);
     assert.equal(controls.canReturnToLobby, true);
+  });
+});
+
+describe("shouldTickWhilePaused", () => {
+  it("ticks realtime arcade games during playing phase", () => {
+    assert.equal(shouldTickWhilePaused("block-stack", "playing"), true);
+    assert.equal(shouldTickWhilePaused("trail-dash", "playing"), true);
+    assert.equal(shouldTickWhilePaused("paddle-clash", "playing"), true);
+    assert.equal(shouldTickWhilePaused("grid-blast", "playing"), true);
+  });
+
+  it("does not tick non-realtime or non-playing phases", () => {
+    assert.equal(shouldTickWhilePaused("trivia", "question"), false);
+    assert.equal(shouldTickWhilePaused("block-stack", "round_end"), false);
+    assert.equal(shouldTickWhilePaused(null, "playing"), false);
   });
 });

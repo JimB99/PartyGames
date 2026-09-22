@@ -12,6 +12,7 @@ import {
   uniqueId,
   resolveTrailDashOptions,
   resolveHostControls,
+  shouldTickWhilePaused,
   normalizeGameOptions,
   validateClientMessage,
   validateRawMessageSize,
@@ -630,7 +631,6 @@ export class RoomServer extends Server {
     if (this.roomPhase !== "playing" || this.lobby.paused) return;
     this.lobby.paused = true;
     this.lobby.pausedAt = Date.now();
-    this.stopTick();
     this.broadcastAll();
   }
 
@@ -640,7 +640,6 @@ export class RoomServer extends Server {
     this.extendGameTimer(delta);
     this.lobby.paused = false;
     this.lobby.pausedAt = null;
-    if (this.roomPhase === "playing") this.startTick();
     this.broadcastAll();
   }
 
@@ -663,7 +662,6 @@ export class RoomServer extends Server {
 
   handleGameAction(sender: Connection, action: GameAction, isHostAction: boolean) {
     if (!this.gameModule || !this.gameState) return;
-    if (this.lobby.paused && !isHostAction) return;
 
     const meta = this.connectionMeta.get(sender.id);
     const ctx = this.getRoomContext();
@@ -724,7 +722,8 @@ export class RoomServer extends Server {
     const interval = this.gameModule.tickIntervalMs ?? 500;
     this.tickTimer = setInterval(() => {
       if (!this.gameModule || !this.gameState) return;
-      if (this.lobby.paused) return;
+      const phase = this.gamePhase(this.gameState);
+      if (this.lobby.paused && !shouldTickWhilePaused(this.activeGameId, phase)) return;
       if (!this.gameModule.onTick) return;
 
       try {

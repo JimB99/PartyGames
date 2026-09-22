@@ -45,6 +45,8 @@ function finishMatch(state: FourInARowState, winnerId: string | null, isDraw = f
   if (state.playerIds.length === 2) {
     state.championId = winnerId;
     state.phase = "ended";
+    state.timerEndsAt = null;
+    state.timerTotalMs = null;
     state.roundScores = computeCfRoundScores(state);
     return state;
   }

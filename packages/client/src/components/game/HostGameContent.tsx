@@ -72,7 +72,7 @@ export function HostGameView({
             variant="host"
           />
         </div>
-        {hostView.timerEndsAt && (
+        {hostView.timerEndsAt && phase !== "ended" && (
           <TimerBar
             endsAt={hostView.timerEndsAt}
             totalMs={hostView.timerTotalMs}
@@ -506,7 +506,7 @@ export function HostGameView({
       )}
 
       {hostView.gameId === "drawing" && data.drawingStyle === "all-draw" && (
-        <DrawVoteHostPanel phase={phase} data={data} DrawCanvas={DrawCanvas} />
+        <DrawVoteHostPanel phase={phase} data={data} room={room} DrawCanvas={DrawCanvas} />
       )}
 
       {hostView.gameId === "impostor" && data.impostorStyle === "draw" && (
@@ -606,7 +606,7 @@ export function HostGameView({
         </div>
       )}
 
-      {hostView.gameId === "grid-blast" && (phase === "playing" || phase === "round_end") && (
+      {hostView.gameId === "grid-blast" && (phase === "playing" || phase === "round_end" || phase === "ended") && (
         <GridBlastArena data={data} room={room} />
       )}
 

@@ -131,6 +131,7 @@ export function gridBlastHostView(state: GridBlastGameState) {
       powerUps: state.battle.powerUps,
       deathOrder: state.battle.deathOrder,
       roundScores: state.roundScores,
+      roundWinner: state.battle.deathOrder[0] ?? null,
       lastRoundScores: state.lastRoundScores,
     },
   };
@@ -154,6 +155,11 @@ export function gridBlastPlayerView(state: GridBlastGameState, playerId: string)
         maxBombs: p.maxBombs,
         blastRange: p.blastRange,
       })),
+      roundScores: state.phase === "ended" || state.phase === "round_end" ? state.roundScores : undefined,
+      roundWinner:
+        state.phase === "ended" || state.phase === "round_end"
+          ? state.battle.deathOrder[0] ?? null
+          : undefined,
     },
     playerData: {
       alive: player?.alive ?? false,

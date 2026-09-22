@@ -170,6 +170,8 @@ export interface CurveState {
   nextPowerUpSpawnIn: number;
   /** Ticks elapsed in the current playing phase (for spawn grace). */
   playingTick: number;
+  /** Latest turn input per player, applied at tick start. */
+  pendingTurns: Record<string, TurnDirection>;
 }
 
 export function dist(ax: number, ay: number, bx: number, by: number): number {
@@ -604,7 +606,20 @@ export function createCurveState(
     nextCoinSpawnIn: 25,
     nextPowerUpSpawnIn: 70,
     playingTick: 0,
+    pendingTurns: {},
   };
+}
+
+export function queuePlayerTurn(state: CurveState, playerId: string, direction: TurnDirection): void {
+  state.pendingTurns[playerId] = direction;
+}
+
+export function applyPendingTurns(state: CurveState): void {
+  for (const [id, direction] of Object.entries(state.pendingTurns)) {
+    const p = state.players.find((pl) => pl.id === id);
+    if (p?.alive) p.direction = direction;
+  }
+  state.pendingTurns = {};
 }
 
 export function shouldIgnoreHostEndRound(state: CurveState, now = Date.now()): boolean {
@@ -627,6 +642,7 @@ export function markPlayingStarted(state: CurveState, now = Date.now()): void {
     state.timerEndsAt = now + state.timerTotalMs;
   }
   state.playingTick = 0;
+  state.pendingTurns = {};
   for (const p of state.players) p.direction = "none";
 }
 
@@ -1166,6 +1182,8 @@ export function tickCurveState(state: CurveState): CurveState {
   if (state.phase !== "playing") return state;
 
   state.playingTick++;
+
+  applyPendingTurns(state);
 
   for (const p of state.players) {
     tickPlayerEffects(p);

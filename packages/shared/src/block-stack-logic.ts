@@ -452,6 +452,16 @@ export function computeBlockStackRoundScores(state: BlockStackState): Record<str
   return scores;
 }
 
+/** Deep copy for client-side input prediction. */
+export function cloneBlockStackPlayer(player: BlockStackPlayer): BlockStackPlayer {
+  return {
+    ...player,
+    board: player.board.map((row) => [...row]),
+    active: player.active ? { ...player.active } : null,
+    bag: [...player.bag],
+  };
+}
+
 export function getMergedBoard(player: BlockStackPlayer): number[][] {
   const merged = player.board.map((row) => [...row]);
   const ghost = ghostPiece(player);

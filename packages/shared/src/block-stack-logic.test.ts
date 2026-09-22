@@ -1,10 +1,12 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import {
+  applyBlockStackInput,
   blockStackGravityIntervalTicks,
   blockStackGridLayout,
   blockStackLevelFromElapsed,
   canPlace,
+  cloneBlockStackPlayer,
   createBlockStackPlayer,
   createBlockStackState,
   LINE_SCORES,
@@ -69,5 +71,14 @@ describe("block-stack-logic", () => {
     state.elapsedTicks = 250;
     const fresh = resetBlockStackRound(state, ["a", "b"]);
     assert.equal(fresh.elapsedTicks, 0);
+  });
+
+  it("cloneBlockStackPlayer deep copies board and bag", () => {
+    const player = createBlockStackPlayer("a");
+    const clone = cloneBlockStackPlayer(player);
+    clone.board[0][0] = 99;
+    clone.bag.push("I");
+    assert.notEqual(player.board[0][0], 99);
+    assert.notEqual(player.bag.length, clone.bag.length);
   });
 });

@@ -1,4 +1,5 @@
 import type { HostViewSnapshot, RoomSnapshot } from "@party-games/shared";
+import { resolveWinnerId } from "@party-games/shared";
 import { RoundScorePanel } from "./RoundScorePanel";
 
 export function ScoringPhase({
@@ -25,7 +26,9 @@ export function ScoringPhase({
     scores =
       Object.keys(room.gameScores).length > 0
         ? room.gameScores
-        : ((data.cumulativeScores as Record<string, number> | undefined) ?? {});
+        : ((data.roundScores as Record<string, number> | undefined) ??
+          (data.cumulativeScores as Record<string, number> | undefined) ??
+          {});
   } else {
     const lastRound = data.lastRoundScores as Record<string, number> | undefined;
     if (cumulative && lastRound && Object.keys(lastRound).length > 0) {
@@ -44,6 +47,14 @@ export function ScoringPhase({
 
   if (!hasScores && !isEnded) return null;
 
+  const winnerId = resolveWinnerId(data, scores);
+  const winnerName =
+    winnerId != null
+      ? (room.players.find((p) => p.id === winnerId)?.nickname ??
+        (data.botNames as Record<string, string> | undefined)?.[winnerId] ??
+        winnerId)
+      : null;
+
   return (
     <>
       {endedReason && isEnded && (
@@ -53,7 +64,7 @@ export function ScoringPhase({
         room={room}
         title={title}
         roundScores={scores}
-        extraNames={(data.botNames as Record<string, string>) ?? undefined}
+        extraNames={(data.botNames as Record<string, string> | undefined) ?? undefined}
       />
       {hostView.gameId === "block-stack" && isEnded && (data.lastStandingId || data.highScorePlayerId) ? (
         <div className="space-y-2 text-center text-xl text-yellow-400">
@@ -75,13 +86,8 @@ export function ScoringPhase({
           )}
         </div>
       ) : (
-        data.roundWinner && (
-          <p className="text-center text-2xl text-yellow-400">
-            Winner:{" "}
-            {room.players.find((p) => p.id === data.roundWinner)?.nickname ??
-              (data.botNames as Record<string, string> | undefined)?.[data.roundWinner as string] ??
-              "—"}
-          </p>
+        winnerName && (
+          <p className="text-center text-2xl text-yellow-400">Winner: {winnerName}</p>
         )
       )}
     </>

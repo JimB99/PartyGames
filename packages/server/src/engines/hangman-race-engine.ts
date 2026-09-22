@@ -250,7 +250,14 @@ export function hangmanRacePlayerView(state: HangmanRaceState, playerId: string)
     maxRounds: state.maxRounds,
     timerEndsAt: state.timerEndsAt,
     timerTotalMs: state.timerTotalMs,
-    data: {},
+    data: {
+      word: state.phase === "ended" ? state.word : undefined,
+      roundScores: state.phase === "ended" ? state.roundScores : undefined,
+      roundWinner:
+        state.phase === "ended"
+          ? (Object.entries(state.roundScores).sort((a, b) => b[1] - a[1])[0]?.[0] ?? null)
+          : undefined,
+    },
     playerData: {
       mask: p ? hangmanMask(state.word, guessed) : "",
       strikes: p?.strikes ?? 0,

@@ -38,6 +38,19 @@ export function mergeRoundDeltas(
   return next;
 }
 
+/** Resolve a display winner from common engine view fields. */
+export function resolveWinnerId(
+  data: Record<string, unknown>,
+  scores: Record<string, number> = {},
+): string | null {
+  for (const key of ["roundWinner", "winnerId", "championId", "lastStandingId", "highScorePlayerId"] as const) {
+    const value = data[key];
+    if (typeof value === "string" && value.length > 0) return value;
+  }
+  const ranked = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+  return ranked[0]?.[0] ?? null;
+}
+
 export interface ScoreLedgerEntry {
   playerId: string;
   points: number;

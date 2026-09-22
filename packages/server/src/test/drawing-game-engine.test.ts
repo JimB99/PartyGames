@@ -5,6 +5,7 @@ import {
   createDrawingGameState,
   drawingGameHostView,
 } from "../engines/drawing-game-engine.js";
+import { advanceDrawVote, drawVoteHostView } from "../engines/draw-vote-engine.js";
 
 const playerIds = ["p1", "p2", "p3"];
 const words = ["house", "tree", "car"];
@@ -43,5 +44,24 @@ describe("drawing-game-engine", () => {
     const state = createDrawingGameState("pictionary", words, playerIds, DEFAULT_GAME_OPTIONS);
     const view = drawingGameHostView(state, playerIds, DEFAULT_GAME_OPTIONS);
     assert.equal(view.data.drawingStyle, "pictionary");
+  });
+
+  it("all-draw reveal exposes winner and vote breakdown", () => {
+    const state = createDrawingGameState("all-draw", words, playerIds, {
+      ...DEFAULT_GAME_OPTIONS,
+      drawingStyle: "all-draw",
+      drawVoteStyle: "best-drawing",
+    });
+    let inner = state.inner;
+    inner.phase = "vote";
+    inner.displayOrder = [...playerIds];
+    inner.votes = { p1: "p2", p2: "p2", p3: "p2" };
+    inner = advanceDrawVote(inner, words, playerIds);
+    assert.equal(inner.phase, "reveal");
+    assert.equal(inner.roundWinner, "p2");
+    const view = drawVoteHostView(inner);
+    assert.equal(view.data.roundWinner, "p2");
+    assert.ok(Array.isArray(view.data.voteBreakdown));
+    assert.equal((view.data.voteBreakdown as unknown[]).length, 3);
   });
 });

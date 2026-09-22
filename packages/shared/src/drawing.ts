@@ -50,6 +50,20 @@ export function simplifyPoints(points: DrawingPoint[], tolerance = 0.005): Drawi
   return out;
 }
 
+export function simplifyStrokePoints(flat: number[], tolerance = 0.005): number[] {
+  if (flat.length < 4) return flat;
+  const points: DrawingPoint[] = [];
+  for (let i = 0; i + 1 < flat.length; i += 2) {
+    points.push({ x: flat[i], y: flat[i + 1] });
+  }
+  const simplified = simplifyPoints(points, tolerance);
+  const out: number[] = [];
+  for (const p of simplified) {
+    out.push(p.x, p.y);
+  }
+  return out;
+}
+
 export function removeStrokeAt(strokes: DrawingStroke[], index: number): DrawingStroke[] {
   return strokes.filter((_, i) => i !== index);
 }

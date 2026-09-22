@@ -2,6 +2,7 @@ import type { GameAction } from "@party-games/shared";
 import {
   applyBlockStackInput,
   blockStackLevelFromElapsed,
+  cloneBlockStackPlayer,
   computeBlockStackRoundScores,
   createBlockStackState,
   getMergedBoard,
@@ -141,6 +142,7 @@ export function blockStackPlayerView(state: BlockStackState, playerId: string) {
           hold: player.hold,
           alive: player.alive,
           score: player.score,
+          predictionPlayer: cloneBlockStackPlayer(player),
         }
       : {},
   };

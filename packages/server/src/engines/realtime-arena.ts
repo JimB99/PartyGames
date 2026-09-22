@@ -6,6 +6,7 @@ import {
   createCurveState,
   decimateTrailForDisplay,
   markPlayingStarted,
+  queuePlayerTurn,
   resetCurveRound,
   shouldIgnoreHostEndRound,
   tickCurveState,
@@ -52,7 +53,7 @@ export function advanceCurve(state: CurveState, playerIds: string[], botIds: str
 export function onCurveAction(state: CurveState, playerId: string, action: GameAction): CurveState {
   if (action.kind === "trail_dash_turn" && state.phase === "playing") {
     const p = state.players.find((pl) => pl.id === playerId);
-    if (p?.alive) p.direction = action.direction;
+    if (p?.alive) queuePlayerTurn(state, playerId, action.direction);
   }
   if (action.kind === "trail_dash_jump" && state.phase === "playing") {
     const p = state.players.find((pl) => pl.id === playerId);

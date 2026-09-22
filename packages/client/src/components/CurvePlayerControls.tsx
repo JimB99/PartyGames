@@ -1,5 +1,6 @@
-import type { GameAction } from "@party-games/shared";
+import type { GameAction, TurnDirection } from "@party-games/shared";
 import { powerUpInfo } from "@party-games/shared";
+import { useState } from "react";
 
 function ControlBtn({
   children,
@@ -10,6 +11,7 @@ function ControlBtn({
   variant = "primary",
   className = "",
   testId,
+  active = false,
 }: {
   children: React.ReactNode;
   onPointerDown?: () => void;
@@ -19,6 +21,7 @@ function ControlBtn({
   variant?: "primary" | "secondary" | "danger" | "accent";
   className?: string;
   testId?: string;
+  active?: boolean;
 }) {
   const styles =
     variant === "primary"
@@ -33,7 +36,7 @@ function ControlBtn({
       type="button"
       data-testid={testId}
       disabled={disabled}
-      className={`font-bold text-white transition active:scale-[0.98] disabled:opacity-40 touch-none select-none ${styles} ${className}`}
+      className={`font-bold text-white transition active:scale-[0.98] disabled:opacity-40 touch-none select-none ${styles} ${active ? "ring-4 ring-white/70 scale-[0.98]" : ""} ${className}`}
       onPointerDown={(e) => {
         e.preventDefault();
         onPointerDown?.();
@@ -61,7 +64,12 @@ export function CurvePlayerControls({
   extraJumps?: number;
   powerUpMode?: import("@party-games/shared").PowerUpMode;
 }) {
-  const stopTurn = () => onAction({ kind: "trail_dash_turn", direction: "none" });
+  const [localTurn, setLocalTurn] = useState<TurnDirection>("none");
+  const turn = (direction: TurnDirection) => {
+    setLocalTurn(direction);
+    onAction({ kind: "trail_dash_turn", direction });
+  };
+  const stopTurn = () => turn("none");
   const kangarooHeld = heldPowerUp === "double_jump";
   const jumpLocked = jumpCooldown > 0;
   const showPowerUps = powerUpMode !== "off";
@@ -132,7 +140,8 @@ export function CurvePlayerControls({
       <ControlBtn
         className="h-full min-h-0 w-full rounded-none text-4xl"
         testId="trail-dash-turn-left"
-        onPointerDown={() => onAction({ kind: "trail_dash_turn", direction: "left" })}
+        active={localTurn === "left"}
+        onPointerDown={() => turn("left")}
         onPointerUp={stopTurn}
         onPointerLeave={stopTurn}
       >
@@ -141,7 +150,8 @@ export function CurvePlayerControls({
       <ControlBtn
         className="h-full min-h-0 w-full rounded-none text-4xl"
         testId="trail-dash-turn-right"
-        onPointerDown={() => onAction({ kind: "trail_dash_turn", direction: "right" })}
+        active={localTurn === "right"}
+        onPointerDown={() => turn("right")}
         onPointerUp={stopTurn}
         onPointerLeave={stopTurn}
       >
