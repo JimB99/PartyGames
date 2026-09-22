@@ -143,6 +143,9 @@ export function advanceBluff(state: BluffState, gameOptions?: GameOptions): Bluf
       state.timerTotalMs = null;
       return state;
     }
+    if (state.promptsPool.length > 0) {
+      nextPrompt(state, state.promptsPool);
+    }
     state.round += 1;
     state.phase = "submit";
     Object.assign(state, phaseTimer(SUBMIT_MS, gameOptions ?? state.gameOptions));
@@ -287,12 +290,8 @@ export function onBluffAction(
   return state;
 }
 
-export function onBluffTick(state: BluffState, prompts?: Array<{ prompt?: string; truth: string; fact?: string }>, gameOptions?: GameOptions): BluffState {
+export function onBluffTick(state: BluffState, _prompts?: Array<{ prompt?: string; truth: string; fact?: string }>, gameOptions?: GameOptions): BluffState {
   if (!state.timerEndsAt || Date.now() < state.timerEndsAt) return state;
-  const pool = prompts ?? state.promptsPool;
-  if (state.phase === "scoreboard" && state.round < state.maxRounds) {
-    nextPrompt(state, pool);
-  }
   return advanceBluff(state, gameOptions);
 }
 
@@ -309,9 +308,10 @@ export function bluffHostView(state: BluffState) {
       bluffMode: state.mode,
       displayText: state.displayText,
       discussing,
-      options: state.phase === "vote" || showReveal
-        ? state.options.map((o) => ({ id: o.id, text: o.text, isTruth: state.phase !== "vote" ? o.isTruth : undefined }))
-        : undefined,
+      options:
+        state.phase === "vote"
+          ? state.options.map((o) => ({ id: o.id, text: o.text }))
+          : undefined,
       reveal: showReveal ? buildBluffReveal(state.options, state.votes) : undefined,
       roundScores: state.roundScores,
       cumulativeScores: state.cumulativeScores,

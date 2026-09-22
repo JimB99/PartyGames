@@ -235,17 +235,6 @@ export function HostGameView({
         </div>
       )}
 
-      {phase === "vote" && data.options && (
-        <div className="grid gap-3">
-          {(data.options as Array<{ id: string; text: string; isTruth?: boolean }>).map((o) => (
-            <div key={o.id} className="rounded-xl bg-zinc-800 p-4 text-xl">
-              {o.text}
-              {o.isTruth && <span className="ml-2 text-green-400">✓ TRUTH</span>}
-            </div>
-          ))}
-        </div>
-      )}
-
       {phase === "vote" && data.match && !data.options && (
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="rounded-2xl bg-pink-600/30 p-8 text-center text-2xl font-bold">
