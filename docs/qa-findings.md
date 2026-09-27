@@ -1,6 +1,6 @@
 # PartyGames QA findings
 
-Structured audit from automated simulators, content heuristics, and targeted UX fixes (Aug 2026).
+Structured audit from automated simulators, content heuristics, and targeted UX fixes (August–September 2026). Severity and status labels follow a fixed QA schema used during remediation; this file documents what was found and fixed, not open product requirements.
 
 **Legend:** severity — `critical` | `high` | `medium` | `low` | `fixed`
 

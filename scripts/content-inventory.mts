@@ -253,8 +253,13 @@ function main() {
     lines.push(`- Family: ${stats.familyCount.toLocaleString()} | Mature: ${stats.matureCount.toLocaleString()}`);
     lines.push("- Family examples:");
     for (const ex of stats.samples.family) lines.push(`  - ${ex}`);
-    lines.push("- Mature examples:");
-    for (const ex of stats.samples.mature) lines.push(`  - ${ex}`);
+    if (stats.matureCount > 0) {
+      lines.push(
+        `- Mature pool: ${stats.matureCount.toLocaleString()} items (examples omitted in committed inventory)`,
+      );
+    } else {
+      lines.push("- Mature pool: none");
+    }
     lines.push("");
   }
 

@@ -10,12 +10,7 @@ Generated for **21** registered games. Counts use `content-pool` with `DEFAULT_G
   - "George M" → Which musical traces the life of American composer/actor George Cohan?
   - "Bart" → What was Lisas first word on the animated sitcom The Simpsons?
   - "Electric light" → Which of the following was not invented in Connecticut?
-- Mature examples:
-  - "Tantric sex focuses on prolonged" → intimacy
-  - "A safeword is used in BDSM to mean" → stop immediately
-  - "Submissive partners in BDSM are often called" → subs
-  - "thirst trap" → What is a photo meant to attract sexual attention?
-  - "g-string" → What minimal underwear exposes the buttocks?
+- Mature pool: 328 items (examples omitted in committed inventory)
 
 ### Write & Vote (`prompt-vote`)
 - Family: 2 513 | Mature: 802
@@ -25,12 +20,7 @@ Generated for **21** registered games. Counts use `content-pool` with `DEFAULT_G
   - Hot take: tried slacklining
   - Have they ever tried kite landboarding?
   - Their what is the most embarrassing thing you've done while grocery shopping
-- Mature examples:
-  - Worst thing: watched gay porn.
-  - Red flag: they've had sex blindfolded
-  - Red flag: they've been in a 69 sex position
-  - Have they ever had sexting with someone they met that same hour?
-  - Have they ever had sexting with someone from their alumni cruise?
+- Mature pool: 802 items (examples omitted in committed inventory)
 
 ### Opinions (`opinions`)
 - Family: 1 021 | Mature: 1 081
@@ -40,12 +30,7 @@ Generated for **21** registered games. Counts use `content-pool` with `DEFAULT_G
   - {"text":"Would you rather","labelA":"have the ability to speak to the dead","lab
   - {"text":"What national symbols are subject of study of vexillology?","choices":[
   - {"text":"Which cocktail should we order?","choices":["Caipirinha","Ranch Water",
-- Mature examples:
-  - {"a":"Relive your most awkward hookup story","b":"Forget it and have friends rem
-  - {"a":"Confess your messiest hookup story","b":"Accept a body shot reenactment wi
-  - {"text":"Talking politics at dinner","labelA":"Keep it spicy","labelB":"Hard pas
-  - {"text":"Would you rather","labelA":"Confess your messiest hookup story","labelB
-  - {"text":"Would you rather","labelA":"Let the room see your messiest hookup st","
+- Mature pool: 1 081 items (examples omitted in committed inventory)
 
 ### Spectrum (`spectrum`)
 - Family: 262 | Mature: 270
@@ -55,12 +40,7 @@ Generated for **21** registered games. Counts use `content-pool` with `DEFAULT_G
   - Ramen ↔ Pho
   - have a pocket-sized dragon ↔ a pet unicorn
   - Floor picnics ↔ Dining table
-- Mature examples:
-  - Drunk texts ↔ Leave it unsent
-  - The ex still follows ↔ Clean unfollow
-  - Clothes stay on ↔ Skinny dipping
-  - Ghost after sex ↔ Open relationship
-  - Share thirst trap ↔ Lights off kink
+- Mature pool: 270 items (examples omitted in committed inventory)
 
 ### Impostor (`impostor`)
 - Family: 216 | Mature: 163
@@ -70,12 +50,7 @@ Generated for **21** registered games. Counts use `content-pool` with `DEFAULT_G
   - Movies & TV: Soundtrack
   - Sports: Dugout
   - Holidays: Stocking
-- Mature examples:
-  - Bedroom basics: Missionary
-  - Bedroom basics: Watching porn together
-  - Body parts: Tongue
-  - Kinks & fetishes: Roleplay nurse
-  - Hookup mishaps: Stranger hoodie
+- Mature pool: 163 items (examples omitted in committed inventory)
 
 ### Agent Grid (`agent-grid`)
 - Family: 73 715 | Mature: 94
@@ -85,12 +60,7 @@ Generated for **21** registered games. Counts use `content-pool` with `DEFAULT_G
   - imprimis
   - pappous
   - sliping
-- Mature examples:
-  - cowgirl
-  - thong
-  - orgasm face
-  - missionary
-  - hot tub nude
+- Mature pool: 94 items (examples omitted in committed inventory)
 
 ### Bracket Battle (`bracket-battle`)
 - Family: 384 | Mature: 277
@@ -100,12 +70,7 @@ Generated for **21** registered games. Counts use `content-pool` with `DEFAULT_G
   - extreme sports
   - Amazon regrets
   - reasons the wedding was delayed
-- Mature examples:
-  - worst hookup excuses
-  - clitoris map debates
-  - worst OnlyFans career move
-  - most awkward fetish gear delivery
-  - cringiest sex toy shopping fail
+- Mature pool: 277 items (examples omitted in committed inventory)
 
 ### Forbidden Clue (`forbidden-clue`)
 - Family: 201 | Mature: 67
@@ -115,12 +80,7 @@ Generated for **21** registered games. Counts use `content-pool` with `DEFAULT_G
   - Yo-yo
   - Marsh
   - Nook
-- Mature examples:
-  - Hangover
-  - Shotgun wedding
-  - Love bombing
-  - House party
-  - Catching feelings
+- Mature pool: 67 items (examples omitted in committed inventory)
 
 ### Team Charades (`team-charades`)
 - Family: 2 527 | Mature: 421
@@ -130,12 +90,7 @@ Generated for **21** registered games. Counts use `content-pool` with `DEFAULT_G
   - pistol
   - whisky
   - magic
-- Mature examples:
-  - Try to lick your elbow
-  - strip club
-  - giant lingerie
-  - broken lingerie
-  - sti clinic
+- Mature pool: 421 items (examples omitted in committed inventory)
 
 ### Last on the Dike (`last-on-the-dike`)
 - Family: N/A | Mature: N/A — procedural / no prompt pool
@@ -150,12 +105,7 @@ Generated for **21** registered games. Counts use `content-pool` with `DEFAULT_G
   - Mike has to be to school at 8:00 a.m. If it takes him 25 minutes to walk to school, what time should he leave?
   - At the age of 14, this future general, born in Kefar Malal, Israel, joined the Haganah, an underground militia.
   - Mary Shelley publishes Frankenstein (1818)
-- Mature examples:
-  - A cock ring should not be worn too long to avoid
-  - A walk of shame is leaving after
-  - A strap-on dildo is worn with a
-  - Ashley Madison hack exposes affair seekers (2015)
-  - Larry Flynt dies (2021)
+- Mature pool: 326 items (examples omitted in committed inventory)
 
 ### Drawing (`drawing`)
 - Family: 3 129 | Mature: 288
@@ -165,12 +115,7 @@ Generated for **21** registered games. Counts use `content-pool` with `DEFAULT_G
   - king
   - opera
   - flower girl
-- Mature examples:
-  - Fake an orgasm for the group
-  - spanking
-  - bathroom mirror nude
-  - giant prostate massager
-  - tiny three-breasted woman
+- Mature pool: 288 items (examples omitted in committed inventory)
 
 ### Trail Dash (`trail-dash`)
 - Family: N/A | Mature: N/A — procedural / no prompt pool
@@ -205,12 +150,7 @@ Generated for **21** registered games. Counts use `content-pool` with `DEFAULT_G
   - helistop
   - outscores
   - sizeable
-- Mature examples:
-  - cowgirl
-  - vibrator
-  - pasties
-  - submissive
-  - hotwife
+- Mature pool: 30 items (examples omitted in committed inventory)
 
 ### Fleet Duel (`fleet-duel`)
 - Family: N/A | Mature: N/A — procedural / no prompt pool
