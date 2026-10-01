@@ -72,7 +72,6 @@ export interface GameMeta {
   minPlayers: number;
   maxPlayers: number;
   category: GameCategory;
-  supportsDifficulty?: boolean;
   supportsMatureContent?: boolean;
   supportsTrailDashOptions?: boolean;
   supportsSpeedScoring?: boolean;

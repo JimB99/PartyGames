@@ -19,19 +19,12 @@ export const wordRushGame: GameModule<WordRushState> = {
     minPlayers: 2,
     maxPlayers: 16,
     category: "arcade",
-    supportsDifficulty: true,
     supportsMatureContent: false,
     supportsSpeedScoring: true,
   },
   init(ctx) {
     const dictionary = dictionaryForWordRush(ctx.gameOptions);
-    const minWordLength =
-      ctx.gameOptions.difficulty === "easy"
-        ? 3
-        : ctx.gameOptions.difficulty === "hard"
-          ? 6
-          : 4;
-    const state = createWordRushState(3, dictionary, minWordLength, ctx.playerIds.length);
+    const state = createWordRushState(3, dictionary, 4, ctx.playerIds.length);
     state.gameOptions = ctx.gameOptions;
     return state;
   },

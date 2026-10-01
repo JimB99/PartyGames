@@ -3,7 +3,7 @@ import {
   filterContentPool,
   filterPromptList,
   filterWordList,
-  type Difficulty,
+  isDrawableDrawWord,
   type GameOptions,
   type ImpostorCategory,
 } from "@party-games/shared";
@@ -44,7 +44,7 @@ export function hotSeatPool(options: GameOptions) {
 }
 
 export function drawWordPool(options: GameOptions) {
-  return filterWordList(content.drawWords, options);
+  return filterWordList(content.drawWords, options).filter(isDrawableDrawWord);
 }
 
 export function charadesWordPool(options: GameOptions) {
@@ -118,28 +118,9 @@ export function hangmanWordPool(options: GameOptions): string[] {
       (w) => w.length >= 5 && w.length <= 14 && !w.includes(" "),
     );
   }
-  const bounds: Record<Difficulty, { min: number; max: number }> = {
-    easy: { min: 5, max: 7 },
-    medium: { min: 6, max: 9 },
-    hard: { min: 8, max: 12 },
-  };
-  const dict = [...content.dictionary];
-  if (options.difficulty === "mixed") return dict.filter((w) => w.length >= 5 && w.length <= 10);
-  const { min, max } = bounds[options.difficulty];
-  return dict.filter((w) => w.length >= min && w.length <= max);
+  return [...content.dictionary].filter((w) => w.length >= 5 && w.length <= 10);
 }
 
-export function dictionaryForWordRush(options: GameOptions): Set<string> {
-  const bounds: Record<Difficulty, { min: number; max: number }> = {
-    easy: { min: 3, max: 5 },
-    medium: { min: 4, max: 7 },
-    hard: { min: 6, max: 12 },
-  };
-  if (options.difficulty === "mixed") return content.dictionary;
-  const { min, max } = bounds[options.difficulty];
-  const filtered = new Set<string>();
-  for (const word of content.dictionary) {
-    if (word.length >= min && word.length <= max) filtered.add(word);
-  }
-  return filtered;
+export function dictionaryForWordRush(_options: GameOptions): Set<string> {
+  return content.dictionary;
 }

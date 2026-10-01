@@ -1,5 +1,6 @@
-import { pickRandom, shuffle, type GameAction, type RoomContext } from "@party-games/shared";
+import { allDrawersReady, pickRandom, shuffle, type GameAction, type RoomContext } from "@party-games/shared";
 import type { PlayerDrawing, Stroke } from "./drawing-engine.js";
+import { applyStrokeToDrawing, clearDrawingStrokes, undoDrawingStrokes } from "./drawing-engine.js";
 import { clearPhaseTimer, startPhaseTimer } from "./phase-timer.js";
 
 export type DrawVoteMode = "artistGuess" | "bestDrawing";
@@ -24,6 +25,7 @@ export interface DrawVoteState {
   cumulativeScores: Record<string, number>;
   wordsPool: string[];
   usedWords: string[];
+  ready: Record<string, boolean>;
 }
 
 const DRAW_MS = 60000;
@@ -46,7 +48,7 @@ export function createDrawVoteState(
     prompt,
     mode,
     drawings: Object.fromEntries(
-      playerIds.map((id) => [id, { playerId: id, word: prompt, strokes: [], tool: "pen" as const, width: 4 }]),
+      playerIds.map((id) => [id, { playerId: id, word: prompt, strokes: [], tool: "pen" as const, width: 4, revision: 0 }]),
     ),
     displayOrder: [],
     displayIndex: 0,
@@ -56,6 +58,7 @@ export function createDrawVoteState(
     cumulativeScores: {},
     wordsPool: words,
     usedWords: [prompt],
+    ready: {},
   };
 }
 
@@ -127,6 +130,7 @@ function revealPayload(state: DrawVoteState) {
 export function advanceDrawVote(state: DrawVoteState, words: string[], playerIds: string[]): DrawVoteState {
   if (state.phase === "instructions") {
     state.phase = "drawing";
+    state.ready = {};
     Object.assign(state, startPhaseTimer(DRAW_MS, state.gameOptions));
     return state;
   }
@@ -168,7 +172,7 @@ export function advanceDrawVote(state: DrawVoteState, words: string[], playerIds
     state.prompt = prompt;
     state.usedWords.push(prompt);
     state.drawings = Object.fromEntries(
-      playerIds.map((id) => [id, { playerId: id, word: prompt, strokes: [], tool: "pen" as const, width: 4 }]),
+      playerIds.map((id) => [id, { playerId: id, word: prompt, strokes: [], tool: "pen" as const, width: 4, revision: 0 }]),
     );
     state.roundScores = {};
     state.votes = {};
@@ -181,18 +185,24 @@ export function advanceDrawVote(state: DrawVoteState, words: string[], playerIds
 
 export function onDrawVoteAction(state: DrawVoteState, playerId: string, action: GameAction, ctx: RoomContext): DrawVoteState {
   state.playerIds = [...ctx.playerIds];
+  if (action.kind === "draw_tool" && state.phase === "drawing") {
+    const d = state.drawings[playerId];
+    if (!d) return state;
+    d.tool = action.tool;
+    if (action.width !== undefined) d.width = Math.max(2, Math.min(16, action.width));
+  }
   if (action.kind === "draw_stroke" && state.phase === "drawing") {
     const d = state.drawings[playerId];
     if (!d) return state;
-    const erase = d.tool === "eraser" || action.color === "erase";
-    d.strokes.push({ points: action.points, color: erase ? "transparent" : action.color, width: action.width ?? d.width, erase });
+    applyStrokeToDrawing(d, action);
   }
   if (action.kind === "draw_undo" && state.phase === "drawing") {
-    state.drawings[playerId]?.strokes.pop();
+    const d = state.drawings[playerId];
+    if (d) undoDrawingStrokes(d);
   }
   if (action.kind === "draw_clear" && state.phase === "drawing") {
     const d = state.drawings[playerId];
-    if (d) d.strokes = [];
+    if (d) clearDrawingStrokes(d);
   }
   if (action.kind === "vote" && state.phase === "vote" && action.optionId !== playerId) {
     state.votes[playerId] = action.optionId;
@@ -202,6 +212,16 @@ export function onDrawVoteAction(state: DrawVoteState, playerId: string, action:
   }
   if (action.kind === "advance" && state.phase === "instructions") {
     return advanceDrawVote(state, state.wordsPool, ctx.playerIds);
+  }
+  if (action.kind === "advance" && state.phase === "drawing") {
+    if (playerId === "host") {
+      return advanceDrawVote(state, state.wordsPool, ctx.playerIds);
+    }
+    state.ready[playerId] = true;
+    if (allDrawersReady(state.ready, ctx.playerIds)) {
+      return advanceDrawVote(state, state.wordsPool, ctx.playerIds);
+    }
+    return state;
   }
   return state;
 }
@@ -258,6 +278,8 @@ export function drawVotePlayerView(state: DrawVoteState, playerId: string) {
       strokes: d?.strokes,
       voted: state.votes[playerId] !== undefined,
       myVote: state.votes[playerId],
+      drawingReady: state.ready[playerId] === true,
+      drawingRevision: d?.revision ?? 0,
       toVote: state.phase === "vote"
         ? state.displayOrder.map((id) => ({ id, strokes: state.drawings[id]?.strokes ?? [] }))
         : undefined,

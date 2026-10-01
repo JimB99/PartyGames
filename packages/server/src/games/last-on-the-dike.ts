@@ -18,7 +18,6 @@ export const lastOnTheDikeGame: GameModule<DikeState> = {
     minPlayers: 4,
     maxPlayers: 16,
     category: "party",
-    supportsDifficulty: false,
     supportsMatureContent: false,
   },
   init(ctx) {

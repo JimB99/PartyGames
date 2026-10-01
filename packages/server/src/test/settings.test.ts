@@ -24,6 +24,7 @@ import {
   agentGridWordPool,
   forbiddenCluePool,
   splitRoomPool,
+  dictionaryForWordRush,
 } from "../content-pool.js";
 import { getGame } from "../registry.js";
 import { makeRoomContext, runUntilEnded } from "./harness.js";
@@ -62,20 +63,14 @@ describe("settings matrix", () => {
         }
       });
     }
-
-    if (meta.supportsDifficulty) {
-      it(`${meta.id} init with each difficulty`, () => {
-        const game = getGame(meta.id)!;
-        for (const difficulty of ["easy", "medium", "hard", "mixed"] as const) {
-          const ctx = makeRoomContext(Math.max(meta.minPlayers, 2), {
-            ...DEFAULT_GAME_OPTIONS,
-            difficulty,
-          });
-          assert.doesNotThrow(() => game.init(ctx));
-        }
-      });
-    }
   }
+
+  it("hangman-race and word-rush init with a non-empty pool", () => {
+    assert.ok(hangmanWordPool(DEFAULT_GAME_OPTIONS).length >= 10);
+    assert.ok(dictionaryForWordRush(DEFAULT_GAME_OPTIONS).size >= 10);
+    assert.doesNotThrow(() => getGame("hangman-race")!.init(makeRoomContext(2)));
+    assert.doesNotThrow(() => getGame("word-rush")!.init(makeRoomContext(2)));
+  });
 
   it("trivia respects questionDisplay option", () => {
     const game = getGame("trivia")!;

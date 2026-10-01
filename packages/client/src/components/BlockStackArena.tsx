@@ -1,7 +1,7 @@
-import type { RoomSnapshot } from "@party-games/shared";
+import type { PieceKind, RoomSnapshot } from "@party-games/shared";
 import { blockStackGridLayout } from "@party-games/shared";
 import { playerColor } from "../hooks/usePartyRoom";
-import { BlockStackBoard } from "./BlockStackBoard";
+import { BlockStackBoard, NextPiecePreview } from "./BlockStackBoard";
 
 interface BlockStackPlayerData {
   id: string;
@@ -9,6 +9,7 @@ interface BlockStackPlayerData {
   alive: boolean;
   score: number;
   deathRank: number | null;
+  next?: PieceKind;
 }
 
 export function BlockStackArena({ data, room }: { data: Record<string, unknown>; room: RoomSnapshot }) {
@@ -17,12 +18,11 @@ export function BlockStackArena({ data, room }: { data: Record<string, unknown>;
 
   return (
     <div
-      className="grid w-full gap-3"
+      className="grid min-h-0 h-full w-full flex-1 gap-3"
       data-testid="block-stack-arena"
       style={{
         gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`,
         gridTemplateRows: `repeat(${rows}, minmax(0, 1fr))`,
-        maxHeight: "72vh",
       }}
     >
       {players.map((p) => {
@@ -36,6 +36,7 @@ export function BlockStackArena({ data, room }: { data: Record<string, unknown>;
                 style={{ backgroundColor: playerColor(pl?.colorIndex ?? 0) }}
               />
               <p className="truncate text-center text-xs font-bold">{nick} · {p.score}</p>
+              {p.next && <NextPiecePreview kind={p.next} compact />}
             </div>
             <BlockStackBoard
               board={p.board}

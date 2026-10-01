@@ -10,7 +10,7 @@ import {
   hostAdvance,
   enableHostPacing,
 } from "./helpers/room.js";
-import { assertHeroCentered, assertHostStageVisible } from "./helpers/host-stage.ts";
+import { assertHeroCentered, assertHostStageVisible, assertInViewport } from "./helpers/host-stage.ts";
 
 const SMOKE_GAMES: GameId[] = ["prompt-vote", "drawing", "trail-dash"];
 
@@ -97,6 +97,63 @@ test("@smoke @host-return-lobby prompt-vote vote phase shows bracket matchup", a
   } finally {
     await hostCtx.close();
     for (const ctx of contexts) await ctx.close();
+    await browser.close();
+  }
+});
+
+test("@smoke @host-stage trivia scoreboard panel is in view", async () => {
+  const browser = await chromium.launch();
+  const roomId = randomRoomId();
+  const { page: host, context: hostCtx } = await openHost(browser, roomId);
+  const { page: player, context: playerCtx } = await joinPlayer(browser, roomId, "P1");
+
+  try {
+    await selectGame(host, "trivia");
+    await enableHostPacing(host);
+    await startGame(host);
+    await hostAdvance(host);
+    await expect
+      .poll(async () => host.getByTestId("host-game-view").getAttribute("data-phase"), { timeout: 15_000 })
+      .toBe("question");
+    await player.getByTestId("player-answer-0").click({ timeout: 15_000 });
+    await hostAdvance(host);
+    await hostAdvance(host);
+    await expect
+      .poll(async () => host.getByTestId("host-game-view").getAttribute("data-phase"), { timeout: 15_000 })
+      .toBe("scoreboard");
+    await host.setViewportSize({ width: 1280, height: 720 });
+    await expect(host.getByTestId("round-score-panel")).toBeVisible();
+    await assertInViewport(host, "round-score-panel", 120);
+  } finally {
+    await hostCtx.close();
+    await playerCtx.close();
+    await browser.close();
+  }
+});
+
+test("@smoke @host-stage player-stage centers trivia and impostor heroes", async () => {
+  const browser = await chromium.launch();
+  const roomId = randomRoomId();
+  const { page: host, context: hostCtx } = await openHost(browser, roomId);
+  const { page: player, context: playerCtx } = await joinPlayer(browser, roomId, "P1");
+
+  try {
+    await selectGame(host, "trivia");
+    await enableHostPacing(host);
+    await startGame(host);
+    await hostAdvance(host);
+    await expect(player.getByTestId("player-stage")).toBeVisible({ timeout: 15_000 });
+    const box = await player.getByTestId("player-stage").boundingBox();
+    const vp = player.viewportSize();
+    expect(box).not.toBeNull();
+    expect(vp).not.toBeNull();
+    if (box && vp) {
+      const centerY = box.y + box.height / 2;
+      expect(Math.abs(centerY - vp.height / 2)).toBeLessThan(180);
+    }
+  } finally {
+    await hostCtx.close();
+    await playerCtx.close();
     await browser.close();
   }
 });

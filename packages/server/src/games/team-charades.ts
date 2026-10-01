@@ -49,7 +49,6 @@ export const teamCharadesGame: GameModule<CharadesState> = {
     minPlayers: 3,
     maxPlayers: 12,
     category: "party",
-    supportsDifficulty: true,
     supportsMatureContent: true,
     supportsCharadesMode: true,
     roundScoresAreCumulative: true,

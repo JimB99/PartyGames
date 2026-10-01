@@ -27,14 +27,9 @@ function isGameId(v: unknown): v is GameId {
 function validateGameOptions(raw: unknown): GameOptions {
   const src = isRecord(raw) ? raw : {};
   const contentRating = src.contentRating === "mature" ? "mature" : "family";
-  const difficulty =
-    src.difficulty === "easy" || src.difficulty === "medium" || src.difficulty === "hard" || src.difficulty === "mixed"
-      ? src.difficulty
-      : DEFAULT_GAME_OPTIONS.difficulty;
   const options: GameOptions = {
     ...DEFAULT_GAME_OPTIONS,
     contentRating,
-    difficulty,
   };
   if (src.questionDisplay === "tv_prompt_only" || src.questionDisplay === "tv_full") {
     options.questionDisplay = src.questionDisplay;
@@ -91,7 +86,6 @@ function validateGameOptions(raw: unknown): GameOptions {
   if (isRecord(src.trailDash)) {
     options.trailDash = resolveTrailDashOptions({
       contentRating: options.contentRating,
-      difficulty: options.difficulty,
       trailDash: src.trailDash,
     });
   }
@@ -170,7 +164,9 @@ export function validateGameAction(raw: unknown): ValidationResult<GameAction> {
       if (!points) return fail("Invalid draw_stroke");
       const color = typeof raw.color === "string" ? raw.color.slice(0, 32) : "#fff";
       const width = raw.width !== undefined ? (finiteNumber(raw.width) ? Math.max(1, Math.min(32, raw.width)) : 4) : undefined;
-      return ok({ kind: "draw_stroke", points, color, width });
+      const id = typeof raw.id === "string" ? raw.id.slice(0, 64) : undefined;
+      const revision = finiteNumber(raw.revision) ? Math.max(0, Math.floor(raw.revision)) : undefined;
+      return ok({ kind: "draw_stroke", points, color, width, id, revision });
     }
     case "draw_undo":
     case "draw_clear":

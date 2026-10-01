@@ -30,7 +30,6 @@ export const drawingGame: GameModule<DrawingGameState> = {
     minPlayers: 3,
     maxPlayers: 12,
     category: "creative",
-    supportsDifficulty: true,
     supportsMatureContent: true,
     supportsSpeedScoring: true,
     supportsDrawingStyle: true,

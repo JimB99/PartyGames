@@ -31,25 +31,15 @@ describe("settings behavior", () => {
     assert.ok(mature.some((r) => !familyTexts.has(r.prompt ?? r.truth)));
   });
 
-  it("hangman-race difficulty filters word lengths", () => {
-    const easy = hangmanWordPool({ ...DEFAULT_GAME_OPTIONS, difficulty: "easy" });
-    const hard = hangmanWordPool({ ...DEFAULT_GAME_OPTIONS, difficulty: "hard" });
-    assert.ok(easy.length >= 5);
-    assert.ok(hard.length >= 5);
-    const easyAvg = easy.reduce((s, w) => s + w.length, 0) / easy.length;
-    const hardAvg = hard.reduce((s, w) => s + w.length, 0) / hard.length;
-    assert.ok(easyAvg < hardAvg, `easy avg ${easyAvg} should be < hard avg ${hardAvg}`);
+  it("hangman-race uses mixed dictionary lengths", () => {
+    const pool = hangmanWordPool(DEFAULT_GAME_OPTIONS);
+    assert.ok(pool.length >= 10);
+    assert.ok(pool.every((w) => w.length >= 5 && w.length <= 10));
   });
 
-  it("word-rush difficulty filters dictionary by word length", () => {
-    const easy = dictionaryForWordRush({ ...DEFAULT_GAME_OPTIONS, difficulty: "easy" });
-    const hard = dictionaryForWordRush({ ...DEFAULT_GAME_OPTIONS, difficulty: "hard" });
-    assert.ok(easy.size > 0 && hard.size > 0);
-    let easyMax = 0;
-    for (const w of easy) easyMax = Math.max(easyMax, w.length);
-    let hardMin = Infinity;
-    for (const w of hard) hardMin = Math.min(hardMin, w.length);
-    assert.ok(easyMax <= hardMin + 2, `easy max ${easyMax} vs hard min ${hardMin}`);
+  it("word-rush uses the full dictionary", () => {
+    const dict = dictionaryForWordRush(DEFAULT_GAME_OPTIONS);
+    assert.ok(dict.size >= 100);
   });
 
   it("trivia questionDisplay changes host view", () => {

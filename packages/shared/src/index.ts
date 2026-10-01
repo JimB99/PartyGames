@@ -29,6 +29,7 @@ export * from "./hot-seat-prompt.js";
 export * from "./runtime.js";
 export * from "./timing.js";
 export * from "./phase-helpers.js";
+export * from "./roster.js";
 export * from "./bracket-utils.js";
 export * from "./scoring-utils.js";
 export * from "./game-view-types.js";

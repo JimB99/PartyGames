@@ -4,6 +4,7 @@ import { quizPool, timelinePool } from "../content-pool.js";
 import {
   createTriviaState,
   onTriviaAction,
+  onTriviaRosterChange,
   onTriviaTick,
   triviaHostView,
   triviaPlayerView,
@@ -19,7 +20,6 @@ export const triviaGame: GameModule<TriviaState> = {
     minPlayers: 1,
     maxPlayers: 16,
     category: "trivia",
-    supportsDifficulty: true,
     supportsMatureContent: true,
     supportsSpeedScoring: true,
     supportsQuestionDisplay: true,
@@ -39,6 +39,9 @@ export const triviaGame: GameModule<TriviaState> = {
   onHostAction(state, action, ctx) {
     return onTriviaAction(state, "host", action, ctx);
   },
+  onRosterChange(state, ctx) {
+    return onTriviaRosterChange(state, ctx);
+  },
   onTick(state) {
     return onTriviaTick(state, state.itemsPool, state.gameOptions);
   },
@@ -46,8 +49,8 @@ export const triviaGame: GameModule<TriviaState> = {
     return state.phase !== "ended";
   },
   tickIntervalMs: 500,
-  getHostView(state) {
-    const view = triviaHostView(state, state.gameOptions);
+  getHostView(state, ctx) {
+    const view = triviaHostView(state, state.gameOptions, ctx);
     return {
       ...view,
       data: { ...view.data, triviaFormat: state.mode === "timeline" ? "timeline" : "quiz" },

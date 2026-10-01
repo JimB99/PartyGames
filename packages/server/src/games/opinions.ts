@@ -4,6 +4,7 @@ import { crowdCallPool, splitRoomPool, wouldYouRatherPool } from "../content-poo
 import {
   createOpinionsState,
   onOpinionsAction,
+  onOpinionsRosterChange,
   onOpinionsTick,
   opinionsHostView,
   opinionsIsGameOver,
@@ -22,7 +23,6 @@ export const opinionsGame: GameModule<OpinionsState> = {
     minPlayers: 3,
     maxPlayers: 16,
     category: "social",
-    supportsDifficulty: true,
     supportsMatureContent: true,
     supportsOpinionScoring: true,
     roundScoresAreCumulative: false,
@@ -44,14 +44,17 @@ export const opinionsGame: GameModule<OpinionsState> = {
   onHostAction(state, action, ctx) {
     return onOpinionsAction(state, "host", action, ctx);
   },
+  onRosterChange(state, ctx) {
+    return onOpinionsRosterChange(state, ctx);
+  },
   onTick(state) {
     const gameOptions = state.scoring === "majority" ? state.inner.gameOptions : undefined;
     return onOpinionsTick(state, gameOptions);
   },
   needsTick: opinionsNeedsTick,
   tickIntervalMs: 500,
-  getHostView(state) {
-    return opinionsHostView(state, state.scoring === "majority" ? state.inner.gameOptions : undefined);
+  getHostView(state, ctx) {
+    return opinionsHostView(state, state.scoring === "majority" ? state.inner.gameOptions : undefined, ctx);
   },
   getPlayerView(state, playerId) {
     return opinionsPlayerView(state, playerId, state.scoring === "majority" ? state.inner.gameOptions : undefined);

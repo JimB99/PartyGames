@@ -6,7 +6,7 @@ describe("team-charades teams mode", () => {
   it("assigns alternating teams when teams mode enabled", () => {
     const state = teamCharadesGame.init({
       playerIds: ["p1", "p2", "p3", "p4"],
-      gameOptions: { contentRating: "family", difficulty: "mixed", charadesMode: "teams" },
+      gameOptions: { contentRating: "family", charadesMode: "teams" },
     } as never);
     assert.equal(state.teamsMode, true);
     assert.equal(state.teamByPlayerId.p1, "A");
@@ -18,7 +18,7 @@ describe("team-charades teams mode", () => {
   it("tracks team scores on correct guess", () => {
     const state = teamCharadesGame.init({
       playerIds: ["p1", "p2", "p3"],
-      gameOptions: { contentRating: "family", difficulty: "mixed", charadesMode: "teams" },
+      gameOptions: { contentRating: "family", charadesMode: "teams" },
     } as never);
     state.phase = "acting";
     teamCharadesGame.onPlayerAction!(

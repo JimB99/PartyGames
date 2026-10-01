@@ -4,6 +4,7 @@ import {
   beginTimedPhase,
   isHostPacing,
   isSpeedScoringEnabled,
+  submitProgress,
   resolvePhaseDuration,
   phaseTimerEndsAt,
   pickRandom,
@@ -372,11 +373,20 @@ export function onTriviaTick(state: TriviaState, items?: unknown[], gameOptions?
   return advanceTrivia(state, items ?? state.itemsPool, gameOptions);
 }
 
-export function triviaHostView(state: TriviaState, gameOptions?: GameOptions) {
+export function onTriviaRosterChange(state: TriviaState, ctx: RoomContext): TriviaState {
+  state.playerCount = ctx.playerIds.length;
+  pruneStaleAnswers(state, ctx.playerIds);
+  if (state.phase === "question" && allPlayersAnswered(state, ctx.playerIds)) {
+    return advanceTrivia(state, state.itemsPool, ctx.gameOptions);
+  }
+  return state;
+}
+
+export function triviaHostView(state: TriviaState, gameOptions?: GameOptions, ctx?: RoomContext) {
   const voteA = Object.values(state.answers).filter((a) => a === "a" || a === 0).length;
   const voteB = Object.values(state.answers).filter((a) => a === "b" || a === 1).length;
   const showReveal = state.phase === "reveal" || state.phase === "scoreboard";
-  const promptOnly = resolveQuestionDisplay(gameOptions ?? { contentRating: "family", difficulty: "mixed" }) === "tv_prompt_only";
+  const promptOnly = resolveQuestionDisplay(gameOptions ?? { contentRating: "family" }) === "tv_prompt_only";
   const inQuestion = state.phase === "question";
   const hideChoicesOnTv = promptOnly && inQuestion && state.mode === "quiz";
   const discussing = Boolean(state.discussUntil && Date.now() < state.discussUntil);
@@ -415,8 +425,9 @@ export function triviaHostView(state: TriviaState, gameOptions?: GameOptions) {
           : state.mode === "would-you-rather" && voteTotal > 0
             ? { a: Math.round((voteA / voteTotal) * 100), b: Math.round((voteB / voteTotal) * 100) }
             : undefined,
-      answerCount: voteTotal,
-      playerCount: state.playerCount,
+      answerCount: ctx ? submitProgress(ctx.playerIds, Object.keys(state.answers)).current : voteTotal,
+      playerCount: ctx ? ctx.playerIds.length : state.playerCount,
+      expectedSubmitCount: ctx ? ctx.playerIds.length : state.playerCount,
       discussing,
       roundScores: state.roundScores,
       cumulativeScores: state.cumulativeScores,

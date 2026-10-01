@@ -35,9 +35,7 @@ export function resolveTrailDashOptions(gameOptions: GameOptions): TrailDashOpti
     roundTimeSec: clamp(td.roundTimeSec ?? DEFAULT_TRAIL_DASH_OPTIONS.roundTimeSec, 30, 120),
     maxRounds: clamp(td.maxRounds ?? DEFAULT_TRAIL_DASH_OPTIONS.maxRounds, 1, 5),
     botCount: clamp(td.botCount ?? DEFAULT_TRAIL_DASH_OPTIONS.botCount, 0, 7),
-    botDifficulty:
-      td.botDifficulty ??
-      (gameOptions.difficulty === "mixed" ? "medium" : gameOptions.difficulty),
+    botDifficulty: td.botDifficulty ?? DEFAULT_TRAIL_DASH_OPTIONS.botDifficulty,
     coinValue: clamp(td.coinValue ?? DEFAULT_TRAIL_DASH_OPTIONS.coinValue, 10, 200),
     powerUpMode: td.powerUpMode ?? DEFAULT_TRAIL_DASH_OPTIONS.powerUpMode,
     wallHoles: clamp(td.wallHoles ?? DEFAULT_TRAIL_DASH_OPTIONS.wallHoles, 0, 4),

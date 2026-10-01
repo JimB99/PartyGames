@@ -4,6 +4,7 @@ import { hotSeatPool, punchlineBattlePool } from "../content-pool.js";
 import {
   createPromptVoteState,
   onPromptVoteAction,
+  onPromptVoteRosterChange,
   onPromptVoteTick,
   promptVoteHostView,
   promptVotePlayerView,
@@ -19,7 +20,6 @@ export const promptVoteGame: GameModule<PromptVoteState> = {
     minPlayers: 3,
     maxPlayers: 16,
     category: "social",
-    supportsDifficulty: true,
     supportsMatureContent: true,
     supportsPromptVoteStyle: true,
     roundScoresAreCumulative: true,
@@ -35,6 +35,9 @@ export const promptVoteGame: GameModule<PromptVoteState> = {
   },
   onHostAction(state, action, ctx) {
     return onPromptVoteAction(state, "host", action, ctx);
+  },
+  onRosterChange(state, ctx) {
+    return onPromptVoteRosterChange(state, ctx);
   },
   onTick(state) {
     return onPromptVoteTick(state);

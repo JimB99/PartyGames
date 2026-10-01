@@ -1,6 +1,5 @@
 export type ContentRating = "family" | "mature";
 export type Difficulty = "easy" | "medium" | "hard";
-export type DifficultySetting = Difficulty | "mixed";
 export type QuestionDisplayMode = "tv_prompt_only" | "tv_full";
 export type SpeedScoringMode = "off" | "bonus";
 
@@ -31,7 +30,6 @@ export interface ContentMeta {
 
 export interface GameOptions {
   contentRating: ContentRating;
-  difficulty: DifficultySetting;
   trailDash?: Partial<import("./trail-dash-options.js").TrailDashOptions>;
   questionDisplay?: QuestionDisplayMode;
   speedScoring?: SpeedScoringMode;
@@ -55,7 +53,6 @@ export const DEFAULT_TIMELINE_PTS_PER_YEAR_OFF = 20;
 export const TIMELINE_PTS_PER_YEAR_MAX = 1000;
 export const DEFAULT_GAME_OPTIONS: GameOptions = {
   contentRating: "family",
-  difficulty: "mixed",
   questionDisplay: "tv_prompt_only",
   speedScoring: "bonus",
   speedBonusMax: 500,
@@ -138,14 +135,7 @@ function itemRating(item: ContentMeta): ContentRating {
 
 export function filterContentPool<T extends ContentMeta>(items: T[], options: GameOptions): T[] {
   const want = options.contentRating;
-  let pool = items.filter((i) => itemRating(i) === want);
-
-  if (options.difficulty !== "mixed") {
-    const byDifficulty = pool.filter((i) => !i.difficulty || i.difficulty === options.difficulty);
-    if (byDifficulty.length > 0) pool = byDifficulty;
-  }
-
-  return pool;
+  return items.filter((i) => itemRating(i) === want);
 }
 
 export function filterWordList(entries: WordEntry[], options: GameOptions): string[] {

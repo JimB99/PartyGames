@@ -1,5 +1,5 @@
 import type { RoomSnapshot } from "@party-games/shared";
-import { scoresForAllPlayers } from "@party-games/shared";
+import { scoresForLiveBar } from "@party-games/shared";
 import { PlayerColorSwatch } from "./PlayerColorSwatch";
 
 export function LiveScoreBar({
@@ -12,12 +12,10 @@ export function LiveScoreBar({
   compact?: boolean;
 }) {
   const playerIds = room.players.filter((p) => p.connected).map((p) => p.id);
-  const rows = scoresForAllPlayers(playerIds, gameScores)
-    .map(({ playerId, points }) => ({
-      playerId,
-      gamePts: points,
-      totalPts: room.sessionScores[playerId] ?? 0,
-      player: room.players.find((p) => p.id === playerId),
+  const rows = scoresForLiveBar(playerIds, room.sessionScores, gameScores)
+    .map((row) => ({
+      ...row,
+      player: room.players.find((p) => p.id === row.playerId),
     }))
     .sort((a, b) => b.gamePts - a.gamePts || b.totalPts - a.totalPts);
 
@@ -40,14 +38,26 @@ export function LiveScoreBar({
             className="h-2 w-2 shrink-0 rounded-full"
           />
           <span className="max-w-[6rem] truncate font-medium">{player?.nickname ?? playerId}</span>
-          <span className="font-mono font-bold text-violet-300" title="Points this game">
+          <span
+            className="flex items-baseline gap-1 font-mono font-bold text-violet-300"
+            data-testid="live-score-game"
+            title="Points this game"
+          >
+            <span className="text-[0.65em] font-semibold uppercase tracking-wide text-zinc-500">
+              Game
+            </span>
             {gamePts}
-            <span className="ml-0.5 font-normal text-zinc-500">g</span>
           </span>
-          <span className="text-zinc-500">·</span>
-          <span className="font-mono text-zinc-400" title="Session total">
+          <span className="text-zinc-600">·</span>
+          <span
+            className="flex items-baseline gap-1 font-mono text-zinc-300"
+            data-testid="live-score-total"
+            title="Session total including this game"
+          >
+            <span className="text-[0.65em] font-semibold uppercase tracking-wide text-zinc-500">
+              Total
+            </span>
             {totalPts}
-            <span className="ml-0.5">Σ</span>
           </span>
         </div>
       ))}

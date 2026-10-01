@@ -14,7 +14,7 @@ describe("resolveHostControls", () => {
   it("allows skip during timed phases and transitional phases", () => {
     assert.equal(resolveHostControls({ phase: "instructions", timerEndsAt: null }).canSkip, true);
     assert.equal(resolveHostControls({ phase: "questioning", timerEndsAt: Date.now() + 1000 }).canSkip, true);
-    assert.equal(resolveHostControls({ phase: "playing", timerEndsAt: null }).canSkip, false);
+    assert.equal(resolveHostControls({ phase: "playing", timerEndsAt: null }).canSkip, true);
   });
 
   it("host-paced mode enables skip on playing phase and disables extend", () => {

@@ -70,6 +70,21 @@ describe("syncInGameScoresFromView", () => {
     assert.equal(result.changed, false);
     assert.equal(result.inGameScores.p1, 1000);
   });
+
+  it("commits drawing reveal scores so live Game is not zero", () => {
+    const result = syncInGameScoresFromView({
+      roundScoresAreCumulative: false,
+      phase: "reveal",
+      round: 1,
+      activeGameId: "drawing",
+      roundScores: { p1: 500, p2: 250 },
+      inGameScores: {},
+      committedRoundKeys: new Set(),
+    });
+    assert.equal(result.changed, true);
+    assert.equal(result.inGameScores.p1, 500);
+    assert.equal(result.inGameScores.p2, 250);
+  });
 });
 
 describe("finalizeGameScores session integration", () => {

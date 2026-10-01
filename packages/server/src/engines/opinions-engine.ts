@@ -10,12 +10,14 @@ import {
   crowdHostView,
   crowdPlayerView,
   onCrowdAction,
+  onCrowdRosterChange,
   onCrowdTick,
   type CrowdState,
 } from "./crowd-call-engine.js";
 import {
   createSplitState,
   onSplitAction,
+  onSplitRosterChange,
   onSplitTick,
   splitHostView,
   splitPlayerView,
@@ -24,6 +26,7 @@ import {
 import {
   createTriviaState,
   onTriviaAction,
+  onTriviaRosterChange,
   onTriviaTick,
   triviaHostView,
   triviaPlayerView,
@@ -78,6 +81,16 @@ export function onOpinionsAction(
   return { scoring: "predict-majority", inner: onCrowdAction(state.inner, playerId, action, ctx) };
 }
 
+export function onOpinionsRosterChange(state: OpinionsState, ctx: RoomContext): OpinionsState {
+  if (state.scoring === "majority") {
+    return { scoring: "majority", inner: onTriviaRosterChange(state.inner, ctx) };
+  }
+  if (state.scoring === "minority") {
+    return { scoring: "minority", inner: onSplitRosterChange(state.inner, ctx) };
+  }
+  return { scoring: "predict-majority", inner: onCrowdRosterChange(state.inner, ctx) };
+}
+
 export function onOpinionsTick(state: OpinionsState, gameOptions?: GameOptions): OpinionsState {
   if (state.scoring === "majority") {
     return {
@@ -91,9 +104,9 @@ export function onOpinionsTick(state: OpinionsState, gameOptions?: GameOptions):
   return { scoring: "predict-majority", inner: onCrowdTick(state.inner) };
 }
 
-export function opinionsHostView(state: OpinionsState, gameOptions?: GameOptions) {
+export function opinionsHostView(state: OpinionsState, gameOptions?: GameOptions, ctx?: RoomContext) {
   if (state.scoring === "majority") {
-    const view = triviaHostView(state.inner, gameOptions ?? state.inner.gameOptions);
+    const view = triviaHostView(state.inner, gameOptions ?? state.inner.gameOptions, ctx);
     return withOpinionScoring(view, state.scoring);
   }
   if (state.scoring === "minority") {

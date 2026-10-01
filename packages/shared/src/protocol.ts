@@ -34,7 +34,7 @@ export type GameAction =
   | { kind: "trivia_answer"; choiceIndex: number }
   | { kind: "year_slider"; year: number }
   | { kind: "would_you_rather"; choice: "a" | "b" }
-  | { kind: "draw_stroke"; points: number[]; color: string; width?: number }
+  | { kind: "draw_stroke"; points: number[]; color: string; width?: number; id?: string; revision?: number }
   | { kind: "draw_undo" }
   | { kind: "draw_clear" }
   | { kind: "draw_tool"; tool: "pen" | "eraser"; width?: number }

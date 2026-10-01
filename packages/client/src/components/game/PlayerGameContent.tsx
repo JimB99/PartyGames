@@ -1,5 +1,5 @@
 import type { DikeRevealEntry, GameAction, PlayerAnswerReveal, PlayerViewSnapshot, RevealEntry, RoomSnapshot } from "@party-games/shared";
-import { ActionGrid, PhaseHeader } from "./GameShell";
+import { ActionGrid, PhaseHeader, PhoneStage } from "./GameShell";
 import { useEffect, useState } from "react";
 import { TrailDashInstructions } from "../TrailDashInstructions";
 import { CurvePlayerControls } from "../CurvePlayerControls";
@@ -68,7 +68,7 @@ export function PlayerGameView({
     <div
       data-testid="player-phase"
       data-phase={phase}
-      className={`mx-auto w-full max-w-md space-y-4 p-4 relative min-w-0 ${
+      className={`mx-auto flex w-full max-w-md flex-1 flex-col space-y-4 p-4 relative min-w-0 min-h-full ${
         isTrailDashPlaying ? "p-0" : "pb-8 landscape:pb-4"
       }`}
     >
@@ -90,6 +90,8 @@ export function PlayerGameView({
           </div>
         </>
       )}
+
+      <PhoneStage>
 
       {phase === "instructions" && (
         <div className="space-y-4 py-4">
@@ -636,13 +638,29 @@ export function PlayerGameView({
               if (w !== undefined) setDrawWidth(w);
               onAction({ kind: "draw_tool", tool: t, width: w ?? drawWidth });
             }}
-            onStroke={(points, color, width) =>
-              onAction({ kind: "draw_stroke", points, color, width: width ?? drawWidth })
+            onStroke={(points, color, width, meta) =>
+              onAction({
+                kind: "draw_stroke",
+                points,
+                color,
+                width: width ?? drawWidth,
+                id: meta.id,
+                revision: meta.revision,
+              })
             }
+            drawingRevision={(playerData.drawingRevision as number | undefined) ?? 0}
+            readOnly={Boolean(playerData.drawingReady)}
             onUndo={() => onAction({ kind: "draw_undo" })}
             onClear={() => onAction({ kind: "draw_clear" })}
           />
-          <Btn variant="secondary" className="w-full" onClick={() => onAction({ kind: "advance" })}>Done drawing</Btn>
+          <Btn
+            variant="secondary"
+            className="w-full"
+            testId="draw-done"
+            onClick={() => onAction({ kind: "advance" })}
+          >
+            {playerData.drawingReady ? "Waiting for others…" : "I’m done"}
+          </Btn>
         </div>
       )}
 
@@ -741,13 +759,29 @@ export function PlayerGameView({
               if (w !== undefined) setDrawWidth(w);
               onAction({ kind: "draw_tool", tool: t, width: w ?? drawWidth });
             }}
-            onStroke={(points, color, width) =>
-              onAction({ kind: "draw_stroke", points, color, width: width ?? drawWidth })
+            onStroke={(points, color, width, meta) =>
+              onAction({
+                kind: "draw_stroke",
+                points,
+                color,
+                width: width ?? drawWidth,
+                id: meta.id,
+                revision: meta.revision,
+              })
             }
+            drawingRevision={(playerData.drawingRevision as number | undefined) ?? 0}
+            readOnly={Boolean(playerData.drawingReady)}
             onUndo={() => onAction({ kind: "draw_undo" })}
             onClear={() => onAction({ kind: "draw_clear" })}
           />
-          <Btn variant="secondary" className="w-full" onClick={() => onAction({ kind: "advance" })}>Done drawing</Btn>
+          <Btn
+            variant="secondary"
+            className="w-full"
+            testId="draw-done"
+            onClick={() => onAction({ kind: "advance" })}
+          >
+            {playerData.drawingReady ? "Waiting for others…" : "I’m done"}
+          </Btn>
         </div>
       )}
 
@@ -1152,6 +1186,7 @@ export function PlayerGameView({
 
       <EndGamePanel room={room} playerView={playerView} data={data} />
 
+      </PhoneStage>
     </div>
   );
 }

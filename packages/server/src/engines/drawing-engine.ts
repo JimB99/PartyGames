@@ -1,13 +1,15 @@
-import { pickRandom, shuffle, isSpeedScoringEnabled, scoreByAnswerRank, type GameAction, type GameOptions, type RoomContext } from "@party-games/shared";
+import { pickRandom, shuffle, isSpeedScoringEnabled, scoreByAnswerRank, uniqueId, allDrawersReady, shouldAcceptStroke, type GameAction, type GameOptions, type RoomContext } from "@party-games/shared";
 import { clearPhaseTimer, startPhaseTimer } from "./phase-timer.js";
 
 export type DrawPhase = "instructions" | "drawing" | "guessing" | "reveal" | "scoreboard" | "ended";
 
 export interface Stroke {
+  id?: string;
   points: number[];
   color: string;
   width: number;
   erase?: boolean;
+  revision?: number;
 }
 
 export interface PlayerDrawing {
@@ -16,6 +18,7 @@ export interface PlayerDrawing {
   strokes: Stroke[];
   tool: "pen" | "eraser";
   width: number;
+  revision: number;
 }
 
 export interface DrawState {
@@ -38,6 +41,7 @@ export interface DrawState {
   usedWords: string[];
   wordsPool: string[];
   gameOptions?: GameOptions;
+  ready: Record<string, boolean>;
 }
 
 const DRAW_MS = 60000;
@@ -58,6 +62,7 @@ function assignWords(words: string[], playerIds: string[], usedWords: string[]):
       strokes: [],
       tool: "pen",
       width: 4,
+      revision: 0,
     };
   }
   return drawings;
@@ -83,6 +88,8 @@ export function createDrawState(words: string[], playerIds: string[], maxRounds?
     cumulativeScores: {},
     usedWords,
     wordsPool: words,
+    ready: {},
+    gameOptions,
   };
 }
 
@@ -105,6 +112,7 @@ export function advanceDraw(state: DrawState, words: string[], playerIds: string
     Object.assign(state, startPhaseTimer(DRAW_MS, state.gameOptions));
     state.guesses = {};
     state.correctGuessers = [];
+    state.ready = {};
     return state;
   }
   if (state.phase === "drawing") {
@@ -160,6 +168,32 @@ export function advanceDraw(state: DrawState, words: string[], playerIds: string
   return state;
 }
 
+export function applyStrokeToDrawing(
+  drawing: PlayerDrawing,
+  action: { points: number[]; color: string; width?: number; id?: string; revision?: number },
+): void {
+  if (!shouldAcceptStroke(action.revision, drawing.revision)) return;
+  const erase = drawing.tool === "eraser" || action.color === "erase";
+  drawing.strokes.push({
+    id: action.id ?? uniqueId(),
+    points: action.points,
+    color: erase ? "transparent" : action.color,
+    width: action.width ?? drawing.width,
+    erase,
+    revision: action.revision ?? drawing.revision,
+  });
+}
+
+export function undoDrawingStrokes(drawing: PlayerDrawing): void {
+  drawing.strokes.pop();
+  drawing.revision += 1;
+}
+
+export function clearDrawingStrokes(drawing: PlayerDrawing): void {
+  drawing.strokes = [];
+  drawing.revision += 1;
+}
+
 function scoreCurrentDrawing(state: DrawState, playerIds: string[], gameOptions?: GameOptions) {
   const artistId = currentArtistId(state);
   const drawing = currentDrawing(state);
@@ -212,16 +246,15 @@ export function onDrawAction(
   if (action.kind === "draw_stroke" && state.phase === "drawing") {
     const d = state.drawings[playerId];
     if (!d) return state;
-    const width = action.width ?? d.width;
-    const erase = d.tool === "eraser" || action.color === "erase";
-    d.strokes.push({ points: action.points, color: erase ? "transparent" : action.color, width, erase });
+    applyStrokeToDrawing(d, action);
   }
   if (action.kind === "draw_undo" && state.phase === "drawing") {
-    state.drawings[playerId]?.strokes.pop();
+    const d = state.drawings[playerId];
+    if (d) undoDrawingStrokes(d);
   }
   if (action.kind === "draw_clear" && state.phase === "drawing") {
     const d = state.drawings[playerId];
-    if (d) d.strokes = [];
+    if (d) clearDrawingStrokes(d);
   }
   if (action.kind === "submit_text" && state.phase === "guessing" && playerId !== artistId) {
     if (state.guesses[playerId] === undefined) {
@@ -237,7 +270,20 @@ export function onDrawAction(
     return advanceDraw(state, state.wordsPool, ctx.playerIds);
   }
   if (action.kind === "advance" && state.phase === "drawing") {
-    return advanceDraw(state, state.wordsPool, ctx.playerIds);
+    if (playerId === "host") {
+      return advanceDraw(state, state.wordsPool, ctx.playerIds);
+    }
+    state.ready[playerId] = true;
+    if (allDrawersReady(state.ready, ctx.playerIds)) {
+      return advanceDraw(state, state.wordsPool, ctx.playerIds);
+    }
+    return state;
+  }
+  if (action.kind === "advance" && playerId === "host" && state.phase === "guessing") {
+    scoreCurrentDrawing(state, ctx.playerIds, state.gameOptions);
+    state.phase = "reveal";
+    Object.assign(state, startPhaseTimer(REVEAL_MS, state.gameOptions));
+    return state;
   }
   return state;
 }
@@ -330,6 +376,8 @@ export function drawPlayerView(state: DrawState, playerId: string, playerIds: st
       myGuess: state.guesses[playerId],
       tool: myDrawing?.tool,
       brushWidth: myDrawing?.width,
+      drawingReady: state.ready[playerId] === true,
+      drawingRevision: myDrawing?.revision ?? 0,
     },
   };
 }

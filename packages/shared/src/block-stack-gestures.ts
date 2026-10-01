@@ -20,3 +20,13 @@ export function parseBlockStackGesture(
   if (dy < -swipe) return "hard_drop";
   return null;
 }
+
+/** Consume one DAS step per `cellWidth` of accumulated axis travel. */
+export function drainDasAxis(
+  accumulated: number,
+  cellWidth: number,
+): { steps: number; remain: number } {
+  if (cellWidth <= 0) return { steps: 0, remain: accumulated };
+  const steps = Math.trunc(accumulated / cellWidth);
+  return { steps, remain: accumulated - steps * cellWidth };
+}

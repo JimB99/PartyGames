@@ -7,8 +7,10 @@ import {
   blockStackLevelFromElapsed,
   canPlace,
   cloneBlockStackPlayer,
+  pieceSpawnShape,
   createBlockStackPlayer,
   createBlockStackState,
+  forceEndBlockStackRound,
   LINE_SCORES,
   resetBlockStackRound,
   startBlockStackPlaying,
@@ -17,6 +19,10 @@ import {
 } from "./block-stack-logic.js";
 
 describe("block-stack-logic", () => {
+  it("pieceSpawnShape I is a 4-wide bar", () => {
+    assert.deepEqual(pieceSpawnShape("I")[1], [1, 1, 1, 1]);
+  });
+
   it("canPlace rejects out of bounds", () => {
     const board = Array.from({ length: 16 }, () => Array(8).fill(0));
     const piece: ActivePiece = { kind: "I", rotation: 0, x: 6, y: 0 };
@@ -63,6 +69,16 @@ describe("block-stack-logic", () => {
     assert.equal(state.elapsedTicks, 0);
     tickBlockStackState(state);
     assert.equal(state.elapsedTicks, 1);
+  });
+
+  it("forceEndBlockStackRound leaves playing for round_end", () => {
+    const state = createBlockStackState(["a", "b"]);
+    startBlockStackPlaying(state);
+    state.players[0].score = 400;
+    state.players[1].score = 100;
+    forceEndBlockStackRound(state);
+    assert.equal(state.phase, "round_end");
+    assert.equal(state.roundWinner, "a");
   });
 
   it("resetBlockStackRound zeroes elapsedTicks", () => {

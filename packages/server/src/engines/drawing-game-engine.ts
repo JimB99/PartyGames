@@ -46,7 +46,7 @@ export function createDrawingGameState(
     return { style: "telephone", inner: createChainSketchState(words, playerIds, gameOptions) };
   }
   if (style === "all-draw") {
-    const voteStyle = resolveDrawVoteStyle(gameOptions ?? { contentRating: "family", difficulty: "mixed" });
+    const voteStyle = resolveDrawVoteStyle(gameOptions ?? { contentRating: "family" });
     const mode = voteStyle === "guess-artist" ? "artistGuess" : "bestDrawing";
     return {
       style: "all-draw",
@@ -104,7 +104,7 @@ export function drawingGameHostView(state: DrawingGameState, playerIds: string[]
     return withDrawingStyle(chainHostView(state.inner), state.style);
   }
   if (state.style === "all-draw") {
-    const voteStyle = resolveDrawVoteStyle(gameOptions ?? { contentRating: "family", difficulty: "mixed" });
+    const voteStyle = resolveDrawVoteStyle(gameOptions ?? { contentRating: "family" });
     return withDrawingStyle(drawVoteHostView(state.inner), state.style, voteStyle);
   }
   return withDrawingStyle(drawHostView(state.inner, playerIds), state.style);
@@ -115,7 +115,7 @@ export function drawingGamePlayerView(state: DrawingGameState, playerId: string,
     return withDrawingStyle(chainPlayerView(state.inner, playerId), state.style);
   }
   if (state.style === "all-draw") {
-    const voteStyle = resolveDrawVoteStyle(gameOptions ?? { contentRating: "family", difficulty: "mixed" });
+    const voteStyle = resolveDrawVoteStyle(gameOptions ?? { contentRating: "family" });
     return withDrawingStyle(drawVotePlayerView(state.inner, playerId), state.style, voteStyle);
   }
   return withDrawingStyle(drawPlayerView(state.inner, playerId, playerIds), state.style);

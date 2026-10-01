@@ -28,7 +28,7 @@ test("@settings mature content toggle on agent-grid", async () => {
   }
 });
 
-test("@settings difficulty on hangman-race", async () => {
+test("@settings options panel has no difficulty", async () => {
   const browser = await chromium.launch();
   const roomId = randomRoomId();
   const { page: host, context: hostCtx } = await openHost(browser, roomId);
@@ -41,8 +41,15 @@ test("@settings difficulty on hangman-race", async () => {
     }
 
     await selectGame(host, "hangman-race");
-    await expect(host.getByTestId("game-options-panel").last()).toBeVisible();
-    await host.getByTestId("game-options-panel").last().locator("select").first().selectOption("hard");
+    const hangmanPanel = host.getByTestId("game-options-panel").last();
+    await expect(hangmanPanel).toBeVisible();
+    await expect(hangmanPanel.getByText("Difficulty")).toHaveCount(0);
+
+    await selectGame(host, "trivia");
+    const triviaPanel = host.getByTestId("game-options-panel").last();
+    await expect(triviaPanel).toBeVisible();
+    await expect(triviaPanel.getByText("Difficulty")).toHaveCount(0);
+    await expect(triviaPanel.getByText("Content")).toBeVisible();
     await expect(host.getByTestId("start-game").last()).toBeEnabled();
   } finally {
     await hostCtx.close();

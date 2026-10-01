@@ -39,9 +39,12 @@ export function HostGameView({
     room.gameOptionsByGame ?? {},
   );
   const connectedCount = room.players.filter((p) => p.connected).length;
+  const rosterExpected = room.players.filter((p) => p.connected && !p.waiting).length;
+  const scoringHero = phase === "scoreboard" || phase === "round_end" || phase === "ended";
 
   const isTrailDash = hostView.gameId === "trail-dash";
   const isTrailDashPlaying = isTrailDash && phase === "playing";
+  const isBlockStackPlaying = hostView.gameId === "block-stack" && phase === "playing";
 
   return (
     <TvGameShell>
@@ -81,7 +84,11 @@ export function HostGameView({
         )}
       </header>
 
-      <HostTvStage className="w-full space-y-6">
+      <HostTvStage className="w-full space-y-6" compact={isBlockStackPlaying}>
+      {scoringHero ? (
+        <ScoringPhase room={room} hostView={hostView} data={data} />
+      ) : (
+      <>
       {phase === "instructions" && (
         <div className="space-y-4">
           <div className="rounded-2xl bg-zinc-800/60 p-8 text-center">
@@ -181,10 +188,10 @@ export function HostGameView({
               ))}
             </ul>
           )}
-          <p className="mt-4 text-zinc-400">
+          <p className="mt-4 text-zinc-400" data-testid="waiting-progress">
             {phase === "pick"
               ? "Waiting for the hot seat player to pick…"
-              : `Waiting for players… (${String(data.submitCount ?? data.answerCount ?? 0)}/${String(data.expectedSubmitCount ?? data.playerCount ?? room.players.length)})`}
+              : `Waiting for players… (${String(data.submitCount ?? data.answerCount ?? 0)}/${String(data.expectedSubmitCount ?? data.playerCount ?? rosterExpected)})`}
           </p>
         </div>
       )}
@@ -217,8 +224,8 @@ export function HostGameView({
               </li>
             ))}
           </ul>
-          <p className="text-zinc-400">
-            Waiting for players… ({String(data.voteCount ?? 0)}/{String(data.playerCount ?? room.players.length)})
+          <p className="text-zinc-400" data-testid="waiting-progress">
+            Waiting for players… ({String(data.voteCount ?? 0)}/{String(data.playerCount ?? rosterExpected)})
           </p>
         </div>
       )}
@@ -610,9 +617,9 @@ export function HostGameView({
         <GridBlastArena data={data} room={room} />
       )}
 
+      </>
+      )}
       </HostTvStage>
-
-      <ScoringPhase room={room} hostView={hostView} data={data} />
     </div>
     </TvGameShell>
   );

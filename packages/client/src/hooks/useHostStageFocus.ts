@@ -10,7 +10,11 @@ export function useHostStageFocus(hostView: HostViewSnapshot | null | undefined)
     if (prevKey.current === key) return;
     prevKey.current = key;
 
-    const el = document.querySelector('[data-testid="host-stage"]');
+    const scoring =
+      hostView.phase === "scoreboard" || hostView.phase === "round_end" || hostView.phase === "ended";
+    const el = document.querySelector(
+      scoring ? '[data-testid="round-score-panel"]' : '[data-testid="host-stage"]',
+    );
     if (el instanceof HTMLElement) {
       el.scrollIntoView({ behavior: "smooth", block: "center" });
     }

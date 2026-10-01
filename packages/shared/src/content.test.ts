@@ -22,23 +22,11 @@ describe("filterContentPool", () => {
     assert.ok(pool.every((i) => i.rating === "mature"));
   });
 
-  it("difficulty filter narrows when matches exist", () => {
-    const pool = filterContentPool(items, {
-      contentRating: "mature",
-      difficulty: "easy",
-    });
-    assert.equal(pool.length, 1);
-    assert.ok(pool.every((i) => i.rating === "mature"));
-    assert.ok(pool.every((i) => !i.difficulty || i.difficulty === "easy"));
-  });
-
-  it("falls back to full input when filter would empty pool", () => {
-    const onlyHard = [{ rating: "family" as const, difficulty: "hard" as const }];
-    const pool = filterContentPool(onlyHard, {
-      contentRating: "family",
-      difficulty: "easy",
-    });
-    assert.equal(pool.length, 1);
+  it("does not slice by unused item difficulty tags", () => {
+    const pool = filterContentPool(items, { ...DEFAULT_GAME_OPTIONS, contentRating: "family" });
+    assert.equal(pool.length, 2);
+    assert.ok(pool.some((i) => i.difficulty === "easy"));
+    assert.ok(pool.some((i) => i.difficulty === "hard"));
   });
 });
 

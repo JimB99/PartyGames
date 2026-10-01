@@ -54,11 +54,12 @@ export function DrawImpostorPlayerPanel({
     tool?: "pen" | "eraser";
     brushWidth?: number;
     onToolChange?: (t: "pen" | "eraser", w?: number) => void;
-    onStroke?: (points: number[], color: string, width: number) => void;
+    onStroke?: (points: number[], color: string, width: number, meta?: { id: string; revision: number }) => void;
     onUndo?: () => void;
     onClear?: () => void;
+    drawingRevision?: number;
   }>;
-  Btn: React.ComponentType<{ children: React.ReactNode; onClick?: () => void; className?: string; variant?: "primary" | "secondary" | "danger" }>;
+  Btn: React.ComponentType<{ children: React.ReactNode; onClick?: () => void; className?: string; variant?: "primary" | "secondary" | "danger"; testId?: string }>;
 }) {
   if (phase === "drawing") {
     return (
@@ -76,13 +77,21 @@ export function DrawImpostorPlayerPanel({
             if (w !== undefined) setDrawWidth(w);
             onAction({ kind: "draw_tool", tool: t, width: w ?? drawWidth });
           }}
-          onStroke={(points, color, width) =>
-            onAction({ kind: "draw_stroke", points, color, width: width ?? drawWidth })
+          onStroke={(points, color, width, meta) =>
+            onAction({
+              kind: "draw_stroke",
+              points,
+              color,
+              width: width ?? drawWidth,
+              id: meta?.id,
+              revision: meta?.revision,
+            })
           }
+          drawingRevision={(playerData.drawingRevision as number | undefined) ?? 0}
           onUndo={() => onAction({ kind: "draw_undo" })}
           onClear={() => onAction({ kind: "draw_clear" })}
         />
-        <Btn variant="secondary" className="w-full" onClick={() => onAction({ kind: "advance" })}>
+        <Btn variant="secondary" className="w-full" testId="draw-done" onClick={() => onAction({ kind: "advance" })}>
           Done drawing
         </Btn>
       </div>

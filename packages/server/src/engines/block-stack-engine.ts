@@ -5,6 +5,7 @@ import {
   cloneBlockStackPlayer,
   computeBlockStackRoundScores,
   createBlockStackState,
+  forceEndBlockStackRound,
   getMergedBoard,
   resetBlockStackRound,
   startBlockStackPlaying,
@@ -57,6 +58,9 @@ function advanceBlockStack(state: BlockStackState, playerIds: string[]): BlockSt
 
 export function onBlockStackAction(state: BlockStackState, playerId: string, action: GameAction, playerIds: string[]): BlockStackState {
   if (action.kind === "advance") {
+    if (state.phase === "playing" && playerId === "host") {
+      return forceEndBlockStackRound(state);
+    }
     return advanceBlockStack(state, playerIds);
   }
   if (action.kind === "block_stack_input" && state.phase === "playing") {

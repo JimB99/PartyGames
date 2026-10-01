@@ -18,6 +18,8 @@ import {
   validateRawMessageSize,
   assembleHostView,
   assemblePlayerView,
+  activePlayerIds,
+  shouldWaitOnJoin,
 } from "@party-games/shared";
 import {
   Server,
@@ -26,6 +28,7 @@ import {
   type WSMessage,
 } from "partyserver";
 import { finalizeGameScores, syncInGameScoresFromView } from "./lobby-scoring.js";
+import { applyHostSkip } from "./host-skip.js";
 import {
   addPlayer,
   applyInGameScoresToSession,
@@ -201,6 +204,7 @@ export class RoomServer extends Server {
     }
 
     this.connectionMeta.delete(connection.id);
+    this.syncRoster();
     this.broadcastAll();
     this.maybeShutdownEmptyRoom();
   }
@@ -469,7 +473,12 @@ export class RoomServer extends Server {
       return;
     }
 
-    if (this.roomPhase === "playing") {
+    if (
+      shouldWaitOnJoin({
+        playing: this.roomPhase === "playing",
+        alreadyInRoom: Boolean(existingPlayer),
+      })
+    ) {
       player.waiting = true;
     }
 
@@ -478,6 +487,7 @@ export class RoomServer extends Server {
     }
 
     this.connectionMeta.set(sender.id, { role: "player", playerId, nickname });
+    this.syncRoster();
     this.sendState(sender);
     this.broadcastAll();
   }
@@ -493,9 +503,36 @@ export class RoomServer extends Server {
     return {
       roomId: this.lobby.roomId,
       players: this.lobby.players,
-      playerIds: this.lobby.players.filter((p) => p.connected).map((p) => p.id),
+      playerIds: activePlayerIds(this.lobby.players),
       gameOptions,
     };
+  }
+
+  private clearWaitingFlags(): void {
+    for (const player of this.lobby.players) player.waiting = false;
+  }
+
+  private currentRound(): number {
+    if (!this.gameModule || !this.gameState) return 0;
+    return this.gameModule.getHostView(this.gameState, this.getRoomContext()).round;
+  }
+
+  private syncRoster(): void {
+    if (!this.gameModule?.onRosterChange || !this.gameState) return;
+    this.gameState = this.gameModule.onRosterChange(this.gameState, this.getRoomContext());
+  }
+
+  private promoteWaitersIfRoundAdvanced(prevRound: number): void {
+    if (!this.gameModule || !this.gameState) return;
+    if (this.currentRound() <= prevRound) return;
+    let promoted = false;
+    for (const player of this.lobby.players) {
+      if (player.waiting) {
+        player.waiting = false;
+        promoted = true;
+      }
+    }
+    if (promoted) this.syncRoster();
   }
 
   startGame(gameId?: GameId) {
@@ -533,7 +570,8 @@ export class RoomServer extends Server {
     }
 
     this.gameModule = game;
-    this.gameState = game.init(ctx);
+    this.clearWaitingFlags();
+    this.gameState = game.init(this.getRoomContext());
     this.roomPhase = "playing";
     this.activeGameId = selected;
     this.lobby.selectedGameId = selected;
@@ -590,7 +628,8 @@ export class RoomServer extends Server {
     }
 
     this.gameModule = game;
-    this.gameState = game.init(ctx);
+    this.clearWaitingFlags();
+    this.gameState = game.init(this.getRoomContext());
     this.roomPhase = "playing";
     this.lobby.paused = false;
     this.lobby.pausedAt = null;
@@ -665,50 +704,21 @@ export class RoomServer extends Server {
 
     const meta = this.connectionMeta.get(sender.id);
     const ctx = this.getRoomContext();
-    const prevState = this.gameState;
-    const phaseBefore = this.gamePhase(prevState);
+
+    const prevRound = this.currentRound();
 
     if (isHostAction && this.isHost(sender)) {
-      if (this.gameModule.onHostAction) {
+      if (action.kind === "advance") {
+        this.gameState = applyHostSkip(this.gameModule, this.gameState, ctx, action);
+      } else if (this.gameModule.onHostAction) {
         this.gameState = this.gameModule.onHostAction(this.gameState, action, ctx);
-      }
-      if (
-        action.kind === "advance" &&
-        this.gameState === prevState &&
-        phaseBefore === this.gamePhase(this.gameState) &&
-        typeof this.gameState === "object" &&
-        this.gameState !== null
-      ) {
-        const hostPacing =
-          this.activeGameId != null
-            ? getGameOptions(this.lobby, this.activeGameId).hostPacing === true
-            : false;
-        const playerInputPhases = new Set([
-          "submit",
-          "vote",
-          "question",
-          "guessing",
-          "clue",
-          "drawing",
-          "bid",
-          "fire",
-          "placement",
-          "assign",
-          "rate",
-        ]);
-        const shouldForceTick = hostPacing || !playerInputPhases.has(phaseBefore);
-        if (shouldForceTick) {
-          const timed = this.gameState as { timerEndsAt?: number | null };
-          timed.timerEndsAt = Date.now() - 1;
-          if (this.gameModule.onTick && this.gameModule.needsTick?.(this.gameState)) {
-            this.gameState = this.gameModule.onTick(this.gameState);
-          }
-        }
       }
     } else if (meta?.playerId) {
       this.gameState = this.gameModule.onPlayerAction(this.gameState, meta.playerId, action, ctx);
     }
 
+    this.syncRoster();
+    this.promoteWaitersIfRoundAdvanced(prevRound);
     this.syncInGameScores();
     this.commitSessionScoresIfEnded();
 
@@ -727,7 +737,10 @@ export class RoomServer extends Server {
       if (!this.gameModule.onTick) return;
 
       try {
+        const prevRound = this.currentRound();
         this.gameState = this.gameModule.onTick(this.gameState);
+        this.syncRoster();
+        this.promoteWaitersIfRoundAdvanced(prevRound);
 
         this.syncInGameScores();
         this.commitSessionScoresIfEnded();

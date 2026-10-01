@@ -6,6 +6,7 @@ import {
   bluffPlayerView,
   createBluffState,
   onBluffAction,
+  onBluffRosterChange,
   onBluffTick,
   type BluffState,
 } from "../engines/bluff-engine.js";
@@ -19,7 +20,6 @@ export const bluffGame: GameModule<BluffState> = {
     minPlayers: 2,
     maxPlayers: 16,
     category: "social",
-    supportsDifficulty: true,
     supportsMatureContent: true,
     supportsSpeedScoring: true,
     supportsBluffMode: true,
@@ -36,6 +36,9 @@ export const bluffGame: GameModule<BluffState> = {
   onHostAction(state, action, ctx) {
     return onBluffAction(state, "host", action, ctx);
   },
+  onRosterChange(state, ctx) {
+    return onBluffRosterChange(state, ctx);
+  },
   onTick(state) {
     return onBluffTick(state, undefined, state.gameOptions);
   },
@@ -43,8 +46,8 @@ export const bluffGame: GameModule<BluffState> = {
     return state.phase !== "ended";
   },
   tickIntervalMs: 500,
-  getHostView(state) {
-    return bluffHostView(state);
+  getHostView(state, ctx) {
+    return bluffHostView(state, ctx);
   },
   getPlayerView(state, playerId) {
     return bluffPlayerView(state, playerId);

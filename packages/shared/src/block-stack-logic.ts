@@ -145,6 +145,15 @@ function pieceValue(kind: PieceKind): number {
   return PIECES.indexOf(kind) + 1;
 }
 
+export function pieceKindIndex(kind: PieceKind): number {
+  return pieceValue(kind);
+}
+
+/** Spawn-orientation cells for Next/Hold previews. */
+export function pieceSpawnShape(kind: PieceKind): number[][] {
+  return SHAPES[kind][0];
+}
+
 export function canPlace(board: number[][], piece: ActivePiece): boolean {
   for (const { x, y } of shapeCells(piece)) {
     if (x < 0 || x >= BLOCK_STACK_COLS || y >= BLOCK_STACK_ROWS) return false;
@@ -406,6 +415,26 @@ function tickPlayer(state: BlockStackState, player: BlockStackPlayer): void {
       if (!spawnPiece(player)) eliminatePlayer(state, player);
     }
   }
+}
+
+/** Host Skip during play: rank remaining players by score and enter round_end. */
+export function forceEndBlockStackRound(state: BlockStackState): BlockStackState {
+  if (state.phase !== "playing") return state;
+  const remaining = [...state.players.filter((p) => p.alive)].sort((a, b) => a.score - b.score);
+  const winner = remaining.at(-1);
+  for (const p of remaining) {
+    if (p.id !== winner?.id) eliminatePlayer(state, p);
+  }
+  if (winner && winner.deathRank === null) {
+    winner.deathRank = state.players.length;
+    state.deathOrder.unshift(winner.id);
+  }
+  state.roundWinner = state.deathOrder[0] ?? winner?.id ?? null;
+  state.roundScores = computeBlockStackRoundScores(state);
+  state.phase = "round_end";
+  state.timerEndsAt = Date.now() + 6000;
+  state.timerTotalMs = 6000;
+  return state;
 }
 
 export function tickBlockStackState(state: BlockStackState): BlockStackState {

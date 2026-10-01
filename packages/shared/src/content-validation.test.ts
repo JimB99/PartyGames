@@ -30,6 +30,7 @@ import {
   isMatureCultureContent,
   isSpicyContent,
   isSpicyDrawWord,
+  isDrawableDrawWord,
   isSpicyFactCheckPair,
   isSpicyPrompt,
   isSpicyQuizRow,
@@ -130,6 +131,13 @@ describe("content validation", () => {
       }
       const filtered = filterWordList(items, DEFAULT_GAME_OPTIONS);
       assert.ok(filtered.length >= 10, `filtered ${file} pool too small`);
+      if (file === "draw.json") {
+        const drawable = filtered.filter(isDrawableDrawWord);
+        assert.ok(drawable.length >= 10, `drawable family draw pool too small: ${drawable.length}`);
+        for (const word of drawable.slice(0, 80)) {
+          assert.ok(isDrawableDrawWord(word), `not drawable: ${word}`);
+        }
+      }
     });
   }
 
@@ -285,7 +293,9 @@ describe("content validation", () => {
 
     const drawMature = filterWordList(loadJson<WordEntry[]>("words/draw.json"), matureOpts);
     assert.ok(drawMature.length >= MIN_MATURE_CREATIVE, `draw mature ${drawMature.length}`);
-    const drawSpicy = drawMature.filter((w) => isSpicyDrawWord(w)).length / drawMature.length;
+    const drawMatureDrawable = drawMature.filter(isDrawableDrawWord);
+    assert.ok(drawMatureDrawable.length >= MIN_MATURE_CREATIVE, `drawable draw mature ${drawMatureDrawable.length}`);
+    const drawSpicy = drawMatureDrawable.filter((w) => isSpicyDrawWord(w)).length / drawMatureDrawable.length;
     assert.ok(drawSpicy >= 0.7, `draw mature spicy rate ${drawSpicy}`);
 
     const timelineMature = filterContentPool(loadJson<TimelineEntry[]>("trivia/timeline.json"), matureOpts);
@@ -308,6 +318,15 @@ describe("content validation", () => {
         !/^(nightlife|after-hours|bar-jobs|dating-life|morning-after|wedding-chaos)$/i.test(pack.id),
         `legacy impostor pack: ${pack.id}`,
       );
+    }
+
+    const impostorAll = loadJson<Array<{ id: string; label: string; items: string[] }>>(
+      "categories/impostor.json",
+    );
+    for (const pack of impostorAll) {
+      for (const item of pack.items) {
+        assert.ok(/^\S+$/.test(item), `${pack.id}: multi-word item "${item}"`);
+      }
     }
 
     const bracketMature = filterCategoryList(loadJson<CategoryEntry[]>("categories/bracket.json"), matureOpts);

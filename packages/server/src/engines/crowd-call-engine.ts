@@ -1,4 +1,4 @@
-import { pickRandom, type GameAction, type RoomContext } from "@party-games/shared";
+import { allRequiredSubmitted, pickRandom, pruneKeyed, type GameAction, type RoomContext } from "@party-games/shared";
 
 export type CrowdPhase = "instructions" | "predict" | "answer" | "reveal" | "scoreboard" | "ended";
 
@@ -187,6 +187,19 @@ export function onCrowdAction(state: CrowdState, playerId: string, action: GameA
 export function onCrowdTick(state: CrowdState): CrowdState {
   if (!state.timerEndsAt || Date.now() < state.timerEndsAt) return state;
   return advanceCrowd(state, state.playerIds);
+}
+
+export function onCrowdRosterChange(state: CrowdState, ctx: RoomContext): CrowdState {
+  state.playerIds = [...ctx.playerIds];
+  state.predictions = pruneKeyed(state.predictions, ctx.playerIds);
+  state.answers = pruneKeyed(state.answers, ctx.playerIds);
+  if (state.phase === "predict" && allRequiredSubmitted(ctx.playerIds, Object.keys(state.predictions))) {
+    return advanceCrowd(state, ctx.playerIds);
+  }
+  if (state.phase === "answer" && allRequiredSubmitted(ctx.playerIds, Object.keys(state.answers))) {
+    return advanceCrowd(state, ctx.playerIds);
+  }
+  return state;
 }
 
 export function crowdHostView(state: CrowdState) {

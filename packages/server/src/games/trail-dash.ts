@@ -24,7 +24,6 @@ export const trailDashGame: GameModule<CurveState> = {
     minPlayers: 1,
     maxPlayers: 8,
     category: "arcade",
-    supportsDifficulty: false,
     supportsMatureContent: false,
     supportsTrailDashOptions: true,
     roundScoresAreCumulative: true,

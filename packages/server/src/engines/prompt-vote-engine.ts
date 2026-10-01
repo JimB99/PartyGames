@@ -1,4 +1,4 @@
-import { pickRandom, shuffle, uniqueId, votersByOption, personalizeHotSeatPrompt, type GameAction, type RoomContext, type RevealEntry } from "@party-games/shared";
+import { pickRandom, pruneKeyed, shuffle, submitProgress, uniqueId, votersByOption, personalizeHotSeatPrompt, type GameAction, type RoomContext, type RevealEntry } from "@party-games/shared";
 import { clearPhaseTimer, startPhaseTimer } from "./phase-timer.js";
 
 export type PromptVoteMode = "bracket" | "hot-seat" | "vote-all";
@@ -371,6 +371,40 @@ export function onPromptVoteTick(state: PromptVoteState, prompts?: string[]): Pr
   return advancePromptVote(state, prompts ?? state.promptsPool);
 }
 
+export function onPromptVoteRosterChange(state: PromptVoteState, ctx: RoomContext): PromptVoteState {
+  state.playerIds = [...ctx.playerIds];
+  state.submissions = state.submissions.filter((s) => ctx.playerIds.includes(s.playerId));
+  state.votes = pruneKeyed(state.votes, ctx.playerIds);
+  state.pickVotes = pruneKeyed(state.pickVotes, ctx.playerIds);
+  if (state.phase === "submit") {
+    const exclude = state.mode === "hot-seat" && state.targetPlayerId ? [state.targetPlayerId] : [];
+    const progress = submitProgress(
+      ctx.playerIds,
+      state.submissions.map((s) => s.playerId),
+      exclude,
+    );
+    if (progress.expected > 0 && progress.current >= progress.expected) {
+      return advancePromptVote(state, state.promptsPool);
+    }
+  }
+  if (state.phase === "vote") {
+    const progress = submitProgress(ctx.playerIds, Object.keys(state.votes));
+    if (progress.expected > 0 && progress.current >= progress.expected) {
+      return advancePromptVote(state, state.promptsPool);
+    }
+  }
+  if (state.phase === "matchup") {
+    const round = currentBracketRound(state);
+    if (round) {
+      const eligible = eligibleBracketVoters(state, round);
+      if (eligible.length > 0 && eligible.every((id) => state.votes[id] !== undefined)) {
+        return advancePromptVote(state, state.promptsPool);
+      }
+    }
+  }
+  return state;
+}
+
 function buildMatchupView(state: PromptVoteState, round: BracketRound, subById: Record<string, Submission>) {
   const base = {
     index: state.bracketIndex,
@@ -404,6 +438,14 @@ export function promptVoteHostView(state: PromptVoteState, ctx?: RoomContext) {
     state.mode === "hot-seat" && targetName
       ? personalizeHotSeatPrompt(state.prompt, targetName)
       : state.prompt;
+  const rosterIds = ctx?.playerIds ?? state.playerIds;
+  const hotSeatExclude =
+    state.mode === "hot-seat" && state.targetPlayerId ? [state.targetPlayerId] : [];
+  const submit = submitProgress(
+    rosterIds,
+    state.submissions.map((s) => s.playerId),
+    hotSeatExclude,
+  );
   return {
     phase: state.phase,
     round: state.round,
@@ -420,14 +462,9 @@ export function promptVoteHostView(state: PromptVoteState, ctx?: RoomContext) {
         : state.phase === "vote" || state.phase === "pick"
           ? state.submissions.map((s) => ({ id: s.id, text: s.text }))
           : undefined,
-      submitCount: state.phase === "submit" ? state.submissions.length : undefined,
-      playerCount: state.playerIds.length,
-      expectedSubmitCount:
-        state.phase === "submit" && state.mode === "hot-seat"
-          ? Math.max(0, state.playerIds.length - 1)
-          : state.phase === "submit"
-            ? state.playerIds.length
-            : undefined,
+      submitCount: state.phase === "submit" ? submit.current : undefined,
+      playerCount: rosterIds.length,
+      expectedSubmitCount: state.phase === "submit" ? submit.expected : undefined,
       reveal: showReveal ? buildPromptVoteReveal(state) : undefined,
       matchup: currentRound ? buildMatchupView(state, currentRound, subById) : undefined,
       roundScores: state.roundScores,

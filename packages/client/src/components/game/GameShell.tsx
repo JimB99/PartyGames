@@ -13,8 +13,19 @@ export function TvGameShell({ children, header }: { children: ReactNode; header?
 export function PhoneGameShell({ children, footer }: { children: ReactNode; footer?: ReactNode }) {
   return (
     <div className="flex min-h-0 flex-1 flex-col bg-zinc-950 text-white safe-area-pb">
-      <main className="min-h-0 flex-1 overflow-auto px-3 py-2">{children}</main>
+      <main className="flex min-h-0 flex-1 flex-col overflow-auto px-3 py-2">{children}</main>
       {footer && <footer className="shrink-0 border-t border-zinc-800 p-3">{footer}</footer>}
+    </div>
+  );
+}
+
+export function PhoneStage({ children }: { children: ReactNode }) {
+  return (
+    <div
+      data-testid="player-stage"
+      className="flex min-h-0 flex-1 flex-col items-center justify-center"
+    >
+      {children}
     </div>
   );
 }

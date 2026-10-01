@@ -2,7 +2,6 @@ import {
   DEFAULT_GAME_OPTIONS,
   DEFAULT_TIMELINE_PTS_PER_YEAR_OFF,
   TIMELINE_PTS_PER_YEAR_MAX,
-  type DifficultySetting,
   type GameId,
   type GameMeta,
   type GameOptions,
@@ -33,7 +32,6 @@ export function GameOptionsPanel({
     game.supportsImpostorStyle;
 
   if (
-    !game.supportsDifficulty &&
     !game.supportsMatureContent &&
     !game.supportsQuestionDisplay &&
     !game.supportsTimelinePtsPerYear &&
@@ -77,24 +75,6 @@ export function GameOptionsPanel({
               onClick={() => onChange({ ...options, contentRating: "mature" })}
             />
           </div>
-        </div>
-      )}
-
-      {game.supportsDifficulty && (
-        <div className={OPTION_ROW}>
-          <span className={OPTION_LABEL}>Difficulty</span>
-          <select
-            className={OPTION_SELECT}
-            value={options.difficulty}
-            onChange={(e) =>
-              onChange({ ...options, difficulty: e.target.value as DifficultySetting })
-            }
-          >
-            <option value="mixed">Mixed</option>
-            <option value="easy">Easy</option>
-            <option value="medium">Medium</option>
-            <option value="hard">Hard</option>
-          </select>
         </div>
       )}
 

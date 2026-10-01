@@ -1,4 +1,4 @@
-import { shuffle, type GameAction, type RoomContext } from "@party-games/shared";
+import { shouldAcceptStroke, shuffle, uniqueId, type GameAction, type RoomContext } from "@party-games/shared";
 import { clearPhaseTimer, startPhaseTimer } from "./phase-timer.js";
 import type { Stroke } from "./drawing-engine.js";
 
@@ -25,6 +25,7 @@ export interface ChainWorkspace {
   drawerWidth: number;
   guess?: string;
   submitted: boolean;
+  revision: number;
 }
 
 export interface ChainSketchState {
@@ -86,6 +87,7 @@ function initWorkspaces(state: ChainSketchState): void {
       drawerTool: "pen",
       drawerWidth: 4,
       submitted: false,
+      revision: 0,
     };
   }
 }
@@ -238,6 +240,17 @@ export function onChainAction(state: ChainSketchState, playerId: string, action:
   if (action.kind === "advance" && state.phase === "instructions") {
     return advanceChain(state);
   }
+  if (
+    action.kind === "advance" &&
+    playerId === "host" &&
+    (state.phase === "draw" || state.phase === "guess")
+  ) {
+    for (const pid of state.playerIds) {
+      const workspace = state.workspaces[pid];
+      if (workspace) workspace.submitted = true;
+    }
+    return advanceChain(state);
+  }
   if (action.kind === "vote" && state.phase === "vote") {
     if (state.chains[action.optionId]) {
       state.votes[playerId] = action.optionId;
@@ -256,16 +269,24 @@ export function onChainAction(state: ChainSketchState, playerId: string, action:
     if (action.width !== undefined) ws.drawerWidth = Math.max(2, Math.min(16, action.width));
   }
   if (action.kind === "draw_stroke" && state.phase === "draw") {
+    if (!shouldAcceptStroke(action.revision, ws.revision)) return state;
     const erase = ws.drawerTool === "eraser" || action.color === "erase";
     ws.strokes.push({
+      id: action.id ?? uniqueId(),
       points: action.points,
       color: erase ? "transparent" : action.color,
       width: action.width ?? ws.drawerWidth,
       erase,
+      revision: action.revision ?? ws.revision,
     });
   }
   if (action.kind === "draw_undo" && state.phase === "draw") {
     ws.strokes.pop();
+    ws.revision += 1;
+  }
+  if (action.kind === "draw_clear" && state.phase === "draw") {
+    ws.strokes = [];
+    ws.revision += 1;
   }
   if (action.kind === "submit_text" && state.phase === "guess") {
     ws.guess = action.text.slice(0, 60);
@@ -273,10 +294,13 @@ export function onChainAction(state: ChainSketchState, playerId: string, action:
     if (allSubmitted(state)) return advanceChain(state);
   }
   if (action.kind === "advance" && state.phase === "draw") {
-    ws.submitted = true;
-    if (allSubmitted(state)) return advanceChain(state);
-  }
-  if (action.kind === "advance" && state.phase === "draw") {
+    if (playerId === "host") {
+      for (const pid of state.playerIds) {
+        const workspace = state.workspaces[pid];
+        if (workspace) workspace.submitted = true;
+      }
+      return advanceChain(state);
+    }
     ws.submitted = true;
     if (allSubmitted(state)) return advanceChain(state);
   }
@@ -342,6 +366,8 @@ export function chainPlayerView(state: ChainSketchState, playerId: string) {
       prompt: state.phase === "draw" && chain ? promptForChain(chain) : undefined,
       strokes: state.phase === "draw" ? ws?.strokes : state.phase === "guess" && chain ? lastDrawStrokes(chain) : undefined,
       submitted: ws?.submitted ?? false,
+      drawingReady: ws?.submitted ?? false,
+      drawingRevision: ws?.revision ?? 0,
       myGuess: ws?.guess,
       voteOptions:
         state.phase === "vote"

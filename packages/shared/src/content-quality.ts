@@ -377,6 +377,82 @@ export function isSpicyDrawWord(word: string): boolean {
   return isSpicyContent(word) || DRAWABLE_SPICY.test(word);
 }
 
+const DRAW_INSTRUCTION =
+  /^(draw|sketch|paint|write|guess|describe|act out|perform|imagine|make a |do a |show |think of)\b/i;
+
+const ABSTRACT_DRAW_WORDS = new Set([
+  "love",
+  "hate",
+  "hope",
+  "fear",
+  "joy",
+  "peace",
+  "war",
+  "freedom",
+  "justice",
+  "democracy",
+  "luck",
+  "karma",
+  "irony",
+  "nostalgia",
+  "courage",
+  "pride",
+  "envy",
+  "greed",
+  "wisdom",
+  "chaos",
+  "destiny",
+  "fate",
+  "time",
+  "math",
+  "algebra",
+  "philosophy",
+  "politics",
+  "opera",
+  "jazz",
+  "blues",
+  "music",
+  "poetry",
+  "art",
+  "idea",
+  "concept",
+  "feeling",
+  "emotion",
+  "vibe",
+  "mood",
+  "energy",
+  "king",
+  "queen",
+  "thing",
+  "stuff",
+  "nothing",
+  "something",
+  "truth",
+  "lie",
+  "faith",
+  "belief",
+  "culture",
+  "history",
+  "science",
+  "gravity",
+  "infinity",
+  "economy",
+  "inflation",
+  "tax",
+]);
+
+/** Concrete, sketchable Pictionary subjects (1–3 words). */
+export function isDrawableDrawWord(word: string): boolean {
+  const w = word.trim();
+  if (!w || w.length > 32) return false;
+  const parts = w.split(/\s+/);
+  if (parts.length === 0 || parts.length > 3) return false;
+  if (DRAW_INSTRUCTION.test(w)) return false;
+  if (/\?/.test(w)) return false;
+  if (parts.length === 1 && ABSTRACT_DRAW_WORDS.has(parts[0].toLowerCase())) return false;
+  return true;
+}
+
 export function isSpicyWyrPair(a: string, b: string): boolean {
   return isSpicyContent(`${a} ${b}`);
 }

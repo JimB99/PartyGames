@@ -24,6 +24,7 @@ describe("protocol-schema", () => {
     assert.equal(result.ok, true);
     if (result.ok && result.value.type === "set_game_options") {
       assert.equal(result.value.options.contentRating, "mature");
+      assert.equal("difficulty" in result.value.options, false);
     }
   });
 
@@ -31,7 +32,7 @@ describe("protocol-schema", () => {
     const result = validateClientMessage({
       type: "set_game_options",
       gameId: "trivia",
-      options: { contentRating: "family", difficulty: "mixed", hostPacing: true },
+      options: { contentRating: "family", hostPacing: true },
     });
     assert.equal(result.ok, true);
     if (result.ok && result.value.type === "set_game_options") {

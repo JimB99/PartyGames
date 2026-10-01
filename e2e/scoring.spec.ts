@@ -23,6 +23,13 @@ test("@scoring trivia awards session points", async () => {
     await hostAdvance(host);
     await assertNoErrors(host);
     await expect(host.getByTestId("host-game-view")).toBeVisible();
+    await expect(host.getByTestId("live-score-game").first()).toContainText("Game");
+    await expect(host.getByTestId("live-score-total").first()).toContainText("Total");
+    const gameText = await host.getByTestId("live-score-game").first().innerText();
+    const totalText = await host.getByTestId("live-score-total").first().innerText();
+    const gamePts = Number((gameText.match(/(\d+)\s*$/) ?? [])[1] ?? "0");
+    const totalPts = Number((totalText.match(/(\d+)\s*$/) ?? [])[1] ?? "0");
+    expect(totalPts).toBeGreaterThanOrEqual(gamePts);
     const scorePanel = host.getByTestId("round-score-panel");
     const playAgain = host.getByTestId("host-play-again");
     await expect(scorePanel.or(playAgain)).toBeVisible({ timeout: 30_000 });

@@ -31,7 +31,7 @@ function effectivePlayerCount(
 ): number {
   if (game.id === "trail-dash") {
     const opts = resolveTrailDashOptions(
-      gameOptionsByGame?.["trail-dash"] ?? { contentRating: "family", difficulty: "mixed" },
+      gameOptionsByGame?.["trail-dash"] ?? { contentRating: "family" },
     );
     return humanCount + opts.botCount;
   }

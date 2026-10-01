@@ -23,7 +23,6 @@ type Dimension =
   | "e2e_mid_players"
   | "unit_logic"
   | "settings_family_mature"
-  | "settings_difficulty"
   | "settings_speed_scoring"
   | "settings_trail_dash"
   | "settings_question_display"

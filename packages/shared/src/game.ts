@@ -25,6 +25,7 @@ export interface GameModule<TState = unknown> {
   init(ctx: RoomContext): TState;
   onPlayerAction(state: TState, playerId: string, action: GameAction, ctx: RoomContext): TState;
   onHostAction?(state: TState, action: GameAction, ctx: RoomContext): TState;
+  onRosterChange?(state: TState, ctx: RoomContext): TState;
   onTick?(state: TState): TState;
   needsTick?(state: TState): boolean;
   tickIntervalMs?: number;

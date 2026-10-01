@@ -24,7 +24,7 @@ export const GAME_INTERACTIONS: Record<GameId, GameInteractions> = {
   "team-charades": { host: ["host-skip"], player: ["charades-correct"] },
   "last-on-the-dike": { host: ["host-skip"], player: ["dike-bid-submit"] },
   trivia: { host: ["host-skip", "host-extend"], player: ["player-answer-0", "timeline-lock-in"] },
-  drawing: { host: ["host-skip"], player: ["draw-canvas", "player-text-input"] },
+  drawing: { host: ["host-skip"], player: ["draw-canvas", "draw-done", "draw-tool-pen", "draw-undo", "player-text-input"] },
   "trail-dash": {
     host: ["host-skip"],
     player: ["trail-dash-turn-left", "trail-dash-turn-right", "trail-dash-jump", "trail-dash-fire"],

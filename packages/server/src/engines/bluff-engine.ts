@@ -4,6 +4,9 @@ import {
   isSpeedScoringEnabled,
   pickRandom,
   isHostPacing,
+  pruneKeyed,
+  allRequiredSubmitted,
+  submitProgress,
   resolvePhaseDuration,
   scoreByAnswerRank,
   shuffle,
@@ -295,7 +298,21 @@ export function onBluffTick(state: BluffState, _prompts?: Array<{ prompt?: strin
   return advanceBluff(state, gameOptions);
 }
 
-export function bluffHostView(state: BluffState) {
+export function onBluffRosterChange(state: BluffState, ctx: RoomContext): BluffState {
+  state.playerCount = ctx.playerIds.length;
+  state.submissions = pruneKeyed(state.submissions, ctx.playerIds);
+  state.votes = pruneKeyed(state.votes, ctx.playerIds);
+  state.voteTimes = pruneKeyed(state.voteTimes, ctx.playerIds);
+  if (state.phase === "submit" && allRequiredSubmitted(ctx.playerIds, Object.keys(state.submissions))) {
+    return advanceBluff(state, ctx.gameOptions);
+  }
+  if (state.phase === "vote" && allRequiredSubmitted(ctx.playerIds, Object.keys(state.votes))) {
+    return advanceBluff(state, ctx.gameOptions);
+  }
+  return state;
+}
+
+export function bluffHostView(state: BluffState, ctx?: RoomContext) {
   const showReveal = state.phase === "reveal" || state.phase === "scoreboard";
   const discussing = Boolean(state.discussUntil && Date.now() < state.discussUntil);
   return {
@@ -315,9 +332,19 @@ export function bluffHostView(state: BluffState) {
       reveal: showReveal ? buildBluffReveal(state.options, state.votes) : undefined,
       roundScores: state.roundScores,
       cumulativeScores: state.cumulativeScores,
-      submitCount: state.phase === "submit" ? Object.keys(state.submissions).length : undefined,
-      voteCount: state.phase === "vote" ? Object.keys(state.votes).length : undefined,
-      playerCount: state.playerCount,
+      submitCount:
+        state.phase === "submit"
+          ? ctx
+            ? submitProgress(ctx.playerIds, Object.keys(state.submissions)).current
+            : Object.keys(state.submissions).length
+          : undefined,
+      voteCount:
+        state.phase === "vote"
+          ? ctx
+            ? submitProgress(ctx.playerIds, Object.keys(state.votes)).current
+            : Object.keys(state.votes).length
+          : undefined,
+      playerCount: ctx ? ctx.playerIds.length : state.playerCount,
     },
   };
 }

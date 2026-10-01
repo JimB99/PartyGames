@@ -1,5 +1,6 @@
 import { pickRandom, shuffle, type GameAction, type RoomContext } from "@party-games/shared";
 import type { PlayerDrawing } from "./drawing-engine.js";
+import { applyStrokeToDrawing, clearDrawingStrokes, undoDrawingStrokes } from "./drawing-engine.js";
 import { clearPhaseTimer, startPhaseTimer } from "./phase-timer.js";
 
 export type DrawImpostorPhase = "instructions" | "drawing" | "discussion" | "accuse" | "reveal" | "ended";
@@ -44,7 +45,7 @@ export function createDrawImpostorState(
     drawings: Object.fromEntries(
       playerIds.map((id) => [
         id,
-        { playerId: id, word: id === impostorId ? loc.category : loc.name, strokes: [], tool: "pen" as const, width: 4 },
+        { playerId: id, word: id === impostorId ? loc.category : loc.name, strokes: [], tool: "pen" as const, width: 4, revision: 0 },
       ]),
     ),
     accusations: {},
@@ -106,8 +107,15 @@ export function onDrawImpostorAction(state: DrawImpostorState, playerId: string,
   if (action.kind === "draw_stroke" && state.phase === "drawing") {
     const d = state.drawings[playerId];
     if (!d) return state;
-    const erase = d.tool === "eraser" || action.color === "erase";
-    d.strokes.push({ points: action.points, color: erase ? "transparent" : action.color, width: action.width ?? d.width, erase });
+    applyStrokeToDrawing(d, action);
+  }
+  if (action.kind === "draw_undo" && state.phase === "drawing") {
+    const d = state.drawings[playerId];
+    if (d) undoDrawingStrokes(d);
+  }
+  if (action.kind === "draw_clear" && state.phase === "drawing") {
+    const d = state.drawings[playerId];
+    if (d) clearDrawingStrokes(d);
   }
   if (action.kind === "impostor_accuse" && state.phase === "accuse" && playerId !== state.impostorId) {
     state.accusations[playerId] = action.targetId;

@@ -36,8 +36,7 @@ export function resolveHostControls(
 ): HostControls {
   const hostPacing = options?.hostPacing === true;
   const hasTimer = !hostPacing && view.timerEndsAt != null;
-  const canSkip =
-    hostPacing ? view.phase !== "ended" : hasTimer || SKIPPABLE_PHASES.has(view.phase);
+  const canSkip = view.phase !== "ended";
 
   return {
     canPause: hasTimer || SKIPPABLE_PHASES.has(view.phase),

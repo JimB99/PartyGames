@@ -19,7 +19,6 @@ export const bracketBattleGame: GameModule<BracketState> = {
     minPlayers: 4,
     maxPlayers: 16,
     category: "party",
-    supportsDifficulty: true,
     supportsMatureContent: true,
   },
   init(ctx) {

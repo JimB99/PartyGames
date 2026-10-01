@@ -23,6 +23,7 @@ export interface DrawingState {
 export const DRAWING_COLORS = ["#ffffff", "#ff4d4d", "#4488ff", "#77dd22", "#ffcc22", "#9944ff"] as const;
 export const BRUSH_WIDTHS = [2, 4, 8, 12] as const;
 export const ERASER_WIDTH_MULTIPLIER = 3;
+export const MAX_DRAW_STROKE_PAIRS = 64;
 
 export function strokeLineWidth(brushWidth: number, canvasMinDimension: number, erase: boolean): number {
   const base = Math.max(2, (brushWidth / 400) * canvasMinDimension);
@@ -75,4 +76,43 @@ export function isEraseStroke(stroke: { color: string; erase?: boolean; tool?: D
     stroke.color === "erase" ||
     stroke.color === "transparent"
   );
+}
+
+/** Split a long stroke so each chunk has at most `maxPairs` points (2 coords each). */
+export function chunkStrokePoints(points: number[], maxPairs = MAX_DRAW_STROKE_PAIRS): number[][] {
+  const maxCoords = maxPairs * 2;
+  if (points.length < 2) return [];
+  if (points.length <= maxCoords) return [points];
+  const chunks: number[][] = [];
+  let offset = 0;
+  while (offset < points.length) {
+    if (chunks.length === 0) {
+      chunks.push(points.slice(0, maxCoords));
+      offset = maxCoords;
+      continue;
+    }
+    const start = offset - 2;
+    chunks.push(points.slice(start, start + maxCoords));
+    offset = start + maxCoords;
+  }
+  return chunks.filter((chunk) => chunk.length >= 2);
+}
+
+export function ackPendingIds(
+  pendingIds: Iterable<string>,
+  serverStrokes: Array<{ id?: string }>,
+): string[] {
+  const present = new Set(
+    serverStrokes.map((stroke) => stroke.id).filter((id): id is string => Boolean(id)),
+  );
+  return [...pendingIds].filter((id) => !present.has(id));
+}
+
+export function shouldAcceptStroke(strokeRevision: number | undefined, boardRevision: number): boolean {
+  return (strokeRevision ?? boardRevision) >= boardRevision;
+}
+
+export function allDrawersReady(ready: Record<string, boolean>, drawerIds: string[]): boolean {
+  if (drawerIds.length === 0) return false;
+  return drawerIds.every((id) => ready[id] === true);
 }

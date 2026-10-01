@@ -13,6 +13,7 @@ import {
   isReverseFactTrivial,
   isSpicyContent,
   isSpicyDrawWord,
+  isDrawableDrawWord,
   looksLikeConvertedNhieFactCheck,
   looksLikeGeneratedFactCheckTruth,
   looksLikeGeneratedFriendSortRole,
@@ -99,5 +100,13 @@ describe("content-quality heuristics", () => {
     assert.ok(!isSpicyContent("What is the main spirit in a Mojito?"));
     assert.ok(isAlcoholThemedOnly("Pick the winning bar order for a Negroni"));
     assert.ok(!isAlcoholThemedOnly("Confess your worst hookup story"));
+  });
+
+  it("keeps concrete drawable words and drops abstracts and instructions", () => {
+    assert.equal(isDrawableDrawWord("elephant"), true);
+    assert.equal(isDrawableDrawWord("flower girl"), true);
+    assert.equal(isDrawableDrawWord("opera"), false);
+    assert.equal(isDrawableDrawWord("king"), false);
+    assert.equal(isDrawableDrawWord("draw a cat"), false);
   });
 });

@@ -1,4 +1,4 @@
-import { pickRandom, type GameAction, type RoomContext } from "@party-games/shared";
+import { allRequiredSubmitted, pickRandom, pruneKeyed, type GameAction, type RoomContext } from "@party-games/shared";
 
 export type SplitPhase = "instructions" | "vote" | "reveal" | "scoreboard" | "ended";
 
@@ -125,6 +125,15 @@ export function onSplitAction(state: SplitState, playerId: string, action: GameA
 export function onSplitTick(state: SplitState): SplitState {
   if (!state.timerEndsAt || Date.now() < state.timerEndsAt) return state;
   return advanceSplit(state, state.playerIds);
+}
+
+export function onSplitRosterChange(state: SplitState, ctx: RoomContext): SplitState {
+  state.playerIds = [...ctx.playerIds];
+  state.votes = pruneKeyed(state.votes, ctx.playerIds);
+  if (state.phase === "vote" && allRequiredSubmitted(ctx.playerIds, Object.keys(state.votes))) {
+    return advanceSplit(state, ctx.playerIds);
+  }
+  return state;
 }
 
 export function splitHostView(state: SplitState) {

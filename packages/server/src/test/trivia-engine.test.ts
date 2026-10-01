@@ -6,7 +6,7 @@ describe("trivia-engine timer scoring", () => {
   it("scores quiz round once when question timer expires with one answer", () => {
     let state = createTriviaState("quiz", [
       { question: "Q?", choices: ["A", "B"], correct: 0 },
-    ], 3, 2, { contentRating: "family", difficulty: "mixed", speedScoring: false });
+    ], 3, 2, { contentRating: "family", speedScoring: false });
     state.phase = "question";
     state.answers = { p1: 0 };
     state.correctIndex = 0;
@@ -21,7 +21,7 @@ describe("trivia-engine timer scoring", () => {
   it("does not double-score quiz on timer expiry with speed scoring", () => {
     let state = createTriviaState("quiz", [
       { question: "Q?", choices: ["A", "B"], correct: 0 },
-    ], 3, 2, { contentRating: "family", difficulty: "mixed", speedScoring: true });
+    ], 3, 2, { contentRating: "family", speedScoring: true });
     state.phase = "question";
     state.answers = { p1: 0 };
     state.answerTimes = { p1: Date.now() - 500 };

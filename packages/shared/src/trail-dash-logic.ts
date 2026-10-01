@@ -579,7 +579,7 @@ export function createCurveState(
   const players = allIds.map((id, i) =>
     createPlayer(id, spawns[i], colorIndexByPlayer[id] ?? i, botIds.includes(id)),
   );
-  const instructionMs = resolvePhaseDuration(5000, { contentRating: "family", difficulty: "mixed", hostPacing });
+  const instructionMs = resolvePhaseDuration(5000, { contentRating: "family", hostPacing });
   const now = Date.now();
   return {
     phase: "instructions",
@@ -587,7 +587,7 @@ export function createCurveState(
     maxRounds: options.maxRounds,
     hostPacing,
     playingStartedAt: null,
-    timerEndsAt: phaseTimerEndsAt(now, 5000, { contentRating: "family", difficulty: "mixed", hostPacing }),
+    timerEndsAt: phaseTimerEndsAt(now, 5000, { contentRating: "family", hostPacing }),
     timerTotalMs: instructionMs > 0 ? instructionMs : null,
     width: ARENA_W,
     height: ARENA_H,
@@ -1206,13 +1206,11 @@ export function tickCurveState(state: CurveState): CurveState {
     state.phase = "round_end";
     const breakMs = resolvePhaseDuration(5000, {
       contentRating: "family",
-      difficulty: "mixed",
       hostPacing: state.hostPacing,
     });
     const now = Date.now();
     state.timerEndsAt = phaseTimerEndsAt(now, 5000, {
       contentRating: "family",
-      difficulty: "mixed",
       hostPacing: state.hostPacing,
     });
     state.timerTotalMs = breakMs > 0 ? breakMs : null;

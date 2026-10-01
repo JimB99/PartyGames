@@ -73,7 +73,7 @@ export function onCurveAction(state: CurveState, playerId: string, action: GameA
     const humanIds = state.players.filter((p) => !p.isBot).map((p) => p.id);
     return advanceCurve(state, humanIds, botIds);
   }
-  if (action.kind === "advance" && state.phase === "playing" && state.hostPacing) {
+  if (action.kind === "advance" && state.phase === "playing") {
     if (shouldIgnoreHostEndRound(state)) return state;
     state.roundWinner = state.players.find((p) => p.alive)?.id;
     computeRoundScores(state);
