@@ -25,6 +25,7 @@ import {
   ticTacToeActions,
   triviaActions,
   wordRushActions,
+  liveSketchActions,
 } from "./simulators/index.js";
 import type { OpinionsState } from "../engines/opinions-engine.js";
 import type { DrawingGameState } from "../engines/drawing-game-engine.js";
@@ -64,6 +65,7 @@ const SIMULATORS: Record<GameId, SimulatorFn> = {
   "last-on-the-dike": dikeActions,
   trivia: triviaActions,
   drawing: drawingGameActions,
+  "live-sketch": liveSketchActions,
   "trail-dash": curveActions,
   "word-rush": wordRushActions,
   "block-stack": blockStackActions,

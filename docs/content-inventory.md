@@ -1,6 +1,6 @@
 # Content inventory
 
-Generated for **21** registered games. Counts use `content-pool` with `DEFAULT_GAME_OPTIONS`.
+Generated for **22** registered games. Counts use `content-pool` with `DEFAULT_GAME_OPTIONS`.
 
 ### Bluff (`bluff`)
 - Family: 11 833 | Mature: 328
@@ -53,14 +53,14 @@ Generated for **21** registered games. Counts use `content-pool` with `DEFAULT_G
 - Mature pool: 163 items (examples omitted in committed inventory)
 
 ### Agent Grid (`agent-grid`)
-- Family: 73 715 | Mature: 94
+- Family: 73 715 | Mature: 96
 - Family examples:
   - baaed
   - disobeys
   - imprimis
   - pappous
   - sliping
-- Mature pool: 94 items (examples omitted in committed inventory)
+- Mature pool: 96 items (examples omitted in committed inventory)
 
 ### Bracket Battle (`bracket-battle`)
 - Family: 384 | Mature: 277
@@ -108,14 +108,24 @@ Generated for **21** registered games. Counts use `content-pool` with `DEFAULT_G
 - Mature pool: 326 items (examples omitted in committed inventory)
 
 ### Drawing (`drawing`)
-- Family: 3 129 | Mature: 288
+- Family: 2 932 | Mature: 285
 - Family examples:
   - elephant
-  - melon
-  - king
-  - opera
-  - flower girl
-- Mature pool: 288 items (examples omitted in committed inventory)
+  - coal
+  - wall
+  - brunette
+  - psychologist
+- Mature pool: 285 items (examples omitted in committed inventory)
+
+### Live Sketch (`live-sketch`)
+- Family: 2 932 | Mature: 285
+- Family examples:
+  - elephant
+  - coal
+  - wall
+  - brunette
+  - psychologist
+- Mature pool: 285 items (examples omitted in committed inventory)
 
 ### Trail Dash (`trail-dash`)
 - Family: N/A | Mature: N/A — procedural / no prompt pool

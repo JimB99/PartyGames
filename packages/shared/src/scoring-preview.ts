@@ -26,6 +26,7 @@ const RANK_GAME_IDS = new Set<GameId>([
   "hangman-race",
   "word-rush",
   "drawing",
+  "live-sketch",
 ]);
 
 function usesSpeedRankScoring(gameId: GameId, options: GameOptions): boolean {

@@ -17,6 +17,7 @@ import { SpectrumGauge } from "./SpectrumGauge";
 import { ChainSketchPlayerPanel } from "./views/ChainSketchPlayerPanel";
 import { DrawVotePlayerPanel } from "./views/DrawVotePanels";
 import { DrawImpostorPlayerPanel } from "./views/DrawImpostorPanels";
+import { LiveSketchPlayerPanel } from "./views/LiveSketchPanels";
 import { connectFourMarkColors, markColorsForPlayers } from "./markColors";
 import { GameButton as Btn } from "./GameButton";
 import { DrawingCanvas as DrawCanvas, type StrokeInput as DrawStroke } from "./DrawingCanvas";
@@ -617,7 +618,22 @@ export function PlayerGameView({
         </div>
       )}
 
-      {phase === "drawing" && !playerData.word && (
+      {playerView.gameId === "live-sketch" && (
+        <LiveSketchPlayerPanel
+          phase={phase}
+          data={data}
+          playerData={playerData}
+          text={text}
+          setText={setText}
+          drawTool={drawTool}
+          setDrawTool={setDrawTool}
+          drawWidth={drawWidth}
+          setDrawWidth={setDrawWidth}
+          onAction={onAction}
+        />
+      )}
+
+      {phase === "drawing" && !playerData.word && playerView.gameId !== "live-sketch" && (
         <div className="rounded-xl bg-zinc-800/60 p-6 text-center text-zinc-300">
           <p className="text-lg">
             {room.players.find((p) => p.id === (playerData.drawerId as string | undefined))?.nickname ?? "Someone"} is drawing…
@@ -626,7 +642,7 @@ export function PlayerGameView({
         </div>
       )}
 
-      {phase === "drawing" && playerData.word && (
+      {phase === "drawing" && playerData.word && playerView.gameId !== "live-sketch" && (
         <div className="space-y-3">
           <p className="text-center text-xl font-bold">Draw: {String(playerData.word)}</p>
           <DrawCanvas

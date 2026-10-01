@@ -24,6 +24,7 @@ const EXPLICIT_HOST_BLOCKS = new Set<GameId>([
   "opinions",
   "spectrum",
   "drawing",
+  "live-sketch",
   "impostor",
   "forbidden-clue",
   "agent-grid",

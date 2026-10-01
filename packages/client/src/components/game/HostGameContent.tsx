@@ -17,6 +17,7 @@ import { SpectrumGauge } from "./SpectrumGauge";
 import { ChainSketchHostPanel } from "./views/ChainSketchHostPanel";
 import { DrawVoteHostPanel } from "./views/DrawVotePanels";
 import { DrawImpostorHostPanel } from "./views/DrawImpostorPanels";
+import { LiveSketchHostPanel } from "./views/LiveSketchPanels";
 import { connectFourMarkColors, markColorsForPlayers } from "./markColors";
 import { DrawingCanvas as DrawCanvas, type StrokeInput as DrawStroke } from "./DrawingCanvas";
 import { AgentGridBoard } from "./AgentGridBoard";
@@ -421,8 +422,14 @@ export function HostGameView({
         </div>
       )}
 
-      {(phase === "drawing" || phase === "guessing" || phase === "draw") && data.strokes && (
+      {(phase === "drawing" || phase === "letter-count" || phase === "hangman" || phase === "guessing" || phase === "draw") &&
+        data.strokes &&
+        hostView.gameId !== "live-sketch" && (
         <DrawCanvas strokes={data.strokes as DrawStroke[]} readOnly />
+      )}
+
+      {hostView.gameId === "live-sketch" && (
+        <LiveSketchHostPanel room={room} phase={phase} data={data} />
       )}
 
       {hostView.gameId === "team-charades" && phase === "acting" && data.actorId && (

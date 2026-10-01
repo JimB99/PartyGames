@@ -11,6 +11,7 @@ import { teamCharadesGame } from "./games/team-charades.js";
 import { lastOnTheDikeGame } from "./games/last-on-the-dike.js";
 import { triviaGame } from "./games/trivia.js";
 import { drawingGame } from "./games/drawing.js";
+import { liveSketchGame } from "./games/live-sketch.js";
 import { trailDashGame } from "./games/trail-dash.js";
 import { wordRushGame } from "./games/word-rush.js";
 import { blockStackGame } from "./games/block-stack.js";
@@ -35,6 +36,7 @@ const games: GameModule<any>[] = [
   lastOnTheDikeGame,
   triviaGame,
   drawingGame,
+  liveSketchGame,
   trailDashGame,
   wordRushGame,
   blockStackGame,

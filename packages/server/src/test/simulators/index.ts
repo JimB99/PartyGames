@@ -865,3 +865,51 @@ export function gridBlastActions(state: unknown, ctx: RoomContext): SimAction[] 
   }
   return actions;
 }
+
+export function liveSketchActions(state: unknown, ctx: RoomContext): SimAction[] {
+  const phase = getPhase(state);
+  const s = state as {
+    drawerIndex?: number;
+    playerIds?: string[];
+    word?: string;
+    choiceWords?: string[];
+    correctAt?: Record<string, number>;
+  };
+  const playerIds = s.playerIds ?? ctx.playerIds;
+  const drawerId = playerIds[s.drawerIndex ?? 0] ?? ctx.playerIds[0];
+  const actions: SimAction[] = [];
+
+  if (phase === "instructions" || phase === "reveal" || phase === "scoreboard") {
+    actions.push({ role: "host", action: { kind: "advance" } });
+    return actions;
+  }
+
+  if (phase === "pick") {
+    const choice = s.choiceWords?.[0];
+    if (choice && drawerId) {
+      actions.push({ role: "player", playerId: drawerId, action: { kind: "vote", optionId: choice } });
+    } else {
+      actions.push({ role: "host", action: { kind: "advance" } });
+    }
+    return actions;
+  }
+
+  if (phase === "drawing" || phase === "letter-count" || phase === "hangman") {
+    if (drawerId) {
+      actions.push({
+        role: "player",
+        playerId: drawerId,
+        action: { kind: "draw_stroke", points: [0.1, 0.1, 0.2, 0.2], color: "#fff" },
+      });
+    }
+    const word = s.word || "guess";
+    for (const playerId of playerIds) {
+      if (playerId === drawerId) continue;
+      if (s.correctAt?.[playerId] !== undefined) continue;
+      actions.push({ role: "player", playerId, action: { kind: "submit_text", text: word } });
+    }
+    return actions;
+  }
+
+  return actions;
+}

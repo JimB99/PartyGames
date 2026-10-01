@@ -82,6 +82,8 @@ const PHASE_LABELS: Record<string, string> = {
   rate: "Rate",
   accuse: "Accuse",
   discussion: "Discuss",
+  "letter-count": "Letter count",
+  hangman: "Hangman",
   draw: "Draw",
   match_end: "Match over",
 };

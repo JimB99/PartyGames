@@ -123,7 +123,8 @@ function poolForGame(id: GameId): { familyCount: number; matureCount: number; sa
         },
       };
     }
-    case "drawing": {
+    case "drawing":
+    case "live-sketch": {
       const family = drawWordPool(familyOpts);
       const mature = drawWordPool(matureOpts);
       return {

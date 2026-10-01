@@ -11,6 +11,7 @@ const SKIP_CASES: Array<{ gameId: GameId; players: number; options?: Partial<Gam
   { gameId: "prompt-vote", players: 3 },
   { gameId: "drawing", players: 3 },
   { gameId: "drawing", players: 3, options: { drawingStyle: "all-draw" } },
+  { gameId: "live-sketch", players: 2 },
   { gameId: "impostor", players: 4 },
   { gameId: "block-stack", players: 2 },
 ];

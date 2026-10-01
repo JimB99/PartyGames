@@ -29,7 +29,8 @@ export function GameOptionsPanel({
     game.supportsOpinionScoring ||
     game.supportsDrawingStyle ||
     game.supportsDrawVoteStyle ||
-    game.supportsImpostorStyle;
+    game.supportsImpostorStyle ||
+    game.supportsLiveSketchOptions;
 
   if (
     !game.supportsMatureContent &&
@@ -274,6 +275,84 @@ export function GameOptionsPanel({
             <option value="all-draw">Everyone draws</option>
           </select>
         </div>
+      )}
+
+      {game.supportsLiveSketchOptions && (
+        <>
+          <div className={OPTION_ROW}>
+            <span className={OPTION_LABEL}>Word source</span>
+            <select
+              className={OPTION_SELECT}
+              data-testid="game-option-live-sketch-word-source"
+              value={options.liveSketchWordSource ?? "pool"}
+              onChange={(e) =>
+                onChange({
+                  ...options,
+                  liveSketchWordSource: e.target.value as GameOptions["liveSketchWordSource"],
+                })
+              }
+            >
+              <option value="pool">Random pool</option>
+              <option value="choice">Drawer chooses</option>
+            </select>
+          </div>
+          <div className={OPTION_ROW}>
+            <span className={OPTION_LABEL}>Round length</span>
+            <select
+              className={OPTION_SELECT}
+              data-testid="game-option-live-sketch-round"
+              value={String(options.liveSketchRoundMs ?? 90_000)}
+              onChange={(e) =>
+                onChange({
+                  ...options,
+                  liveSketchRoundMs: Number(e.target.value) as GameOptions["liveSketchRoundMs"],
+                })
+              }
+            >
+              <option value="60000">60 seconds</option>
+              <option value="90000">90 seconds</option>
+              <option value="120000">120 seconds</option>
+            </select>
+          </div>
+          <div className={OPTION_ROW}>
+            <span className={OPTION_LABEL}>Letter count</span>
+            <select
+              className={OPTION_SELECT}
+              data-testid="game-option-live-sketch-letter-count"
+              value={String(options.liveSketchLetterCountMs ?? 30_000)}
+              onChange={(e) =>
+                onChange({
+                  ...options,
+                  liveSketchLetterCountMs: Number(e.target.value) as GameOptions["liveSketchLetterCountMs"],
+                })
+              }
+            >
+              <option value="0">Off</option>
+              <option value="15000">At 15s</option>
+              <option value="30000">At 30s</option>
+              <option value="45000">At 45s</option>
+            </select>
+          </div>
+          <div className={OPTION_ROW}>
+            <span className={OPTION_LABEL}>Hangman letters</span>
+            <select
+              className={OPTION_SELECT}
+              data-testid="game-option-live-sketch-hangman"
+              value={String(options.liveSketchHangmanMs ?? 60_000)}
+              onChange={(e) =>
+                onChange({
+                  ...options,
+                  liveSketchHangmanMs: Number(e.target.value) as GameOptions["liveSketchHangmanMs"],
+                })
+              }
+            >
+              <option value="0">Off</option>
+              <option value="30000">At 30s</option>
+              <option value="60000">At 60s</option>
+              <option value="90000">At 90s</option>
+            </select>
+          </div>
+        </>
       )}
 
       {game.supportsDrawVoteStyle && options.drawingStyle === "all-draw" && (

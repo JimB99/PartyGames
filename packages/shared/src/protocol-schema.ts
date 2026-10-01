@@ -83,6 +83,28 @@ function validateGameOptions(raw: unknown): GameOptions {
   if (src.impostorStyle === "verbal" || src.impostorStyle === "draw") {
     options.impostorStyle = src.impostorStyle;
   }
+  if (src.liveSketchWordSource === "pool" || src.liveSketchWordSource === "choice") {
+    options.liveSketchWordSource = src.liveSketchWordSource;
+  }
+  if (src.liveSketchRoundMs === 60_000 || src.liveSketchRoundMs === 90_000 || src.liveSketchRoundMs === 120_000) {
+    options.liveSketchRoundMs = src.liveSketchRoundMs;
+  }
+  if (
+    src.liveSketchLetterCountMs === 0 ||
+    src.liveSketchLetterCountMs === 15_000 ||
+    src.liveSketchLetterCountMs === 30_000 ||
+    src.liveSketchLetterCountMs === 45_000
+  ) {
+    options.liveSketchLetterCountMs = src.liveSketchLetterCountMs;
+  }
+  if (
+    src.liveSketchHangmanMs === 0 ||
+    src.liveSketchHangmanMs === 30_000 ||
+    src.liveSketchHangmanMs === 60_000 ||
+    src.liveSketchHangmanMs === 90_000
+  ) {
+    options.liveSketchHangmanMs = src.liveSketchHangmanMs;
+  }
   if (isRecord(src.trailDash)) {
     options.trailDash = resolveTrailDashOptions({
       contentRating: options.contentRating,

@@ -10,7 +10,7 @@ Family-friendly and mature content pools are **separate**; hosts choose mature c
 
 ## Why
 
-PartyGames explores real-time multiplayer UX: each player sees secret prompts and inputs on their phone while the TV shows shared phases, scores, and reveals. The hard parts are session sync, anti-leak host views, and testing 21 game engines under min/max player counts.
+PartyGames explores real-time multiplayer UX: each player sees secret prompts and inputs on their phone while the TV shows shared phases, scores, and reveals. The hard parts are session sync, anti-leak host views, and testing 22 game engines under min/max player counts.
 
 ---
 
@@ -61,7 +61,7 @@ Internal QA write-ups: [docs/audit-2026-09.md](docs/audit-2026-09.md), [docs/qa-
 
 ---
 
-## Games (21)
+## Games (22)
 
 Display names match lobby copy. Protocol IDs are kebab-case. Several games support **mode settings** in the lobby (e.g. Bluff: fill-in-blank vs reverse-question).
 
@@ -79,6 +79,7 @@ Display names match lobby copy. Protocol IDs are kebab-case. Several games suppo
 | last-on-the-dike | Last on the Dike |
 | trivia | Trivia |
 | drawing | Drawing |
+| live-sketch | Live Sketch |
 | trail-dash | Trail Dash |
 | word-rush | Word Rush |
 | block-stack | Block Stack |

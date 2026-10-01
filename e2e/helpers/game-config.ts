@@ -16,6 +16,7 @@ export const GAME_MAX_PLAYERS: Partial<Record<GameId, number>> = {
   "last-on-the-dike": 16,
   trivia: 16,
   drawing: 12,
+  "live-sketch": 12,
   "trail-dash": 8,
   "word-rush": 16,
   "block-stack": 8,
@@ -211,6 +212,11 @@ export const GAME_E2E_CONFIGS: Record<GameId, GameE2EConfig> = {
     minPlayers: 3,
     playerAction: (page, strict) => drawOnCanvas(page, strict),
   },
+  "live-sketch": {
+    id: "live-sketch",
+    minPlayers: 2,
+    playerAction: (page, strict) => drawOnCanvas(page, strict),
+  },
   "trail-dash": {
     id: "trail-dash",
     minPlayers: 1,
@@ -306,6 +312,7 @@ export const NEW_GAME_IDS: GameId[] = [
   "prompt-vote",
   "opinions",
   "drawing",
+  "live-sketch",
   "impostor",
 ];
 

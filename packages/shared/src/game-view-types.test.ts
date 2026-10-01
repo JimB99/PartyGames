@@ -18,6 +18,7 @@ describe("game-view-types", () => {
       "last-on-the-dike": true,
       trivia: true,
       drawing: true,
+      "live-sketch": true,
       "trail-dash": true,
       "word-rush": true,
       "block-stack": true,

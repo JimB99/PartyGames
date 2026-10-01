@@ -25,6 +25,7 @@ export const GAME_INTERACTIONS: Record<GameId, GameInteractions> = {
   "last-on-the-dike": { host: ["host-skip"], player: ["dike-bid-submit"] },
   trivia: { host: ["host-skip", "host-extend"], player: ["player-answer-0", "timeline-lock-in"] },
   drawing: { host: ["host-skip"], player: ["draw-canvas", "draw-done", "draw-tool-pen", "draw-undo", "player-text-input"] },
+  "live-sketch": { host: ["host-skip"], player: ["draw-canvas", "draw-tool-pen", "draw-undo", "player-text-input", "hangman-key-e"] },
   "trail-dash": {
     host: ["host-skip"],
     player: ["trail-dash-turn-left", "trail-dash-turn-right", "trail-dash-jump", "trail-dash-fire"],

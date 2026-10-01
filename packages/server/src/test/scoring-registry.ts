@@ -7,6 +7,7 @@ export const SCORING_ENGINE_TEST_FILES: Partial<Record<GameId, string>> = {
   "prompt-vote": "prompt-vote-engine.test.ts",
   bluff: "bluff-engine.test.ts",
   drawing: "drawing-game-engine.test.ts",
+  "live-sketch": "live-sketch-engine.test.ts",
   impostor: "impostor-game-engine.test.ts",
   "word-rush": "word-rush-engine.test.ts",
   "team-charades": "team-charades.test.ts",

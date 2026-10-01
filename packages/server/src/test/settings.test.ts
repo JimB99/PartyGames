@@ -35,6 +35,7 @@ const POOL_GETTERS: Partial<Record<string, (opts: GameOptions) => unknown[]>> = 
   trivia: (o) => [...quizPool(o), ...timelinePool(o)],
   opinions: (o) => [...wouldYouRatherPool(o), ...splitRoomPool(o), ...crowdCallPool(o)],
   drawing: (o) => [...drawWordPool(o)],
+  "live-sketch": (o) => [...drawWordPool(o)],
   "bracket-battle": (o) => [...bracketCategoryPool(o)],
   "team-charades": (o) => [...charadesWordPool(o)],
   impostor: (o) => impostorPool(o).flatMap((p) => p.items),

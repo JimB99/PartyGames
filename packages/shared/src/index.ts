@@ -35,3 +35,4 @@ export * from "./scoring-utils.js";
 export * from "./game-view-types.js";
 export * from "./protocol-schema.js";
 export * from "./drawing.js";
+export * from "./live-sketch-options.js";

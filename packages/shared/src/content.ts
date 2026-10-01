@@ -48,6 +48,12 @@ export interface GameOptions {
   impostorStyle?: "verbal" | "draw";
   /** When true, no auto-advance timers — host uses Skip/Continue for every phase. */
   hostPacing?: boolean;
+  liveSketchWordSource?: "pool" | "choice";
+  liveSketchRoundMs?: 60_000 | 90_000 | 120_000;
+  /** 0 = off. */
+  liveSketchLetterCountMs?: 0 | 15_000 | 30_000 | 45_000;
+  /** 0 = off. */
+  liveSketchHangmanMs?: 0 | 30_000 | 60_000 | 90_000;
 }
 export const DEFAULT_TIMELINE_PTS_PER_YEAR_OFF = 20;
 export const TIMELINE_PTS_PER_YEAR_MAX = 1000;

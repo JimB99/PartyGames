@@ -86,6 +86,7 @@ export interface GameMeta {
   supportsDrawingStyle?: boolean;
   supportsDrawVoteStyle?: boolean;
   supportsImpostorStyle?: boolean;
+  supportsLiveSketchOptions?: boolean;
   /** When true, `getRoundScores` is already cumulative for the whole game (arcade/board). */
   roundScoresAreCumulative?: boolean;
 }
@@ -103,6 +104,7 @@ export const ALL_GAME_IDS = [
   "last-on-the-dike",
   "trivia",
   "drawing",
+  "live-sketch",
   "trail-dash",
   "word-rush",
   "block-stack",

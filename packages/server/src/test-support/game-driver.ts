@@ -53,6 +53,8 @@ export function runUntilEnded<TState>(
         phase === "reveal" ||
         phase === "scoreboard" ||
         phase === "questioning" ||
+        phase === "letter-count" ||
+        phase === "hangman" ||
         phase === "guessing" ||
         phase === "discussion" ||
         phase === "accuse" ||

@@ -91,6 +91,18 @@ export interface DrawingViewData extends ScoredViewFields {
   playerCount?: number;
 }
 
+export interface LiveSketchViewData extends DrawingViewData {
+  drawerId?: string;
+  letterCount?: number;
+  wordCount?: number;
+  mask?: string;
+  missedLetters?: string[];
+  guessedLetters?: string[];
+  correctIds?: string[];
+  remainingGuessers?: number;
+  word?: string;
+}
+
 export interface ImpostorViewData extends ScoredViewFields {
   impostorStyle?: ImpostorStyle;
   category?: string;
@@ -198,6 +210,7 @@ export type GameHostDataMap = {
   "last-on-the-dike": DikeViewData;
   trivia: TriviaViewData;
   drawing: DrawingViewData;
+  "live-sketch": LiveSketchViewData;
   "trail-dash": TrailDashViewData;
   "word-rush": WordRushViewData;
   "block-stack": ArcadeViewData;

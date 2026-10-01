@@ -160,6 +160,10 @@ function crossCuttingChecks(): Gap[] {
     "opinionScoring",
     "drawingStyle",
     "impostorStyle",
+    "liveSketchWordSource",
+    "liveSketchRoundMs",
+    "liveSketchLetterCountMs",
+    "liveSketchHangmanMs",
   ];
   for (const flag of requiredSettings) {
     if (!settingsBehavior.includes(flag)) {

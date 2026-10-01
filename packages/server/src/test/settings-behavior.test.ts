@@ -205,4 +205,59 @@ describe("settings behavior", () => {
     assert.equal(verbal.style, "verbal");
     assert.equal(draw.style, "draw");
   });
+
+  it("liveSketchWordSource choice starts in pick", () => {
+    const game = getGame("live-sketch")!;
+    const pool = game.init(makeRoomContext(2, { ...DEFAULT_GAME_OPTIONS, liveSketchWordSource: "pool" })) as {
+      phase: string;
+    };
+    const choice = game.init(
+      makeRoomContext(2, { ...DEFAULT_GAME_OPTIONS, liveSketchWordSource: "choice" }),
+    ) as { phase: string };
+    assert.equal(pool.phase, "instructions");
+    const ctx = makeRoomContext(2, { ...DEFAULT_GAME_OPTIONS, liveSketchWordSource: "choice" });
+    let state = game.init(ctx) as { phase: string };
+    state = game.onHostAction!(state, { kind: "advance" }, ctx) as { phase: string };
+    assert.equal(state.phase, "pick");
+    const poolPlay = game.onHostAction!(
+      game.init(makeRoomContext(2, { ...DEFAULT_GAME_OPTIONS, liveSketchWordSource: "pool" })),
+      { kind: "advance" },
+      makeRoomContext(2),
+    ) as { phase: string };
+    assert.equal(poolPlay.phase, "drawing");
+  });
+
+  it("liveSketchLetterCountMs 0 skips letter-count", () => {
+    const game = getGame("live-sketch")!;
+    const ctx = makeRoomContext(2, { ...DEFAULT_GAME_OPTIONS, liveSketchLetterCountMs: 0 });
+    let state = game.init(ctx);
+    state = game.onHostAction!(state, { kind: "advance" }, ctx);
+    state = game.onHostAction!(state, { kind: "advance" }, ctx);
+    assert.equal(game.getHostView(state, ctx).phase, "hangman");
+  });
+
+  it("liveSketchHangmanMs 0 skips hangman", () => {
+    const game = getGame("live-sketch")!;
+    const ctx = makeRoomContext(2, { ...DEFAULT_GAME_OPTIONS, liveSketchHangmanMs: 0 });
+    let state = game.init(ctx);
+    state = game.onHostAction!(state, { kind: "advance" }, ctx);
+    state = game.onHostAction!(state, { kind: "advance" }, ctx);
+    assert.equal(game.getHostView(state, ctx).phase, "letter-count");
+    state = game.onHostAction!(state, { kind: "advance" }, ctx);
+    assert.equal(game.getHostView(state, ctx).phase, "reveal");
+  });
+
+  it("liveSketchRoundMs 60s treats hangman at 90s as off", () => {
+    const game = getGame("live-sketch")!;
+    const ctx = makeRoomContext(2, {
+      ...DEFAULT_GAME_OPTIONS,
+      liveSketchRoundMs: 60_000,
+      liveSketchHangmanMs: 90_000,
+    });
+    let state = game.init(ctx);
+    state = game.onHostAction!(state, { kind: "advance" }, ctx);
+    const view = game.getHostView(state, ctx);
+    assert.equal(view.phase, "drawing");
+    assert.equal(view.timerTotalMs, 30_000);
+  });
 });
