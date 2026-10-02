@@ -3,6 +3,7 @@ import { spectrumPool } from "../content-pool.js";
 import {
   createSpectrumState,
   onSpectrumAction,
+  onSpectrumRosterChange,
   onSpectrumTick,
   spectrumHostView,
   spectrumPlayerView,
@@ -29,6 +30,9 @@ export const spectrumGame: GameModule<SpectrumState> = {
   },
   onHostAction(state, action, ctx) {
     return onSpectrumAction(state, "host", action, ctx);
+  },
+  onRosterChange(state, ctx) {
+    return onSpectrumRosterChange(state, ctx);
   },
   onTick(state) {
     return onSpectrumTick(state);

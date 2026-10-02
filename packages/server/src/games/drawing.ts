@@ -9,6 +9,7 @@ import {
   drawingGamePlayerView,
   drawingGameRoundScores,
   onDrawingGameAction,
+  onDrawingGameRosterChange,
   onDrawingGameTick,
   type DrawingGameState,
 } from "../engines/drawing-game-engine.js";
@@ -45,6 +46,9 @@ export const drawingGame: GameModule<DrawingGameState> = {
   },
   onHostAction(state, action, ctx) {
     return onDrawingGameAction(state, "host", action, ctx);
+  },
+  onRosterChange(state, ctx) {
+    return onDrawingGameRosterChange(state, ctx);
   },
   onTick(state) {
     return onDrawingGameTick(state, innerPlayerIds(state));

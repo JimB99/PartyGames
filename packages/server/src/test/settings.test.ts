@@ -185,10 +185,10 @@ describe("settings matrix", () => {
     }
   });
 
-  it("impostor inits with each category", () => {
+  it("impostor inits at each content rating", () => {
     const game = getGame("impostor")!;
-    for (const impostorCategory of ["all", "places", "things", "jobs", "random"] as const) {
-      const ctx = makeRoomContext(4, { ...DEFAULT_GAME_OPTIONS, impostorCategory });
+    for (const contentRating of ["family", "mature"] as const) {
+      const ctx = makeRoomContext(4, { ...DEFAULT_GAME_OPTIONS, contentRating });
       assert.doesNotThrow(() => game.init(ctx));
     }
   });

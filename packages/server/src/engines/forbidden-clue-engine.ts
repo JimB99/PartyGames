@@ -146,6 +146,23 @@ export function onForbiddenTick(state: ForbiddenState): ForbiddenState {
   return advanceForbidden(state);
 }
 
+export function onForbiddenRosterChange(state: ForbiddenState, ctx: RoomContext): ForbiddenState {
+  const ids = [...ctx.playerIds];
+  if (ids.length === 0) return state;
+  state.playerIds = ids;
+  state.teamA = state.teamA.filter((id) => ids.includes(id));
+  state.teamB = state.teamB.filter((id) => ids.includes(id));
+  const team = activeTeamIds(state);
+  if (!ids.includes(state.clueGiverId)) {
+    if (team.length > 0) {
+      state.clueGiverId = team[0];
+    } else if (state.phase === "clue") {
+      return advanceForbidden(state);
+    }
+  }
+  return state;
+}
+
 export function forbiddenHostView(state: ForbiddenState) {
   const showCard = state.phase === "reveal" || state.phase === "scoreboard" || state.phase === "ended";
   const showTurn = state.phase === "clue" || state.phase === "reveal" || state.phase === "scoreboard";

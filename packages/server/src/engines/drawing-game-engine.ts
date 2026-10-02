@@ -11,6 +11,7 @@ import {
   chainPlayerView,
   createChainSketchState,
   onChainAction,
+  onChainRosterChange,
   onChainTick,
   type ChainSketchState,
 } from "./chain-sketch-engine.js";
@@ -19,6 +20,7 @@ import {
   drawVoteHostView,
   drawVotePlayerView,
   onDrawVoteAction,
+  onDrawVoteRosterChange,
   onDrawVoteTick,
   type DrawVoteState,
 } from "./draw-vote-engine.js";
@@ -27,6 +29,7 @@ import {
   drawHostView,
   drawPlayerView,
   onDrawAction,
+  onDrawRosterChange,
   onDrawTick,
   type DrawState,
 } from "./drawing-engine.js";
@@ -69,6 +72,16 @@ function withDrawingStyle<T extends { data: Record<string, unknown> }>(
       ...(drawVoteStyle ? { drawVoteStyle } : {}),
     },
   };
+}
+
+export function onDrawingGameRosterChange(state: DrawingGameState, ctx: RoomContext): DrawingGameState {
+  if (state.style === "telephone") {
+    return { style: "telephone", inner: onChainRosterChange(state.inner, ctx) };
+  }
+  if (state.style === "all-draw") {
+    return { style: "all-draw", inner: onDrawVoteRosterChange(state.inner, ctx) };
+  }
+  return { style: "pictionary", inner: onDrawRosterChange(state.inner, ctx) };
 }
 
 export function onDrawingGameAction(

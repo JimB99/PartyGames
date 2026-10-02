@@ -319,8 +319,16 @@ export function onPromptVoteAction(
         text: action.text.slice(0, 120),
       });
     }
-    const expected = state.mode === "hot-seat" ? ctx.playerIds.length - 1 : ctx.playerIds.length;
-    if (state.submissions.length >= expected) return advancePromptVote(state, state.promptsPool);
+    const exclude =
+      state.mode === "hot-seat" && state.targetPlayerId ? [state.targetPlayerId] : [];
+    const progress = submitProgress(
+      ctx.playerIds,
+      state.submissions.map((s) => s.playerId),
+      exclude,
+    );
+    if (progress.expected > 0 && progress.current >= progress.expected) {
+      return advancePromptVote(state, state.promptsPool);
+    }
   }
   if (action.kind === "vote_pair" && state.phase === "matchup") {
     const round = currentBracketRound(state);
@@ -341,7 +349,8 @@ export function onPromptVoteAction(
     if (picked?.playerId === playerId) return state;
     if (state.votes[playerId] !== undefined) return state;
     state.votes[playerId] = action.optionId;
-    if (Object.keys(state.votes).length >= ctx.playerIds.length) {
+    const voteProgress = submitProgress(ctx.playerIds, Object.keys(state.votes));
+    if (voteProgress.expected > 0 && voteProgress.current >= voteProgress.expected) {
       return advancePromptVote(state, state.promptsPool);
     }
   }

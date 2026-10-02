@@ -1,4 +1,16 @@
-import { pickRandom, shuffle, isSpeedScoringEnabled, scoreByAnswerRank, uniqueId, allDrawersReady, shouldAcceptStroke, type GameAction, type GameOptions, type RoomContext } from "@party-games/shared";
+import {
+  pickRandom,
+  shuffle,
+  isSpeedScoringEnabled,
+  scoreByAnswerRank,
+  uniqueId,
+  allDrawersReady,
+  pruneKeyed,
+  shouldAcceptStroke,
+  type GameAction,
+  type GameOptions,
+  type RoomContext,
+} from "@party-games/shared";
 import { clearPhaseTimer, startPhaseTimer } from "./phase-timer.js";
 
 export type DrawPhase = "instructions" | "drawing" | "guessing" | "reveal" | "scoreboard" | "ended";
@@ -291,6 +303,31 @@ export function onDrawAction(
 export function onDrawTick(state: DrawState, words?: string[], playerIds?: string[]): DrawState {
   if (!state.timerEndsAt || Date.now() < state.timerEndsAt) return state;
   return advanceDraw(state, words ?? state.wordsPool, playerIds ?? state.playerIds);
+}
+
+export function onDrawRosterChange(state: DrawState, ctx: RoomContext): DrawState {
+  const ids = [...ctx.playerIds];
+  if (ids.length === 0) return state;
+  state.playerIds = ids;
+  state.maxRounds = Math.max(1, ids.length);
+  state.ready = pruneKeyed(state.ready, ids);
+  state.guesses = pruneKeyed(state.guesses, ids);
+  state.guessTimes = pruneKeyed(state.guessTimes, ids);
+  state.guessOrder = state.guessOrder.filter((id) => ids.includes(id));
+  if (state.drawerIndex >= state.guessOrder.length) {
+    state.drawerIndex = Math.max(0, state.guessOrder.length - 1);
+  }
+  if (state.phase === "drawing" && allDrawersReady(state.ready, ids)) {
+    return advanceDraw(state, state.wordsPool, ids);
+  }
+  if (state.phase === "guessing") {
+    const artistId = state.guessOrder[state.drawerIndex];
+    const guessers = ids.filter((id) => id !== artistId);
+    if (guessers.length > 0 && guessers.every((id) => state.guesses[id] !== undefined)) {
+      return advanceDraw(state, state.wordsPool, ids);
+    }
+  }
+  return state;
 }
 
 export function drawHostView(state: DrawState, playerIds: string[]) {

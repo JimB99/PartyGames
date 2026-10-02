@@ -1,7 +1,6 @@
 import {
   AGENT_GRID_SIZE,
   buildAgentKey,
-  pickRandom,
   resolveAgentGuess,
   shuffle,
   teamWon,
@@ -43,9 +42,21 @@ function splitTeams(playerIds: string[]): { teamA: string[]; teamB: string[] } {
   return { teamA: shuffled.slice(0, mid), teamB: shuffled.slice(mid) };
 }
 
+/**
+ * A short pool repeats words rather than leaving holes in the grid; the key and
+ * reveal arrays are index-based, so every cell must hold a real word.
+ */
+export function padGrid(words: string[]): string[] {
+  if (words.length === 0) throw new Error("agent-grid: no words available");
+  const picked = shuffle(words);
+  while (picked.length < AGENT_GRID_SIZE) {
+    picked.push(picked[picked.length % words.length]);
+  }
+  return picked.slice(0, AGENT_GRID_SIZE);
+}
+
 export function createAgentGridState(words: string[], playerIds: string[]): AgentGridState {
-  const picked = shuffle(words).slice(0, AGENT_GRID_SIZE);
-  while (picked.length < AGENT_GRID_SIZE) picked.push(pickRandom(words));
+  const picked = padGrid(words);
   const { teamA, teamB } = splitTeams(playerIds);
   const starting: "a" | "b" = Math.random() < 0.5 ? "a" : "b";
   return {
@@ -193,6 +204,21 @@ export function onAgentGridAction(
   }
   if (action.kind === "advance" && state.phase === "instructions") {
     return advanceAgentGrid(state);
+  }
+  return state;
+}
+
+export function onAgentGridRosterChange(state: AgentGridState, ctx: RoomContext): AgentGridState {
+  const ids = [...ctx.playerIds];
+  if (ids.length === 0) return state;
+  state.playerIds = ids;
+  state.teamA = state.teamA.filter((id) => ids.includes(id));
+  state.teamB = state.teamB.filter((id) => ids.includes(id));
+  if (!ids.includes(state.spymasterA) && state.teamA.length > 0) {
+    state.spymasterA = state.teamA[0];
+  }
+  if (!ids.includes(state.spymasterB) && state.teamB.length > 0) {
+    state.spymasterB = state.teamB[0];
   }
   return state;
 }

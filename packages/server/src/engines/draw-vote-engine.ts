@@ -1,4 +1,12 @@
-import { allDrawersReady, pickRandom, shuffle, type GameAction, type RoomContext } from "@party-games/shared";
+import {
+  allDrawersReady,
+  allRequiredSubmitted,
+  pickRandom,
+  pruneKeyed,
+  shuffle,
+  type GameAction,
+  type RoomContext,
+} from "@party-games/shared";
 import type { PlayerDrawing, Stroke } from "./drawing-engine.js";
 import { applyStrokeToDrawing, clearDrawingStrokes, undoDrawingStrokes } from "./drawing-engine.js";
 import { clearPhaseTimer, startPhaseTimer } from "./phase-timer.js";
@@ -206,7 +214,7 @@ export function onDrawVoteAction(state: DrawVoteState, playerId: string, action:
   }
   if (action.kind === "vote" && state.phase === "vote" && action.optionId !== playerId) {
     state.votes[playerId] = action.optionId;
-    if (Object.keys(state.votes).length >= ctx.playerIds.length) {
+    if (allRequiredSubmitted(ctx.playerIds, Object.keys(state.votes))) {
       return advanceDrawVote(state, state.wordsPool, ctx.playerIds);
     }
   }
@@ -229,6 +237,22 @@ export function onDrawVoteAction(state: DrawVoteState, playerId: string, action:
 export function onDrawVoteTick(state: DrawVoteState, words: string[], playerIds: string[]): DrawVoteState {
   if (!state.timerEndsAt || Date.now() < state.timerEndsAt) return state;
   return advanceDrawVote(state, words, playerIds);
+}
+
+export function onDrawVoteRosterChange(state: DrawVoteState, ctx: RoomContext): DrawVoteState {
+  const ids = [...ctx.playerIds];
+  if (ids.length === 0) return state;
+  state.playerIds = ids;
+  state.maxRounds = Math.max(1, ids.length);
+  state.ready = pruneKeyed(state.ready, ids);
+  state.votes = pruneKeyed(state.votes, ids);
+  if (state.phase === "drawing" && allDrawersReady(state.ready, ids)) {
+    return advanceDrawVote(state, state.wordsPool, ids);
+  }
+  if (state.phase === "vote" && allRequiredSubmitted(ids, Object.keys(state.votes))) {
+    return advanceDrawVote(state, state.wordsPool, ids);
+  }
+  return state;
 }
 
 export function drawVoteHostView(state: DrawVoteState) {

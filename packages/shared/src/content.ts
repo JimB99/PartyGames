@@ -33,10 +33,8 @@ export interface GameOptions {
   trailDash?: Partial<import("./trail-dash-options.js").TrailDashOptions>;
   questionDisplay?: QuestionDisplayMode;
   speedScoring?: SpeedScoringMode;
-  speedBonusMax?: number;
   /** Timeline accuracy: points deducted per year off (1–1000; 1000 = exact year only). */
   timelinePtsPerYearOff?: number;
-  impostorCategory?: "all" | "places" | "things" | "jobs" | "random";
   paddleMode?: "pong" | "hockey";
   charadesMode?: "solo" | "teams";
   bluffMode?: "fill-blank" | "reverse-question";
@@ -61,15 +59,10 @@ export const DEFAULT_GAME_OPTIONS: GameOptions = {
   contentRating: "family",
   questionDisplay: "tv_prompt_only",
   speedScoring: "bonus",
-  speedBonusMax: 500,
 };
 
 export function resolveQuestionDisplay(options: GameOptions): QuestionDisplayMode {
   return options.questionDisplay ?? "tv_prompt_only";
-}
-
-export function resolveSpeedBonusMax(options: GameOptions): number {
-  return options.speedBonusMax ?? 500;
 }
 
 export function isSpeedScoringEnabled(options: GameOptions): boolean {

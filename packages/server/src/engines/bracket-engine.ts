@@ -1,4 +1,12 @@
-import { pickRandom, shuffle, uniqueId, type GameAction, type RoomContext } from "@party-games/shared";
+import {
+  allRequiredSubmitted,
+  pickRandom,
+  pruneKeyed,
+  shuffle,
+  uniqueId,
+  type GameAction,
+  type RoomContext,
+} from "@party-games/shared";
 import { clearPhaseTimer, startPhaseTimer } from "./phase-timer.js";
 
 export type BracketPhase = "instructions" | "submit" | "bracket" | "vote" | "reveal" | "scoreboard" | "ended";
@@ -67,6 +75,10 @@ function padToPowerOf2(entries: BracketEntry[]): BracketEntry[] {
     padded.push({ id: uniqueId(), text: source.text, authorId: "" });
   }
   return shuffle(padded).slice(0, n);
+}
+
+function allPlayersSubmitted(entries: BracketEntry[], playerIds: string[]): boolean {
+  return playerIds.length > 0 && playerIds.every((id) => entries.some((e) => e.authorId === id));
 }
 
 function buildBracket(entries: BracketEntry[]): BracketMatch[] {
@@ -215,7 +227,7 @@ export function onBracketAction(
     if (!existing) {
       state.entries.push({ id: uniqueId(), text: action.text.slice(0, 60), authorId: playerId });
     }
-    if (state.entries.length >= ctx.playerIds.length) return advanceBracket(state);
+    if (allPlayersSubmitted(state.entries, ctx.playerIds)) return advanceBracket(state);
   }
   if (action.kind === "vote" && state.phase === "vote") {
     const match = state.bracket[state.matchIndex];
@@ -226,7 +238,7 @@ export function onBracketAction(
     if (entryB?.authorId === playerId && action.optionId === match.b) return state;
     if (action.optionId !== match.a && action.optionId !== match.b) return state;
     state.votes[playerId] = action.optionId;
-    if (Object.keys(state.votes).length >= ctx.playerIds.length) return advanceBracket(state);
+    if (allRequiredSubmitted(ctx.playerIds, Object.keys(state.votes))) return advanceBracket(state);
   }
   if (action.kind === "advance" && state.phase === "instructions") return advanceBracket(state);
   return state;
@@ -235,6 +247,20 @@ export function onBracketAction(
 export function onBracketTick(state: BracketState): BracketState {
   if (!state.timerEndsAt || Date.now() < state.timerEndsAt) return state;
   return advanceBracket(state);
+}
+
+export function onBracketRosterChange(state: BracketState, ctx: RoomContext): BracketState {
+  const ids = [...ctx.playerIds];
+  if (ids.length === 0) return state;
+  state.entries = state.entries.filter((e) => !e.authorId || ids.includes(e.authorId));
+  state.votes = pruneKeyed(state.votes, ids);
+  if (state.phase === "submit" && allPlayersSubmitted(state.entries, ids)) {
+    return advanceBracket(state);
+  }
+  if (state.phase === "vote" && allRequiredSubmitted(ids, Object.keys(state.votes))) {
+    return advanceBracket(state);
+  }
+  return state;
 }
 
 export function bracketHostView(state: BracketState) {

@@ -72,7 +72,7 @@ test("@smoke @host-return-lobby prompt-vote vote phase shows bracket matchup", a
   const players = [];
 
   try {
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 4; i++) {
       const { page, context } = await joinPlayer(browser, roomId, `P${i + 1}`);
       contexts.push(context);
       players.push(page);
@@ -91,7 +91,7 @@ test("@smoke @host-return-lobby prompt-vote vote phase shows bracket matchup", a
 
     await expect
       .poll(async () => await host.getByTestId("host-game-view").getAttribute("data-phase"), { timeout: 30_000 })
-      .toBe("vote");
+      .toBe("matchup");
     await expect(host.getByText(/matchup\s+\d/i)).toBeVisible();
     await expect(host.getByTestId("host-stage")).toBeVisible();
   } finally {
@@ -116,7 +116,9 @@ test("@smoke @host-stage trivia scoreboard panel is in view", async () => {
       .poll(async () => host.getByTestId("host-game-view").getAttribute("data-phase"), { timeout: 15_000 })
       .toBe("question");
     await player.getByTestId("player-answer-0").click({ timeout: 15_000 });
-    await hostAdvance(host);
+    await expect
+      .poll(async () => host.getByTestId("host-game-view").getAttribute("data-phase"), { timeout: 15_000 })
+      .toBe("reveal");
     await hostAdvance(host);
     await expect
       .poll(async () => host.getByTestId("host-game-view").getAttribute("data-phase"), { timeout: 15_000 })

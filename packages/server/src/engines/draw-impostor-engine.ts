@@ -1,4 +1,4 @@
-import { pickRandom, shuffle, type GameAction, type RoomContext } from "@party-games/shared";
+import { pickRandom, pruneKeyed, shuffle, type GameAction, type RoomContext } from "@party-games/shared";
 import type { PlayerDrawing } from "./drawing-engine.js";
 import { applyStrokeToDrawing, clearDrawingStrokes, undoDrawingStrokes } from "./drawing-engine.js";
 import { clearPhaseTimer, startPhaseTimer } from "./phase-timer.js";
@@ -126,7 +126,7 @@ export function onDrawImpostorAction(state: DrawImpostorState, playerId: string,
   if (action.kind === "advance" && state.phase === "instructions") {
     return advanceDrawImpostor(state);
   }
-  if (Object.keys(state.accusations).length >= state.playerIds.length - 1 && state.phase === "accuse") {
+  if (state.phase === "accuse" && drawImpostorAccuseComplete(state)) {
     return advanceDrawImpostor(state);
   }
   return state;
@@ -135,6 +135,30 @@ export function onDrawImpostorAction(state: DrawImpostorState, playerId: string,
 export function onDrawImpostorTick(state: DrawImpostorState): DrawImpostorState {
   if (!state.timerEndsAt || Date.now() < state.timerEndsAt) return state;
   return advanceDrawImpostor(state);
+}
+
+function drawImpostorAccuseComplete(state: DrawImpostorState): boolean {
+  const voters = state.playerIds.filter((id) => id !== state.impostorId);
+  return voters.length > 0 && voters.every((id) => state.accusations[id] !== undefined);
+}
+
+export function onDrawImpostorRosterChange(state: DrawImpostorState, ctx: RoomContext): DrawImpostorState {
+  const ids = [...ctx.playerIds];
+  if (ids.length === 0) return state;
+  state.playerIds = ids;
+  state.accusations = pruneKeyed(state.accusations, ids);
+  if (!ids.includes(state.impostorId)) {
+    state.impostorId = pickRandom(ids);
+    if (state.phase === "drawing" || state.phase === "discussion" || state.phase === "accuse") {
+      state.accusations = {};
+      state.phase = "accuse";
+      return advanceDrawImpostor(state);
+    }
+  }
+  if (state.phase === "accuse" && drawImpostorAccuseComplete(state)) {
+    return advanceDrawImpostor(state);
+  }
+  return state;
 }
 
 export function drawImpostorHostView(state: DrawImpostorState) {

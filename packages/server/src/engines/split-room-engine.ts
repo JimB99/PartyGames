@@ -112,7 +112,7 @@ export function advanceSplit(state: SplitState, playerIds: string[]): SplitState
 export function onSplitAction(state: SplitState, playerId: string, action: GameAction, ctx: RoomContext): SplitState {
   if (action.kind === "split_vote" && state.phase === "vote") {
     state.votes[playerId] = action.side;
-    if (Object.keys(state.votes).length >= ctx.playerIds.length) {
+    if (allRequiredSubmitted(ctx.playerIds, Object.keys(state.votes))) {
       return advanceSplit(state, ctx.playerIds);
     }
   }

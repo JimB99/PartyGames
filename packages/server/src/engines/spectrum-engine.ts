@@ -1,4 +1,4 @@
-import { pickRandom, type GameAction, type RoomContext } from "@party-games/shared";
+import { pickRandom, pruneKeyed, type GameAction, type RoomContext } from "@party-games/shared";
 
 export type SpectrumPhase = "instructions" | "clue" | "guess" | "reveal" | "scoreboard" | "ended";
 
@@ -166,6 +166,26 @@ export function onSpectrumAction(state: SpectrumState, playerId: string, action:
 export function onSpectrumTick(state: SpectrumState, ctx?: RoomContext): SpectrumState {
   if (!state.timerEndsAt || Date.now() < state.timerEndsAt) return state;
   return advanceSpectrum(state, ctx);
+}
+
+export function onSpectrumRosterChange(state: SpectrumState, ctx: RoomContext): SpectrumState {
+  const ids = [...ctx.playerIds];
+  if (ids.length === 0) return state;
+  state.playerIds = ids;
+  state.guesses = pruneKeyed(state.guesses, ids);
+  if (!ids.includes(state.clueGiverId)) {
+    state.clueGiverId = ids[(state.round - 1) % ids.length];
+    if (state.phase === "clue") {
+      state.clue = "";
+    }
+  }
+  if (state.phase === "guess" && allGuessesIn(state, ctx)) {
+    scoreSpectrum(state);
+    state.phase = "reveal";
+    state.timerTotalMs = REVEAL_MS;
+    state.timerEndsAt = Date.now() + REVEAL_MS;
+  }
+  return state;
 }
 
 export function spectrumHostView(state: SpectrumState) {

@@ -18,6 +18,8 @@ try {
   run("pnpm typecheck", "Typecheck");
   run("pnpm test:unit", "Unit tests");
   run("pnpm test:contract", "Contract tests (includes scoring + settings)");
+  // test:unit and test:contract name files explicitly, so engine suites only run via this glob.
+  run("pnpm --filter @party-games/server test:integration", "Engine + integration tests");
   run("pnpm test:content", "Content audit");
   run("pnpm audit:dead-exports", "Dead export scan");
   run("node --import tsx scripts/audit-host-stage.mts", "Host stage audit");

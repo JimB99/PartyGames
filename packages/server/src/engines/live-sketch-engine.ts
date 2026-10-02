@@ -17,6 +17,7 @@ import {
   LIVE_SKETCH_LETTER_COOLDOWN_MS,
   LIVE_SKETCH_PICK_MS,
   pickRandom,
+  pruneKeyed,
   resolveLiveSketchSchedule,
   resolveLiveSketchWordSource,
   scoreByAnswerRank,
@@ -131,11 +132,8 @@ function enterDrawing(state: LiveSketchState, word: string): void {
 }
 
 function enterPick(state: LiveSketchState): void {
-  const pool = shuffle(unusedPool(state));
-  state.choiceWords = pool.slice(0, Math.min(3, Math.max(1, pool.length)));
-  while (state.choiceWords.length < 3 && pool.length > 0) {
-    state.choiceWords.push(pool[state.choiceWords.length % pool.length]!);
-  }
+  const unique = [...new Set(shuffle(unusedPool(state)))];
+  state.choiceWords = unique.slice(0, 3);
   state.word = "";
   setTimer(state, "pick", LIVE_SKETCH_PICK_MS);
 }
@@ -298,6 +296,35 @@ export function advanceLiveSketch(state: LiveSketchState): LiveSketchState {
     setTimer(state, "instructions", INSTRUCTIONS_MS);
     return state;
   }
+  return state;
+}
+
+export function onLiveSketchRosterChange(
+  state: LiveSketchState,
+  ctx: RoomContext,
+): LiveSketchState {
+  const ids = [...ctx.playerIds];
+  if (ids.length === 0) return state;
+
+  const previousDrawer = drawerId(state);
+  const drawerPresent = ids.includes(previousDrawer);
+
+  // No artist left for this round — close it out now instead of waiting on the timer.
+  // Scoring runs before the roster swap so the departed drawer is still the artist.
+  if (!drawerPresent && (playing(state) || state.phase === "pick")) {
+    enterReveal(state);
+  }
+
+  state.playerIds = ids;
+  state.maxRounds = Math.max(1, ids.length);
+  const sameDrawer = ids.indexOf(previousDrawer);
+  state.drawerIndex = sameDrawer >= 0 ? sameDrawer : Math.min(state.drawerIndex, ids.length - 1);
+
+  state.correctAt = pruneKeyed(state.correctAt, ids);
+  state.lastGuess = pruneKeyed(state.lastGuess, ids);
+  state.lastLetterAt = pruneKeyed(state.lastLetterAt, ids);
+
+  if (playing(state) && allGuessersCorrect(state)) enterReveal(state);
   return state;
 }
 

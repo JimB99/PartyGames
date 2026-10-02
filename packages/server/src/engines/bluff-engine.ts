@@ -256,9 +256,10 @@ export function onBluffAction(
   action: GameAction,
   ctx: RoomContext,
 ): BluffState {
+  state.playerCount = ctx.playerIds.length;
   if (action.kind === "submit_text" && state.phase === "submit") {
     state.submissions[playerId] = action.text.slice(0, 120);
-    if (Object.keys(state.submissions).length >= ctx.playerIds.length) {
+    if (allRequiredSubmitted(ctx.playerIds, Object.keys(state.submissions))) {
       return advanceBluff(state, ctx.gameOptions);
     }
   }
@@ -269,7 +270,7 @@ export function onBluffAction(
       state.votes[playerId] = action.optionId;
       state.voteTimes[playerId] = Date.now();
     }
-    if (Object.keys(state.votes).length >= ctx.playerIds.length) {
+    if (allRequiredSubmitted(ctx.playerIds, Object.keys(state.votes))) {
       scoreBluff(state, ctx.gameOptions);
       state.phase = "reveal";
       state.discussUntil = null;

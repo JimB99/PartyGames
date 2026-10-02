@@ -3,6 +3,7 @@ import { agentGridWordPool } from "../content-pool.js";
 import {
   createAgentGridState,
   onAgentGridAction,
+  onAgentGridRosterChange,
   onAgentGridTick,
   agentGridHostView,
   agentGridPlayerView,
@@ -28,6 +29,9 @@ export const agentGridGame: GameModule<AgentGridState> = {
   },
   onHostAction(state, action, ctx) {
     return onAgentGridAction(state, "host", action, ctx);
+  },
+  onRosterChange(state, ctx) {
+    return onAgentGridRosterChange(state, ctx);
   },
   onTick(state) {
     return onAgentGridTick(state);

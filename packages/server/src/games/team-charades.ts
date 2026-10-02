@@ -114,6 +114,23 @@ export const teamCharadesGame: GameModule<CharadesState> = {
     }
     return state;
   },
+  onRosterChange(state, ctx) {
+    const ids = [...ctx.playerIds];
+    if (ids.length === 0) return state;
+    const priorActor = state.playerIds[state.actorIndex];
+    state.playerIds = ids;
+    state.maxRounds = Math.max(1, ids.length);
+    const idx = priorActor ? ids.indexOf(priorActor) : -1;
+    state.actorIndex = idx >= 0 ? idx : Math.min(state.actorIndex, ids.length - 1);
+    if (state.teamsMode) {
+      state.teamByPlayerId = assignTeams(ids);
+    }
+    if (state.phase === "acting" && priorActor && !ids.includes(priorActor)) {
+      state.phase = "reveal";
+      state.timerEndsAt = Date.now() + REVEAL_MS;
+    }
+    return state;
+  },
   onTick(state) {
     if (!state.timerEndsAt || Date.now() < state.timerEndsAt) return state;
     if (state.phase === "acting") {

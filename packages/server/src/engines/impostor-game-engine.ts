@@ -11,6 +11,7 @@ import {
   drawImpostorHostView,
   drawImpostorPlayerView,
   onDrawImpostorAction,
+  onDrawImpostorRosterChange,
   onDrawImpostorTick,
   type DrawImpostorState,
 } from "./draw-impostor-engine.js";
@@ -19,6 +20,7 @@ import {
   impostorHostView,
   impostorPlayerView,
   onImpostorAction,
+  onImpostorRosterChange,
   onImpostorTick,
   type ImpostorState,
 } from "./impostor-engine.js";
@@ -42,6 +44,13 @@ export function createImpostorGameState(
 
 function withImpostorStyle<T extends { data: Record<string, unknown> }>(view: T, style: ImpostorStyle): T {
   return { ...view, data: { ...view.data, impostorStyle: style } };
+}
+
+export function onImpostorGameRosterChange(state: ImpostorGameState, ctx: RoomContext): ImpostorGameState {
+  if (state.style === "draw") {
+    return { style: "draw", inner: onDrawImpostorRosterChange(state.inner, ctx) };
+  }
+  return { style: "verbal", inner: onImpostorRosterChange(state.inner, ctx) };
 }
 
 export function onImpostorGameAction(

@@ -98,11 +98,13 @@ describe("settings behavior", () => {
     assert.equal(state.players.length, 3);
   });
 
-  it("impostorCategory filters pool", () => {
-    const all = impostorPool({ ...DEFAULT_GAME_OPTIONS, impostorCategory: "all" });
-    const places = impostorPool({ ...DEFAULT_GAME_OPTIONS, impostorCategory: "places" });
-    assert.ok(all.length > places.length);
-    assert.ok(places.every((p) => p.id === "places"));
+  it("impostor pool splits packs by content rating", () => {
+    const family = impostorPool({ ...DEFAULT_GAME_OPTIONS, contentRating: "family" });
+    const mature = impostorPool({ ...DEFAULT_GAME_OPTIONS, contentRating: "mature" });
+    assert.ok(family.length > 0);
+    assert.ok(mature.length > 0);
+    assert.ok(family.every((p) => (p.rating ?? "family") !== "mature"));
+    assert.ok(mature.every((p) => p.rating === "mature"));
   });
 
   it("speedScoring off completes bluff", () => {

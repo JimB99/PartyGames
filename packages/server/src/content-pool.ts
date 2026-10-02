@@ -82,10 +82,7 @@ export function impostorPool(options: GameOptions): ImpostorCategory[] {
       ? (c.rating ?? "family") === "mature"
       : (c.rating ?? "family") !== "mature",
   );
-  const cat = options.impostorCategory ?? "all";
-  if (cat === "all" || cat === "random") return packs;
-  const narrowed = packs.filter((c) => c.id === cat);
-  return narrowed.length > 0 ? narrowed : packs;
+  return packs;
 }
 
 export function forbiddenCluePool(options: GameOptions) {

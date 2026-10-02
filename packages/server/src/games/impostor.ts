@@ -9,6 +9,7 @@ import {
   impostorGamePlayerView,
   impostorGameRoundScores,
   onImpostorGameAction,
+  onImpostorGameRosterChange,
   onImpostorGameTick,
   type ImpostorGameState,
 } from "../engines/impostor-game-engine.js";
@@ -38,6 +39,9 @@ export const impostorGame: GameModule<ImpostorGameState> = {
   },
   onHostAction(state, action, ctx) {
     return onImpostorGameAction(state, "host", action, ctx);
+  },
+  onRosterChange(state, ctx) {
+    return onImpostorGameRosterChange(state, ctx);
   },
   onTick(state) {
     return onImpostorGameTick(state);

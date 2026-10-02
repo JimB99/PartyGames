@@ -5,6 +5,7 @@ import {
   bracketPlayerView,
   createBracketState,
   onBracketAction,
+  onBracketRosterChange,
   onBracketTick,
 } from "../engines/bracket-engine.js";
 
@@ -29,6 +30,9 @@ export const bracketBattleGame: GameModule<BracketState> = {
   },
   onHostAction(state, action, ctx) {
     return onBracketAction(state, "host", action, ctx);
+  },
+  onRosterChange(state, ctx) {
+    return onBracketRosterChange(state, ctx);
   },
   onTick(state) {
     return onBracketTick(state);

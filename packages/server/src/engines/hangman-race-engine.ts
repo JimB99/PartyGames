@@ -171,12 +171,38 @@ function advanceHangman(state: HangmanRaceState): HangmanRaceState {
   return state;
 }
 
+function ensureHangmanPlayer(state: HangmanRaceState, playerId: string): void {
+  if (state.players[playerId]) return;
+  const s = createHangmanPlayerState(state.word);
+  state.players[playerId] = {
+    guessed: [...s.guessed],
+    strikes: s.strikes,
+    solved: s.solved,
+    solvedAt: s.solvedAt,
+  };
+}
+
+export function onHangmanRosterChange(state: HangmanRaceState, ctx: RoomContext): HangmanRaceState {
+  const ids = [...ctx.playerIds];
+  if (ids.length === 0) return state;
+  state.playerIds = ids;
+  for (const pid of Object.keys(state.players)) {
+    if (!ids.includes(pid)) delete state.players[pid];
+  }
+  for (const id of ids) ensureHangmanPlayer(state, id);
+  if (state.phase === "playing" && ids.every((id) => state.players[id]?.solved)) {
+    return advanceHangman(state);
+  }
+  return state;
+}
+
 export function onHangmanRaceAction(
   state: HangmanRaceState,
   playerId: string,
   action: GameAction,
-  _ctx: RoomContext,
+  ctx: RoomContext,
 ): HangmanRaceState {
+  state.playerIds = [...ctx.playerIds];
   if (state.phase === "playing") {
     if (action.kind === "hangman_letter") {
       let s = syncPlayer(state, playerId);

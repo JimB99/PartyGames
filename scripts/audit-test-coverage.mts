@@ -150,7 +150,7 @@ function crossCuttingChecks(): Gap[] {
   const requiredSettings = [
     "paddleMode",
     "charadesMode",
-    "impostorCategory",
+    "contentRating",
     "timelinePtsPerYearOff",
     "questionDisplay",
     "speedScoring",

@@ -3,6 +3,7 @@ import { hangmanWordPool } from "../content-pool.js";
 import {
   createHangmanRaceState,
   onHangmanRaceAction,
+  onHangmanRosterChange,
   onHangmanRaceTick,
   hangmanRaceHostView,
   hangmanRacePlayerView,
@@ -29,6 +30,9 @@ export const hangmanRaceGame: GameModule<HangmanRaceState> = {
   },
   onHostAction(state, action, ctx) {
     return onHangmanRaceAction(state, "host", action, ctx);
+  },
+  onRosterChange(state, ctx) {
+    return onHangmanRosterChange(state, ctx);
   },
   onTick(state) {
     return onHangmanRaceTick(state);

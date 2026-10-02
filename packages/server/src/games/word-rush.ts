@@ -3,6 +3,7 @@ import { dictionaryForWordRush } from "../content-pool.js";
 import {
   createWordRushState,
   onWordRushAction,
+  onWordRushRosterChange,
   onWordRushTick,
   wordRushHostView,
   wordRushPlayerView,
@@ -33,6 +34,9 @@ export const wordRushGame: GameModule<WordRushState> = {
   },
   onHostAction(state, action, ctx) {
     return onWordRushAction(state, "host", action, ctx);
+  },
+  onRosterChange(state, ctx) {
+    return onWordRushRosterChange(state, ctx);
   },
   onTick(state) {
     return onWordRushTick(state);

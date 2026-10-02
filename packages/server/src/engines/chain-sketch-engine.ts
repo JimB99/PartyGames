@@ -1,4 +1,12 @@
-import { shouldAcceptStroke, shuffle, uniqueId, type GameAction, type RoomContext } from "@party-games/shared";
+import {
+  allRequiredSubmitted,
+  pruneKeyed,
+  shouldAcceptStroke,
+  shuffle,
+  uniqueId,
+  type GameAction,
+  type RoomContext,
+} from "@party-games/shared";
 import { clearPhaseTimer, startPhaseTimer } from "./phase-timer.js";
 import type { Stroke } from "./drawing-engine.js";
 
@@ -255,7 +263,7 @@ export function onChainAction(state: ChainSketchState, playerId: string, action:
     if (state.chains[action.optionId]) {
       state.votes[playerId] = action.optionId;
     }
-    if (Object.keys(state.votes).length >= ctx.playerIds.length) {
+    if (allRequiredSubmitted(ctx.playerIds, Object.keys(state.votes))) {
       return advanceChain(state);
     }
     return state;
@@ -316,6 +324,36 @@ export function onChainTick(state: ChainSketchState): ChainSketchState {
     }
   }
   return advanceChain(state);
+}
+
+export function onChainRosterChange(state: ChainSketchState, ctx: RoomContext): ChainSketchState {
+  const ids = [...ctx.playerIds];
+  if (ids.length === 0) return state;
+  state.playerIds = ids;
+  state.maxRounds = Math.max(1, ids.length);
+  state.votes = pruneKeyed(state.votes, ids);
+  for (const pid of Object.keys(state.workspaces)) {
+    if (!ids.includes(pid)) delete state.workspaces[pid];
+  }
+  if (state.phase === "draw" || state.phase === "guess") {
+    for (const pid of ids) {
+      if (!state.workspaces[pid]) {
+        state.workspaces[pid] = {
+          chainOwnerId: assignedChainOwner(ids, pid, state.stage),
+          strokes: [],
+          drawerTool: "pen",
+          drawerWidth: 4,
+          submitted: false,
+          revision: 0,
+        };
+      }
+    }
+    if (allSubmitted(state)) return advanceChain(state);
+  }
+  if (state.phase === "vote" && allRequiredSubmitted(ids, Object.keys(state.votes))) {
+    return advanceChain(state);
+  }
+  return state;
 }
 
 export function chainHostView(state: ChainSketchState) {

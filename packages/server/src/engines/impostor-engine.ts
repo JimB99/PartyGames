@@ -1,4 +1,4 @@
-import { pickRandom, type GameAction, type RoomContext } from "@party-games/shared";
+import { pickRandom, pruneKeyed, type GameAction, type RoomContext } from "@party-games/shared";
 import type { ImpostorCategory } from "@party-games/shared";
 
 export type ImpostorPhase =
@@ -177,12 +177,12 @@ export function onImpostorAction(
   state: ImpostorState,
   playerId: string,
   action: GameAction,
-  _ctx: RoomContext,
+  ctx: RoomContext,
 ): ImpostorState {
+  state.playerIds = [...ctx.playerIds];
   if (action.kind === "impostor_accuse" && state.phase === "accusation") {
     state.accusations[playerId] = action.targetId;
-    const votes = Object.values(state.accusations);
-    if (votes.length >= state.playerIds.length - 1) {
+    if (accusationComplete(state)) {
       return advanceImpostor(state);
     }
   }
@@ -200,6 +200,30 @@ export function onImpostorAction(
 export function onImpostorTick(state: ImpostorState): ImpostorState {
   if (!state.timerEndsAt || Date.now() < state.timerEndsAt) return state;
   return advanceImpostor(state);
+}
+
+function accusationComplete(state: ImpostorState): boolean {
+  const voters = state.playerIds.filter((id) => id !== state.spyId);
+  return voters.length > 0 && voters.every((id) => state.accusations[id] !== undefined);
+}
+
+export function onImpostorRosterChange(state: ImpostorState, ctx: RoomContext): ImpostorState {
+  const ids = [...ctx.playerIds];
+  if (ids.length === 0) return state;
+  state.playerIds = ids;
+  state.accusations = pruneKeyed(state.accusations, ids);
+  if (!ids.includes(state.spyId)) {
+    state.spyId = pickSpy(ids, null);
+    if (state.phase === "questioning" || state.phase === "accusation") {
+      state.accusations = {};
+      state.phase = "accusation";
+      return advanceImpostor(state);
+    }
+  }
+  if (state.phase === "accusation" && accusationComplete(state)) {
+    return advanceImpostor(state);
+  }
+  return state;
 }
 
 export function impostorHostView(state: ImpostorState) {

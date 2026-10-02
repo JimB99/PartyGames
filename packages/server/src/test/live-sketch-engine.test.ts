@@ -9,10 +9,13 @@ import {
   createLiveSketchState,
   liveSketchHostView,
   liveSketchPlayerView,
+  liveSketchRoundScores,
   onLiveSketchAction,
+  onLiveSketchRosterChange,
   onLiveSketchTick,
   type LiveSketchState,
 } from "../engines/live-sketch-engine.js";
+import { syncInGameScoresFromView } from "../lobby-scoring.js";
 import { makeRoomContext } from "./harness.js";
 
 const WORDS = ["elephant", "flower girl", "house"];
@@ -184,5 +187,113 @@ describe("live-sketch-engine", () => {
     assert.equal(state.phase, "instructions");
     assert.equal(state.drawerIndex, 1);
     assert.equal(state.round, 2);
+  });
+
+  it("ends the round when the drawer disconnects, keeping guesser points", () => {
+    let { state, ctx } = toDrawing(["elephant"]);
+    assert.equal(state.playerIds[state.drawerIndex], "p1");
+    state = onLiveSketchAction(state, "p2", { kind: "submit_text", text: state.word }, ctx);
+    assert.equal(state.phase, "drawing");
+
+    const withoutDrawer = { ...ctx, playerIds: ["p2", "p3"] };
+    state = onLiveSketchRosterChange(state, withoutDrawer);
+
+    assert.equal(state.phase, "reveal");
+    assert.ok(state.roundScores.p2 > 0, "guesser keeps their points");
+    assert.deepEqual(state.playerIds, ["p2", "p3"]);
+    assert.ok(state.drawerIndex < state.playerIds.length);
+  });
+
+  it("keeps the same artist drawing when a guesser disconnects", () => {
+    let { state, ctx } = toDrawing(["elephant"]);
+    state = onLiveSketchRosterChange(state, { ...ctx, playerIds: ["p3", "p1"] });
+
+    assert.equal(state.phase, "drawing");
+    assert.equal(state.playerIds[state.drawerIndex], "p1", "artist survives reordering");
+  });
+
+  it("syncs maxRounds when the connected roster shrinks", () => {
+    let { state, ctx } = toDrawing(["elephant"]);
+    assert.equal(state.maxRounds, 3);
+    state = onLiveSketchRosterChange(state, { ...ctx, playerIds: ["p1", "p2"] });
+    assert.equal(state.maxRounds, 2);
+  });
+
+  it("drops a departed player's guesses and advances when the rest are done", () => {
+    let { state, ctx } = toDrawing(["elephant"]);
+    state = onLiveSketchAction(state, "p2", { kind: "submit_text", text: state.word }, ctx);
+    assert.equal(state.phase, "drawing", "p3 has not guessed yet");
+
+    state = onLiveSketchRosterChange(state, { ...ctx, playerIds: ["p1", "p2"] });
+
+    assert.equal(state.phase, "reveal", "last remaining guesser already guessed");
+    assert.equal(state.correctAt.p3, undefined);
+  });
+
+  it("offers distinct choice words when the unused pool is smaller than three", () => {
+    const options = { ...DEFAULT_GAME_OPTIONS, liveSketchWordSource: "choice" as const };
+    const ctx = makeRoomContext(3, options);
+    let state = createLiveSketchState(["elephant", "house"], PLAYER_IDS, options);
+    state = onLiveSketchAction(state, "host", { kind: "advance" }, ctx);
+
+    assert.equal(state.phase, "pick");
+    assert.deepEqual([...new Set(state.choiceWords)].length, state.choiceWords.length);
+    assert.equal(state.choiceWords.length, 2);
+  });
+
+  it("does not double-count earlier rounds when the final round scores nothing", () => {
+    const ctx = makeRoomContext(2, DEFAULT_GAME_OPTIONS);
+    let state = createLiveSketchState(["elephant", "house"], ["p1", "p2"], DEFAULT_GAME_OPTIONS);
+    assert.equal(state.maxRounds, 2);
+
+    let inGameScores: Record<string, number> = {};
+    let committedRoundKeys = new Set<string>();
+    const sync = () => {
+      const view = liveSketchHostView(state, ctx);
+      const result = syncInGameScoresFromView({
+        roundScoresAreCumulative: false,
+        phase: view.phase,
+        round: view.round,
+        activeGameId: "live-sketch",
+        roundScores: liveSketchRoundScores(state),
+        inGameScores,
+        committedRoundKeys,
+      });
+      inGameScores = result.inGameScores;
+      committedRoundKeys = result.committedRoundKeys;
+    };
+    const advance = () => {
+      state = onLiveSketchAction(state, "host", { kind: "advance" }, ctx);
+      sync();
+    };
+
+    advance();
+    assert.equal(state.phase, "drawing");
+    state = onLiveSketchAction(state, "p2", { kind: "submit_text", text: state.word }, ctx);
+    assert.equal(state.phase, "reveal");
+    sync();
+
+    const round1 = { ...inGameScores };
+    assert.ok(round1.p2 > 0, "guesser scored in round 1");
+    assert.ok(round1.p1 > 0, "drawer scored in round 1");
+
+    advance();
+    assert.equal(state.phase, "scoreboard");
+    advance();
+    assert.equal(state.phase, "instructions");
+    assert.equal(state.round, 2);
+
+    // Round 2: nobody guesses, so the round contributes no points.
+    advance();
+    assert.equal(state.phase, "drawing");
+    while (state.phase !== "reveal") advance();
+    assert.deepEqual(liveSketchRoundScores(state), {});
+
+    advance();
+    assert.equal(state.phase, "scoreboard");
+    advance();
+    assert.equal(state.phase, "ended");
+
+    assert.deepEqual(inGameScores, round1);
   });
 });

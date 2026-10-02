@@ -1,4 +1,14 @@
-import { pickRandom, shuffle, isSpeedScoringEnabled, scoreByAnswerRank, type GameAction, type GameOptions, type RoomContext } from "@party-games/shared";
+import {
+  allRequiredSubmitted,
+  pickRandom,
+  pruneKeyed,
+  shuffle,
+  isSpeedScoringEnabled,
+  scoreByAnswerRank,
+  type GameAction,
+  type GameOptions,
+  type RoomContext,
+} from "@party-games/shared";
 
 export type WordRushPhase = "instructions" | "playing" | "reveal" | "scoreboard" | "ended";
 
@@ -145,16 +155,30 @@ export function onWordRushAction(
   action: GameAction,
   ctx: RoomContext,
 ): WordRushState {
+  state.playerCount = ctx.playerIds.length;
   if (action.kind === "submit_text" && state.phase === "playing") {
     if (state.submissions[playerId] === undefined) {
       state.submissions[playerId] = action.text.slice(0, 40);
       state.submissionTimes[playerId] = Date.now();
     }
-    if (Object.keys(state.submissions).length >= ctx.playerIds.length) {
+    if (allRequiredSubmitted(ctx.playerIds, Object.keys(state.submissions))) {
       return advanceWordRush(state);
     }
   }
   if (action.kind === "advance" && state.phase === "instructions") {
+    return advanceWordRush(state);
+  }
+  return state;
+}
+
+export function onWordRushRosterChange(state: WordRushState, ctx: RoomContext): WordRushState {
+  const ids = [...ctx.playerIds];
+  if (ids.length === 0) return state;
+  state.playerCount = ids.length;
+  state.submissions = pruneKeyed(state.submissions, ids);
+  state.submissionTimes = pruneKeyed(state.submissionTimes, ids);
+  state.validWords = pruneKeyed(state.validWords, ids);
+  if (state.phase === "playing" && allRequiredSubmitted(ids, Object.keys(state.submissions))) {
     return advanceWordRush(state);
   }
   return state;

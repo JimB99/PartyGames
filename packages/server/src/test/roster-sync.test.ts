@@ -20,6 +20,27 @@ import {
   onPromptVoteRosterChange,
   promptVoteHostView,
 } from "../engines/prompt-vote-engine.js";
+import {
+  createImpostorState,
+  onImpostorAction,
+  onImpostorRosterChange,
+  onImpostorTick,
+} from "../engines/impostor-engine.js";
+import {
+  createWordRushState,
+  onWordRushAction,
+  onWordRushRosterChange,
+} from "../engines/word-rush-engine.js";
+import {
+  createBracketState,
+  onBracketAction,
+  onBracketRosterChange,
+} from "../engines/bracket-engine.js";
+import {
+  createSpectrumState,
+  onSpectrumAction,
+  onSpectrumRosterChange,
+} from "../engines/spectrum-engine.js";
 
 function ctxFor(players: ReturnType<typeof makePlayers>, connectedIds?: string[]): RoomContext {
   const roster = players.map((p) => ({
@@ -93,6 +114,89 @@ describe("roster sync — bluff", () => {
     assert.equal(state.phase, "vote");
     const view = bluffHostView(state, ctx3);
     assert.equal(view.data.playerCount, 3);
+  });
+});
+
+describe("roster sync — impostor", () => {
+  const pool = [{ id: "places", label: "Places", items: ["Paris", "Rome", "Berlin"] }];
+
+  it("closes accusation when a holdout disconnects after everyone else voted", () => {
+    const players = makePlayers(4);
+    const ctx4 = ctxFor(players);
+    let state = createImpostorState(pool, ctx4.playerIds, 2);
+    state.spyId = "p4";
+    state = onImpostorAction(state, "host", { kind: "advance" }, ctx4);
+    assert.equal(state.phase, "questioning");
+    state.timerEndsAt = Date.now() - 1;
+    state = onImpostorTick(state);
+    assert.equal(state.phase, "accusation");
+    for (const id of ["p1", "p2"]) {
+      state = onImpostorAction(state, id, { kind: "impostor_accuse", targetId: "p4" }, ctx4);
+    }
+    assert.equal(state.phase, "accusation", "p3 has not voted yet");
+
+    const ctx3 = ctxFor(players, ["p1", "p2", "p4"]);
+    state = onImpostorRosterChange(state, ctx3);
+    assert.equal(state.phase, "reveal");
+  });
+});
+
+describe("roster sync — word-rush", () => {
+  it("leaves playing when a holdout disconnects after everyone else submitted", () => {
+    const players = makePlayers(4);
+    const ctx4 = ctxFor(players);
+    let state = createWordRushState(2, new Set(["word"]), 3, 4);
+    state.letters = ["W", "O", "R", "D", "E", "A", "F"];
+    state = onWordRushAction(state, "host", { kind: "advance" }, ctx4);
+    assert.equal(state.phase, "playing");
+    for (const id of ["p1", "p2", "p3"]) {
+      state = onWordRushAction(state, id, { kind: "submit_text", text: "word" }, ctx4);
+    }
+    assert.equal(state.phase, "playing");
+
+    const ctx3 = ctxFor(players, ["p1", "p2", "p3"]);
+    state = onWordRushRosterChange(state, ctx3);
+    assert.equal(state.phase, "reveal");
+  });
+});
+
+describe("roster sync — bracket-battle", () => {
+  it("leaves submit when a holdout disconnects after everyone else entered", () => {
+    const players = makePlayers(4);
+    const ctx4 = ctxFor(players);
+    let state = createBracketState(["Funniest"], DEFAULT_GAME_OPTIONS);
+    state = onBracketAction(state, "host", { kind: "advance" }, ctx4);
+    assert.equal(state.phase, "submit");
+    for (const id of ["p1", "p2", "p3"]) {
+      state = onBracketAction(state, id, { kind: "submit_text", text: `entry-${id}` }, ctx4);
+    }
+    assert.equal(state.phase, "submit");
+
+    const ctx3 = ctxFor(players, ["p1", "p2", "p3"]);
+    state = onBracketRosterChange(state, ctx3);
+    assert.equal(state.phase, "vote");
+  });
+});
+
+describe("roster sync — spectrum", () => {
+  const pairs = [{ left: "Hot", right: "Cold", target: 50 }];
+
+  it("reveals when a holdout disconnects after other guessers locked in", () => {
+    const players = makePlayers(4);
+    const ctx4 = ctxFor(players);
+    let state = createSpectrumState(pairs, ctx4.playerIds, 4);
+    state.clueGiverId = "p1";
+    state = onSpectrumAction(state, "host", { kind: "advance" }, ctx4);
+    state = onSpectrumAction(state, "p1", { kind: "submit_text", text: "warm" }, ctx4);
+    assert.equal(state.phase, "guess");
+    for (const id of ["p2", "p3"]) {
+      state = onSpectrumAction(state, id, { kind: "spectrum_guess", value: 40 }, ctx4);
+    }
+    assert.equal(state.phase, "guess");
+
+    const ctx3 = ctxFor(players, ["p1", "p2", "p3"]);
+    state = onSpectrumRosterChange(state, ctx3);
+    assert.equal(state.phase, "reveal");
   });
 });
 

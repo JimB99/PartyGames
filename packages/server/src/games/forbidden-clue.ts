@@ -3,6 +3,7 @@ import { forbiddenCluePool } from "../content-pool.js";
 import {
   createForbiddenState,
   onForbiddenAction,
+  onForbiddenRosterChange,
   onForbiddenTick,
   forbiddenHostView,
   forbiddenPlayerView,
@@ -29,6 +30,9 @@ export const forbiddenClueGame: GameModule<ForbiddenState> = {
   },
   onHostAction(state, action, ctx) {
     return onForbiddenAction(state, "host", action, ctx);
+  },
+  onRosterChange(state, ctx) {
+    return onForbiddenRosterChange(state, ctx);
   },
   onTick(state) {
     return onForbiddenTick(state);

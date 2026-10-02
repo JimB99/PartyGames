@@ -71,6 +71,37 @@ describe("syncInGameScoresFromView", () => {
     assert.equal(result.inGameScores.p1, 1000);
   });
 
+  it("ignores a cumulative final dump when the last round scored nothing", () => {
+    const keys = new Set<string>(["live-sketch:r1"]);
+    const result = syncInGameScoresFromView({
+      roundScoresAreCumulative: false,
+      phase: "ended",
+      round: 2,
+      activeGameId: "live-sketch",
+      roundScores: { p1: 1000, p2: 250 },
+      inGameScores: { p1: 1000, p2: 250 },
+      committedRoundKeys: keys,
+    });
+    assert.equal(result.changed, false);
+    assert.equal(result.inGameScores.p1, 1000);
+    assert.equal(result.inGameScores.p2, 250);
+  });
+
+  it("still commits at ended for games that only report final scores", () => {
+    const result = syncInGameScoresFromView({
+      roundScoresAreCumulative: false,
+      phase: "ended",
+      round: 3,
+      activeGameId: "last-on-the-dike",
+      roundScores: { p1: 3000, p2: 1500 },
+      inGameScores: {},
+      committedRoundKeys: new Set(),
+    });
+    assert.equal(result.changed, true);
+    assert.equal(result.inGameScores.p1, 3000);
+    assert.equal(result.inGameScores.p2, 1500);
+  });
+
   it("commits drawing reveal scores so live Game is not zero", () => {
     const result = syncInGameScoresFromView({
       roundScoresAreCumulative: false,

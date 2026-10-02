@@ -8,6 +8,7 @@ import {
   liveSketchPlayerView,
   liveSketchRoundScores,
   onLiveSketchAction,
+  onLiveSketchRosterChange,
   onLiveSketchTick,
   type LiveSketchState,
 } from "../engines/live-sketch-engine.js";
@@ -34,6 +35,9 @@ export const liveSketchGame: GameModule<LiveSketchState> = {
   },
   onHostAction(state, action, ctx) {
     return onLiveSketchAction(state, "host", action, ctx);
+  },
+  onRosterChange(state, ctx) {
+    return onLiveSketchRosterChange(state, ctx);
   },
   onTick(state) {
     return onLiveSketchTick(state);

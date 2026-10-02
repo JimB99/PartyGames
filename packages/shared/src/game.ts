@@ -37,7 +37,9 @@ export interface GameModule<TState = unknown> {
   isGameOver(state: TState): boolean;
 }
 
+/** Throws on an empty pool so the declared `T` return type stays truthful. */
 export function pickRandom<T>(items: T[]): T {
+  if (items.length === 0) throw new Error("pickRandom: empty pool");
   return items[Math.floor(Math.random() * items.length)];
 }
 

@@ -5,6 +5,7 @@ import {
   createDrawingGameState,
   drawingGameHostView,
   onDrawingGameAction,
+  onDrawingGameRosterChange,
 } from "../engines/drawing-game-engine.js";
 import { advanceDrawVote, drawVoteHostView } from "../engines/draw-vote-engine.js";
 import { onDrawAction } from "../engines/drawing-engine.js";
@@ -120,5 +121,39 @@ describe("drawing ready and stroke revision", () => {
     assert.equal(draw.drawings.p1.strokes.length, 0);
     draw = onDrawAction(draw, "p1", stroke, ctx);
     assert.equal(draw.drawings.p1.strokes.length, 0);
+  });
+});
+
+describe("drawing roster sync", () => {
+  const ctx4 = makeRoomContext(4);
+
+  it("pictionary advances drawing when a holdout disconnects after others are ready", () => {
+    let state = createDrawingGameState("pictionary", words, ctx4.playerIds, DEFAULT_GAME_OPTIONS);
+    state = onDrawingGameAction(state, "host", { kind: "advance" }, ctx4);
+    assert.equal(state.inner.phase, "drawing");
+    for (const id of ["p1", "p2", "p3"]) {
+      state = onDrawingGameAction(state, id, { kind: "advance" }, ctx4);
+    }
+    assert.equal(state.inner.phase, "drawing");
+
+    const ctx3 = { ...ctx4, playerIds: ["p1", "p2", "p3"] };
+    state = onDrawingGameRosterChange(state, ctx3);
+    assert.equal(state.inner.phase, "guessing");
+    assert.equal(state.inner.maxRounds, 3);
+  });
+
+  it("all-draw completes vote when a missing voter disconnects", () => {
+    let state = createDrawingGameState("all-draw", words, ctx4.playerIds, DEFAULT_GAME_OPTIONS);
+    state = onDrawingGameAction(state, "host", { kind: "advance" }, ctx4);
+    state = onDrawingGameAction(state, "host", { kind: "advance" }, ctx4);
+    assert.equal(state.inner.phase, "vote");
+    state = onDrawingGameAction(state, "p1", { kind: "vote", optionId: "p2" }, ctx4);
+    state = onDrawingGameAction(state, "p2", { kind: "vote", optionId: "p3" }, ctx4);
+    state = onDrawingGameAction(state, "p3", { kind: "vote", optionId: "p2" }, ctx4);
+    assert.equal(state.inner.phase, "vote");
+
+    const ctx3 = { ...ctx4, playerIds: ["p1", "p2", "p3"] };
+    state = onDrawingGameRosterChange(state, ctx3);
+    assert.equal(state.inner.phase, "reveal");
   });
 });

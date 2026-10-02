@@ -40,18 +40,11 @@ export function syncInGameScoresFromView(params: SyncInGameScoresParams): {
     return { inGameScores, committedRoundKeys, changed: false };
   }
 
-  const commitKey = phase === "ended" ? `${activeGameId}:final` : `${activeGameId}:r${round}`;
-  if (committedRoundKeys.has(commitKey)) {
+  if (shouldSkipScoreCommit(committedRoundKeys, activeGameId, phase, round)) {
     return { inGameScores, committedRoundKeys, changed: false };
   }
 
-  if (phase === "ended") {
-    const lastRoundKey = `${activeGameId}:r${round}`;
-    if (committedRoundKeys.has(lastRoundKey)) {
-      return { inGameScores, committedRoundKeys, changed: false };
-    }
-  }
-
+  const commitKey = scoreCommitKey(activeGameId, phase, round);
   const nextKeys = new Set(committedRoundKeys);
   nextKeys.add(commitKey);
   return {
@@ -85,8 +78,12 @@ export function shouldSkipScoreCommit(
   const commitKey = scoreCommitKey(activeGameId, phase, round);
   if (committedRoundKeys.has(commitKey)) return true;
   if (phase === "ended") {
-    const lastRoundKey = `${activeGameId}:r${round}`;
-    if (committedRoundKeys.has(lastRoundKey)) return true;
+    // Non-cumulative engines may report whole-game totals at `ended`. Any per-round commit
+    // means those totals are already in inGameScores, so merging again would double-count.
+    const roundPrefix = `${activeGameId}:r`;
+    for (const key of committedRoundKeys) {
+      if (key.startsWith(roundPrefix)) return true;
+    }
   }
   return false;
 }

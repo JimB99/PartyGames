@@ -1,5 +1,5 @@
 /**
- * Report known-dead and likely-unused exports from the prior remediation list.
+ * Report known-dead exports (manual list). Add symbols here when audit finds zero callers.
  * Run: node --import tsx scripts/dead-export-scan.mts
  */
 import { readFileSync, readdirSync, existsSync } from "node:fs";
@@ -22,6 +22,17 @@ function walk(dir: string, acc: string[] = []): string[] {
   return acc;
 }
 
+function countRefs(symbol: string, files: string[]): number {
+  const re = new RegExp(`\\b${symbol}\\b`, "g");
+  let refs = 0;
+  for (const file of files) {
+    if (file.replace(/\\/g, "/").endsWith("scripts/dead-export-scan.mts")) continue;
+    const src = readFileSync(file, "utf8");
+    refs += src.match(re)?.length ?? 0;
+  }
+  return refs;
+}
+
 function main() {
   const files = [
     ...walk(join(ROOT, "packages")),
@@ -29,16 +40,15 @@ function main() {
     ...walk(join(ROOT, "e2e")),
   ];
   console.log("Dead / unused export scan");
+  let dead = 0;
   for (const c of CANDIDATES) {
-    let refs = 0;
-    for (const file of files) {
-      if (file.replace(/\\/g, "/").endsWith("scripts/dead-export-scan.mts")) continue;
-      const src = readFileSync(file, "utf8");
-      const matches = src.split(c.symbol).length - 1;
-      refs += matches;
-    }
+    const refs = countRefs(c.symbol, files);
     const unused = refs <= 1;
+    if (unused) dead += 1;
     console.log(`  ${unused ? "UNUSED" : `refs=${refs}`}  ${c.symbol}  (${c.note})`);
+  }
+  if (dead > 0) {
+    process.exitCode = 1;
   }
 }
 

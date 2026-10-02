@@ -37,20 +37,8 @@ function validateGameOptions(raw: unknown): GameOptions {
   if (src.speedScoring === "off" || src.speedScoring === "bonus") {
     options.speedScoring = src.speedScoring;
   }
-  if (finiteNumber(src.speedBonusMax)) {
-    options.speedBonusMax = Math.max(0, Math.min(5000, Math.floor(src.speedBonusMax)));
-  }
   if (finiteNumber(src.timelinePtsPerYearOff)) {
     options.timelinePtsPerYearOff = Math.max(1, Math.min(1000, Math.floor(src.timelinePtsPerYearOff)));
-  }
-  if (
-    src.impostorCategory === "all" ||
-    src.impostorCategory === "places" ||
-    src.impostorCategory === "things" ||
-    src.impostorCategory === "jobs" ||
-    src.impostorCategory === "random"
-  ) {
-    options.impostorCategory = src.impostorCategory;
   }
   if (src.paddleMode === "pong" || src.paddleMode === "hockey") {
     options.paddleMode = src.paddleMode;
